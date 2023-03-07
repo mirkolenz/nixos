@@ -20,10 +20,11 @@
 
   outputs = inputs@{ nixpkgs, home-manager, darwin, ... }: {
     darwinConfigurations = {
-      "mirkos-mac" = darwin.lib.darwinSystem {
+      "Mirkos-Mac" = darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
-          ./configuration.nix
+          ./configurations/common.nix
+          ./configurations/darwin.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
