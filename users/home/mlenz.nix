@@ -1,11 +1,9 @@
 { config, pkgs, ... }:
-let user = "mlenz";
-in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = user;
-  # home.homeDirectory = "/Users/${user}";
+  home.username = "mlenz";
+  # home.homeDirectory = "/Users/mlenz";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -28,6 +26,9 @@ in
     };
     fish = {
       enable = true;
+      shellAliases = {
+        dc = "docker compose";
+      };
       # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1266049484
       loginShellInit = ''
         if test (uname) = Darwin
@@ -36,6 +37,45 @@ in
           end
         end
       '';
+    };
+    git = {
+      enable = true;
+      userName = "Mirko Lenz";
+      userEmail = "mirko@mirkolenz.com";
+      lfs = {
+        enable = true;
+      };
+      extraConfig = {
+        core = {
+          autocrlf = "input";
+          editor = "nvim";
+          eol = "lf";
+        };
+        pull = {
+          rebase = "true";
+        };
+        rebase = {
+          autoStash = "true";
+        };
+        init = {
+          defaultBranch = "main";
+        };
+        push = {
+          followTags = "true";
+          autoSetupRemote = "true";
+        };
+      };
+    };
+    # TODO: Enable only for GUI setups
+    direnv = {
+      enable = true;
+      nix-direnv = {
+        enable = true;
+      };
+    };
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs;
     };
   };
 }
