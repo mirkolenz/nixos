@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, extras, ... }:
 {
   imports = [ ./base.nix ];
 
@@ -19,7 +19,14 @@
     docker-compose
   ];
 
+  environment.defaultPackages = with pkgs; [
+    neovim
+    rsync
+    python3Minimal
+    strace
+  ];
+
   system = {
-    stateVersion = "22.11";
+    inherit (extras) stateVersion;
   };
 }

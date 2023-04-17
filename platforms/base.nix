@@ -1,4 +1,7 @@
-{ pkgs, unstable, ... }:
+{ pkgs, extras, ... }:
+let
+  inherit (extras) unstable;
+in
 {
   programs = {
     fish = {

@@ -1,7 +1,7 @@
-{ pkgs, inputs, unstable, ... }:
+{ pkgs, extras, ... }:
 let
   defaults = { ... }: {
-    _module.args = { inherit inputs unstable; };
+    _module.args = { inherit extras; };
   };
 in
 {

@@ -41,8 +41,12 @@
     # https://github.com/nix-community/home-manager/issues/1538
     defaults = { pkgs, ... }: {
       _module.args = {
-        inherit inputs;
-        unstable = import nixpkgs-unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+        extras = {
+          inherit inputs;
+          unstable = import nixpkgs-unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+          username = "mlenz";
+          stateVersion = "22.11";
+        };
       };
     };
   in

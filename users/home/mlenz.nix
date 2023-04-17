@@ -1,85 +1,74 @@
-{ lib, config, osConfig, pkgs, ... }:
+{ lib, config, osConfig, pkgs, extras, ... }:
 let
   # inherit (lib.attrsets) optionalAttrs;
   inherit (pkgs) stdenv;
-  username  = "mlenz";
-  homedir = if stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+  inherit (extras) username;
+  homeDirectory = if stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
   poetryPrefix = if stdenv.isDarwin then "Library/Preferences/pypoetry" else "${config.xdg.configHome}/pypoetry";
 in {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = username;
-  home.homeDirectory = homedir;
+  home = {
+    inherit username homeDirectory;
+    inherit (extras) stateVersion;
+    file = {
+      "${poetryPrefix}/config.toml" = {
+        text = ''
+          [virtualenvs]
+          in-project = true
+          prefer-active-python = true
+        '';
+      };
+      ".latexmkrc" = {
+        # https://man.cx/latexmk
+        # https://www.overleaf.com/learn/how-to/How_does_Overleaf_compile_my_project%3F
+        text = ''
+          # 1: pdflatex
+          # 4: lualatex
+          # 5: xelatex
+          $pdf_mode = 4;
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "22.11";
+          # Regular
+          $pdflatex = "pdflatex %O %S";
+          $xelatex = "xelatex %O %S";
+          $lualatex = "lualatex %O %S";
 
-  home.file = {
-    "${poetryPrefix}/config.toml" = {
-      text = ''
-        [virtualenvs]
-        in-project = true
-        prefer-active-python = true
-      '';
-    };
-    ".latexmkrc" = {
-      # https://man.cx/latexmk
-      # https://www.overleaf.com/learn/how-to/How_does_Overleaf_compile_my_project%3F
-      text = ''
-        # 1: pdflatex
-        # 4: lualatex
-        # 5: xelatex
-        $pdf_mode = 4;
+          # Shell escape
+          # $pdflatex = "pdflatex -shell-escape %O %S";
+          # $xelatex = "xelatex -shell-escape %O %S";
+          # $lualatex = "lualatex -shell-escape %O %S";
 
-        # Regular
-        $pdflatex = "pdflatex %O %S";
-        $xelatex = "xelatex %O %S";
-        $lualatex = "lualatex %O %S";
+          # Texmf path
+          # $ENV{"TEXINPUTS"} = "./texmf//:" . $ENV{"TEXINPUTS"};
+          # $ENV{"BSTINPUTS"} = "./texmf//:" . $ENV{"BSTINPUTS"};
+          # $ENV{"BIBINPUTS"} = "./texmf//:" . $ENV{"BIBINPUTS"};
 
-        # Shell escape
-        # $pdflatex = "pdflatex -shell-escape %O %S";
-        # $xelatex = "xelatex -shell-escape %O %S";
-        # $lualatex = "lualatex -shell-escape %O %S";
+          $postscript_mode = $dvi_mode = 0;
+          $clean_ext = "";
+          $ENV{"TZ"} = "Europe/Berlin";
+        '';
+      };
+      ".mackup.cfg" = lib.mkIf stdenv.isDarwin {
+        text = ''
+          [storage]
+          engine = icloud
 
-        # Texmf path
-        # $ENV{"TEXINPUTS"} = "./texmf//:" . $ENV{"TEXINPUTS"};
-        # $ENV{"BSTINPUTS"} = "./texmf//:" . $ENV{"BSTINPUTS"};
-        # $ENV{"BIBINPUTS"} = "./texmf//:" . $ENV{"BIBINPUTS"};
-
-        $postscript_mode = $dvi_mode = 0;
-        $clean_ext = "";
-        $ENV{"TZ"} = "Europe/Berlin";
-      '';
-    };
-    ".mackup.cfg" = lib.mkIf stdenv.isDarwin {
-      text = ''
-        [storage]
-        engine = icloud
-
-        [applications_to_sync]
-        bartender
-        bibdesk
-        default-folder-x
-        defaultkeybinding
-        docker
-        forklift
-        iina
-        istat-menus
-        iterm2
-        mackup
-        postico
-        rstudio
-        sublime-text-3
-        tableplus
-        xcode
-      '';
+          [applications_to_sync]
+          bartender
+          bibdesk
+          default-folder-x
+          defaultkeybinding
+          docker
+          forklift
+          iina
+          istat-menus
+          iterm2
+          mackup
+          postico
+          rstudio
+          sublime-text-3
+          tableplus
+          xcode
+        '';
+      };
     };
   };
 
