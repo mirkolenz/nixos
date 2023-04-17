@@ -39,7 +39,6 @@ in
       })
     ];
     groups.mlenz = {
-      description = "Mirko Lenz";
       gid = 1000;
     };
   };
