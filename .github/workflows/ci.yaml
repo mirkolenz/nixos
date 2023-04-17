@@ -13,7 +13,7 @@ jobs:
         with:
           commit-msg: "chore(deps): update flake.lock"
           pr-title: "chore(deps): update flake.lock"
-          pr-assignees: "mirkolenz"
+          # pr-assignees: "mirkolenz"
           branch: "update_flake_lock"
       - uses: peter-evans/enable-pull-request-automerge@v3
         # Check if PR created (https://github.com/DeterminateSystems/update-flake-lock/issues/70)
