@@ -11,23 +11,7 @@ in
     zsh = {
       enable = true;
     };
-    git = {
-      enable = true;
-    };
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-    };
   };
-
-  users = {
-    mutableUsers = true;
-  };
-
-  time.timeZone = "Europe/Berlin";
-  i18n.defaultLocale = "en_US.UTF-8";
 
   environment.systemPackages = with pkgs; [
     curl
@@ -35,7 +19,6 @@ in
     fd
     gnumake
     massren
-    mkpasswd
     ripgrep
     rsync
     wget

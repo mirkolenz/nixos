@@ -38,12 +38,16 @@
 
   outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, ... }:
   let
-    # https://github.com/nix-community/home-manager/issues/1538
     defaults = { pkgs, ... }: {
+      nixpkgs.config.allowUnfree = true;
+      # https://github.com/nix-community/home-manager/issues/1538
       _module.args = {
         extras = {
           inherit inputs;
-          unstable = import nixpkgs-unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+          unstable = import nixpkgs-unstable {
+            inherit (pkgs.stdenv.targetPlatform) system;
+            config.allowUnfree = true;
+          };
           username = "mlenz";
           stateVersion = "22.11";
         };

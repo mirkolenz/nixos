@@ -6,9 +6,11 @@ let
   homeDirectory = if stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
   poetryPrefix = if stdenv.isDarwin then "Library/Preferences/pypoetry" else "${config.xdg.configHome}/pypoetry";
 in {
+  nixpkgs.config.allowUnfree = true;
   home = {
-    inherit username homeDirectory;
+    inherit username;
     inherit (extras) stateVersion;
+    homeDirectory = lib.mkDefault homeDirectory;
     file = {
       "${poetryPrefix}/config.toml" = {
         text = ''
@@ -347,11 +349,11 @@ in {
         enable = true;
       };
     };
-    vscode = lib.mkIf osConfig.services.xserver.enable {
+    vscode = lib.mkIf (stdenv.isLinux && osConfig.services.xserver.enable) {
       enable = true;
       package = pkgs.vscode.fhs;
     };
-    alacritty = lib.mkIf osConfig.services.xserver.enable {
+    alacritty = lib.mkIf (stdenv.isLinux && osConfig.services.xserver.enable) {
       enable = true;
     };
   };
