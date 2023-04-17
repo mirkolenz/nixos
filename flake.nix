@@ -90,6 +90,16 @@
           ./users
         ];
       };
+      macbook-nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          defaults
+          home-manager.nixosModules.home-manager
+          ./platforms/nixos.nix
+          ./hosts/macbook-nixos
+          ./users
+        ];
+      };
     };
     darwinConfigurations = {
       macbook = darwin.lib.darwinSystem {
