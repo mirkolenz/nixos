@@ -65,7 +65,7 @@
     #   };
     # };
     nixosConfigurations = {
-      "vm" = nixpkgs.lib.nixosSystem {
+      vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           defaults
@@ -76,7 +76,7 @@
           ./users
         ];
       };
-      "homeserver" = nixpkgs.lib.nixosSystem {
+      homeserver = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           defaults
@@ -88,7 +88,7 @@
       };
     };
     darwinConfigurations = {
-      "Mirkos-Mac" = darwin.lib.darwinSystem {
+      macbook = darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
           defaults
