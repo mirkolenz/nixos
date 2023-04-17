@@ -16,6 +16,8 @@ jobs:
           pr-assignees: "mirkolenz"
           branch: "update_flake_lock"
       - uses: peter-evans/enable-pull-request-automerge@v3
+        # Check if PR created (https://github.com/DeterminateSystems/update-flake-lock/issues/70)
+        if: ${{ steps.update.outputs.pull-request-number > 0 }}
         with:
           pull-request-number: ${{ steps.update.outputs.pull-request-number }}
           merge-method: "squash"
