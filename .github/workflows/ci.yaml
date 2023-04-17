@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch: ~
+  schedule:
+    - cron: "0 23 * * *" # every day at 23:00 UTC
+jobs:
+  update_flake_lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DeterminateSystems/nix-installer-action@v2
+      - uses: DeterminateSystems/update-flake-lock@v19
+        id: update
+        with:
+          commit-msg: "chore(deps): update flake.lock"
+          pr-title: "chore(deps): update flake.lock"
+          pr-assignees: "mirkolenz"
+          branch: "update_flake_lock"
+      - uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ steps.update.outputs.pull-request-number }}
+          merge-method: "squash"
