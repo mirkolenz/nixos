@@ -60,6 +60,7 @@ in
       "obsidian"
       "omnigraffle"
       "openinterminal"
+      "orbstack"
       "orion"
       "parallels"
       "pixelsnap"
