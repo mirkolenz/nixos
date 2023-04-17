@@ -4,17 +4,15 @@ let
 in
 {
   programs = {
+    # bash is enabled by default
     fish = {
-      enable = true;
-    };
-    git = {
       enable = true;
     };
     zsh = {
       enable = true;
     };
-    bash = {
-      # enable = true; # no longer needed
+    git = {
+      enable = true;
     };
     neovim = {
       enable = true;
@@ -32,10 +30,15 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.systemPackages = with pkgs; [
-    mkpasswd
+    curl
+    exa
+    fd
+    gnumake
     massren
-    poetry
-    unstable.buf
+    mkpasswd
+    ripgrep
+    rsync
+    wget
   ];
   environment.shells = with pkgs; [ fish ];
 
