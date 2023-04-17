@@ -152,6 +152,18 @@
         "type": "github"
       }
     },
+    "mlenz-ssh-keys": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-7siHd/09RRTrgVnG4pMfIBtCcw+3YYWsERncADDNX/I=",
+        "type": "file",
+        "url": "https://github.com/mirkolenz.keys"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/mirkolenz.keys"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1681001314,
@@ -331,6 +343,7 @@
         "darwin": "darwin",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "mlenz-ssh-keys": "mlenz-ssh-keys",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

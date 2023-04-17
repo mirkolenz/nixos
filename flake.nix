@@ -34,6 +34,10 @@
       url = "github:pta2002/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mlenz-ssh-keys = {
+      url = "https://github.com/mirkolenz.keys";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, ... }:
