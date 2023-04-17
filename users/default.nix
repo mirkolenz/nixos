@@ -1,9 +1,20 @@
-{ pkgs, ... }:
+{ pkgs, inputs, unstable, ... }:
+let
+  defaults = { ... }: {
+    _module.args = { inherit inputs unstable; };
+  };
+in
 {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.mlenz = import ./home/mlenz.nix;
+    # users.mlenz = import ./home/mlenz.nix;
+    users.mlenz = {
+      imports = [
+        defaults
+        ./home/mlenz.nix
+      ];
+    };
   };
   users = {
     users.mlenz = {

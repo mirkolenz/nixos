@@ -30,9 +30,23 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
+    nixvim = {
+      url = "github:pta2002/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, ... }:
+  let
+    # https://github.com/nix-community/home-manager/issues/1538
+    defaults = { pkgs, ... }: {
+      _module.args = {
+        inherit inputs;
+        unstable = import nixpkgs-unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+      };
+    };
+  in
+  {
     # packages = {
     #   aarch64-linux = {
     #     raspi = nixos-generators.nixosGenerate {
@@ -46,6 +60,7 @@
       "vm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          defaults
           home-manager.nixosModules.home-manager
           vscode-server.nixosModule
           ./platforms/nixos.nix
@@ -56,6 +71,7 @@
       "homeserver" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          defaults
           home-manager.nixosModules.home-manager
           ./platforms/nixos.nix
           ./hosts/homeserver
@@ -67,6 +83,7 @@
       "Mirkos-Mac" = darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
+          defaults
           home-manager.darwinModules.home-manager
           ./platforms/darwin.nix
           ./hosts/macbook

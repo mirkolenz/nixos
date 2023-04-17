@@ -1,9 +1,15 @@
-{ config, pkgs, ... }:
-{
+{ lib, config, osConfig, pkgs, ... }:
+let
+  # inherit (lib.attrsets) optionalAttrs;
+  inherit (pkgs) stdenv;
+  username  = "mlenz";
+  homedir = if stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+  poetryPrefix = if stdenv.isDarwin then "Library/Preferences/pypoetry" else "${config.xdg.configHome}/pypoetry";
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "mlenz";
-  # home.homeDirectory = "/Users/mlenz";
+  home.username = username;
+  home.homeDirectory = homedir;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -15,7 +21,68 @@
   # changes in each release.
   home.stateVersion = "22.11";
 
-  # Let Home Manager install and manage itself.
+  home.file = {
+    "${poetryPrefix}/config.toml" = {
+      text = ''
+        [virtualenvs]
+        in-project = true
+        prefer-active-python = true
+      '';
+    };
+    ".latexmkrc" = {
+      # https://man.cx/latexmk
+      # https://www.overleaf.com/learn/how-to/How_does_Overleaf_compile_my_project%3F
+      text = ''
+        # 1: pdflatex
+        # 4: lualatex
+        # 5: xelatex
+        $pdf_mode = 4;
+
+        # Regular
+        $pdflatex = "pdflatex %O %S";
+        $xelatex = "xelatex %O %S";
+        $lualatex = "lualatex %O %S";
+
+        # Shell escape
+        # $pdflatex = "pdflatex -shell-escape %O %S";
+        # $xelatex = "xelatex -shell-escape %O %S";
+        # $lualatex = "lualatex -shell-escape %O %S";
+
+        # Texmf path
+        # $ENV{"TEXINPUTS"} = "./texmf//:" . $ENV{"TEXINPUTS"};
+        # $ENV{"BSTINPUTS"} = "./texmf//:" . $ENV{"BSTINPUTS"};
+        # $ENV{"BIBINPUTS"} = "./texmf//:" . $ENV{"BIBINPUTS"};
+
+        $postscript_mode = $dvi_mode = 0;
+        $clean_ext = "";
+        $ENV{"TZ"} = "Europe/Berlin";
+      '';
+    };
+    ".mackup.cfg" = lib.mkIf stdenv.isDarwin {
+      text = ''
+        [storage]
+        engine = icloud
+
+        [applications_to_sync]
+        bartender
+        bibdesk
+        default-folder-x
+        defaultkeybinding
+        docker
+        forklift
+        iina
+        istat-menus
+        iterm2
+        mackup
+        postico
+        rstudio
+        sublime-text-3
+        tableplus
+        xcode
+      '';
+    };
+  };
+
   programs = {
     home-manager.enable = true;
     neovim = {
@@ -23,11 +90,175 @@
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
+      extraConfig = ''
+        set nocompatible
+
+        syntax on
+
+        set autoindent
+        set ruler
+        set mouse=a
+        set ignorecase
+        set smartcase
+
+        set tabstop=4
+        set shiftwidth=0
+        set noexpandtab
+
+        set clipboard=unnamed
+
+        " Use 'jk' to enter insert mode
+        inoremap jk <esc>
+
+        " Use 'return' to clear the highlighting of the last search
+        " https://stackoverflow.com/a/662914
+        " nnoremap <CR> :noh<CR><CR>
+
+        " Use 'shift+return' to prepend new line
+        nmap <S-Enter> O<Esc>
+
+        " Use 'return' to append new line
+        nmap <CR> o<Esc>
+
+        " Do not yank deleted content
+        nnoremap d "_d
+        vnoremap d "_d
+
+        colorscheme slate
+
+        if !has('nvim')
+          set ttymouse=xterm2
+        endif
+
+        if has('nvim')
+          tnoremap <Esc> <C-\><C-n>
+        endif
+      '';
+    };
+    htop = {
+      enable = true;
+    };
+    micro = {
+      enable = true;
+      settings = {
+        autoclose = true;
+        autoindent = true;
+        autosave = 0;
+        backup = true;
+        basename = false;
+        colorcolumn = 0;
+        colorscheme = "monokai";
+        comment = true;
+        cursorline = true;
+        diff = true;
+        diffgutter = false;
+        encoding = "utf-8";
+        eofnewline = true;
+        fastdirty = true;
+        fileformat = "unix";
+        filetype = "unknown";
+        ftoptions = true;
+        hidehelp = false;
+        ignorecase = false;
+        indentchar = " ";
+        infobar = true;
+        keepautoindent = false;
+        keymenu = false;
+        linter = true;
+        literate = true;
+        matchbrace = false;
+        matchbraceleft = false;
+        mkparents = false;
+        mouse = true;
+        paste = false;
+        pluginchannels = [
+            "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
+        ];
+        pluginrepos = [];
+        readonly = false;
+        rmtrailingws = false;
+        ruler = true;
+        savecursor = false;
+        savehistory = true;
+        saveundo = false;
+        scrollbar = false;
+        scrollmargin = 3;
+        scrollspeed = 2;
+        smartpaste = true;
+        softwrap = false;
+        splitbottom = true;
+        splitright = true;
+        status = true;
+        statusformatl = "$(filename) $(modified)($(line),$(col)) $(status.paste)| ft:$(opt:filetype) | $(opt:fileformat) | $(opt:encoding)";
+        statusformatr = "$(bind:ToggleKeyMenu): bindings, $(bind:ToggleHelp): help";
+        statusline = true;
+        sucmd = "sudo";
+        syntax = true;
+        tabmovement = false;
+        tabsize = 4;
+        tabstospaces = false;
+        termtitle = false;
+        useprimary = true;
+      };
+    };
+    ssh = {
+      enable = true;
+      matchBlocks = {
+        "*" = {
+          extraOptions = {
+            UseKeychain = "yes";
+            AddKeysToAgent = "yes";
+          };
+          identityFile = [ "id_ed25519" "id_rsa" ];
+        };
+        wi2gpu = {
+          hostname = "136.199.130.136";
+          forwardAgent = true;
+          user = "mlenz";
+        };
+        wi2v214 = {
+          hostname = "v214.wi2.uni-trier.de";
+          forwardAgent = true;
+          user = "lenz";
+        };
+        homeserver = {
+          hostname = "10.16.2.22";
+          forwardAgent = true;
+          user = "mlenz";
+        };
+        wi2docker = {
+          hostname = "docker.wi2.uni-trier.de";
+          user = "container";
+        };
+      };
+    };
+    # texlive = {
+    #   enable = true;
+    # };
+    gh = {
+      enable = true;
+      settings = {
+        git_protocol = "ssh";
+      };
+    };
+    zsh = {
+      enable = true;
+      enableAutosuggestions = true;
+      enableSyntaxHighlighting = true;
+      enableCompletion = true;
+    };
+    bash = {
+      enable = true;
     };
     fish = {
       enable = true;
       shellAliases = {
         dc = "docker compose";
+        ls = "exa";
+        ll = "exa -l";
+        la = "exa -la";
+        py = "poetry run python -m";
+        hass = "hass-cli";
       };
       # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1266049484
       loginShellInit = ''
@@ -37,6 +268,28 @@
           end
         end
       '';
+      functions = {
+        divider = {
+          body = ''
+            set length (tput cols)
+            set char =
+            tput bold
+
+            echo
+            printf "%*s\n" $length "" | tr " " $char
+            echo
+
+            tput sgr0
+          '';
+          description = "Print a bold horizontal line";
+        };
+        otf2ttf = {
+          body = "fontforge -c 'Open(\"$source\"); Generate(\"$target\")'";
+          description = "Convert an OpenType font to TrueType";
+          wraps = "fontforge";
+          argumentNames = [ "source" "target" ];
+        };
+      };
     };
     git = {
       enable = true;
@@ -45,6 +298,39 @@
       lfs = {
         enable = true;
       };
+      ignores = [
+        # https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode
+        # macOS
+        ".DS_Store"
+        ".AppleDouble"
+        ".LSOverride"
+        "Icon"
+        "._*"
+        ".DocumentRevisions-V100"
+        ".fseventsd"
+        ".Spotlight-V100"
+        ".TemporaryItems"
+        ".Trashes"
+        ".VolumeIcon.icns"
+        ".com.apple.timemachine.donotpresent"
+        ".AppleDB"
+        ".AppleDesktop"
+        "Network Trash Folder"
+        "Temporary Items"
+        ".apdisk"
+        "*.icloud"
+        # VSCode
+        ".vscode/*"
+        "!.vscode/settings.json"
+        "!.vscode/tasks.json"
+        "!.vscode/launch.json"
+        "!.vscode/extensions.json"
+        "!.vscode/*.code-snippets"
+        ".history/"
+        "*.vsix"
+        ".history"
+        ".ionide"
+      ];
       extraConfig = {
         core = {
           autocrlf = "input";
@@ -66,16 +352,18 @@
         };
       };
     };
-    # TODO: Enable only for GUI setups
-    direnv = {
+    direnv = lib.mkIf (stdenv.isDarwin || osConfig.services.xserver.enable) {
       enable = true;
       nix-direnv = {
         enable = true;
       };
     };
-    vscode = {
+    vscode = lib.mkIf osConfig.services.xserver.enable {
       enable = true;
       package = pkgs.vscode.fhs;
+    };
+    alacritty = lib.mkIf osConfig.services.xserver.enable {
+      enable = true;
     };
   };
 }
