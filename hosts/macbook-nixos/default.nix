@@ -13,8 +13,5 @@
     };
   };
 
-  networking = {
-    hostName = "macbook-nixos";
-    wireless.enable = true;
-  };
+  networking.hostName = "macbook-nixos";
 }
