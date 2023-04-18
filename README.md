@@ -31,5 +31,5 @@ darwin-rebuild switch --flake github:mirkolenz/nixos
 **Important:** [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
 
 ```shell
-nix build github:mirkolenz/nixos\#images.MACHINE_NAME
+nix build --system SYSTEM github:mirkolenz/nixos\#MACHINE_NAME
 ```

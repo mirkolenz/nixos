@@ -19,6 +19,10 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vscode-server = {
       url = "github:msteen/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +40,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, darwin, vscode-server, nixpkgs-unstable, nixos-hardware, mlenz-ssh-keys, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, nixos-hardware, mlenz-ssh-keys, ... }:
   let
     defaults = { pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
@@ -54,7 +58,37 @@
       };
     };
   in
-  rec {
+  {
+    packages = {
+      aarch64-linux = {
+        sd = nixos-generators.nixosGenerate {
+          system = "aarch64-linux";
+          # customFormats = {
+          #   "myFormat" = {
+          #     imports = [
+          #       "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          #     ];
+          #     formatAttr = "sdImage";
+          #   };
+          # };
+          format = "sd-aarch64-installer";
+          modules = [
+            defaults
+            ./installer/sd.nix
+          ];
+        };
+      };
+      x86_64-linux = {
+        iso = nixos-generators.nixosGenerate {
+          system = "x86_64-linux";
+          format = "install-iso";
+          modules = [
+            defaults
+            ./installer/iso.nix
+          ];
+        };
+      };
+    };
     nixosConfigurations = {
       vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -88,21 +122,6 @@
           ./users
         ];
       };
-      raspi-installer = nixpkgs.lib.nixosSystem {
-        modules = [
-          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-          {
-            nixpkgs = {
-              config.allowUnsupportedSystem = true;
-              hostPlatform.system = "aarch64-linux";
-              buildPlatform.system = "x86_64-linux";
-            };
-            sdImage.compressImage = false;
-            system.stateVersion = "22.11";
-            users.users.root.openssh.authorizedKeys.keyFiles = [ mlenz-ssh-keys.outPath ];
-          }
-        ];
-      };
       macbook-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -125,9 +144,6 @@
           ./users
         ];
       };
-    };
-    images = {
-      raspi-installer = nixosConfigurations.raspi-installer.config.system.build.sdImage;
     };
   };
 }
