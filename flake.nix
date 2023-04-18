@@ -19,10 +19,6 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     vscode-server = {
       url = "github:msteen/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +36,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, nixos-hardware, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, darwin, vscode-server, nixpkgs-unstable, nixos-hardware, mlenz-ssh-keys, ... }:
   let
     defaults = { pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
@@ -58,16 +54,7 @@
       };
     };
   in
-  {
-    packages = {
-      aarch64-linux = {
-        raspi = nixos-generators.nixosGenerate {
-          system = "aarch64-linux";
-          format = "sd-aarch64";
-          modules = [ ];
-        };
-      };
-    };
+  rec {
     nixosConfigurations = {
       vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -101,6 +88,21 @@
           ./users
         ];
       };
+      raspi-installer = nixpkgs.lib.nixosSystem {
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
+          {
+            nixpkgs = {
+              config.allowUnsupportedSystem = true;
+              hostPlatform.system = "aarch64-linux";
+              buildPlatform.system = "x86_64-linux";
+            };
+            sdImage.compressImage = false;
+            system.stateVersion = "22.11";
+            users.users.root.openssh.authorizedKeys.keyFiles = [ mlenz-ssh-keys.outPath ];
+          }
+        ];
+      };
       macbook-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -123,6 +125,9 @@
           ./users
         ];
       };
+    };
+    images = {
+      raspi-installer = nixosConfigurations.raspi-installer.config.system.build.sdImage;
     };
   };
 }
