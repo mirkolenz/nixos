@@ -13,5 +13,12 @@
     };
   };
 
+  services.throttled.enable = true;
+
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "performance";
+  };
+
   networking.hostName = "macbook-nixos";
 }
