@@ -6,6 +6,7 @@ in
 {
   imports = [
     nixos-hardware.nixosModules.raspberry-pi-4
+    ./hardware.nix
     ../server.nix
   ];
   networking.hostName = "raspi";
