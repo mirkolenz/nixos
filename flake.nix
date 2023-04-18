@@ -118,7 +118,7 @@
           home-manager.nixosModules.home-manager
           nixos-hardware.nixosModules.raspberry-pi-4
           ./platforms/nixos.nix
-          ./hosts/raspberry
+          ./hosts/raspi
           ./users
         ];
       };
