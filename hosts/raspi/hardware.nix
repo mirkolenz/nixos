@@ -15,8 +15,12 @@
 
   # Adding a swap file is optional, but recommended if you use RAM-intensive applications that might OOM otherwise.
   # Size is in MiB, set to whatever you want (though note a larger value will use more disk space).
-  # swapDevices = [ { device = "/swapfile"; size = 1024; } ];
-  swapDevices = [ ];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 8192;
+    }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
