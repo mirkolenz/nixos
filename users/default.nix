@@ -31,7 +31,7 @@ in
       }
       (lib.mkIf stdenv.isLinux {
         group = "mlenz";
-        extraGroups = [ "mlenz" "users" "networkmanager" "wheel" "docker" ];
+        extraGroups = [ "mlenz" "users" "networkmanager" "wheel" ];
         isNormalUser = true;
       })
       (lib.mkIf stdenv.isDarwin {
