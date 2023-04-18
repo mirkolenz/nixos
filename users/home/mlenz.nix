@@ -289,10 +289,9 @@ in {
         decrypt = {
           description = "Decrypt a file using gpg";
           body = ''
-            argparse source target -- $argv
-            or return
-            gpg --output $argv[2] --decrypt $argv[1]
+            gpg --output "$target" --decrypt "$source"
           '';
+          argumentNames = [ "source" "target" ];
         };
         backup = {
           description = "Backup a directory to a tar.gz file";
