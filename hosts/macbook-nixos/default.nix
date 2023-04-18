@@ -3,6 +3,7 @@
   imports = [
     ./hardware.nix
     ../workstation.nix
+    ../ssh.nix
   ];
 
   boot.loader = {

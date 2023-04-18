@@ -1,16 +1,31 @@
-{ extras, lib, ... }:
-let
-  inherit (extras.inputs) mlenz-ssh-keys;
-in
+{ pkgs,... }:
 {
-  services.openssh = {
+  imports = [ ./ssh.nix ];
+  system.autoUpgrade = {
     enable = true;
-    passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
-    permitRootLogin = "no";
+    allowReboot = false;
+    flake = "mirkolenz/nixos";
+    # flags = [ "--recreate-lock-file" ];
   };
-  # https://discourse.nixos.org/t/fetching-ssh-public-keys/12076
   users.users.mlenz = {
-    openssh.authorizedKeys.keyFiles = [ mlenz-ssh-keys.outPath ];
+    subUidRanges = [
+      { count = 1; startUid = 1000; }
+      { count = 65536; startUid = 100001; }
+    ];
+    subGidRanges = [
+      { count = 1; startGid = 1000; }
+      { count = 65536; startGid = 100001; }
+    ];
+  };
+  virtualisation.docker = {
+    # logDriver = "json-file";
+    autoPrune = {
+      enable = true;
+      dates = "daily";
+    };
+    daemon.settings = {
+      "icc" = false;
+      "userns-remap" = "mlenz";
+    };
   };
 }

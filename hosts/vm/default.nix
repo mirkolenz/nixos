@@ -1,6 +1,6 @@
 {pkgs,...}:
 {
-  imports = [ ./hardware-qemu.nix ../server.nix ../workstation.nix ];
+  imports = [ ./hardware-qemu.nix ../ssh.nix ../workstation.nix ];
   networking.hostName = "nixos-vm";
   services.vscode-server.enable = true;
   # Parallels
