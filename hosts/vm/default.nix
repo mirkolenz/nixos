@@ -1,6 +1,7 @@
 {pkgs,...}:
 {
   imports = [ ./hardware-qemu.nix ../ssh.nix ../workstation.nix ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   networking.hostName = "nixos-vm";
   services.vscode-server.enable = true;
   # Parallels

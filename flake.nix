@@ -59,15 +59,15 @@
     };
   in
   {
-    # packages = {
-    #   aarch64-linux = {
-    #     raspi = nixos-generators.nixosGenerate {
-    #       system = "aarch64-linux";
-    #       format = "sd-aarch64";
-    #       modules = [ ];
-    #     };
-    #   };
-    # };
+    packages = {
+      aarch64-linux = {
+        raspi = nixos-generators.nixosGenerate {
+          system = "aarch64-linux";
+          format = "sd-aarch64";
+          modules = [ ];
+        };
+      };
+    };
     nixosConfigurations = {
       vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

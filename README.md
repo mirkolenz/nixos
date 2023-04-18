@@ -25,3 +25,11 @@ chsh -s /run/current-system/sw/bin/fish
 # Later invokations
 darwin-rebuild switch --flake github:mirkolenz/nixos
 ```
+
+## NixOS Generators
+
+**Important:** [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
+
+```shell
+nix build --system SYSTEM github:mirkolenz/nixos\#MACHINE_NAME
+```

@@ -9,4 +9,5 @@ in
     ../server.nix
   ];
   networking.hostName = "raspi";
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 }
