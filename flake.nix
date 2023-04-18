@@ -40,7 +40,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, nixos-hardware, ... }:
   let
     defaults = { pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
@@ -87,6 +87,17 @@
           home-manager.nixosModules.home-manager
           ./platforms/nixos.nix
           ./hosts/homeserver
+          ./users
+        ];
+      };
+      raspi = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          defaults
+          home-manager.nixosModules.home-manager
+          # nixos-hardware.nixosModules.raspberry-pi-4 # moved to host definition
+          ./platforms/nixos.nix
+          ./hosts/raspberry
           ./users
         ];
       };
