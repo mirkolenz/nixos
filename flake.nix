@@ -116,7 +116,7 @@
         modules = [
           defaults
           home-manager.nixosModules.home-manager
-          # nixos-hardware.nixosModules.raspberry-pi-4 # moved to host definition
+          nixos-hardware.nixosModules.raspberry-pi-4
           ./platforms/nixos.nix
           ./hosts/raspberry
           ./users
