@@ -61,7 +61,7 @@
   {
     packages = {
       aarch64-linux = {
-        sd = nixos-generators.nixosGenerate {
+        raspi = nixos-generators.nixosGenerate {
           system = "aarch64-linux";
           # customFormats = {
           #   "myFormat" = {
@@ -74,7 +74,7 @@
           format = "sd-aarch64-installer";
           modules = [
             defaults
-            ./installer/sd.nix
+            ./installer/raspi.nix
           ];
         };
       };

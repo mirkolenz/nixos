@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./hotfix.nix
     ../server.nix
   ];
   networking.hostName = "raspi";
