@@ -3,6 +3,7 @@ let
   # inherit (lib.attrsets) optionalAttrs;
   inherit (pkgs) stdenv;
   inherit (extras) username;
+  inherit (extras.inputs) gitignore;
   homeDirectory = if stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
   poetryPrefix = if stdenv.isDarwin then "Library/Preferences/pypoetry" else "${config.xdg.configHome}/pypoetry";
 in {
@@ -196,7 +197,7 @@ in {
       enable = true;
       matchBlocks = {
         "*" = {
-          extraOptions = {
+          extraOptions = lib.mkIf stdenv.isDarwin {
             UseKeychain = "yes";
             AddKeysToAgent = "yes";
           };
@@ -340,39 +341,7 @@ in {
       lfs = {
         enable = true;
       };
-      ignores = [
-        # https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode
-        # macOS
-        ".DS_Store"
-        ".AppleDouble"
-        ".LSOverride"
-        "Icon"
-        "._*"
-        ".DocumentRevisions-V100"
-        ".fseventsd"
-        ".Spotlight-V100"
-        ".TemporaryItems"
-        ".Trashes"
-        ".VolumeIcon.icns"
-        ".com.apple.timemachine.donotpresent"
-        ".AppleDB"
-        ".AppleDesktop"
-        "Network Trash Folder"
-        "Temporary Items"
-        ".apdisk"
-        "*.icloud"
-        # VSCode
-        ".vscode/*"
-        "!.vscode/settings.json"
-        "!.vscode/tasks.json"
-        "!.vscode/launch.json"
-        "!.vscode/extensions.json"
-        "!.vscode/*.code-snippets"
-        ".history/"
-        "*.vsix"
-        ".history"
-        ".ionide"
-      ];
+      ignores = lib.splitString "\n" (builtins.readFile gitignore.outPath);
       extraConfig = {
         core = {
           autocrlf = "input";

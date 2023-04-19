@@ -38,6 +38,10 @@
       url = "https://github.com/mirkolenz.keys";
       flake = false;
     };
+    gitignore = {
+      url = "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ nixpkgs, home-manager, darwin, nixos-generators, vscode-server, nixpkgs-unstable, nixos-hardware, mlenz-ssh-keys, ... }:

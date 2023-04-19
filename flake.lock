@@ -111,6 +111,18 @@
       }
     },
     "gitignore": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-cpkse4NOi8oZrKHolReAPf07eApolKJOOGY7P0Ud/fI=",
+        "type": "file",
+        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
+      }
+    },
+    "gitignore_2": {
       "inputs": {
         "nixpkgs": [
           "nixvim",
@@ -317,7 +329,7 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils_3",
-        "gitignore": "gitignore",
+        "gitignore": "gitignore_2",
         "nixpkgs": [
           "nixvim",
           "nixpkgs"
@@ -342,6 +354,7 @@
       "inputs": {
         "darwin": "darwin",
         "flake-utils": "flake-utils",
+        "gitignore": "gitignore",
         "home-manager": "home-manager",
         "mlenz-ssh-keys": "mlenz-ssh-keys",
         "nixos-generators": "nixos-generators",
