@@ -236,8 +236,8 @@ in
       dock = {
         appswitcher-all-displays = true;
         autohide = true;
-        autohide-delay = 0.24;
-        autohide-time-modifier = 1.0;
+        autohide-delay = 0.1;
+        autohide-time-modifier = 3.0;
         dashboard-in-overlay = false;
         enable-spring-load-actions-on-all-items = false;
         expose-animation-duration = 1.0;
@@ -252,7 +252,7 @@ in
         showhidden = true;
         show-recents = true;
         static-only = false;
-        tilesize = 32;
+        tilesize = 64;
         wvous-tl-corner = 1;
         wvous-bl-corner = 1;
         wvous-tr-corner = 1;
@@ -348,8 +348,8 @@ in
         AppleShowAllFiles = false;
         AppleShowScrollBars = "WhenScrolling";
         AppleTemperatureUnit = "Celsius";
-        InitialKeyRepeat = 1;
-        KeyRepeat = 1;
+        InitialKeyRepeat = 15; # slider values: 120, 94, 68, 35, 25, 15
+        KeyRepeat = 2; # slider values: 120, 90, 60, 30, 12, 6, 2
         NSAutomaticCapitalizationEnabled = false;
         NSAutomaticDashSubstitutionEnabled = false;
         NSAutomaticPeriodSubstitutionEnabled = false;
