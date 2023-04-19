@@ -236,11 +236,11 @@ in
       dock = {
         appswitcher-all-displays = true;
         autohide = true;
-        autohide-delay = 0.1;
-        autohide-time-modifier = 3.0;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 0.15;
         dashboard-in-overlay = false;
         enable-spring-load-actions-on-all-items = false;
-        expose-animation-duration = 1.0;
+        expose-animation-duration = 0.5;
         expose-group-by-app = false;
         launchanim = true;
         mineffect = "genie";
@@ -252,7 +252,7 @@ in
         show-recents = true;
         showhidden = true;
         static-only = false;
-        tilesize = 64;
+        tilesize = 48;
         wvous-bl-corner = 1;
         wvous-br-corner = 1;
         wvous-tl-corner = 1;
