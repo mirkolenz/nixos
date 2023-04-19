@@ -226,13 +226,128 @@ in
   system = {
     stateVersion = 4;
     defaults = {
+      alf = {
+        globalstate = 1;
+        allowsignedenabled = 1;
+        allowdownloadsignedenabled = 0;
+        loggingenabled = 0;
+        stealthenabled = 0;
+      };
+      dock = {
+        appswitcher-all-displays = true;
+        autohide = true;
+        autohide-delay = 0.24;
+        autohide-time-modifier = 1.0;
+        dashboard-in-overlay = false;
+        enable-spring-load-actions-on-all-items = false;
+        expose-animation-duration = 1.0;
+        expose-group-by-app = false;
+        launchanim = true;
+        mineffect = "genie";
+        minimize-to-application = false;
+        mouse-over-hilite-stack = true;
+        mru-spaces = false;
+        orientation = "bottom";
+        show-process-indicators = true;
+        showhidden = true;
+        show-recents = true;
+        static-only = false;
+        tilesize = 32;
+        wvous-tl-corner = 1;
+        wvous-bl-corner = 1;
+        wvous-tr-corner = 1;
+        wvous-br-corner = 1;
+      };
+      finder = {
+        AppleShowAllFiles = false;
+        ShowStatusBar = false;
+        ShowPathbar = true;
+        FXDefaultSearchScope = "SCcf";
+        FXPreferredViewStyle = "clmv";
+        AppleShowAllExtensions = true;
+        CreateDesktop = true;
+        QuitMenuItem = false;
+        _FXShowPosixPathInTitle = false;
+        FXEnableExtensionChangeWarning = false;
+      };
+      loginwindow = {
+        SHOWFULLNAME = false;
+        autoLoginUser = null;
+        GuestEnabled = false;
+        LoginwindowText = null;
+        ShutDownDisabled = false;
+        SleepDisabled = false;
+        RestartDisabled = false;
+        ShutDownDisabledWhileLoggedIn = false;
+        PowerOffDisabledWhileLoggedIn = false;
+        RestartDisabledWhileLoggedIn = false;
+        DisableConsoleAccess = false;
+      };
+      magicmouse = {
+        MouseButtonMode = "TwoButton";
+      };
+      screencapture = {
+        location = null;
+        type = "png";
+        disable-shadow = true;
+      };
+      smb = {
+        NetBIOSName = null;
+        ServerDescription = null;
+      };
+      spaces = {
+        spans-displays = false;
+      };
+      trackpad = {
+        Clicking = true;
+        Dragging = true;
+        TrackpadRightClick = true;
+        TrackpadThreeFingerDrag = true;
+        ActuationStrength = 1;
+        FirstClickThreshold = 1;
+        SecondClickThreshold = 2;
+      };
+      universalaccess = {
+        reduceTransparency = false;
+        closeViewScrollWheelToggle = false;
+        closeViewZoomFollowsFocus = false;
+      };
+      SoftwareUpdate = {
+        AutomaticallyInstallMacOSUpdates = true;
+      };
+      LaunchServices = {
+        LSQuarantine = true;
+      };
       ".GlobalPreferences" = {
-        # "com.apple.mouse.scaling" = 1.0;
+        "com.apple.sound.beep.sound" = null
+        "com.apple.mouse.scaling" = null;
       };
       NSGlobalDomain = {
+        _HIHideMenuBar = false;
+        "com.apple.keyboard.fnState" = false;
+        "com.apple.mouse.tapBehavior" = 1;
+        "com.apple.sound.beep.feedback" = false;
+        "com.apple.sound.beep.volume" = 0.0;
+        "com.apple.springing.delay" = 1.0;
+        "com.apple.springing.enabled" = null;
+        "com.apple.swipescrolldirection" = true;
+        "com.apple.trackpad.enableSecondaryClick" = true;
+        "com.apple.trackpad.scaling" = 1.0;
+        "com.apple.trackpad.trackpadCornerClickBehavior" = null;
+        AppleEnableMouseSwipeNavigateWithScrolls = true;
+        AppleEnableSwipeNavigateWithScrolls = true;
+        AppleFontSmoothing = null;
+        AppleICUForce24HourTime = true;
         AppleInterfaceStyle = "Dark";
+        AppleInterfaceStyleSwitchesAutomatically = false;
+        AppleKeyboardUIMode = null;
+        AppleMeasurementUnits = "Centimeters";
+        AppleMetricUnits = 1;
+        ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
+        AppleShowAllFiles = false;
         AppleShowScrollBars = "WhenScrolling";
+        AppleTemperatureUnit = "Celsius";
         InitialKeyRepeat = 1;
         KeyRepeat = 1;
         NSAutomaticCapitalizationEnabled = false;
@@ -240,11 +355,16 @@ in
         NSAutomaticPeriodSubstitutionEnabled = false;
         NSAutomaticQuoteSubstitutionEnabled = false;
         NSAutomaticSpellingCorrectionEnabled = false;
+        NSAutomaticWindowAnimationsEnabled = true;
+        NSDisableAutomaticTermination = null;
         NSDocumentSaveNewDocumentsToCloud = false;
         NSNavPanelExpandedStateForSaveMode = true;
         NSNavPanelExpandedStateForSaveMode2 = true;
+        NSScrollAnimationEnabled = true;
         NSTableViewDefaultSizeMode = 2;
-        NSWindowResizeTime = 0.001;
+        NSTextShowsControlCharacters = false;
+        NSUseAnimatedFocusRing = true;
+        NSWindowResizeTime = 0.020;
         PMPrintingExpandedStateForPrint = true;
         PMPrintingExpandedStateForPrint2 = true;
       };
