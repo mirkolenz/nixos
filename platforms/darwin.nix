@@ -227,9 +227,9 @@ in
     stateVersion = 4;
     defaults = {
       alf = {
-        globalstate = 1;
-        allowsignedenabled = 1;
         allowdownloadsignedenabled = 0;
+        allowsignedenabled = 1;
+        globalstate = 1;
         loggingenabled = 0;
         stealthenabled = 0;
       };
@@ -249,47 +249,47 @@ in
         mru-spaces = false;
         orientation = "bottom";
         show-process-indicators = true;
-        showhidden = true;
         show-recents = true;
+        showhidden = true;
         static-only = false;
         tilesize = 64;
-        wvous-tl-corner = 1;
         wvous-bl-corner = 1;
-        wvous-tr-corner = 1;
         wvous-br-corner = 1;
+        wvous-tl-corner = 1;
+        wvous-tr-corner = 1;
       };
       finder = {
-        AppleShowAllFiles = false;
-        ShowStatusBar = false;
-        ShowPathbar = true;
-        FXDefaultSearchScope = "SCcf";
-        FXPreferredViewStyle = "clmv";
-        AppleShowAllExtensions = true;
-        CreateDesktop = true;
-        QuitMenuItem = false;
         _FXShowPosixPathInTitle = false;
+        AppleShowAllExtensions = true;
+        AppleShowAllFiles = false;
+        CreateDesktop = true;
+        FXDefaultSearchScope = "SCcf";
         FXEnableExtensionChangeWarning = false;
+        FXPreferredViewStyle = "clmv";
+        QuitMenuItem = false;
+        ShowPathbar = true;
+        ShowStatusBar = false;
       };
       loginwindow = {
-        SHOWFULLNAME = false;
         autoLoginUser = null;
+        DisableConsoleAccess = false;
         GuestEnabled = false;
         LoginwindowText = null;
-        ShutDownDisabled = false;
-        SleepDisabled = false;
-        RestartDisabled = false;
-        ShutDownDisabledWhileLoggedIn = false;
         PowerOffDisabledWhileLoggedIn = false;
+        RestartDisabled = false;
         RestartDisabledWhileLoggedIn = false;
-        DisableConsoleAccess = false;
+        SHOWFULLNAME = false;
+        ShutDownDisabled = false;
+        ShutDownDisabledWhileLoggedIn = false;
+        SleepDisabled = false;
       };
       magicmouse = {
         MouseButtonMode = "TwoButton";
       };
       screencapture = {
+        disable-shadow = true;
         location = null;
         type = "png";
-        disable-shadow = true;
       };
       smb = {
         NetBIOSName = null;
@@ -299,18 +299,18 @@ in
         spans-displays = false;
       };
       trackpad = {
+        ActuationStrength = 1;
         Clicking = true;
         Dragging = true;
-        TrackpadRightClick = true;
-        TrackpadThreeFingerDrag = true;
-        ActuationStrength = 1;
         FirstClickThreshold = 1;
         SecondClickThreshold = 2;
+        TrackpadRightClick = true;
+        TrackpadThreeFingerDrag = true;
       };
       universalaccess = {
-        reduceTransparency = false;
         closeViewScrollWheelToggle = false;
         closeViewZoomFollowsFocus = false;
+        reduceTransparency = false;
       };
       SoftwareUpdate = {
         AutomaticallyInstallMacOSUpdates = true;
@@ -319,8 +319,8 @@ in
         LSQuarantine = true;
       };
       ".GlobalPreferences" = {
-        "com.apple.sound.beep.sound" = null;
         "com.apple.mouse.scaling" = null;
+        "com.apple.sound.beep.sound" = null;
       };
       NSGlobalDomain = {
         _HIHideMenuBar = false;
