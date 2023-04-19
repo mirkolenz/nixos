@@ -319,14 +319,14 @@ in
         LSQuarantine = true;
       };
       ".GlobalPreferences" = {
-        "com.apple.sound.beep.sound" = null
+        "com.apple.sound.beep.sound" = null;
         "com.apple.mouse.scaling" = null;
       };
       NSGlobalDomain = {
         _HIHideMenuBar = false;
         "com.apple.keyboard.fnState" = false;
         "com.apple.mouse.tapBehavior" = 1;
-        "com.apple.sound.beep.feedback" = false;
+        "com.apple.sound.beep.feedback" = 0;
         "com.apple.sound.beep.volume" = 0.0;
         "com.apple.springing.delay" = 1.0;
         "com.apple.springing.enabled" = null;
