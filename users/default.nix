@@ -18,6 +18,11 @@ in
     };
   };
   users = {
+    users.root = lib.mkIf stdenv.isLinux {
+      # Disable root login
+      # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/2
+      hashedPassword = "!";
+    };
     users.mlenz = lib.mkMerge [
       {
         description = "Mirko Lenz";
@@ -33,6 +38,7 @@ in
         group = "mlenz";
         extraGroups = [ "mlenz" "users" "networkmanager" "wheel" ];
         isNormalUser = true;
+        initialHashedPassword = "$y$j9T$PNrr2mfD3mtxoSfR26fYh/$qNvFLgYOJFAms5MwZ42vM0F0aUP.ceHpD0j4LAr7IP5";
       })
       (lib.mkIf stdenv.isDarwin {
         gid = 1000;

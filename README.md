@@ -33,3 +33,7 @@ darwin-rebuild switch --flake github:mirkolenz/nixos
 ```shell
 nix build --system SYSTEM github:mirkolenz/nixos\#MACHINE_NAME
 ```
+
+## Hash Password
+
+docker run -it --rm alpine mkpasswd PASSWORD
