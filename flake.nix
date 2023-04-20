@@ -111,6 +111,10 @@
         modules = [
           defaults
           home-manager.nixosModules.home-manager
+          nixos-hardware.nixosModules.common-pc-ssd
+          nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+          nixos-hardware.nixosModules.common-gpu-amd
+          nixos-hardware.nixosModules.common-hidpi
           ./platforms/nixos.nix
           ./hosts/homeserver
           ./users
@@ -132,6 +136,11 @@
         modules = [
           defaults
           home-manager.nixosModules.home-manager
+          nixos-hardware.nixosModules.common-pc-laptop-ssd
+          nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+          nixos-hardware.nixosModules.common-gpu-intel
+          nixos-hardware.nixosModules.common-gpu-nvidia-disable
+          nixos-hardware.nixosModules.common-hidpi
           ./platforms/nixos.nix
           ./hosts/macbook-nixos
           ./users
