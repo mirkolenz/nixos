@@ -25,5 +25,13 @@ in
   ];
   environment.shells = with pkgs; [ fish ];
 
+  environment.shellAliases = {
+    dc = "docker compose";
+    ls = "exa";
+    ll = "exa -l";
+    la = "exa -la";
+    l = "exa -l";
+  };
+
   nix.package = pkgs.nix;
 }
