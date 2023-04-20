@@ -2,7 +2,7 @@
 let
   # inherit (lib.attrsets) optionalAttrs;
   inherit (pkgs) stdenv;
-  inherit (extras) username;
+  inherit (extras) username dummyPackage;
   inherit (extras.inputs) gitignore;
   homeDirectory = if stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
   poetryPrefix = if stdenv.isDarwin then "Library/Preferences/pypoetry" else "${config.xdg.configHome}/pypoetry";
@@ -373,8 +373,10 @@ in {
       enable = true;
       package = pkgs.vscode.fhs;
     };
-    alacritty = lib.mkIf (stdenv.isLinux && osConfig.services.xserver.enable) {
+    alacritty = lib.mkIf (stdenv.isDarwin || (stdenv.isLinux && osConfig.services.xserver.enable)) {
       enable = true;
+      # on macOS, we install it via brew and only want the settings
+      package = lib.mkIf stdenv.isDarwin dummyPackage;
     };
   };
 }
