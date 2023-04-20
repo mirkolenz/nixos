@@ -10,10 +10,14 @@
     enable = true;
     displayManager = {
       sddm.enable = true;
-      autoLogin.enable = true;
-      autoLogin.user = "mlenz";
+      autoLogin = {
+        enable = true;
+        user = "mlenz";
+      };
     };
-    desktopManager.plasma5.enable = true;
+    desktopManager = {
+      plasma5.enable = true;
+    };
     layout = "us";
     xkbVariant = "";
     excludePackages = with pkgs; [
