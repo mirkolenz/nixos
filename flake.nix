@@ -56,6 +56,7 @@
             inherit (pkgs.stdenv.targetPlatform) system;
             config.allowUnfree = true;
           };
+          dummyPackage = (pkgs.writeShellScriptBin "dummy" ":");
           username = "mlenz";
           stateVersion = "22.11";
         };
