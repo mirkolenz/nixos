@@ -3,20 +3,21 @@
   # Packages
   environment.systemPackages = with pkgs; [
     google-chrome
+    whitesur-gtk-theme
   ];
   # Wayland support
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   services.xserver = {
     enable = true;
     displayManager = {
-      sddm.enable = true;
+      gdm.enable = true;
       autoLogin = {
         enable = true;
         user = "mlenz";
       };
     };
     desktopManager = {
-      plasma5.enable = true;
+      gnome.enable = true;
     };
     layout = "us";
     xkbVariant = "";
@@ -25,10 +26,10 @@
     ];
   };
   # Remove default GNOME apps.
-  # services.gnome.core-utilities.enable = false;
+  services.gnome.core-utilities.enable = false;
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  # systemd.services."getty@tty1".enable = false;
-  # systemd.services."autovt@tty1".enable = false;
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
   # Printing
   services.printing.enable = true;
   # Enable sound with pipewire.
