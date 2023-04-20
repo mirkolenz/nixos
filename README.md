@@ -3,8 +3,9 @@
 ## NixOS
 
 1. Install NixOS with provided ISO
-2. Migrate generated `/etc/nixos/configuration.nix` and `/etc/nixos/hardware-configuration.nix` to this flake manually
-3. Eventually install git in a temporary shell: `nix-shell -p git`
+2. Create config: `nixos-generate-config`
+3. Migrate generated `/etc/nixos/configuration.nix` and `/etc/nixos/hardware-configuration.nix` to this flake manually
+4. Eventually install git in a temporary shell: `nix-shell -p git`
 
 ```shell
 # Large changes (like first time)
