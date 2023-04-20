@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     google-chrome
     whitesur-gtk-theme
+    whitesur-icon-theme
   ];
   # Wayland support
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
