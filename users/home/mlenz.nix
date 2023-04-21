@@ -425,7 +425,7 @@ in {
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
     };
-    "/org/gnome/nautilus/preferences" = {
+    "org/gnome/nautilus/preferences" = {
       default-folder-viewer = "list-view";
     };
   };
