@@ -1,11 +1,19 @@
 { pkgs, ... }:
 {
   # Packages
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     google-chrome
-    whitesur-gtk-theme
-    whitesur-icon-theme
-  ];
+  ]) ++ (with pkgs.gnome; [
+    nautilus
+    gnome-system-monitor
+    gnome-tweaks
+    gnome-shell-extensions
+    dconf-editor
+  ]) ++ (with pkgs.gnomeExtensions; [
+    dash-to-dock
+    user-themes
+    blur-my-shell
+  ]);
   # Wayland support
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   services.xserver = {
@@ -26,7 +34,7 @@
       xterm
     ];
   };
-  # Remove default GNOME apps.
+  # Enable/disable default GNOME apps.
   services.gnome.core-utilities.enable = false;
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -47,4 +55,6 @@
     };
     pulse.enable = true;
   };
+  # Gnome themes
+  programs.dconf.enable = true;
 }
