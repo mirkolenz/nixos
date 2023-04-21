@@ -15,7 +15,8 @@
     };
   };
 
-  services.throttled.enable = true;
+  # Not working due to failing `lenovo_fix.service`
+  # services.throttled.enable = true;
 
   powerManagement = {
     enable = true;
