@@ -1,25 +1,13 @@
-{ lib, config, osConfig, pkgs, extras, ... }:
-let
-  inherit (pkgs) stdenv;
-  inherit (extras) username;
-  homeDirectory = if stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
-in {
+{ ... }:
+{
   imports = [
-    ../programs/fish.nix
-    ../programs/micro.nix
-    ../programs/neovim.nix
-    ../programs/git.nix
-    ../programs/ssh.nix
-    ../files
+    ./fish.nix
+    ./git.nix
+    ./micro.nix
+    ./neovim.nix
+    ./ssh.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  home = {
-    inherit username;
-    inherit (extras) stateVersion;
-    homeDirectory = lib.mkDefault homeDirectory;
-  };
   programs = {
     home-manager.enable = true;
     htop = {

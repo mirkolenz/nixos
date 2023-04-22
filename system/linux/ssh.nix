@@ -1,10 +1,9 @@
-{ extras, lib, ... }:
+{ extras, lib, pkgs, ... }:
 let
   inherit (extras.inputs) mlenz-ssh-keys;
 in
 {
   services.openssh = {
-    enable = true;
     passwordAuthentication = false;
     kbdInteractiveAuthentication = false;
     permitRootLogin = "no";

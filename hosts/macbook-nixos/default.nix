@@ -2,9 +2,9 @@
 {
   imports = [
     ./hardware.nix
-    ../workstation.nix
-    ../ssh.nix
+    ../../templates/workstation.nix
   ];
+  services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {

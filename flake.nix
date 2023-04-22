@@ -101,10 +101,7 @@
           defaults
           home-manager.nixosModules.home-manager
           vscode-server.nixosModule
-          ./platforms/nixos.nix
           ./hosts/vm
-          ./users
-          ./home
         ];
       };
       homeserver = nixpkgs.lib.nixosSystem {
@@ -116,10 +113,7 @@
           nixos-hardware.nixosModules.common-cpu-intel-cpu-only
           nixos-hardware.nixosModules.common-gpu-amd
           nixos-hardware.nixosModules.common-hidpi
-          ./platforms/nixos.nix
           ./hosts/homeserver
-          ./users
-          ./home
         ];
       };
       raspi = nixpkgs.lib.nixosSystem {
@@ -128,10 +122,7 @@
           defaults
           home-manager.nixosModules.home-manager
           nixos-hardware.nixosModules.raspberry-pi-4
-          ./platforms/nixos.nix
           ./hosts/raspi
-          ./users
-          ./home
         ];
       };
       macbook-nixos = nixpkgs.lib.nixosSystem {
@@ -144,10 +135,7 @@
           nixos-hardware.nixosModules.common-gpu-intel
           nixos-hardware.nixosModules.common-gpu-nvidia-disable
           nixos-hardware.nixosModules.common-hidpi
-          ./platforms/nixos.nix
           ./hosts/macbook-nixos
-          ./users
-          ./home
         ];
       };
     };
@@ -157,10 +145,7 @@
         modules = [
           defaults
           home-manager.darwinModules.home-manager
-          ./platforms/darwin.nix
           ./hosts/macbook
-          ./users
-          ./home
         ];
       };
     };

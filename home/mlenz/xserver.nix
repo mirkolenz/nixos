@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-{
+{ lib, pkgs, osConfig, ... }:
+lib.mkIf (pkgs.stdenv.isLinux && osConfig.services.xserver.enable) {
   programs = {
     vscode = {
       enable = true;

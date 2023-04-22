@@ -1,10 +1,7 @@
-{ pkgs, lib, extras, ... }:
-let
-  inherit (pkgs) stdenv;
-in
+{ pkgs, lib, extras, config, ... }:
 {
   users = {
-    users.root = lib.mkIf stdenv.isLinux {
+    users.root = lib.mkIf pkgs.stdenv.isLinux {
       # Disable root login
       # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/2
       hashedPassword = "!";
@@ -20,13 +17,13 @@ in
           rnix-lsp
         ];
       }
-      (lib.mkIf stdenv.isLinux {
+      (lib.mkIf pkgs.stdenv.isLinux {
         group = "mlenz";
         extraGroups = [ "mlenz" "users" "networkmanager" "wheel" ];
         isNormalUser = true;
         initialHashedPassword = "$y$j9T$PNrr2mfD3mtxoSfR26fYh/$qNvFLgYOJFAms5MwZ42vM0F0aUP.ceHpD0j4LAr7IP5";
       })
-      (lib.mkIf stdenv.isDarwin {
+      (lib.mkIf pkgs.stdenv.isDarwin {
         gid = 1000;
       })
     ];

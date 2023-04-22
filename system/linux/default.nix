@@ -1,6 +1,10 @@
-{ pkgs, extras, ... }:
+{ lib, pkgs, extras, config, ... }:
 {
-  imports = [ ./base.nix ];
+  imports = [
+    ./docker.nix
+    ./ssh.nix
+    ./xserver.nix
+  ];
 
   networking.networkmanager.enable = true;
 
@@ -9,10 +13,6 @@
   '';
 
   i18n.defaultLocale = "en_US.UTF-8";
-
-  virtualisation.docker = {
-    enable = true;
-  };
 
   users = {
     mutableUsers = true;
@@ -36,7 +36,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    docker-compose
     mkpasswd
   ];
 

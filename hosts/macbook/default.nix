@@ -1,2 +1,6 @@
 {...}:
-{}
+{
+  imports = [
+    ../../templates/mac.nix
+  ];
+}
