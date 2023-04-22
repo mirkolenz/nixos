@@ -1,4 +1,4 @@
-{ extras, lib, pkgs, ... }:
+{ extras, lib, pkgs, config, ... }:
 let
   inherit (extras.inputs) mlenz-ssh-keys;
 in
@@ -12,4 +12,8 @@ in
   users.users.mlenz = {
     openssh.authorizedKeys.keyFiles = [ mlenz-ssh-keys.outPath ];
   };
+
+  environment.systemPackages = lib.mkIf config.services.openssh.enable (with pkgs; [
+    tmux
+  ]);
 }
