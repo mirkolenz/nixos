@@ -104,6 +104,7 @@
           ./platforms/nixos.nix
           ./hosts/vm
           ./users
+          ./home
         ];
       };
       homeserver = nixpkgs.lib.nixosSystem {
@@ -118,6 +119,7 @@
           ./platforms/nixos.nix
           ./hosts/homeserver
           ./users
+          ./home
         ];
       };
       raspi = nixpkgs.lib.nixosSystem {
@@ -129,6 +131,7 @@
           ./platforms/nixos.nix
           ./hosts/raspi
           ./users
+          ./home
         ];
       };
       macbook-nixos = nixpkgs.lib.nixosSystem {
@@ -144,6 +147,7 @@
           ./platforms/nixos.nix
           ./hosts/macbook-nixos
           ./users
+          ./home
         ];
       };
     };
@@ -156,6 +160,7 @@
           ./platforms/darwin.nix
           ./hosts/macbook
           ./users
+          ./home
         ];
       };
     };

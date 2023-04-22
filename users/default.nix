@@ -1,22 +1,8 @@
 { pkgs, lib, extras, ... }:
 let
   inherit (pkgs) stdenv;
-  defaults = { ... }: {
-    _module.args = { inherit extras; };
-  };
 in
 {
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    # users.mlenz = import ./home/mlenz.nix;
-    users.mlenz = {
-      imports = [
-        defaults
-        ./home/mlenz.nix
-      ];
-    };
-  };
   users = {
     users.root = lib.mkIf stdenv.isLinux {
       # Disable root login
