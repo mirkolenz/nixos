@@ -6,6 +6,7 @@
     ./micro.nix
     ./neovim.nix
     ./ssh.nix
+    ./starship.nix
   ];
 
   programs = {
