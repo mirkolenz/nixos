@@ -12,8 +12,4 @@ in
   users.users.mlenz = {
     openssh.authorizedKeys.keyFiles = [ mlenz-ssh-keys.outPath ];
   };
-
-  environment.systemPackages = lib.mkIf config.services.openssh.enable (with pkgs; [
-    tmux
-  ]);
 }

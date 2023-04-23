@@ -8,6 +8,7 @@
     ./pandoc.nix
     ./ssh.nix
     ./starship.nix
+    ./tmux.nix
   ];
 
   programs = {
