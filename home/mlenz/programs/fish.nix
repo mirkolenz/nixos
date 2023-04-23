@@ -9,11 +9,11 @@
           fish_add_path --prepend --move $p/bin
         end
       '')
-      (lib.optionalString (config.programs.tmux.enable) ''
-        if not set -q TMUX
-          tmux attach-session
-        end
-      '')
+      # (lib.optionalString (config.programs.tmux.enable) ''
+      #   if not set -q TMUX
+      #     tmux attach-session
+      #   end
+      # '')
     ];
     functions = {
       fish_greeting = {
