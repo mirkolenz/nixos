@@ -19,10 +19,6 @@
         end
       end
     '';
-    interactiveShellInit = ''
-      # Disable greeting
-      set fish_greeting ""
-    '';
     functions = {
       dockerup = {
         body = ''
@@ -32,6 +28,14 @@
           sudo docker image prune --all --force
         '';
         description = "Update all docker-compose containers";
+      };
+      fish_greeting = {
+        body = ''
+          if set -q SSH_TTY
+            macchina --theme Lithium
+          end
+        '';
+        description = "Override the default greeting";
       };
       docker-reset = {
         body = ''

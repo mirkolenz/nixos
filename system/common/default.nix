@@ -18,6 +18,7 @@ in
     ripgrep
     rsync
     wget
+    macchina
   ];
 
   nix = {

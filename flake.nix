@@ -46,6 +46,10 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    macchina = {
+      url = "github:Macchina-CLI/macchina/v6.1.8";
+      flake = false;
+    };
   };
 
   outputs =

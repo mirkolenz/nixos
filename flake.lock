@@ -164,6 +164,23 @@
         "type": "github"
       }
     },
+    "macchina": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673277089,
+        "narHash": "sha256-MntHq5nphfjbO0Rx7v6WjsnabSMH5Ke3aR9/embG/rk=",
+        "owner": "Macchina-CLI",
+        "repo": "macchina",
+        "rev": "f228e72bd6a84bb18c26f1665c412cf206d425a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Macchina-CLI",
+        "ref": "v6.1.8",
+        "repo": "macchina",
+        "type": "github"
+      }
+    },
     "mlenz-ssh-keys": {
       "flake": false,
       "locked": {
@@ -394,6 +411,7 @@
         "flake-parts": "flake-parts",
         "gitignore": "gitignore",
         "home-manager": "home-manager",
+        "macchina": "macchina",
         "mlenz-ssh-keys": "mlenz-ssh-keys",
         "nix-index-database": "nix-index-database",
         "nixos-generators": "nixos-generators",
