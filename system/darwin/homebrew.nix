@@ -174,6 +174,6 @@
       "WireGuard" = 1451685025;
       "Yoink" = 457622435;
     };
-    whalebrews = [];
+    whalebrews = [ ];
   };
 }

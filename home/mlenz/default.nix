@@ -2,7 +2,8 @@
 let
   inherit (extras) username;
   homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
-in {
+in
+{
   imports = [
     ./xserver.nix
     ./programs

@@ -1,4 +1,4 @@
-{...}:
+{ ... }:
 {
   imports = [
     ../../templates/mac.nix
