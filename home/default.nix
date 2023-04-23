@@ -11,6 +11,7 @@ in
     users.mlenz.imports = [
       defaults
       ./mlenz
+      extras.inputs.nix-index-database.hmModules.nix-index
     ];
   };
 }

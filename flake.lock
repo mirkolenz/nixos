@@ -176,6 +176,26 @@
         "url": "https://github.com/mirkolenz.keys"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1681591833,
+        "narHash": "sha256-lW+xOELafAs29yw56FG4MzNOFkh8VHC/X/tRs1wsGn8=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "68ec961c51f48768f72d2bbdb396ce65a316677e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1681001314,
@@ -375,6 +395,7 @@
         "gitignore": "gitignore",
         "home-manager": "home-manager",
         "mlenz-ssh-keys": "mlenz-ssh-keys",
+        "nix-index-database": "nix-index-database",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

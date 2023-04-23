@@ -42,6 +42,10 @@
       url = "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode";
       flake = false;
     };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
