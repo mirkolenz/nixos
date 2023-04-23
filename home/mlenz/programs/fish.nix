@@ -22,7 +22,7 @@
       };
       fish_greeting = {
         body = ''
-          if set -q SSH_TTY
+          if set -q SSH_TTY; and status is-login
             macchina --theme Lithium
           end
         '';
