@@ -2,15 +2,6 @@
 {
   programs.fish = {
     enable = true;
-    shellAliases = {
-      dc = "docker compose";
-      ls = "exa";
-      ll = "exa -l";
-      la = "exa -la";
-      l = "exa -l";
-      py = "poetry run python -m";
-      hass = "hass-cli";
-    };
     # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1266049484
     loginShellInit = ''
       if test (uname) = Darwin

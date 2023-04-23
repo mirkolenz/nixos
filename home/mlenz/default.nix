@@ -16,5 +16,14 @@ in
     inherit username;
     inherit (extras) stateVersion;
     homeDirectory = lib.mkDefault homeDirectory;
+    shellAliases = {
+      dc = "docker compose";
+      ls = "exa";
+      ll = "exa -l";
+      la = "exa -la";
+      l = "exa -l";
+      py = "poetry run python -m";
+      hass = "hass-cli";
+    };
   };
 }
