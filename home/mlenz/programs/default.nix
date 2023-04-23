@@ -5,6 +5,7 @@
     ./git.nix
     ./micro.nix
     ./neovim.nix
+    ./pandoc.nix
     ./ssh.nix
     ./starship.nix
   ];
@@ -14,9 +15,6 @@
     htop = {
       enable = true;
     };
-    # texlive = {
-    #   enable = true;
-    # };
     gh = {
       enable = true;
       settings = {

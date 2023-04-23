@@ -20,7 +20,6 @@ in
     nodejs
     nodePackages.prettier
     ocrmypdf
-    pandoc
     plantuml
     poetry
     poetryPlugins.poetry-plugin-up
