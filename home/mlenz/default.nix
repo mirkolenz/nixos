@@ -25,5 +25,8 @@ in
       py = "poetry run python -m";
       hass = "hass-cli";
     };
+    sessionVariables = {
+      DIRENV_LOG_FORMAT = "";
+    };
   };
 }

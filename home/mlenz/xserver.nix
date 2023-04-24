@@ -1,4 +1,7 @@
-{ lib, pkgs, osConfig, ... }:
+{ lib, pkgs, osConfig, extras, ... }:
+let
+  inherit (extras) unstable;
+in
 lib.mkIf (pkgs.stdenv.isLinux && osConfig.services.xserver.enable) {
   programs = {
     vscode = {
