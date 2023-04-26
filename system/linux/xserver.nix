@@ -3,6 +3,7 @@ lib.mkIf config.services.xserver.enable {
   # Packages
   environment.systemPackages = (with pkgs; [
     google-chrome
+    gparted
   ]) ++ (with pkgs.gnome; [
     nautilus
     gnome-system-monitor
