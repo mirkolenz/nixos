@@ -94,31 +94,50 @@
               };
             };
           };
+          generatorFormats = {
+            # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
+            "custom-sd" = {
+              imports = [
+                "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+              ];
+              formatAttr = "sdImage";
+            };
+            # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
+            "custom-iso" = {
+              imports = [
+                "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+              ];
+              formatAttr = "isoImage";
+            };
+          };
         in
         {
           packages = {
             aarch64-linux = {
               raspi = nixos-generators.nixosGenerate {
                 system = "aarch64-linux";
-                # customFormats = {
-                #   "myFormat" = {
-                #     imports = [
-                #       "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-                #     ];
-                #     formatAttr = "sdImage";
-                #   };
-                # };
-                format = "sd-aarch64-installer";
+                customFormats = generatorFormats;
+                format = "custom-sd";
                 modules = [
                   defaults
                   ./installer/raspi.nix
+                ];
+              };
+              iso = nixos-generators.nixosGenerate {
+                system = "aarch64-linux";
+                customFormats = generatorFormats;
+                format = "custom-iso";
+                modules = [
+                  defaults
+                  ./installer/iso.nix
                 ];
               };
             };
             x86_64-linux = {
               iso = nixos-generators.nixosGenerate {
                 system = "x86_64-linux";
-                format = "install-iso";
+                customFormats = generatorFormats;
+                format = "custom-iso";
                 modules = [
                   defaults
                   ./installer/iso.nix
