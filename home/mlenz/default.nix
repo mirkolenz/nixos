@@ -1,6 +1,6 @@
 { lib, config, osConfig, pkgs, extras, ... }:
 let
-  inherit (extras) username;
+  username = "mlenz";
   homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
 in
 {

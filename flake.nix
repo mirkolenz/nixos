@@ -89,7 +89,6 @@
                   config.allowUnfree = true;
                 };
                 dummyPackage = (pkgs.writeShellScriptBin "dummy" ":");
-                username = "mlenz";
                 stateVersion = "22.11";
               };
             };
