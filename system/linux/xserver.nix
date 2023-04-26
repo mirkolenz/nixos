@@ -6,9 +6,11 @@ lib.mkIf config.services.xserver.enable {
   ]) ++ (with pkgs.gnome; [
     nautilus
     gnome-system-monitor
+    gnome-disk-utility
     gnome-tweaks
     gnome-shell-extensions
     dconf-editor
+    yelp
   ]) ++ (with pkgs.gnomeExtensions; [
     dash-to-dock
     user-themes
