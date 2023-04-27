@@ -26,6 +26,9 @@ in
     rsync
     curl
     wget
+    gnugrep
+    direnv
+    nix-direnv
   ];
 
   nix = {

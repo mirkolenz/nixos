@@ -10,6 +10,11 @@ in
 {
   programs.fish = {
     enable = true;
+    # https://github.com/direnv/direnv/issues/614#issuecomment-744575699
+    loginShellInit = ''
+      set -q DIRENV_DIR
+      eval (pushd /; direnv export fish; popd;)
+    '';
     functions = {
       fish_greeting = {
         body = fishGreeting;
