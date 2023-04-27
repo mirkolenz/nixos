@@ -8,10 +8,6 @@
 
   networking.networkmanager.enable = true;
 
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-
   i18n.defaultLocale = "en_US.UTF-8";
 
   users = {

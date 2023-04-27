@@ -31,6 +31,11 @@ in
   nix = {
     package = pkgs.nix;
     settings = {
+      keep-going = true;
+      keep-outputs = true;
+      keep-derivations = true;
+      keep-failed = false;
+      experimental-features = "nix-command flakes";
       # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
       auto-optimise-store = false;
     };
