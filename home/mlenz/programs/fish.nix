@@ -1,4 +1,12 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, osConfig, ... }:
+let
+  fishGreeting =
+    if pkgs.stdenv.isLinux then ''
+      if set -q SSH_TTY; and status is-login
+        macchina --theme Lithium
+      end
+    '' else "";
+in
 {
   programs.fish = {
     enable = true;
@@ -17,11 +25,7 @@
     ];
     functions = {
       fish_greeting = {
-        body = ''
-          if set -q SSH_TTY; and status is-login
-            macchina --theme Lithium
-          end
-        '';
+        body = fishGreeting;
         description = "Override the default greeting";
       };
       # https://github.com/fish-shell/fish-shell/blob/master/share/functions/_validate_int.fish

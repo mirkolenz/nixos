@@ -37,6 +37,7 @@
 
   environment.systemPackages = with pkgs; [
     mkpasswd
+    macchina
   ];
 
   environment.defaultPackages = with pkgs; [
