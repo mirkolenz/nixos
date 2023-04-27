@@ -67,14 +67,6 @@
       systems = nixpkgs.lib.systems.flakeExposed;
       perSystem = { config, pkgs, system, ... }: {
         formatter = pkgs.nixpkgs-fmt;
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nixpkgs-fmt
-            nil
-            rnix-lsp
-            git
-          ];
-        };
       };
       flake =
         let
