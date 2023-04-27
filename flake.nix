@@ -190,12 +190,12 @@
             };
           };
           darwinConfigurations = {
-            macbook = darwin.lib.darwinSystem {
+            mirkos-macbook = darwin.lib.darwinSystem {
               system = "x86_64-darwin";
               modules = [
                 defaults
                 home-manager.darwinModules.home-manager
-                ./hosts/macbook
+                ./hosts/mirkos-macbook
               ];
             };
           };
