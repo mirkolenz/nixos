@@ -31,7 +31,8 @@ in
   nix = {
     package = pkgs.nix;
     settings = {
-      auto-optimise-store = true;
+      # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
+      auto-optimise-store = false;
     };
     gc = lib.mkMerge [
       {
