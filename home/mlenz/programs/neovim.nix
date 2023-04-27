@@ -2,7 +2,7 @@
 {
   programs.neovim = {
     enable = true;
-    defaultEditor = true;
+    # TODO: new in 23.05 defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     extraConfig = ''

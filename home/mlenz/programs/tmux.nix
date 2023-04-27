@@ -4,7 +4,7 @@
     enable = pkgs.stdenv.isLinux && osConfig.services.openssh.enable;
     clock24 = true;
     keyMode = "vi";
-    mouse = true;
+    # TODO: new in 23.05 mouse = true;
     newSession = true;
     shell = "${pkgs.fish}/bin/fish";
     shortcut = "a";
