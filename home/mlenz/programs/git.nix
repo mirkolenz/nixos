@@ -1,4 +1,4 @@
-{ extras, lib, ... }:
+{ extras, lib, pkgs, ... }:
 let
   inherit (extras.inputs) gitignore;
 in
@@ -18,17 +18,34 @@ in
         eol = "lf";
       };
       pull = {
-        rebase = "true";
+        rebase = true;
       };
       rebase = {
-        autoStash = "true";
+        autoStash = true;
       };
       init = {
         defaultBranch = "main";
       };
       push = {
-        followTags = "true";
-        autoSetupRemote = "true";
+        followTags = true;
+        autoSetupRemote = true;
+      };
+      difftool = {
+        prompt = false;
+        vscode.cmd = "code -dnw --diff --new-window --wait $LOCAL $REMOTE";
+        kaleidoscope.cmd = "ksdiff --partial-changeset --relative-path $MERGED -- $LOCAL $REMOTE";
+      };
+      diff = {
+        tool = lib.mkIf pkgs.stdenv.isDarwin "vscode";
+      };
+      mergetool = {
+        prompt = false;
+        vscode.cmd = "code --merge --new-window --wait $REMOTE $LOCAL $BASE $MERGED";
+        kaleidoscope.cmd = "ksdiff --merge --output $MERGED --base $BASE -- $LOCAL --snapshot $REMOTE --snapshot";
+      };
+      merge = {
+        tool = lib.mkIf pkgs.stdenv.isDarwin "vscode";
+        trustExitCode = true;
       };
     };
   };
