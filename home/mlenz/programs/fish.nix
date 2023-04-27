@@ -10,19 +10,6 @@ in
 {
   programs.fish = {
     enable = true;
-    # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1266049484
-    loginShellInit = lib.concatStringsSep "\n" [
-      (lib.optionalString (pkgs.stdenv.isDarwin) ''
-        for p in (string split " " $NIX_PROFILES)
-          fish_add_path --prepend --move $p/bin
-        end
-      '')
-      # (lib.optionalString (config.programs.tmux.enable) ''
-      #   if not set -q TMUX
-      #     tmux attach-session
-      #   end
-      # '')
-    ];
     functions = {
       fish_greeting = {
         body = fishGreeting;
