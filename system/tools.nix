@@ -28,6 +28,5 @@ in
     ruff
     speedtest-cli
     youtube-dl
-    # TODO: texlive.combined.scheme-full
   ]);
 }

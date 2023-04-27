@@ -41,7 +41,6 @@
   ];
 
   environment.defaultPackages = with pkgs; [
-    neovim
     rsync
     python3Minimal
     strace

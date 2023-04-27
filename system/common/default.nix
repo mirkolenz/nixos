@@ -9,14 +9,22 @@ in
     ../../home
   ];
 
+  # https://zaiste.net/posts/shell-commands-rust/
   environment.systemPackages = with pkgs; [
-    curl
+    bat
     exa
     fd
+    procs
+    sd
+    ripgrep
+    bottom
+    tealdeer
+    bandwhich
+    delta
     gnumake
     massren
-    ripgrep
     rsync
+    curl
     wget
   ];
 

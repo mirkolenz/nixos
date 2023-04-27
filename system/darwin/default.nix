@@ -18,4 +18,8 @@ in
     build-users-group = nixbld
     experimental-features = nix-command flakes
   '';
+
+  environment.systemPackages = with unstable; [
+    texlive.combined.scheme-full
+  ];
 }
