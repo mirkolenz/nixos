@@ -9,9 +9,9 @@
 
 ```shell
 # Large changes (like first time)
-sudo nixos-rebuild boot --flake github:mirkolenz/nixos#MACHINE_NAME
+sudo nixos-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME boot
 # Small changes
-sudo nixos-rebuild switch --flake github:mirkolenz/nixos#MACHINE_NAME
+sudo nixos-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
 ```
 
 ## Nix-Darwin
@@ -22,14 +22,21 @@ sudo nixos-rebuild switch --flake github:mirkolenz/nixos#MACHINE_NAME
 4. Enable Full Disk Access for terminal application
 
 ```shell
-cd ~/.config/darwin
 # First invokation
 nix build github:mirkolenz/nixos#darwinConfigurations.MACHINE_NAME.system
-./result/sw/bin/darwin-rebuild boot --flake github:mirkolenz/nixos#MACHINE_NAME
-# Restart
+./result/sw/bin/darwin-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
+# You could get the following error: error: Directory /run does not exist, aborting activation
+# You need to run apfs.util with sudo, otherwise you will get this error:
+# failed to stitch firmlinks and/or create synthetics for root volume (c00d) ...
+# You may need to manually remove some existing files like the following
+# ATTENTION: Do not close the shell before incoking darwin-rebuild again, otherwise your path may be broken
+sudo rm /etc/bashrc /etc/shells /etc/zshrc /etc/nix/nix.conf
+# Activate again
+./result/sw/bin/darwin-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
 chsh -s /run/current-system/sw/bin/fish
+sudo reboot
 # Later invokations
-darwin-rebuild switch --flake github:mirkolenz/nixos#MACHINE_NAME
+darwin-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
 ```
 
 ## NixOS Generators
