@@ -104,7 +104,7 @@
             # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
             "custom-iso" = {
               imports = [
-                "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+                "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
               ];
               formatAttr = "isoImage";
             };
