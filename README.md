@@ -35,6 +35,8 @@ sudo rm /etc/bashrc /etc/shells /etc/zshrc /etc/nix/nix.conf
 ./result/sw/bin/darwin-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
 chsh -s /run/current-system/sw/bin/fish
 sudo reboot
+# Add all ssh keys to keychain
+ssh-add --apple-use-keychain ~/.ssh/KEY_NAME
 # Later invokations
 darwin-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
 ```
