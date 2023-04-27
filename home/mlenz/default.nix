@@ -2,6 +2,7 @@
 let
   username = "mlenz";
   homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+  exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
 in
 {
   imports = [
@@ -17,11 +18,13 @@ in
     inherit (extras) stateVersion;
     homeDirectory = lib.mkDefault homeDirectory;
     shellAliases = {
-      dc = "docker compose";
+      cat = "bat";
       ls = "exa";
-      ll = "exa -l";
-      la = "exa -la";
-      l = "exa -l";
+      ll = "exa ${exaArgs}";
+      la = "exa --all ${exaArgs}";
+      l = "exa ${exaArgs}";
+      top = "bottom";
+      dc = "docker compose";
       py = "poetry run python -m";
       hass = "hass-cli";
     };
