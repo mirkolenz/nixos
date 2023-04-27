@@ -75,3 +75,4 @@ Temporary Items
 result
 images
 *.passwd
+.direnv
