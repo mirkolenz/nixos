@@ -36,7 +36,7 @@ sudo rm /etc/bashrc /etc/shells /etc/zshrc /etc/nix/nix.conf
 chsh -s /run/current-system/sw/bin/fish
 sudo reboot
 # Add all ssh keys to keychain
-ssh-add --apple-use-keychain ~/.ssh/KEY_NAME
+ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 # Later invokations
 darwin-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
 ```
