@@ -13,6 +13,7 @@ in
     # https://github.com/direnv/direnv/issues/614#issuecomment-744575699
     loginShellInit = ''
       set -q DIRENV_DIR
+      and test -n "$DIRENV_DIR"
       and eval (pushd /; direnv export fish; popd;)
     '';
     functions = {
@@ -24,7 +25,7 @@ in
       _validate_string = {
         noScopeShadowing = true;
         body = ''
-          if not set -q $_flag_value; or not test -n $_flag_value
+          if not set -q _flag_value; or not test -n $_flag_value
             echo "Option $_flag_name is empty" >&2
             return 1
           end
