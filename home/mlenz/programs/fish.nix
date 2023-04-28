@@ -30,13 +30,14 @@ in
           end
         '';
       };
-      dockerup = {
+      dcup = {
         body = ''
           sudo docker compose pull $argv
           sudo docker compose build $argv
-          sudo docker compose up --detach
+          sudo docker compose up --detach $argv
           sudo docker image prune --all --force
         '';
+        wraps = "docker compose";
         description = "Update all docker-compose containers";
       };
       docker-reset = {

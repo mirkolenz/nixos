@@ -70,6 +70,7 @@ mount /dev/disk/by-label/boot /mnt/boot
 nixos-generate-config --root /mnt
 cd /mnt/etc/nixos/
 # Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
+nixos-install --flake github:mirkolenz/nixos#MACHINE_NAME
 ```
 
 ## Nix-Darwin

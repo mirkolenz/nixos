@@ -23,8 +23,8 @@ in
       ll = "exa ${exaArgs}";
       la = "exa --all ${exaArgs}";
       l = "exa ${exaArgs}";
-      top = "bottom";
-      dc = "docker compose";
+      top = "btm";
+      dc = "sudo docker compose";
       py = "poetry run python -m";
       hass = "hass-cli";
     };
