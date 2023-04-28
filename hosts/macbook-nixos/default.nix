@@ -4,6 +4,7 @@
     ./hardware.nix
     ../../templates/workstation.nix
   ];
+  networking.hostName = "macbook-nixos";
   services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -22,6 +23,4 @@
     enable = true;
     cpuFreqGovernor = "performance";
   };
-
-  networking.hostName = "macbook-nixos";
 }
