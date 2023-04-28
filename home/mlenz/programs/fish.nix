@@ -32,13 +32,14 @@ in
       };
       dcup = {
         body = ''
-          sudo docker compose pull $argv
-          sudo docker compose build $argv
-          sudo docker compose up --detach $argv
+          sudo docker compose --file "$file" pull
+          sudo docker compose --file "$file" build
+          sudo docker compose --file "$file" up --detach
           sudo docker image prune --all --force
         '';
         wraps = "docker compose";
         description = "Update all docker-compose containers";
+        argumentNames = [ "file" ];
       };
       docker-reset = {
         body = ''
