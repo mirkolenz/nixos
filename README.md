@@ -14,6 +14,64 @@ sudo nixos-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME boot
 sudo nixos-rebuild --flake github:mirkolenz/nixos#MACHINE_NAME switch
 ```
 
+## With Minimal Image
+
+https://www.adaltas.com/en/2022/02/08/nixos-installation/
+https://nixos.wiki/wiki/NixOS_Installation_Guide
+
+### Partitioning
+
+```shell
+lsblk # Find out the device name, most likely /dev/sda
+fdisk DEVICE
+g # empty gpt partition table
+n # new partition
+1 # partition number
+2048 # first sector, default
++512M # last sector
+t # change partition type
+1 # partition number (if not already selected)
+1 # efi partition type
+n # new partition
+2 # partition number
+# first sector, default
+-16G # last sector, size of swap (about the size of your ram)
+n # new partition
+3 # partition number
+# first sector, default
+# last sector, default
+t # change partition type
+3 # partition number
+19 # linux swap
+v # verify
+w # write
+```
+
+### Formatting
+
+```shell
+mkfs.ext4 -L root /dev/sda2
+mkswap -L swap /dev/sda3
+mkfs.fat -F 32 -n boot /dev/sda1
+```
+
+### Mounting
+
+```shell
+mount /dev/disk/by-label/root /mnt
+swapon /dev/disk/by-label/swap
+mkdir -p /mnt/boot
+mount /dev/disk/by-label/boot /mnt/boot
+```
+
+### Installation
+
+```shell
+nixos-generate-config --root /mnt
+cd /mnt/etc/nixos/
+# Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
+```
+
 ## Nix-Darwin
 
 1. `xcode-select --install`
