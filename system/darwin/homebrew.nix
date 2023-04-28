@@ -66,6 +66,7 @@
       "rectangle-pro"
       # "replacicon"
       # "shortcat"
+      "signal"
       # "soundsource"
       "steermouse"
       "tiptoi-manager"
