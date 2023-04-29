@@ -27,6 +27,7 @@ in
       dc = "sudo docker compose";
       py = "poetry run python -m";
       hass = "hass-cli";
+      nixos-env = "sudo nix-env --profile /nix/var/nix/profiles/system";
     };
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
