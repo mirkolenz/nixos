@@ -5,7 +5,7 @@
 1. Install NixOS with provided ISO
 2. Create config: `nixos-generate-config`
 3. Migrate generated `/etc/nixos/configuration.nix` and `/etc/nixos/hardware-configuration.nix` to this flake manually
-4. Eventually install git in a temporary shell: `nix-shell -p git`
+4. Eventually install git in a temporary shell: `nix shell nixpkgs#git`
 
 ```shell
 # Large changes (like first time)
@@ -111,3 +111,14 @@ nix build --system SYSTEM github:mirkolenz/nixos#FORMAT
 ## Hash Password
 
 docker run -it --rm alpine mkpasswd PASSWORD
+
+## Update Raspberry Pi
+
+https://nix.dev/tutorials/installing-nixos-on-a-raspberry-pi#updating-firmware
+
+```shell
+nix shell nixpkgs#raspberrypi-eeprom
+sudo mount /dev/disk/by-label/FIRMWARE /mnt
+BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=stable sudo rpi-eeprom-update -d -a
+sudo reboot
+```
