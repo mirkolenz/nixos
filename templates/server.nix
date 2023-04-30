@@ -14,7 +14,7 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = "mirkolenz/nixos";
+    flake = "github:mirkolenz/nixos";
     # flags = [ "--recreate-lock-file" ];
   };
 }
