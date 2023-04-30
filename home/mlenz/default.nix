@@ -25,7 +25,7 @@ in
       l = "exa ${exaArgs}";
       top = "btm";
       dc = "sudo docker compose";
-      py = "poetry run python -m";
+      py = "poetry run python";
       hass = "hass-cli";
       nixos-env = "sudo nix-env --profile /nix/var/nix/profiles/system";
       poetryup = "/run/current-system/sw/bin/poetry up";
