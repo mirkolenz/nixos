@@ -29,6 +29,7 @@ in
       hass = "hass-cli";
       nixos-env = "sudo nix-env --profile /nix/var/nix/profiles/system";
       poetryup = "/run/current-system/sw/bin/poetry up";
+      npmup = "npx npm-check-updates --interactive";
     };
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
