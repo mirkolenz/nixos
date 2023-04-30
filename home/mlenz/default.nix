@@ -32,5 +32,20 @@ in
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };
+    packages = with pkgs; [
+      # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/nixos/modules/tasks/auto-upgrade.nix#L204
+      (writeShellApplication {
+        name = "needs-reboot";
+        runtimeInputs = [ coreutils ];
+        text = ''
+          booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+          built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+
+          if [ "$booted" != "$built" ]; then
+            echo "REBOOT NEEDED"
+          fi
+        '';
+      })
+    ];
   };
 }

@@ -4,6 +4,7 @@ let
     if pkgs.stdenv.isLinux then ''
       if set -q SSH_TTY; and status is-login
         macchina --theme Lithium
+        needs-reboot
       end
     '' else "";
 in
