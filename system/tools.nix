@@ -1,6 +1,8 @@
 { pkgs, extras, config, lib, ... }:
 let
   inherit (extras) unstable;
+  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/poetry/default.nix#L40
+  poetry = unstable.poetry.withPlugins (pluginSelector: with pluginSelector; [ poetry-plugin-up ]);
 in
 {
   environment.systemPackages = (with pkgs; [
@@ -21,12 +23,12 @@ in
     nodePackages.prettier
     ocrmypdf
     plantuml
-    poetry
-    poetryPlugins.poetry-plugin-up
     pre-commit
     python3Full
     ruff
     speedtest-cli
     youtube-dl
+  ]) ++ ([
+    poetry
   ]);
 }

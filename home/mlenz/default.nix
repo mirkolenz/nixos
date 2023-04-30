@@ -28,6 +28,7 @@ in
       py = "poetry run python -m";
       hass = "hass-cli";
       nixos-env = "sudo nix-env --profile /nix/var/nix/profiles/system";
+      poetryup = "/run/current-system/sw/bin/poetry up"
     };
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
