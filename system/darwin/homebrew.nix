@@ -53,7 +53,7 @@
       "obsidian"
       # "omnigraffle"
       "openinterminal"
-      # "orbstack"
+      "orbstack"
       "orion"
       "parallels"
       # "pixelsnap"
