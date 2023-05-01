@@ -2,7 +2,7 @@
 {
   imports = [
     "${modulesPath}/virtualisation/lxc-container.nix"
-    ../../templates/workstation.nix
+    ../../templates/headless.nix
   ];
   networking.hostName = "orbstack";
 
