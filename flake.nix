@@ -142,6 +142,15 @@
                 ./hosts/vm
               ];
             };
+            orbstack = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules = [
+                defaults
+                home-manager.nixosModules.home-manager
+                vscode-server.nixosModule
+                ./hosts/orbstack
+              ];
+            };
             homeserver = nixpkgs.lib.nixosSystem {
               system = "x86_64-linux";
               modules = [
