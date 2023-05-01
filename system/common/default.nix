@@ -1,7 +1,4 @@
 { pkgs, extras, lib, ... }:
-let
-  inherit (extras) unstable;
-in
 {
   imports = [
     ./users.nix

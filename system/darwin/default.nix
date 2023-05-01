@@ -1,6 +1,6 @@
 { lib, pkgs, extras, config, ... }:
 let
-  inherit (extras) unstable;
+  inherit (extras) pkgsUnstable;
 in
 {
   imports = [
@@ -16,7 +16,7 @@ in
     build-users-group = "nixbld";
   };
 
-  environment.systemPackages = with unstable; [
+  environment.systemPackages = with pkgsUnstable; [
     texlive.combined.scheme-full
   ];
 }

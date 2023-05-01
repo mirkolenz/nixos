@@ -72,7 +72,7 @@
             _module.args = {
               extras = {
                 inherit inputs;
-                unstable = import nixpkgs-unstable {
+                pkgsUnstable = import nixpkgs-unstable {
                   inherit (pkgs.stdenv.targetPlatform) system;
                   config.allowUnfree = true;
                 };

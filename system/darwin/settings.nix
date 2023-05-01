@@ -1,7 +1,4 @@
 { lib, pkgs, extras, config, ... }:
-let
-  inherit (extras) unstable;
-in
 {
   security = {
     pam = {
