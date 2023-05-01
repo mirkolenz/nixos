@@ -30,10 +30,6 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
-    nixvim = {
-      url = "github:pta2002/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     mlenz-ssh-keys = {
       url = "https://github.com/mirkolenz.keys";
       flake = false;
