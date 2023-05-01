@@ -10,6 +10,12 @@ in
     lfs = {
       enable = true;
     };
+    difftastic = {
+      enable = true;
+      background = "dark";
+      color = "always";
+      display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
+    };
     ignores = lib.splitString "\n" (builtins.readFile gitignore.outPath);
     extraConfig = {
       core = {
