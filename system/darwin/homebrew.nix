@@ -72,6 +72,7 @@
       # "utm"
       "viscosity"
       "visual-studio-code"
+      "wireguard"
       "zoom"
       # "zotero"
       # Fonts
