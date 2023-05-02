@@ -107,6 +107,7 @@
                 format = "custom-sd";
                 modules = [
                   defaults
+                  nixos-hardware.nixosModules.raspberry-pi-4
                   ./installer/raspi.nix
                 ];
               };
