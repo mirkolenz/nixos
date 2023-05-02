@@ -23,11 +23,11 @@
     ];
     casks = [
       "1password"
-      # "adobe-creative-cloud"
-      # "anydesk"
+      "adobe-creative-cloud"
+      "anydesk"
       "appcleaner"
       "arc"
-      # todo: "arq"
+      "arq"
       "balenaetcher"
       # "banking-4"
       "bartender"
@@ -61,7 +61,6 @@
       # "postman"
       "presentation"
       "raindropio"
-      # "raspberry-pi-imager"
       "raycast"
       "rectangle-pro"
       # "replacicon"
