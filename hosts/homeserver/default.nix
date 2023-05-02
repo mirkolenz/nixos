@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware.nix
+    # ./samba.nix
     ../../templates/server.nix
   ];
   networking.hostName = "homeserver";

@@ -28,6 +28,11 @@
     nix-direnv
   ];
 
+  # networking.firewall = {
+  #   enable = true;
+  #   allowPing = true;
+  # };
+
   nix = {
     package = pkgs.nix;
     settings = {
