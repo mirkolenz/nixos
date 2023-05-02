@@ -22,7 +22,7 @@
         autohide-time-modifier = 0.15;
         dashboard-in-overlay = false;
         enable-spring-load-actions-on-all-items = false;
-        expose-animation-duration = 0.5;
+        expose-animation-duration = 0.2;
         expose-group-by-app = false;
         launchanim = true;
         mineffect = "genie";
@@ -115,7 +115,7 @@
         "com.apple.springing.enabled" = null;
         "com.apple.swipescrolldirection" = true;
         "com.apple.trackpad.enableSecondaryClick" = true;
-        "com.apple.trackpad.scaling" = 1.0;
+        "com.apple.trackpad.scaling" = null;
         "com.apple.trackpad.trackpadCornerClickBehavior" = null;
         AppleEnableMouseSwipeNavigateWithScrolls = true;
         AppleEnableSwipeNavigateWithScrolls = true;
