@@ -18,6 +18,7 @@
     tealdeer
     bandwhich
     delta
+    fzf
     gnumake
     massren
     rsync
