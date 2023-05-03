@@ -30,6 +30,7 @@ in
       nixos-env = "sudo nix-env --profile /nix/var/nix/profiles/system";
       poetryup = "/run/current-system/sw/bin/poetry up";
       npmup = "npx npm-check-updates";
+      docker-reset = "docker system prune --all --force";
     };
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
@@ -46,6 +47,76 @@ in
           if [ "$booted" != "$built" ]; then
             echo "REBOOT NEEDED"
           fi
+        '';
+      })
+      (writeShellApplication {
+        name = "dcup";
+        text = ''
+          if [ "$#" -ne 2 ]; then
+            echo "Usage: $0 FILE" >&2
+            exit 1
+          fi
+          if [ "$(id -u)" -ne 0 ]; then
+            echo "Please run as root"
+            exit 1
+          fi
+          docker compose --file "$1" pull
+          docker compose --file "$1" build
+          docker compose --file "$1" up --detach
+          docker image prune --all --force
+        '';
+      })
+      (writeShellApplication {
+        name = "encrypt";
+        text = ''
+          if [ "$#" -ne 3 ]; then
+            echo "Usage: $0 SOURCE TARGET RECIPIENT" >&2
+            exit 1
+          fi
+
+          gpg --output "$2" --encrypt --recipient "$3" "$1"
+        '';
+      })
+      (writeShellApplication {
+        name = "decrypt";
+        text = ''
+          if [ "$#" -ne 2 ]; then
+            echo "Usage: $0 SOURCE TARGET" >&2
+            exit 1
+          fi
+
+          gpg --output "$2" --decrypt "$1"
+        '';
+      })
+      (writeShellApplication {
+        name = "backup";
+        text = ''
+          if [ "$#" -ne 2 ]; then
+            echo "Usage: $0 SOURCE TARGET" >&2
+            exit 1
+          fi
+          if [ "$(id -u)" -ne 0 ]; then
+            echo "Please run as root"
+            exit 1
+          fi
+          mkdir -p "$2"
+          TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
+          sudo tar czf "$2/$TIMESTAMP.tgz" "$1"
+        '';
+      })
+      (writeShellApplication {
+        name = "restore";
+        text = ''
+          if [ "$#" -ne 2 ]; then
+            echo "Usage: $0 SOURCE TARGET" >&2
+            exit 1
+          fi
+          if [ "$(id -u)" -ne 0 ]; then
+            echo "Please run as root"
+            exit 1
+          fi
+          mkdir -p "$2"
+          sudo tar xf "$1" -C "$2"
         '';
       })
     ];
