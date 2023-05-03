@@ -27,6 +27,7 @@
     gnugrep
     direnv
     nix-direnv
+    speedtest-cli
   ];
 
   # networking.firewall = {
