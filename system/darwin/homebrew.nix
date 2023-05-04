@@ -47,7 +47,7 @@
       "iterm2"
       # "kaleidoscope"
       # "kindle"
-      # "mediathekview"
+      "mediathekview"
       # "mullvadvpn"
       "notion"
       "obsidian"
@@ -72,6 +72,7 @@
       # "utm"
       "viscosity"
       "visual-studio-code"
+      "vivaldi"
       "zoom"
       # "zotero"
       # Fonts
