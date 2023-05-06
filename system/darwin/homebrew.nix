@@ -35,6 +35,7 @@
       # "contexts"
       # "default-folder-x"
       "devonthink"
+      "diffusionbee"
       "discord"
       # "figma"
       # "firefox"
