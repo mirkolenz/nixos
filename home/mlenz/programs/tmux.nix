@@ -6,7 +6,7 @@
     keyMode = "vi";
     # TODO: new in 23.05 mouse = true;
     newSession = true;
-    shell = "${pkgs.fish}/bin/fish";
+    shell = lib.getExe pkgs.fish;
     shortcut = "a";
     terminal = "xterm-256color";
   };
