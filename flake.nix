@@ -34,6 +34,10 @@
       url = "https://github.com/mirkolenz.keys";
       flake = false;
     };
+    texmf = {
+      url = "github:mirkolenz/texmf";
+      flake = false;
+    };
     gitignore = {
       url = "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode";
       flake = false;

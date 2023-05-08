@@ -253,6 +253,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "texmf": "texmf",
         "vscode-server": "vscode-server"
       }
     },
@@ -268,6 +269,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "texmf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673276297,
+        "narHash": "sha256-/QHqc+ZHGFMIVLUlVmrQwb6GKylKOGeu0ODOn+1U94s=",
+        "owner": "mirkolenz",
+        "repo": "texmf",
+        "rev": "eba3efd9b0de2cc230a612286ec6d00d75042755",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mirkolenz",
+        "repo": "texmf",
         "type": "github"
       }
     },
