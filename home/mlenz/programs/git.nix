@@ -23,6 +23,10 @@ in
         editor = "nvim";
         eol = "lf";
       };
+      fetch = {
+        prune = true;
+        pruneTags = true;
+      };
       pull = {
         rebase = true;
       };
