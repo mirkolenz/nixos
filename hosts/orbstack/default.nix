@@ -16,11 +16,13 @@
 
   # FROM orbstack.nix
   # sudoers
-  security.sudo.extraRules= [
-    { users = [ "mlenz" ];
+  security.sudo.extraRules = [
+    {
+      users = [ "mlenz" ];
       commands = [
-        { command = "ALL";
-          options= [ "NOPASSWD" ];
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
         }
       ];
     }
