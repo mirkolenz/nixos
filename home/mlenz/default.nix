@@ -36,6 +36,30 @@ in
       DIRENV_LOG_FORMAT = "";
     };
     packages = with pkgs; [
+      # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
+      (writeShellApplication {
+        name = "mogrify-convert";
+        runtimeInputs = with pkgs; [ imagemagick ];
+        text = ''
+          if [ "$#" -ne 3 ]; then
+            echo "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY" >&2
+            exit 1
+          fi
+          mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
+        '';
+      })
+      # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
+      (writeShellApplication {
+        name = "mogrify-resize";
+        runtimeInputs = with pkgs; [ imagemagick ];
+        text = ''
+          if [ "$#" -ne 4 ]; then
+            echo "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY FINAL_SIZE" >&2
+            exit 1
+          fi
+          mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
+        '';
+      })
       (writeShellApplication {
         name = "gc";
         text = ''
