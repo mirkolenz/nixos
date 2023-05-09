@@ -39,8 +39,9 @@ in
       (writeShellApplication {
         name = "gc";
         text = ''
+          nix store optimise
+          nix store gc
           nix-collect-garbage --delete-older-than 30d
-          nix-store --optimise
         '';
       })
       # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/nixos/modules/tasks/auto-upgrade.nix#L204
