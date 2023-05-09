@@ -14,6 +14,8 @@ in
   nix.settings = {
     extra-nix-path = "nixpkgs=flake:nixpkgs";
     build-users-group = "nixbld";
+    # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
+    auto-optimise-store = lib.mkDefault false;
   };
 
   environment.systemPackages = with pkgsUnstable; [
