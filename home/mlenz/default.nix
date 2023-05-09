@@ -36,6 +36,13 @@ in
       DIRENV_LOG_FORMAT = "";
     };
     packages = with pkgs; [
+      (writeShellApplication {
+        name = "gc";
+        text = ''
+          nix-collect-garbage --delete-older-than 30d
+          nix-store --optimise
+        '';
+      })
       # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/nixos/modules/tasks/auto-upgrade.nix#L204
       (writeShellApplication {
         name = "needs-reboot";
