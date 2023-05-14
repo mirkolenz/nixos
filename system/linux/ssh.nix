@@ -10,6 +10,6 @@ in
   };
   # https://discourse.nixos.org/t/fetching-ssh-public-keys/12076
   users.users.mlenz = {
-    openssh.authorizedKeys.keyFiles = [ mlenz-ssh-keys.outPath ];
+    openssh.authorizedKeys.keyFiles = [ (builtins.toString mlenz-ssh-keys) ];
   };
 }

@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.custom.docker;
-  inherit (pkgs) stdenv;
 in
 {
   options.custom.docker = {
