@@ -3,6 +3,7 @@
   imports = [
     ./users.nix
     ./shell.nix
+    ./secrets.nix
     ../../home
   ];
 

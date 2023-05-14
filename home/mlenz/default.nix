@@ -49,7 +49,7 @@ in
           fi
 
           echo "rebuild $REBUILD_TYPE $FLAKE"
-          ${rebuildCmd} --flake "$FLAKE" "$REBUILD_TYPE"
+          ${rebuildCmd} --impure --flake "$FLAKE" "$REBUILD_TYPE"
         '';
       })
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
