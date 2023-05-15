@@ -81,7 +81,7 @@
                   };
                 in
                 "${emptyDarwin.system}/sw/bin/darwin-rebuild"
-              else pkgs.lib.getExe pkgs.nixos-rebuid;
+              else pkgs.lib.getExe pkgs.nixos-rebuild;
           in
           {
             type = "app";
