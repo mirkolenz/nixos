@@ -9,9 +9,9 @@
 
 ```shell
 # Large changes (like first time)
-nix run github:mirkolenz/nixos -- boot
+sudo nix run github:mirkolenz/nixos -- boot
 # Small changes
-nix run github:mirkolenz/nixos
+sudo nix run github:mirkolenz/nixos
 ```
 
 ## With Minimal Image
