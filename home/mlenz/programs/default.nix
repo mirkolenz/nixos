@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./bottom.nix
     ./fish.nix
     ./git.nix
     ./micro.nix

@@ -24,7 +24,6 @@ in
       ll = "exa ${exaArgs}";
       la = "exa --all ${exaArgs}";
       l = "exa ${exaArgs}";
-      top = "btm";
       dc = "sudo docker compose";
       py = "poetry run python";
       hass = "hass-cli";

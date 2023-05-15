@@ -15,7 +15,6 @@
     procs
     sd
     ripgrep
-    bottom
     tealdeer
     bandwhich
     delta
