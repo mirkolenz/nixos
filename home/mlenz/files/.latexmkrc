@@ -1,7 +1,7 @@
 # 1: pdflatex
 # 4: lualatex
 # 5: xelatex
-$pdf_mode = 4;
+$pdf_mode = 1;
 
 # Regular
 $pdflatex = "pdflatex %O %S";
