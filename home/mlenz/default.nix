@@ -3,7 +3,6 @@ let
   username = "mlenz";
   homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
   exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
-  rebuildCmd = if pkgs.stdenv.isDarwin then "darwin-rebuild" else "nixos-rebuild";
 in
 {
   imports = [
@@ -37,18 +36,16 @@ in
     };
     packages = with pkgs; [
       (writeShellApplication {
-        name = "rebuild";
+        name = "pull-rebuild";
         text = ''
-          REBUILD_TYPE=''${1:-switch}
-          FLAKE=''${2:-"github:mirkolenz/nixos"}
+          set -x #echo on
+          FLAKE=''${1:-"github:mirkolenz/nixos"}
 
           if [[ "$FLAKE" != github* ]]; then
-            echo "git pull $FLAKE"
             git -C "$FLAKE" pull
           fi
 
-          echo "rebuild $REBUILD_TYPE $FLAKE"
-          ${rebuildCmd} --impure --flake "$FLAKE" "$REBUILD_TYPE"
+          nix run "$FLAKE" -- "''${@:2}"
         '';
       })
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/

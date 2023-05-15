@@ -53,20 +53,44 @@
   };
 
   outputs =
-    inputs@{ darwin
+    inputs@{ self
+    , darwin
     , flake-parts
     , home-manager
     , nixos-generators
     , nixos-hardware
-    , nixpkgs-unstable
     , nixpkgs
+    , nixpkgs-unstable
     , vscode-server
     , ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = nixpkgs.lib.systems.flakeExposed;
-      perSystem = { config, pkgs, system, ... }: {
+      perSystem = { pkgs, system, ... }: {
         formatter = pkgs.nixpkgs-fmt;
+        # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
+        apps.default =
+          let
+            builder =
+              if pkgs.stdenv.isDarwin
+              then
+                let
+                  emptyDarwin = darwin.lib.darwinSystem {
+                    inherit system;
+                    modules = [ ];
+                  };
+                in
+                "${emptyDarwin.system}/sw/bin/darwin-rebuild"
+              else pkgs.lib.getExe pkgs.nixos-rebuid;
+          in
+          {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "rebuild" ''
+              set -x #echo on
+              REBUILD_TYPE=''${1:-switch}
+              ${builder} --flake ${self} --impure "$REBUILD_TYPE" "''${@:2}"
+            '');
+          };
       };
       flake =
         let
