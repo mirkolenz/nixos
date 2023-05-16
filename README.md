@@ -120,7 +120,9 @@ nix build --system SYSTEM github:mirkolenz/nixos#FORMAT
 
 ### Hash Password
 
+```shell
 docker run -it --rm alpine mkpasswd PASSWORD
+```
 
 ### Update Raspberry Pi
 
