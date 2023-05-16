@@ -90,7 +90,10 @@ in
 
           if [ "$booted" != "$built" ]; then
             echo "REBOOT NEEDED"
+            exit 1
           fi
+
+          exit 0
         '';
       })
       (writeShellApplication {
