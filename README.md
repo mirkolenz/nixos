@@ -1,5 +1,12 @@
 # NixOS Setup
 
+All configurations select the correct device name through their hostname.
+When setting up a new host, please run the following first:
+
+```shell
+hostname NAME
+```
+
 ## NixOS
 
 1. Install NixOS with provided ISO
