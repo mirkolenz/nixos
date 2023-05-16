@@ -4,10 +4,12 @@ All configurations select the correct device name through their hostname.
 When setting up a new host, please run the following first:
 
 ```shell
-hostname NAME
+hostname MACHINE_NAME
 ```
 
 ## NixOS
+
+### Graphical Setup
 
 1. Install NixOS with provided ISO
 2. Create config: `nixos-generate-config`
@@ -21,12 +23,12 @@ sudo nix run github:mirkolenz/nixos -- boot
 sudo nix run github:mirkolenz/nixos
 ```
 
-## With Minimal Image
+### Terminal Setup
 
 https://www.adaltas.com/en/2022/02/08/nixos-installation/
 https://nixos.wiki/wiki/NixOS_Installation_Guide
 
-### Partitioning
+#### Partitioning
 
 ```shell
 lsblk # Find out the device name, most likely /dev/sda
@@ -54,7 +56,7 @@ v # verify
 w # write
 ```
 
-### Formatting
+#### Formatting
 
 ```shell
 mkfs.ext4 -L root /dev/sda2
@@ -62,7 +64,7 @@ mkswap -L swap /dev/sda3
 mkfs.fat -F 32 -n boot /dev/sda1
 ```
 
-### Mounting
+#### Mounting
 
 ```shell
 mount /dev/disk/by-label/root /mnt
@@ -71,16 +73,18 @@ mkdir -p /mnt/boot
 mount /dev/disk/by-label/boot /mnt/boot
 ```
 
-### Installation
+#### Installation
 
 ```shell
 nixos-generate-config --root /mnt
 cd /mnt/etc/nixos/
+# If not already done, update the hostname
+hostname MACHINE_NAME
 # Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
-nixos-install --flake github:mirkolenz/nixos#MACHINE_NAME
+nixos-install --flake github:mirkolenz/nixos
 ```
 
-## Nix-Darwin
+## Mac Computers
 
 1. `xcode-select --install`
 2. [Homebrew](https://brew.sh)
@@ -104,7 +108,9 @@ sudo reboot
 ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 ```
 
-## NixOS Generators
+## Utilities and Snippets
+
+### NixOS Generators
 
 **Important:** [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
 
@@ -112,11 +118,11 @@ ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 nix build --system SYSTEM github:mirkolenz/nixos#FORMAT
 ```
 
-## Hash Password
+### Hash Password
 
 docker run -it --rm alpine mkpasswd PASSWORD
 
-## Update Raspberry Pi
+### Update Raspberry Pi
 
 https://nix.dev/tutorials/installing-nixos-on-a-raspberry-pi#updating-firmware
 
