@@ -1,5 +1,8 @@
 # https://nixos.wiki/wiki/NixOS_on_ARM#Installation
-{ ... }:
+{ lib, extras, ... }:
+let
+  inherit (extras) pkgsUnstable;
+in
 {
   imports = [
     ./hardware.nix
@@ -14,4 +17,6 @@
     # https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/4/audio.nix
     audio.enable = true;
   };
+  # TODO: Remove for 23.05
+  boot.kernelPackages = lib.mkDefault pkgsUnstable.linuxKernel.packages.linux_rpi4;
 }

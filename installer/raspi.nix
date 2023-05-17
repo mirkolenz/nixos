@@ -1,4 +1,7 @@
-{ ... }:
+{ lib, pkgs, extras, ... }:
+let
+  inherit (extras) pkgsUnstable;
+in
 {
   imports = [
     ./sd.nix
@@ -10,4 +13,6 @@
         super.makeModulesClosure (x // { allowMissing = true; });
     })
   ];
+  # TODO: Remove for 23.05
+  boot.kernelPackages = lib.mkDefault pkgsUnstable.linuxKernel.packages.linux_rpi4;
 }
