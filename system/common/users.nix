@@ -1,4 +1,7 @@
 { pkgs, lib, extras, config, ... }:
+let
+  inherit (extras) pkgsUnstable;
+in
 {
   users = {
     users.root = lib.mkIf pkgs.stdenv.isLinux {
@@ -11,10 +14,9 @@
         description = "Mirko Lenz";
         uid = 1000;
         shell = pkgs.fish;
-        packages = with pkgs; [
+        packages = with pkgsUnstable; [
           nixpkgs-fmt
           nil
-          rnix-lsp
         ];
       }
       (lib.mkIf pkgs.stdenv.isLinux {
