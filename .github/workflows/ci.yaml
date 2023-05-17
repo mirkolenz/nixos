@@ -1,12 +1,14 @@
 # https://github.com/DeterminateSystems/update-flake-lock/blob/main/update-flake-lock.sh
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 on:
   push: ~
   workflow_dispatch: ~
   schedule:
     - cron: "0 23 * * *" # every day at 23:00 UTC
 jobs:
-  update_flake_lock:
+  lock-flake:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
