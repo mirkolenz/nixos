@@ -14,5 +14,5 @@ in
     })
   ];
   # TODO: Remove for 23.05
-  boot.kernelPackages = lib.mkDefault pkgsUnstable.linuxKernel.packages.linux_rpi4;
+  boot.kernelPackages = lib.mkForce pkgsUnstable.linuxKernel.packages.linux_rpi4;
 }
