@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: fregante/setup-git-user@v2
       - uses: DeterminateSystems/nix-installer-action@v2
       - run: "nix flake update --commit-lock-file --commit-lockfile-summary 'chore(deps): update flake.lock'"
       - run: "git push"
