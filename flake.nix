@@ -94,15 +94,18 @@
       };
       flake =
         let
+          nixpkgsConfig = {
+            allowUnfree = true;
+          };
           defaults = { pkgs, ... }: {
-            nixpkgs.config.allowUnfree = true;
-            # https://github.com/nix-community/home-manager/issues/1538
+            nixpkgs.config = nixpkgsConfig;
             _module.args = {
               extras = {
                 inherit inputs;
+                # https://github.com/nix-community/home-manager/issues/1538
                 pkgsUnstable = import nixpkgs-unstable {
                   inherit (pkgs.stdenv.targetPlatform) system;
-                  config.allowUnfree = true;
+                  config = nixpkgsConfig;
                 };
                 dummyPackage = (pkgs.writeShellScriptBin "dummy" ":");
                 stateVersion = "22.11";
