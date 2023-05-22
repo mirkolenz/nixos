@@ -1,4 +1,4 @@
-{ pkgs, extras, config, lib, ... }:
+{ pkgs, extras, ... }:
 let
   inherit (extras) pkgsUnstable;
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/poetry/default.nix#L40
@@ -10,10 +10,10 @@ in
     fontforge
     unpaper
   ]) ++ (with pkgsUnstable; [
-    # TODO: dvc
     _1password
     black
     buf
+    dvc
     gomplate
     gradle
     grpcui
