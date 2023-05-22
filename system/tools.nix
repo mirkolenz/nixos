@@ -13,7 +13,7 @@ in
     _1password
     black
     buf
-    dvc
+    # dvc
     gomplate
     gradle
     grpcui
