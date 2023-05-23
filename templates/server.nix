@@ -13,8 +13,13 @@
 
   system.autoUpgrade = {
     enable = true;
-    allowReboot = false;
     flake = "github:mirkolenz/nixos";
-    # flags = [ "--recreate-lock-file" ];
+    flags = [ "--impure" ];
+    dates = "04:00";
+    allowReboot = true;
+    rebootWindow = {
+      lower = "03:30";
+      upper = "05:00";
+    };
   };
 }
