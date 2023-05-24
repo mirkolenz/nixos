@@ -34,7 +34,9 @@
   environment.systemPackages = with pkgs; [
     mkpasswd
     macchina
-  ];
+  ] ++ ([
+    (writeShellScriptBin "nixos-env" "nix-env --profile /nix/var/nix/profiles/system")
+  ]);
 
   environment.defaultPackages = with pkgs; [
     rsync

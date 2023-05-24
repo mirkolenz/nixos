@@ -1,4 +1,4 @@
-{ pkgs, extras, ... }:
+{ pkgs, extras, lib, ... }:
 let
   inherit (extras) pkgsUnstable;
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/poetry/default.nix#L40
@@ -31,4 +31,11 @@ in
   ]) ++ ([
     poetry
   ]);
+
+  environment.shellAliases = {
+    poetryup = "${lib.getExe poetry} up";
+    py = "poetry run python"; # should use local poetry if possible
+    npmup = lib.getExe pkgsUnstable.nodePackages.npm-check-updates;
+    hass = "${pkgsUnstable.home-assistant-cli}/bin/hass-cli";
+  };
 }

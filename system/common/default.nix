@@ -1,6 +1,7 @@
-{ pkgs, extras, lib, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
+    ./commands.nix
     ./users.nix
     ./shell.nix
     ./secrets.nix
