@@ -6,7 +6,7 @@ on:
   # push: ~
   workflow_dispatch: ~
   schedule:
-    - cron: "0 3 * * *" # every day at 3am
+    - cron: "0 1 * * *" # every day at 1am UTC(!)
 jobs:
   lock-flake:
     runs-on: ubuntu-latest
