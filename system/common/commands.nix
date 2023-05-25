@@ -13,8 +13,12 @@ in
       l = "exa ${exaArgs}";
     };
     systemPackages = with pkgs; [
-      (writeShellScriptBin "dc" "docker compose")
-      (writeShellScriptBin "docker-reset" "docker system prune --all --force")
+      (writeShellScriptBin "dc" ''
+        docker compose "$@"
+      '')
+      (writeShellScriptBin "docker-reset" ''
+        docker system prune --all --force
+      '')
       (writeShellApplication {
         name = "pull-rebuild";
         text = ''

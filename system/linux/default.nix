@@ -35,7 +35,9 @@
     mkpasswd
     macchina
   ] ++ ([
-    (writeShellScriptBin "nixos-env" "nix-env --profile /nix/var/nix/profiles/system")
+    (writeShellScriptBin "nixos-env" ''
+      nix-env --profile /nix/var/nix/profiles/system "$@"
+    '')
   ]);
 
   environment.defaultPackages = with pkgs; [
