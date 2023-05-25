@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ ... }:
 {
   homebrew = {
     enable = true;
@@ -11,16 +11,11 @@
       cleanup = "uninstall";
     };
     taps = [
-      "homebrew/core"
-      "homebrew/cask"
       "homebrew/cask-drivers"
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
-      "homebrew/bundle"
     ];
-    brews = [
-      # "mackup"
-    ];
+    brews = [ ];
     casks = [
       "1password"
       "adobe-creative-cloud"
@@ -31,15 +26,16 @@
       "balenaetcher"
       # "banking-4"
       "bartender"
-      # "cleanshot"
-      # "contexts"
-      # "default-folder-x"
+      "cleanshot"
+      "contexts"
+      "coteditor"
+      "default-folder-x"
       "devonthink"
       "diffusionbee"
       "discord"
       # "figma"
       # "firefox"
-      # "fission"
+      "fission"
       "fork"
       # "gobdokumente"
       # "handbrake"
@@ -57,7 +53,7 @@
       "orbstack"
       "orion"
       "parallels"
-      # "pixelsnap"
+      "pixelsnap"
       # "postico"
       # "postman"
       "presentation"
