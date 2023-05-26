@@ -33,6 +33,7 @@
       "devonthink"
       "diffusionbee"
       "discord"
+      "element"
       # "figma"
       # "firefox"
       "fission"
