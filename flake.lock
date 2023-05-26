@@ -61,11 +61,11 @@
       "locked": {
         "narHash": "sha256-cpkse4NOi8oZrKHolReAPf07eApolKJOOGY7P0Ud/fI=",
         "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos%2Clinux%2Cwindows%2Cvisualstudiocode"
+        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
       },
       "original": {
         "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos%2Clinux%2Cwindows%2Cvisualstudiocode"
+        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
       }
     },
     "home-manager": {
