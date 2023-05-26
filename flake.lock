@@ -61,11 +61,11 @@
       "locked": {
         "narHash": "sha256-cpkse4NOi8oZrKHolReAPf07eApolKJOOGY7P0Ud/fI=",
         "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
+        "url": "https://www.toptal.com/developers/gitignore/api/macos%2Clinux%2Cwindows%2Cvisualstudiocode"
       },
       "original": {
         "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
+        "url": "https://www.toptal.com/developers/gitignore/api/macos%2Clinux%2Cwindows%2Cvisualstudiocode"
       }
     },
     "home-manager": {
@@ -162,11 +162,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1684751352,
-        "narHash": "sha256-CI7V/2aSBXsefcqX+IhL9zYayL4dPLucymlMCzVxyP4=",
+        "lastModified": 1685000237,
+        "narHash": "sha256-pm+2xP9g9sh6wapk1ulg7/1DdENkTNDB7Kx+6lwGs/k=",
         "owner": "nix-community",
         "repo": "nixos-generators",
-        "rev": "a9933ffcbc91688a4bc7dc427f454069a423343f",
+        "rev": "05bef004794f352ea12475a89f3f55b4102c0728",
         "type": "github"
       },
       "original": {
@@ -226,11 +226,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1684844536,
-        "narHash": "sha256-M7HhXYVqAuNb25r/d3FOO0z4GxPqDIZp5UjHFbBgw0Q=",
+        "lastModified": 1684935479,
+        "narHash": "sha256-6QMMsXMr2nhmOPHdti2j3KRHt+bai2zw+LJfdCl97Mk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d30264c2691128adc261d7c9388033645f0e742b",
+        "rev": "f91ee3065de91a3531329a674a45ddcb3467a650",
         "type": "github"
       },
       "original": {
