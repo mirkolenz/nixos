@@ -88,7 +88,7 @@
             program = builtins.toString (pkgs.writeShellScript "rebuild" ''
               set -x #echo on
               REBUILD_TYPE=''${1:-switch}
-              ${builder} --flake ${self} --impure "$REBUILD_TYPE" "''${@:2}"
+              ${builder} --flake ${self} --impure --no-write-lock-file "$REBUILD_TYPE" "''${@:2}"
             '');
           };
       };
