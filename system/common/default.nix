@@ -38,7 +38,7 @@
   nix = {
     package = pkgs.nixVersions.nix_2_13; # change to nix for 23.05
     settings = {
-      experimental-features = "nix-command flakes auto-allocate-uids";
+      experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
       keep-going = true;
       keep-outputs = true;
       keep-derivations = true;
