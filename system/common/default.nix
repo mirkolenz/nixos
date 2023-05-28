@@ -45,6 +45,8 @@
       keep-failed = false;
       # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
       auto-optimise-store = true;
+      # https://github.com/DeterminateSystems/nix-installer/pull/270
+      extra-nix-path = "nixpkgs=flake:nixpkgs";
     };
     gc = lib.mkMerge [
       {
