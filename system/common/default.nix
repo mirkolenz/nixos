@@ -36,9 +36,9 @@
   # };
 
   nix = {
-    package = pkgs.nixVersions.nix_2_13; # change to nix for 23.05
+    package = pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" ];
+      experimental-features = [ "nix-command" "flakes" ];
       keep-going = true;
       keep-outputs = true;
       keep-derivations = true;
@@ -48,7 +48,7 @@
       # https://github.com/DeterminateSystems/nix-installer/pull/270
       extra-nix-path = "nixpkgs=flake:nixpkgs";
       # https://github.com/DeterminateSystems/nix-installer/pull/196
-      auto-allocate-uids = true;
+      # auto-allocate-uids = true;
     };
     gc = lib.mkMerge [
       {
