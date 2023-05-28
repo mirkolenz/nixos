@@ -3,6 +3,7 @@ let
   inherit (extras) pkgsUnstable;
   username = "mlenz";
   homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+  userid = 1000;
 in
 {
   users = {
@@ -15,7 +16,7 @@ in
       {
         description = "Mirko Lenz";
         home = homeDirectory;
-        uid = 1000;
+        uid = userid;
         shell = pkgs.fish;
         packages = with pkgsUnstable; [
           nixpkgs-fmt
@@ -29,11 +30,11 @@ in
         initialHashedPassword = "$y$j9T$PNrr2mfD3mtxoSfR26fYh/$qNvFLgYOJFAms5MwZ42vM0F0aUP.ceHpD0j4LAr7IP5";
       })
       (lib.mkIf pkgs.stdenv.isDarwin {
-        gid = 1000;
+        gid = userid;
       })
     ];
     groups.${username} = {
-      gid = 1000;
+      gid = userid;
     };
   };
 }
