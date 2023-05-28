@@ -1,6 +1,8 @@
-{ pkgs, lib, extras, config, ... }:
+{ pkgs, lib, extras, ... }:
 let
   inherit (extras) pkgsUnstable;
+  username = "mlenz";
+  homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
 in
 {
   users = {
@@ -9,9 +11,10 @@ in
       # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/2
       hashedPassword = "!";
     };
-    users.mlenz = lib.mkMerge [
+    users.${username} = lib.mkMerge [
       {
         description = "Mirko Lenz";
+        home = homeDirectory;
         uid = 1000;
         shell = pkgs.fish;
         packages = with pkgsUnstable; [
@@ -20,8 +23,8 @@ in
         ];
       }
       (lib.mkIf pkgs.stdenv.isLinux {
-        group = "mlenz";
-        extraGroups = [ "mlenz" "users" "networkmanager" "wheel" ];
+        group = username;
+        extraGroups = [ username "users" "networkmanager" "wheel" ];
         isNormalUser = true;
         initialHashedPassword = "$y$j9T$PNrr2mfD3mtxoSfR26fYh/$qNvFLgYOJFAms5MwZ42vM0F0aUP.ceHpD0j4LAr7IP5";
       })
@@ -29,7 +32,7 @@ in
         gid = 1000;
       })
     ];
-    groups.mlenz = {
+    groups.${username} = {
       gid = 1000;
     };
   };

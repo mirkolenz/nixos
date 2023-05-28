@@ -1,4 +1,4 @@
-{ lib, config, osConfig, pkgs, extras, ... }:
+{ lib, pkgs, extras, ... }:
 let
   username = "mlenz";
   homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
@@ -13,9 +13,8 @@ in
   nixpkgs.config.allowUnfree = true;
 
   home = {
-    inherit username;
+    inherit username homeDirectory;
     inherit (extras) stateVersion;
-    homeDirectory = lib.mkDefault homeDirectory;
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };
