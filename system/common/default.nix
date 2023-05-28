@@ -44,7 +44,7 @@
       keep-derivations = true;
       keep-failed = false;
       # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
-      auto-optimise-store = true;
+      auto-optimise-store = pkgs.stdenv.isLinux;
       # https://github.com/DeterminateSystems/nix-installer/pull/270
       extra-nix-path = "nixpkgs=flake:nixpkgs";
       # https://github.com/DeterminateSystems/nix-installer/pull/196

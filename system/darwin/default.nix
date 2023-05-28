@@ -1,4 +1,4 @@
-{ lib, pkgs, extras, config, ... }:
+{ pkgs, extras, ... }:
 let
   inherit (extras) pkgsUnstable;
 in
@@ -10,11 +10,6 @@ in
 
   environment.loginShell = pkgs.fish;
   services.nix-daemon.enable = true;
-  # TODO: Document that this content shall be copied from `/etc/nix/nix.conf` after running the nix-installer
-  nix.settings = {
-    # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
-    auto-optimise-store = lib.mkDefault false;
-  };
 
   environment.systemPackages = with pkgsUnstable; [
     texlive.combined.scheme-full
