@@ -71,7 +71,7 @@
         system,
         ...
       }: {
-        formatter = pkgs.nixpkgs-fmt;
+        formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
         apps.default = let
           builder =
