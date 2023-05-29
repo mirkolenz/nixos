@@ -21,6 +21,8 @@ in
         packages = with pkgsUnstable; [
           nixpkgs-fmt
           nil
+          nixfmt
+          alejandra
         ];
       }
       (lib.mkIf pkgs.stdenv.isLinux {
