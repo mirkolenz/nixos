@@ -1,8 +1,11 @@
-{ extras, lib, pkgs, ... }:
-let
-  inherit (extras.inputs) gitignore;
-in
 {
+  extras,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (extras.inputs) gitignore;
+in {
   programs.git = {
     enable = true;
     userName = "Mirko Lenz";

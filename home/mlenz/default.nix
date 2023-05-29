@@ -1,9 +1,15 @@
-{ lib, pkgs, extras, ... }:
-let
-  username = "mlenz";
-  homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
-in
 {
+  lib,
+  pkgs,
+  extras,
+  ...
+}: let
+  username = "mlenz";
+  homeDirectory =
+    if pkgs.stdenv.isDarwin
+    then "/Users/${username}"
+    else "/home/${username}";
+in {
   imports = [
     ./xserver.nix
     ./programs

@@ -1,10 +1,8 @@
-{ extras, ... }:
-let
-  defaults = { ... }: {
-    _module.args = { inherit extras; };
+{extras, ...}: let
+  defaults = {...}: {
+    _module.args = {inherit extras;};
   };
-in
-{
+in {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;

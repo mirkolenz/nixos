@@ -1,9 +1,16 @@
-{ lib, pkgs, config, extras, ... }:
-let
-  inherit (extras.inputs) macchina texmf;
-  poetryPrefix = if pkgs.stdenv.isDarwin then "Library/Preferences/pypoetry" else "${config.xdg.configHome}/pypoetry";
-in
 {
+  lib,
+  pkgs,
+  config,
+  extras,
+  ...
+}: let
+  inherit (extras.inputs) macchina texmf;
+  poetryPrefix =
+    if pkgs.stdenv.isDarwin
+    then "Library/Preferences/pypoetry"
+    else "${config.xdg.configHome}/pypoetry";
+in {
   home.file = {
     "${poetryPrefix}/config.toml" = {
       source = ./poetry.toml;

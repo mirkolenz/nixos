@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.bottom = {
     enable = true;
     settings = {
@@ -80,13 +83,20 @@
       };
 
       processes = {
-        columns = [ "pid" "name" "cpu%" "mem%" "read" "write" "user" ];
+        columns = ["pid" "name" "cpu%" "mem%" "read" "write" "user"];
       };
 
       row = [
-        { child = [{ type = "cpu"; }]; }
+        {child = [{type = "cpu";}];}
         # { child = [{ type = "mem"; } { child = [{ type = "temp"; } { type = "disk"; }]; }]; }
-        { child = [{ type = "proc"; default = true; }]; }
+        {
+          child = [
+            {
+              type = "proc";
+              default = true;
+            }
+          ];
+        }
       ];
       # Layout - layouts follow a pattern like this:
       # [[row]] represents a row in the application.

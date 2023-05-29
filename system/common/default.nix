@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./commands.nix
     ./users.nix
@@ -38,7 +41,7 @@
   nix = {
     package = pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       keep-going = true;
       keep-outputs = true;
       keep-derivations = true;
@@ -59,7 +62,11 @@
         dates = "weekly";
       })
       (lib.optionalAttrs (pkgs.stdenv.isDarwin) {
-        interval = { Weekday = 0; Hour = 0; Minute = 0; };
+        interval = {
+          Weekday = 0;
+          Hour = 0;
+          Minute = 0;
+        };
       })
     ];
   };

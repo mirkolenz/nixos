@@ -1,5 +1,9 @@
-{ osConfig, pkgs, lib, ... }:
 {
+  osConfig,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.tmux = {
     enable = pkgs.stdenv.isLinux && osConfig.services.openssh.enable;
     clock24 = true;

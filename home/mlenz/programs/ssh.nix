@@ -1,5 +1,9 @@
-{ pkgs, lib, config, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   programs.ssh = {
     enable = true;
     matchBlocks = {
@@ -8,7 +12,7 @@
           UseKeychain = "yes";
           AddKeysToAgent = "yes";
         };
-        identityFile = [ "id_ed25519" ];
+        identityFile = ["id_ed25519"];
       };
       wi2gpu = {
         hostname = "136.199.130.136";

@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   homebrew = {
     enable = true;
     global = {
@@ -15,7 +14,7 @@
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
     ];
-    brews = [ ];
+    brews = [];
     casks = [
       "1password"
       "adobe-creative-cloud"

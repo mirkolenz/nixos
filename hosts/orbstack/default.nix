@@ -1,12 +1,17 @@
-{ lib, config, pkgs, modulesPath, ... }:
 {
+  lib,
+  config,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   imports = [
     "${modulesPath}/virtualisation/lxc-container.nix"
     ../../templates/headless.nix
   ];
   networking.hostName = "orbstack";
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
   services.vscode-server.enable = true;
 
   # FROM configuration.nix
@@ -18,11 +23,11 @@
   # sudoers
   security.sudo.extraRules = [
     {
-      users = [ "mlenz" ];
+      users = ["mlenz"];
       commands = [
         {
           command = "ALL";
-          options = [ "NOPASSWD" ];
+          options = ["NOPASSWD"];
         }
       ];
     }

@@ -1,5 +1,10 @@
-{ lib, pkgs, extras, config, ... }:
 {
+  lib,
+  pkgs,
+  extras,
+  config,
+  ...
+}: {
   security = {
     pam = {
       enableSudoTouchIdAuth = true;

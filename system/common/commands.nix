@@ -1,9 +1,6 @@
-{ pkgs, ... }:
-let
-
+{pkgs, ...}: let
   exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
-in
-{
+in {
   environment = {
     shellAliases = {
       cat = "bat";
@@ -35,7 +32,7 @@ in
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
       (writeShellApplication {
         name = "mogrify-convert";
-        runtimeInputs = with pkgs; [ imagemagick ];
+        runtimeInputs = with pkgs; [imagemagick];
         text = ''
           if [ "$#" -ne 3 ]; then
             echo "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY" >&2
@@ -47,7 +44,7 @@ in
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
       (writeShellApplication {
         name = "mogrify-resize";
-        runtimeInputs = with pkgs; [ imagemagick ];
+        runtimeInputs = with pkgs; [imagemagick];
         text = ''
           if [ "$#" -ne 4 ]; then
             echo "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY FINAL_SIZE" >&2
@@ -67,7 +64,7 @@ in
       # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/nixos/modules/tasks/auto-upgrade.nix#L204
       (writeShellApplication {
         name = "needs-reboot";
-        runtimeInputs = [ coreutils ];
+        runtimeInputs = [coreutils];
         text = ''
           booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
           built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"

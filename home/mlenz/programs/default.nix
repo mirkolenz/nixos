@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./bottom.nix
     ./fish.nix

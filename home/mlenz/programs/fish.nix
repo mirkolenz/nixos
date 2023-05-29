@@ -1,14 +1,20 @@
-{ lib, pkgs, config, osConfig, ... }:
-let
+{
+  lib,
+  pkgs,
+  config,
+  osConfig,
+  ...
+}: let
   fishGreeting =
-    if pkgs.stdenv.isLinux then ''
+    if pkgs.stdenv.isLinux
+    then ''
       if set -q SSH_TTY; and status is-login
         macchina --theme Lithium
         needs-reboot
       end
-    '' else "";
-in
-{
+    ''
+    else "";
+in {
   programs.fish = {
     enable = true;
     # https://github.com/direnv/direnv/issues/614#issuecomment-744575699
@@ -57,7 +63,7 @@ in
         '';
         description = "Convert an OpenType font to TrueType";
         wraps = "fontforge";
-        argumentNames = [ "source" "target" ];
+        argumentNames = ["source" "target"];
       };
     };
   };

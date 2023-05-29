@@ -1,8 +1,6 @@
-{ extras, ... }:
-let
+{extras, ...}: let
   inherit (extras) pkgsUnstable;
-in
-{
+in {
   programs.neovim = {
     enable = true;
     package = pkgsUnstable.neovim-unwrapped;

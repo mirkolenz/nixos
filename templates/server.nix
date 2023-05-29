@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ../system/common
     ../system/linux
@@ -14,7 +17,7 @@
   system.autoUpgrade = {
     enable = true;
     flake = "github:mirkolenz/nixos";
-    flags = [ "--impure" "--no-write-lock-file" ];
+    flags = ["--impure" "--no-write-lock-file"];
     dates = "04:00";
     allowReboot = true;
     rebootWindow = {

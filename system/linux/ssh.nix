@@ -1,8 +1,12 @@
-{ extras, lib, pkgs, config, ... }:
-let
-  inherit (extras.inputs) mlenz-ssh-keys;
-in
 {
+  extras,
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
+  inherit (extras.inputs) mlenz-ssh-keys;
+in {
   services.openssh = {
     passwordAuthentication = false;
     kbdInteractiveAuthentication = false;
@@ -10,6 +14,6 @@ in
   };
   # https://discourse.nixos.org/t/fetching-ssh-public-keys/12076
   users.users.mlenz = {
-    openssh.authorizedKeys.keyFiles = [ (builtins.toString mlenz-ssh-keys) ];
+    openssh.authorizedKeys.keyFiles = [(builtins.toString mlenz-ssh-keys)];
   };
 }

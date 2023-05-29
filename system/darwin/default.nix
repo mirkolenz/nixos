@@ -1,8 +1,10 @@
-{ pkgs, extras, ... }:
-let
-  inherit (extras) pkgsUnstable;
-in
 {
+  pkgs,
+  extras,
+  ...
+}: let
+  inherit (extras) pkgsUnstable;
+in {
   imports = [
     ./homebrew.nix
     ./settings.nix

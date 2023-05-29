@@ -52,182 +52,180 @@
     };
   };
 
-  outputs =
-    inputs@{ self
-    , darwin
-    , flake-parts
-    , home-manager
-    , nixos-generators
-    , nixos-hardware
-    , nixpkgs
-    , nixpkgs-unstable
-    , vscode-server
-    , ...
-    }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs @ {
+    self,
+    darwin,
+    flake-parts,
+    home-manager,
+    nixos-generators,
+    nixos-hardware,
+    nixpkgs,
+    nixpkgs-unstable,
+    vscode-server,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       systems = nixpkgs.lib.systems.flakeExposed;
-      perSystem = { pkgs, system, ... }: {
+      perSystem = {
+        pkgs,
+        system,
+        ...
+      }: {
         formatter = pkgs.nixpkgs-fmt;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
-        apps.default =
-          let
-            builder =
-              if pkgs.stdenv.isDarwin
-              then
-                let
-                  emptyDarwin = darwin.lib.darwinSystem {
-                    inherit system;
-                    modules = [ ];
-                  };
-                in
-                "${emptyDarwin.system}/sw/bin/darwin-rebuild"
-              else pkgs.lib.getExe pkgs.nixos-rebuild;
-          in
-          {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "rebuild" ''
-              set -x #echo on
-              REBUILD_TYPE=''${1:-switch}
-              ${builder} --flake ${self} --impure --no-write-lock-file "$REBUILD_TYPE" "''${@:2}"
-            '');
-          };
+        apps.default = let
+          builder =
+            if pkgs.stdenv.isDarwin
+            then let
+              emptyDarwin = darwin.lib.darwinSystem {
+                inherit system;
+                modules = [];
+              };
+            in "${emptyDarwin.system}/sw/bin/darwin-rebuild"
+            else pkgs.lib.getExe pkgs.nixos-rebuild;
+        in {
+          type = "app";
+          program = builtins.toString (pkgs.writeShellScript "rebuild" ''
+            set -x #echo on
+            REBUILD_TYPE=''${1:-switch}
+            ${builder} --flake ${self} --impure --no-write-lock-file "$REBUILD_TYPE" "''${@:2}"
+          '');
+        };
       };
-      flake =
-        let
-          nixpkgsConfig = {
-            allowUnfree = true;
-          };
-          defaults = { pkgs, ... }: {
-            nixpkgs.config = nixpkgsConfig;
-            _module.args = {
-              extras = {
-                inherit inputs;
-                # https://github.com/nix-community/home-manager/issues/1538
-                pkgsUnstable = import nixpkgs-unstable {
-                  inherit (pkgs.stdenv.targetPlatform) system;
-                  config = nixpkgsConfig;
-                };
-                dummyPackage = (pkgs.writeShellScriptBin "dummy" ":");
-                stateVersion = "22.11";
+      flake = let
+        nixpkgsConfig = {
+          allowUnfree = true;
+        };
+        defaults = {pkgs, ...}: {
+          nixpkgs.config = nixpkgsConfig;
+          _module.args = {
+            extras = {
+              inherit inputs;
+              # https://github.com/nix-community/home-manager/issues/1538
+              pkgsUnstable = import nixpkgs-unstable {
+                inherit (pkgs.stdenv.targetPlatform) system;
+                config = nixpkgsConfig;
               };
+              dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
+              stateVersion = "22.11";
             };
           };
-          generatorFormats = {
-            # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
-            "custom-sd" = {
-              imports = [
-                "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-              ];
-              formatAttr = "sdImage";
-            };
-            # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
-            "custom-iso" = {
-              imports = [
-                "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-              ];
-              formatAttr = "isoImage";
-            };
+        };
+        generatorFormats = {
+          # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
+          "custom-sd" = {
+            imports = [
+              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+            ];
+            formatAttr = "sdImage";
           };
-        in
-        {
-          packages = {
-            aarch64-linux = {
-              raspi = nixos-generators.nixosGenerate {
-                system = "aarch64-linux";
-                customFormats = generatorFormats;
-                format = "custom-sd";
-                modules = [
-                  defaults
-                  nixos-hardware.nixosModules.raspberry-pi-4
-                  ./installer/raspi.nix
-                ];
-              };
-              iso = nixos-generators.nixosGenerate {
-                system = "aarch64-linux";
-                customFormats = generatorFormats;
-                format = "custom-iso";
-                modules = [
-                  defaults
-                  ./installer/iso.nix
-                ];
-              };
-            };
-            x86_64-linux = {
-              iso = nixos-generators.nixosGenerate {
-                system = "x86_64-linux";
-                customFormats = generatorFormats;
-                format = "custom-iso";
-                modules = [
-                  defaults
-                  ./installer/iso.nix
-                ];
-              };
-            };
+          # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
+          "custom-iso" = {
+            imports = [
+              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            ];
+            formatAttr = "isoImage";
           };
-          nixosConfigurations = {
-            vm = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = [
-                defaults
-                home-manager.nixosModules.home-manager
-                vscode-server.nixosModule
-                ./hosts/vm
-              ];
-            };
-            orbstack = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = [
-                defaults
-                home-manager.nixosModules.home-manager
-                vscode-server.nixosModule
-                ./hosts/orbstack
-              ];
-            };
-            homeserver = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = [
-                defaults
-                home-manager.nixosModules.home-manager
-                nixos-hardware.nixosModules.common-pc-ssd
-                nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-                nixos-hardware.nixosModules.common-gpu-amd
-                nixos-hardware.nixosModules.common-hidpi
-                ./hosts/homeserver
-              ];
-            };
-            raspi = nixpkgs.lib.nixosSystem {
+        };
+      in {
+        packages = {
+          aarch64-linux = {
+            raspi = nixos-generators.nixosGenerate {
               system = "aarch64-linux";
+              customFormats = generatorFormats;
+              format = "custom-sd";
               modules = [
                 defaults
-                home-manager.nixosModules.home-manager
                 nixos-hardware.nixosModules.raspberry-pi-4
-                ./hosts/raspi
+                ./installer/raspi.nix
               ];
             };
-            macbook-nixos = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
+            iso = nixos-generators.nixosGenerate {
+              system = "aarch64-linux";
+              customFormats = generatorFormats;
+              format = "custom-iso";
               modules = [
                 defaults
-                home-manager.nixosModules.home-manager
-                nixos-hardware.nixosModules.common-pc-laptop-ssd
-                nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-                nixos-hardware.nixosModules.common-gpu-intel
-                nixos-hardware.nixosModules.common-gpu-nvidia-disable
-                nixos-hardware.nixosModules.common-hidpi
-                ./hosts/macbook-nixos
+                ./installer/iso.nix
               ];
             };
           };
-          darwinConfigurations = {
-            mirkos-macbook = darwin.lib.darwinSystem {
-              system = "x86_64-darwin";
+          x86_64-linux = {
+            iso = nixos-generators.nixosGenerate {
+              system = "x86_64-linux";
+              customFormats = generatorFormats;
+              format = "custom-iso";
               modules = [
                 defaults
-                home-manager.darwinModules.home-manager
-                ./hosts/mirkos-macbook
+                ./installer/iso.nix
               ];
             };
           };
         };
+        nixosConfigurations = {
+          vm = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              defaults
+              home-manager.nixosModules.home-manager
+              vscode-server.nixosModule
+              ./hosts/vm
+            ];
+          };
+          orbstack = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              defaults
+              home-manager.nixosModules.home-manager
+              vscode-server.nixosModule
+              ./hosts/orbstack
+            ];
+          };
+          homeserver = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              defaults
+              home-manager.nixosModules.home-manager
+              nixos-hardware.nixosModules.common-pc-ssd
+              nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+              nixos-hardware.nixosModules.common-gpu-amd
+              nixos-hardware.nixosModules.common-hidpi
+              ./hosts/homeserver
+            ];
+          };
+          raspi = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            modules = [
+              defaults
+              home-manager.nixosModules.home-manager
+              nixos-hardware.nixosModules.raspberry-pi-4
+              ./hosts/raspi
+            ];
+          };
+          macbook-nixos = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              defaults
+              home-manager.nixosModules.home-manager
+              nixos-hardware.nixosModules.common-pc-laptop-ssd
+              nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+              nixos-hardware.nixosModules.common-gpu-intel
+              nixos-hardware.nixosModules.common-gpu-nvidia-disable
+              nixos-hardware.nixosModules.common-hidpi
+              ./hosts/macbook-nixos
+            ];
+          };
+        };
+        darwinConfigurations = {
+          mirkos-macbook = darwin.lib.darwinSystem {
+            system = "x86_64-darwin";
+            modules = [
+              defaults
+              home-manager.darwinModules.home-manager
+              ./hosts/mirkos-macbook
+            ];
+          };
+        };
+      };
     };
 }

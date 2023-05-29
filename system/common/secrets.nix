@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   options.custom = {
     secretsPath = lib.mkOption {
       description = "Path to secrets file";
@@ -12,7 +16,7 @@
       default =
         if config.custom.secretsPath != null
         then import config.custom.secretsPath
-        else { };
+        else {};
       defaultText = "import custom.secretsPath or {}";
       readOnly = true;
     };

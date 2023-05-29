@@ -1,4 +1,10 @@
-{ lib, pkgs, osConfig, extras, ... }:
+{
+  lib,
+  pkgs,
+  osConfig,
+  extras,
+  ...
+}:
 lib.mkIf (pkgs.stdenv.isLinux && osConfig.services.xserver.enable) {
   programs = {
     vscode = {

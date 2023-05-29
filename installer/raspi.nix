@@ -1,8 +1,11 @@
-{ lib, pkgs, extras, ... }:
-let
-  inherit (extras) pkgsUnstable;
-in
 {
+  lib,
+  pkgs,
+  extras,
+  ...
+}: let
+  inherit (extras) pkgsUnstable;
+in {
   imports = [
     ./sd.nix
   ];
@@ -10,7 +13,7 @@ in
   nixpkgs.overlays = [
     (final: super: {
       makeModulesClosure = x:
-        super.makeModulesClosure (x // { allowMissing = true; });
+        super.makeModulesClosure (x // {allowMissing = true;});
     })
   ];
   # TODO: Remove for 23.05
