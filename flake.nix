@@ -41,6 +41,16 @@
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixneovim = {
+      url = "github:nixneovim/nixneovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixneovimplugins.follows = "nixneovimplugins";
+    };
+    nixneovimplugins = {
+      url = "github:nixneovim/nixneovimplugins";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mlenz-ssh-keys = {
       url = "https://github.com/mirkolenz.keys";
       flake = false;
@@ -71,13 +81,16 @@
     nixpkgs-nixos,
     vscode-server,
     systems,
+    nixneovim,
     ...
   }: let
-    nixpkgsConfig = {
-      allowUnfree = true;
-    };
     defaults = {pkgs, ...}: {
-      nixpkgs.config = nixpkgsConfig;
+      nixpkgs = {
+        config = {
+          allowUnfree = true;
+        };
+        overlays = [nixneovim.overlays.default];
+      };
       # change in `./home/default.nix` as well
       _module.args = {
         flakeInputs = inputs;
@@ -136,6 +149,7 @@
                 defaults
                 ./home/mlenz
                 inputs.nix-index-database.hmModules.nix-index
+                inputs.nixneovim.nixosModules.default
               ];
             };
           };

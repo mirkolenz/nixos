@@ -5,6 +5,7 @@
     ./git.nix
     ./micro.nix
     ./neovim.nix
+    ./nixneovim.nix
     ./pandoc.nix
     ./ssh.nix
     ./starship.nix

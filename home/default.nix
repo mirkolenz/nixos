@@ -14,6 +14,7 @@ in {
       defaults
       ./mlenz
       flakeInputs.nix-index-database.hmModules.nix-index
+      flakeInputs.nixneovim.nixosModules.default
     ];
   };
 }
