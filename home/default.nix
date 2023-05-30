@@ -1,6 +1,10 @@
-{extras, ...}: let
+{
+  extras,
+  flakeInputs,
+  ...
+}: let
   defaults = {...}: {
-    _module.args = {inherit extras;};
+    _module.args = {inherit extras flakeInputs;};
   };
 in {
   home-manager = {
@@ -9,7 +13,7 @@ in {
     users.mlenz.imports = [
       defaults
       ./mlenz
-      extras.inputs.nix-index-database.hmModules.nix-index
+      flakeInputs.nix-index-database.hmModules.nix-index
     ];
   };
 }

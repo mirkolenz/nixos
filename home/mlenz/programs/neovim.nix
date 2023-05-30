@@ -1,9 +1,6 @@
-{extras, ...}: let
-  inherit (extras) pkgsUnstable;
-in {
+{...}: {
   programs.neovim = {
     enable = true;
-    package = pkgsUnstable.neovim-unwrapped;
     # TODO: new in 23.05 defaultEditor = true;
     viAlias = true;
     vimAlias = true;

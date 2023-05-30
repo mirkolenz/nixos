@@ -1,9 +1,10 @@
 {
   extras,
+  flakeInputs,
   lib,
   ...
 }: let
-  inherit (extras.inputs) mlenz-ssh-keys;
+  inherit (flakeInputs) mlenz-ssh-keys;
 in {
   system = {
     inherit (extras) stateVersion;

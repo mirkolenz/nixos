@@ -1,8 +1,4 @@
-{
-  pkgs,
-  extras,
-  ...
-}: {
+{pkgs, ...}: {
   programs = {
     # bash is enabled by default
     fish = {

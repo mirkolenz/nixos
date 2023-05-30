@@ -1,10 +1,4 @@
-{
-  pkgs,
-  extras,
-  ...
-}: let
-  inherit (extras) pkgsUnstable;
-in {
+{pkgs, ...}: {
   imports = [
     ./homebrew.nix
     ./settings.nix
@@ -17,7 +11,7 @@ in {
     build-users-group = "nixbld";
   };
 
-  environment.systemPackages = with pkgsUnstable; [
+  environment.systemPackages = with pkgs; [
     texlive.combined.scheme-full
   ];
 }

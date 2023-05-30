@@ -1,10 +1,8 @@
 {
   pkgs,
   lib,
-  extras,
   ...
 }: let
-  inherit (extras) pkgsUnstable;
   username = "mlenz";
   homeDirectory =
     if pkgs.stdenv.isDarwin
@@ -24,7 +22,7 @@ in {
         home = homeDirectory;
         uid = userid;
         shell = pkgs.fish;
-        packages = with pkgsUnstable; [
+        packages = with pkgs; [
           nixpkgs-fmt
           nil
           nixfmt

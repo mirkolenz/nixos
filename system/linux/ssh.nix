@@ -1,11 +1,5 @@
-{
-  extras,
-  lib,
-  pkgs,
-  config,
-  ...
-}: let
-  inherit (extras.inputs) mlenz-ssh-keys;
+{flakeInputs, ...}: let
+  inherit (flakeInputs) mlenz-ssh-keys;
 in {
   services.openssh = {
     passwordAuthentication = false;

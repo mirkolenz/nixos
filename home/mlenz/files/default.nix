@@ -2,10 +2,10 @@
   lib,
   pkgs,
   config,
-  extras,
+  flakeInputs,
   ...
 }: let
-  inherit (extras.inputs) macchina texmf;
+  inherit (flakeInputs) macchina texmf;
   poetryPrefix =
     if pkgs.stdenv.isDarwin
     then "Library/Preferences/pypoetry"

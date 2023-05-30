@@ -1,11 +1,5 @@
 # https://nixos.wiki/wiki/NixOS_on_ARM#Installation
-{
-  lib,
-  extras,
-  ...
-}: let
-  inherit (extras) pkgsUnstable;
-in {
+{...}: {
   imports = [
     ./hardware.nix
     ../../templates/server.nix
@@ -20,6 +14,4 @@ in {
     # TODO: Currently broken
     audio.enable = false;
   };
-  # TODO: Remove for 23.05
-  boot.kernelPackages = lib.mkForce pkgsUnstable.linuxKernel.packages.linux_rpi4;
 }

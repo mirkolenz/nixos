@@ -1,8 +1,6 @@
 {
-  extras,
   osConfig,
   pkgs,
-  lib,
   ...
 }: {
   programs.pandoc = {

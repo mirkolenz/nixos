@@ -1,10 +1,10 @@
 {
-  extras,
+  flakeInputs,
   lib,
   pkgs,
   ...
 }: let
-  inherit (extras.inputs) gitignore;
+  inherit (flakeInputs) gitignore;
 in {
   programs.git = {
     enable = true;

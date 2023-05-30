@@ -3,24 +3,28 @@
 
   inputs = {
     nixpkgs = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    };
+    nixpkgs-nixos = {
       url = "github:nixos/nixpkgs/nixos-22.11";
-    };
-    nixpkgs-unstable = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-    systems = {
-      url = "github:nix-systems/default";
     };
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-nixos = {
+      url = "github:nix-community/home-manager/release-22.11";
+      inputs.nixpkgs.follows = "nixpkgs-nixos";
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
+    };
+    systems = {
+      url = "github:nix-systems/default";
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -32,6 +36,10 @@
     };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
+    };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     mlenz-ssh-keys = {
       url = "https://github.com/mirkolenz.keys";
@@ -45,10 +53,6 @@
       url = "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode";
       flake = false;
     };
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     macchina = {
       url = "github:Macchina-CLI/macchina/v6.1.8";
       flake = false;
@@ -60,10 +64,11 @@
     darwin,
     flake-parts,
     home-manager,
+    home-manager-nixos,
     nixos-generators,
     nixos-hardware,
     nixpkgs,
-    nixpkgs-unstable,
+    nixpkgs-nixos,
     vscode-server,
     systems,
     ...
@@ -102,14 +107,10 @@
         };
         defaults = {pkgs, ...}: {
           nixpkgs.config = nixpkgsConfig;
+          # change in `./home/default.nix` as well
           _module.args = {
+            flakeInputs = inputs;
             extras = {
-              inherit inputs;
-              # https://github.com/nix-community/home-manager/issues/1538
-              pkgsUnstable = import nixpkgs-unstable {
-                inherit (pkgs.stdenv.targetPlatform) system;
-                config = nixpkgsConfig;
-              };
               dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
               stateVersion = "22.11";
             };
@@ -185,11 +186,11 @@
               ./hosts/orbstack
             ];
           };
-          homeserver = nixpkgs.lib.nixosSystem {
+          homeserver = nixpkgs-nixos.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               defaults
-              home-manager.nixosModules.home-manager
+              home-manager-nixos.nixosModules.home-manager
               nixos-hardware.nixosModules.common-pc-ssd
               nixos-hardware.nixosModules.common-cpu-intel-cpu-only
               nixos-hardware.nixosModules.common-gpu-amd
@@ -197,6 +198,7 @@
               ./hosts/homeserver
             ];
           };
+          # TODO: Change to nixpkgs-nixos for 23.05
           raspi = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
             modules = [
