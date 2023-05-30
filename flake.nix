@@ -8,6 +8,9 @@
     nixpkgs-unstable = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
+    systems = {
+      url = "github:nix-systems/default";
+    };
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,10 +65,11 @@
     nixpkgs,
     nixpkgs-unstable,
     vscode-server,
+    systems,
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = nixpkgs.lib.systems.flakeExposed;
+      inherit systems;
       perSystem = {
         pkgs,
         system,
