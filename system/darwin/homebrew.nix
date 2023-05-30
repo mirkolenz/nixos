@@ -7,7 +7,10 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "uninstall";
+      # TODO: When set to uninstall, all vscode extensions are removed
+      # nix-darwin does not yet support vscode extensions in brew bundle
+      # https://github.com/Homebrew/homebrew-bundle/pull/1208
+      cleanup = "none";
     };
     taps = [
       "homebrew/cask-drivers"
