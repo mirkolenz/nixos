@@ -88,12 +88,11 @@
         TrackpadRightClick = true;
         TrackpadThreeFingerDrag = true;
       };
-      # TODO: Could not write domain com.apple.universalaccess
-      # universalaccess = {
-      #   closeViewScrollWheelToggle = false;
-      #   closeViewZoomFollowsFocus = false;
-      #   reduceTransparency = false;
-      # };
+      universalaccess = {
+        closeViewScrollWheelToggle = false;
+        closeViewZoomFollowsFocus = false;
+        reduceTransparency = false;
+      };
       SoftwareUpdate = {
         AutomaticallyInstallMacOSUpdates = true;
       };

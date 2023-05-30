@@ -61,7 +61,7 @@ in {
           nix-collect-garbage --delete-older-than 30d
         '';
       })
-      # https://github.com/NixOS/nixpkgs/blob/nixos-22.11/nixos/modules/tasks/auto-upgrade.nix#L204
+      # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/nixos/modules/tasks/auto-upgrade.nix#L204
       (writeShellApplication {
         name = "needs-reboot";
         runtimeInputs = [coreutils];

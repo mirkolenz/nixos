@@ -6,7 +6,7 @@
       url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };
     nixpkgs-nixos = {
-      url = "github:nixos/nixpkgs/nixos-22.11";
+      url = "github:nixos/nixpkgs/nixos-23.05";
     };
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -17,7 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-nixos = {
-      url = "github:nix-community/home-manager/release-22.11";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs-nixos";
     };
     flake-parts = {
@@ -31,14 +31,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server = {
-      url = "github:msteen/nixos-vscode-server";
+      url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
+      url = "github:nixos/nixos-hardware";
     };
     nix-index-database = {
-      url = "github:Mic92/nix-index-database";
+      url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mlenz-ssh-keys = {
@@ -54,7 +54,7 @@
       flake = false;
     };
     macchina = {
-      url = "github:Macchina-CLI/macchina/v6.1.8";
+      url = "github:macchina-cli/macchina/v6.1.8";
       flake = false;
     };
   };
@@ -83,7 +83,7 @@
         flakeInputs = inputs;
         extras = {
           dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
-          stateVersion = "22.11";
+          stateVersion = "23.05";
         };
       };
     };
@@ -123,7 +123,7 @@
             program = builtins.toString (pkgs.writeShellScript "rebuild" ''
               set -x #echo on
               REBUILD_TYPE=''${1:-switch}
-              ${builder} --flake ${self} "--$REBUILD_TYPE" "''${@:2}"
+              ${builder} --flake ${self} "$REBUILD_TYPE" "''${@:2}"
             '');
           };
         };
@@ -224,12 +224,11 @@
               ./hosts/homeserver
             ];
           };
-          # TODO: Change to nixpkgs-nixos for 23.05
-          raspi = nixpkgs.lib.nixosSystem {
+          raspi = nixpkgs-nixos.lib.nixosSystem {
             system = "aarch64-linux";
             modules = [
               defaults
-              home-manager.nixosModules.home-manager
+              home-manager-nixos.nixosModules.home-manager
               nixos-hardware.nixosModules.raspberry-pi-4
               ./hosts/raspi
             ];

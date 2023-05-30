@@ -90,7 +90,7 @@
       "font-fira-code-nerd-font"
       "font-fontawesome"
       "font-ia-writer-duo"
-      # todo: fails to install "font-ia-writer-duospace"
+      # "font-ia-writer-duospace"
       "font-ia-writer-mono"
       "font-ia-writer-quattro"
       "font-ibm-plex"
@@ -171,7 +171,7 @@
     #   "Step Two" = 1448916662;
     #   "StopTheMadness" = 1376402589;
     #   "Tempus" = 1491326665;
-    #   # todo: fails to install "TestFlight" = 899247664;
+    #   # "TestFlight" = 899247664;
     #   "Todoist" = 585829637;
     #   # "Velja" = 1607635845;
     #   "Vinegar" = 1591303229;
