@@ -116,6 +116,29 @@
               ${builder} --flake ${self} --impure --no-write-lock-file "$REBUILD_TYPE" "''${@:2}"
             '');
           };
+          home = let
+            builder = home-manager.packages.${system}.default;
+          in {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "rebuild" ''
+              set -x #echo on
+              REBUILD_TYPE=''${1:-switch}
+              ${builder} --flake ${self} "--$REBUILD_TYPE" "''${@:2}"
+            '');
+          };
+        };
+        legacyPackages = {
+          homeConfigurations = {
+            # edit in `./home/default.nix` as well
+            mlenz = home-manager.lib.homeManagerConfiguration {
+              inherit pkgs;
+              modules = [
+                defaults
+                ./home/mlenz
+                inputs.nix-index-database.hmModules.nix-index
+              ];
+            };
+          };
         };
       };
       flake = {
