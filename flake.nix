@@ -69,7 +69,7 @@
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      inherit systems;
+      systems = import systems;
       perSystem = {
         pkgs,
         system,
