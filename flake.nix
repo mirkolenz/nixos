@@ -72,7 +72,22 @@
     vscode-server,
     systems,
     ...
-  }:
+  }: let
+    nixpkgsConfig = {
+      allowUnfree = true;
+    };
+    defaults = {pkgs, ...}: {
+      nixpkgs.config = nixpkgsConfig;
+      # change in `./home/default.nix` as well
+      _module.args = {
+        flakeInputs = inputs;
+        extras = {
+          dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
+          stateVersion = "22.11";
+        };
+      };
+    };
+  in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
       perSystem = {
@@ -82,58 +97,46 @@
       }: {
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
-        apps.default = let
-          builder =
-            if pkgs.stdenv.isDarwin
-            then let
-              emptyDarwin = darwin.lib.darwinSystem {
-                inherit system;
-                modules = [];
-              };
-            in "${emptyDarwin.system}/sw/bin/darwin-rebuild"
-            else pkgs.lib.getExe pkgs.nixos-rebuild;
-        in {
-          type = "app";
-          program = builtins.toString (pkgs.writeShellScript "rebuild" ''
-            set -x #echo on
-            REBUILD_TYPE=''${1:-switch}
-            ${builder} --flake ${self} --impure --no-write-lock-file "$REBUILD_TYPE" "''${@:2}"
-          '');
+        apps = {
+          default = let
+            builder =
+              if pkgs.stdenv.isDarwin
+              then let
+                emptyDarwin = darwin.lib.darwinSystem {
+                  inherit system;
+                  modules = [];
+                };
+              in "${emptyDarwin.system}/sw/bin/darwin-rebuild"
+              else pkgs.lib.getExe pkgs.nixos-rebuild;
+          in {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "rebuild" ''
+              set -x #echo on
+              REBUILD_TYPE=''${1:-switch}
+              ${builder} --flake ${self} --impure --no-write-lock-file "$REBUILD_TYPE" "''${@:2}"
+            '');
+          };
         };
       };
-      flake = let
-        nixpkgsConfig = {
-          allowUnfree = true;
-        };
-        defaults = {pkgs, ...}: {
-          nixpkgs.config = nixpkgsConfig;
-          # change in `./home/default.nix` as well
-          _module.args = {
-            flakeInputs = inputs;
-            extras = {
-              dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
-              stateVersion = "22.11";
+      flake = {
+        packages = let
+          generatorFormats = {
+            # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
+            "custom-sd" = {
+              imports = [
+                "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+              ];
+              formatAttr = "sdImage";
+            };
+            # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
+            "custom-iso" = {
+              imports = [
+                "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+              ];
+              formatAttr = "isoImage";
             };
           };
-        };
-        generatorFormats = {
-          # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
-          "custom-sd" = {
-            imports = [
-              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-            ];
-            formatAttr = "sdImage";
-          };
-          # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
-          "custom-iso" = {
-            imports = [
-              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            ];
-            formatAttr = "isoImage";
-          };
-        };
-      in {
-        packages = {
+        in {
           aarch64-linux = {
             raspi = nixos-generators.nixosGenerate {
               system = "aarch64-linux";
