@@ -51,6 +51,10 @@
       url = "github:nixneovim/nixneovimplugins";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixd = {
+      url = "github:nix-community/nixd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mlenz-ssh-keys = {
       url = "https://github.com/mirkolenz.keys";
       flake = false;
@@ -82,6 +86,7 @@
     vscode-server,
     systems,
     nixneovim,
+    nixd,
     ...
   }: let
     defaults = {pkgs, ...}: {
@@ -89,7 +94,12 @@
         config = {
           allowUnfree = true;
         };
-        overlays = [nixneovim.overlays.default];
+        overlays = let
+          inherit (pkgs) system;
+        in [
+          nixneovim.overlays.default
+          (_:_: {nixd = nixd.packages.${system}.default;})
+        ];
       };
       # change in `./home/default.nix` as well
       _module.args = {

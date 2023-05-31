@@ -27,6 +27,7 @@ in {
           nil
           nixfmt
           alejandra
+          nixd
         ];
       }
       (lib.mkIf pkgs.stdenv.isLinux {

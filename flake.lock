@@ -54,6 +54,24 @@
         "type": "github"
       }
     },
+    "flake-parts_2": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_2"
+      },
+      "locked": {
+        "lastModified": 1683560683,
+        "narHash": "sha256-XAygPMN5Xnk/W2c1aW0jyEa6lfMDZWlQgiNtmHXytPc=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "006c75898cf814ef9497252b022e91c946ba8e17",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1656928814,
@@ -204,6 +222,27 @@
         "type": "github"
       }
     },
+    "nixd": {
+      "inputs": {
+        "flake-parts": "flake-parts_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1685510415,
+        "narHash": "sha256-EdfQ6fAppjW4ME2KpoqRG29INIMEyUL9/U9Qru8PUDA=",
+        "owner": "nix-community",
+        "repo": "nixd",
+        "rev": "2d001dace571d23ef5d8d5a80bc0a38eab14364b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixd",
+        "type": "github"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1681001314,
@@ -340,6 +379,24 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib_2": {
+      "locked": {
+        "dir": "lib",
+        "lastModified": 1682879489,
+        "narHash": "sha256-sASwo8gBt7JDnOOstnps90K1wxmVfyhsTPPNTGBPjjg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "da45bf6ec7bbcc5d1e14d3795c025199f28e0de0",
+        "type": "github"
+      },
+      "original": {
+        "dir": "lib",
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-nixos": {
       "locked": {
         "lastModified": 1685356226,
@@ -398,6 +455,7 @@
         "macchina": "macchina",
         "mlenz-ssh-keys": "mlenz-ssh-keys",
         "nix-index-database": "nix-index-database",
+        "nixd": "nixd",
         "nixneovim": "nixneovim",
         "nixneovimplugins": "nixneovimplugins",
         "nixos-generators": "nixos-generators",
