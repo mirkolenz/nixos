@@ -93,31 +93,14 @@
     nixpkgs-nixos,
     vscode-server,
     systems,
-    nixneovim,
-    nixd,
-    poetry2nix,
-    bibtex2cff,
     ...
   }: let
     defaults = {pkgs, ...}: {
-      nixpkgs = {
-        config = {
-          allowUnfree = true;
-        };
-        overlays = let
-          inherit (pkgs) system;
-          inherit (poetry2nix.legacyPackages.${system}) mkPoetryApplication;
-        in [
-          nixneovim.overlays.default
-          (_:_: {
-            nixd = nixd.packages.${system}.default;
-            bibtex2cff = mkPoetryApplication {
-              projectDir = builtins.toString bibtex2cff;
-              preferWheels = true;
-              python = pkgs.python3;
-            };
-          })
-        ];
+      imports = [
+        ./overlays
+      ];
+      nixpkgs.config = {
+        allowUnfree = true;
       };
       # change in `./home/default.nix` as well
       _module.args = {
