@@ -16,5 +16,6 @@
     tectonic
     texlab
     bibtex2cff
+    bibtex-to-cff
   ];
 }

@@ -79,6 +79,10 @@
       url = "github:anselmoo/bibtex2cff/v0.2.0";
       flake = false;
     };
+    bibtexbrowser = {
+      url = "github:monperrus/bibtexbrowser";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

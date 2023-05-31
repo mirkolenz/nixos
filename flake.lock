@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "bibtexbrowser": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683657834,
+        "narHash": "sha256-ihq3BShs5zhRiV43XCvtZPtnIqn3V07gzKWPLsJrQh0=",
+        "owner": "monperrus",
+        "repo": "bibtexbrowser",
+        "rev": "3615286dfdca3af2d5182298f4e9bd53c4bd7b41",
+        "type": "github"
+      },
+      "original": {
+        "owner": "monperrus",
+        "repo": "bibtexbrowser",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -504,6 +520,7 @@
     "root": {
       "inputs": {
         "bibtex2cff": "bibtex2cff",
+        "bibtexbrowser": "bibtexbrowser",
         "darwin": "darwin",
         "flake-parts": "flake-parts",
         "gitignore": "gitignore",

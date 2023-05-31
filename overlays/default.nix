@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   flakeInputs,
   ...
 }: {
@@ -15,6 +16,10 @@
         preferWheels = true;
         python = pkgs.python3;
       };
+      bibtex-to-cff = with pkgs;
+        writeShellScriptBin "bibtex-to-cff" ''
+          exec ${lib.getExe php} ${flakeInputs.bibtexbrowser}/bibtex-to-cff.php "$@"
+        '';
     })
   ];
 }
