@@ -47,6 +47,7 @@
       "iterm2"
       # "kaleidoscope"
       # "kindle"
+      "macmediakeyforwarder"
       "mediathekview"
       # "mullvadvpn"
       "notion"
