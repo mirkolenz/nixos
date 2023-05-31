@@ -65,7 +65,7 @@
       "rectangle-pro"
       # "replacicon"
       # "shortcat"
-      "shottr"
+      # "shottr"
       "signal"
       "skim"
       "soundsource"
