@@ -29,8 +29,12 @@
     curl
     wget
     gnugrep
+    gnutar
     direnv
     nix-direnv
+    zip
+    unzip
+    coreutils
   ];
 
   # networking.firewall = {

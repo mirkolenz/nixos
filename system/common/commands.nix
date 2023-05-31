@@ -1,152 +1,124 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
+  echo = "${pkgs.coreutils}/bin/echo";
 in {
   environment = {
-    shellAliases = {
-      cat = "bat";
-      ls = "exa";
-      ll = "exa ${exaArgs}";
-      la = "exa --all ${exaArgs}";
-      l = "exa ${exaArgs}";
+    shellAliases = with pkgs; {
+      cat = "${lib.getExe bat}";
+      ls = "${lib.getExe exa}";
+      ll = "${lib.getExe exa} ${exaArgs}";
+      la = "${lib.getExe exa} --all ${exaArgs}";
+      l = "${lib.getExe exa} ${exaArgs}";
     };
     systemPackages = with pkgs; [
       (writeShellScriptBin "dc" ''
-        docker compose "$@"
+        exec docker compose "$@"
       '')
       (writeShellScriptBin "docker-reset" ''
-        docker system prune --all --force
+        exec docker system prune --all --force
       '')
-      (writeShellApplication {
-        name = "pull-rebuild";
-        text = ''
-          set -x #echo on
-          FLAKE=''${1:-"github:mirkolenz/nixos"}
+      (writeShellScriptBin "pull-rebuild" ''
+        set -x #echo on
+        FLAKE=''${1:-"github:mirkolenz/nixos"}
 
-          if [[ "$FLAKE" != github* ]]; then
-            git -C "$FLAKE" pull
-          fi
+        if [[ "$FLAKE" != github* ]]; then
+          ${lib.getExe git} -C "$FLAKE" pull
+        fi
 
-          nix run "$FLAKE" -- "''${@:2}"
-        '';
-      })
+        exec ${lib.getExe nix} run "$FLAKE" -- "''${@:2}"
+      '')
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
-      (writeShellApplication {
-        name = "mogrify-convert";
-        runtimeInputs = with pkgs; [imagemagick];
-        text = ''
-          if [ "$#" -ne 3 ]; then
-            echo "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY" >&2
-            exit 1
-          fi
-          mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
-        '';
-      })
+      (writeShellScriptBin "mogrify-convert" ''
+        if [ "$#" -ne 3 ]; then
+          ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY" >&2
+          exit 1
+        fi
+        exec ${imagemagick}/bin/mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
+      '')
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
-      (writeShellApplication {
-        name = "mogrify-resize";
-        runtimeInputs = with pkgs; [imagemagick];
-        text = ''
-          if [ "$#" -ne 4 ]; then
-            echo "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY FINAL_SIZE" >&2
-            exit 1
-          fi
-          mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
-        '';
-      })
-      (writeShellApplication {
-        name = "gc";
-        text = ''
-          nix store optimise
-          nix store gc
-          nix-collect-garbage --delete-older-than 30d
-        '';
-      })
+      (writeShellScriptBin "mogrify-resize" ''
+        if [ "$#" -ne 4 ]; then
+          ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY FINAL_SIZE" >&2
+          exit 1
+        fi
+        exec ${imagemagick}/bin/mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
+      '')
+      (writeShellScriptBin "gc" ''
+        ${lib.getExe nix} store optimise
+        ${lib.getExe nix} store gc
+        ${nix}/bin/nix-collect-garbage --delete-older-than 30d
+      '')
       # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/nixos/modules/tasks/auto-upgrade.nix#L204
-      (writeShellApplication {
-        name = "needs-reboot";
-        runtimeInputs = [coreutils];
-        text = ''
-          booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
-          built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+      (writeShellScriptBin "needs-reboot" ''
+        booted="$(${coreutils}/bin/readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+        built="$(${coreutils}/bin/readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
-          if [ "$booted" != "$built" ]; then
-            echo "REBOOT NEEDED"
-            exit 1
-          fi
+        if [ "$booted" != "$built" ]; then
+          ${echo} "REBOOT NEEDED"
+          exit 1
+        fi
 
-          exit 0
-        '';
-      })
-      (writeShellApplication {
-        name = "dcup";
-        text = ''
-          if [ "$#" -ne 1 ]; then
-            echo "Usage: $0 FILE" >&2
-            exit 1
-          fi
-          if [ "$(id -u)" -ne 0 ]; then
-            echo "Please run as root"
-            exit 1
-          fi
-          docker compose --file "$1" pull
-          docker compose --file "$1" build
-          docker compose --file "$1" up --detach
-          docker image prune --all --force
-        '';
-      })
-      (writeShellApplication {
-        name = "encrypt";
-        text = ''
-          if [ "$#" -ne 3 ]; then
-            echo "Usage: $0 SOURCE TARGET RECIPIENT" >&2
-            exit 1
-          fi
+        exit 0
+      '')
+      (writeShellScriptBin "dcup" ''
+        if [ "$#" -ne 1 ]; then
+          ${echo} "Usage: $0 FILE" >&2
+          exit 1
+        fi
+        if [ "$(id -u)" -ne 0 ]; then
+          ${echo} "Please run as root"
+          exit 1
+        fi
+        docker compose --file "$1" pull
+        docker compose --file "$1" build
+        docker compose --file "$1" up --detach
+        docker image prune --all --force
+      '')
+      (writeShellScriptBin "encrypt" ''
+        if [ "$#" -ne 3 ]; then
+          ${echo} "Usage: $0 SOURCE TARGET RECIPIENT" >&2
+          exit 1
+        fi
 
-          gpg --output "$2" --encrypt --recipient "$3" "$1"
-        '';
-      })
-      (writeShellApplication {
-        name = "decrypt";
-        text = ''
-          if [ "$#" -ne 2 ]; then
-            echo "Usage: $0 SOURCE TARGET" >&2
-            exit 1
-          fi
+        exec ${gnupg}/bin/gpg --output "$2" --encrypt --recipient "$3" "$1"
+      '')
+      (writeShellScriptBin "decrypt" ''
+        if [ "$#" -ne 2 ]; then
+          ${echo} "Usage: $0 SOURCE TARGET" >&2
+          exit 1
+        fi
 
-          gpg --output "$2" --decrypt "$1"
-        '';
-      })
-      (writeShellApplication {
-        name = "backup";
-        text = ''
-          if [ "$#" -ne 2 ]; then
-            echo "Usage: $0 SOURCE TARGET" >&2
-            exit 1
-          fi
-          if [ "$(id -u)" -ne 0 ]; then
-            echo "Please run as root"
-            exit 1
-          fi
-          mkdir -p "$2"
-          TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
-          sudo tar czf "$2/$TIMESTAMP.tgz" "$1"
-        '';
-      })
-      (writeShellApplication {
-        name = "restore";
-        text = ''
-          if [ "$#" -ne 2 ]; then
-            echo "Usage: $0 SOURCE TARGET" >&2
-            exit 1
-          fi
-          if [ "$(id -u)" -ne 0 ]; then
-            echo "Please run as root"
-            exit 1
-          fi
-          mkdir -p "$2"
-          sudo tar xf "$1" -C "$2"
-        '';
-      })
+        exec ${gnupg}/bin/gpg --output "$2" --decrypt "$1"
+      '')
+      (writeShellScriptBin "backup" ''
+        if [ "$#" -ne 2 ]; then
+          ${echo} "Usage: $0 SOURCE TARGET" >&2
+          exit 1
+        fi
+        if [ "$(id -u)" -ne 0 ]; then
+          ${echo} "Please run as root"
+          exit 1
+        fi
+        ${coreutils}/bin/mkdir -p "$2"
+        TIMESTAMP=$(${coreutils}/bin/date +"%Y-%m-%d-%H-%M-%S")
+        sudo ${gnutar}/bin/tar czf "$2/$TIMESTAMP.tgz" "$1"
+      '')
+      (writeShellScriptBin "restore" ''
+        if [ "$#" -ne 2 ]; then
+          ${echo} "Usage: $0 SOURCE TARGET" >&2
+          exit 1
+        fi
+        if [ "$(id -u)" -ne 0 ]; then
+          ${echo} "Please run as root"
+          exit 1
+        fi
+        ${coreutils}/bin/mkdir -p "$2"
+        sudo ${gnutar}/bin/tar xf "$1" -C "$2"
+      '')
     ];
   };
 }
