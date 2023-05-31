@@ -66,6 +66,7 @@
       # "replacicon"
       # "shortcat"
       "signal"
+      "skim"
       "soundsource"
       "steermouse"
       "tiptoi-manager"
