@@ -15,5 +15,6 @@
     texlive.combined.scheme-full
     tectonic
     texlab
+    bibtex2cff
   ];
 }

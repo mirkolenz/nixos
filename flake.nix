@@ -55,6 +55,10 @@
       url = "github:nix-community/nixd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mlenz-ssh-keys = {
       url = "https://github.com/mirkolenz.keys";
       flake = false;
@@ -69,6 +73,10 @@
     };
     macchina = {
       url = "github:macchina-cli/macchina/v6.1.8";
+      flake = false;
+    };
+    bibtex2cff = {
+      url = "github:anselmoo/bibtex2cff/v0.2.0";
       flake = false;
     };
   };
@@ -87,6 +95,8 @@
     systems,
     nixneovim,
     nixd,
+    poetry2nix,
+    bibtex2cff,
     ...
   }: let
     defaults = {pkgs, ...}: {
@@ -96,9 +106,17 @@
         };
         overlays = let
           inherit (pkgs) system;
+          inherit (poetry2nix.legacyPackages.${system}) mkPoetryApplication;
         in [
           nixneovim.overlays.default
-          (_:_: {nixd = nixd.packages.${system}.default;})
+          (_:_: {
+            nixd = nixd.packages.${system}.default;
+            bibtex2cff = mkPoetryApplication {
+              projectDir = builtins.toString bibtex2cff;
+              preferWheels = true;
+              python = pkgs.python3;
+            };
+          })
         ];
       };
       # change in `./home/default.nix` as well
