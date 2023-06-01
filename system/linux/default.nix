@@ -51,4 +51,11 @@
   system = {
     inherit (extras) stateVersion;
   };
+
+  boot.loader = {
+    systemd-boot.configurationLimit = 7;
+    generic-extlinux-compatible.configurationLimit = 7;
+    grub.configurationLimit = 7;
+    raspberryPi.uboot.configurationLimit = 7;
+  };
 }

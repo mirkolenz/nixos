@@ -48,9 +48,13 @@ in {
         exec ${imagemagick}/bin/mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
       '')
       (writeShellScriptBin "gc" ''
+        if [ "$(id -u)" -ne 0 ]; then
+          ${echo} "To clean the system store, also run as root"
+        fi
+        set -x #echo on
         ${lib.getExe nix} store optimise
         ${lib.getExe nix} store gc
-        ${nix}/bin/nix-collect-garbage --delete-older-than 30d
+        ${nix}/bin/nix-collect-garbage --delete-older-than 7d
       '')
       # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/nixos/modules/tasks/auto-upgrade.nix#L204
       (writeShellScriptBin "needs-reboot" ''

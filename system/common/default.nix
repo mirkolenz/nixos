@@ -60,15 +60,14 @@
     gc = lib.mkMerge [
       {
         automatic = true;
-        options = "--delete-older-than 30d";
+        options = "--delete-older-than 7d";
       }
       (lib.optionalAttrs (pkgs.stdenv.isLinux) {
-        dates = "weekly";
+        dates = "daily";
       })
       (lib.optionalAttrs (pkgs.stdenv.isDarwin) {
         interval = {
-          Weekday = 0;
-          Hour = 0;
+          Hour = 1;
           Minute = 0;
         };
       })
