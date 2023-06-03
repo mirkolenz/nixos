@@ -10,7 +10,6 @@
   in [
     flakeInputs.nixneovim.overlays.default
     (_:_: {
-      nixd = flakeInputs.nixd.packages.${system}.default;
       bibtex2cff = mkPoetryApplication {
         projectDir = builtins.toString flakeInputs.bibtex2cff;
         preferWheels = true;
