@@ -41,6 +41,7 @@
       "fission"
       "fork"
       # "gobdokumente"
+      "google-chrome"
       # "handbrake"
       # "hook"
       # "iina"
