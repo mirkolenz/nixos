@@ -35,6 +35,7 @@
     zip
     unzip
     coreutils
+    mu-repo
   ];
 
   # networking.firewall = {
