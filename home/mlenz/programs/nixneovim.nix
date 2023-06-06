@@ -2,8 +2,8 @@
   programs.nixneovim = {
     enable = true;
     defaultEditor = true;
-    # viAlias = true;
-    # vimAlias = true;
+    viAlias = true;
+    vimAlias = true;
     options = {
       # syntax = "on";
       autoindent = true;
