@@ -9,6 +9,8 @@
 
   nix.settings = {
     build-users-group = "nixbld";
+    # required for linux-builder
+    extra-trusted-users = ["mlenz"];
   };
 
   environment.systemPackages = with pkgs; [
