@@ -29,6 +29,7 @@ in {
     speedtest-cli
     youtube-dl
     poetry
+    cc2538-bsl
   ];
 
   environment.shellAliases = {
