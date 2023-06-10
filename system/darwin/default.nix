@@ -20,4 +20,6 @@
     bibtex2cff
     bibtex-to-cff
   ];
+
+  system.checks.verifyBuildUsers = false;
 }
