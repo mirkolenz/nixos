@@ -143,11 +143,11 @@
       "locked": {
         "narHash": "sha256-cpkse4NOi8oZrKHolReAPf07eApolKJOOGY7P0Ud/fI=",
         "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
+        "url": "https://www.toptal.com/developers/gitignore/api/macos%2Clinux%2Cwindows%2Cvisualstudiocode"
       },
       "original": {
         "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
+        "url": "https://www.toptal.com/developers/gitignore/api/macos%2Clinux%2Cwindows%2Cvisualstudiocode"
       }
     },
     "home-manager": {
@@ -286,11 +286,11 @@
         "nmt": "nmt"
       },
       "locked": {
-        "lastModified": 1686297995,
-        "narHash": "sha256-ZkaaEwvvmqu4QYpqn9byUuNf874NOPSUL92WhIV9vsw=",
+        "lastModified": 1686493126,
+        "narHash": "sha256-z9dIK6Ir6f9aeAJHrStVEoXEWguL+5x286ETA6j0EvI=",
         "owner": "nixneovim",
         "repo": "nixneovim",
-        "rev": "0f90a7243ebc00151420f329782c629c191b6ff4",
+        "rev": "1fc3a9fc5aba871bf4536ab881e4d52601c9e63b",
         "type": "github"
       },
       "original": {
@@ -308,11 +308,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686234475,
-        "narHash": "sha256-P+YgdjXD4MepcKr7qgqBnl1EIY7dpKNa/hwURqXKPs0=",
+        "lastModified": 1686493579,
+        "narHash": "sha256-b61/9bHQFXcrDIyJGDyZMLTrA7hQjAbTD5sKikt9UpI=",
         "owner": "nixneovim",
         "repo": "nixneovimplugins",
-        "rev": "18be57545ab841fd68791aa1ff53f2ff1191e7c0",
+        "rev": "583764091ff9047fce388f3bdf07e2f65416febb",
         "type": "github"
       },
       "original": {
@@ -344,11 +344,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1686396027,
-        "narHash": "sha256-gE+csxJoXuNn5ZnlgNj0GnMQ2y4heBtDqkB1af8vfjU=",
+        "lastModified": 1686452266,
+        "narHash": "sha256-zLKiX0iu6jZFeZDpR1gE6fNyMr8eiM8GLnj9SoUCjFs=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "70d5f55faee9c1e141e32e6be1e77d13e5a570db",
+        "rev": "2a807ad6e8dc458db08588b78cc3c0f0ec4ff321",
         "type": "github"
       },
       "original": {
@@ -359,11 +359,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1686398752,
-        "narHash": "sha256-nGWNQVhSw4VSL+S0D0cbrNR9vs9Bq7rlYR+1K5f5j6w=",
+        "lastModified": 1686488075,
+        "narHash": "sha256-2otSBt2hbeD+5yY25NF3RhWx7l5SDt1aeU3cJ/9My4M=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a30520bf8eabf8a5c37889d661e67a2dbcaa59e6",
+        "rev": "9401a0c780b49faf6c28adf55764f230301d0dce",
         "type": "github"
       },
       "original": {
