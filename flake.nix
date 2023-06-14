@@ -117,38 +117,43 @@
       perSystem = {
         pkgs,
         system,
+        lib,
         ...
       }: {
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
-        apps = {
+        apps = let
+          flags = ["--impure" "--no-write-lock-file"];
+          mkBuilder = builder:
+            pkgs.writeShellApplication {
+              name = "builder";
+              text = ''
+                set -x #echo on
+                REBUILD_TYPE=''${1:-switch}
+                exec ${builder} --flake ${self} ${builtins.toString flags} "$REBUILD_TYPE" "''${@:2}"
+              '';
+            };
+        in {
+          # system builder
           default = let
+            emptyDarwin = darwin.lib.darwinSystem {
+              inherit system;
+              modules = [];
+            };
             builder =
               if pkgs.stdenv.isDarwin
-              then let
-                emptyDarwin = darwin.lib.darwinSystem {
-                  inherit system;
-                  modules = [];
-                };
-              in "${emptyDarwin.system}/sw/bin/darwin-rebuild"
+              then "${emptyDarwin.system}/sw/bin/darwin-rebuild"
               else pkgs.lib.getExe pkgs.nixos-rebuild;
           in {
             type = "app";
-            program = builtins.toString (pkgs.writeShellScript "rebuild" ''
-              set -x #echo on
-              REBUILD_TYPE=''${1:-switch}
-              exec ${builder} --flake ${self} --impure --no-write-lock-file "$REBUILD_TYPE" "''${@:2}"
-            '');
+            program = lib.getExe (mkBuilder builder);
           };
+          # home-manager builder
           home = let
             builder = pkgs.lib.getExe home-manager.packages.${system}.default;
           in {
             type = "app";
-            program = builtins.toString (pkgs.writeShellScript "rebuild" ''
-              set -x #echo on
-              REBUILD_TYPE=''${1:-switch}
-              exec ${builder} --flake ${self} "$REBUILD_TYPE" "''${@:2}"
-            '');
+            program = lib.getExe (mkBuilder builder);
           };
         };
         legacyPackages = {
