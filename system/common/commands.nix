@@ -5,6 +5,12 @@
 }: let
   exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
   echo = "${pkgs.coreutils}/bin/echo";
+  checkSudo = ''
+    SUDO=""
+    if [ "$(id -u)" -ne 0 ]; then
+      SUDO="sudo"
+    fi
+  '';
 in {
   environment = {
     shellAliases = with pkgs; {
@@ -73,14 +79,11 @@ in {
           ${echo} "Usage: $0 FILE" >&2
           exit 1
         fi
-        if [ "$(id -u)" -ne 0 ]; then
-          ${echo} "Please run as root"
-          exit 1
-        fi
-        docker compose --file "$1" pull
-        docker compose --file "$1" build
-        docker compose --file "$1" up --detach
-        docker image prune --all --force
+        ${checkSudo}
+        "$SUDO" docker compose --file "$1" pull
+        "$SUDO" docker compose --file "$1" build
+        "$SUDO" docker compose --file "$1" up --detach
+        "$SUDO" docker image prune --all --force
       '')
       (writeShellScriptBin "encrypt" ''
         if [ "$#" -ne 3 ]; then
@@ -103,25 +106,19 @@ in {
           ${echo} "Usage: $0 SOURCE TARGET" >&2
           exit 1
         fi
-        if [ "$(id -u)" -ne 0 ]; then
-          ${echo} "Please run as root"
-          exit 1
-        fi
+        ${checkSudo}
         ${coreutils}/bin/mkdir -p "$2"
         TIMESTAMP=$(${coreutils}/bin/date +"%Y-%m-%d-%H-%M-%S")
-        sudo ${gnutar}/bin/tar czf "$2/$TIMESTAMP.tgz" "$1"
+        "$SUDO" ${gnutar}/bin/tar czf "$2/$TIMESTAMP.tgz" "$1"
       '')
       (writeShellScriptBin "restore" ''
         if [ "$#" -ne 2 ]; then
           ${echo} "Usage: $0 SOURCE TARGET" >&2
           exit 1
         fi
-        if [ "$(id -u)" -ne 0 ]; then
-          ${echo} "Please run as root"
-          exit 1
-        fi
+        ${checkSudo}
         ${coreutils}/bin/mkdir -p "$2"
-        sudo ${gnutar}/bin/tar xf "$1" -C "$2"
+        "$SUDO" ${gnutar}/bin/tar xf "$1" -C "$2"
       '')
     ];
   };
