@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   imports = [
     ./hardware.nix
     ../../templates/workstation.nix
@@ -19,8 +15,13 @@
     };
   };
 
-  # Not working due to failing `lenovo_fix.service`
-  # services.throttled.enable = true;
+  hardware = {
+    opengl.enable = true;
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+      modesetting.enable = true;
+    };
+  };
 
   powerManagement = {
     enable = true;

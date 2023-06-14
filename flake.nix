@@ -270,8 +270,8 @@
               home-manager.nixosModules.home-manager
               nixos-hardware.nixosModules.common-pc-laptop-ssd
               nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-              nixos-hardware.nixosModules.common-gpu-intel
-              nixos-hardware.nixosModules.common-gpu-nvidia-disable
+              nixos-hardware.nixosModules.common-gpu-intel-disable
+              nixos-hardware.nixosModules.common-gpu-nvidia
               nixos-hardware.nixosModules.common-hidpi
               ./hosts/macbook-nixos
             ];
