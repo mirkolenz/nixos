@@ -21,6 +21,9 @@ in {
     ".mackup.cfg" = lib.mkIf pkgs.stdenv.isDarwin {
       source = ./.mackup.cfg;
     };
+    ".amethyst.yml" = lib.mkIf pkgs.stdenv.isDarwin {
+      source = ./.amethyst.yml;
+    };
     "${config.xdg.configHome}/macchina/themes" = {
       source = "${macchina}/contrib/themes";
     };

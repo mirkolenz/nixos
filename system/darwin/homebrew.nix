@@ -21,6 +21,7 @@
     casks = [
       "1password"
       "adobe-creative-cloud"
+      "amethyst"
       "anydesk"
       "appcleaner"
       "arc"
