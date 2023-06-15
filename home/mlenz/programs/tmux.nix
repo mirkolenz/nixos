@@ -1,11 +1,13 @@
 {
-  osConfig,
+  osConfig ? {},
   pkgs,
   lib,
   ...
-}: {
+}: let
+  opensshEnabled = pkgs.stdenv.isLinux && (lib.attrByPath ["services" "openssh" "enable"] osConfig false);
+in {
   programs.tmux = {
-    enable = pkgs.stdenv.isLinux && osConfig.services.openssh.enable;
+    enable = opensshEnabled;
     clock24 = true;
     keyMode = "vi";
     mouse = true;

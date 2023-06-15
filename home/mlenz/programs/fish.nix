@@ -1,10 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  osConfig,
-  ...
-}: let
+{pkgs, ...}: let
   fishGreeting =
     if pkgs.stdenv.isLinux
     then ''
