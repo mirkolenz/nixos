@@ -25,7 +25,10 @@ in {
       podman.enableNvidia = true;
     };
     hardware = {
-      opengl.enable = true;
+      opengl = {
+        enable = true;
+        driSupport32Bit = true;
+      };
       nvidia = {
         package = config.boot.kernelPackages.nvidiaPackages.${cfg.driver};
         modesetting.enable = true;
