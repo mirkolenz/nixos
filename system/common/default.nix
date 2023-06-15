@@ -9,6 +9,7 @@
     ./shell.nix
     ./secrets.nix
     ../../home
+    ../cachix
   ];
 
   # https://zaiste.net/posts/shell-commands-rust/
