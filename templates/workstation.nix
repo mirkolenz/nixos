@@ -2,7 +2,6 @@
   imports = [
     ../system/common
     ../system/linux
-    ../system/tools.nix
   ];
 
   services.xserver.enable = true;

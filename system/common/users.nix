@@ -22,12 +22,6 @@ in {
         home = homeDirectory;
         uid = userid;
         shell = pkgs.fish;
-        packages = with pkgs; [
-          nixpkgs-fmt
-          nil
-          nixfmt
-          alejandra
-        ];
       }
       (lib.mkIf pkgs.stdenv.isLinux {
         group = username;

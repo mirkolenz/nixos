@@ -4,39 +4,11 @@
   ...
 }: {
   imports = [
-    ./commands.nix
     ./users.nix
     ./shell.nix
     ./secrets.nix
     ../../home
     ../cachix
-  ];
-
-  # https://zaiste.net/posts/shell-commands-rust/
-  environment.systemPackages = with pkgs; [
-    bat
-    exa
-    fd
-    procs
-    sd
-    ripgrep
-    tealdeer
-    bandwhich
-    delta
-    fzf
-    gnumake
-    massren
-    rsync
-    curl
-    wget
-    gnugrep
-    gnutar
-    direnv
-    nix-direnv
-    zip
-    unzip
-    coreutils
-    mu-repo
   ];
 
   # networking.firewall = {

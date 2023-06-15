@@ -15,6 +15,7 @@ in {
     ./xserver.nix
     ./programs
     ./files
+    ./packages
   ];
 
   home = {
@@ -23,8 +24,9 @@ in {
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };
-    shellAliases = {
-      sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
-    };
+  };
+
+  nix = {
+    package = lib.mkIf (osConfig == {}) pkgs.nix;
   };
 }

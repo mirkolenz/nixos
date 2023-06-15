@@ -13,13 +13,5 @@
     extra-trusted-users = ["mlenz"];
   };
 
-  environment.systemPackages = with pkgs; [
-    texlive.combined.scheme-full
-    tectonic
-    texlab
-    bibtex2cff
-    bibtex-to-cff
-  ];
-
   system.checks.verifyBuildUsers = false;
 }

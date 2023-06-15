@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  osConfig,
   ...
 }: let
   exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
@@ -12,15 +13,16 @@
     fi
   '';
 in {
-  environment = {
+  home = {
     shellAliases = with pkgs; {
       cat = "${lib.getExe bat}";
       ls = "${lib.getExe exa}";
       ll = "${lib.getExe exa} ${exaArgs}";
       la = "${lib.getExe exa} --all ${exaArgs}";
       l = "${lib.getExe exa} ${exaArgs}";
+      sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
     };
-    systemPackages = with pkgs; [
+    packages = with pkgs; [
       (writeShellScriptBin "dc" ''
         exec docker compose "$@"
       '')
