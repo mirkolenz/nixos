@@ -19,7 +19,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.config.cudaSupport = true;
+    # nixpkgs.config.cudaSupport = true;
     virtualisation = {
       docker.enableNvidia = true;
       podman.enableNvidia = true;
