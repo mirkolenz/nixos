@@ -1,7 +1,6 @@
 {
   pkgs,
   extras,
-  osConfig,
   ...
 }: let
   username = "mlenz";
@@ -15,8 +14,6 @@ in {
     ./programs
     ./files
   ];
-
-  nixpkgs.config = osConfig.nixpkgs.config;
 
   home = {
     inherit username homeDirectory;
