@@ -123,8 +123,9 @@
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
         apps = let
-          flags = ["--impure" "--no-write-lock-file"];
-          mkBuilder = builder:
+          systemFlags = ["--impure" "--no-write-lock-file"];
+          homeFlags = ["--option" "impure" "--option" "no-write-lock-file"];
+          mkBuilder = builder: flags:
             pkgs.writeShellApplication {
               name = "builder";
               text = ''
@@ -146,14 +147,14 @@
               else pkgs.lib.getExe pkgs.nixos-rebuild;
           in {
             type = "app";
-            program = lib.getExe (mkBuilder builder);
+            program = lib.getExe (mkBuilder builder systemFlags);
           };
           # home-manager builder
           home = let
             builder = pkgs.lib.getExe home-manager.packages.${system}.default;
           in {
             type = "app";
-            program = lib.getExe (mkBuilder builder);
+            program = lib.getExe (mkBuilder builder homeFlags);
           };
         };
         legacyPackages = {
