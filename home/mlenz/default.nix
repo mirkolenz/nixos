@@ -29,7 +29,7 @@ in {
         text = ''
           cmd=$(which "$1")
           shift
-          sudo "$cmd" "$@"
+          /usr/bin/sudo "$cmd" "$@"
         '';
       })
     ];
