@@ -3,13 +3,13 @@
   lib,
   flakeInputs,
   ...
-}: {
-  nixpkgs.overlays = let
-    inherit (pkgs) system;
-    inherit (flakeInputs.poetry2nix.legacyPackages.${system}) mkPoetryApplication;
-  in [
+}: let
+  inherit (pkgs) system;
+  inherit (flakeInputs.poetry2nix.legacyPackages.${system}) mkPoetryApplication;
+in {
+  nixpkgs.overlays = [
     flakeInputs.nixneovim.overlays.default
-    (_:_: {
+    (self: super: {
       bibtex2cff = mkPoetryApplication {
         projectDir = builtins.toString flakeInputs.bibtex2cff;
         preferWheels = true;
