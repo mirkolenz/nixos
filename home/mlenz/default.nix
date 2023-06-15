@@ -27,7 +27,7 @@ in {
       (pkgs.writeShellApplication {
         name = "sudo";
         text = ''
-          cmd=$(which $1)
+          cmd=$(which "$1")
           shift
           sudo "$cmd" "$@"
         '';
