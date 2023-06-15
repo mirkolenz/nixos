@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  opensshEnabled = pkgs.stdenv.isLinux && (lib.attrByPath ["services" "openssh" "enable"] osConfig false);
+  opensshEnabled = pkgs.stdenv.isLinux && (lib.attrByPath ["services" "openssh" "enable"] true osConfig);
 in {
   programs.tmux = {
     enable = opensshEnabled;

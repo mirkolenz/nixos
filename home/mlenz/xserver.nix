@@ -4,7 +4,7 @@
   osConfig,
   ...
 }: let
-  xserverEnabled = pkgs.stdenv.isLinux && (lib.attrByPath ["services" "xserver" "enable"] osConfig false);
+  xserverEnabled = pkgs.stdenv.isLinux && (lib.attrByPath ["services" "xserver" "enable"] false osConfig);
 in
   lib.mkIf xserverEnabled {
     programs = {
