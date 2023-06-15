@@ -95,13 +95,14 @@
     systems,
     ...
   }: let
+    nixpkgsConfig = {
+      allowUnfree = true;
+    };
     defaults = {pkgs, ...}: {
       imports = [
         ./overlays
       ];
-      nixpkgs.config = {
-        allowUnfree = true;
-      };
+      nixpkgs.config = nixpkgsConfig;
       # change in `./home/default.nix` as well
       _module.args = {
         flakeInputs = inputs;
@@ -120,6 +121,10 @@
         lib,
         ...
       }: {
+        _module.args.pkgs = import nixpkgs {
+          inherit system;
+          config = nixpkgsConfig;
+        };
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
         apps = let
