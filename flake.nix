@@ -124,7 +124,7 @@
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
         apps = let
           systemFlags = ["--impure" "--no-write-lock-file"];
-          homeFlags = ["--option" "impure" "--option" "no-write-lock-file"];
+          homeFlags = ["--option" "--impure" "--option" "--no-write-lock-file"];
           mkBuilder = builder: flags:
             pkgs.writeShellApplication {
               name = "builder";
