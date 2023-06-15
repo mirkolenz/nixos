@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./cuda.nix
     ./docker.nix
     ./ssh.nix
     ./xserver.nix

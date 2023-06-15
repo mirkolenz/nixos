@@ -15,12 +15,9 @@
     };
   };
 
-  hardware = {
-    opengl.enable = true;
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-      modesetting.enable = true;
-    };
+  custom.cuda = {
+    enable = true;
+    driver = "legacy_470";
   };
 
   powerManagement = {
