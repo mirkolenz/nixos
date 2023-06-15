@@ -1,6 +1,7 @@
 {
   pkgs,
   extras,
+  osConfig,
   ...
 }: let
   username = "mlenz";
@@ -15,7 +16,7 @@ in {
     ./files
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = osConfig.nixpkgs.config;
 
   home = {
     inherit username homeDirectory;
