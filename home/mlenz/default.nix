@@ -1,6 +1,8 @@
 {
   pkgs,
   extras,
+  lib,
+  osConfig,
   ...
 }: let
   username = "mlenz";
@@ -21,5 +23,15 @@ in {
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };
+    packages = lib.mkIf (osConfig == {}) [
+      (pkgs.writeShellApplication {
+        name = "sudo";
+        text = ''
+          cmd=$(which $1)
+          shift
+          sudo "$cmd" "$@"
+        '';
+      })
+    ];
   };
 }
