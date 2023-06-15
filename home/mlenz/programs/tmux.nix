@@ -1,5 +1,5 @@
 {
-  osConfig ? {},
+  osConfig,
   pkgs,
   lib,
   ...

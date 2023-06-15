@@ -163,6 +163,9 @@
               inherit pkgs;
               modules = [
                 defaults
+                {
+                  _module.args.osConfig = {};
+                }
                 ./home/mlenz
                 inputs.nix-index-database.hmModules.nix-index
                 inputs.nixneovim.nixosModules.default

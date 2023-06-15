@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  osConfig ? {},
+  osConfig,
   ...
 }: let
   xserverEnabled = pkgs.stdenv.isLinux && (lib.attrByPath ["services" "xserver" "enable"] osConfig false);
