@@ -169,6 +169,7 @@
               modules = [
                 defaults
                 {
+                  targets.genericLinux.enable = true;
                   _module.args.osConfig = {};
                 }
                 ./home/mlenz
