@@ -68,7 +68,7 @@
       flake = false;
     };
     bibtex2cff = {
-      url = "github:anselmoo/bibtex2cff/v0.2.0";
+      url = "github:anselmoo/bibtex2cff/v0.2.1";
       flake = false;
     };
     bibtexbrowser = {

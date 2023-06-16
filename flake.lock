@@ -3,16 +3,16 @@
     "bibtex2cff": {
       "flake": false,
       "locked": {
-        "lastModified": 1685279667,
-        "narHash": "sha256-72Jd8387+pHcw/rPhsB2luH6NsrLjqV2cFEpsB4cALw=",
+        "lastModified": 1685989765,
+        "narHash": "sha256-Xuj2kDJzX2owIjjBRrfXNJCZeGRZ7OoD1X+ibU4b1C8=",
         "owner": "anselmoo",
         "repo": "bibtex2cff",
-        "rev": "da2d2943c20042b54b8b39deb5ed23c482197851",
+        "rev": "e4b8fe8da3f92ba64a259089893204cfe688d6bb",
         "type": "github"
       },
       "original": {
         "owner": "anselmoo",
-        "ref": "v0.2.0",
+        "ref": "v0.2.1",
         "repo": "bibtex2cff",
         "type": "github"
       }
