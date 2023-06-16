@@ -156,18 +156,6 @@
         "type": "github"
       }
     },
-    "gitignore": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-cpkse4NOi8oZrKHolReAPf07eApolKJOOGY7P0Ud/fI=",
-        "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -485,7 +473,6 @@
         "bibtexbrowser": "bibtexbrowser",
         "darwin": "darwin",
         "flake-parts": "flake-parts",
-        "gitignore": "gitignore",
         "home-manager": "home-manager",
         "home-manager-nixos": "home-manager-nixos",
         "macchina": "macchina",

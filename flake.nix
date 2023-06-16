@@ -63,10 +63,6 @@
       url = "github:mirkolenz/texmf";
       flake = false;
     };
-    gitignore = {
-      url = "https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode";
-      flake = false;
-    };
     macchina = {
       url = "github:macchina-cli/macchina/v6.1.8";
       flake = false;

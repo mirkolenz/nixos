@@ -19,7 +19,12 @@ in {
       color = "always";
       display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
     };
-    ignores = lib.splitString "\n" (builtins.readFile (builtins.toString gitignore));
+    ignores = (lib.splitString "\n" (builtins.readFile ./.gitignore)) ++ [
+      "/result"
+      "/.direnv/"
+      "/.devenv/"
+      "/.envrc"
+    ];
     extraConfig = {
       core = {
         autocrlf = "input";
