@@ -6,6 +6,12 @@
 }: let
   exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
   echo = "${pkgs.coreutils}/bin/echo";
+  nixup = ''
+    exec ${lib.getExe pkgs.nix} flake update \
+    --commit-lock-file \
+    --commit-lockfile-summary 'chore(deps): update flake.lock' \
+    "$@"
+  '';
   checkSudo = ''
     SUDO=""
     if [ "$(id -u)" -ne 0 ]; then
@@ -87,6 +93,14 @@ in {
         "$SUDO" docker compose --file "$1" up --detach
         "$SUDO" docker image prune --all --force
       '')
+      (writeShellApplication {
+        name = "flakeup";
+        text = nixup;
+      })
+      (writeShellApplication {
+        name = "nixup";
+        text = nixup;
+      })
       (writeShellScriptBin "encrypt" ''
         if [ "$#" -ne 3 ]; then
           ${echo} "Usage: $0 SOURCE TARGET RECIPIENT" >&2
