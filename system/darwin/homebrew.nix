@@ -16,6 +16,7 @@
       "homebrew/cask-drivers"
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
+      "microsoft/git"
     ];
     brews = [];
     casks = [
