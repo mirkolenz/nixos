@@ -41,7 +41,6 @@ in {
     nixfmt
     alejandra
     poetry
-    gh
   ];
   home.shellAliases = {
     poetryup = "${lib.getExe poetry} up";
