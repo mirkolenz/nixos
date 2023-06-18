@@ -41,6 +41,7 @@
       # "firefox"
       "fission"
       "fork"
+      "git-credential-manager-core"
       # "gobdokumente"
       "google-chrome"
       # "handbrake"
