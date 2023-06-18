@@ -16,7 +16,6 @@
       "homebrew/cask-drivers"
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
-      "microsoft/git"
     ];
     brews = [];
     casks = [
@@ -42,7 +41,6 @@
       # "firefox"
       "fission"
       "fork"
-      "git-credential-manager-core"
       # "gobdokumente"
       "google-chrome"
       # "handbrake"
