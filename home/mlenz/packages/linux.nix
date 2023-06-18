@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    dvc
     mkpasswd
     macchina
     (writeShellScriptBin "nixos-env" ''

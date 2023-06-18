@@ -17,7 +17,9 @@
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
     ];
-    brews = [];
+    brews = [
+      "dvc"
+    ];
     casks = [
       "1password"
       "adobe-creative-cloud"
