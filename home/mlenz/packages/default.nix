@@ -41,6 +41,8 @@ in {
     nixfmt
     alejandra
     poetry
+    mkpasswd
+    macchina
   ];
   home.shellAliases = {
     poetryup = "${lib.getExe poetry} up";

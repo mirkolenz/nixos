@@ -136,6 +136,10 @@ in {
         ${coreutils}/bin/mkdir -p "$2"
         "$SUDO" ${gnutar}/bin/tar xf "$1" -C "$2"
       '')
+      (writeShellScriptBin "nixos-env" ''
+        ${checkSudo}
+        exec "$SUDO" ${nix}/bin/nix-env --profile /nix/var/nix/profiles/system "$@"
+      '')
     ];
   };
 }
