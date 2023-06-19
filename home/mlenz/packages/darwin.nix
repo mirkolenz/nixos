@@ -2,12 +2,13 @@
   pkgs,
   lib,
   ...
-}: {
-  home.packages = lib.mkIf pkgs.stdenv.isDarwin (with pkgs; [
+}:
+lib.mkIf pkgs.stdenv.isDarwin {
+  home.packages = with pkgs; [
     texlive.combined.scheme-full
     tectonic
     texlab
     bibtex2cff
     bibtex-to-cff
-  ]);
+  ];
 }

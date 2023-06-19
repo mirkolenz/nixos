@@ -3,10 +3,9 @@
   lib,
   osConfig,
   ...
-}: let
-  enable = pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"] true osConfig);
-in {
-  home.packages = lib.mkIf enable (with pkgs; [
+}:
+lib.mkIf (pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"] true osConfig)) {
+  home.packages = with pkgs; [
     exiftool
     fontforge
     unpaper
@@ -28,7 +27,7 @@ in {
     speedtest-cli
     youtube-dl
     cc2538-bsl
-  ]);
+  ];
 
   home.shellAliases = {
     hass = "${pkgs.home-assistant-cli}/bin/hass-cli";
