@@ -13,6 +13,15 @@ in {
     ./workstation.nix
   ];
   home.packages = with pkgs; [
+    coreutils-full
+    gnused
+    gnupg
+    gnupatch
+    gnugrep
+    gnutar
+    gnumake
+    zip
+    unzip
     bat
     exa
     fd
@@ -23,18 +32,10 @@ in {
     bandwhich
     delta
     fzf
-    gnumake
     massren
     rsync
     curl
     wget
-    gnugrep
-    gnutar
-    direnv
-    nix-direnv
-    zip
-    unzip
-    coreutils
     mu-repo
     nixpkgs-fmt
     nil
