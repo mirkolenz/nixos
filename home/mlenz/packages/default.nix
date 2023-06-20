@@ -13,6 +13,9 @@ in {
     ./workstation.nix
   ];
   home.packages = with pkgs; [
+    bashInteractive
+    zsh
+    fish
     coreutils-full
     gnused
     gnupg
