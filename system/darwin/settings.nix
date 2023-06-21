@@ -92,6 +92,7 @@
         closeViewScrollWheelToggle = false;
         closeViewZoomFollowsFocus = false;
         reduceTransparency = false;
+        mouseDriverCursorSize = 1;
       };
       SoftwareUpdate = {
         AutomaticallyInstallMacOSUpdates = true;
@@ -128,7 +129,9 @@
         AppleShowAllExtensions = true;
         AppleShowAllFiles = false;
         AppleShowScrollBars = "WhenScrolling";
+        AppleScrollerPagingBehavior = true;
         AppleTemperatureUnit = "Celsius";
+        AppleWindowTabbingMode = "always";
         InitialKeyRepeat = 15; # slider values: 120, 94, 68, 35, 25, 15
         KeyRepeat = 2; # slider values: 120, 90, 60, 30, 12, 6, 2
         NSAutomaticCapitalizationEnabled = false;
