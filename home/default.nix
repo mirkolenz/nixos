@@ -1,4 +1,6 @@
 {
+  pkgs,
+  lib,
   extras,
   flakeInputs,
   ...
@@ -15,6 +17,10 @@ in {
       ./mlenz
       flakeInputs.nix-index-database.hmModules.nix-index
       flakeInputs.nixneovim.nixosModules.default
+      {
+        # https://github.com/LnL7/nix-darwin/issues/701
+        manual.manpages.enable = lib.mkIf pkgs.stdenv.isDarwin false;
+      }
     ];
   };
 }
