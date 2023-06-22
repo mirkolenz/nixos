@@ -19,7 +19,7 @@
   nix = {
     package = pkgs.nix;
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = ["nix-command" "flakes" "impure-derivations" "ca-derivations"];
       keep-going = true;
       keep-outputs = true;
       keep-derivations = true;
