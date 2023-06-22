@@ -92,7 +92,7 @@
         closeViewScrollWheelToggle = false;
         closeViewZoomFollowsFocus = false;
         reduceTransparency = false;
-        mouseDriverCursorSize = 1;
+        mouseDriverCursorSize = 1.0;
       };
       SoftwareUpdate = {
         AutomaticallyInstallMacOSUpdates = true;
