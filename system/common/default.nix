@@ -30,6 +30,7 @@
       extra-nix-path = "nixpkgs=flake:nixpkgs";
       # https://github.com/DeterminateSystems/nix-installer/pull/196
       # auto-allocate-uids = true;
+      plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
     };
     gc = lib.mkMerge [
       {
