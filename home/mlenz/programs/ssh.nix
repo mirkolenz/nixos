@@ -14,29 +14,20 @@
         };
         identityFile = ["id_ed25519"];
       };
-      wi2gpu = {
+      "wi2gpu" = {
         hostname = "136.199.130.136";
         forwardAgent = true;
         user = "mlenz";
       };
-      wi2v214 = {
-        hostname = "v214.wi2.uni-trier.de";
-        forwardAgent = true;
-        user = "lenz";
-      };
-      homeserver = {
+      "macpro homeserver" = {
         hostname = "10.16.2.22";
         forwardAgent = true;
         user = "mlenz";
       };
-      raspi = {
+      "raspi" = {
         hostname = "10.16.2.23";
         forwardAgent = true;
         user = "mlenz";
-      };
-      wi2docker = {
-        hostname = "docker.wi2.uni-trier.de";
-        user = "container";
       };
     };
   };
