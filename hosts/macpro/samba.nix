@@ -2,7 +2,6 @@
   # For a user to be authenticated on the samba server,
   # you must add their password using smbpasswd -a <user> as root.
   services.samba = {
-    enable = true;
     # openFirewall = true;
     securityType = "user";
     extraConfig = ''

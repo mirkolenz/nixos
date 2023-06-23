@@ -1,10 +1,11 @@
 {pkgs, ...}: {
   imports = [
     ./hardware.nix
-    # ./samba.nix
+    ./samba.nix
     ../../templates/server.nix
   ];
-  networking.hostName = "homeserver";
+  networking.hostName = "macpro";
+  services.samba.enable = false;
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   boot.loader = {

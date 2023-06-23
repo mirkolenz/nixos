@@ -247,7 +247,7 @@
               ./hosts/orbstack
             ];
           };
-          homeserver = nixpkgs-nixos.lib.nixosSystem {
+          macpro = nixpkgs-nixos.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               defaults
@@ -256,7 +256,7 @@
               nixos-hardware.nixosModules.common-cpu-intel-cpu-only
               nixos-hardware.nixosModules.common-gpu-amd
               nixos-hardware.nixosModules.common-hidpi
-              ./hosts/homeserver
+              ./hosts/macpro
             ];
           };
           raspi = nixpkgs-nixos.lib.nixosSystem {
