@@ -5,7 +5,7 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };
-    nixpkgs-nixos = {
+    nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-23.05";
     };
     darwin = {
@@ -16,9 +16,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager-nixos = {
+    home-manager-stable = {
       url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixpkgs-nixos";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -82,11 +82,11 @@
     darwin,
     flake-parts,
     home-manager,
-    home-manager-nixos,
+    home-manager-stable,
     nixos-generators,
     nixos-hardware,
     nixpkgs,
-    nixpkgs-nixos,
+    nixpkgs-stable,
     vscode-server,
     systems,
     ...
@@ -102,6 +102,15 @@
       # change in `./home/default.nix` as well
       _module.args = {
         flakeInputs = inputs;
+        # https://www.reddit.com/r/NixOS/comments/qikgub/how_to_use_different_channels_in_a_flake_to/
+        pkgsUnstable = import nixpkgs {
+          inherit (pkgs.stdenv.targetPlatform) system;
+          config = nixpkgsConfig;
+        };
+        pkgsStable = import nixpkgs-stable {
+          inherit (pkgs.stdenv.targetPlatform) system;
+          config = nixpkgsConfig;
+        };
         extras = {
           dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
           stateVersion = "23.05";
@@ -247,11 +256,11 @@
               ./hosts/orbstack
             ];
           };
-          macpro = nixpkgs-nixos.lib.nixosSystem {
+          macpro = nixpkgs-stable.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               defaults
-              home-manager-nixos.nixosModules.home-manager
+              home-manager-stable.nixosModules.home-manager
               nixos-hardware.nixosModules.common-pc-ssd
               nixos-hardware.nixosModules.common-cpu-intel-cpu-only
               nixos-hardware.nixosModules.common-gpu-amd
@@ -259,11 +268,11 @@
               ./hosts/macpro
             ];
           };
-          raspi = nixpkgs-nixos.lib.nixosSystem {
+          raspi = nixpkgs-stable.lib.nixosSystem {
             system = "aarch64-linux";
             modules = [
               defaults
-              home-manager-nixos.nixosModules.home-manager
+              home-manager-stable.nixosModules.home-manager
               nixos-hardware.nixosModules.raspberry-pi-4
               ./hosts/raspi
             ];

@@ -176,18 +176,18 @@
         "type": "github"
       }
     },
-    "home-manager-nixos": {
+    "home-manager-stable": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-nixos"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
-        "lastModified": 1687163790,
-        "narHash": "sha256-CmG/ZdswJrWM0CMgJiVyWfO6LqaI4SKEAx9IrnYDrpI=",
+        "lastModified": 1687595284,
+        "narHash": "sha256-W4bGX7yCjWLeAugWpCMURlXxgPmXBJGTr/isGyd6Uew=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ac53777f52929bc82efcd2830bfc5aa60bcb4337",
+        "rev": "05a584b4f63f5de442f59c8cec01dddc77312856",
         "type": "github"
       },
       "original": {
@@ -398,7 +398,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-nixos": {
+    "nixpkgs-stable": {
       "locked": {
         "lastModified": 1687466461,
         "narHash": "sha256-oupXI7g7RPzlpGUfAu1xG4KBK53GrZH8/xeKgKDB4+Q=",
@@ -474,7 +474,7 @@
         "darwin": "darwin",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
-        "home-manager-nixos": "home-manager-nixos",
+        "home-manager-stable": "home-manager-stable",
         "macchina": "macchina",
         "mlenz-ssh-keys": "mlenz-ssh-keys",
         "nix-index-database": "nix-index-database",
@@ -483,7 +483,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-nixos": "nixpkgs-nixos",
+        "nixpkgs-stable": "nixpkgs-stable",
         "poetry2nix": "poetry2nix",
         "systems": "systems_3",
         "texmf": "texmf",

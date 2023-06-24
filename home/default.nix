@@ -1,12 +1,14 @@
 {
   pkgs,
+  pkgsStable,
+  pkgsUnstable,
   lib,
   extras,
   flakeInputs,
   ...
 }: let
   defaults = {...}: {
-    _module.args = {inherit extras flakeInputs;};
+    _module.args = {inherit extras flakeInputs pkgsStable pkgsUnstable;};
   };
 in {
   home-manager = {
