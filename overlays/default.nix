@@ -9,6 +9,7 @@
 in {
   nixpkgs.overlays = [
     flakeInputs.nixneovim.overlays.default
+    flakeInputs.nixd.overlays.default
     (self: super: {
       bibtex2cff = mkPoetryApplication {
         projectDir = builtins.toString flakeInputs.bibtex2cff;

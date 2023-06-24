@@ -10,5 +10,6 @@ lib.mkIf pkgs.stdenv.isDarwin {
     texlab
     bibtex2cff
     bibtex-to-cff
+    nixd
   ];
 }
