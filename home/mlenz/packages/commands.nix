@@ -31,10 +31,12 @@ in
     };
     packages = with pkgs; [
       (writeShellScriptBin "dc" ''
-        exec docker compose "$@"
+        ${checkSudo}
+        exec "$SUDO" docker compose "$@"
       '')
       (writeShellScriptBin "docker-reset" ''
-        exec docker system prune --all --force
+        ${checkSudo}
+        exec "$SUDO" docker system prune --all --force
       '')
       (writeShellScriptBin "pull-rebuild" ''
         set -x #echo on
