@@ -1,12 +1,13 @@
-{
-  pkgs,
-  lib,
-  flakeInputs,
-  ...
-}: let
+{ pkgs
+, lib
+, flakeInputs
+, ...
+}:
+let
   inherit (pkgs) system;
   inherit (flakeInputs.poetry2nix.legacyPackages.${system}) mkPoetryApplication;
-in {
+in
+{
   nixpkgs.overlays = [
     flakeInputs.nixneovim.overlays.default
     flakeInputs.nixd.overlays.default
@@ -17,9 +18,12 @@ in {
         python = pkgs.python3;
       };
       bibtex-to-cff = with pkgs;
-        writeShellScriptBin "bibtex-to-cff" ''
-          exec ${lib.getExe php} ${flakeInputs.bibtexbrowser}/bibtex-to-cff.php "$@"
-        '';
+        writeShellApplication {
+          name = "bibtex-to-cff";
+          text = ''
+            exec ${lib.getExe php} ${flakeInputs.bibtexbrowser}/bibtex-to-cff.php "$@"
+          '';
+        };
     })
   ];
 }

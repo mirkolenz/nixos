@@ -30,72 +30,96 @@ in
       sudo = lib.mkIf (osConfig == { }) "sudo --preserve-env=PATH env";
     };
     packages = with pkgs; [
-      (writeShellScriptBin "dc" ''
-        ${checkSudo}
-        exec "$SUDO" docker compose "$@"
-      '')
-      (writeShellScriptBin "docker-reset" ''
-        ${checkSudo}
-        exec "$SUDO" docker system prune --all --force
-      '')
-      (writeShellScriptBin "pull-rebuild" ''
-        set -x #echo on
-        FLAKE=''${1:-"github:mirkolenz/nixos"}
+      (writeShellApplication {
+        name = "dc";
+        text = ''
+          ${checkSudo}
+          exec "$SUDO" docker compose "$@"
+        '';
+      })
+      (writeShellApplication {
+        name = "docker-reset";
+        text = ''
+          ${checkSudo}
+          exec "$SUDO" docker system prune --all --force
+        '';
+      })
+      (writeShellApplication {
+        name = "pull-rebuild";
+        text = ''
+          set -x #echo on
+          FLAKE=''${1:-"github:mirkolenz/nixos"}
 
-        if [[ "$FLAKE" != github* ]]; then
-          ${lib.getExe git} -C "$FLAKE" pull
-        fi
+          if [[ "$FLAKE" != github* ]]; then
+            ${lib.getExe git} -C "$FLAKE" pull
+          fi
 
-        exec ${lib.getExe nix} run "$FLAKE" -- "''${@:2}"
-      '')
+          exec ${lib.getExe nix} run "$FLAKE" -- "''${@:2}"
+        '';
+      })
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
-      (writeShellScriptBin "mogrify-convert" ''
-        if [ "$#" -ne 3 ]; then
-          ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY" >&2
-          exit 1
-        fi
-        exec ${imagemagick}/bin/mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
-      '')
+      (writeShellApplication {
+        name = "mogrify-convert";
+        text = ''
+          if [ "$#" -ne 3 ]; then
+            ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY" >&2
+            exit 1
+          fi
+          exec ${imagemagick}/bin/mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
+        '';
+      })
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
-      (writeShellScriptBin "mogrify-resize" ''
-        if [ "$#" -ne 4 ]; then
-          ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY FINAL_SIZE" >&2
-          exit 1
-        fi
-        exec ${imagemagick}/bin/mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
-      '')
-      (writeShellScriptBin "gc" ''
-        if [ "$(id -u)" -ne 0 ]; then
-          ${echo} "To clean the system store, also run as root"
-        fi
-        set -x #echo on
-        ${lib.getExe nix} store optimise
-        ${lib.getExe nix} store gc
-        ${nix}/bin/nix-collect-garbage --delete-older-than 7d
-      '')
+      (writeShellApplication {
+        name = "mogrify-resize";
+        text = ''
+          if [ "$#" -ne 4 ]; then
+            ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY FINAL_SIZE" >&2
+            exit 1
+          fi
+          exec ${imagemagick}/bin/mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
+        '';
+      })
+      (writeShellApplication {
+        name = "gc";
+        text = ''
+          if [ "$(id -u)" -ne 0 ]; then
+            ${echo} "To clean the system store, also run as root"
+          fi
+          set -x #echo on
+          ${lib.getExe nix} store optimise
+          ${lib.getExe nix} store gc
+          ${nix}/bin/nix-collect-garbage --delete-older-than 7d
+        '';
+      })
       # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/nixos/modules/tasks/auto-upgrade.nix#L204
-      (writeShellScriptBin "needs-reboot" ''
-        booted="$(${coreutils}/bin/readlink /run/booted-system/{initrd,kernel,kernel-modules})"
-        built="$(${coreutils}/bin/readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+      (writeShellApplication {
+        name = "needs-reboot";
+        text = ''
+          booted="$(${coreutils}/bin/readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+          built="$(${coreutils}/bin/readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
-        if [ "$booted" != "$built" ]; then
-          ${echo} "REBOOT NEEDED"
-          exit 1
-        fi
+          if [ "$booted" != "$built" ]; then
+            ${echo} "REBOOT NEEDED"
+            exit 1
+          fi
 
-        exit 0
-      '')
-      (writeShellScriptBin "dcup" ''
-        if [ "$#" -ne 1 ]; then
-          ${echo} "Usage: $0 FILE" >&2
-          exit 1
-        fi
-        ${checkSudo}
-        "$SUDO" docker compose --file "$1" pull
-        "$SUDO" docker compose --file "$1" build
-        "$SUDO" docker compose --file "$1" up --detach
-        "$SUDO" docker image prune --all --force
-      '')
+          exit 0
+        '';
+      })
+      (writeShellApplication {
+        name = "dcup";
+        text = ''
+          if [ "$#" -ne 1 ]; then
+            ${echo} "Usage: $0 FILE" >&2
+            exit 1
+          fi
+          ${checkSudo}
+          "$SUDO" docker compose --file "$1" pull
+          "$SUDO" docker compose --file "$1" build
+          "$SUDO" docker compose --file "$1" up --detach
+          "$SUDO" docker image prune --all --force
+        '';
+      })
       (writeShellApplication {
         name = "flakeup";
         text = nixup;
@@ -110,45 +134,60 @@ in
           exec ${lib.getExe pkgs.nix} develop "$@"
         '';
       })
-      (writeShellScriptBin "encrypt" ''
-        if [ "$#" -ne 3 ]; then
-          ${echo} "Usage: $0 SOURCE TARGET RECIPIENT" >&2
-          exit 1
-        fi
+      (writeShellApplication {
+        name = "encrypt";
+        text = ''
+          if [ "$#" -ne 3 ]; then
+            ${echo} "Usage: $0 SOURCE TARGET RECIPIENT" >&2
+            exit 1
+          fi
 
-        exec ${gnupg}/bin/gpg --output "$2" --encrypt --recipient "$3" "$1"
-      '')
-      (writeShellScriptBin "decrypt" ''
-        if [ "$#" -ne 2 ]; then
-          ${echo} "Usage: $0 SOURCE TARGET" >&2
-          exit 1
-        fi
+          exec ${gnupg}/bin/gpg --output "$2" --encrypt --recipient "$3" "$1"
+        '';
+      })
+      (writeShellApplication {
+        name = "decrypt";
+        text = ''
+          if [ "$#" -ne 2 ]; then
+            ${echo} "Usage: $0 SOURCE TARGET" >&2
+            exit 1
+          fi
 
-        exec ${gnupg}/bin/gpg --output "$2" --decrypt "$1"
-      '')
-      (writeShellScriptBin "backup" ''
-        if [ "$#" -ne 2 ]; then
-          ${echo} "Usage: $0 SOURCE TARGET" >&2
-          exit 1
-        fi
-        ${checkSudo}
-        ${coreutils}/bin/mkdir -p "$2"
-        TIMESTAMP=$(${coreutils}/bin/date +"%Y-%m-%d-%H-%M-%S")
-        "$SUDO" ${gnutar}/bin/tar czf "$2/$TIMESTAMP.tgz" "$1"
-      '')
-      (writeShellScriptBin "restore" ''
-        if [ "$#" -ne 2 ]; then
-          ${echo} "Usage: $0 SOURCE TARGET" >&2
-          exit 1
-        fi
-        ${checkSudo}
-        ${coreutils}/bin/mkdir -p "$2"
-        "$SUDO" ${gnutar}/bin/tar xf "$1" -C "$2"
-      '')
-      (writeShellScriptBin "nixos-env" ''
-        ${checkSudo}
-        exec "$SUDO" ${nix}/bin/nix-env --profile /nix/var/nix/profiles/system "$@"
-      '')
+          exec ${gnupg}/bin/gpg --output "$2" --decrypt "$1"
+        '';
+      })
+      (writeShellApplication {
+        name = "backup";
+        text = ''
+          if [ "$#" -ne 2 ]; then
+            ${echo} "Usage: $0 SOURCE TARGET" >&2
+            exit 1
+          fi
+          ${checkSudo}
+          ${coreutils}/bin/mkdir -p "$2"
+          TIMESTAMP=$(${coreutils}/bin/date +"%Y-%m-%d-%H-%M-%S")
+          "$SUDO" ${gnutar}/bin/tar czf "$2/$TIMESTAMP.tgz" "$1"
+        '';
+      })
+      (writeShellApplication {
+        name = "restore";
+        text = ''
+          if [ "$#" -ne 2 ]; then
+            ${echo} "Usage: $0 SOURCE TARGET" >&2
+            exit 1
+          fi
+          ${checkSudo}
+          ${coreutils}/bin/mkdir -p "$2"
+          "$SUDO" ${gnutar}/bin/tar xf "$1" -C "$2"
+        '';
+      })
+      (writeShellApplication {
+        name = "nixos-env";
+        text = ''
+          ${checkSudo}
+          exec "$SUDO" ${nix}/bin/nix-env --profile /nix/var/nix/profiles/system "$@"
+        '';
+      })
     ];
   };
 }
