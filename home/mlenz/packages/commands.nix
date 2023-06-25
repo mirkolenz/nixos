@@ -1,9 +1,9 @@
-{
-  pkgs,
-  lib,
-  osConfig,
-  ...
-}: let
+{ pkgs
+, lib
+, osConfig
+, ...
+}:
+let
   exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
   echo = "${pkgs.coreutils}/bin/echo";
   nixup = ''
@@ -18,7 +18,8 @@
       SUDO="sudo"
     fi
   '';
-in {
+in
+{
   home = {
     shellAliases = with pkgs; {
       cat = "${lib.getExe bat}";
@@ -26,7 +27,7 @@ in {
       ll = "${lib.getExe exa} ${exaArgs}";
       la = "${lib.getExe exa} --all ${exaArgs}";
       l = "${lib.getExe exa} ${exaArgs}";
-      sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
+      sudo = lib.mkIf (osConfig == { }) "sudo --preserve-env=PATH env";
     };
     packages = with pkgs; [
       (writeShellScriptBin "dc" ''
@@ -100,6 +101,12 @@ in {
       (writeShellApplication {
         name = "nixup";
         text = nixup;
+      })
+      (writeShellApplication {
+        name = "dev";
+        text = ''
+          exec ${lib.getExe pkgs.nix} develop "$@"
+        '';
       })
       (writeShellScriptBin "encrypt" ''
         if [ "$#" -ne 3 ]; then
