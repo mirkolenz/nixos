@@ -81,6 +81,12 @@
       "vivaldi"
       "zoom"
       # "zotero"
+      # Vim
+      # "vimr"
+      # {
+      #   name = "goneovim";
+      #   args = {ignore_dependencies = true;};
+      # }
       # Fonts
       "font-big-shoulders-display"
       "font-big-shoulders-inline-text"
