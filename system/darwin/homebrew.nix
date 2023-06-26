@@ -80,7 +80,7 @@
       "visual-studio-code"
       "vivaldi"
       "zoom"
-      # "zotero"
+      "zotero"
       # Vim
       # "vimr"
       # {
