@@ -118,7 +118,6 @@
         extras = {
           dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
           stateVersion = "23.05";
-          username = "mlenz";
         };
       };
     };
@@ -173,28 +172,23 @@
         };
         legacyPackages = {
           # edit in `./home/default.nix` as well
-          homeConfigurations = let
-            mkHome = username:
-              home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                modules = [
-                  defaults
-                  ({lib, ...}: {
-                    targets.genericLinux.enable = true;
-                    _module.args = {
-                      osConfig = {};
-                      extras.username = lib.mkDefault username;
-                    };
-                  })
-                  ./home/mlenz
-                  inputs.nix-index-database.hmModules.nix-index
-                  inputs.nixneovim.nixosModules.default
-                ];
-              };
-          in {
-            mlenz = mkHome "mlenz";
-            lenz = mkHome "lenz";
-          };
+          homeConfigurations = lib.genAttrs ["mlenz" "lenz"] (username:
+            home-manager.lib.homeManagerConfiguration {
+              inherit pkgs;
+              modules = [
+                defaults
+                {
+                  targets.genericLinux.enable = true;
+                  _module.args = {
+                    osConfig = {};
+                    username = username;
+                  };
+                }
+                ./home/mlenz
+                inputs.nix-index-database.hmModules.nix-index
+                inputs.nixneovim.nixosModules.default
+              ];
+            });
         };
       };
       flake = {

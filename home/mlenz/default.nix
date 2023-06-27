@@ -3,9 +3,9 @@
   extras,
   lib,
   osConfig,
+  username,
   ...
 }: let
-  username = extras.username;
   homeDirectory =
     if pkgs.stdenv.isDarwin
     then "/Users/${username}"
