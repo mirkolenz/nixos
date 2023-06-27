@@ -14,7 +14,4 @@
   };
 
   system.checks.verifyBuildUsers = false;
-
-  # https://github.com/LnL7/nix-darwin/issues/701
-  # documentation.enable = false;
 }
