@@ -180,8 +180,8 @@
                 {
                   targets.genericLinux.enable = true;
                   _module.args = {
+                    inherit username;
                     osConfig = {};
-                    username = username;
                   };
                 }
                 ./home/mlenz
