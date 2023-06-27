@@ -178,13 +178,13 @@
               inherit pkgs;
               modules = [
                 defaults
-                {
+                ({lib, ...}: {
                   targets.genericLinux.enable = true;
                   _module.args = {
                     osConfig = {};
                     extras.username = lib.mkDefault username;
                   };
-                }
+                })
                 ./home/mlenz
                 inputs.nix-index-database.hmModules.nix-index
                 inputs.nixneovim.nixosModules.default
