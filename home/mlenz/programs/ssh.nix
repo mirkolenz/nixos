@@ -19,6 +19,11 @@
         forwardAgent = true;
         user = "mlenz";
       };
+      "wi2gputest" = {
+        hostname = "136.199.130.212";
+        forwardAgent = true;
+        user = "lenz";
+      };
       "macpro homeserver" = {
         hostname = "10.16.2.22";
         forwardAgent = true;
