@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.nixneovim = {
     enable = true;
     defaultEditor = true;
@@ -16,6 +16,7 @@
       shiftwidth = 2;
       smartcase = true;
       tabstop = 2;
+      foldenable = false;
     };
     # The values are plain lua values, so double quotes are needed
     mappings = {
@@ -50,7 +51,7 @@
       };
     };
     colorscheme = "github_dark_high_contrast";
-    extraPlugins = [ pkgs.vimExtraPlugins.github-nvim-theme ];
+    extraPlugins = [pkgs.vimExtraPlugins.github-nvim-theme];
   };
   # One can instead set programs.neovim.viAlias/vimAlias
   # https://github.com/NixNeovim/NixNeovim/blob/main/nixneovim.nix#L251
