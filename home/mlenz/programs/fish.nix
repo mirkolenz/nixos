@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  osConfig,
   ...
 }: let
   fishGreeting =
@@ -8,6 +9,14 @@
     then ''
       if set -q SSH_TTY; and status is-login
         ${lib.getExe pkgs.macchina} --theme Lithium
+      end
+    ''
+    else "";
+  fixNixProfile =
+    if osConfig == {}
+    then ''
+      for profile in (string split " " "$NIX_PROFILES")
+        fish_add_path --prepend --move "$profile/bin"
       end
     ''
     else "";
@@ -19,6 +28,7 @@ in {
       set -q DIRENV_DIR
       and test -n "$DIRENV_DIR"
       and eval (pushd /; direnv export fish; popd;)
+      ${fixNixProfile}
     '';
     functions = {
       fish_greeting = {
