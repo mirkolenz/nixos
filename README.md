@@ -108,6 +108,16 @@ sudo reboot
 ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 ```
 
+## Home-Manger Standalone
+
+_Note:_ Reconnect via SSH after installing nix.
+
+```shell
+sudo --preserve-env=PATH env nix upgrade-nix
+nix run github:mirkolenz/nixos#home
+sudo usermod -s $(which fish) "$USER"
+```
+
 ## Utilities and Snippets
 
 ### NixOS Generators
@@ -115,6 +125,7 @@ ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 **Important:** [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
 
 ```shell
+echo $(which fish) | sudo tee -a /etc/shells
 nix build --system SYSTEM github:mirkolenz/nixos#FORMAT
 ```
 
