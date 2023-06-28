@@ -23,6 +23,7 @@ in {
     gnugrep
     gnutar
     gnumake
+    gcc
     zip
     unzip
     bat
