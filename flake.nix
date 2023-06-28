@@ -172,23 +172,26 @@
         };
         legacyPackages = {
           # edit in `./home/default.nix` as well
-          homeConfigurations = lib.genAttrs ["mlenz" "lenz"] (username:
-            home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              modules = [
-                defaults
-                {
-                  targets.genericLinux.enable = true;
-                  _module.args = {
-                    inherit username;
-                    osConfig = {};
-                  };
-                }
-                ./home/mlenz
-                inputs.nix-index-database.hmModules.nix-index
-                inputs.nixneovim.nixosModules.default
-              ];
-            });
+          homeConfigurations =
+            lib.genAttrs
+            ["mlenz" "lenz" "mirkolenz" "mirkol"]
+            (username:
+              home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = [
+                  defaults
+                  {
+                    targets.genericLinux.enable = true;
+                    _module.args = {
+                      inherit username;
+                      osConfig = {};
+                    };
+                  }
+                  ./home/mlenz
+                  inputs.nix-index-database.hmModules.nix-index
+                  inputs.nixneovim.nixosModules.default
+                ];
+              });
         };
       };
       flake = {
