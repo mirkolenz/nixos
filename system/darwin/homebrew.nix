@@ -75,6 +75,7 @@
       "soundsource"
       "steermouse"
       "tiptoi-manager"
+      "tower"
       # "utm"
       "viscosity"
       "visual-studio-code"
