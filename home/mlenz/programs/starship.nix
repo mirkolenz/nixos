@@ -1,7 +1,8 @@
 {...}: {
   programs.starship = {
     enable = true;
-    enableTransience = true;
+    # enable for 23.11
+    # enableTransience = true;
     settings = {
       add_newline = true;
       character = {
