@@ -53,16 +53,4 @@
     colorscheme = "github_dark_high_contrast";
     extraPlugins = [pkgs.vimExtraPlugins.github-nvim-theme];
   };
-  # One can instead set programs.neovim.viAlias/vimAlias
-  # https://github.com/NixNeovim/NixNeovim/blob/main/nixneovim.nix#L251
-  # home.packages = let
-  #   package =
-  #     if config.programs.nixneovim.package != null
-  #     then config.programs.nixneovim.package
-  #     else config.programs.neovim.package;
-  #   alias = ''exec ${lib.getExe package} "$@"'';
-  # in [
-  #   (pkgs.writeShellApplication {name="vim"; text=alias;})
-  #   (pkgs.writeShellApplication {name="vi"; text=alias;})
-  # ];
 }
