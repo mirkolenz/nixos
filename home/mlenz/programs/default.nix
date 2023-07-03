@@ -16,6 +16,9 @@
     htop = {
       enable = true;
     };
+    btop = {
+      enable = true;
+    };
     gh = {
       enable = true;
       settings = {
