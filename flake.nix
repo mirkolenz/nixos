@@ -95,25 +95,22 @@
     systems,
     ...
   }: let
-    nixpkgsConfig = {
-      allowUnfree = true;
-    };
     defaults = {pkgs, ...}: {
       imports = [
         ./overlays
       ];
-      nixpkgs.config = nixpkgsConfig;
+      nixpkgs.config = import ./nixpkgs-config.nix;
       # change in `./home/default.nix` as well
       _module.args = {
         flakeInputs = inputs;
         # https://www.reddit.com/r/NixOS/comments/qikgub/how_to_use_different_channels_in_a_flake_to/
         pkgsUnstable = import nixpkgs {
           inherit (pkgs.stdenv.targetPlatform) system;
-          config = nixpkgsConfig;
+          config = import ./nixpkgs-config.nix;
         };
         pkgsStable = import nixpkgs-stable {
           inherit (pkgs.stdenv.targetPlatform) system;
-          config = nixpkgsConfig;
+          config = import ./nixpkgs-config.nix;
         };
         extras = {
           dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
@@ -132,7 +129,7 @@
       }: {
         _module.args.pkgs = import nixpkgs {
           inherit system;
-          config = nixpkgsConfig;
+          config = import ./nixpkgs-config.nix;
         };
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805

@@ -32,4 +32,10 @@ in {
       source = texmf;
     };
   };
+  xdg = {
+    configFile = {
+      # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
+      "nixpkgs/config.nix".source = ../../../nixpkgs-config.nix;
+    };
+  };
 }
