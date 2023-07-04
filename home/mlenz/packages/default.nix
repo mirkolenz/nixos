@@ -17,6 +17,7 @@ in {
     zsh
     fish
     coreutils-full
+    findutils
     gnused
     gnupg
     gnupatch
