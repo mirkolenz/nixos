@@ -2,6 +2,7 @@
   pkgs,
   lib,
   osConfig,
+  flakeInputs,
   ...
 }:
 lib.mkIf (pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"] true osConfig)) {
@@ -27,6 +28,8 @@ lib.mkIf (pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"
     speedtest-cli
     youtube-dl
     cc2538-bsl
+    makejinja
+    arguebuf
   ];
 
   home.shellAliases = {

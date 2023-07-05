@@ -59,6 +59,14 @@
       url = "github:nix-community/nixd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    makejinja = {
+      url = "github:mirkolenz/makejinja/v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    arguebuf = {
+      url = "github:recap-utr/arguebuf-python/v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mlenz-ssh-keys = {
       url = "https://github.com/mirkolenz.keys";
       flake = false;

@@ -23,6 +23,8 @@ in {
             exec ${lib.getExe php} ${flakeInputs.bibtexbrowser}/bibtex-to-cff.php "$@"
           '';
         };
+      makejinja = flakeInputs.makejinja.packages.${system}.default;
+      arguebuf = flakeInputs.arguebuf.packages.${system}.default;
     })
   ];
 }
