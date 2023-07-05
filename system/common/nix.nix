@@ -9,7 +9,7 @@
       experimental-features = ["nix-command" "flakes" "impure-derivations" "ca-derivations"];
       keep-going = true;
       keep-outputs = true;
-      keep-derivations = true;
+      keep-derivations = false;
       keep-failed = false;
       # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
       auto-optimise-store = pkgs.stdenv.isLinux;
