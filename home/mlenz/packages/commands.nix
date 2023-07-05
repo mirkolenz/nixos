@@ -85,9 +85,9 @@ in {
             ${echo} "To clean the system store, also run as root"
           fi
           set -x #echo on
-          ${lib.getExe nix} store optimise
-          ${lib.getExe nix} store gc
           ${nix}/bin/nix-collect-garbage --delete-older-than 7d
+          ${lib.getExe nix} store gc
+          ${lib.getExe nix} store optimise
         '';
       })
       # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/nixos/modules/tasks/auto-upgrade.nix#L204
