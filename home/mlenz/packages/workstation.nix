@@ -20,6 +20,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"
     mqttui
     nodejs
     nodePackages.prettier
+    nodePackages.dotenv-vault
     ocrmypdf
     plantuml
     pre-commit
