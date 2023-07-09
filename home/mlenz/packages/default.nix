@@ -2,7 +2,10 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/poetry/default.nix#L40
+  poetry = pkgs.poetry.withPlugins (ps: with ps; [poetry-plugin-up]);
+in {
   imports = [
     ./commands.nix
     ./darwin.nix
@@ -48,6 +51,7 @@
     macchina
   ];
   home.shellAliases = {
+    poetryup = "${lib.getExe poetry} up";
     py = "poetry run python"; # should use local poetry if possible
     npmup = lib.getExe pkgs.nodePackages.npm-check-updates;
   };
