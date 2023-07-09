@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./builder.nix
     ./homebrew.nix
     ./settings.nix
   ];
