@@ -26,6 +26,8 @@ in {
     };
   };
 
+  news.display = "show";
+
   nix = {
     package = lib.mkIf (osConfig == {}) pkgs.nix;
   };
