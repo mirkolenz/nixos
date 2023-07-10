@@ -1,10 +1,11 @@
 {
   pkgs,
+  pkgsStable,
   lib,
   ...
 }: let
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/poetry/default.nix#L40
-  poetry = pkgs.poetry.withPlugins (ps: with ps; [poetry-plugin-up]);
+  poetry = pkgsStable.poetry.withPlugins (ps: with ps; [poetry-plugin-up]);
 in {
   imports = [
     ./commands.nix
