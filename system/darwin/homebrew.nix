@@ -25,6 +25,7 @@
       "adobe-creative-cloud"
       "amethyst"
       "anydesk"
+      "app-tamer"
       "appcleaner"
       "arc"
       "arq"
