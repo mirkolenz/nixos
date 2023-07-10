@@ -1,6 +1,6 @@
 {...}: {
   nix.linux-builder = {
-    enable = true;
+    enable = false;
     modules = [
       # {
       #   virtualisation.darwin-builder = {
