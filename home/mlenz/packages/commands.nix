@@ -81,10 +81,9 @@ in {
       (writeShellApplication {
         name = "gc";
         text = ''
-          if [ "$(id -u)" -ne 0 ]; then
-            ${echo} "To clean the system store, also run as root"
-          fi
+          ${checkSudo}
           set -x #echo on
+          "$SUDO" ${nix}/bin/nix-collect-garbage --delete-older-than 7d
           ${nix}/bin/nix-collect-garbage --delete-older-than 7d
           ${lib.getExe nix} store gc
           ${lib.getExe nix} store optimise
