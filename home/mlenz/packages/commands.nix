@@ -30,20 +30,6 @@ in {
     };
     packages = with pkgs; [
       (writeShellApplication {
-        name = "dc";
-        text = ''
-          ${checkSudo}
-          exec "$SUDO" docker compose "$@"
-        '';
-      })
-      (writeShellApplication {
-        name = "docker-reset";
-        text = ''
-          ${checkSudo}
-          exec "$SUDO" docker system prune --all --force
-        '';
-      })
-      (writeShellApplication {
         name = "pull-rebuild";
         text = ''
           set -x #echo on
@@ -105,6 +91,13 @@ in {
         '';
       })
       (writeShellApplication {
+        name = "dc";
+        text = ''
+          ${checkSudo}
+          exec "$SUDO" docker compose "$@"
+        '';
+      })
+      (writeShellApplication {
         name = "dcup";
         text = ''
           if [ "$#" -ne 1 ]; then
@@ -112,10 +105,17 @@ in {
             exit 1
           fi
           ${checkSudo}
-          "$SUDO" docker compose --file "$1" pull
-          "$SUDO" docker compose --file "$1" build
-          "$SUDO" docker compose --file "$1" up --detach
+          "$SUDO" docker compose --project-directory "''${1:-.}" pull "''${@:2}"
+          "$SUDO" docker compose --project-directory "''${1:-.}" build "''${@:2}"
+          "$SUDO" docker compose --project-directory "''${1:-.}" up --detach "''${@:2}"
           "$SUDO" docker image prune --all --force
+        '';
+      })
+      (writeShellApplication {
+        name = "docker-reset";
+        text = ''
+          ${checkSudo}
+          exec "$SUDO" docker system prune --all --force
         '';
       })
       (writeShellApplication {
