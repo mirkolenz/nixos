@@ -8,7 +8,7 @@
     nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-23.05";
     };
-    darwin = {
+    nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -91,7 +91,7 @@
 
   outputs = inputs @ {
     self,
-    darwin,
+    nix-darwin,
     flake-parts,
     home-manager,
     home-manager-stable,
@@ -149,30 +149,24 @@
               text = ''
                 set -x #echo on
                 REBUILD_TYPE=''${1:-switch}
-                exec ${builder} --flake ${self} ${builtins.toString flags} "$REBUILD_TYPE" "''${@:2}"
+                exec ${lib.getExe builder} --flake ${self} ${builtins.toString flags} "$REBUILD_TYPE" "''${@:2}"
               '';
             };
         in {
           # system builder
           default = let
-            emptyDarwin = darwin.lib.darwinSystem {
-              inherit system;
-              modules = [];
-            };
             builder =
               if pkgs.stdenv.isDarwin
-              then "${emptyDarwin.system}/sw/bin/darwin-rebuild"
-              else pkgs.lib.getExe pkgs.nixos-rebuild;
+              then nix-darwin.packages.${system}.default
+              else pkgs.nixos-rebuild;
           in {
             type = "app";
             program = lib.getExe (mkBuilder builder);
           };
           # home-manager builder
-          home = let
-            builder = pkgs.lib.getExe home-manager.packages.${system}.default;
-          in {
+          home = {
             type = "app";
-            program = lib.getExe (mkBuilder builder);
+            program = lib.getExe (mkBuilder home-manager.packages.${system}.default);
           };
         };
         legacyPackages = {
@@ -306,7 +300,7 @@
           };
         };
         darwinConfigurations = {
-          mirkos-macbook = darwin.lib.darwinSystem {
+          mirkos-macbook = nix-darwin.lib.darwinSystem {
             system = "x86_64-darwin";
             modules = [
               defaults

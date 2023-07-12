@@ -57,26 +57,6 @@
         "type": "github"
       }
     },
-    "darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1689116343,
-        "narHash": "sha256-eaYfwQTSEbuB7rs5/W227SbVeDP9cbcoT1TEbnmOgOk=",
-        "owner": "lnl7",
-        "repo": "nix-darwin",
-        "rev": "eb22022ba8faeeb7a9be8afe925511b88ad12ca5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lnl7",
-        "repo": "nix-darwin",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -405,6 +385,26 @@
       "original": {
         "type": "file",
         "url": "https://github.com/mirkolenz.keys"
+      }
+    },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1689178160,
+        "narHash": "sha256-TVR0hn/JWo1qmtvgzqjfNerLPsIxfdFR3hf3QrnEj7U=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "795492c9a895762f36f6c1ff43d6e0de66fdffa8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "type": "github"
       }
     },
     "nix-flake-tests": {
@@ -790,13 +790,13 @@
         "arguebuf": "arguebuf",
         "bibtex2cff": "bibtex2cff",
         "bibtexbrowser": "bibtexbrowser",
-        "darwin": "darwin",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
         "macchina": "macchina",
         "makejinja": "makejinja",
         "mlenz-ssh-keys": "mlenz-ssh-keys",
+        "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
         "nixd": "nixd",
         "nixneovim": "nixneovim",
