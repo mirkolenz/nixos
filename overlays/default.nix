@@ -6,6 +6,7 @@
 }: let
   inherit (pkgs) system;
   inherit (flakeInputs.poetry2nix.legacyPackages.${system}) mkPoetryApplication;
+  getPkg = input: name: flakeInputs.${input}.packages.${system}.${name};
 in {
   nixpkgs.overlays = [
     flakeInputs.nixneovim.overlays.default
@@ -23,8 +24,8 @@ in {
             exec ${lib.getExe php} ${flakeInputs.bibtexbrowser}/bibtex-to-cff.php "$@"
           '';
         };
-      makejinja = flakeInputs.makejinja.packages.${system}.default;
-      arguebuf = flakeInputs.arguebuf.packages.${system}.default;
+      makejinja = getPkg "makejinja" "default";
+      arguebuf = getPkg "arguebuf" "default";
     })
   ];
 }
