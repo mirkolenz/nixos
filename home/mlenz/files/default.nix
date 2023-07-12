@@ -8,7 +8,7 @@
   inherit (flakeInputs) macchina texmf;
   poetryPrefix =
     if pkgs.stdenv.isDarwin
-    then "Library/Preferences/pypoetry"
+    then "Library/Application Support/pypoetry"
     else "${config.xdg.configHome}/pypoetry";
 in {
   home.file = {
