@@ -63,7 +63,7 @@
       "parallels"
       "pixelsnap"
       # "postico"
-      # "postman"
+      "postman"
       "presentation"
       "raindropio"
       "raycast"
