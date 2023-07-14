@@ -24,6 +24,7 @@ in {
     gnugrep
     gnutar
     gnumake
+    inetutils
     gcc
     zip
     unzip
