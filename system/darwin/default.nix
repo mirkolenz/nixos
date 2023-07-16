@@ -15,4 +15,5 @@
   };
 
   system.checks.verifyBuildUsers = false;
+  system.stateVersion = 4;
 }
