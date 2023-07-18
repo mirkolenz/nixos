@@ -50,6 +50,7 @@ in {
     poetry
     mkpasswd
     macchina
+    carapace
   ];
   home.shellAliases = {
     poetryup = "${lib.getExe poetry} up";

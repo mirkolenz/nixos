@@ -30,6 +30,9 @@ in {
       and eval (pushd /; direnv export fish; popd;)
       ${fixNixProfile}
     '';
+    interactiveShellInit = ''
+      ${lib.getExe pkgs.carapace} _carapace | source
+    '';
     functions = {
       fish_greeting = {
         body = fishGreeting;
