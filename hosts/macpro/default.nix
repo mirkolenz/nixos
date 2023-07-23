@@ -23,4 +23,6 @@
     wantedBy = ["default.target"];
     after = ["default.target"];
   };
+
+  powerManagement.cpuFreqGovernor = "powersave";
 }

@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   imports = [
     ./hardware.nix
     ../../templates/workstation.nix
@@ -20,8 +20,5 @@
     driver = "legacy_470";
   };
 
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "performance";
-  };
+  powerManagement.cpuFreqGovernor = "performance";
 }

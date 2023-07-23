@@ -14,4 +14,6 @@
     # TODO: Currently broken
     audio.enable = false;
   };
+
+  powerManagement.cpuFreqGovernor = "ondemand";
 }
