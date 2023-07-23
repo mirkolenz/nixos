@@ -630,6 +630,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-darwin": {
+      "locked": {
+        "lastModified": 1690022785,
+        "narHash": "sha256-WV3Rg6WcP3UErddn/+Kw3BTsc8kB9F4Y5sv7I/N5q4o=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "0ee595490f5b1d181cccc17928aa250faf4b91c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-23.05-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -876,6 +892,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable",
         "poetry2nix": "poetry2nix_4",
         "systems": "systems_10",

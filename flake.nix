@@ -8,6 +8,9 @@
     nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-23.05";
     };
+    nixpkgs-darwin = {
+      url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
+    };
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,6 +102,7 @@
     nixos-hardware,
     nixpkgs,
     nixpkgs-stable,
+    nixpkgs-darwin,
     vscode-server,
     systems,
     ...
@@ -117,6 +121,10 @@
           config = import ./nixpkgs-config.nix;
         };
         pkgsStable = import nixpkgs-stable {
+          inherit (pkgs.stdenv.targetPlatform) system;
+          config = import ./nixpkgs-config.nix;
+        };
+        pkgsDarwin = import nixpkgs-darwin {
           inherit (pkgs.stdenv.targetPlatform) system;
           config = import ./nixpkgs-config.nix;
         };
