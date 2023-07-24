@@ -86,18 +86,18 @@
         columns = ["pid" "name" "cpu%" "mem%" "read" "write" "user"];
       };
 
-      row = [
-        {child = [{type = "cpu";}];}
-        # { child = [{ type = "mem"; } { child = [{ type = "temp"; } { type = "disk"; }]; }]; }
-        {
-          child = [
-            {
-              type = "proc";
-              default = true;
-            }
-          ];
-        }
-      ];
+      # row = [
+      #   {child = [{type = "cpu";}];}
+      #   # { child = [{ type = "mem"; } { child = [{ type = "temp"; } { type = "disk"; }]; }]; }
+      #   {
+      #     child = [
+      #       {
+      #         type = "proc";
+      #         default = true;
+      #       }
+      #     ];
+      #   }
+      # ];
       # Layout - layouts follow a pattern like this:
       # [[row]] represents a row in the application.
       # [[row.child]] represents either a widget or a column.
