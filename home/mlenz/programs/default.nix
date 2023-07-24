@@ -3,6 +3,7 @@
     ./bottom.nix
     ./fish.nix
     ./git.nix
+    ./hyfetch.nix
     ./micro.nix
     ./nixneovim.nix
     ./pandoc.nix
