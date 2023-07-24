@@ -338,23 +338,6 @@
         "type": "github"
       }
     },
-    "macchina": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1673277089,
-        "narHash": "sha256-MntHq5nphfjbO0Rx7v6WjsnabSMH5Ke3aR9/embG/rk=",
-        "owner": "macchina-cli",
-        "repo": "macchina",
-        "rev": "f228e72bd6a84bb18c26f1665c412cf206d425a3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "macchina-cli",
-        "ref": "v6.1.8",
-        "repo": "macchina",
-        "type": "github"
-      }
-    },
     "makejinja": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -881,7 +864,6 @@
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
-        "macchina": "macchina",
         "makejinja": "makejinja",
         "mlenz-ssh-keys": "mlenz-ssh-keys",
         "nix-darwin": "nix-darwin",

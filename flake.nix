@@ -78,10 +78,6 @@
       url = "github:mirkolenz/texmf";
       flake = false;
     };
-    macchina = {
-      url = "github:macchina-cli/macchina/v6.1.8";
-      flake = false;
-    };
     bibtex2cff = {
       url = "github:anselmoo/bibtex2cff/v0.2.1";
       flake = false;

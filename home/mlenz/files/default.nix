@@ -5,7 +5,7 @@
   flakeInputs,
   ...
 }: let
-  inherit (flakeInputs) macchina texmf;
+  inherit (flakeInputs) texmf;
   poetryPrefix =
     if pkgs.stdenv.isDarwin
     then "Library/Application Support/pypoetry"
@@ -33,7 +33,6 @@ in {
     configFile = {
       # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
       "nixpkgs/config.nix".source = ../../../nixpkgs-config.nix;
-      "macchina/themes".source = "${macchina}/contrib/themes";
     };
   };
 }
