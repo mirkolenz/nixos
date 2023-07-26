@@ -46,6 +46,7 @@
       "fork"
       # "gobdokumente"
       "google-chrome"
+      "google-drive"
       # "handbrake"
       # "hook"
       # "iina"
