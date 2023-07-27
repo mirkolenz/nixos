@@ -8,7 +8,7 @@
     if pkgs.stdenv.isLinux
     then ''
       if set -q SSH_TTY; and status is-login
-        ${lib.getExe pkgs.hyfetch}
+        ${lib.getExe pkgs.macchina}
       end
     ''
     else "";
