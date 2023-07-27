@@ -1,12 +1,13 @@
 {pkgs, ...}: {
   imports = [
-    ./builder.nix
     ./homebrew.nix
     ./settings.nix
   ];
 
   environment.loginShell = pkgs.fish;
   services.nix-daemon.enable = true;
+
+  nix.linux-builder.enable = true;
 
   nix.settings = {
     build-users-group = "nixbld";
