@@ -41,7 +41,7 @@
       "discord"
       "element"
       # "figma"
-      # "firefox"
+      "firefox"
       "fission"
       "fork"
       # "gobdokumente"
@@ -84,12 +84,6 @@
       "vivaldi"
       "zoom"
       "zotero"
-      # Vim
-      # "vimr"
-      # {
-      #   name = "goneovim";
-      #   args = {ignore_dependencies = true;};
-      # }
       # Fonts
       "font-big-shoulders-display"
       "font-big-shoulders-inline-text"
@@ -186,11 +180,11 @@
     #   "Step Two" = 1448916662;
     #   "StopTheMadness" = 1376402589;
     #   "Tempus" = 1491326665;
-    #   # "TestFlight" = 899247664;
+    #   "TestFlight" = 899247664;
     #   "Todoist" = 585829637;
     #   # "Velja" = 1607635845;
     #   "Vinegar" = 1591303229;
-    #   # "WireGuard" = 1451685025;
+    #   "WireGuard" = 1451685025;
     #   "Yoink" = 457622435;
     # };
     # whalebrews = [ ];
