@@ -33,6 +33,8 @@ in {
     configFile = {
       # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
       "nixpkgs/config.nix".source = ../../../nixpkgs-config.nix;
+      "macchina/themes/custom.toml".source = ./macchina-theme.toml;
+      "macchina/macchina.toml".source = ./macchina-config.toml;
     };
   };
 }

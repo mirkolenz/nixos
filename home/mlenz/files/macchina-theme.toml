@@ -1,0 +1,37 @@
+# basd on https://github.com/Macchina-CLI/macchina/blob/main/contrib/themes/Lithium.toml
+
+spacing = 1
+padding = 0
+hide_ascii = true
+separator = " "
+key_color = "Yellow"
+separator_color = "Yellow"
+
+[palette]
+type = "Light"
+glyph = " ● "
+visible = false
+
+[bar]
+glyph = "●"
+symbol_open = '('
+symbol_close = ')'
+visible = false
+hide_delimiters = true
+
+[box]
+title = " "
+border = "plain"
+visible = false
+
+[box.inner_margin]
+x = 2
+y = 1
+
+[custom_ascii]
+color = "Yellow"
+
+[randomize]
+key_color = false
+separator_color = false
+pool = "base"
