@@ -5,7 +5,6 @@
     ./shell.nix
     ./secrets.nix
     ../../home
-    ../cachix
   ];
 
   # networking.firewall = {
