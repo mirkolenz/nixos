@@ -43,10 +43,15 @@ in {
     curl
     wget
     mu-repo
+    #nix
     nixpkgs-fmt
     nil
     nixfmt
     alejandra
+    # go
+    gopls
+    delve
+    go-outline
     poetry
     mkpasswd
     macchina
