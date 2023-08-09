@@ -16,7 +16,6 @@ in
       buf
       # dvc
       gomplate
-      gradle
       grpcui
       mqttui
       ocrmypdf
@@ -46,6 +45,9 @@ in
       nodejs
       nodePackages.prettier
       nodePackages.dotenv-vault
+      # java
+      jdk
+      gradle
     ];
     home.shellAliases = {
       hass = "${lib.getBin pkgs.home-assistant-cli}/bin/hass-cli";
