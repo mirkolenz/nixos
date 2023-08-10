@@ -82,6 +82,7 @@
       "viscosity"
       "visual-studio-code"
       "vivaldi"
+      "zed"
       "zoom"
       "zotero"
       # Fonts
