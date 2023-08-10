@@ -36,6 +36,7 @@ in
       gopls
       delve
       go-outline
+      goreleaser
       # python
       poetry
       python3Full
