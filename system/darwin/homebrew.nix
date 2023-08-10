@@ -19,6 +19,7 @@
     ];
     brews = [
       "dvc"
+      "envoy"
     ];
     casks = [
       "1password"
