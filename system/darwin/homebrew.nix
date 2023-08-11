@@ -54,6 +54,7 @@
       "iterm2"
       # "kaleidoscope"
       # "kindle"
+      "lunar"
       "mediathekview"
       # "mullvadvpn"
       "notion"
