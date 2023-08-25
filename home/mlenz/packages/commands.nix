@@ -100,10 +100,6 @@ in {
       (writeShellApplication {
         name = "dcup";
         text = ''
-          if [ "$#" -ne 1 ]; then
-            ${echo} "Usage: $0 FILE" >&2
-            exit 1
-          fi
           ${checkSudo}
           "$SUDO" docker compose --project-directory "''${1:-.}" pull "''${@:2}"
           "$SUDO" docker compose --project-directory "''${1:-.}" build "''${@:2}"
