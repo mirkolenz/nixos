@@ -84,6 +84,7 @@
       "viscosity"
       "visual-studio-code"
       "vivaldi"
+      "whatsapp"
       "zed"
       "zoom"
       "zotero"
