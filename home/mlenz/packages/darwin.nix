@@ -8,7 +8,9 @@ lib.mkIf pkgs.stdenv.isDarwin {
     texlive.combined.scheme-full
     tectonic
     texlab
-    bibtex2cff
+    # TODO: Causes signal SIGSEGV (Address boundary error)
+    # https://github.com/nix-community/poetry2nix/issues/1291
+    # bibtex2cff
     bibtex-to-cff
     # nixd
   ];
