@@ -44,5 +44,18 @@
     nix-index = {
       enable = true;
     };
+    # TODO: 23.11
+    # ripgrep = {
+    #   enable = true;
+    # };
+    # jujutsu = {
+    #   enable = true;
+    #   settings = {
+    #     user = {
+    #       name = "Mirko Lenz";
+    #       email = "mirko@mirkolenz.com";
+    #     };
+    #   };
+    # };
   };
 }
