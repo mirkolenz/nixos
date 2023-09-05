@@ -51,7 +51,7 @@ in
       gradle
     ];
     home.shellAliases = {
-      hass = "${lib.getBin pkgs.home-assistant-cli}/bin/hass-cli";
+      hass = lib.getExe pkgs.home-assistant-cli;
       poetryup = "${lib.getExe poetry} up";
       npmup = lib.getExe pkgs.nodePackages.npm-check-updates;
     };
