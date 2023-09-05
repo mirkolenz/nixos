@@ -161,8 +161,7 @@
               name = "builder";
               text = ''
                 set -x #echo on
-                REBUILD_TYPE=''${1:-switch}
-                exec ${lib.getExe builder} --flake ${self} ${builtins.toString flags} "$REBUILD_TYPE" "''${@:2}"
+                exec ${lib.getExe builder} --flake ${self} ${builtins.toString flags} "''${1:-switch}" "''${@:2}"
               '';
             };
         in {
