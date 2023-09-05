@@ -1,11 +1,8 @@
 {
-  flakeInputs,
   lib,
   pkgs,
   ...
-}: let
-  inherit (flakeInputs) gitignore;
-in {
+}: {
   programs.git = {
     enable = true;
     userName = "Mirko Lenz";
