@@ -24,8 +24,6 @@ in
       mu-repo
       youtube-dl
       cc2538-bsl
-      makejinja
-      arguebuf
       # nix
       nixpkgs-fmt
       nil
@@ -49,6 +47,10 @@ in
       # java
       jdk
       gradle
+      # TODO: Causes signal SIGSEGV (Address boundary error)
+      # https://github.com/nix-community/poetry2nix/issues/1291
+      # makejinja
+      # arguebuf
     ];
     home.shellAliases = {
       hass = lib.getExe pkgs.home-assistant-cli;
