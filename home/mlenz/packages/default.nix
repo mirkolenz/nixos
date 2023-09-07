@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  pkgsUnstable,
+  ...
+}: {
   imports = [
     ./commands.nix
     ./darwin.nix
@@ -22,7 +26,8 @@
     zip
     unzip
     bat
-    exa
+    pkgsUnstable.eza
+    lsd
     fd
     procs
     sd

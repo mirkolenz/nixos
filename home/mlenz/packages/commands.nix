@@ -1,11 +1,13 @@
 {
   pkgs,
+  pkgsUnstable,
   lib,
   osConfig,
   ...
 }: let
-  exaArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
   echo = "${pkgs.coreutils}/bin/echo";
+  ls = lib.getExe pkgsUnstable.eza;
+  lsArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
   nixup = ''
     exec ${lib.getExe pkgs.nix} flake update \
     --commit-lock-file \
@@ -20,12 +22,12 @@
   '';
 in {
   home = {
-    shellAliases = with pkgs; {
-      cat = "${lib.getExe bat}";
-      ls = "${lib.getExe exa}";
-      ll = "${lib.getExe exa} ${exaArgs}";
-      la = "${lib.getExe exa} --all ${exaArgs}";
-      l = "${lib.getExe exa} ${exaArgs}";
+    shellAliases = {
+      cat = "${lib.getExe pkgs.bat}";
+      ls = ls;
+      ll = "${ls} ${lsArgs}";
+      l = "${ls} ${lsArgs}";
+      la = "${ls} --all ${lsArgs}";
       sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
     };
     packages = with pkgs; [
