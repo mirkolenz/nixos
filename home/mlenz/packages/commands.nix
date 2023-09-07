@@ -5,9 +5,9 @@
   osConfig,
   ...
 }: let
-  echo = "${pkgs.coreutils}/bin/echo";
   ls = lib.getExe pkgsUnstable.eza;
   lsArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
+  echo = "${lib.getBin pkgs.coreutils}/bin/echo";
   nixup = ''
     exec ${lib.getExe pkgs.nix} flake update \
     --commit-lock-file \
@@ -52,7 +52,7 @@ in {
             ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY" >&2
             exit 1
           fi
-          exec ${imagemagick}/bin/mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
+          exec ${lib.getBin imagemagick}/bin/mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
         '';
       })
       # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
@@ -63,7 +63,7 @@ in {
             ${echo} "Usage: $0 INPUT_FILE OUTPUT_FOLDER QUALITY FINAL_SIZE" >&2
             exit 1
           fi
-          exec ${imagemagick}/bin/mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
+          exec ${lib.getBin imagemagick}/bin/mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
         '';
       })
       (writeShellApplication {
@@ -71,8 +71,8 @@ in {
         text = ''
           ${checkSudo}
           set -x #echo on
-          "$SUDO" ${nix}/bin/nix-collect-garbage --delete-older-than 7d
-          ${nix}/bin/nix-collect-garbage --delete-older-than 7d
+          "$SUDO" ${lib.getBin nix}/bin/nix-collect-garbage --delete-older-than 7d
+          ${lib.getBin nix}/bin/nix-collect-garbage --delete-older-than 7d
           ${lib.getExe nix} store gc
           ${lib.getExe nix} store optimise
         '';
@@ -81,8 +81,8 @@ in {
       (writeShellApplication {
         name = "needs-reboot";
         text = ''
-          booted="$(${coreutils}/bin/readlink /run/booted-system/{initrd,kernel,kernel-modules})"
-          built="$(${coreutils}/bin/readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+          booted="$(${lib.getBin coreutils}/bin/readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+          built="$(${lib.getBin coreutils}/bin/readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
           if [ "$booted" != "$built" ]; then
             ${echo} "REBOOT NEEDED"
@@ -138,7 +138,7 @@ in {
             exit 1
           fi
 
-          exec ${gnupg}/bin/gpg --output "$2" --encrypt --recipient "$3" "$1"
+          exec ${lib.getExe gnupg} --output "$2" --encrypt --recipient "$3" "$1"
         '';
       })
       (writeShellApplication {
@@ -149,7 +149,7 @@ in {
             exit 1
           fi
 
-          exec ${gnupg}/bin/gpg --output "$2" --decrypt "$1"
+          exec ${lib.getExe gnupg} --output "$2" --decrypt "$1"
         '';
       })
       (writeShellApplication {
@@ -160,9 +160,9 @@ in {
             exit 1
           fi
           ${checkSudo}
-          ${coreutils}/bin/mkdir -p "$2"
-          TIMESTAMP=$(${coreutils}/bin/date +"%Y-%m-%d-%H-%M-%S")
-          "$SUDO" ${gnutar}/bin/tar czf "$2/$TIMESTAMP.tgz" "$1"
+          ${lib.getBin coreutils}/bin/mkdir -p "$2"
+          TIMESTAMP=$(${lib.getBin coreutils}/bin/date +"%Y-%m-%d-%H-%M-%S")
+          "$SUDO" ${lib.getExe gnutar} czf "$2/$TIMESTAMP.tgz" "$1"
         '';
       })
       (writeShellApplication {
@@ -173,15 +173,15 @@ in {
             exit 1
           fi
           ${checkSudo}
-          ${coreutils}/bin/mkdir -p "$2"
-          "$SUDO" ${gnutar}/bin/tar xf "$1" -C "$2"
+          ${lib.getBin coreutils}/bin/mkdir -p "$2"
+          "$SUDO" ${lib.getExe gnutar} xf "$1" -C "$2"
         '';
       })
       (writeShellApplication {
         name = "nixos-env";
         text = ''
           ${checkSudo}
-          exec "$SUDO" ${nix}/bin/nix-env --profile /nix/var/nix/profiles/system "$@"
+          exec "$SUDO" ${lib.getBin nix}/bin/nix-env --profile /nix/var/nix/profiles/system "$@"
         '';
       })
     ];

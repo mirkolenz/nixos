@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware.nix
     ./samba.nix
@@ -19,7 +23,7 @@
   # https://nixos.wiki/wiki/Hardware/Apple
   # https://superuser.com/a/1051137
   systemd.services.enable-autorestart = {
-    script = "${pkgs.pciutils}/bin/setpci -s 00:1f.0 0xa4.b=0";
+    script = "${lib.getBin pkgs.pciutils}/bin/setpci -s 00:1f.0 0xa4.b=0";
     wantedBy = ["default.target"];
     after = ["default.target"];
   };
