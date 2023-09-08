@@ -100,10 +100,10 @@
       lib,
       ...
     }: {
-      imports = [
-        ./overlays
-      ];
-      nixpkgs.config = import ./nixpkgs-config.nix;
+      nixpkgs = {
+        config = import ./nixpkgs-config.nix;
+        overlays = import ./nixpkgs-overlays.nix inputs;
+      };
       # change in `./home/default.nix` as well
       _module.args = {
         flakeInputs = inputs;
@@ -123,11 +123,6 @@
         extras = {
           dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
           stateVersion = "23.05";
-          importFolder = folder: let
-            toImport = name: value: folder + ("/" + name);
-            filterCaches = key: value: value == "regular" && lib.hasSuffix ".nix" key && key != "default.nix";
-          in
-            lib.mapAttrsToList toImport (lib.filterAttrs filterCaches (builtins.readDir folder));
         };
       };
     };
@@ -143,6 +138,7 @@
         _module.args.pkgs = import nixpkgs {
           inherit system;
           config = import ./nixpkgs-config.nix;
+          overlays = import ./nixpkgs-overlays.nix inputs;
         };
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
