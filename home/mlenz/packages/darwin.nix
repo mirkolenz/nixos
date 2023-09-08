@@ -12,6 +12,5 @@ lib.mkIf pkgs.stdenv.isDarwin {
     # https://github.com/nix-community/poetry2nix/issues/1291
     # bibtex2cff
     bibtex-to-cff
-    # nixd
   ];
 }

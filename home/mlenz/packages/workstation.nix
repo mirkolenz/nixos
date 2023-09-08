@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgsStable,
+  pkgsUnstable,
   lib,
   osConfig,
   ...
@@ -28,6 +29,7 @@ in
       # nix
       nixpkgs-fmt
       nil
+      pkgsUnstable.nixd
       nixfmt
       alejandra
       # go
