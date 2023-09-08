@@ -32,7 +32,7 @@
       terminal."<Esc>" = ''"<C-\\><C-n>"'';
     };
     plugins = {
-      lsp = {
+      lspconfig = {
         enable = true;
         servers = {
           nil.enable = true;
