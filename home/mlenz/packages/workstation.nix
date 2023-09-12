@@ -1,13 +1,12 @@
 {
   pkgs,
-  pkgsStable,
   pkgsUnstable,
   lib,
   osConfig,
   ...
 }: let
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/poetry/default.nix#L40
-  poetry = pkgsStable.poetry.withPlugins (ps: with ps; [poetry-plugin-up]);
+  poetry = pkgs.poetry.withPlugins (ps: with ps; [poetry-plugin-up]);
 in
   lib.mkIf (pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"] true osConfig)) {
     home.packages = with pkgs; [
