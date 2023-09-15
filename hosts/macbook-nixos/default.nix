@@ -16,7 +16,7 @@
   };
 
   custom.cuda = {
-    enable = true;
+    enable = false;
     driver = "legacy_470";
   };
 
