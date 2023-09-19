@@ -44,6 +44,7 @@
     nix-index = {
       enable = true;
     };
+    # TODO: carapace, eza
     # TODO: 23.11
     # ripgrep = {
     #   enable = true;
