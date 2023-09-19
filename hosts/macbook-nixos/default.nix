@@ -16,9 +16,15 @@
   };
 
   custom.cuda = {
-    enable = false;
+    enable = true;
     driver = "legacy_470";
   };
+
+  hardware.nvidia.prime = {
+    sync.enable = true;
+    nvidiaBusId = "PCI:1:0:0";
+    intelBusId = "PCI:0:2:0";
+  }
 
   powerManagement.cpuFreqGovernor = "performance";
 }
