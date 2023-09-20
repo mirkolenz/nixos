@@ -48,7 +48,7 @@
       # "gobdokumente"
       "google-chrome"
       "google-drive"
-      # "handbrake"
+      "handbrake"
       # "hook"
       # "iina"
       "iterm2"
