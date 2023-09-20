@@ -145,3 +145,12 @@ sudo mount /dev/disk/by-label/FIRMWARE /mnt
 BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=stable sudo rpi-eeprom-update -d -a
 sudo reboot
 ```
+
+### Use MakeMKV
+
+```shell
+# otherwise the optical drive is not found: https://discourse.nixos.org/t/makemkv-cant-find-my-usb-blu-ray-drive/23714
+sudo modprobe sg
+# if that does not work, try again with sudo
+NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#makemkv --impure
+```
