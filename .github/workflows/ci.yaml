@@ -11,7 +11,7 @@ jobs:
   lock-flake:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - uses: fregante/setup-git-user@v2
       - uses: DeterminateSystems/nix-installer-action@v4
       - run: "nix flake update --commit-lock-file --commit-lockfile-summary 'chore(deps): update flake.lock'"
