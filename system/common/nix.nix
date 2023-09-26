@@ -5,8 +5,11 @@
 }: {
   nix = {
     package = pkgs.nix;
+    # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
-      experimental-features = ["nix-command" "flakes" "impure-derivations" "ca-derivations"];
+      # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
+      experimental-features = ["nix-command" "flakes" "impure-derivations" "ca-derivations" "repl-flake"];
+      max-jobs = "auto";
       keep-going = true;
       keep-outputs = true;
       keep-derivations = false;
