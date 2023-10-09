@@ -45,6 +45,7 @@
       "firefox"
       "fission"
       "fork"
+      "forklift"
       # "gobdokumente"
       "google-chrome"
       "google-drive"
