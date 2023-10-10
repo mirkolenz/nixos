@@ -5,23 +5,43 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };
-    nixpkgs-stable = {
+    nixpkgs-linux-unstable = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+    nixpkgs-linux-stable = {
       url = "github:nixos/nixpkgs/nixos-23.05";
     };
-    nixpkgs-darwin = {
+    nixpkgs-darwin-stable = {
       url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
     };
-    nix-darwin = {
+    nixpkgs-darwin-unstable.follows = "nixpkgs";
+    nix-darwin-stable = {
       url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
+    };
+    nix-darwin-unstable = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager-stable = {
+    home-manager-linux-stable = {
       url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
+    };
+    home-manager-linux-unstable = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
+    };
+    home-manager-darwin-stable = {
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
+    };
+    home-manager-darwin-unstable = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -31,7 +51,7 @@
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
@@ -82,17 +102,23 @@
 
   outputs = inputs @ {
     self,
-    nix-darwin,
-    flake-parts,
+    nixpkgs,
+    nixpkgs-linux-stable,
+    nixpkgs-linux-unstable,
+    nixpkgs-darwin-stable,
+    nixpkgs-darwin-unstable,
     home-manager,
-    home-manager-stable,
+    home-manager-linux-stable,
+    home-manager-linux-unstable,
+    home-manager-darwin-stable,
+    home-manager-darwin-unstable,
+    flake-parts,
+    systems,
+    nix-darwin-stable,
+    nix-darwin-unstable,
     nixos-generators,
     nixos-hardware,
-    nixpkgs,
-    nixpkgs-stable,
-    nixpkgs-darwin,
     vscode-server,
-    systems,
     ...
   }: let
     defaults = {
@@ -105,21 +131,35 @@
         overlays = import ./nixpkgs-overlays.nix inputs;
       };
       # change in `./home/default.nix` as well
-      _module.args = {
+      _module.args = let
+        inherit (pkgs.stdenv.targetPlatform) system;
+      in {
         flakeInputs = inputs;
         # https://www.reddit.com/r/NixOS/comments/qikgub/how_to_use_different_channels_in_a_flake_to/
-        pkgsUnstable = import nixpkgs {
-          inherit (pkgs.stdenv.targetPlatform) system;
-          config = import ./nixpkgs-config.nix;
-        };
-        pkgsStable = import nixpkgs-stable {
-          inherit (pkgs.stdenv.targetPlatform) system;
-          config = import ./nixpkgs-config.nix;
-        };
-        pkgsDarwin = import nixpkgs-darwin {
-          inherit (pkgs.stdenv.targetPlatform) system;
-          config = import ./nixpkgs-config.nix;
-        };
+        pkgsStable =
+          if pkgs.stdenv.isDarwin
+          then
+            import nixpkgs-darwin-stable {
+              inherit system;
+              config = import ./nixpkgs-config.nix;
+            }
+          else
+            import nixpkgs-linux-stable {
+              inherit system;
+              config = import ./nixpkgs-config.nix;
+            };
+        pkgsUnstable =
+          if pkgs.stdenv.isDarwin
+          then
+            import nixpkgs-darwin-unstable {
+              inherit system;
+              config = import ./nixpkgs-config.nix;
+            }
+          else
+            import nixpkgs-linux-unstable {
+              inherit system;
+              config = import ./nixpkgs-config.nix;
+            };
         extras = {
           dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
           stateVersion = "23.05";
@@ -157,7 +197,7 @@
           default = let
             builder =
               if pkgs.stdenv.isDarwin
-              then nix-darwin.packages.${system}.default
+              then nix-darwin-unstable.packages.${system}.default
               else pkgs.nixos-rebuild;
           in {
             type = "app";
@@ -166,7 +206,7 @@
           # home-manager builder
           home = {
             type = "app";
-            program = lib.getExe (mkBuilder home-manager.packages.${system}.default);
+            program = lib.getExe (mkBuilder home-manager-linux-unstable.packages.${system}.default);
           };
         };
         legacyPackages = {
@@ -175,7 +215,7 @@
             lib.genAttrs
             ["mlenz" "lenz" "mirkolenz" "mirkol"]
             (username:
-              home-manager.lib.homeManagerConfiguration {
+              home-manager-linux-unstable.lib.homeManagerConfiguration {
                 inherit pkgs;
                 modules = [
                   defaults
@@ -199,14 +239,14 @@
             # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
             "custom-sd" = {
               imports = [
-                "${nixpkgs-stable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+                "${nixpkgs-linux-stable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
               ];
               formatAttr = "sdImage";
             };
             # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
             "custom-iso" = {
               imports = [
-                "${nixpkgs-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+                "${nixpkgs-linux-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
               ];
               formatAttr = "isoImage";
             };
@@ -246,29 +286,29 @@
           };
         };
         nixosConfigurations = {
-          vm = nixpkgs.lib.nixosSystem {
+          vm = nixpkgs-linux-unstable.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               defaults
-              home-manager.nixosModules.home-manager
+              home-manager-linux-unstable.nixosModules.home-manager
               vscode-server.nixosModule
               ./hosts/vm
             ];
           };
-          orbstack = nixpkgs.lib.nixosSystem {
+          orbstack = nixpkgs-linux-unstable.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               defaults
-              home-manager.nixosModules.home-manager
+              home-manager-linux-unstable.nixosModules.home-manager
               vscode-server.nixosModule
               ./hosts/orbstack
             ];
           };
-          macpro = nixpkgs-stable.lib.nixosSystem {
+          macpro = nixpkgs-linux-stable.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               defaults
-              home-manager-stable.nixosModules.home-manager
+              home-manager-linux-stable.nixosModules.home-manager
               nixos-hardware.nixosModules.common-pc-ssd
               nixos-hardware.nixosModules.common-cpu-intel-cpu-only
               nixos-hardware.nixosModules.common-gpu-amd
@@ -276,20 +316,20 @@
               ./hosts/macpro
             ];
           };
-          raspi = nixpkgs-stable.lib.nixosSystem {
+          raspi = nixpkgs-linux-stable.lib.nixosSystem {
             system = "aarch64-linux";
             modules = [
               defaults
-              home-manager-stable.nixosModules.home-manager
+              home-manager-linux-stable.nixosModules.home-manager
               nixos-hardware.nixosModules.raspberry-pi-4
               ./hosts/raspi
             ];
           };
-          macbook-nixos = nixpkgs.lib.nixosSystem {
+          macbook-nixos = nixpkgs-linux-unstable.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
               defaults
-              home-manager.nixosModules.home-manager
+              home-manager-linux-unstable.nixosModules.home-manager
               nixos-hardware.nixosModules.common-pc-laptop-ssd
               nixos-hardware.nixosModules.common-cpu-intel
               nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
@@ -299,11 +339,11 @@
           };
         };
         darwinConfigurations = {
-          mirkos-macbook = nix-darwin.lib.darwinSystem {
+          mirkos-macbook = nix-darwin-unstable.lib.darwinSystem {
             system = "x86_64-darwin";
             modules = [
               defaults
-              home-manager.darwinModules.home-manager
+              home-manager-darwin-unstable.darwinModules.home-manager
               ./hosts/mirkos-macbook
             ];
           };

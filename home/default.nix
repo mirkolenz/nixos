@@ -1,14 +1,13 @@
 {
-  pkgsStable,
   pkgsUnstable,
-  pkgsDarwin,
+  pkgsStable,
   extras,
   flakeInputs,
   ...
 }: let
   defaults = {...}: {
     _module.args = {
-      inherit extras flakeInputs pkgsStable pkgsUnstable pkgsDarwin;
+      inherit extras flakeInputs pkgsUnstable pkgsStable;
       username = "mlenz";
     };
   };
