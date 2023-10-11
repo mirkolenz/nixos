@@ -18,9 +18,9 @@ hostname MACHINE_NAME
 
 ```shell
 # Large changes (like first time)
-sudo nix run github:mirkolenz/nixos -- boot
+nix run github:mirkolenz/nixos -- boot
 # Small changes
-sudo nix run github:mirkolenz/nixos
+nix run github:mirkolenz/nixos
 ```
 
 ### Terminal Setup
