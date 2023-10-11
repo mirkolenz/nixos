@@ -198,7 +198,17 @@
             builder =
               if pkgs.stdenv.isDarwin
               then nix-darwin-unstable.packages.${system}.default
-              else pkgs.nixos-rebuild;
+              else
+                pkgs.writeShellApplication {
+                  name = "sudo-nixos-rebuild";
+                  text = ''
+                    SUDO=""
+                    if [ "$(id -u)" -ne 0 ]; then
+                      SUDO="sudo"
+                    fi
+                    $SUDO ${pkgs.nixos-rebuild} "$@"
+                  '';
+                };
           in {
             type = "app";
             program = lib.getExe (mkBuilder builder);
