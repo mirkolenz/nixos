@@ -206,7 +206,7 @@
                     if [ "$(id -u)" -ne 0 ]; then
                       SUDO="sudo"
                     fi
-                    $SUDO ${pkgs.nixos-rebuild} "$@"
+                    $SUDO ${lib.getExe pkgs.nixos-rebuild} "$@"
                   '';
                 };
           in {
