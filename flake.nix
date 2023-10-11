@@ -76,11 +76,11 @@
     };
     makejinja = {
       url = "github:mirkolenz/makejinja/v2";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
     arguebuf = {
       url = "github:recap-utr/arguebuf-python/v2";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
     mlenz-ssh-keys = {
       url = "https://github.com/mirkolenz.keys";

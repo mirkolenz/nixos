@@ -49,10 +49,8 @@ in
       # java
       jdk
       gradle
-      # TODO: Causes signal SIGSEGV (Address boundary error)
-      # https://github.com/nix-community/poetry2nix/issues/1291
-      # makejinja
-      # arguebuf
+      makejinja
+      arguebuf
     ];
     home.shellAliases = {
       hass = lib.getExe pkgs.home-assistant-cli;

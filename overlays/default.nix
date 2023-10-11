@@ -1,6 +1,6 @@
 inputs: (final: prev: let
   inherit (final.pkgs) system;
-  getPkg = input: name: inputs.${input}.packages.${system}.${name};
+  getPkg = input: inputs.${input}.packages.${system}.default;
   pkgs = final.pkgs;
   lib = final.lib;
 in {
@@ -16,6 +16,6 @@ in {
         exec ${lib.getExe php} ${inputs.bibtexbrowser}/bibtex-to-cff.php "$@"
       '';
     };
-  makejinja = getPkg "makejinja" "default";
-  arguebuf = getPkg "arguebuf" "default";
+  makejinja = getPkg "makejinja";
+  arguebuf = getPkg "arguebuf";
 })
