@@ -4,7 +4,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-linux-stable"
         ],
         "poetry2nix": "poetry2nix",
         "systems": "systems_2"
@@ -369,7 +369,7 @@
         "flake-parts": "flake-parts_3",
         "flocken": "flocken",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-linux-stable"
         ],
         "systems": "systems_4"
       },
@@ -618,11 +618,11 @@
     },
     "nixpkgs-darwin-stable": {
       "locked": {
-        "lastModified": 1696939656,
-        "narHash": "sha256-GnLWP1m20IF6DiZBWqnJHmuFA4q5VNP0ry0Y9018wi8=",
+        "lastModified": 1696983906,
+        "narHash": "sha256-L7GyeErguS7Pg4h8nK0wGlcUTbfUMDu+HMf1UcyP72k=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "741256c2a296524ac78b793046b65bedd613ff3f",
+        "rev": "bd1cde45c77891214131cbbea5b1203e485a9d51",
         "type": "github"
       },
       "original": {
