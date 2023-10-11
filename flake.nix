@@ -2,19 +2,19 @@
   description = "nixos";
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    };
-    nixpkgs-linux-unstable = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-    nixpkgs-linux-stable = {
-      url = "github:nixos/nixpkgs/nixos-23.05";
-    };
-    nixpkgs-darwin-stable = {
-      url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
-    };
+    # Nixpkgs
+    nixpkgs. url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
+    # Utils
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    systems.url = "github:nix-systems/default";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    # Nix Darwin
     nix-darwin-stable = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
@@ -23,6 +23,8 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
+
+    # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,12 +45,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
-    systems = {
-      url = "github:nix-systems/default";
-    };
+
+    # Other
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,9 +54,6 @@
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixos-hardware = {
-      url = "github:nixos/nixos-hardware";
     };
     nix-index-database = {
       url = "github:mic92/nix-index-database";
