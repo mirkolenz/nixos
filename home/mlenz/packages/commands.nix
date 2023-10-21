@@ -14,12 +14,7 @@
     --commit-lockfile-summary 'chore(deps): update flake.lock' \
     "$@"
   '';
-  checkSudo = ''
-    SUDO=""
-    if [ "$(id -u)" -ne 0 ]; then
-      SUDO="sudo"
-    fi
-  '';
+  checkSudo = builtins.readFile ../../../check-sudo.sh;
 in {
   home = {
     shellAliases = {

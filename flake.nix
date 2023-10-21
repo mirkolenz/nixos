@@ -197,10 +197,7 @@
                 pkgs.writeShellApplication {
                   name = "sudo-nixos-rebuild";
                   text = ''
-                    SUDO=""
-                    if [ "$(id -u)" -ne 0 ]; then
-                      SUDO="sudo"
-                    fi
+                    ${builtins.readFile ./check-sudo.sh}
                     $SUDO ${lib.getExe pkgs.nixos-rebuild} "$@"
                   '';
                 };
