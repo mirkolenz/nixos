@@ -8,11 +8,15 @@
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
-    # Utils
 
+    # Utils
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Nix Darwin
     nix-darwin-stable = {
@@ -46,6 +50,32 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
 
+    # My own
+    flocken = {
+      url = "github:mirkolenz/flocken/v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    makejinja = {
+      url = "github:mirkolenz/makejinja/v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.poetry2nix.follows = "poetry2nix";
+      inputs.flocken.follows = "flocken";
+    };
+    arguebuf = {
+      url = "github:recap-utr/arguebuf-python/v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.poetry2nix.follows = "poetry2nix";
+      inputs.flocken.follows = "flocken";
+    };
+    mlenz-ssh-keys = {
+      url = "https://github.com/mirkolenz.keys";
+      flake = false;
+    };
+    texmf = {
+      url = "github:mirkolenz/texmf";
+      flake = false;
+    };
+
     # Other
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -68,22 +98,6 @@
     nixneovimplugins = {
       url = "github:nixneovim/nixneovimplugins";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    makejinja = {
-      url = "github:mirkolenz/makejinja/v2";
-      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
-    };
-    arguebuf = {
-      url = "github:recap-utr/arguebuf-python/v2";
-      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
-    };
-    mlenz-ssh-keys = {
-      url = "https://github.com/mirkolenz.keys";
-      flake = false;
-    };
-    texmf = {
-      url = "github:mirkolenz/texmf";
-      flake = false;
     };
     bibtex2cff = {
       url = "github:anselmoo/bibtex2cff/v0.2.1";
