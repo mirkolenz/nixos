@@ -108,6 +108,14 @@ sudo reboot
 ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 ```
 
+Uninstalling
+
+```shell
+chsh -s /bin/zsh
+nix run github:lnl7/nix-darwin#darwin-uninstaller
+/nix/nix-installer uninstall
+```
+
 ## Home-Manger Standalone
 
 _Note:_ Reconnect via SSH after installing nix.
