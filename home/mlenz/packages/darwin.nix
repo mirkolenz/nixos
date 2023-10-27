@@ -1,11 +1,12 @@
 {
   pkgs,
+  pkgsStable,
   lib,
   ...
 }:
 lib.mkIf pkgs.stdenv.isDarwin {
   home.packages = with pkgs; [
-    texlive.combined.scheme-full
+    pkgsStable.texlive.combined.scheme-full
     tectonic
     texlab
     # TODO: Causes signal SIGSEGV (Address boundary error)

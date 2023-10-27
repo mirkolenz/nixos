@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgsUnstable,
+  pkgsStable,
   lib,
   osConfig,
   ...
@@ -16,7 +17,7 @@ in
       _1password
       buf
       # dvc
-      gomplate
+      pkgsStable.gomplate
       grpcui
       mqttui
       ocrmypdf
@@ -50,7 +51,7 @@ in
       jdk
       gradle
       makejinja
-      arguebuf
+      # arguebuf
     ];
     home.shellAliases = {
       hass = lib.getExe pkgs.home-assistant-cli;

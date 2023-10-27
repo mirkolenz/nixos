@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgsUnstable,
+  pkgsStable,
   ...
 }: {
   imports = [
@@ -40,7 +41,7 @@
     rsync
     curl
     wget
-    mkpasswd
+    pkgsStable.mkpasswd
     macchina
     carapace
     speedtest-cli
