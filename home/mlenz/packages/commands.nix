@@ -129,6 +129,12 @@ in {
         '';
       })
       (writeShellApplication {
+        name = "latexmkrc";
+        text = ''
+          exec cat ${../files/.latexmkrc} > "''${1:-.latexmkrc}"
+        '';
+      })
+      (writeShellApplication {
         name = "dev";
         text = ''
           exec ${lib.getExe pkgs.nix} develop "$@"
