@@ -25,7 +25,7 @@ in {
       source = ./.amethyst.yml;
     };
     # TODO: Make dependent on texlive (currently installed only on darwin)
-    "${config.home.homeDirectory}/texmf" = lib.mkIf pkgs.stdenv.isDarwin {
+    "texmf" = lib.mkIf pkgs.stdenv.isDarwin {
       source = texmf;
     };
   };
