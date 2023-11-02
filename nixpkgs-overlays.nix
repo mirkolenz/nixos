@@ -1,5 +1,5 @@
 inputs: [
   inputs.nixneovim.overlays.default
-  inputs.poetry2nix.overlay
+  inputs.poetry2nix.overlays.default
   (import ./overlays inputs)
 ]
