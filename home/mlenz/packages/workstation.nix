@@ -51,7 +51,7 @@ in
       jdk
       gradle
       makejinja
-      # arguebuf
+      arguebuf
     ];
     home.shellAliases = {
       hass = lib.getExe pkgs.home-assistant-cli;
