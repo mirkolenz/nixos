@@ -175,6 +175,22 @@
         };
       };
     };
+    generatorFormats = {
+      # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
+      "custom-sd" = {
+        imports = [
+          "${nixpkgs-linux-stable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        ];
+        formatAttr = "sdImage";
+      };
+      # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
+      "custom-iso" = {
+        imports = [
+          "${nixpkgs-linux-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+        ];
+        formatAttr = "isoImage";
+      };
+    };
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -184,22 +200,6 @@
         lib,
         ...
       }: let
-        generatorFormats = {
-          # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
-          "custom-sd" = {
-            imports = [
-              "${nixpkgs-linux-stable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-            ];
-            formatAttr = "sdImage";
-          };
-          # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
-          "custom-iso" = {
-            imports = [
-              "${nixpkgs-linux-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            ];
-            formatAttr = "isoImage";
-          };
-        };
         buildFlags = ["--impure" "--no-write-lock-file"];
         mkBuilder = builder:
           pkgs.writeShellApplication {
@@ -232,25 +232,6 @@
               };
           # home-manager builder
           home = mkBuilder home-manager-linux-unstable.packages.${system}.default;
-          installer-raspi = nixos-generators.nixosGenerate {
-            inherit system;
-            customFormats = generatorFormats;
-            format = "custom-sd";
-            modules = [
-              defaults
-              nixos-hardware.nixosModules.raspberry-pi-4
-              ./installer/raspi.nix
-            ];
-          };
-          installer-iso = nixos-generators.nixosGenerate {
-            inherit system;
-            customFormats = generatorFormats;
-            format = "custom-iso";
-            modules = [
-              defaults
-              ./installer/iso.nix
-            ];
-          };
         };
         legacyPackages = {
           # edit in `./home/default.nix` as well
@@ -277,6 +258,36 @@
         };
       };
       flake = {
+        packages = {
+          aarch64-linux.installer-raspi = nixos-generators.nixosGenerate {
+            system = "aarch64-linux";
+            customFormats = generatorFormats;
+            format = "custom-sd";
+            modules = [
+              defaults
+              nixos-hardware.nixosModules.raspberry-pi-4
+              ./installer/raspi.nix
+            ];
+          };
+          aarch64-linux.installer-iso = nixos-generators.nixosGenerate {
+            system = "aarch64-linux";
+            customFormats = generatorFormats;
+            format = "custom-iso";
+            modules = [
+              defaults
+              ./installer/iso.nix
+            ];
+          };
+          x86_64-linux.installer-iso = nixos-generators.nixosGenerate {
+            system = "x86_64-linux";
+            customFormats = generatorFormats;
+            format = "custom-iso";
+            modules = [
+              defaults
+              ./installer/iso.nix
+            ];
+          };
+        };
         nixosConfigurations = {
           vm = nixpkgs-linux-unstable.lib.nixosSystem {
             system = "x86_64-linux";
