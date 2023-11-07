@@ -581,7 +581,7 @@
       "inputs": {
         "nixlib": "nixlib",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-linux-stable"
         ]
       },
       "locked": {
