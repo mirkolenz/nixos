@@ -4,28 +4,29 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  check-x86_64:
+  check:
     strategy:
       matrix:
-        kernel: [linux, darwin]
-    runs-on: ${{ matrix.kernel == 'darwin' && 'macos-latest' || 'ubuntu-latest' }}
+        arch: [x86_64, aarch64]
+        os: [ubuntu-latest, macos-latest]
+        exclude:
+          - arch: aarch64
+            os: macos-latest
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-qemu-action@v3
-      - uses: DeterminateSystems/nix-installer-action@v7
-      - run: "nix flake check"
-  check-aarch64:
-    strategy:
-      matrix:
-        kernel: [linux, darwin]
-    runs-on: ${{ matrix.kernel == 'darwin' && 'macos-latest' || 'ubuntu-latest' }}
-    steps:
+      - run: |
+          kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
+          echo "kernel=$kernel" >> "$GITHUB_OUTPUT"
+          echo "nativeSystem=x86_64-$kernel" >> "$GITHUB_OUTPUT"
+          echo "checkedSystem=${{ matrix.arch }}-$kernel" >> "$GITHUB_OUTPUT"
+        id: info
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64
+        if: matrix.arch == 'aarch64'
       - uses: DeterminateSystems/nix-installer-action@v7
         with:
           extra-conf: |
-            extra-platforms = aarch64-${{ matrix.kernel }}
-      - run: "nix flake check --system aarch64-${{ matrix.kernel }}"
+            extra-platforms = ${{ steps.info.outputs.checkedSystem }}
+      - run: "nix flake check --system ${{ steps.info.outputs.checkedSystem }}"
