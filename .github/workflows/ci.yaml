@@ -4,10 +4,28 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  check:
-    runs-on: ubuntu-latest
+  check-x86_64:
+    strategy:
+      matrix:
+        kernel: [linux, darwin]
+    runs-on: ${{ matrix.kernel == 'darwin' && 'macos-latest' || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
       - uses: DeterminateSystems/nix-installer-action@v7
-      - uses: DeterminateSystems/magic-nix-cache-action@v2
       - run: "nix flake check"
+  check-aarch64:
+    strategy:
+      matrix:
+        kernel: [linux, darwin]
+    runs-on: ${{ matrix.kernel == 'darwin' && 'macos-latest' || 'ubuntu-latest' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+      - uses: DeterminateSystems/nix-installer-action@v7
+        with:
+          extra-conf: |
+            extra-platforms = aarch64-${{ matrix.kernel }}
+      - run: "nix flake check --system aarch64-${{ matrix.kernel }}"
