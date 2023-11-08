@@ -20,6 +20,7 @@ jobs:
           echo "nativeSystem=x86_64-$kernel" >> "$GITHUB_OUTPUT"
           echo "checkedSystem=${{ matrix.arch }}-$kernel" >> "$GITHUB_OUTPUT"
         id: info
+        name: Get system info
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
         with:
@@ -30,3 +31,4 @@ jobs:
           extra-conf: |
             extra-platforms = ${{ steps.info.outputs.checkedSystem }}
       - run: "nix flake check --system ${{ steps.info.outputs.checkedSystem }}"
+        name: "Run nix flake check"
