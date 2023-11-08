@@ -195,6 +195,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
       perSystem = {
+        self',
         pkgs,
         system,
         lib,
@@ -209,6 +210,17 @@
               exec ${lib.getExe builder} --flake ${self} ${builtins.toString buildFlags} "''${1:-switch}" "''${@:2}"
             '';
           };
+        systemBuilder =
+          if pkgs.stdenv.isDarwin
+          then nix-darwin-unstable.packages.${system}.default
+          else
+            pkgs.writeShellApplication {
+              name = "sudo-nixos-rebuild";
+              text = ''
+                ${builtins.readFile ./check-sudo.sh}
+                $SUDO ${lib.getExe pkgs.nixos-rebuild} "$@"
+              '';
+            };
       in {
         _module.args.pkgs = import nixpkgs {
           inherit system;
@@ -218,19 +230,8 @@
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
         packages = {
-          # system builder
-          default =
-            if pkgs.stdenv.isDarwin
-            then nix-darwin-unstable.packages.${system}.default
-            else
-              pkgs.writeShellApplication {
-                name = "sudo-nixos-rebuild";
-                text = ''
-                  ${builtins.readFile ./check-sudo.sh}
-                  $SUDO ${lib.getExe pkgs.nixos-rebuild} "$@"
-                '';
-              };
-          # home-manager builder
+          default = self'.packages.system;
+          system = mkBuilder systemBuilder;
           home = mkBuilder home-manager-linux-unstable.packages.${system}.default;
         };
         legacyPackages = {
