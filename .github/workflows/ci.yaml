@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  check:
+  test:
     strategy:
       matrix:
         arch: [x86_64, aarch64]
@@ -18,7 +18,7 @@ jobs:
           kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
           echo "kernel=$kernel" >> "$GITHUB_OUTPUT"
           echo "nativeSystem=x86_64-$kernel" >> "$GITHUB_OUTPUT"
-          echo "checkedSystem=${{ matrix.arch }}-$kernel" >> "$GITHUB_OUTPUT"
+          echo "testSystem=${{ matrix.arch }}-$kernel" >> "$GITHUB_OUTPUT"
         id: info
         name: Get system info
       - uses: actions/checkout@v4
@@ -29,6 +29,8 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v7
         with:
           extra-conf: |
-            extra-platforms = ${{ steps.info.outputs.checkedSystem }}
-      - run: "nix flake check --system ${{ steps.info.outputs.checkedSystem }}"
+            extra-platforms = ${{ steps.info.outputs.testSystem }}
+      - run: "nix flake check --system ${{ steps.info.outputs.testSystem }}"
         name: "Run nix flake check"
+      - run: "nix flake show --system ${{ steps.info.outputs.testSystem }}"
+        name: "Run nix flake show"
