@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  extras,
+  ...
+}: {
   imports = [
     ./homebrew.nix
     ./settings.nix
@@ -12,7 +16,7 @@
   nix.settings = {
     build-users-group = "nixbld";
     # required for linux-builder
-    extra-trusted-users = ["mlenz"];
+    extra-trusted-users = [extras.user.login];
   };
 
   system.checks.verifyBuildUsers = false;

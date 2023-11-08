@@ -8,7 +8,7 @@
   defaults = {...}: {
     _module.args = {
       inherit extras flakeInputs pkgsUnstable pkgsStable;
-      username = "mlenz";
+      userLogin = extras.user.login;
     };
   };
 in {

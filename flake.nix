@@ -172,6 +172,12 @@
         extras = {
           dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
           stateVersion = "23.05";
+          user = {
+            name = "Mirko Lenz";
+            mail = "mirko@mirkolenz.com";
+            login = "mlenz";
+            id = 1000;
+          };
         };
       };
     };
@@ -239,7 +245,7 @@
           homeConfigurations =
             lib.genAttrs
             ["mlenz" "lenz" "mirkolenz" "mirkol"]
-            (username:
+            (userLogin:
               home-manager-linux-unstable.lib.homeManagerConfiguration {
                 inherit pkgs;
                 modules = [
@@ -247,7 +253,7 @@
                   {
                     targets.genericLinux.enable = true;
                     _module.args = {
-                      inherit username;
+                      inherit userLogin;
                       osConfig = {};
                     };
                   }

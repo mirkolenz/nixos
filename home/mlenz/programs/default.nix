@@ -1,4 +1,6 @@
-{...}: {
+{extras, ...}: let
+  inherit (extras) user;
+in {
   imports = [
     ./bottom.nix
     ./fish.nix
@@ -53,8 +55,8 @@
     #   enable = true;
     #   settings = {
     #     user = {
-    #       name = "Mirko Lenz";
-    #       email = "mirko@mirkolenz.com";
+    #       name = user.name;
+    #       email = user.mail;
     #     };
     #   };
     # };

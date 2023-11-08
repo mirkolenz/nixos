@@ -1,12 +1,15 @@
 {
   lib,
   pkgs,
+  extras,
   ...
-}: {
+}: let
+  inherit (extras) user;
+in {
   programs.git = {
     enable = true;
-    userName = "Mirko Lenz";
-    userEmail = "mirko@mirkolenz.com";
+    userName = user.name;
+    userEmail = user.mail;
     lfs = {
       enable = true;
     };

@@ -3,6 +3,7 @@
   config,
   pkgs,
   modulesPath,
+  extras,
   ...
 }: {
   imports = [
@@ -23,7 +24,7 @@
   # sudoers
   security.sudo.extraRules = [
     {
-      users = ["mlenz"];
+      users = [extras.user.login];
       commands = [
         {
           command = "ALL";

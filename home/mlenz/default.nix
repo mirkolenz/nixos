@@ -3,13 +3,13 @@
   extras,
   lib,
   osConfig,
-  username,
+  userLogin,
   ...
 }: let
   homeDirectory =
     if pkgs.stdenv.isDarwin
-    then "/Users/${username}"
-    else "/home/${username}";
+    then "/Users/${userLogin}"
+    else "/home/${userLogin}";
 in {
   imports = [
     ./xserver.nix
@@ -19,8 +19,9 @@ in {
   ];
 
   home = {
-    inherit username homeDirectory;
+    inherit homeDirectory;
     inherit (extras) stateVersion;
+    username = userLogin;
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };

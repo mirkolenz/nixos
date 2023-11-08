@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  extras,
   ...
 }: let
   cfg = config.custom.docker;
@@ -21,7 +22,7 @@ in {
       };
       daemon.settings = {
         icc = false;
-        userns-remap = lib.mkIf cfg.userns-remap "mlenz";
+        userns-remap = lib.mkIf cfg.userns-remap extras.user.login;
       };
     };
     users.users.mlenz = lib.mkIf cfg.userns-remap {
