@@ -60,5 +60,8 @@ in {
     #     };
     #   };
     # };
+    # thefuck = {
+    #   enable = true;
+    # };
   };
 }
