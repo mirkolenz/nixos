@@ -11,14 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v7
-      - uses: DeterminateSystems/update-flake-lock@v20
-        id: update
-        with:
-          commit-msg: "chore(deps): update flake.lock"
-          pr-title: "chore(deps): update flake.lock"
-          branch: "update-flake-lock"
-      - run: gh pr merge --squash --auto ${{ steps.update.outputs.pull-request-number }}
-        if: ${{ steps.update.outputs.pull-request-number > 0 }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        name: Enable automerge for PR
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+        name: Setup Git
+      - run: |
+          nix flake update \
+            --commit-lock-file \
+            --commit-lockfile-summary 'chore(deps): update flake.lock'"
+      - run: nix flake check
+      - run: nix flake show
+      - run: git push

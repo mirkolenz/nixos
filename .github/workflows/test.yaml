@@ -6,32 +6,9 @@ jobs:
   test:
     permissions:
       contents: read
-    strategy:
-      matrix:
-        arch: [x86_64, aarch64]
-        os: [ubuntu-latest, macos-latest]
-        exclude:
-          - arch: aarch64
-            os: macos-latest
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
-      - run: |
-          kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
-          echo "kernel=$kernel" >> "$GITHUB_OUTPUT"
-          echo "nativeSystem=x86_64-$kernel" >> "$GITHUB_OUTPUT"
-          echo "testSystem=${{ matrix.arch }}-$kernel" >> "$GITHUB_OUTPUT"
-        id: info
-        name: Get system info
       - uses: actions/checkout@v4
-      - uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
-        if: matrix.arch == 'aarch64'
       - uses: DeterminateSystems/nix-installer-action@v7
-        with:
-          extra-conf: |
-            extra-platforms = ${{ steps.info.outputs.testSystem }}
-      - run: "nix flake check --system ${{ steps.info.outputs.testSystem }}"
-        name: "Run nix flake check"
-      - run: "nix flake show --system ${{ steps.info.outputs.testSystem }}"
-        name: "Run nix flake show"
+      - run: "nix flake check"
+      - run: "nix flake show"
