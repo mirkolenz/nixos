@@ -13,11 +13,12 @@ jobs:
       - run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
-        name: Setup Git
+        name: Run git config
       - run: |
           nix flake update \
             --commit-lock-file \
             --commit-lockfile-summary "chore(deps): update flake.lock"
+        name: Run nix flake update
       - run: nix flake check
       - run: nix flake show
       - run: git push
