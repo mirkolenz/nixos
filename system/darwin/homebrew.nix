@@ -57,6 +57,7 @@
       # "kindle"
       "lunar"
       "mediathekview"
+      "microsoft-teams"
       # "mullvadvpn"
       "notion"
       "obsidian"
