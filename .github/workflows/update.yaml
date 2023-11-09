@@ -6,7 +6,6 @@ jobs:
   update:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
       contents: write
     steps:
       - uses: actions/checkout@v4
@@ -18,7 +17,7 @@ jobs:
       - run: |
           nix flake update \
             --commit-lock-file \
-            --commit-lockfile-summary 'chore(deps): update flake.lock'"
+            --commit-lockfile-summary "chore(deps): update flake.lock"
       - run: nix flake check
       - run: nix flake show
       - run: git push
