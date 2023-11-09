@@ -1,9 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>mirkolenz/renovate-preset"],
-  "automerge": true,
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": ["before 2am every day"]
-  }
+  "extends": ["github>mirkolenz/renovate-preset"]
 }

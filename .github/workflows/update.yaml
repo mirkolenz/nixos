@@ -1,0 +1,24 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *" # every day at 1am UTC(!)
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v7
+      - uses: DeterminateSystems/update-flake-lock@v20
+        id: update
+        with:
+          commit-msg: "chore(deps): update flake.lock"
+          pr-title: "chore(deps): update flake.lock"
+          branch: "update-flake-lock"
+      - run: gh pr merge --squash --auto ${{ steps.update.outputs.pull-request-number }}
+        if: ${{ steps.update.outputs.pull-request-number > 0 }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        name: Enable automerge for PR
