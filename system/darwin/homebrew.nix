@@ -97,7 +97,6 @@
       "font-varela-round"
       "fork"
       "forklift"
-      "gobdokumente"
       "google-chrome"
       "google-drive"
       "handbrake"
