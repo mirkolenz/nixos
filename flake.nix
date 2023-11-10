@@ -239,13 +239,6 @@
           default = self'.packages.system;
           system = mkBuilder systemBuilder;
           home = mkBuilder home-manager-linux-unstable.packages.${system}.default;
-          mas = pkgs.writeShellApplication {
-            name = "mas-wrapper";
-            text = ''
-              ${lib.getExe pkgs.mas} list | sort > "hosts/$(scutil --get LocalHostName)/mas.txt"
-            '';
-            meta.platforms = lib.platforms.darwin;
-          };
         };
         legacyPackages = {
           # edit in `./home/default.nix` as well
