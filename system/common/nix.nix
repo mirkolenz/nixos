@@ -1,5 +1,6 @@
 {
   pkgs,
+  flakeInputs,
   lib,
   ...
 }: {
@@ -38,5 +39,9 @@
         };
       })
     ];
+    registry = import ../../registry.nix {
+      inputs = flakeInputs;
+      stdenv = pkgs.stdenv;
+    };
   };
 }
