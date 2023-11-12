@@ -33,7 +33,7 @@
     rsync
     curl
     wget
-    stable.mkpasswd
+    mkpasswd
     macchina
     speedtest-cli
   ];
