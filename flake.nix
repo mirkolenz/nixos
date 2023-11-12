@@ -9,14 +9,10 @@
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
 
-    # Utils
+    # Small helpers
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    poetry2nix = {
-      url = "github:nix-community/poetry2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Nix Darwin
     nix-darwin-stable = {
@@ -76,7 +72,11 @@
       flake = false;
     };
 
-    # Other
+    # Utils
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
@@ -93,6 +93,8 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Non-flakes
     bibtex2cff = {
       url = "github:anselmoo/bibtex2cff/v0.2.1";
       flake = false;
