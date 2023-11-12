@@ -89,14 +89,8 @@
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixneovim = {
-      url = "github:nixneovim/nixneovim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-      inputs.nixneovimplugins.follows = "nixneovimplugins";
-    };
-    nixneovimplugins = {
-      url = "github:nixneovim/nixneovimplugins";
+    nixvim = {
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     bibtex2cff = {
@@ -230,7 +224,7 @@
                   }
                   ./home/mlenz
                   inputs.nix-index-database.hmModules.nix-index
-                  inputs.nixneovim.nixosModules.default
+                  inputs.nixvim.homeManagerModules.nixvim
                 ];
               });
         };

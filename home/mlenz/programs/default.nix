@@ -7,7 +7,7 @@ in {
     ./git.nix
     ./hyfetch.nix
     ./micro.nix
-    ./nixneovim.nix
+    ./nixvim.nix
     ./pandoc.nix
     ./ssh.nix
     ./starship.nix

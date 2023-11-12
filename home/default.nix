@@ -17,7 +17,7 @@ in {
       defaults
       ./mlenz
       inputs.nix-index-database.hmModules.nix-index
-      inputs.nixneovim.nixosModules.default
+      inputs.nixvim.homeManagerModules.nixvim
     ];
   };
 }
