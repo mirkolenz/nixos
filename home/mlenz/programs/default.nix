@@ -12,6 +12,7 @@ in {
     ./ssh.nix
     ./starship.nix
     ./tmux.nix
+    ./future.nix
   ];
 
   programs = {
