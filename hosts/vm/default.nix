@@ -1,5 +1,10 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
+    inputs.vscode-server.nixosModule
     ./hardware-qemu.nix
     ../../templates/workstation.nix
   ];

@@ -126,7 +126,6 @@
     nix-darwin-stable,
     nix-darwin-unstable,
     nixos-generators,
-    nixos-hardware,
     ...
   }: let
     # In principle identical to `_module.args`, but allows to be used during import resolution
@@ -225,7 +224,6 @@
             format = "custom-sd";
             modules = [
               defaults
-              nixos-hardware.nixosModules.raspberry-pi-4
               ./installer/raspi.nix
             ];
           };
@@ -257,7 +255,6 @@
             modules = [
               defaults
               home-manager-linux-unstable.nixosModules.home-manager
-              inputs.vscode-server.nixosModule
               ./hosts/vm
             ];
           };
@@ -267,7 +264,6 @@
             modules = [
               defaults
               home-manager-linux-unstable.nixosModules.home-manager
-              inputs.vscode-server.nixosModule
               ./hosts/orbstack
             ];
           };
@@ -277,10 +273,6 @@
             modules = [
               defaults
               home-manager-linux-stable.nixosModules.home-manager
-              nixos-hardware.nixosModules.common-pc-ssd
-              nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-              nixos-hardware.nixosModules.common-gpu-amd
-              nixos-hardware.nixosModules.common-hidpi
               ./hosts/macpro
             ];
           };
@@ -290,7 +282,6 @@
             modules = [
               defaults
               home-manager-linux-stable.nixosModules.home-manager
-              nixos-hardware.nixosModules.raspberry-pi-4
               ./hosts/raspi
             ];
           };
@@ -300,10 +291,6 @@
             modules = [
               defaults
               home-manager-linux-unstable.nixosModules.home-manager
-              nixos-hardware.nixosModules.common-pc-laptop-ssd
-              nixos-hardware.nixosModules.common-cpu-intel
-              nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-              nixos-hardware.nixosModules.common-hidpi
               ./hosts/macbook-nixos
             ];
           };
