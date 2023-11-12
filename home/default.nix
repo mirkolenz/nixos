@@ -12,9 +12,9 @@
     };
   };
   nixvimInput =
-    if lib.trivial.release == "23.05"
-    then inputs.nixvim-linux-stable
-    else inputs.nixvim-unstable;
+    if lib.versionAtLeast lib.trivial.release "23.11"
+    then inputs.nixvim-unstable
+    else inputs.nixvim-linux-stable;
 in {
   home-manager = {
     useGlobalPkgs = true;
