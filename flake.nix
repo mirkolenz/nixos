@@ -148,22 +148,6 @@
         };
       };
     };
-    generatorFormats = {
-      # https://github.com/nix-community/nixos-generators/blob/master/formats/sd-aarch64-installer.nix
-      "custom-sd" = {
-        imports = [
-          "${nixpkgs-linux-stable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-        ];
-        formatAttr = "sdImage";
-      };
-      # https://github.com/nix-community/nixos-generators/blob/master/formats/install-iso.nix
-      "custom-iso" = {
-        imports = [
-          "${nixpkgs-linux-stable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        ];
-        formatAttr = "isoImage";
-      };
-    };
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -235,7 +219,7 @@
         packages = {
           aarch64-linux.installer-raspi = nixos-generators.nixosGenerate {
             system = "aarch64-linux";
-            customFormats = generatorFormats;
+            customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-sd";
             modules = [
               defaults
@@ -245,7 +229,7 @@
           };
           aarch64-linux.installer-iso = nixos-generators.nixosGenerate {
             system = "aarch64-linux";
-            customFormats = generatorFormats;
+            customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-iso";
             modules = [
               defaults
@@ -254,7 +238,7 @@
           };
           x86_64-linux.installer-iso = nixos-generators.nixosGenerate {
             system = "x86_64-linux";
-            customFormats = generatorFormats;
+            customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-iso";
             modules = [
               defaults
