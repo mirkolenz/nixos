@@ -35,7 +35,6 @@
     wget
     stable.mkpasswd
     macchina
-    carapace
     speedtest-cli
   ];
   home.shellAliases = {
