@@ -21,7 +21,6 @@
     gcc
     zip
     unzip
-    bat
     unstable.eza
     lsd
     fd

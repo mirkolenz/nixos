@@ -18,11 +18,11 @@
 in {
   home = {
     shellAliases = {
-      cat = "${lib.getExe pkgs.bat}";
       ls = ls;
       ll = "${ls} ${lsArgs}";
       l = "${ls} ${lsArgs}";
       la = "${ls} --all ${lsArgs}";
+      cat = lib.getExe pkgs.bat;
       sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
     };
     packages = with pkgs; [

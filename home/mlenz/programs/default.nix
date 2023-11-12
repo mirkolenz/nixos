@@ -64,5 +64,8 @@ in {
     # thefuck = {
     #   enable = true;
     # };
+    bat = {
+      enable = true;
+    };
   };
 }
