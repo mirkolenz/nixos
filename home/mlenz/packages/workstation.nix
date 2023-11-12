@@ -15,7 +15,7 @@ in
       _1password
       buf
       # dvc
-      stable.gomplate
+      gomplate
       grpcui
       mqttui
       ocrmypdf
