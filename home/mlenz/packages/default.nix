@@ -25,7 +25,6 @@
     fd
     procs
     sd
-    ripgrep
     tealdeer
     bandwhich
     delta
