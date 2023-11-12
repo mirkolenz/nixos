@@ -128,13 +128,10 @@
     nixos-generators,
     ...
   }: let
-    # In principle identical to `_module.args`, but allows to be used during import resolution
+    # `specialArgs` is in principle identical to `_module.args`, but allows to be used during import resolution.
+    # If passing `inputs` to `_module.args` and using them for imports, we get an infinite recursion.
     specialArgs = {inherit inputs;};
     defaults = {
-      pkgs,
-      lib,
-      ...
-    }: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
@@ -151,6 +148,7 @@
         };
       };
     };
+    userLogins = ["mlenz" "lenz" "mirkolenz" "mirkol"];
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -187,32 +185,26 @@
           config = import ./nixpkgs-config.nix;
         };
         formatter = pkgs.alejandra;
-        # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
         packages = {
           default = self'.packages.system;
           system = mkBuilder systemBuilder;
           home = mkBuilder home-manager-linux-unstable.packages.${system}.default;
         };
-        legacyPackages = {
-          homeConfigurations =
-            lib.genAttrs
-            ["mlenz" "lenz" "mirkolenz" "mirkol"]
-            (userLogin:
-              home-manager-linux-unstable.lib.homeManagerConfiguration {
-                inherit pkgs specialArgs;
-                modules = [
-                  defaults
-                  {
-                    targets.genericLinux.enable = true;
-                    _module.args = {
-                      inherit userLogin;
-                      osConfig = {};
-                    };
-                  }
-                  ./home/mlenz
-                ];
-              });
-        };
+        legacyPackages.homeConfigurations = lib.genAttrs userLogins (userLogin:
+          home-manager-linux-unstable.lib.homeManagerConfiguration {
+            inherit pkgs specialArgs;
+            modules = [
+              defaults
+              ./home/mlenz
+              {
+                targets.genericLinux.enable = true;
+                _module.args = {
+                  inherit userLogin;
+                  osConfig = {};
+                };
+              }
+            ];
+          });
       };
       flake = {
         lib = import ./lib nixpkgs.lib;
