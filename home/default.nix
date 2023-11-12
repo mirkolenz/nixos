@@ -1,6 +1,8 @@
 {
   extras,
   inputs,
+  config,
+  lib,
   ...
 }: let
   defaults = {...}: {
@@ -9,6 +11,10 @@
       userLogin = extras.user.login;
     };
   };
+  nixvimInput =
+    if lib.trivial.release == "23.05"
+    then inputs.nixvim-linux-stable
+    else inputs.nixvim-unstable;
 in {
   home-manager = {
     useGlobalPkgs = true;
@@ -17,7 +23,7 @@ in {
       defaults
       ./mlenz
       inputs.nix-index-database.hmModules.nix-index
-      inputs.nixvim.homeManagerModules.nixvim
+      nixvimInput.homeManagerModules.nixvim
     ];
   };
 }

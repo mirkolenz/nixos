@@ -89,9 +89,13 @@
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
+    nixvim-unstable = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim-linux-stable = {
+      url = "github:nix-community/nixvim/nixos-23.05";
+      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
 
     # Non-flakes
@@ -209,7 +213,7 @@
                   }
                   ./home/mlenz
                   inputs.nix-index-database.hmModules.nix-index
-                  inputs.nixvim.homeManagerModules.nixvim
+                  inputs.nixvim-unstable.homeManagerModules.nixvim
                 ];
               });
         };
