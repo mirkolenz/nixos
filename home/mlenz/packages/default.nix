@@ -21,7 +21,6 @@
     gcc
     zip
     unzip
-    unstable.eza
     lsd
     fd
     procs

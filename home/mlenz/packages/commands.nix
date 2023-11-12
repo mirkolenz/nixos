@@ -5,8 +5,6 @@
   osConfig,
   ...
 }: let
-  ls = lib.getExe pkgs.unstable.eza;
-  lsArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
   echo = "${lib.getBin pkgs.coreutils}/bin/echo";
   nixup = ''
     exec ${lib.getExe pkgs.nix} flake update \
@@ -18,11 +16,8 @@
 in {
   home = {
     shellAliases = {
-      ls = ls;
-      ll = "${ls} ${lsArgs}";
-      l = "${ls} ${lsArgs}";
-      la = "${ls} --all ${lsArgs}";
       cat = lib.getExe pkgs.bat;
+      l = "ll";
       sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
     };
     packages = with pkgs; [
