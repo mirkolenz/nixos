@@ -47,23 +47,6 @@ in {
     nix-index = {
       enable = true;
     };
-    # TODO: carapace, eza
-    # TODO: 23.11
-    # ripgrep = {
-    #   enable = true;
-    # };
-    # jujutsu = {
-    #   enable = true;
-    #   settings = {
-    #     user = {
-    #       name = user.name;
-    #       email = user.mail;
-    #     };
-    #   };
-    # };
-    # thefuck = {
-    #   enable = true;
-    # };
     bat = {
       enable = true;
     };
