@@ -129,6 +129,8 @@
     nixos-hardware,
     ...
   }: let
+    # In principle identical to `_module.args`, but allows to be used during import resolution
+    specialArgs = {inherit inputs;};
     defaults = {
       pkgs,
       lib,
@@ -138,9 +140,7 @@
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
-      # change in `./home/default.nix` as well
       _module.args = {
-        inherit inputs;
         extras = {
           stateVersion = "23.05";
           user = {
@@ -195,13 +195,12 @@
           home = mkBuilder home-manager-linux-unstable.packages.${system}.default;
         };
         legacyPackages = {
-          # edit in `./home/default.nix` as well
           homeConfigurations =
             lib.genAttrs
             ["mlenz" "lenz" "mirkolenz" "mirkol"]
             (userLogin:
               home-manager-linux-unstable.lib.homeManagerConfiguration {
-                inherit pkgs;
+                inherit pkgs specialArgs;
                 modules = [
                   defaults
                   {
@@ -212,8 +211,6 @@
                     };
                   }
                   ./home/mlenz
-                  inputs.nix-index-database.hmModules.nix-index
-                  inputs.nixvim-unstable.homeManagerModules.nixvim
                 ];
               });
         };
@@ -222,6 +219,7 @@
         lib = import ./lib nixpkgs.lib;
         packages = {
           aarch64-linux.installer-raspi = nixos-generators.nixosGenerate {
+            inherit specialArgs;
             system = "aarch64-linux";
             customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-sd";
@@ -232,6 +230,7 @@
             ];
           };
           aarch64-linux.installer-iso = nixos-generators.nixosGenerate {
+            inherit specialArgs;
             system = "aarch64-linux";
             customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-iso";
@@ -241,6 +240,7 @@
             ];
           };
           x86_64-linux.installer-iso = nixos-generators.nixosGenerate {
+            inherit specialArgs;
             system = "x86_64-linux";
             customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-iso";
@@ -252,6 +252,7 @@
         };
         nixosConfigurations = {
           vm = nixpkgs-linux-unstable.lib.nixosSystem {
+            inherit specialArgs;
             system = "x86_64-linux";
             modules = [
               defaults
@@ -261,6 +262,7 @@
             ];
           };
           orbstack = nixpkgs-linux-unstable.lib.nixosSystem {
+            inherit specialArgs;
             system = "x86_64-linux";
             modules = [
               defaults
@@ -270,6 +272,7 @@
             ];
           };
           macpro = nixpkgs-linux-stable.lib.nixosSystem {
+            inherit specialArgs;
             system = "x86_64-linux";
             modules = [
               defaults
@@ -282,6 +285,7 @@
             ];
           };
           raspi = nixpkgs-linux-stable.lib.nixosSystem {
+            inherit specialArgs;
             system = "aarch64-linux";
             modules = [
               defaults
@@ -291,6 +295,7 @@
             ];
           };
           macbook-nixos = nixpkgs-linux-unstable.lib.nixosSystem {
+            inherit specialArgs;
             system = "x86_64-linux";
             modules = [
               defaults
@@ -305,6 +310,7 @@
         };
         darwinConfigurations = {
           mirkos-macbook = nix-darwin-unstable.lib.darwinSystem {
+            inherit specialArgs;
             system = "x86_64-darwin";
             modules = [
               defaults
