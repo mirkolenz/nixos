@@ -9,6 +9,15 @@ lib.optionalAttrs (lib.versionAtLeast lib.trivial.release "23.11") {
     ripgrep = {
       enable = true;
     };
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = extras.user.name;
+          email = extras.user.mail;
+        };
+      };
+    };
     thefuck = {
       enable = true;
     };
