@@ -107,6 +107,8 @@
 
   outputs = inputs @ {
     self,
+    flake-parts,
+    systems,
     nixpkgs,
     nixpkgs-linux-stable,
     nixpkgs-linux-unstable,
@@ -117,13 +119,10 @@
     home-manager-linux-unstable,
     home-manager-darwin-stable,
     home-manager-darwin-unstable,
-    flake-parts,
-    systems,
     nix-darwin-stable,
     nix-darwin-unstable,
     nixos-generators,
     nixos-hardware,
-    vscode-server,
     ...
   }: let
     defaults = {
@@ -269,7 +268,7 @@
             modules = [
               defaults
               home-manager-linux-unstable.nixosModules.home-manager
-              vscode-server.nixosModule
+              inputs.vscode-server.nixosModule
               ./hosts/vm
             ];
           };
@@ -278,7 +277,7 @@
             modules = [
               defaults
               home-manager-linux-unstable.nixosModules.home-manager
-              vscode-server.nixosModule
+              inputs.vscode-server.nixosModule
               ./hosts/orbstack
             ];
           };
