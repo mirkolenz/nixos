@@ -21,7 +21,7 @@
       extra-nix-path = "nixpkgs=flake:nixpkgs";
       # https://github.com/DeterminateSystems/nix-installer/pull/196
       # auto-allocate-uids = true;
-      # does not build on Linux with 23.05
+      # does not build on Linux
       # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
     };
     gc = lib.mkMerge [

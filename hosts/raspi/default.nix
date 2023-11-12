@@ -11,7 +11,7 @@
     # https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/4/poe-plus-hat.nix
     poe-plus-hat.enable = true;
     # https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/4/audio.nix
-    # TODO: Currently broken
+    # Currently broken
     audio.enable = false;
   };
 
