@@ -1,11 +1,11 @@
 {
+  inputs,
   pkgs,
-  pkgsUnstable,
   lib,
   osConfig,
   ...
 }: let
-  ls = lib.getExe pkgsUnstable.eza;
+  ls = lib.getExe pkgs.unstable.eza;
   lsArgs = "--long --icons --group-directories-first --git --color=always --time-style=long-iso";
   echo = "${lib.getBin pkgs.coreutils}/bin/echo";
   nixup = ''
@@ -14,7 +14,7 @@
     --commit-lockfile-summary 'chore(deps): update flake.lock' \
     "$@"
   '';
-  checkSudo = builtins.readFile ../../../check-sudo.sh;
+  checkSudo = inputs.self.lib.checkSudo;
 in {
   home = {
     shellAliases = {

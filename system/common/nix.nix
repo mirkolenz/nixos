@@ -1,6 +1,6 @@
 {
   pkgs,
-  flakeInputs,
+  inputs,
   lib,
   ...
 }: {
@@ -40,8 +40,7 @@
       })
     ];
     registry = import ../../registry.nix {
-      inputs = flakeInputs;
-      stdenv = pkgs.stdenv;
+      inherit inputs pkgs;
     };
   };
 }

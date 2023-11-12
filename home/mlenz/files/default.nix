@@ -2,10 +2,9 @@
   lib,
   pkgs,
   config,
-  flakeInputs,
+  inputs,
   ...
 }: let
-  inherit (flakeInputs) texmf;
   poetryPrefix =
     if pkgs.stdenv.isDarwin
     then "Library/Application Support/pypoetry"
@@ -26,7 +25,7 @@ in {
     };
     # TODO: Make dependent on texlive (currently installed only on darwin)
     "texmf" = lib.mkIf pkgs.stdenv.isDarwin {
-      source = texmf;
+      source = inputs.texmf;
     };
   };
   xdg = {

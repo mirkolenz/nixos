@@ -1,13 +1,11 @@
 {
-  pkgsUnstable,
-  pkgsStable,
   extras,
-  flakeInputs,
+  inputs,
   ...
 }: let
   defaults = {...}: {
     _module.args = {
-      inherit extras flakeInputs pkgsUnstable pkgsStable;
+      inherit extras inputs;
       userLogin = extras.user.login;
     };
   };
@@ -18,8 +16,8 @@ in {
     users.mlenz.imports = [
       defaults
       ./mlenz
-      flakeInputs.nix-index-database.hmModules.nix-index
-      flakeInputs.nixneovim.nixosModules.default
+      inputs.nix-index-database.hmModules.nix-index
+      inputs.nixneovim.nixosModules.default
     ];
   };
 }

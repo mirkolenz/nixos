@@ -1,9 +1,4 @@
-{
-  pkgs,
-  pkgsUnstable,
-  pkgsStable,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./commands.nix
     ./darwin.nix
@@ -27,7 +22,7 @@
     zip
     unzip
     bat
-    pkgsUnstable.eza
+    unstable.eza
     lsd
     fd
     procs
@@ -41,7 +36,7 @@
     rsync
     curl
     wget
-    pkgsStable.mkpasswd
+    stable.mkpasswd
     macchina
     carapace
     speedtest-cli

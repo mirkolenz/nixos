@@ -1,7 +1,5 @@
 {
   pkgs,
-  pkgsUnstable,
-  pkgsStable,
   lib,
   osConfig,
   ...
@@ -17,7 +15,7 @@ in
       _1password
       buf
       # dvc
-      pkgsStable.gomplate
+      stable.gomplate
       grpcui
       mqttui
       ocrmypdf
@@ -29,7 +27,7 @@ in
       # nix
       nixpkgs-fmt
       nil
-      pkgsUnstable.nixd
+      unstable.nixd
       nixfmt
       alejandra
       # go

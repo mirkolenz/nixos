@@ -4,7 +4,7 @@
   lib,
   osConfig,
   userLogin,
-  flakeInputs,
+  inputs,
   ...
 }: let
   homeDirectory =
@@ -33,8 +33,7 @@ in {
   nix = {
     package = lib.mkIf (osConfig == {}) pkgs.nix;
     registry = lib.mkIf (osConfig == {}) (import ../../registry.nix {
-      inputs = flakeInputs;
-      stdenv = pkgs.stdenv;
+      inherit inputs pkgs;
     });
   };
 }

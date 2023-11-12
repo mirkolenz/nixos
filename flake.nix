@@ -137,40 +137,12 @@
     }: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
-        overlays = import ./nixpkgs-overlays.nix inputs;
+        overlays = import ./overlays inputs;
       };
       # change in `./home/default.nix` as well
-      _module.args = let
-        inherit (pkgs.stdenv.targetPlatform) system;
-      in {
-        flakeInputs = inputs;
-        # https://www.reddit.com/r/NixOS/comments/qikgub/how_to_use_different_channels_in_a_flake_to/
-        pkgsStable =
-          if pkgs.stdenv.isDarwin
-          then
-            import nixpkgs-darwin-stable {
-              inherit system;
-              config = import ./nixpkgs-config.nix;
-            }
-          else
-            import nixpkgs-linux-stable {
-              inherit system;
-              config = import ./nixpkgs-config.nix;
-            };
-        pkgsUnstable =
-          if pkgs.stdenv.isDarwin
-          then
-            import nixpkgs-darwin-unstable {
-              inherit system;
-              config = import ./nixpkgs-config.nix;
-            }
-          else
-            import nixpkgs-linux-unstable {
-              inherit system;
-              config = import ./nixpkgs-config.nix;
-            };
+      _module.args = {
+        inherit inputs;
         extras = {
-          dummyPackage = pkgs.writeShellScriptBin "dummy" ":";
           stateVersion = "23.05";
           user = {
             name = "Mirko Lenz";
@@ -223,7 +195,7 @@
             pkgs.writeShellApplication {
               name = "sudo-nixos-rebuild";
               text = ''
-                ${builtins.readFile ./check-sudo.sh}
+                ${self.lib.checkSudo}
                 $SUDO ${lib.getExe pkgs.nixos-rebuild} "$@"
               '';
             };
@@ -231,7 +203,6 @@
         _module.args.pkgs = import nixpkgs {
           inherit system;
           config = import ./nixpkgs-config.nix;
-          overlays = import ./nixpkgs-overlays.nix inputs;
         };
         formatter = pkgs.alejandra;
         # https://github.com/LnL7/nix-darwin/issues/613#issuecomment-1485325805
@@ -265,6 +236,7 @@
         };
       };
       flake = {
+        lib = import ./lib nixpkgs.lib;
         packages = {
           aarch64-linux.installer-raspi = nixos-generators.nixosGenerate {
             system = "aarch64-linux";

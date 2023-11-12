@@ -1,15 +1,13 @@
 {
   extras,
-  flakeInputs,
+  inputs,
   lib,
   ...
-}: let
-  inherit (flakeInputs) mlenz-ssh-keys;
-in {
+}: {
   system = {
     inherit (extras) stateVersion;
   };
-  users.users.root.openssh.authorizedKeys.keyFiles = [(builtins.toString mlenz-ssh-keys)];
+  users.users.root.openssh.authorizedKeys.keyFiles = [(builtins.toString inputs.mlenz-ssh-keys)];
   systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
   services.openssh.enable = true;
 
