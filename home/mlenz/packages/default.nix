@@ -30,6 +30,9 @@
     delta
     fzf
     massren
+    mmv
+    pipe-rename
+    edir
     rsync
     curl
     wget
