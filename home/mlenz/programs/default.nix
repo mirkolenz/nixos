@@ -12,7 +12,6 @@ in {
     ./ssh.nix
     ./starship.nix
     ./tmux.nix
-    ./future.nix
   ];
 
   programs = {
@@ -32,7 +31,6 @@ in {
     zsh = {
       enable = true;
       enableAutosuggestions = true;
-      enableSyntaxHighlighting = true;
       enableCompletion = true;
     };
     bash = {

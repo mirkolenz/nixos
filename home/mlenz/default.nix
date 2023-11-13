@@ -18,10 +18,11 @@ in {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
     nixvimInput.homeManagerModules.nixvim
-    ./xserver.nix
-    ./programs
+    ./compat
     ./files
     ./packages
+    ./programs
+    ./xserver.nix
   ];
 
   home = {
