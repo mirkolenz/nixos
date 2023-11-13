@@ -13,11 +13,7 @@
 
   nix.linux-builder.enable = true;
 
-  nix.settings = {
-    build-users-group = "nixbld";
-    # required for linux-builder
-    extra-trusted-users = [extras.user.login];
-  };
+  nix.settings.build-users-group = "nixbld";
 
   system.checks.verifyBuildUsers = false;
   system.stateVersion = 4;
