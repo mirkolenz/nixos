@@ -128,25 +128,31 @@
     nixos-generators,
     ...
   }: let
-    # `specialArgs` is in principle identical to `_module.args`, but allows to be used during import resolution.
-    # If passing `inputs` to `_module.args` and using them for imports, we get an infinite recursion.
-    specialArgs = {inherit inputs;};
+    # available during import
+    _specialArgs = {inherit inputs;};
+    specialArgNames = builtins.attrNames _specialArgs;
+    specialArgs = _specialArgs // {inherit specialArgNames;};
+
+    # can be overriden in module
+    _moduleArgs = {
+      extras = {
+        stateVersion = "23.05";
+        user = {
+          name = "Mirko Lenz";
+          mail = "mirko@mirkolenz.com";
+          login = "mlenz";
+          id = 1000;
+        };
+      };
+    };
+    moduleArgNames = builtins.attrNames _moduleArgs;
+
     defaults = {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
-      _module.args = {
-        extras = {
-          stateVersion = "23.05";
-          user = {
-            name = "Mirko Lenz";
-            mail = "mirko@mirkolenz.com";
-            login = "mlenz";
-            id = 1000;
-          };
-        };
-      };
+      _module.args = _moduleArgs // {inherit moduleArgNames;};
     };
     userLogins = ["mlenz" "lenz" "mirkolenz" "mirkol"];
   in
@@ -192,17 +198,18 @@
         };
         legacyPackages.homeConfigurations = lib.genAttrs userLogins (userLogin:
           home-manager-linux-unstable.lib.homeManagerConfiguration {
-            inherit pkgs specialArgs;
+            inherit pkgs;
+            extraSpecialArgs = specialArgs;
             modules = [
               defaults
               ./home/mlenz
-              {
+              ({lib, ...}: {
                 targets.genericLinux.enable = true;
                 _module.args = {
-                  inherit userLogin;
+                  user.login = lib.mkForce userLogin;
                   osConfig = {};
                 };
-              }
+              })
             ];
           });
       };

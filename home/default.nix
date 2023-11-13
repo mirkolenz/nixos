@@ -1,24 +1,22 @@
-{
+attrs @ {
   extras,
-  inputs,
-  config,
+  specialArgNames,
+  moduleArgNames,
   lib,
   ...
 }: let
-  defaults = {...}: {
-    _module.args = {
-      inherit extras;
-      userLogin = extras.user.login;
-    };
-  };
+  moduleArgs = lib.genAttrs moduleArgNames (name: attrs.${name});
+  specialArgs = lib.genAttrs specialArgNames (name: attrs.${name});
 in {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = specialArgs;
     users.mlenz.imports = [
-      defaults
       ./mlenz
+      {
+        _module.args = moduleArgs;
+      }
     ];
   };
 }
