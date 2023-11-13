@@ -29,16 +29,17 @@
     bandwhich
     delta
     fzf
-    massren
-    mmv
-    pipe-rename
-    edir
     rsync
     curl
     wget
     mkpasswd
     macchina
     speedtest-cli
+    # bulk renaming
+    massren
+    mmv-go
+    pipe-rename
+    edir
   ];
   home.shellAliases = {
     py = "poetry run python"; # should use local poetry if possible
