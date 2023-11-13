@@ -47,6 +47,10 @@
     inherit (extras) stateVersion;
   };
 
+  security.sudo = {
+    execWheelOnly = true;
+  };
+
   boot.loader = {
     systemd-boot.configurationLimit = 7;
     generic-extlinux-compatible.configurationLimit = 7;
