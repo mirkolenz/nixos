@@ -17,24 +17,14 @@
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
   services.vscode-server.enable = true;
 
+  security.sudo.wheelNeedsPassword = false;
+
   # FROM configuration.nix
   documentation.enable = true;
   documentation.nixos.enable = true;
   environment.noXlibs = false;
 
   # FROM orbstack.nix
-  # sudoers
-  security.sudo.extraRules = [
-    {
-      users = [extras.user.login];
-      commands = [
-        {
-          command = "ALL";
-          options = ["NOPASSWD"];
-        }
-      ];
-    }
-  ];
 
   # add OrbStack CLI tools to PATH
   environment.shellInit = ''
@@ -76,9 +66,6 @@
   systemd.services."systemd-importd".serviceConfig.WatchdogSec = 0;
   systemd.services."systemd-hostnamed".serviceConfig.WatchdogSec = 0;
   systemd.services."systemd-homed".serviceConfig.WatchdogSec = 0;
-
-  # package installation: not needed
-
   # ssh config
   programs.ssh.extraConfig = ''
     Include /opt/orbstack-guest/etc/ssh_config
@@ -88,4 +75,7 @@
   security.pki.certificateFiles = [
     "/opt/orbstack-guest/run/extra-certs.crt"
   ];
+
+  # indicate builder support for emulated architectures
+  nix.settings.extra-platforms = ["x86_64-linux" "i686-linux"];
 }
