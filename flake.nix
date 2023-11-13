@@ -147,12 +147,19 @@
     };
     moduleArgNames = builtins.attrNames _moduleArgs;
 
-    defaults = {
+    defaults = {lib, ...}: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
       _module.args = _moduleArgs // {inherit moduleArgNames;};
+    };
+    mkHomeDefaults = userLogin: {lib, ...}: {
+      targets.genericLinux.enable = true;
+      _module.args = {
+        user.login = lib.mkForce userLogin;
+        osConfig = {};
+      };
     };
     userLogins = ["mlenz" "lenz" "mirkolenz" "mirkol"];
   in
@@ -202,14 +209,8 @@
             extraSpecialArgs = specialArgs;
             modules = [
               defaults
+              (mkHomeDefaults userLogin)
               ./home/mlenz
-              ({lib, ...}: {
-                targets.genericLinux.enable = true;
-                _module.args = {
-                  user.login = lib.mkForce userLogin;
-                  osConfig = {};
-                };
-              })
             ];
           });
       };
