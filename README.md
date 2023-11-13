@@ -130,17 +130,13 @@ sudo usermod -s $(which fish) "$USER"
 
 ### NixOS Generators
 
-**Important:** [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
+- If building for another architecture on NixOS: [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
+- Available formats:
+  - `installer-iso`
+  - `installer-raspi`
 
 ```shell
-echo $(which fish) | sudo tee -a /etc/shells
-nix build --system SYSTEM github:mirkolenz/nixos#FORMAT
-```
-
-### Hash Password
-
-```shell
-docker run -it --rm alpine mkpasswd PASSWORD
+nix build github:mirkolenz/nixos#FORMAT --system SYSTEM
 ```
 
 ### Update Raspberry Pi
