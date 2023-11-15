@@ -30,6 +30,8 @@ in
       unstable.nixd
       nixfmt
       alejandra
+      nix-update
+      nvfetcher
       # go
       go
       gopls

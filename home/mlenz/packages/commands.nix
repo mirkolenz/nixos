@@ -13,6 +13,12 @@
     "$@"
   '';
   checkSudo = inputs.self.lib.checkSudo;
+  nix-prefetch-sri = pkgs.writeShellApplication {
+    name = "nix-prefetch-sri";
+    text = ''
+      exec ${lib.getExe pkgs.nix} hash to-sri --type "sha256" "$(${lib.getBin pkgs.nix}/bin/nix-prefetch-url "$@")"
+    '';
+  };
 in {
   home = {
     shellAliases = {
@@ -187,6 +193,19 @@ in {
         text = ''
           ${checkSudo}
           exec "$SUDO" ${lib.getBin nix}/bin/nix-env --profile /nix/var/nix/profiles/system "$@"
+        '';
+      })
+      nix-prefetch-sri
+      (writeShellApplication {
+        name = "nix-prefetch-sri-batch";
+        text = ''
+          if [ "$#" -ne 1 ]; then
+            ${echo} "Usage: $0 NIX_EVAL_ATTRIBUTE" >&2
+            exit 1
+          fi
+          exec ${lib.getExe nix} eval --raw "$1" \
+           --apply "attrs: builtins.concatStringsSep \"\\n\" (builtins.attrValues (builtins.mapAttrs (name: value: value.url) attrs))" \
+           | ${lib.getBin findutils}/bin/xargs -l ${lib.getExe nix-prefetch-sri}
         '';
       })
     ];
