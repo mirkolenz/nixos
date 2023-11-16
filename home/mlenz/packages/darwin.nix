@@ -5,7 +5,7 @@
 }:
 lib.mkIf pkgs.stdenv.isDarwin {
   home.packages = with pkgs; [
-    pkgs.stable.texlive.combined.scheme-full
+    texliveFull
     tectonic
     texlab
     bibtex2cff
