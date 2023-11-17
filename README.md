@@ -86,6 +86,8 @@ nixos-install --flake github:mirkolenz/nixos
 
 ## Mac Computers
 
+### Installation
+
 1. `xcode-select --install`
 2. [Homebrew](https://brew.sh)
 3. [Nix](https://github.com/DeterminateSystems/nix-installer)
@@ -108,12 +110,18 @@ sudo reboot
 ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 ```
 
-Uninstalling
+### Uninstallation
 
 ```shell
 chsh -s /bin/zsh
 nix run github:lnl7/nix-darwin#darwin-uninstaller
 /nix/nix-installer uninstall
+```
+
+### Backup Mac App Store Apps
+
+```shell
+mas list | sort -k 2 > mas.txt
 ```
 
 ## Home-Manger Standalone
