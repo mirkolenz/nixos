@@ -294,6 +294,15 @@
               ./hosts/macbook-nixos
             ];
           };
+          macbook-legacy = nixpkgs-linux-unstable.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+            modules = [
+              defaults
+              home-manager-linux-unstable.nixosModules.home-manager
+              ./hosts/macbook-legacy
+            ];
+          };
         };
         darwinConfigurations = {
           mirkos-macbook = nix-darwin-unstable.lib.darwinSystem {
