@@ -78,10 +78,9 @@ mount /dev/disk/by-label/boot /mnt/boot
 ```shell
 nixos-generate-config --root /mnt
 cd /mnt/etc/nixos/
-# If not already done, update the hostname
-hostname MACHINE_NAME
 # Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
-nixos-install --flake github:mirkolenz/nixos
+# The machine name is required for the nixos-install command, even if hostname is updated
+nixos-install --flake github:mirkolenz/nixos#MACHINE_NAME
 ```
 
 ## Mac Computers
