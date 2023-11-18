@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -15,6 +19,10 @@
       efiSysMountPoint = "/boot";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+  ];
 
   powerManagement.cpuFreqGovernor = "powersave";
 }
