@@ -12,7 +12,6 @@
     "${modulesPath}/virtualisation/lxc-container.nix"
     ../../templates/headless.nix
   ];
-  networking.hostName = "orbstack";
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
   services.vscode-server.enable = true;

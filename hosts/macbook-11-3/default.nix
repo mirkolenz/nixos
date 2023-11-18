@@ -6,7 +6,6 @@
     ./hardware.nix
     ../../templates/workstation.nix
   ];
-  networking.hostName = "macbook-11-3";
   services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];

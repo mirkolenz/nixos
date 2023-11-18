@@ -13,7 +13,6 @@
     ./samba.nix
     ../../templates/server.nix
   ];
-  networking.hostName = "macpro";
   services.samba.enable = false;
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 

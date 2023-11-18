@@ -11,7 +11,6 @@
   services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
-  networking.hostName = "nixos-vm";
   services.vscode-server.enable = true;
   # Parallels
   # boot.loader.grub = {

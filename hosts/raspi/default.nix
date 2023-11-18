@@ -5,7 +5,6 @@
     ./hardware.nix
     ../../templates/server.nix
   ];
-  networking.hostName = "raspi";
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
   hardware.raspberry-pi."4" = {

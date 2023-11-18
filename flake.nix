@@ -114,18 +114,6 @@
     flake-parts,
     systems,
     nixpkgs,
-    nixpkgs-linux-stable,
-    nixpkgs-linux-unstable,
-    nixpkgs-darwin-stable,
-    nixpkgs-darwin-unstable,
-    home-manager,
-    home-manager-linux-stable,
-    home-manager-linux-unstable,
-    home-manager-darwin-stable,
-    home-manager-darwin-unstable,
-    nix-darwin-stable,
-    nix-darwin-unstable,
-    nixos-generators,
     ...
   }: let
     # available during import
@@ -147,14 +135,14 @@
     };
     moduleArgNames = builtins.attrNames _moduleArgs;
 
-    defaults = {lib, ...}: {
+    defaultModule = {lib, ...}: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
       _module.args = _moduleArgs // {inherit moduleArgNames;};
     };
-    mkHomeDefaults = userLogin: {lib, ...}: {
+    mkHomeModule = userLogin: {lib, ...}: {
       targets.genericLinux.enable = true;
       _module.args = {
         user.login = lib.mkForce userLogin;
@@ -162,6 +150,55 @@
       };
     };
     userLogins = ["mlenz" "lenz" "mirkolenz" "mirkol"];
+
+    mkLinuxSystem = hostName: {
+      channel,
+      system,
+    }:
+      inputs."nixpkgs-linux-${channel}".lib.nixosSystem {
+        inherit specialArgs system;
+        modules = [
+          defaultModule
+          inputs."home-manager-linux-${channel}".nixosModules.home-manager
+          ./hosts/${hostName}
+          {
+            networking.hostName = hostName;
+          }
+        ];
+      };
+
+    mkDarwinSystem = hostName: {
+      channel,
+      system,
+      computerName,
+    }:
+      inputs."nix-darwin-${channel}".lib.darwinSystem {
+        inherit specialArgs system;
+        modules = [
+          defaultModule
+          inputs."home-manager-darwin-${channel}".darwinModules.home-manager
+          ./hosts/${hostName}
+          {
+            networking = {
+              inherit hostName computerName;
+            };
+          }
+        ];
+      };
+
+    mkInstaller = {
+      system,
+      format,
+      installerModule,
+    }:
+      inputs.nixos-generators.nixosGenerate {
+        inherit specialArgs system format;
+        customFormats = import ./installer/formats.nix inputs.nixpkgs-linux-stable;
+        modules = [
+          defaultModule
+          installerModule
+        ];
+      };
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -183,7 +220,7 @@
           };
         systemBuilder =
           if pkgs.stdenv.isDarwin
-          then nix-darwin-unstable.packages.${system}.default
+          then inputs.nix-darwin-unstable.packages.${system}.default
           else
             pkgs.writeShellApplication {
               name = "sudo-nixos-rebuild";
@@ -201,15 +238,15 @@
         packages = {
           default = self'.packages.system;
           system = mkBuilder systemBuilder;
-          home = mkBuilder home-manager-linux-unstable.packages.${system}.default;
+          home = mkBuilder inputs.home-manager-linux-unstable.packages.${system}.default;
         };
         legacyPackages.homeConfigurations = lib.genAttrs userLogins (userLogin:
-          home-manager-linux-unstable.lib.homeManagerConfiguration {
+          inputs.home-manager-linux-unstable.lib.homeManagerConfiguration {
             inherit pkgs;
             extraSpecialArgs = specialArgs;
             modules = [
-              defaults
-              (mkHomeDefaults userLogin)
+              defaultModule
+              (mkHomeModule userLogin)
               ./home/mlenz
             ];
           });
@@ -217,102 +254,53 @@
       flake = {
         lib = import ./lib nixpkgs.lib;
         packages = {
-          aarch64-linux.installer-raspi = nixos-generators.nixosGenerate {
-            inherit specialArgs;
+          aarch64-linux.installer-raspi = mkInstaller {
             system = "aarch64-linux";
-            customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-sd";
-            modules = [
-              defaults
-              ./installer/raspi.nix
-            ];
+            installerModule = ./installer/raspi.nix;
           };
-          aarch64-linux.installer-iso = nixos-generators.nixosGenerate {
-            inherit specialArgs;
+          aarch64-linux.installer-iso = mkInstaller {
             system = "aarch64-linux";
-            customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-iso";
-            modules = [
-              defaults
-              ./installer/iso.nix
-            ];
+            installerModule = ./installer/iso.nix;
           };
-          x86_64-linux.installer-iso = nixos-generators.nixosGenerate {
-            inherit specialArgs;
+          x86_64-linux.installer-iso = mkInstaller {
             system = "x86_64-linux";
-            customFormats = import ./installer/formats.nix nixpkgs-linux-stable;
             format = "custom-iso";
-            modules = [
-              defaults
-              ./installer/iso.nix
-            ];
+            installerModule = ./installer/iso.nix;
           };
         };
-        nixosConfigurations = {
-          vm = nixpkgs-linux-unstable.lib.nixosSystem {
-            inherit specialArgs;
+        nixosConfigurations = builtins.mapAttrs mkLinuxSystem {
+          vm = {
+            channel = "unstable";
             system = "x86_64-linux";
-            modules = [
-              defaults
-              home-manager-linux-unstable.nixosModules.home-manager
-              ./hosts/vm
-            ];
           };
-          orbstack = nixpkgs-linux-unstable.lib.nixosSystem {
-            inherit specialArgs;
+          orbstack = {
+            channel = "unstable";
             system = "x86_64-linux";
-            modules = [
-              defaults
-              home-manager-linux-unstable.nixosModules.home-manager
-              ./hosts/orbstack
-            ];
           };
-          macpro = nixpkgs-linux-stable.lib.nixosSystem {
-            inherit specialArgs;
+          macpro = {
+            channel = "stable";
             system = "x86_64-linux";
-            modules = [
-              defaults
-              home-manager-linux-stable.nixosModules.home-manager
-              ./hosts/macpro
-            ];
           };
-          raspi = nixpkgs-linux-stable.lib.nixosSystem {
-            inherit specialArgs;
+          raspi = {
+            channel = "stable";
             system = "aarch64-linux";
-            modules = [
-              defaults
-              home-manager-linux-stable.nixosModules.home-manager
-              ./hosts/raspi
-            ];
           };
-          macbook-9-1 = nixpkgs-linux-unstable.lib.nixosSystem {
-            inherit specialArgs;
+          macbook-9-1 = {
+            channel = "unstable";
             system = "x86_64-linux";
-            modules = [
-              defaults
-              home-manager-linux-unstable.nixosModules.home-manager
-              ./hosts/macbook-9-1
-            ];
           };
-          macbook-11-3 = nixpkgs-linux-unstable.lib.nixosSystem {
-            inherit specialArgs;
+          macbook-11-3 = {
+            channel = "unstable";
             system = "x86_64-linux";
-            modules = [
-              defaults
-              home-manager-linux-unstable.nixosModules.home-manager
-              ./hosts/macbook-11-3
-            ];
           };
         };
-        darwinConfigurations = {
-          mirkos-macbook = nix-darwin-unstable.lib.darwinSystem {
-            inherit specialArgs;
+        darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
+          mirkos-macbook = {
+            channel = "unstable";
             system = "x86_64-darwin";
-            modules = [
-              defaults
-              home-manager-darwin-unstable.darwinModules.home-manager
-              ./hosts/mirkos-macbook
-            ];
+            computerName = "Mirkos MacBook";
           };
         };
       };
