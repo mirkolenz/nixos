@@ -25,14 +25,35 @@ nix run github:mirkolenz/nixos
 
 ### Terminal Setup
 
-https://www.adaltas.com/en/2022/02/08/nixos-installation/
-https://nixos.wiki/wiki/NixOS_Installation_Guide
+- https://www.adaltas.com/en/2022/02/08/nixos-installation/
+- https://nixos.wiki/wiki/NixOS_Installation_Guide
+- https://gist.github.com/Vincibean/baf1b76ca5147449a1a479b5fcc9a222
 
-#### Partitioning
+#### Partitioning using `parted`
 
 ```shell
-lsblk # Find out the device name, most likely /dev/sda
-fdisk DEVICE
+parted -l # find device name, most likely /dev/sda
+wipefs -a /dev/sda
+parted /dev/sda
+mklabel gpt
+mkpart boot fat32 0% 512MiB
+set 1 esp on
+unit GiB print free
+# determine the swap size by substractting the amount of your ram from the free size
+# for instance, free size here is 238GiB and the ram of the system is 8GiB
+mkpart root ext4 512MiB 230GiB
+mkpart swap linux-swap 230GiB 100%
+```
+
+#### Partitioning using `fdisk`
+
+One can also use the ncurses-based program `cfdisk`.
+
+```shell
+# Find out the device name, most likely /dev/sda
+fdisk -l # or lsblk
+wipefs -a /dev/sda
+fdisk /dev/sda
 g # empty gpt partition table
 n # new partition
 1 # partition number
@@ -59,9 +80,9 @@ w # write
 #### Formatting
 
 ```shell
+mkfs.fat -F 32 -n boot /dev/sda1
 mkfs.ext4 -L root /dev/sda2
 mkswap -L swap /dev/sda3
-mkfs.fat -F 32 -n boot /dev/sda1
 ```
 
 #### Mounting
