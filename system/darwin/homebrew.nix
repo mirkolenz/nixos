@@ -35,6 +35,7 @@
       "cleanshot"
       "contexts"
       "coteditor"
+      "dadroit-json-viewer"
       "default-folder-x"
       "devonthink"
       "diffusionbee"
