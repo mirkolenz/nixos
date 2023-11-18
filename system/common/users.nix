@@ -25,7 +25,8 @@ in {
       }
       (lib.mkIf pkgs.stdenv.isLinux {
         group = user.login;
-        extraGroups = [user.login "users" "networkmanager" "wheel"];
+        # https://wiki.debian.org/SystemGroups#Other_System_Groups
+        extraGroups = ["users" "wheel" "networkmanager" "video" "audio"];
         isNormalUser = true;
         initialHashedPassword = "$y$j9T$PNrr2mfD3mtxoSfR26fYh/$qNvFLgYOJFAms5MwZ42vM0F0aUP.ceHpD0j4LAr7IP5";
       })
