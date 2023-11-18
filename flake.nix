@@ -116,6 +116,8 @@
     nixpkgs,
     ...
   }: let
+    getOs = system: nixpkgs.lib.last (nixpkgs.lib.splitString "-" system);
+
     # available during import
     _specialArgs = {inherit inputs;};
     specialArgNames = builtins.attrNames _specialArgs;
@@ -195,26 +197,27 @@
     mkHomeConfig = userName: {
       channel ? "unstable",
       system ? builtins.currentSystem,
-    }:
-      assert nixpkgs.lib.assertMsg (builtins.elem builtins.currentSystem ["x86_64-linux" "aarch64-linux"]) "Home configuration only supported on Linux";
-        inputs."home-manager-linux-${channel}".lib.homeManagerConfiguration {
-          pkgs = import inputs."nixpkgs-linux-${channel}" {
-            inherit system;
-            config = import ./nixpkgs-config.nix;
-          };
-          extraSpecialArgs = specialArgs;
-          modules = [
-            defaultModule
-            ./home/mlenz
-            ({lib, ...}: {
-              targets.genericLinux.enable = true;
-              _module.args = {
-                user.login = lib.mkForce userName;
-                osConfig = {};
-              };
-            })
-          ];
+    }: let
+      os = getOs system;
+    in
+      inputs."home-manager-${os}-${channel}".lib.homeManagerConfiguration {
+        pkgs = import inputs."nixpkgs-${os}-${channel}" {
+          inherit system;
+          config = import ./nixpkgs-config.nix;
         };
+        extraSpecialArgs = specialArgs;
+        modules = [
+          defaultModule
+          ./home/mlenz
+          ({lib, ...}: {
+            targets.genericLinux.enable = true;
+            _module.args = {
+              user.login = lib.mkForce userName;
+              osConfig = {};
+            };
+          })
+        ];
+      };
 
     mkDefaultHomeConfig = userName: mkHomeConfig userName {};
   in
