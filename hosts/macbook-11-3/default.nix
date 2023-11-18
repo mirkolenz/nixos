@@ -2,12 +2,11 @@
   imports = [
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.nixos-hardware.nixosModules.common-hidpi
     ./hardware.nix
     ../../templates/workstation.nix
   ];
-  networking.hostName = "macbook-nixos";
+  networking.hostName = "macbook-11-3";
   services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
@@ -20,15 +19,15 @@
   };
 
   custom.cuda = {
-    enable = true;
+    enable = false;
     driver = "legacy_470";
   };
 
   hardware.nvidia.prime = {
-    sync.enable = true;
+    sync.enable = false;
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
   };
 
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "powersave";
 }

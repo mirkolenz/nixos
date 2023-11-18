@@ -9,7 +9,7 @@
     ./hardware.nix
     ../../templates/headless.nix
   ];
-  networking.hostName = "macbook-legacy";
+  networking.hostName = "macbook-9-1";
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
   boot.loader = {

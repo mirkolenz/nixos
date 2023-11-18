@@ -285,22 +285,22 @@
               ./hosts/raspi
             ];
           };
-          macbook-nixos = nixpkgs-linux-unstable.lib.nixosSystem {
+          macbook-9-1 = nixpkgs-linux-unstable.lib.nixosSystem {
             inherit specialArgs;
             system = "x86_64-linux";
             modules = [
               defaults
               home-manager-linux-unstable.nixosModules.home-manager
-              ./hosts/macbook-nixos
+              ./hosts/macbook-9-1
             ];
           };
-          macbook-legacy = nixpkgs-linux-unstable.lib.nixosSystem {
+          macbook-11-3 = nixpkgs-linux-unstable.lib.nixosSystem {
             inherit specialArgs;
             system = "x86_64-linux";
             modules = [
               defaults
               home-manager-linux-unstable.nixosModules.home-manager
-              ./hosts/macbook-legacy
+              ./hosts/macbook-11-3
             ];
           };
         };
