@@ -75,13 +75,21 @@ mount /dev/disk/by-label/boot /mnt/boot
 
 #### Installation
 
+If you get an error like `too many open files` during `nixos-install`, try one of the following options:
+
+- Execute `ulimit -n 65535` before installing to increase the number of open files for the current shell session
+- Use `--max-jobs 2` to limit the number of parallel jobs (could also try with 1 max job)
+
 ```shell
 nixos-generate-config --root /mnt
 cd /mnt/etc/nixos/
 # Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
 # The machine name is required for the nixos-install command, even if hostname is updated
 nixos-install --flake github:mirkolenz/nixos#MACHINE_NAME
+# One could append --no-root-passwd to the command, but that may affect the ability to enter emergency mode
 ```
+
+A warning about `/boot` being world-readable is not an issue, [the permissions are correctly set after a reboot](https://discourse.nixos.org/t/nixos-install-with-custom-flake-results-in-boot-being-world-accessible/34555).
 
 ## Mac Computers
 
