@@ -142,14 +142,6 @@
       };
       _module.args = _moduleArgs // {inherit moduleArgNames;};
     };
-    mkHomeModule = userLogin: {lib, ...}: {
-      targets.genericLinux.enable = true;
-      _module.args = {
-        user.login = lib.mkForce userLogin;
-        osConfig = {};
-      };
-    };
-    userLogins = ["mlenz" "lenz" "mirkolenz" "mirkol"];
 
     mkLinuxSystem = hostName: {
       channel,
@@ -199,6 +191,32 @@
           installerModule
         ];
       };
+
+    mkHomeConfig = userName: {
+      channel ? "unstable",
+      system ? builtins.currentSystem,
+    }:
+      assert (builtins.elem builtins.currentSystem ["x86_64-linux" "aarch64-linux"]) "Home configuration only supported on Linux";
+        inputs."home-manager-linux-${channel}".lib.homeManagerConfiguration {
+          pkgs = import inputs."nixpkgs-linux-${channel}" {
+            inherit system;
+            config = import ./nixpkgs-config.nix;
+          };
+          extraSpecialArgs = specialArgs;
+          modules = [
+            defaultModule
+            ./home/mlenz
+            ({lib, ...}: {
+              targets.genericLinux.enable = true;
+              _module.args = {
+                user.login = lib.mkForce userName;
+                osConfig = {};
+              };
+            })
+          ];
+        };
+
+    mkDefaultHomeConfig = userName: mkHomeConfig userName {};
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -240,16 +258,6 @@
           system = mkBuilder systemBuilder;
           home = mkBuilder inputs.home-manager-linux-unstable.packages.${system}.default;
         };
-        legacyPackages.homeConfigurations = lib.genAttrs userLogins (userLogin:
-          inputs.home-manager-linux-unstable.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = specialArgs;
-            modules = [
-              defaultModule
-              (mkHomeModule userLogin)
-              ./home/mlenz
-            ];
-          });
       };
       flake = {
         lib = import ./lib nixpkgs.lib;
@@ -303,6 +311,10 @@
             computerName = "Mirkos MacBook";
           };
         };
+        homeConfigurations =
+          nixpkgs.lib.genAttrs
+          ["mlenz" "lenz" "mirkolenz" "mirkol"]
+          mkDefaultHomeConfig;
       };
     };
 }
