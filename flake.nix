@@ -196,7 +196,7 @@
       channel ? "unstable",
       system ? builtins.currentSystem,
     }:
-      assert (builtins.elem builtins.currentSystem ["x86_64-linux" "aarch64-linux"]) "Home configuration only supported on Linux";
+      assert nixpkgs.lib.assertMsg (builtins.elem builtins.currentSystem ["x86_64-linux" "aarch64-linux"]) "Home configuration only supported on Linux";
         inputs."home-manager-linux-${channel}".lib.homeManagerConfiguration {
           pkgs = import inputs."nixpkgs-linux-${channel}" {
             inherit system;
