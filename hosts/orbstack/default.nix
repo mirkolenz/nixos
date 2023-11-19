@@ -10,7 +10,7 @@
   imports = [
     inputs.vscode-server.nixosModule
     "${modulesPath}/virtualisation/lxc-container.nix"
-    ../../templates/headless.nix
+    ../headless.nix
   ];
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];

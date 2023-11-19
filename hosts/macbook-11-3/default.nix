@@ -4,7 +4,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-hidpi
     ./hardware.nix
-    ../../templates/workstation.nix
+    ../workstation.nix
   ];
   services.openssh.enable = true;
 

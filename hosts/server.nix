@@ -1,13 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
-  imports = [
-    ../system/common
-    ../system/linux
-  ];
-
+{...}: {
   services.openssh.enable = true;
   custom.docker.userns-remap = true;
 

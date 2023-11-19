@@ -7,7 +7,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware.nix
-    ../../templates/headless.nix
+    ../headless.nix
   ];
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];

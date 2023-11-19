@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ../common
     ./homebrew.nix
     ./settings.nix
   ];

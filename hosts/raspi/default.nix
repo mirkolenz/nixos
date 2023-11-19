@@ -3,7 +3,7 @@
   imports = [
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
     ./hardware.nix
-    ../../templates/server.nix
+    ../server.nix
   ];
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 

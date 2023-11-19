@@ -4,7 +4,6 @@
     ./users.nix
     ./shell.nix
     ./secrets.nix
-    ../../home
   ];
 
   # networking.firewall = {

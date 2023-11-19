@@ -1,9 +1,4 @@
 {...}: {
-  imports = [
-    ../system/common
-    ../system/linux
-  ];
-
   services.xserver.enable = true;
   services.printing.enable = true;
 

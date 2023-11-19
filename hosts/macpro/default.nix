@@ -11,7 +11,7 @@
     inputs.nixos-hardware.nixosModules.common-hidpi
     ./hardware.nix
     ./samba.nix
-    ../../templates/server.nix
+    ../server.nix
   ];
   services.samba.enable = false;
   boot.binfmt.emulatedSystems = ["aarch64-linux"];

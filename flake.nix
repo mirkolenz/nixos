@@ -119,12 +119,10 @@
     getOs = system: nixpkgs.lib.last (nixpkgs.lib.splitString "-" system);
 
     # available during import
-    _specialArgs = {inherit inputs;};
-    specialArgNames = builtins.attrNames _specialArgs;
-    specialArgs = _specialArgs // {inherit specialArgNames;};
+    specialArgs = {inherit inputs;};
 
     # can be overriden in module
-    _moduleArgs = {
+    moduleArgs = {
       extras = {
         stateVersion = "23.05";
         user = {
@@ -135,14 +133,34 @@
         };
       };
     };
-    moduleArgNames = builtins.attrNames _moduleArgs;
 
-    defaultModule = {lib, ...}: {
+    commonModule = {...}: {
+      _module.args = moduleArgs;
+    };
+
+    homeModule = {pkgs, ...}: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
-      _module.args = _moduleArgs // {inherit moduleArgNames;};
+      targets.genericLinux.enable = pkgs.stdenv.isLinux;
+      _module.args.osConfig = {};
+    };
+
+    systemModule = {...}: {
+      nixpkgs = {
+        config = import ./nixpkgs-config.nix;
+        overlays = import ./overlays inputs;
+      };
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = specialArgs;
+        users.mlenz.imports = [
+          ./home/mlenz
+          commonModule
+        ];
+      };
     };
 
     mkLinuxSystem = hostName: {
@@ -152,8 +170,10 @@
       inputs."nixpkgs-linux-${channel}".lib.nixosSystem {
         inherit specialArgs system;
         modules = [
-          defaultModule
+          commonModule
+          systemModule
           inputs."home-manager-linux-${channel}".nixosModules.home-manager
+          ./system/linux
           ./hosts/${hostName}
           {
             networking.hostName = hostName;
@@ -169,8 +189,10 @@
       inputs."nix-darwin-${channel}".lib.darwinSystem {
         inherit specialArgs system;
         modules = [
-          defaultModule
+          commonModule
+          systemModule
           inputs."home-manager-darwin-${channel}".darwinModules.home-manager
+          ./system/darwin
           ./hosts/${hostName}
           {
             networking = {
@@ -187,39 +209,40 @@
     }:
       inputs.nixos-generators.nixosGenerate {
         inherit specialArgs system format;
-        customFormats = import ./installer/formats.nix inputs.nixpkgs-linux-stable;
+        customFormats = import ./installer/formats.nix inputs.nixos-generators.inputs.nixpkgs;
         modules = [
-          defaultModule
+          commonModule
           installerModule
         ];
       };
 
     mkHomeConfig = userName: {
-      channel ? "unstable",
-      system ? builtins.currentSystem,
+      channel,
+      system,
     }: let
       os = getOs system;
+      hmInput = inputs."home-manager-${os}-${channel}";
     in
-      inputs."home-manager-${os}-${channel}".lib.homeManagerConfiguration {
-        pkgs = import inputs."nixpkgs-${os}-${channel}" {
+      hmInput.lib.homeManagerConfiguration {
+        pkgs = import hmInput.inputs.nixpkgs {
           inherit system;
-          config = import ./nixpkgs-config.nix;
         };
         extraSpecialArgs = specialArgs;
         modules = [
-          defaultModule
+          commonModule
+          homeModule
           ./home/mlenz
           ({lib, ...}: {
-            targets.genericLinux.enable = true;
-            _module.args = {
-              user.login = lib.mkForce userName;
-              osConfig = {};
-            };
+            _module.args.user.login = lib.mkForce userName;
           })
         ];
       };
 
-    mkDefaultHomeConfig = userName: mkHomeConfig userName {};
+    mkDefaultHomeConfig = system: userName:
+      mkHomeConfig userName {
+        inherit system;
+        channel = "unstable";
+      };
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -251,16 +274,16 @@
               '';
             };
       in {
-        _module.args.pkgs = import nixpkgs {
-          inherit system;
-          config = import ./nixpkgs-config.nix;
-        };
         formatter = pkgs.alejandra;
         packages = {
           default = self'.packages.system;
           system = mkBuilder systemBuilder;
           home = mkBuilder inputs.home-manager-linux-unstable.packages.${system}.default;
         };
+        legacyPackages.homeConfigurations =
+          lib.genAttrs
+          ["mlenz" "lenz" "mirkolenz" "mirkol"]
+          (mkDefaultHomeConfig system);
       };
       flake = {
         lib = import ./lib nixpkgs.lib;
@@ -314,10 +337,6 @@
             computerName = "Mirkos MacBook";
           };
         };
-        homeConfigurations =
-          nixpkgs.lib.genAttrs
-          ["mlenz" "lenz" "mirkolenz" "mirkol"]
-          mkDefaultHomeConfig;
       };
     };
 }
