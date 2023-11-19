@@ -1,10 +1,11 @@
 {
   lib,
   pkgs,
-  extras,
+  user,
+  unstableVersion,
   ...
 }:
-lib.optionalAttrs (lib.versionAtLeast lib.trivial.release "23.11") {
+lib.optionalAttrs (lib.versionAtLeast lib.trivial.release unstableVersion) {
   programs = {
     zsh.syntaxHighlighting.enable = true;
     carapace = {
@@ -17,8 +18,8 @@ lib.optionalAttrs (lib.versionAtLeast lib.trivial.release "23.11") {
       enable = true;
       settings = {
         user = {
-          name = extras.user.name;
-          email = extras.user.mail;
+          name = user.name;
+          email = user.mail;
         };
       };
     };

@@ -2,7 +2,7 @@
   pkgs,
   inputs,
   lib,
-  extras,
+  user,
   ...
 }: {
   nix = {
@@ -25,7 +25,7 @@
       # does not build on Linux
       # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
       allowed-users = ["@wheel"];
-      trusted-users = ["root" extras.user.login];
+      trusted-users = ["root" user.login];
     };
     gc = lib.mkMerge [
       {

@@ -1,11 +1,11 @@
 {
-  extras,
   inputs,
   lib,
+  stateVersion,
   ...
 }: {
   system = {
-    inherit (extras) stateVersion;
+    inherit stateVersion;
   };
   users.users.root.openssh.authorizedKeys.keyFiles = [(builtins.toString inputs.mlenz-ssh-keys)];
   systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];

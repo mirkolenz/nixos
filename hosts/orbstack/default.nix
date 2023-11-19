@@ -3,7 +3,6 @@
   config,
   pkgs,
   modulesPath,
-  extras,
   inputs,
   ...
 }: {

@@ -1,6 +1,6 @@
 {
   pkgs,
-  extras,
+  stateVersion,
   ...
 }: {
   imports = [
@@ -45,7 +45,7 @@
   ];
 
   system = {
-    inherit (extras) stateVersion;
+    inherit stateVersion;
   };
 
   security.sudo = {

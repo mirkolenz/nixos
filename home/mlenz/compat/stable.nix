@@ -1,9 +1,9 @@
 {
   lib,
   pkgs,
-  extras,
+  unstableVersion,
   ...
 }:
-lib.optionalAttrs (lib.versionOlder lib.trivial.release "23.11") {
+lib.optionalAttrs (lib.versionOlder lib.trivial.release unstableVersion) {
   programs.zsh.enableSyntaxHighlighting = true;
 }

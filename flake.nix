@@ -119,18 +119,21 @@
     getOs = system: nixpkgs.lib.last (nixpkgs.lib.splitString "-" system);
 
     # available during import
-    specialArgs = {inherit inputs;};
+    specialArgs = {
+      inherit inputs;
+      stateVersion = "23.05";
+      stateVersionDarwin = 4;
+      stableVersion = "23.05";
+      unstableVersion = "23.11";
+    };
 
     # can be overriden in module
     moduleArgs = {
-      extras = {
-        stateVersion = "23.05";
-        user = {
-          name = "Mirko Lenz";
-          mail = "mirko@mirkolenz.com";
-          login = "mlenz";
-          id = 1000;
-        };
+      user = {
+        name = "Mirko Lenz";
+        mail = "mirko@mirkolenz.com";
+        login = "mlenz";
+        id = 1000;
       };
     };
 

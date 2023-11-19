@@ -2,7 +2,7 @@
   pkgs,
   config,
   lib,
-  extras,
+  user,
   ...
 }:
 lib.mkIf config.services.xserver.enable {
@@ -33,7 +33,7 @@ lib.mkIf config.services.xserver.enable {
       gdm.enable = true;
       autoLogin = {
         enable = true;
-        user = extras.user.login;
+        user = user.login;
       };
     };
     desktopManager = {

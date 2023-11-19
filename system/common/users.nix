@@ -1,10 +1,9 @@
 {
   pkgs,
   lib,
-  extras,
+  user,
   ...
 }: let
-  inherit (extras) user;
   homeDirectory =
     if pkgs.stdenv.isDarwin
     then "/Users/${user.login}"

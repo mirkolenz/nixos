@@ -1,6 +1,6 @@
 {
   pkgs,
-  extras,
+  stateVersionDarwin,
   ...
 }: {
   imports = [
@@ -17,5 +17,5 @@
   nix.settings.build-users-group = "nixbld";
 
   system.checks.verifyBuildUsers = false;
-  system.stateVersion = 4;
+  system.stateVersion = stateVersionDarwin;
 }

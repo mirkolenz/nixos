@@ -1,6 +1,4 @@
-{extras, ...}: let
-  inherit (extras) user;
-in {
+{user, ...}: {
   imports = [
     ./bottom.nix
     ./fish.nix

@@ -1,17 +1,19 @@
 {
   pkgs,
-  extras,
   lib,
   osConfig,
   inputs,
+  user,
+  stateVersion,
+  unstableVersion,
   ...
 }: let
   homeDirectory =
     if pkgs.stdenv.isDarwin
-    then "/Users/${extras.user.login}"
-    else "/home/${extras.user.login}";
+    then "/Users/${user.login}"
+    else "/home/${user.login}";
   nixvimInput =
-    if lib.versionAtLeast lib.trivial.release "23.11"
+    if lib.versionAtLeast lib.trivial.release unstableVersion
     then inputs.nixvim-unstable
     else inputs.nixvim-linux-stable;
 in {
@@ -26,9 +28,8 @@ in {
   ];
 
   home = {
-    inherit homeDirectory;
-    inherit (extras) stateVersion;
-    username = extras.user.login;
+    inherit homeDirectory stateVersion;
+    username = user.login;
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
     };

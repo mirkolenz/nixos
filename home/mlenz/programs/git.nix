@@ -1,11 +1,9 @@
 {
   lib,
   pkgs,
-  extras,
+  user,
   ...
-}: let
-  inherit (extras) user;
-in {
+}: {
   programs.git = {
     enable = true;
     userName = user.name;
