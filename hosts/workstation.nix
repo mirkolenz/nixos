@@ -2,6 +2,8 @@
   services.xserver.enable = true;
   services.printing.enable = true;
 
+  nix.daemonCPUSchedPolicy = "idle";
+
   sound = {
     enable = true;
     mediaKeys.enable = true;

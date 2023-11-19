@@ -26,6 +26,8 @@
       # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
       allowed-users = ["@wheel"];
       trusted-users = ["root" user.login];
+      log-lines = 25;
+      builders-use-substitutes = true;
     };
     gc = lib.mkMerge [
       {

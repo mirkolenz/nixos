@@ -13,6 +13,7 @@
   services.nix-daemon.enable = true;
 
   nix.linux-builder.enable = true;
+  nix.daemonProcessType = "Background";
 
   nix.settings.build-users-group = "nixbld";
 
