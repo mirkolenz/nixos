@@ -1,4 +1,8 @@
 {...}: {
+  imports = [
+    ./headless.nix
+  ];
+
   services.openssh.enable = true;
   custom.docker.userns-remap = true;
 
@@ -13,4 +17,9 @@
       upper = "05:00";
     };
   };
+
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+  '';
 }
