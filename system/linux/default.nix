@@ -15,8 +15,8 @@
 
   networking = {
     networkmanager.enable = true;
-    useDHCP = true;
-    useNetworkd = true;
+    # useDHCP = true;
+    # useNetworkd = true;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
