@@ -13,7 +13,11 @@
 
   custom.docker.enable = true;
 
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    useDHCP = true;
+    useNetworkd = true;
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
