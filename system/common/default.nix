@@ -2,8 +2,9 @@
   imports = [
     ./nix.nix
     ./users.nix
-    ./shell.nix
     ./secrets.nix
+    ./shell.nix
+    ./ssh.nix
   ];
 
   # networking.firewall = {
