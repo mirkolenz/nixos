@@ -130,7 +130,7 @@
       "whatsapp"
       "zed"
       "zoom"
-      "zotero"
+      "zotero-beta"
     ];
   };
 }
