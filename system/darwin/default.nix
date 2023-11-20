@@ -12,7 +12,6 @@
   environment.loginShell = pkgs.fish;
   services.nix-daemon.enable = true;
 
-  nix.daemonProcessType = "Background";
   nix = {
     linux-builder.enable = true;
     settings = {

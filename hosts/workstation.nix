@@ -2,8 +2,6 @@
   services.xserver.enable = true;
   services.printing.enable = true;
 
-  nix.daemonCPUSchedPolicy = "idle";
-
   security.rtkit.enable = config.services.pipewire.enable;
   sound = {
     enable = true;
