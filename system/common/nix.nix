@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  lib,
   user,
   ...
 }: {
@@ -16,8 +15,6 @@
       keep-outputs = true;
       keep-derivations = false;
       keep-failed = false;
-      # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
-      auto-optimise-store = pkgs.stdenv.isLinux;
       # https://github.com/DeterminateSystems/nix-installer/pull/270
       extra-nix-path = "nixpkgs=flake:nixpkgs";
       # https://github.com/DeterminateSystems/nix-installer/pull/196
@@ -29,21 +26,10 @@
       log-lines = 25;
       builders-use-substitutes = true;
     };
-    gc = lib.mkMerge [
-      {
-        automatic = true;
-        options = "--delete-older-than 7d";
-      }
-      (lib.optionalAttrs (pkgs.stdenv.isLinux) {
-        dates = "daily";
-      })
-      (lib.optionalAttrs (pkgs.stdenv.isDarwin) {
-        interval = {
-          Hour = 1;
-          Minute = 0;
-        };
-      })
-    ];
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
     registry = import ../../registry.nix {
       inherit inputs pkgs;
     };
