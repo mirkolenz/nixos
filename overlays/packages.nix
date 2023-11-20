@@ -8,8 +8,8 @@ in {
     preferWheels = true;
     python = final.python3;
   };
-  bibtex-to-cff = final.writeShellApplication {
-    name = "bibtex-to-cff";
+  bibtexbrowser2cff = final.writeShellApplication {
+    name = "bibtexbrowser2cff";
     text = ''
       exec ${lib.getExe final.php} ${inputs.bibtexbrowser}/bibtex-to-cff.php "$@"
     '';

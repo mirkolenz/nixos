@@ -10,7 +10,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     tectonic
     texlab
     bibtex2cff
-    bibtex-to-cff
+    bibtexbrowser2cff
     mas
     (pkgs.writeShellApplication {
       name = "bibcopy";
