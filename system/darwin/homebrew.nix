@@ -107,6 +107,7 @@
       "microsoft-teams"
       "notion"
       "obsidian"
+      "omnigraffle"
       "openinterminal"
       "orbstack"
       "orion"
