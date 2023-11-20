@@ -15,17 +15,14 @@ lib.mkIf pkgs.stdenv.isDarwin {
     (pkgs.writeShellApplication {
       name = "bibcopy";
       text = ''
-        if [ "$#" -ne 1 ]; then
-          echo "Usage: $0 FORMAT (biblatex or bibtex)" >&2
+        if [ "$#" -lt 1 ]; then
+          echo "Usage: $0 FORMAT (biblatex/bibtex) [SOURCE_DIR] [TARGET_DIR]" >&2
           exit 1
         fi
-        exec cp -f "${config.home.homeDirectory}/Developer/mirkolenz/bibliography/references-$1.bib" "references.bib"
-      '';
-    })
-    (pkgs.writeShellApplication {
-      name = "acrocopy";
-      text = ''
-        exec cp -f "${config.home.homeDirectory}/Developer/mirkolenz/bibliography/acro.tex" "acro.tex"
+        sourceDir="''${2:-${config.home.homeDirectory}/Developer/mirkolenz/bibliography}"
+        targetDir="''${3:-.}"
+        cp -f "$sourceDir/$1.bib" "$targetDir/references.bib"
+        cp -f "$sourceDir/acronyms.tex" "$targetDir/acronyms.tex"
       '';
     })
   ];
