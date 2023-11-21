@@ -50,6 +50,7 @@ in
       # java
       jdk
       gradle
+      # my own packages
       makejinja
       arguebuf
     ];
