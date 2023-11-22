@@ -25,7 +25,7 @@ in {
         userns-remap = lib.mkIf cfg.userns-remap user.login;
       };
     };
-    users.users.mlenz = lib.mkIf cfg.userns-remap {
+    users.users.${user.login} = lib.mkIf cfg.userns-remap {
       subUidRanges = [
         {
           count = 1;

@@ -63,10 +63,6 @@
       inputs.poetry2nix.follows = "poetry2nix";
       inputs.flocken.follows = "flocken";
     };
-    mlenz-ssh-keys = {
-      url = "https://github.com/mirkolenz.keys";
-      flake = false;
-    };
     texmf = {
       url = "github:mirkolenz/texmf";
       flake = false;
@@ -127,6 +123,12 @@
       unstableVersion = "23.11";
     };
 
+    githubApiSshKeys = builtins.fetchurl {
+      url = "https://api.github.com/users/mirkolenz/keys";
+      sha256 = "0f52mwv3ja24q1nz65aig8id2cpvnm0w92f9xdc80xn3qg3ji374";
+    };
+    githubSshKeys = builtins.fromJSON (builtins.readFile githubApiSshKeys);
+
     # can be overriden in module
     moduleArgs = {
       user = {
@@ -134,6 +136,7 @@
         mail = "mirko@mirkolenz.com";
         login = "mlenz";
         id = 1000;
+        sshKeys = builtins.map (x: x.key) githubSshKeys;
       };
     };
 

@@ -515,18 +515,6 @@
         "type": "github"
       }
     },
-    "mlenz-ssh-keys": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-7siHd/09RRTrgVnG4pMfIBtCcw+3YYWsERncADDNX/I=",
-        "type": "file",
-        "url": "https://github.com/mirkolenz.keys"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/mirkolenz.keys"
-      }
-    },
     "nix-darwin-stable": {
       "inputs": {
         "nixpkgs": [
@@ -1015,7 +1003,6 @@
         "home-manager-linux-stable": "home-manager-linux-stable",
         "home-manager-linux-unstable": "home-manager-linux-unstable",
         "makejinja": "makejinja",
-        "mlenz-ssh-keys": "mlenz-ssh-keys",
         "nix-darwin-stable": "nix-darwin-stable",
         "nix-darwin-unstable": "nix-darwin-unstable",
         "nix-index-database": "nix-index-database",
