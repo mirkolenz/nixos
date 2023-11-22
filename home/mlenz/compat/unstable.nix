@@ -38,7 +38,6 @@ lib.optionalAttrs (lib.versionAtLeast lib.trivial.release unstableVersion) {
       git = true;
       icons = true;
     };
-    starship.enableTransience = true;
     nixvim = {
       defaultEditor = true;
       keymaps = [
