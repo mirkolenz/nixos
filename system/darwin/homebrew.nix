@@ -62,6 +62,7 @@
       "font-ia-writer-mono"
       "font-ia-writer-quattro"
       "font-ibm-plex"
+      "font-inter"
       "font-iosevka"
       "font-jetbrains-mono-nerd-font"
       "font-jetbrains-mono"
