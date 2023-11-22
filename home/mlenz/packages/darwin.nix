@@ -5,7 +5,9 @@
   ...
 }:
 lib.mkIf pkgs.stdenv.isDarwin {
-  home.packages = with pkgs; [
+  home.packages = with pkgs; let
+    bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
+  in [
     mas
     texliveFull
     stable.tectonic
@@ -43,10 +45,25 @@ lib.mkIf pkgs.stdenv.isDarwin {
       name = "bibcopy";
       text = ''
         format="''${1:-bibtex}"
-        sourceDir="''${2:-${config.home.homeDirectory}/Developer/mirkolenz/bibliography}"
+        sourceDir="''${2:-${bibFolder}}"
         targetDir="''${3:-.}"
         bibtidy --output="$targetDir/references.bib" "$sourceDir/$format.bib"
         cp -f "$sourceDir/acronyms.tex" "$targetDir/acronyms.tex"
+      '';
+    })
+    (pkgs.writeShellApplication {
+      name = "bibcat";
+      text = ''
+        format="''${1:-bibtex}"
+        sourceDir="''${2:-${bibFolder}}"
+        bibtidy "$sourceDir/$format.bib"
+      '';
+    })
+    (pkgs.writeShellApplication {
+      name = "acrocat";
+      text = ''
+        sourceDir="''${1:-${bibFolder}}"
+        cat "$sourceDir/acronyms.tex"
       '';
     })
   ];
