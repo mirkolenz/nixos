@@ -36,7 +36,7 @@ lib.optionalAttrs (lib.versionAtLeast lib.trivial.release unstableVersion) {
         "--time-style=long-iso"
       ];
       git = true;
-      icons = true;
+      icons = false; # requires nerd fonts
     };
     nixvim = {
       defaultEditor = true;
