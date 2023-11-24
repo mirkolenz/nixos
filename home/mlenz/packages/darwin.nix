@@ -64,7 +64,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
         sourceDir="''${2:-${bibFolder}}"
         targetDir="''${3:-.}"
         bibtidy --output="$targetDir/references.bib" "$sourceDir/$format.bib"
-        cp -f "$sourceDir/acronyms.tex" "$targetDir/acronyms.tex"
+        acrocat "$sourceDir" > "$targetDir/acronyms.tex"
       '';
     })
     (pkgs.writeShellApplication {
@@ -77,9 +77,30 @@ lib.mkIf pkgs.stdenv.isDarwin {
     })
     (pkgs.writeShellApplication {
       name = "acrocat";
-      text = ''
+      text = let
+        presets = {
+          sentity = {
+            short-format = "\\ttfamily";
+            first-style = "short";
+            long = "{}";
+          };
+          entity = {
+            short-format = "\\ttfamily";
+          };
+          short = {
+            first-style = "short";
+            long = "{}";
+          };
+        };
+        presetToList = lib.mapAttrsToList (name: value: "${name}=${value}");
+        replacements =
+          lib.mapAttrsToList
+          (name: preset: "sd -F 'preset=${name}' '${lib.concatStringsSep ", " (presetToList preset)}'")
+          presets;
+      in ''
         sourceDir="''${1:-${bibFolder}}"
-        cat "$sourceDir/acronyms.tex"
+        # shellcheck disable=SC2002 # the sd commands are generated via nix, so cat is more elegant than piping
+        cat "$sourceDir/acronyms.tex" | ${lib.concatStringsSep " | " replacements}
       '';
     })
   ];
