@@ -32,6 +32,7 @@ in {
     username = user.login;
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
+      HOMEBREW_AUTOREMOVE = "1";
     };
   };
 
