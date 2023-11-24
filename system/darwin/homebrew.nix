@@ -18,7 +18,6 @@
       "homebrew/cask-versions"
     ];
     brews = [
-      "dvc"
       "envoy"
     ];
     casks = [

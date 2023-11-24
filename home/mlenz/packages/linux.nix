@@ -3,8 +3,4 @@
   lib,
   ...
 }:
-lib.mkIf pkgs.stdenv.isLinux {
-  home.packages = with pkgs; [
-    dvc
-  ];
-}
+lib.mkIf pkgs.stdenv.isLinux {}

@@ -14,7 +14,7 @@ in
       unpaper
       _1password
       buf
-      # dvc
+      dvc
       gomplate
       grpcui
       mqttui
