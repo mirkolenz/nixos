@@ -5,15 +5,15 @@
 }: {
   stable.flake =
     if pkgs.stdenv.isDarwin
-    then builtins.toString inputs.nixpkgs-darwin-stable
-    else builtins.toString inputs.nixpkgs-linux-stable;
+    then inputs.nixpkgs-darwin-stable
+    else inputs.nixpkgs-linux-stable;
   unstable.flake =
     if pkgs.stdenv.isDarwin
-    then builtins.toString inputs.nixpkgs-darwin-unstable
-    else builtins.toString inputs.nixpkgs-linux-unstable;
+    then inputs.nixpkgs-darwin-unstable
+    else inputs.nixpkgs-linux-unstable;
   pkgs.flake =
     if pkgs.stdenv.isDarwin
-    then builtins.toString inputs.nixpkgs-darwin-unstable
-    else builtins.toString inputs.nixpkgs-linux-unstable;
-  self.flake = builtins.toString inputs.self;
+    then inputs.nixpkgs-darwin-unstable
+    else inputs.nixpkgs-linux-unstable;
+  self.flake = inputs.self;
 }
