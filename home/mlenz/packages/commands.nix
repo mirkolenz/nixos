@@ -121,21 +121,6 @@ in {
         text = nixup;
       })
       (writeShellApplication {
-        name = "texmfup";
-        text = ''
-          rm -rf ./texmf
-          mkdir ./texmf
-          ${lib.getExe pkgs.curl} --location https://github.com/mirkolenz/texmf/archive/refs/heads/main.tar.gz \
-            | ${lib.getExe pkgs.gnutar} xz --strip-components=1 --directory="./texmf"
-        '';
-      })
-      (writeShellApplication {
-        name = "latexmkrc";
-        text = ''
-          exec cat ${../files/.latexmkrc} > "''${1:-.latexmkrc}"
-        '';
-      })
-      (writeShellApplication {
         name = "dev";
         text = ''
           exec ${lib.getExe pkgs.nix} develop "$@"

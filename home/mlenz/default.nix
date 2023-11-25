@@ -21,7 +21,9 @@ in {
     inputs.nix-index-database.hmModules.nix-index
     nixvimInput.homeManagerModules.nixvim
     ./compat
+    ./darwin.nix
     ./files
+    ./linux.nix
     ./packages
     ./programs
     ./xserver.nix

@@ -9,6 +9,7 @@
     ./pandoc.nix
     ./ssh.nix
     ./starship.nix
+    ./texlive.nix
     ./tmux.nix
   ];
 

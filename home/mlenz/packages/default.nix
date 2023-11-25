@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ./commands.nix
-    ./darwin.nix
-    ./linux.nix
     ./workstation.nix
   ];
   home.packages = with pkgs; [

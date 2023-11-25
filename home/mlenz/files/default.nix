@@ -14,18 +14,11 @@ in {
     "${poetryPrefix}/config.toml" = {
       source = ./poetry.toml;
     };
-    ".latexmkrc" = {
-      source = ./.latexmkrc;
-    };
     ".mackup.cfg" = lib.mkIf pkgs.stdenv.isDarwin {
       source = ./.mackup.cfg;
     };
     ".amethyst.yml" = lib.mkIf pkgs.stdenv.isDarwin {
       source = ./.amethyst.yml;
-    };
-    # Should depend on texlive (currently installed only on darwin)
-    "texmf" = lib.mkIf pkgs.stdenv.isDarwin {
-      source = inputs.texmf;
     };
   };
   xdg = {

@@ -17,7 +17,7 @@
       color = "always";
       display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
     };
-    ignores = lib.splitString "\n" (builtins.readFile ./.gitignore);
+    ignores = lib.splitString "\n" (builtins.readFile ../files/.gitignore);
     extraConfig = {
       core = {
         autocrlf = "input";
