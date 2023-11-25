@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.programs.texliveCustom;
+  cfg = config.custom.texlive;
 
   acronymPresetToList = lib.mapAttrsToList (name: value: "${name}=${value}");
   acronymReplacements =
@@ -52,7 +52,7 @@
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication {inherit name text;}) cmdTexts;
 in {
   options = {
-    programs.texliveCustom = {
+    custom.texlive = {
       enable = lib.mkEnableOption "TeX Live";
 
       package = lib.mkOption {
