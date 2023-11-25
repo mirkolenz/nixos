@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}: {
   imports = [
     ./commands.nix
     ./workstation.nix
@@ -41,5 +46,8 @@
   ];
   home.shellAliases = {
     py = "poetry run python"; # should use local poetry if possible
+    cat = lib.getExe pkgs.bat;
+    l = "ll";
+    sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
   };
 }
