@@ -40,10 +40,10 @@ in {
 
   news.display = "show";
 
-  nix = {
-    package = lib.mkIf (osConfig == {}) pkgs.nix;
-    registry = lib.mkIf (osConfig == {}) (import ../../registry.nix {
+  nix = lib.mkIf (osConfig == {}) {
+    package = pkgs.nix;
+    registry = import ../../registry.nix {
       inherit inputs pkgs;
-    });
+    };
   };
 }
