@@ -32,6 +32,7 @@ in {
   home = {
     inherit homeDirectory stateVersion;
     username = user.login;
+    sessionPath = lib.optional (osConfig == {}) "/run/system-manager/sw/bin";
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
       HOMEBREW_AUTOREMOVE = "1";
