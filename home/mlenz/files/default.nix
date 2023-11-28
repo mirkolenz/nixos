@@ -3,6 +3,7 @@
   pkgs,
   config,
   inputs,
+  osConfig,
   ...
 }: let
   poetryPrefix =
@@ -11,6 +12,9 @@
     else "${config.xdg.configHome}/pypoetry";
 in {
   home.file = {
+    ".hushlogin" = lib.mkIf (osConfig == {}) {
+      text = "";
+    };
     "${poetryPrefix}/config.toml" = {
       source = ./poetry.toml;
     };
