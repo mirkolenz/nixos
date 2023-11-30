@@ -5,9 +5,8 @@ lib: {
     filterFiles = name: value:
       (value == "regular" && lib.hasSuffix ".nix" name && name != "default.nix")
       || value == "directory";
-    imports = lib.mapAttrsToList toImport (lib.filterAttrs filterFiles (builtins.readDir dir));
   in
-    imports;
+    lib.mapAttrsToList toImport (lib.filterAttrs filterFiles (builtins.readDir dir));
   checkSudo = ''
     SUDO=""
     if [ "$(id -u)" -ne 0 ]; then
