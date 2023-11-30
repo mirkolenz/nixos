@@ -64,7 +64,6 @@
     enable = true;
     inherit
       (config.security.sudo)
-      defaultOptions
       execWheelOnly
       extraConfig
       extraRules
