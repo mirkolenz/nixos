@@ -114,7 +114,7 @@
     '';
     nixos-env = ''
       ${checkSudo}
-      exec "$SUDO" ${lib.getExe' pkgs.nix "nix-env"} --profile /nix/var/nix/profiles/system "$@"
+      exec sudo ${lib.getExe' pkgs.nix "nix-env"} --profile /nix/var/nix/profiles/system "$@"
     '';
     nix-prefetch-sri = ''
       exec ${lib.getExe pkgs.nix} hash to-sri --type "sha256" "$(${lib.getExe' pkgs.nix "nix-prefetch-url"} "$@")"
