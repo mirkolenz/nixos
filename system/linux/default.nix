@@ -59,6 +59,11 @@
     execWheelOnly = true;
   };
 
+  security.sudo-rs = {
+    enable = true;
+    execWheelOnly = true;
+  };
+
   boot.loader = {
     systemd-boot.configurationLimit = 7;
     generic-extlinux-compatible.configurationLimit = 7;
