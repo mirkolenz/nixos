@@ -113,7 +113,6 @@
       "$SUDO" ${lib.getExe pkgs.gnutar} xf "$1" -C "$2"
     '';
     nixos-env = ''
-      ${checkSudo}
       exec sudo ${lib.getExe' pkgs.nix "nix-env"} --profile /nix/var/nix/profiles/system "$@"
     '';
     nix-prefetch-sri = ''
