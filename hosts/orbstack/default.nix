@@ -16,7 +16,6 @@
   services.vscode-server.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
-  security.sudo-rs.wheelNeedsPassword = false;
 
   # FROM configuration.nix
   documentation.enable = true;

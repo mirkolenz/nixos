@@ -1,4 +1,5 @@
 {
+  config,
   mylib,
   pkgs,
   stateVersion,
@@ -61,7 +62,14 @@
 
   security.sudo-rs = {
     enable = true;
-    execWheelOnly = true;
+    inherit
+      (config.security.sudo)
+      defaultOptions
+      execWheelOnly
+      extraConfig
+      extraRules
+      wheelNeedsPassword
+      ;
   };
 
   boot.loader = {
