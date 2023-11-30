@@ -278,8 +278,7 @@
             pkgs.writeShellApplication {
               name = "sudo-nixos-rebuild";
               text = ''
-                ${self.lib.checkSudo}
-                $SUDO ${lib.getExe pkgs.nixos-rebuild} "$@"
+                sudo ${lib.getExe pkgs.nixos-rebuild} "$@"
               '';
             };
       in {

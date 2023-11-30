@@ -5,7 +5,6 @@
   ...
 }: let
   echo = lib.getExe' pkgs.coreutils "echo";
-  checkSudo = inputs.self.lib.checkSudo;
   cmdTexts = {
     pull-rebuild = ''
       set -x #echo on
@@ -34,9 +33,8 @@
       exec ${lib.getExe' pkgs.imagemagick "mogrify"} -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
     '';
     gc = ''
-      ${checkSudo}
       set -x #echo on
-      "$SUDO" ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
+      sudo ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
       ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
       ${lib.getExe pkgs.nix} store gc
       ${lib.getExe pkgs.nix} store optimise
@@ -54,19 +52,16 @@
       exit 0
     '';
     dc = ''
-      ${checkSudo}
-      exec "$SUDO" docker compose "$@"
+      exec sudo docker compose "$@"
     '';
     dcup = ''
-      ${checkSudo}
-      "$SUDO" docker compose --project-directory "''${1:-.}" pull "''${@:2}"
-      "$SUDO" docker compose --project-directory "''${1:-.}" build "''${@:2}"
-      "$SUDO" docker compose --project-directory "''${1:-.}" up --detach "''${@:2}"
-      "$SUDO" docker image prune --all --force
+      sudo docker compose --project-directory "''${1:-.}" pull "''${@:2}"
+      sudo docker compose --project-directory "''${1:-.}" build "''${@:2}"
+      sudo docker compose --project-directory "''${1:-.}" up --detach "''${@:2}"
+      sudo docker image prune --all --force
     '';
     docker-reset = ''
-      ${checkSudo}
-      exec "$SUDO" docker system prune --all --force
+      exec sudo docker system prune --all --force
     '';
     flakeup = ''
       exec ${lib.getExe pkgs.nix} flake update \
@@ -98,19 +93,17 @@
         ${echo} "Usage: $0 SOURCE TARGET" >&2
         exit 1
       fi
-      ${checkSudo}
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
       TIMESTAMP=$(${lib.getExe' pkgs.coreutils "date"} +"%Y-%m-%d-%H-%M-%S")
-      "$SUDO" ${lib.getExe pkgs.gnutar} czf "$2/$TIMESTAMP.tgz" "$1"
+      sudo ${lib.getExe pkgs.gnutar} czf "$2/$TIMESTAMP.tgz" "$1"
     '';
     restore = ''
       if [ "$#" -ne 2 ]; then
         ${echo} "Usage: $0 SOURCE TARGET" >&2
         exit 1
       fi
-      ${checkSudo}
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
-      "$SUDO" ${lib.getExe pkgs.gnutar} xf "$1" -C "$2"
+      sudo ${lib.getExe pkgs.gnutar} xf "$1" -C "$2"
     '';
     nixos-env = ''
       exec sudo ${lib.getExe' pkgs.nix "nix-env"} --profile /nix/var/nix/profiles/system "$@"
