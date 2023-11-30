@@ -1,11 +1,5 @@
-{...}: {
-  imports = [
-    ./nix.nix
-    ./users.nix
-    ./secrets.nix
-    ./shell.nix
-    ./ssh.nix
-  ];
+{mylib, ...}: {
+  imports = mylib.importFolder ./.;
 
   # networking.firewall = {
   #   enable = true;

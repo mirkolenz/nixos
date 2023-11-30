@@ -1,9 +1,13 @@
 lib: {
-  importFolder = folder: let
-    toImport = name: value: folder + ("/" + name);
-    filterCaches = key: value: value == "regular" && lib.hasSuffix ".nix" key && key != "default.nix";
+  # https://github.com/infinisil/system/blob/b8bbfde10411ae7a673ac49c60efce56f3c2bc57/config/new-modules/default.nix
+  importFolder = dir: let
+    toImport = name: value: dir + ("/" + name);
+    filterFiles = name: value:
+      (value == "regular" && lib.hasSuffix ".nix" name && name != "default.nix")
+      || value == "directory";
+    imports = lib.mapAttrsToList toImport (lib.filterAttrs filterFiles (builtins.readDir dir));
   in
-    lib.mapAttrsToList toImport (lib.filterAttrs filterCaches (builtins.readDir folder));
+    imports;
   checkSudo = ''
     SUDO=""
     if [ "$(id -u)" -ne 0 ]; then

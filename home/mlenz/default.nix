@@ -6,6 +6,7 @@
   user,
   stateVersion,
   unstableVersion,
+  mylib,
   ...
 }: let
   homeDirectory =
@@ -17,17 +18,12 @@
     then inputs.nixvim-unstable
     else inputs.nixvim-linux-stable;
 in {
-  imports = [
-    inputs.nix-index-database.hmModules.nix-index
-    nixvimInput.homeManagerModules.nixvim
-    ./compat
-    ./darwin.nix
-    ./files
-    ./linux.nix
-    ./packages
-    ./programs
-    ./xserver.nix
-  ];
+  imports =
+    [
+      inputs.nix-index-database.hmModules.nix-index
+      nixvimInput.homeManagerModules.nixvim
+    ]
+    ++ (mylib.importFolder ./.);
 
   home = {
     inherit homeDirectory stateVersion;

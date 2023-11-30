@@ -117,6 +117,7 @@
     # available during import
     specialArgs = {
       inherit inputs;
+      mylib = self.lib;
       stateVersion = "23.11";
       stateVersionDarwin = 4;
       stableVersion = "23.11";

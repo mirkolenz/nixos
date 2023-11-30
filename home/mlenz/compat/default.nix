@@ -1,6 +1,3 @@
-{
-  imports = [
-    ./stable.nix
-    ./unstable.nix
-  ];
+{mylib, ...}: {
+  imports = mylib.importFolder ./.;
 }

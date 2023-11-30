@@ -1,13 +1,12 @@
 {
+  mylib,
   pkgs,
   lib,
   osConfig,
   ...
 }: {
-  imports = [
-    ./commands.nix
-    ./workstation.nix
-  ];
+  imports = mylib.importFolder ./.;
+
   home.packages = with pkgs; [
     bashInteractive
     zsh

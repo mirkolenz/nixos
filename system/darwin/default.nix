@@ -1,13 +1,10 @@
 {
+  mylib,
   pkgs,
   stateVersionDarwin,
   ...
 }: {
-  imports = [
-    ../common
-    ./homebrew.nix
-    ./settings.nix
-  ];
+  imports = [../common] ++ (mylib.importFolder ./.);
 
   environment.loginShell = pkgs.fish;
   services.nix-daemon.enable = true;

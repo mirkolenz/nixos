@@ -1,17 +1,5 @@
-{...}: {
-  imports = [
-    ./bottom.nix
-    ./git.nix
-    ./hyfetch.nix
-    ./micro.nix
-    ./nixvim.nix
-    ./pandoc.nix
-    ./shells.nix
-    ./ssh.nix
-    ./starship.nix
-    ./texlive.nix
-    ./tmux.nix
-  ];
+{mylib, ...}: {
+  imports = mylib.importFolder ./.;
 
   programs = {
     home-manager.enable = true;

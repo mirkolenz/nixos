@@ -1,15 +1,10 @@
 {
+  mylib,
   pkgs,
   stateVersion,
   ...
 }: {
-  imports = [
-    ../common
-    ./cuda.nix
-    ./docker.nix
-    ./ssh.nix
-    ./xserver.nix
-  ];
+  imports = [../common] ++ (mylib.importFolder ./.);
 
   custom.docker.enable = true;
 
