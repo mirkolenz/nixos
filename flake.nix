@@ -4,9 +4,9 @@
   inputs = {
     # Nixpkgs
     nixpkgs. url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-23.05-darwin";
+    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
 
     # Small helpers
@@ -30,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-linux-stable = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
     home-manager-linux-unstable = {
@@ -38,7 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
     };
     home-manager-darwin-stable = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     };
     home-manager-darwin-unstable = {
@@ -90,7 +90,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim-linux-stable = {
-      url = "github:nix-community/nixvim/nixos-23.05";
+      url = "github:nix-community/nixvim/nixos-23.11";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
 
@@ -117,10 +117,10 @@
     # available during import
     specialArgs = {
       inherit inputs;
-      stateVersion = "23.05";
+      stateVersion = "23.11";
       stateVersionDarwin = 4;
-      stableVersion = "23.05";
-      unstableVersion = "23.11";
+      stableVersion = "23.11";
+      unstableVersion = "24.05";
     };
 
     githubApiSshKeys = builtins.fetchurl {

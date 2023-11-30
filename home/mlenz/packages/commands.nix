@@ -41,7 +41,7 @@
       ${lib.getExe pkgs.nix} store gc
       ${lib.getExe pkgs.nix} store optimise
     '';
-    # https://github.com/NixOS/nixpkgs/blob/nixos-23.05/nixos/modules/tasks/auto-upgrade.nix#L204
+    # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/tasks/auto-upgrade.nix#L204
     needs-reboot = ''
       booted="$(${lib.getBin pkgs.coreutils}/bin/readlink /run/booted-system/{initrd,kernel,kernel-modules})"
       built="$(${lib.getBin pkgs.coreutils}/bin/readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"

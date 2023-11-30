@@ -74,4 +74,19 @@ in {
       };
     };
   };
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    syntaxHighlighting.enable = true;
+  };
+  programs.bash = {
+    enable = true;
+  };
+  programs.direnv = {
+    enable = true;
+    nix-direnv = {
+      enable = true;
+    };
+  };
 }

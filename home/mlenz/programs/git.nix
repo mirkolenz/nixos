@@ -4,6 +4,12 @@
   user,
   ...
 }: {
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "ssh";
+    };
+  };
   programs.git = {
     enable = true;
     userName = user.name;
@@ -57,6 +63,15 @@
       merge = {
         tool = lib.mkIf pkgs.stdenv.isDarwin "vscode";
         trustExitCode = true;
+      };
+    };
+  };
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = user.name;
+        email = user.mail;
       };
     };
   };

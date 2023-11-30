@@ -4,6 +4,4 @@
   unstableVersion,
   ...
 }:
-lib.optionalAttrs (lib.versionOlder lib.trivial.release unstableVersion) {
-  programs.zsh.enableSyntaxHighlighting = true;
-}
+lib.optionalAttrs (lib.versionOlder lib.trivial.release unstableVersion) {}
