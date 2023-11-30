@@ -53,8 +53,7 @@
         "/nix/var/nix/profiles/default/bin"
       ];
     in
-      lib.mkIf (osConfig == {}) ''
-        /usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"
-      '';
+      lib.mkIf (osConfig == {})
+      ''/usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"'';
   };
 }
