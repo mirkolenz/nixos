@@ -51,6 +51,7 @@
       customPaths = [
         "${config.home.homeDirectory}/.nix-profile/bin"
         "/nix/var/nix/profiles/default/bin"
+        "/nix/var/nix/profiles/default/sbin"
       ];
     in
       lib.mkIf (osConfig == {})
