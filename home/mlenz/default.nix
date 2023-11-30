@@ -35,8 +35,6 @@ in {
     };
   };
 
-  news.display = "show";
-
   nix = lib.mkIf (osConfig == {}) {
     package = pkgs.nix;
     registry = import ../../registry.nix {
