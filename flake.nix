@@ -141,17 +141,12 @@
       };
     };
 
-    commonModule = {...}: {
-      _module.args = moduleArgs;
-    };
-
     homeModule = {pkgs, ...}: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
       targets.genericLinux.enable = pkgs.stdenv.isLinux;
-      _module.args.osConfig = {};
     };
 
     systemModule = {...}: {
@@ -164,8 +159,10 @@
         useUserPackages = true;
         extraSpecialArgs = specialArgs;
         users.mlenz.imports = [
+          {
+            _module.args = moduleArgs;
+          }
           ./home/mlenz
-          commonModule
         ];
       };
     };
@@ -177,12 +174,12 @@
       inputs."nixpkgs-linux-${channel}".lib.nixosSystem {
         inherit specialArgs system;
         modules = [
-          commonModule
           systemModule
           inputs."home-manager-linux-${channel}".nixosModules.home-manager
           ./system/linux
           ./hosts/${hostName}
           {
+            _module.args = moduleArgs;
             networking.hostName = hostName;
           }
         ];
@@ -196,12 +193,12 @@
       inputs."nix-darwin-${channel}".lib.darwinSystem {
         inherit specialArgs system;
         modules = [
-          commonModule
           systemModule
           inputs."home-manager-darwin-${channel}".darwinModules.home-manager
           ./system/darwin
           ./hosts/${hostName}
           {
+            _module.args = moduleArgs;
             networking = {
               inherit hostName computerName;
             };
@@ -218,7 +215,7 @@
         inherit specialArgs system format;
         customFormats = import ./installer/formats.nix inputs.nixos-generators.inputs.nixpkgs;
         modules = [
-          commonModule
+          {_module.args = moduleArgs;}
           installerModule
         ];
       };
@@ -236,13 +233,16 @@
         };
         extraSpecialArgs = specialArgs;
         modules = [
-          commonModule
           homeModule
           ./home/mlenz
           ({lib, ...}: {
-            _module.args.user = lib.mkForce (
-              moduleArgs.user // {login = userName;}
-            );
+            _module.args =
+              lib.recursiveUpdate
+              moduleArgs
+              {
+                osConfig = {};
+                user.login = userName;
+              };
           })
         ];
       };
