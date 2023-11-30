@@ -3,6 +3,7 @@
   pkgs,
   lib,
   osConfig,
+  config,
   ...
 }: {
   imports = mylib.importFolder ./.;
@@ -46,6 +47,14 @@
     py = "poetry run python"; # should use local poetry if possible
     cat = lib.getExe pkgs.bat;
     l = "ll";
-    sudo = lib.mkIf (osConfig == {}) "sudo --preserve-env=PATH env";
+    sudo = let
+      customPaths = [
+        "${config.home.homeDirectory}/.nix-profile/bin"
+        "/nix/var/nix/profiles/default/bin"
+      ];
+    in
+      lib.mkIf (osConfig == {}) ''
+        /usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"
+      '';
   };
 }
