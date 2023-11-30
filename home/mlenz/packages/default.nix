@@ -34,7 +34,6 @@
     rsync
     curl
     wget
-    stable.mkpasswd
     macchina
     speedtest-cli
     # bulk renaming

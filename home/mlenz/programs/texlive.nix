@@ -71,7 +71,7 @@ in {
         type = lib.types.listOf lib.types.package;
         description = "Extra TeX Live packages to install.";
         default = with pkgs; [
-          stable.tectonic
+          tectonic
           texlab
           bibtex2cff
           bibtexbrowser2cff

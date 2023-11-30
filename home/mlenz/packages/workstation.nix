@@ -18,7 +18,6 @@ in
       gomplate
       grpcui
       mqttui
-      stable.ocrmypdf
       plantuml
       pre-commit
       mu-repo
@@ -27,7 +26,7 @@ in
       # nix
       nixpkgs-fmt
       nil
-      unstable.nixd
+      nixd
       nixfmt
       alejandra
       nix-update
