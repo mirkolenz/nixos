@@ -65,8 +65,6 @@
     inherit
       (config.security.sudo)
       execWheelOnly
-      extraConfig
-      extraRules
       wheelNeedsPassword
       ;
   };
