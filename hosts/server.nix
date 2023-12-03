@@ -4,7 +4,7 @@
   ];
 
   services.openssh.enable = true;
-  custom.docker.userns-remap = true;
+  custom.docker.usernsRemap = true;
 
   system.autoUpgrade = {
     enable = true;

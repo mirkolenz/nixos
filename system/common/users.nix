@@ -29,6 +29,26 @@ in {
         isNormalUser = true;
         initialHashedPassword = "$y$j9T$PNrr2mfD3mtxoSfR26fYh/$qNvFLgYOJFAms5MwZ42vM0F0aUP.ceHpD0j4LAr7IP5";
         openssh.authorizedKeys.keys = user.sshKeys;
+        subUidRanges = [
+          {
+            count = 1;
+            startUid = 1000;
+          }
+          {
+            count = 65536;
+            startUid = 100001;
+          }
+        ];
+        subGidRanges = [
+          {
+            count = 1;
+            startGid = 1000;
+          }
+          {
+            count = 65536;
+            startGid = 100001;
+          }
+        ];
       })
       (lib.mkIf pkgs.stdenv.isDarwin {
         gid = user.id;

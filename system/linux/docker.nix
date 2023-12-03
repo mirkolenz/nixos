@@ -9,7 +9,7 @@
 in {
   options.custom.docker = {
     enable = lib.mkEnableOption "Docker";
-    userns-remap = lib.mkEnableOption "userns-remap";
+    usernsRemap = lib.mkEnableOption "userns-remap";
   };
 
   config = lib.mkIf cfg.enable {
@@ -22,30 +22,8 @@ in {
       };
       daemon.settings = {
         icc = false;
-        userns-remap = lib.mkIf cfg.userns-remap user.login;
+        userns-remap = lib.mkIf cfg.usernsRemap user.login;
       };
-    };
-    users.users.${user.login} = lib.mkIf cfg.userns-remap {
-      subUidRanges = [
-        {
-          count = 1;
-          startUid = 1000;
-        }
-        {
-          count = 65536;
-          startUid = 100001;
-        }
-      ];
-      subGidRanges = [
-        {
-          count = 1;
-          startGid = 1000;
-        }
-        {
-          count = 65536;
-          startGid = 100001;
-        }
-      ];
     };
   };
 }
