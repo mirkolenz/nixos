@@ -1,10 +1,17 @@
 # https://nixos.wiki/wiki/NixOS_on_ARM#Installation
-{inputs, ...}: {
-  imports = [
-    inputs.nixos-hardware.nixosModules.raspberry-pi-4
-    ./hardware.nix
-    ../server.nix
-  ];
+{
+  inputs,
+  mylib,
+  ...
+}: {
+  imports =
+    [
+      inputs.nixos-hardware.nixosModules.raspberry-pi-4
+      ./hardware.nix
+      ../server.nix
+    ]
+    ++ mylib.optionalImport "/etc/nixos/default.nix";
+
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
   hardware.raspberry-pi."4" = {
