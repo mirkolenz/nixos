@@ -37,6 +37,9 @@
     wget
     macchina
     speedtest-cli
+    restic
+    autorestic
+    fastfetch
     # bulk renaming
     massren
     mmv-go
