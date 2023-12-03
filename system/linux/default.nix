@@ -8,6 +8,7 @@
   imports = [../common] ++ (mylib.importFolder ./.);
 
   custom.docker.enable = true;
+  custom.podman.enable = true;
 
   networking = {
     networkmanager.enable = true;
