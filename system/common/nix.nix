@@ -6,6 +6,9 @@
 }: {
   nix = {
     package = pkgs.nix;
+    extraOptions = ''
+      !include nix.local.conf
+    '';
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
