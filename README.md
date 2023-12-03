@@ -194,3 +194,9 @@ sudo modprobe sg
 # if that does not work, try again with sudo
 NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#makemkv --impure
 ```
+
+### Investigate ID Mappings
+
+```shell
+sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
+```
