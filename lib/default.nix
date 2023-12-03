@@ -22,4 +22,8 @@ lib: {
       (container: commands: ''podman exec ${container} /bin/sh -c "${lib.concatStringsSep " && " commands}"'')
       attrs
     );
+  optionalImport = path:
+    if builtins.pathExists path
+    then [path]
+    else [];
 }
