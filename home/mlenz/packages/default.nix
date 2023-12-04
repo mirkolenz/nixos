@@ -40,6 +40,7 @@
     restic
     autorestic
     fastfetch
+    sqlite
     # bulk renaming
     massren
     mmv-go
