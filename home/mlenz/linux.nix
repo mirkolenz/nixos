@@ -4,7 +4,5 @@
   ...
 }:
 lib.mkIf pkgs.stdenv.isLinux {
-  home.packages = with pkgs; [
-    mkpasswd
-  ];
+  home.packages = with pkgs; [];
 }

@@ -41,6 +41,7 @@
     autorestic
     fastfetch
     sqlite
+    mkpasswd
     # bulk renaming
     massren
     mmv-go
