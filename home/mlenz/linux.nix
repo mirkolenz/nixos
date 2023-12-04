@@ -4,5 +4,7 @@
   ...
 }:
 lib.mkIf pkgs.stdenv.isLinux {
-  home.packages = with pkgs; [];
+  home.packages = with pkgs; [
+    fastfetch
+  ];
 }

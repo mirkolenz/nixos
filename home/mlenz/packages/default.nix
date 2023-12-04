@@ -39,7 +39,6 @@
     speedtest-cli
     restic
     autorestic
-    fastfetch
     sqlite
     mkpasswd
     # bulk renaming
