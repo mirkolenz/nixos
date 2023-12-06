@@ -25,5 +25,5 @@ jobs:
             --commit-lock-file \
             --commit-lockfile-summary "chore(deps): update flake.lock"
         name: Run nix flake update
-      - run: nix flake check
+      - run: nix run .#ci
       - run: git push
