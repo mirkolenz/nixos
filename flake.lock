@@ -852,11 +852,11 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1701545368,
-        "narHash": "sha256-AzE7T/aRj/3kJ6nKJZ4zxuPpSJ+NvU8NpTUS7ipbonA=",
+        "lastModified": 1701772025,
+        "narHash": "sha256-Q8U9c39+aX9dsyMWFjRLLCav5m+M6IrE1V7X9AWfreM=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "741dd36395236f34dbe35a2db79a711c6b318ce4",
+        "rev": "903e2a1ccb92f17ac5810bc1229f5dd0addd7ba6",
         "type": "github"
       },
       "original": {
@@ -930,11 +930,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1701656099,
-        "narHash": "sha256-dB4sH2u+6j3B7bOFYrEA2t8L7P5ozw1wdDQbd0DVwmg=",
+        "lastModified": 1701816679,
+        "narHash": "sha256-2RHRwSU2LV1FcZ95cZJQtxZbbsQvLD5ErY+ePDuAUHI=",
         "owner": "nix-community",
         "repo": "poetry2nix",
-        "rev": "7eaec209686dd2a798fa0a86dc2118f4175abf34",
+        "rev": "d734eac98c5b5709991efb209051ac0f6a196508",
         "type": "github"
       },
       "original": {
