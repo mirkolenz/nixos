@@ -287,7 +287,6 @@
           default = self'.packages.system;
           system = mkBuilder systemBuilder;
           home = mkBuilder inputs.home-manager-linux-unstable.packages.${system}.default;
-          ci = pkgs.nixci;
         };
         legacyPackages.homeConfigurations =
           lib.genAttrs

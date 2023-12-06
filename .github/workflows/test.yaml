@@ -16,4 +16,4 @@ jobs:
         with:
           extra-conf: |
             extra-platforms = aarch64-linux
-      - run: nix run .#ci
+      - run: nix flake check
