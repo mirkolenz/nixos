@@ -12,4 +12,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     enable = true;
     bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
   };
+  home.sessionVariables = {
+    EDITOR = lib.mkForce "code -w";
+  };
 }
