@@ -23,6 +23,7 @@ in
       mu-repo
       youtube-dl
       cc2538-bsl
+      imagemagick
       # nix
       nixpkgs-fmt
       nil
