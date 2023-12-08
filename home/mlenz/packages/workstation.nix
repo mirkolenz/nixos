@@ -24,6 +24,7 @@ in
       youtube-dl
       cc2538-bsl
       imagemagick
+      pngquant
       # nix
       nixpkgs-fmt
       nil
