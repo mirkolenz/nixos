@@ -52,9 +52,7 @@ in
       # my own packages
       makejinja
       arguebuf
+      (writeShellScriptBin "poetryup" ''${lib.getExe poetry} up "$@"'')
+      (writeShellScriptBin "npmup" nodePackages.npm-check-updates)
     ];
-    home.shellAliases = {
-      poetryup = "${lib.getExe poetry} up";
-      npmup = lib.getExe pkgs.nodePackages.npm-check-updates;
-    };
   }
