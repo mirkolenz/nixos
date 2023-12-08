@@ -54,7 +54,6 @@ in
       arguebuf
     ];
     home.shellAliases = {
-      hass = lib.getExe pkgs.home-assistant-cli;
       poetryup = "${lib.getExe poetry} up";
       npmup = lib.getExe pkgs.nodePackages.npm-check-updates;
     };
