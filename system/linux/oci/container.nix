@@ -71,7 +71,7 @@
     else builtins.toString value;
 
   generate = name: container: {
-    inherit (container) imageFile cmd labels environmentFiles ports user workdir hostname autoStart;
+    inherit (container) imageFile cmd environmentFiles ports user workdir hostname autoStart;
     image = mkImage container.image;
     environment =
       {
@@ -87,6 +87,13 @@
           (name: value: value.required)
           container.links
         ));
+    labels =
+      container.labels
+      // (
+        lib.optionalAttrs
+        (container.update != null)
+        {"io.containers.autoupdate" = container.update;}
+      );
     extraOptions =
       (mkCliOptions {
         pull = container.pull;
@@ -149,6 +156,12 @@ in {
             "traefik.https.routers.example.rule" = "Host(`example.container`)";
           }
         '';
+      };
+
+      update = mkOption {
+        type = with types; nullOr str;
+        default = "registry";
+        description = lib.mdDoc "If not null, add the label `io.containers.autoupdate=VALUE` to the container.";
       };
 
       entrypoint = mkOption {

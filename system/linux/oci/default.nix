@@ -48,6 +48,19 @@ in {
     subidname = mkOption {
       type = with types; str;
     };
+
+    update = mkOption {
+      type = types.submodule {
+        options = {
+          enable = mkEnableOption "Automatic updates of container images";
+          startAt = mkOption {
+            type = types.str;
+            description = "Systemd timer start time";
+            # default = "*-*-* 02:00:00";
+          };
+        };
+      };
+    };
   };
 
   config = lib.mkIf (cfg.containers != {} || cfg.networks != {}) {
@@ -59,6 +72,17 @@ in {
         ));
     };
     environment.etc = mkNetworks cfg.networks;
+
+    systemd.services.oci-update = {
+      inherit (cfg.update) enable startAt;
+      wantedBy = ["multi-user.target"];
+      wants = ["network.target"];
+      after = ["network.target"];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        ${lib.getExe' pkgs.podman "podman"} auto-update
+      '';
+    };
 
     # https://hub.docker.com/_/caddy
     custom.oci.proxyContainer = {
