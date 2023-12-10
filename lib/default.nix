@@ -26,4 +26,5 @@ lib: {
     if builtins.pathExists path
     then [path]
     else [];
+  isEmpty = value: value == null || value == "" || value == [] || value == {};
 }
