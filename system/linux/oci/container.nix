@@ -341,7 +341,7 @@ in {
       };
 
       runOptions = mkOption {
-        type = with types; attrsOf str;
+        type = with types; attrsOf (oneOf [str bool (listOf str) (attrsOf str)]);
         default = {};
         description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
         example = literalExpression ''
