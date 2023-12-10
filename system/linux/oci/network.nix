@@ -6,7 +6,7 @@
   json = pkgs.formats.json {};
 
   generate = name: network:
-    json.generate "${name}.json" {
+    lib.mkIf network.enable (json.generate "${name}.json" {
       inherit name;
       inherit (network) driver id subnets internal;
       network_interface = network.interface;
@@ -14,11 +14,15 @@
       ipv6_enabled = network.ipv6;
       dns_enabled = network.driver == "bridge";
       ipam_options.driver = "host-local";
-    };
+    });
 in {
   inherit generate;
   submodule = {
     options = with lib; {
+      enable = mkOption {
+        type = with types; bool;
+        default = true;
+      };
       driver = mkOption {
         type = types.enum ["bridge" "macvlan"];
         default = "bridge";

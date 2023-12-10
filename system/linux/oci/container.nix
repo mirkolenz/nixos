@@ -60,45 +60,63 @@
     then "${image.registry}/${image.name}:${image.tag}"
     else image;
 
-  generate = name: container: {
-    inherit (container) imageFile cmd environmentFiles ports user workdir hostname autoStart;
-    image = mkImage container.image;
-    environment =
-      {
-        TZ = "Europe/Berlin";
-      }
-      // container.environment;
-    volumes = mkVolumes container.volumes;
-    dependsOn =
-      container.dependsOn
-      ++ (builtins.attrNames
-        (
-          lib.filterAttrs
-          (name: value: value.required)
-          container.links
-        ));
-    labels =
-      container.labels
-      // (
-        lib.optionalAttrs
-        (container.update != null)
-        {"io.containers.autoupdate" = container.update;}
-      );
-    extraOptions =
-      (mkCliOptions {
-        pull = container.pull;
-        subuidname = container.subidname;
-        subgidname = container.subidname;
-      })
-      ++ (mkNetworks container.networkSuffixes)
-      ++ (mkHosts container.hosts)
-      ++ (mkLinks container.links)
-      ++ container.runArgs;
-  };
+  generate = name: container:
+    lib.mkIf container.enable {
+      inherit
+        (container)
+        imageFile
+        cmd
+        environmentFiles
+        ports
+        user
+        workdir
+        hostname
+        autoStart
+        ;
+
+      image = mkImage container.image;
+      environment =
+        {
+          TZ = "Europe/Berlin";
+        }
+        // container.environment;
+      volumes = mkVolumes container.volumes;
+      dependsOn =
+        container.dependsOn
+        ++ (builtins.attrNames
+          (
+            lib.filterAttrs
+            (name: value: value.required)
+            container.links
+          ));
+      labels =
+        container.labels
+        // (
+          lib.optionalAttrs
+          (container.update != null)
+          {"io.containers.autoupdate" = container.update;}
+        );
+      extraOptions =
+        (mkCliOptions {
+          pull = container.pull;
+          subuidname = container.subidname;
+          subgidname = container.subidname;
+        })
+        ++ (mkNetworks container.networkSuffixes)
+        ++ (mkHosts container.hosts)
+        ++ (mkLinks container.links)
+        ++ container.runArgs;
+    };
 in {
   inherit generate;
   submodule = {
     options = with lib; {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = lib.mdDoc "Enable the containers.";
+      };
+
       image = mkOption {
         type = types.submodule {
           options = {

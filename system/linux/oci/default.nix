@@ -18,14 +18,21 @@
   mkNetworks = networks:
     lib.mapAttrs' (name: value: {
       name = "containers/networks/${name}.json";
-      value = {source = network.generate name value;};
+      value = {
+        source = network.generate name value;
+      };
     })
     networks;
 
   mkContainers = containers:
-    lib.mapAttrs (name: value: container.generate name value) containers;
+    lib.mapAttrs (
+      name: value: container.generate name value
+    )
+    containers;
 in {
   options.custom.oci = with lib; {
+    enable = mkEnableOption "Enable OCI containers";
+
     containers = mkOption {
       default = {};
       type = with types; attrsOf (submodule container.submodule);
@@ -64,13 +71,15 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.containers != {} || cfg.networks != {}) {
+  config = lib.mkIf (cfg.enable) {
     virtualisation.oci-containers = {
       backend = "podman";
-      containers = mkContainers (cfg.containers
-        // (
-          lib.optionalAttrs cfg.proxy.enable {proxy = cfg.proxyContainer;}
-        ));
+      containers = mkContainers (
+        cfg.containers
+        // {
+          proxy = cfg.proxyContainer;
+        }
+      );
     };
     environment.etc = mkNetworks cfg.networks;
 
@@ -86,6 +95,7 @@ in {
 
     # https://hub.docker.com/_/caddy
     custom.oci.proxyContainer = {
+      enable = cfg.proxy.enable;
       image = {
         name = "caddy";
         tag = cfg.proxy.imageTag;
