@@ -41,7 +41,7 @@
 
   mkContainerHostConf = container: let
     prefix = cfg.networks.${cfg.proxy.network}.prefix;
-    suffix = container.networkSuffixes.${cfg.proxy.network};
+    suffix = container.networks.${cfg.proxy.network}.suffix;
   in
     mkHostConf (container.proxy
       // {

@@ -105,8 +105,10 @@ in {
         [(builtins.toString cfg.proxy.dataDir) "/data"]
         [(builtins.toString cfg.proxy.configDir) "/config"]
       ];
-      networkSuffixes = {
-        ${cfg.proxy.network} = cfg.proxy.networkSuffix;
+      networks = {
+        ${cfg.proxy.network} = {
+          suffix = cfg.proxy.networkSuffix;
+        };
       };
       ports = [
         "80:80"
