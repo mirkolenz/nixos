@@ -3,6 +3,7 @@
   lib,
   pkgs,
 }: let
+  isEmpty = value: value == null || value == "" || value == [] || value == {};
   mkNestedCliOption = attrs: lib.concatStringsSep ":" (lib.mapAttrsToList (name: value: "${name}=${builtins.toString value}") attrs);
   mkCliOption = value:
     if builtins.isAttrs value
@@ -11,21 +12,19 @@
   mkCliOptions = attrs: lib.mapAttrsToList (name: value: "--${name}=${mkCliOption value}") attrs;
 
   mkAttrsCliOption = name: value:
-    if value != {} && value != null && value != ""
-    then "${name}:${mkCliOption value}"
-    else name;
+    if isEmpty value
+    then name
+    else "${name}:${mkCliOption value}";
   mkAttrsCliOptions = namespace: attrs: lib.mapAttrsToList (name: value: "--${namespace}=${mkAttrsCliOption name value}") attrs;
   mkListCliOptions = namespace: values: builtins.map (value: "--${namespace}=${mkCliOption value}") values;
 
-  mkNetwork = name: value: let
-    params =
-      if value != null && value != ""
-      then null
-      else {
+  mkNetwork = name: value:
+    if isEmpty value
+    then name
+    else
+      mkAttrsCliOption name {
         ip = "${cfg.networks.${name}.prefix}.${value}";
       };
-  in
-    mkAttrsCliOption name params;
   mkNetworks = attrs: lib.mapAttrsToList (name: value: "--network=${mkNetwork name value}") attrs;
 
   mkHost = name: value: "${name}:${value}";
