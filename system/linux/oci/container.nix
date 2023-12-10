@@ -4,9 +4,20 @@
   pkgs,
 }: let
   isEmpty = value: value == null || value == "" || value == [] || value == {};
+  isNotEmpty = value: !isEmpty value;
 
-  mkNestedCliOption = attrs: lib.concatStringsSep ":" (lib.mapAttrsToList (name: value: "${name}=${builtins.toString value}") attrs);
-  mkListCliOption = values: lib.concatStringsSep "," (builtins.map builtins.toString values);
+  mkNestedCliOption = attrs:
+    lib.concatStringsSep ":" (
+      lib.mapAttrsToList
+      (name: value: "${name}=${builtins.toString value}")
+      (lib.filterAttrs (name: value: isNotEmpty value) attrs)
+    );
+  mkListCliOption = values:
+    lib.concatStringsSep "," (
+      builtins.map builtins.toString (
+        builtins.filter isNotEmpty values
+      )
+    );
   mkCliOption = value:
     if builtins.isAttrs value
     then mkNestedCliOption value
@@ -32,12 +43,11 @@
   mkFlags = values: builtins.map (value: "--${value}") values;
 
   mkNetwork = name: value:
-    if isEmpty value
-    then name
-    else
-      mkAttrsCliOption name {
-        ip = "${cfg.networks.${name}.prefix}.${value}";
-      };
+    mkAttrsCliOption name {
+      inherit (value) alias mac;
+      ip = "${cfg.networks.${name}.prefix}.${value.suffix}";
+      interface_name = value.interface;
+    };
   mkNetworks = attrs: lib.mapAttrsToList (name: value: "--network=${mkNetwork name value}") attrs;
 
   mkHost = name: value: "${name}:${value}";
@@ -45,7 +55,7 @@
 
   mkLink = container: link: let
     prefix = cfg.networks.${link.network}.prefix;
-    suffix = cfg.containers.${container}.networkSuffixes.${link.network};
+    suffix = cfg.containers.${container}.networks.${link.network}.suffix;
     ip = "${prefix}.${suffix}";
   in "${link.name}:${ip}";
   mkLinks = attrs: lib.mapAttrsToList (name: value: "--add-host=${mkLink name value}") attrs;
@@ -114,7 +124,7 @@
           subuidname = container.subidname;
           subgidname = container.subidname;
         })
-        ++ (mkNetworks container.networkSuffixes)
+        ++ (mkNetworks container.networks)
         ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
         ++ (mkCliOptions container.runOptions)
@@ -351,9 +361,31 @@ in {
         '';
       };
 
-      networkSuffixes = mkOption {
-        type = with types; attrsOf str;
+      networks = mkOption {
         default = {};
+        type = types.attrsOf (types.nullOr (types.submodule {
+          options = {
+            suffix = mkOption {
+              type = with types; str;
+              description = lib.mdDoc "The suffix of the IP address in the specified network.";
+            };
+
+            alias = mkOption {
+              type = with types; nullOr str;
+              default = null;
+            };
+
+            mac = mkOption {
+              type = with types; nullOr str;
+              default = null;
+            };
+
+            interface = mkOption {
+              type = with types; nullOr str;
+              default = null;
+            };
+          };
+        }));
       };
 
       links = mkOption {
