@@ -73,11 +73,10 @@ in {
     };
     environment.etc = mkNetworks cfg.networks;
 
-    systemd.services.oci-update = {
-      inherit (cfg.update) enable startAt;
+    systemd.services.oci-update = lib.mkIf cfg.update.enable {
+      inherit (cfg.update) startAt;
       wantedBy = ["multi-user.target"];
-      wants = ["network.target"];
-      after = ["network.target"];
+      after = ["network-online.target"];
       serviceConfig.Type = "oneshot";
       script = ''
         ${lib.getExe' pkgs.podman "podman"} auto-update
