@@ -4,12 +4,23 @@
   pkgs,
 }: let
   isEmpty = value: value == null || value == "" || value == [] || value == {};
+
   mkNestedCliOption = attrs: lib.concatStringsSep ":" (lib.mapAttrsToList (name: value: "${name}=${builtins.toString value}") attrs);
+  mkListCliOption = values: lib.concatStringsSep "," (builtins.map builtins.toString values);
   mkCliOption = value:
     if builtins.isAttrs value
     then mkNestedCliOption value
+    else if builtins.isList value
+    then mkListCliOption value
     else builtins.toString value;
-  mkCliOptions = attrs: lib.mapAttrsToList (name: value: "--${name}=${mkCliOption value}") attrs;
+  mkCliOptions = attrs:
+    lib.mapAttrsToList (
+      name: value:
+        if isEmpty value
+        then "--${name}"
+        else "--${name}=${mkCliOption value}"
+    )
+    attrs;
 
   mkAttrsCliOption = name: value:
     if isEmpty value
