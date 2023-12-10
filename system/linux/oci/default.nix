@@ -101,7 +101,7 @@ in {
         tag = cfg.proxy.imageTag;
       };
       volumes = [
-        [(builtins.toString proxy.Caddyfile) "/etc/caddy/Caddyfile" "ro"]
+        ["${proxy.Caddyfile}/Caddyfile" "/etc/caddy/Caddyfile" "ro"]
         [(builtins.toString cfg.proxy.dataDir) "/data"]
         [(builtins.toString cfg.proxy.configDir) "/config"]
       ];
