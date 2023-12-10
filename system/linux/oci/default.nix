@@ -50,6 +50,7 @@ in {
     };
 
     update = mkOption {
+      default = {};
       type = types.submodule {
         options = {
           enable = mkEnableOption "Automatic updates of container images";
@@ -74,10 +75,10 @@ in {
     environment.etc = mkNetworks cfg.networks;
 
     systemd.services.oci-update = lib.mkIf cfg.update.enable {
+      inherit (cfg.update) startAt;
       wantedBy = ["multi-user.target"];
       after = ["network-online.target"];
       serviceConfig.Type = "oneshot";
-      startAt = cfg.update.startAt;
       script = ''
         ${lib.getExe' pkgs.podman "podman"} auto-update
       '';
