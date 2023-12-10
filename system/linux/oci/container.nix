@@ -52,7 +52,7 @@
     then mkAttrVolume value
     else if builtins.isList value
     then mkListVolume value
-    else builtins.toString value;
+    else value;
   mkVolumes = values: builtins.map mkVolume values;
 
   mkAttrsImage = {
@@ -60,13 +60,10 @@
     registry ? "docker.io",
     tag ? "latest",
   }: "${registry}/${name}:${tag}";
-  mkListImage = values: lib.concatStringsSep ":" values;
   mkImage = value:
     if builtins.isAttrs value
     then mkAttrsImage value
-    else if builtins.isList value
-    then mkListImage value
-    else builtins.toString value;
+    else value;
 
   generate = name: container: {
     inherit (container) imageFile cmd environmentFiles ports user workdir hostname autoStart;
