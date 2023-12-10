@@ -58,11 +58,8 @@
   mkAttrsImage = {
     name,
     registry ? "docker.io",
-    tag ? null,
-  }:
-    if tag == null
-    then name
-    else "${registry}/${name}:${tag}";
+    tag ? "latest",
+  }: "${registry}/${name}:${tag}";
   mkListImage = values: lib.concatStringsSep ":" values;
   mkImage = value:
     if builtins.isAttrs value
