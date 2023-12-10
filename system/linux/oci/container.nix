@@ -29,6 +29,8 @@
   mkAttrsCliOptions = namespace: attrs: lib.mapAttrsToList (name: value: "--${namespace}=${mkAttrsCliOption name value}") attrs;
   mkListCliOptions = namespace: values: builtins.map (value: "--${namespace}=${mkCliOption value}") values;
 
+  mkFlags = values: builtins.map (value: "--${value}") values;
+
   mkNetwork = name: value:
     if isEmpty value
     then name
@@ -115,7 +117,8 @@
         ++ (mkNetworks container.networkSuffixes)
         ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
-        ++ container.runArgs;
+        ++ (mkCliOptions container.runOptions)
+        ++ container.runFlags;
     };
 in {
   inherit generate;
@@ -328,12 +331,23 @@ in {
         example = "hello-world";
       };
 
-      runArgs = mkOption {
+      runFlags = mkOption {
         type = with types; listOf str;
         default = [];
-        description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
+        description = lib.mdDoc "Extra flags for {command}`${defaultBackend} run`.";
         example = literalExpression ''
           ["--network=host"]
+        '';
+      };
+
+      runOptions = mkOption {
+        type = with types; attrsOf str;
+        default = {};
+        description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
+        example = literalExpression ''
+          {
+            "network" = "host";
+          }
         '';
       };
 
