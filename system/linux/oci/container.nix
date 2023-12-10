@@ -55,15 +55,10 @@
     else value;
   mkVolumes = values: builtins.map mkVolume values;
 
-  mkAttrsImage = {
-    name,
-    registry ? "docker.io",
-    tag ? "latest",
-  }: "${registry}/${name}:${tag}";
-  mkImage = value:
-    if builtins.isAttrs value
-    then mkAttrsImage value
-    else value;
+  mkImage = image:
+    if builtins.isAttrs image
+    then "${image.registry}/${image.name}:${image.tag}"
+    else image;
 
   generate = name: container: {
     inherit (container) imageFile cmd environmentFiles ports user workdir hostname autoStart;
@@ -105,7 +100,27 @@ in {
   submodule = {
     options = with lib; {
       image = mkOption {
-        type = with types; attrsOf str;
+        type = types.submodule {
+          options = {
+            name = mkOption {
+              type = with types; str;
+              description = lib.mdDoc "The name of the image to use.";
+              example = "hello-world";
+            };
+
+            registry = mkOption {
+              type = with types; str;
+              default = "docker.io";
+              description = lib.mdDoc "The registry to pull the image from.";
+            };
+
+            tag = mkOption {
+              type = with types; str;
+              default = "latest";
+              description = lib.mdDoc "The tag of the image to use.";
+            };
+          };
+        };
       };
 
       imageFile = mkOption {
