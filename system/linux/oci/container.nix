@@ -130,7 +130,7 @@
         ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
         ++ (mkCliOptions container.runOptions)
-        ++ container.runFlags;
+        ++ container.runArgs;
     };
 in {
   inherit generate;
@@ -343,7 +343,7 @@ in {
         example = "hello-world";
       };
 
-      runFlags = mkOption {
+      runArgs = mkOption {
         type = with types; listOf str;
         default = [];
         description = lib.mdDoc "Extra flags for {command}`${defaultBackend} run`.";
