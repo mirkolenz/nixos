@@ -29,6 +29,8 @@
       name: value:
         if isEmpty value
         then "--${name}"
+        else if builtins.isList value
+        then builtins.map (entry: "--${name}=${mkCliOption entry}") value
         else "--${name}=${mkCliOption value}"
     )
     attrs;
@@ -351,7 +353,18 @@ in {
       };
 
       runOptions = mkOption {
-        type = with types; attrsOf (oneOf [str bool (listOf str) (attrsOf str)]);
+        type = with types;
+          attrsOf (oneOf [
+            str
+            bool
+            (attrsOf str)
+            (listOf (onOf [
+              str
+              bool
+              (attrsOf str)
+              (listOf str)
+            ]))
+          ]);
         default = {};
         description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
         example = literalExpression ''
