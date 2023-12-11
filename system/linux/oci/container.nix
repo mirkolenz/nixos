@@ -7,7 +7,7 @@
   isNotEmpty = value: !isEmpty value;
 
   mkNestedCliOption = attrs:
-    lib.concatStringsSep ":" (
+    lib.concatStringsSep "," (
       lib.mapAttrsToList
       (name: value: "${name}=${builtins.toString value}")
       (lib.filterAttrs (name: value: isNotEmpty value) attrs)
