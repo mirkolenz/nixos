@@ -6,14 +6,15 @@
   json = pkgs.formats.json {};
 
   generate = name: network:
-    lib.mkIf network.enable (json.generate "${name}.json" {
+    lib.mkIf network.enable (json.generate "${name}.json" rec {
       inherit name;
       inherit (network) driver id subnets internal;
       network_interface = network.interface;
       created = "2020-01-01T06:00:00.000000000+01:00";
+      ipam_options.driver = "host-local";
       ipv6_enabled = network.ipv6;
       dns_enabled = network.driver == "bridge";
-      ipam_options.driver = "host-local";
+      network_dns_servers = lib.mkIf (dns_enabled && network.dns != []) network.dns;
     });
 in {
   inherit generate;
@@ -38,6 +39,10 @@ in {
       };
       subnets = mkOption {
         type = with types; listOf attrs;
+        default = [];
+      };
+      dns = mkOption {
+        type = with types; listOf str;
         default = [];
       };
       internal = mkEnableOption "Restrict access to internal";
