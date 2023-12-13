@@ -157,7 +157,7 @@ mas list | sort -k 2 > mas.txt
 _Note:_ Reconnect via SSH after installing nix.
 
 ```shell
-sudo --preserve-env=PATH env nix upgrade-nix
+sudo /nix/var/nix/profiles/default/bin/nix upgrade-nix
 nix run github:mirkolenz/nixos#home
 sudo usermod -s $(which fish) "$USER"
 ```
