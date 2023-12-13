@@ -27,4 +27,15 @@ lib: {
     then [path]
     else [];
   isEmpty = value: value == null || value == "" || value == [] || value == {};
+  githubSshKeys = {
+    user,
+    sha256,
+  }: let
+    apiResponse = builtins.fetchurl {
+      inherit sha256;
+      url = "https://api.github.com/users/${user}/keys";
+    };
+    parsedResponse = builtins.fromJSON (builtins.readFile apiResponse);
+  in
+    builtins.map (x: x.key) parsedResponse;
 }

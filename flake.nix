@@ -124,12 +124,6 @@
       unstableVersion = "24.05";
     };
 
-    githubApiSshKeys = builtins.fetchurl {
-      url = "https://api.github.com/users/mirkolenz/keys";
-      sha256 = "0f52mwv3ja24q1nz65aig8id2cpvnm0w92f9xdc80xn3qg3ji374";
-    };
-    githubSshKeys = builtins.fromJSON (builtins.readFile githubApiSshKeys);
-
     # can be overriden in module
     moduleArgs = {
       user = {
@@ -137,7 +131,10 @@
         mail = "mirko@mirkolenz.com";
         login = "mlenz";
         id = 1000;
-        sshKeys = builtins.map (x: x.key) githubSshKeys;
+        sshKeys = self.lib.githubSshKeys {
+          user = "mirkolenz";
+          sha256 = "0f52mwv3ja24q1nz65aig8id2cpvnm0w92f9xdc80xn3qg3ji374";
+        };
       };
     };
 
