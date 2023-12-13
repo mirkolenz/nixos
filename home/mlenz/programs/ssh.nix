@@ -17,7 +17,7 @@
       "wi2gpu" = {
         hostname = "136.199.130.136";
         forwardAgent = true;
-        user = "mlenz";
+        user = "lenz";
       };
       "wi2gputest" = {
         hostname = "136.199.130.212";
