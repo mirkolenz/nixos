@@ -15,12 +15,7 @@
         identityFile = ["id_ed25519"];
       };
       "wi2gpu" = {
-        hostname = "136.199.130.136";
-        forwardAgent = true;
-        user = "lenz";
-      };
-      "wi2gputest" = {
-        hostname = "136.199.130.212";
+        hostname = "gpu.wi2.uni-trier.de";
         forwardAgent = true;
         user = "lenz";
       };
