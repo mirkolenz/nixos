@@ -7,7 +7,7 @@
 
   generate = name: network: let
     dns_enabled = network.driver == "bridge";
-    networkConfig = lib.mkMerge [
+    networkConfig =
       {
         inherit name dns_enabled;
         inherit (network) driver id subnets internal;
@@ -16,10 +16,9 @@
         ipam_options.driver = "host-local";
         ipv6_enabled = network.ipv6;
       }
-      (lib.mkIf dns_enabled {
+      (lib.optionalAttrs dns_enabled {
         network_dns_servers = network.dns;
-      })
-    ];
+      });
   in
     lib.mkIf network.enable (
       json.generate "${name}.json" networkConfig
