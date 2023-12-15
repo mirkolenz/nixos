@@ -1,19 +1,13 @@
-{
+args @ {
   lib,
   config,
   pkgs,
   ...
 }: let
   cfg = config.custom.oci;
-  network = import ./network.nix {
-    inherit cfg lib pkgs;
-  };
-  container = import ./container.nix {
-    inherit cfg lib pkgs;
-  };
-  proxy = import ./proxy.nix {
-    inherit cfg lib pkgs;
-  };
+  network = import ./network.nix args;
+  container = import ./container.nix args;
+  proxy = import ./proxy.nix args;
 
   mkNetworks = networks:
     lib.mapAttrs' (name: value: {

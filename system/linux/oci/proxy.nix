@@ -2,6 +2,7 @@
   cfg,
   lib,
   pkgs,
+  ...
 }: let
   hostOptions = {
     options = with lib; {

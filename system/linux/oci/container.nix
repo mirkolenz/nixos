@@ -2,65 +2,35 @@
   cfg,
   lib,
   pkgs,
+  mylib,
+  ...
 }: let
-  isEmpty = value: value == null || value == "" || value == [] || value == {};
-  isNotEmpty = value: !isEmpty value;
-
-  mkNestedCliOption = attrs:
-    lib.concatStringsSep "," (
-      lib.mapAttrsToList
-      (name: value: "${name}=${builtins.toString value}")
-      (lib.filterAttrs (name: value: isNotEmpty value) attrs)
-    );
-  mkListCliOption = values:
-    lib.concatStringsSep "," (
-      builtins.map builtins.toString (
-        builtins.filter isNotEmpty values
-      )
-    );
-  mkCliOption = value:
-    if builtins.isAttrs value
-    then mkNestedCliOption value
-    else if builtins.isList value
-    then mkListCliOption value
-    else builtins.toString value;
-  mkCliOptions = attrs:
-    lib.mapAttrsToList (
-      name: value:
-        if isEmpty value
-        then "--${name}"
-        else if builtins.isList value
-        then builtins.map (entry: "--${name}=${mkCliOption entry}") value
-        else "--${name}=${mkCliOption value}"
-    )
-    attrs;
-
-  mkAttrsCliOption = name: value:
-    if isEmpty value
-    then name
-    else "${name}:${mkCliOption value}";
-  mkAttrsCliOptions = namespace: attrs: lib.mapAttrsToList (name: value: "--${namespace}=${mkAttrsCliOption name value}") attrs;
-  mkListCliOptions = namespace: values: builtins.map (value: "--${namespace}=${mkCliOption value}") values;
-
-  mkFlags = values: builtins.map (value: "--${value}") values;
-
-  mkNetwork = name: value:
-    mkAttrsCliOption name {
-      inherit (value) alias mac;
-      ip = "${cfg.networks.${name}.prefix}.${value.suffix}";
-      interface_name = value.interface;
+  mkNetwork = name: value: {
+    inherit (value) alias mac;
+    _prefix = name;
+    ip = "${cfg.networks.${name}.prefix}.${value.suffix}";
+    interface_name = value.interface;
+  };
+  mkNetworks = attrs:
+    mylib.mkPodmanOptions {
+      network = builtins.mapAttrsToList mkNetwork attrs;
     };
-  mkNetworks = attrs: lib.mapAttrsToList (name: value: "--network=${mkNetwork name value}") attrs;
 
   mkHost = name: value: "${name}:${value}";
-  mkHosts = attrs: lib.mapAttrsToList (name: value: "--add-host=${mkHost name value}") attrs;
+  mkHosts = attrs:
+    mylib.mkPodmanOptions {
+      add-host = builtins.mapAttrsToList mkHost attrs;
+    };
 
   mkLink = container: link: let
     prefix = cfg.networks.${link.network}.prefix;
     suffix = cfg.containers.${container}.networks.${link.network}.suffix;
     ip = "${prefix}.${suffix}";
   in "${link.name}:${ip}";
-  mkLinks = attrs: lib.mapAttrsToList (name: value: "--add-host=${mkLink name value}") attrs;
+  mkLinks = attrs:
+    mylib.mkPodmanOptions {
+      add-host = builtins.mapAttrsToList mkLink attrs;
+    };
 
   mkAttrVolume = {
     source,
@@ -121,7 +91,7 @@
           {"io.containers.autoupdate" = container.update;}
         );
       extraOptions =
-        (mkCliOptions {
+        (mylib.mkPodmanOptions {
           pull = container.pull;
           subuidname = container.subidname;
           subgidname = container.subidname;
@@ -129,8 +99,8 @@
         ++ (mkNetworks container.networks)
         ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
-        ++ (mkCliOptions container.runOptions)
-        ++ container.runArgs;
+        ++ (mylib.mkPodmanOptions container.extraOptions)
+        ++ container.extraArgs;
     };
 in {
   inherit generate;
@@ -343,7 +313,7 @@ in {
         example = "hello-world";
       };
 
-      runArgs = mkOption {
+      extraArgs = mkOption {
         type = with types; listOf str;
         default = [];
         description = lib.mdDoc "Extra flags for {command}`${defaultBackend} run`.";
@@ -352,7 +322,7 @@ in {
         '';
       };
 
-      runOptions = mkOption {
+      extraOptions = mkOption {
         type = with types;
           attrsOf (oneOf [
             str

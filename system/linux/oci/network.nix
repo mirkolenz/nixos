@@ -2,6 +2,7 @@
   cfg,
   lib,
   pkgs,
+  ...
 }: let
   json = pkgs.formats.json {};
 
