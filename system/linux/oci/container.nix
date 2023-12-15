@@ -12,9 +12,10 @@
     interface_name = value.interface;
   };
   mkNetworks = attrs:
-    mylib.mkPodmanOptions {
-      network = builtins.mapAttrsToList mkNetwork attrs;
-    };
+    assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
+      mylib.mkPodmanOptions {
+        network = builtins.mapAttrsToList mkNetwork attrs;
+      };
 
   mkHost = name: value: "${name}:${value}";
   mkHosts = attrs:

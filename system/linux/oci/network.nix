@@ -13,6 +13,8 @@
       created = "2020-01-01T06:00:00.000000000+01:00";
       ipam_options.driver = "host-local";
       ipv6_enabled = network.ipv6;
+      # Using aardvark dns currently does not work, hostnames are not resolved
+      # https://github.com/containers/podman/pull/17578
       dns_enabled = false;
     };
   in
