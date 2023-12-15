@@ -1,10 +1,10 @@
 {
   cfg,
   lib,
-  pkgs,
-  mylib,
   ...
 }: let
+  mkPodmanOptions = import ./cli.nix lib;
+
   mkNetwork = name: value: {
     inherit (value) alias mac;
     _prefix = name;
@@ -13,13 +13,13 @@
   };
   mkNetworks = attrs:
     assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
-      mylib.mkPodmanOptions {
+      mkPodmanOptions {
         network = builtins.mapAttrsToList mkNetwork attrs;
       };
 
   mkHost = name: value: "${name}:${value}";
   mkHosts = attrs:
-    mylib.mkPodmanOptions {
+    mkPodmanOptions {
       add-host = builtins.mapAttrsToList mkHost attrs;
     };
 
@@ -29,7 +29,7 @@
     ip = "${prefix}.${suffix}";
   in "${link.name}:${ip}";
   mkLinks = attrs:
-    mylib.mkPodmanOptions {
+    mkPodmanOptions {
       add-host = builtins.mapAttrsToList mkLink attrs;
     };
 
@@ -92,7 +92,7 @@
           {"io.containers.autoupdate" = container.update;}
         );
       extraOptions =
-        (mylib.mkPodmanOptions {
+        (mkPodmanOptions {
           pull = container.pull;
           subuidname = container.subidname;
           subgidname = container.subidname;
@@ -100,7 +100,7 @@
         ++ (mkNetworks container.networks)
         ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
-        ++ (mylib.mkPodmanOptions container.extraOptions)
+        ++ (mkPodmanOptions container.extraOptions)
         ++ container.extraArgs;
     };
 in {
