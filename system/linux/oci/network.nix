@@ -16,7 +16,7 @@
         ipam_options.driver = "host-local";
         ipv6_enabled = network.ipv6;
       }
-      (lib.optionalAttrs dns_enabled {
+      // (lib.optionalAttrs dns_enabled {
         network_dns_servers = network.dns;
       });
   in
