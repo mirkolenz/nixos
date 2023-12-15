@@ -5,9 +5,11 @@ args @ {
   ...
 }: let
   cfg = config.custom.oci;
-  network = import ./network.nix args;
-  container = import ./container.nix args;
-  proxy = import ./proxy.nix args;
+  importArgs = args // {inherit cfg;};
+
+  network = import ./network.nix importArgs;
+  container = import ./container.nix importArgs;
+  proxy = import ./proxy.nix importArgs;
 
   mkNetworks = networks:
     lib.mapAttrs' (name: value: {

@@ -1,5 +1,4 @@
 {
-  cfg,
   lib,
   pkgs,
   ...
