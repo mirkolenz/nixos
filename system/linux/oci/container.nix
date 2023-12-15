@@ -14,13 +14,13 @@
   mkNetworks = attrs:
     assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
       mkPodmanOptions {
-        network = builtins.mapAttrsToList mkNetwork attrs;
+        network = lib.mapAttrsToList mkNetwork attrs;
       };
 
   mkHost = name: value: "${name}:${value}";
   mkHosts = attrs:
     mkPodmanOptions {
-      add-host = builtins.mapAttrsToList mkHost attrs;
+      add-host = lib.mapAttrsToList mkHost attrs;
     };
 
   mkLink = container: link: let
@@ -30,7 +30,7 @@
   in "${link.name}:${ip}";
   mkLinks = attrs:
     mkPodmanOptions {
-      add-host = builtins.mapAttrsToList mkLink attrs;
+      add-host = lib.mapAttrsToList mkLink attrs;
     };
 
   mkAttrVolume = {
