@@ -52,6 +52,11 @@ in {
       type = with types; str;
     };
 
+    enableShellWrapper = mkOption {
+      default = true;
+      type = with types; bool;
+    };
+
     update = mkOption {
       default = {};
       type = types.submodule {
@@ -78,6 +83,19 @@ in {
       );
     };
     environment.etc = mkNetworks cfg.networks;
+
+    environment.systemPackages = [
+      (pkgs.writeShellApplication {
+        name = "oci-run";
+        text = ''
+          exec sudo ${lib.getExe pkgs.podman} run \
+            --rm \
+            --subuidname ${cfg.subidname} \
+            --subgidname ${cfg.subidname} \
+            "$@"
+        '';
+      })
+    ];
 
     systemd.services.oci-update = lib.mkIf cfg.update.enable {
       inherit (cfg.update) startAt;
