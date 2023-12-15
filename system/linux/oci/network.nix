@@ -5,17 +5,25 @@
 }: let
   json = pkgs.formats.json {};
 
-  generate = name: network:
-    lib.mkIf network.enable (json.generate "${name}.json" rec {
-      inherit name;
-      inherit (network) driver id subnets internal;
-      network_interface = network.interface;
-      created = "2020-01-01T06:00:00.000000000+01:00";
-      ipam_options.driver = "host-local";
-      ipv6_enabled = network.ipv6;
-      dns_enabled = network.driver == "bridge";
-      network_dns_servers = lib.mkIf (dns_enabled && network.dns != []) network.dns;
-    });
+  generate = name: network: let
+    dns_enabled = network.driver == "bridge";
+    networkConfig = lib.mkMerge [
+      {
+        inherit name dns_enabled;
+        inherit (network) driver id subnets internal;
+        network_interface = network.interface;
+        created = "2020-01-01T06:00:00.000000000+01:00";
+        ipam_options.driver = "host-local";
+        ipv6_enabled = network.ipv6;
+      }
+      (lib.mkIf dns_enabled {
+        network_dns_servers = network.dns;
+      })
+    ];
+  in
+    lib.mkIf network.enable (
+      json.generate "${name}.json" networkConfig
+    );
 in {
   inherit generate;
   submodule = {
