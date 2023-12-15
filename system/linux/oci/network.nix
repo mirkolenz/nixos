@@ -6,19 +6,15 @@
   json = pkgs.formats.json {};
 
   generate = name: network: let
-    dns_enabled = network.driver == "bridge";
-    networkConfig =
-      {
-        inherit name dns_enabled;
-        inherit (network) driver id subnets internal;
-        network_interface = network.interface;
-        created = "2020-01-01T06:00:00.000000000+01:00";
-        ipam_options.driver = "host-local";
-        ipv6_enabled = network.ipv6;
-      }
-      // (lib.optionalAttrs dns_enabled {
-        network_dns_servers = network.dns;
-      });
+    networkConfig = {
+      inherit name;
+      inherit (network) driver id subnets internal;
+      network_interface = network.interface;
+      created = "2020-01-01T06:00:00.000000000+01:00";
+      ipam_options.driver = "host-local";
+      ipv6_enabled = network.ipv6;
+      dns_enabled = false;
+    };
   in
     lib.mkIf network.enable (
       json.generate "${name}.json" networkConfig
@@ -46,10 +42,6 @@ in {
       };
       subnets = mkOption {
         type = with types; listOf attrs;
-        default = [];
-      };
-      dns = mkOption {
-        type = with types; listOf str;
         default = [];
       };
       internal = mkEnableOption "Restrict access to internal";
