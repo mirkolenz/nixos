@@ -50,10 +50,22 @@
     else value;
   mkVolumes = values: builtins.map mkVolume values;
 
+  mkCaps = attrs:
+    mkPodmanOptions {
+      cap-add = builtins.attrNames (lib.filterAttrs (k: v: v) attrs);
+      cap-drop = builtins.attrNames (lib.filterAttrs (k: v: !v) attrs);
+    };
+
   mkImage = image:
     if builtins.isAttrs image
     then "${image.registry}/${image.name}:${image.tag}"
     else image;
+
+  defaultCaps = {
+    NET_RAW = true;
+    NET_BIND_SERVICE = true;
+  };
+  defaultEnv = {TZ = "Europe/Berlin";};
 
   generate = name: container:
     lib.mkIf container.enable {
@@ -70,11 +82,7 @@
         ;
 
       image = mkImage container.image;
-      environment =
-        {
-          TZ = "Europe/Berlin";
-        }
-        // container.environment;
+      environment = defaultEnv // container.environment;
       volumes = mkVolumes container.volumes;
       dependsOn =
         container.dependsOn
@@ -100,6 +108,7 @@
         ++ (mkNetworks container.networks)
         ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
+        ++ (mkCaps (defaultCaps // container.caps))
         ++ (mkPodmanOptions container.extraOptions)
         ++ container.extraArgs;
     };
@@ -312,6 +321,18 @@ in {
         default = null;
         description = lib.mdDoc "The hostname of the container.";
         example = "hello-world";
+      };
+
+      caps = mkOption {
+        type = with types; attrsOf bool;
+        default = {};
+        description = lib.mdDoc "Linux system capabilities to set for this container.";
+        example = literalExpression ''
+          {
+            CAP_HELLO = true;
+            CAP_WORLD = false;
+          }
+        '';
       };
 
       extraArgs = mkOption {
