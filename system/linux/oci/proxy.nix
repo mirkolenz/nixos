@@ -1,9 +1,12 @@
 {
-  cfg,
   lib,
   pkgs,
+  config,
   ...
 }: let
+  cfg = config.custom.oci;
+  proxyCfg = cfg.proxy;
+
   hostOptions = {
     options = with lib; {
       # unique to generic proxies
@@ -41,8 +44,8 @@
   '';
 
   mkContainerHostConf = container: let
-    prefix = cfg.networks.${cfg.proxy.network}.prefix;
-    suffix = container.networks.${cfg.proxy.network}.suffix;
+    prefix = cfg.networks.${proxyCfg.network}.prefix;
+    suffix = container.networks.${proxyCfg.network}.suffix;
   in
     mkHostConf (container.proxy
       // {
@@ -62,9 +65,9 @@
 
   Caddyfile = pkgs.writeTextDir "Caddyfile" ''
     {
-      email ${cfg.proxy.email}
-      auto_https ${boolToOnOff cfg.proxy.autoHttps}
-      ${cfg.proxy.globalConfig}
+      email ${proxyCfg.email}
+      auto_https ${boolToOnOff proxyCfg.autoHttps}
+      ${proxyCfg.globalConfig}
     }
 
     (only_lan) {
@@ -78,69 +81,91 @@
     # 	}
     # }
 
-    ${cfg.proxy.extraConfig}
+    ${proxyCfg.extraConfig}
 
     ${lib.concatLines (builtins.map mkContainerHostConf filteredContainers)}
-    ${lib.concatLines (builtins.map mkHostConf cfg.proxy.hosts)}
+    ${lib.concatLines (builtins.map mkHostConf proxyCfg.hosts)}
   '';
 in {
-  inherit Caddyfile;
-  submodule = {
-    options = with lib; {
-      enable = mkEnableOption "Reverse proxy with Caddy";
+  options.custom.oci.proxy = with lib; {
+    enable = mkEnableOption "Reverse proxy with Caddy";
 
-      network = mkOption {
-        type = with types; str;
-        default = "proxy";
-      };
+    network = mkOption {
+      type = with types; str;
+      default = "proxy";
+    };
 
-      networkSuffix = mkOption {
-        type = with types; str;
-        default = "2";
-      };
+    networkSuffix = mkOption {
+      type = with types; str;
+      default = "2";
+    };
 
-      imageTag = mkOption {
-        type = with types; str;
-        default = "2";
-      };
+    # https://hub.docker.com/_/caddy
+    imageTag = mkOption {
+      type = with types; str;
+      default = "2";
+    };
 
-      dataDir = mkOption {
-        type = with types; str;
-      };
+    dataDir = mkOption {
+      type = with types; str;
+    };
 
-      configDir = mkOption {
-        type = with types; str;
-      };
+    configDir = mkOption {
+      type = with types; str;
+    };
 
-      email = mkOption {
-        type = with types; str;
-      };
+    email = mkOption {
+      type = with types; str;
+    };
 
-      autoHttps = mkOption {
-        type = with types; bool;
-        default = true;
-      };
+    autoHttps = mkOption {
+      type = with types; bool;
+      default = true;
+    };
 
-      hosts = mkOption {
-        type = with types; listOf (submodule hostOptions);
-        default = [];
-      };
+    hosts = mkOption {
+      type = with types; listOf (submodule hostOptions);
+      default = [];
+    };
 
-      extraConfig = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Additional lines of configuration appended to the automatically generated `Caddyfile`.
-        '';
-      };
+    extraConfig = mkOption {
+      type = types.lines;
+      default = "";
+      description = lib.mdDoc ''
+        Additional lines of configuration appended to the automatically generated `Caddyfile`.
+      '';
+    };
 
-      globalConfig = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Additional lines of configuration appended to the automatically generated `Caddyfile`.
-        '';
+    globalConfig = mkOption {
+      type = types.lines;
+      default = "";
+      description = lib.mdDoc ''
+        Additional lines of configuration appended to the automatically generated `Caddyfile`.
+      '';
+    };
+  };
+  config = lib.mkIf (cfg.enable && proxyCfg.enable) {
+    custom.oci.containers.proxy = {
+      inherit (cfg) enable;
+      image = {
+        name = "caddy";
+        tag = proxyCfg.imageTag;
       };
+      volumes = [
+        ["${Caddyfile}/Caddyfile" "/etc/caddy/Caddyfile" "ro"]
+        [(builtins.toString proxyCfg.dataDir) "/data"]
+        [(builtins.toString proxyCfg.configDir) "/config"]
+      ];
+      networks = {
+        ${proxyCfg.network} = {
+          suffix = proxyCfg.networkSuffix;
+        };
+      };
+      ports = [
+        "80:80"
+        "443:443"
+        "443:443/udp"
+      ];
     };
   };
 }
