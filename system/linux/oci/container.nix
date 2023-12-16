@@ -122,6 +122,11 @@ in {
         description = lib.mdDoc "Enable the containers.";
       };
 
+      systemd = mkOption {
+        type = with types; attrsOf anything;
+        default = {};
+      };
+
       image = mkOption {
         type = types.submodule {
           options = {

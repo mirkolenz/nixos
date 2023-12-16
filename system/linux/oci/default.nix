@@ -25,6 +25,19 @@ args @ {
       name: value: container.generate name value
     )
     containers;
+
+  mkSystemd = containers:
+    lib.mapAttrs' (name: value: {
+      name = "podman-${name}";
+      value = value.systemd;
+    })
+    containers;
+
+  allContainers =
+    cfg.containers
+    // {
+      proxy = cfg.proxyContainer;
+    };
 in {
   options.custom.oci = with lib; {
     enable = mkEnableOption "Enable OCI containers";
@@ -75,12 +88,7 @@ in {
   config = lib.mkIf (cfg.enable) {
     virtualisation.oci-containers = {
       backend = "podman";
-      containers = mkContainers (
-        cfg.containers
-        // {
-          proxy = cfg.proxyContainer;
-        }
-      );
+      containers = mkContainers allContainers;
     };
     environment.etc = mkNetworks cfg.networks;
 
@@ -97,15 +105,19 @@ in {
       })
     ];
 
-    systemd.services.oci-update = lib.mkIf cfg.update.enable {
-      inherit (cfg.update) startAt;
-      wantedBy = ["multi-user.target"];
-      after = ["network-online.target"];
-      serviceConfig.Type = "oneshot";
-      script = ''
-        ${lib.getExe' pkgs.podman "podman"} auto-update
-      '';
-    };
+    systemd.services =
+      (mkSystemd allContainers)
+      // {
+        oci-update = lib.mkIf cfg.update.enable {
+          inherit (cfg.update) startAt;
+          wantedBy = ["multi-user.target"];
+          after = ["network-online.target"];
+          serviceConfig.Type = "oneshot";
+          script = ''
+            ${lib.getExe' pkgs.podman "podman"} auto-update
+          '';
+        };
+      };
 
     # https://hub.docker.com/_/caddy
     custom.oci.proxyContainer = {
