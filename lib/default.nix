@@ -38,4 +38,22 @@ lib: {
     parsedResponse = builtins.fromJSON (builtins.readFile apiResponse);
   in
     builtins.map (x: x.key) parsedResponse;
+  optionalPath = path: attrset: lib.attrByPath (lib.splitString "." path) null attrset;
+  getLeaves = let
+    getLeavesPath = attrs: path:
+      if builtins.isAttrs attrs
+      then
+        builtins.concatLists (
+          lib.mapAttrsToList
+          (key: value: getLeavesPath value (path ++ [key]))
+          attrs
+        )
+      else [
+        {
+          name = builtins.concatStringsSep "." path;
+          value = attrs;
+        }
+      ];
+  in
+    attrs: builtins.listToAttrs (getLeavesPath attrs []);
 }
