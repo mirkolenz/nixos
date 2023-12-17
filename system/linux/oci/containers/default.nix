@@ -8,12 +8,12 @@
   containersCfg = cfg.containers;
   networksCfg = cfg.networks;
 
-  mkNetwork = name: value: {
-    inherit (value) alias mac;
-    _prefix = name;
-    ip = "${networksCfg.${name}.prefix}.${value.suffix}";
-    interface_name = value.interface;
-  };
+  mkNetwork = name: value:
+    lib.nameValuePair name {
+      inherit (value) alias mac;
+      ip = "${networksCfg.${name}.prefix}.${value.suffix}";
+      interface_name = value.interface;
+    };
   mkNetworks = attrs:
     assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
       mkCliOptions {

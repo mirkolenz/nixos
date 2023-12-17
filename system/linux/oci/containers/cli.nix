@@ -1,4 +1,10 @@
 lib: let
+  isNameValuePair = value:
+    builtins.isAttrs value
+    && (builtins.attrNames value) == ["name" "value"]
+    && builtins.isString value.name
+    && builtins.isAttrs value.value;
+
   mkDefaultValue = lib.generators.mkValueStringDefault {};
 
   mkListOptionValue = values: let
@@ -14,10 +20,15 @@ lib: let
   in
     mkListOptionValue convertedAttrs;
 
-  mkAttrsOptionValue = {_prefix, ...} @ attrs: let
-    filteredAttrs = builtins.removeAttrs attrs ["_prefix"];
-    concatAttrs = concatAttrsOptionValue filteredAttrs;
-  in "${_prefix}:${concatAttrs}";
+  mkAttrsOptionValuePair = {
+    name,
+    value,
+  }: "${name}:${concatAttrsOptionValue value}";
+
+  mkAttrsOptionValue = attrs:
+    if isNameValuePair attrs
+    then mkAttrsOptionValuePair attrs
+    else concatAttrsOptionValue attrs;
 
   mkOptionValue = v:
     if builtins.isList v
