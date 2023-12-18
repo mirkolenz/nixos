@@ -4,7 +4,7 @@
   stateVersionDarwin,
   ...
 }: {
-  imports = [../common] ++ (mylib.importFolder ./.);
+  imports = [../common] ++ (mylib.getModules ./.);
 
   environment.loginShell = pkgs.fish;
   services.nix-daemon.enable = true;

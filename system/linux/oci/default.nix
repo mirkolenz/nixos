@@ -1,12 +1,12 @@
 {
   lib,
-  config,
   mylib,
+  config,
   ...
 }: let
   cfg = config.custom.oci;
 in {
-  imports = mylib.importFolder ./.;
+  imports = mylib.getModules ./.;
   options.custom.oci = with lib; {
     enable = mkEnableOption "Enable OCI containers";
 

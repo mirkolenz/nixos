@@ -114,6 +114,14 @@
   }: let
     getOs = system: nixpkgs.lib.last (nixpkgs.lib.splitString "-" system);
 
+    # extendLib = input:
+    #   input.lib.extend (final: prev: {
+    #     custom = mkLib input;
+    #   });
+    mkLib = input:
+      (import ./lib/general.nix input.lib)
+      // (import ./lib/special.nix input.lib);
+
     # available during import
     specialArgs = {
       inherit inputs;
@@ -170,6 +178,7 @@
     }:
       inputs."nixpkgs-linux-${channel}".lib.nixosSystem {
         inherit specialArgs system;
+        # lib = mkLib inputs."nixpkgs-linux-${channel}";
         modules = [
           systemModule
           inputs."home-manager-linux-${channel}".nixosModules.home-manager
@@ -189,6 +198,7 @@
     }:
       inputs."nix-darwin-${channel}".lib.darwinSystem {
         inherit specialArgs system;
+        # lib = mkLib inputs."nix-darwin-${channel}".inputs.nixpkgs;
         modules = [
           systemModule
           inputs."home-manager-darwin-${channel}".darwinModules.home-manager
@@ -210,6 +220,7 @@
     }:
       inputs.nixos-generators.nixosGenerate {
         inherit specialArgs system format;
+        # lib = mkLib inputs.nixos-generators.inputs.nixpkgs;
         customFormats = import ./installer/formats.nix inputs.nixos-generators.inputs.nixpkgs;
         modules = [
           {_module.args = moduleArgs;}
@@ -225,6 +236,7 @@
       hmInput = inputs."home-manager-${os}-${channel}";
     in
       hmInput.lib.homeManagerConfiguration {
+        # lib = mkLib hmInput.inputs.nixpkgs;
         pkgs = import hmInput.inputs.nixpkgs {
           inherit system;
         };
@@ -291,7 +303,7 @@
           (mkDefaultHomeConfig system);
       };
       flake = {
-        lib = import ./lib nixpkgs.lib;
+        lib = mkLib nixpkgs;
         packages = {
           aarch64-linux.installer-raspi = mkInstaller {
             system = "aarch64-linux";

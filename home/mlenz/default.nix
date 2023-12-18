@@ -23,7 +23,7 @@ in {
       inputs.nix-index-database.hmModules.nix-index
       nixvimInput.homeManagerModules.nixvim
     ]
-    ++ (mylib.importFolder ./.);
+    ++ (mylib.getModules ./.);
 
   home = {
     inherit homeDirectory stateVersion;

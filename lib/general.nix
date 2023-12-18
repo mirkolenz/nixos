@@ -1,5 +1,5 @@
 lib: {
-  importFolder = dir: let
+  getModules = dir: let
     toImport = name: value: dir + ("/" + name);
     filterFiles = name: value:
       !lib.hasPrefix "_" name
@@ -9,24 +9,13 @@ lib: {
       );
   in
     lib.mapAttrsToList toImport (lib.filterAttrs filterFiles (builtins.readDir dir));
-  checkSudo = ''
-    SUDO=""
-    if [ "$(id -u)" -ne 0 ]; then
-        SUDO="sudo"
-    fi
-  '';
-  mkPodmanExec = attrs:
-    lib.concatLines
-    (
-      lib.mapAttrsToList
-      (container: commands: ''podman exec ${container} /bin/sh -c "${lib.concatStringsSep " && " commands}"'')
-      attrs
-    );
-  optionalImport = path:
+  optionalPath = path:
     if builtins.pathExists path
     then [path]
     else [];
   isEmpty = value: value == null || value == "" || value == [] || value == {};
+  isNotEmpty = value: !(value == null || value == "" || value == [] || value == {});
+  isEnabled = x: builtins.hasAttr "enable" x && x.enable == true;
   githubSshKeys = {
     user,
     sha256,
@@ -38,7 +27,6 @@ lib: {
     parsedResponse = builtins.fromJSON (builtins.readFile apiResponse);
   in
     builtins.map (x: x.key) parsedResponse;
-  optionalPath = path: attrset: lib.attrByPath (lib.splitString "." path) null attrset;
   getLeaves = let
     getLeavesPath = attrs: path:
       if builtins.isAttrs attrs
@@ -56,4 +44,7 @@ lib: {
       ];
   in
     attrs: builtins.listToAttrs (getLeavesPath attrs []);
+  attrByDottedPath = path: lib.attrByPath (lib.splitString "." path);
+  getAttrFromDottedPath = path: lib.getAttrFromPath (lib.splitString "." path);
+  setAttrByDottedPath = path: lib.setAttrByPath (lib.splitString "." path);
 }

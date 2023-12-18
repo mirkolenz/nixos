@@ -5,7 +5,7 @@
   stateVersion,
   ...
 }: {
-  imports = [../common] ++ (mylib.importFolder ./.);
+  imports = [../common] ++ (mylib.getModules ./.);
 
   custom.docker.enable = true;
   custom.podman.enable = true;

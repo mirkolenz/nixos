@@ -1,12 +1,12 @@
 {
-  mylib,
   pkgs,
   lib,
+  mylib,
   osConfig,
   config,
   ...
 }: {
-  imports = mylib.importFolder ./.;
+  imports = mylib.getModules ./.;
 
   home.packages = with pkgs; [
     bashInteractive

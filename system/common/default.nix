@@ -1,5 +1,5 @@
 {mylib, ...}: {
-  imports = mylib.importFolder ./.;
+  imports = mylib.getModules ./.;
 
   # networking.firewall = {
   #   enable = true;

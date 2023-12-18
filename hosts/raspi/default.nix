@@ -10,7 +10,7 @@
       ./hardware.nix
       ../server.nix
     ]
-    ++ mylib.optionalImport "/etc/nixos/default.nix";
+    ++ mylib.optionalPath "/etc/nixos/default.nix";
 
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 

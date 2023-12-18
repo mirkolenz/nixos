@@ -1,3 +1,3 @@
 {mylib, ...}: {
-  imports = mylib.importFolder ./.;
+  imports = mylib.getModules ./.;
 }
