@@ -224,6 +224,12 @@
       '';
     };
 
+    sysctl = mkOption {
+      type = with types; attrsOf (either str (attrsOf anything));
+      default = {};
+      description = lib.mdDoc "Configure namespaced kernel parameters at runtime.";
+    };
+
     extraArgs = mkOption {
       type = with types; listOf str;
       default = [];

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  mylib,
   ...
 }: let
   mkCliOptions = import ./cli.nix lib;
@@ -59,6 +60,11 @@
       cap-drop = builtins.attrNames (lib.filterAttrs (k: v: !v) attrs);
     };
 
+  mkSysctl = attrs:
+    mkCliOptions {
+      sysctl = lib.attrsToList (mylib.flocken.getLeaves attrs);
+    };
+
   mkImage = image:
     if builtins.isAttrs image
     then "${image.registry}/${image.name}:${image.tag}"
@@ -67,6 +73,10 @@
   defaultCaps = {
     NET_RAW = true;
     NET_BIND_SERVICE = true;
+  };
+  defaultSysctl = {
+    # https://stackoverflow.com/a/66892807
+    net.ipv4.ip_unprivileged_port_start = 0;
   };
   defaultEnv = {TZ = "Europe/Berlin";};
 
@@ -112,6 +122,7 @@
         ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
         ++ (mkCaps (defaultCaps // container.caps))
+        ++ (mkSysctl (defaultSysctl // container.sysctl))
         ++ (mkCliOptions container.extraOptions)
         ++ container.extraArgs;
     };

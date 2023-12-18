@@ -1,7 +1,7 @@
 lib: let
   isNameValuePair = value:
-    builtins.isAttrs value
-    && (builtins.attrNames value) == ["name" "value"]
+    builtins.attrNames value
+    == ["name" "value"]
     && builtins.isString value.name
     && builtins.isAttrs value.value;
 
@@ -20,13 +20,20 @@ lib: let
   in
     mkListOptionValue convertedAttrs;
 
-  mkAttrsOptionValuePair = {
+  mkNestedAttrsOptionValuePair = {
     name,
     value,
   }: "${name}:${concatAttrsOptionValue value}";
 
+  mkAttrsOptionValuePair = {
+    name,
+    value,
+  }: "${name}=${mkDefaultValue value}";
+
   mkAttrsOptionValue = attrs:
-    if isNameValuePair attrs
+    if isNameValuePair attrs && builtins.isAttrs attrs
+    then mkNestedAttrsOptionValuePair attrs
+    else if isNameValuePair attrs
     then mkAttrsOptionValuePair attrs
     else concatAttrsOptionValue attrs;
 
