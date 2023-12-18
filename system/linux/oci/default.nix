@@ -6,7 +6,7 @@
 }: let
   cfg = config.custom.oci;
 in {
-  imports = mylib.getModules ./.;
+  imports = mylib.flocken.getModules ./.;
   options.custom.oci = with lib; {
     enable = mkEnableOption "Enable OCI containers";
 

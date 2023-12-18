@@ -6,7 +6,7 @@
   config,
   ...
 }: {
-  imports = mylib.getModules ./.;
+  imports = mylib.flocken.getModules ./.;
 
   home.packages = with pkgs; [
     bashInteractive

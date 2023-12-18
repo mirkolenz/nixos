@@ -1,5 +1,5 @@
 {mylib, ...}: {
-  imports = mylib.getModules ./.;
+  imports = mylib.flocken.getModules ./.;
 
   programs = {
     home-manager.enable = true;

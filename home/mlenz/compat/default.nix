@@ -1,3 +1,3 @@
 {mylib, ...}: {
-  imports = mylib.getModules ./.;
+  imports = mylib.flocken.getModules ./.;
 }

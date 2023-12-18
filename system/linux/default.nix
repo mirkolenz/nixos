@@ -5,7 +5,7 @@
   stateVersion,
   ...
 }: {
-  imports = [../common] ++ (mylib.getModules ./.);
+  imports = [../common] ++ (mylib.flocken.getModules ./.);
 
   custom.docker.enable = true;
   custom.podman.enable = true;

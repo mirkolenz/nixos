@@ -15,7 +15,7 @@
       ./samba.nix
       ../server.nix
     ]
-    ++ mylib.optionalPath "/etc/nixos/default.nix";
+    ++ mylib.flocken.optionalPath "/etc/nixos/default.nix";
 
   services.samba.enable = false;
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
