@@ -31,7 +31,7 @@ lib: let
   }: "${name}=${mkDefaultValue value}";
 
   mkAttrsOptionValue = attrs:
-    if isNameValuePair attrs && builtins.isAttrs attrs
+    if isNameValuePair attrs && builtins.isAttrs attrs.value
     then mkNestedAttrsOptionValuePair attrs
     else if isNameValuePair attrs
     then mkAttrsOptionValuePair attrs
