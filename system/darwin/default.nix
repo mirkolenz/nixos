@@ -1,10 +1,10 @@
 {
-  mylib,
+  lib,
   pkgs,
   stateVersionDarwin,
   ...
 }: {
-  imports = [../common] ++ (mylib.flocken.getModules ./.);
+  imports = [../common] ++ (lib.flocken.getModules ./.);
 
   environment.loginShell = pkgs.fish;
   services.nix-daemon.enable = true;

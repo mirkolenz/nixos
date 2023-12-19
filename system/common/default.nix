@@ -1,5 +1,5 @@
-{mylib, ...}: {
-  imports = mylib.flocken.getModules ./.;
+{lib, ...}: {
+  imports = lib.flocken.getModules ./.;
 
   # networking.firewall = {
   #   enable = true;

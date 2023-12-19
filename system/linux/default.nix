@@ -1,11 +1,11 @@
 {
   config,
-  mylib,
+  lib,
   pkgs,
   stateVersion,
   ...
 }: {
-  imports = [../common] ++ (mylib.flocken.getModules ./.);
+  imports = [../common] ++ (lib.flocken.getModules ./.);
 
   custom.docker.enable = true;
   custom.podman.enable = true;

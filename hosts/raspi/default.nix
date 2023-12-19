@@ -1,7 +1,7 @@
 # https://nixos.wiki/wiki/NixOS_on_ARM#Installation
 {
   inputs,
-  mylib,
+  lib,
   ...
 }: {
   imports =
@@ -10,7 +10,7 @@
       ./hardware.nix
       ../server.nix
     ]
-    ++ mylib.flocken.optionalPath "/etc/nixos/default.nix";
+    ++ lib.flocken.optionalPath "/etc/nixos/default.nix";
 
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 

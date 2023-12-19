@@ -1,12 +1,11 @@
 {
   pkgs,
   lib,
-  mylib,
   osConfig,
   config,
   ...
 }: {
-  imports = mylib.flocken.getModules ./.;
+  imports = lib.flocken.getModules ./.;
 
   home.packages = with pkgs; [
     bashInteractive

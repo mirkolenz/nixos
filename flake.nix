@@ -110,23 +110,20 @@
     flake-parts,
     systems,
     nixpkgs,
+    flocken,
     ...
   }: let
     getOs = system: nixpkgs.lib.last (nixpkgs.lib.splitString "-" system);
 
-    # extendLib = input:
-    #   input.lib.extend (nixpkgs.lib.composeManyExtensions [
-    #     self.overlays.lib
-    #     inputs.flocken.overlays.lib
-    #   ]);
-    mylib = {
-      custom = self.lib;
-      flocken = inputs.flocken.lib;
-    };
+    extendLib = input:
+      input.lib.extend (nixpkgs.lib.composeManyExtensions [
+        self.overlays.lib
+        flocken.overlays.lib
+      ]);
 
     # available during import
     specialArgs = {
-      inherit inputs mylib;
+      inherit inputs;
       stateVersion = "23.11";
       stateVersionDarwin = 4;
       stableVersion = "23.11";
@@ -140,7 +137,7 @@
         mail = "mirko@mirkolenz.com";
         login = "mlenz";
         id = 1000;
-        sshKeys = mylib.flocken.githubSshKeys {
+        sshKeys = flocken.lib.githubSshKeys {
           user = "mirkolenz";
           sha256 = "0f52mwv3ja24q1nz65aig8id2cpvnm0w92f9xdc80xn3qg3ji374";
         };
@@ -176,10 +173,22 @@
     mkLinuxSystem = hostName: {
       channel,
       system,
-    }:
-      inputs."nixpkgs-linux-${channel}".lib.nixosSystem {
-        inherit specialArgs system;
-        # lib = extendLib inputs."nixpkgs-linux-${channel}";
+    }: let
+      # upstream currently does not allow to override lib, thus we use a custom version
+      # https://github.com/NixOS/nixpkgs/blob/master/flake.nix
+      lib = (extendLib inputs."nixpkgs-linux-${channel}").extend (final: prev: {
+        nixosSystem = args:
+          import "${inputs."nixpkgs-linux-${channel}".outPath}/nixos/lib/eval-config.nix" (
+            {
+              inherit (inputs."nixpkgs-linux-${channel}") lib;
+              system = null;
+            }
+            // args
+          );
+      });
+    in
+      lib.nixosSystem {
+        inherit specialArgs system lib;
         modules = [
           systemModule
           inputs."home-manager-linux-${channel}".nixosModules.home-manager
@@ -199,7 +208,7 @@
     }:
       inputs."nix-darwin-${channel}".lib.darwinSystem {
         inherit specialArgs system;
-        # lib = extendLib inputs."nix-darwin-${channel}".inputs.nixpkgs;
+        lib = extendLib inputs."nix-darwin-${channel}".inputs.nixpkgs;
         modules = [
           systemModule
           inputs."home-manager-darwin-${channel}".darwinModules.home-manager
@@ -221,7 +230,7 @@
     }:
       inputs.nixos-generators.nixosGenerate {
         inherit specialArgs system format;
-        # lib = extendLib inputs.nixos-generators.inputs.nixpkgs;
+        lib = extendLib inputs.nixos-generators.inputs.nixpkgs;
         customFormats = import ./installer/formats.nix inputs.nixos-generators.inputs.nixpkgs;
         modules = [
           {_module.args = moduleArgs;}
@@ -237,7 +246,7 @@
       hmInput = inputs."home-manager-${os}-${channel}";
     in
       hmInput.lib.homeManagerConfiguration {
-        # lib = extendLib hmInput.inputs.nixpkgs;
+        lib = extendLib hmInput.inputs.nixpkgs;
         pkgs = import hmInput.inputs.nixpkgs {
           inherit system;
         };

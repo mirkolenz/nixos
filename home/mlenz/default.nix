@@ -6,7 +6,6 @@
   user,
   stateVersion,
   unstableVersion,
-  mylib,
   ...
 }: let
   homeDirectory =
@@ -23,7 +22,7 @@ in {
       inputs.nix-index-database.hmModules.nix-index
       nixvimInput.homeManagerModules.nixvim
     ]
-    ++ (mylib.flocken.getModules ./.);
+    ++ (lib.flocken.getModules ./.);
 
   home = {
     inherit homeDirectory stateVersion;

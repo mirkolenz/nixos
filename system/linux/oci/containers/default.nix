@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  mylib,
   ...
 }: let
   mkCliOptions = import ./cli.nix lib;
@@ -62,7 +61,7 @@
 
   mkSysctl = attrs:
     mkCliOptions {
-      sysctl = lib.attrsToList (mylib.flocken.getLeaves attrs);
+      sysctl = lib.attrsToList (lib.flocken.getLeaves attrs);
     };
 
   mkImage = image:
