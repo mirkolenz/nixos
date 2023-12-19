@@ -218,7 +218,7 @@
       description = lib.mdDoc "Linux system capabilities to set for this container.";
     };
 
-    sysctl = mkOption {
+    sysctls = mkOption {
       type = with types; attrsOf (either str (attrsOf anything));
       default = {};
       description = lib.mdDoc "Configure namespaced kernel parameters at runtime.";

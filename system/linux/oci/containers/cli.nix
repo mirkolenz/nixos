@@ -98,7 +98,7 @@ lib: rec {
       cap-drop = builtins.attrNames (lib.filterAttrs (k: v: !v) _attrs);
     };
 
-  mkSysctl = attrs:
+  mkSysctls = attrs:
     mkOptions {
       sysctl = lib.attrsToList (lib.flocken.getLeaves (
         {

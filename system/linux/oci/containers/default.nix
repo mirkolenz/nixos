@@ -77,7 +77,7 @@
         ++ (cli.mkEnv container.environment)
         ++ (cli.mkHosts container.hosts)
         ++ (cli.mkCaps container.caps)
-        ++ (cli.mkSysctl container.sysctl)
+        ++ (cli.mkSysctls container.sysctls)
         ++ (cli.mkOptions container.extraOptions)
         ++ container.extraArgs;
     };
