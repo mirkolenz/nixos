@@ -85,15 +85,38 @@ lib: rec {
   in
     values: builtins.map mkVolume values;
 
-  mkCaps = attrs:
+  mkCaps = attrs: let
+    _attrs =
+      {
+        NET_RAW = true;
+        NET_BIND_SERVICE = true;
+      }
+      // attrs;
+  in
     mkOptions {
-      cap-add = builtins.attrNames (lib.filterAttrs (k: v: v) attrs);
-      cap-drop = builtins.attrNames (lib.filterAttrs (k: v: !v) attrs);
+      cap-add = builtins.attrNames (lib.filterAttrs (k: v: v) _attrs);
+      cap-drop = builtins.attrNames (lib.filterAttrs (k: v: !v) _attrs);
     };
 
   mkSysctl = attrs:
     mkOptions {
-      sysctl = lib.attrsToList (lib.flocken.getLeaves attrs);
+      sysctl = lib.attrsToList (lib.flocken.getLeaves (
+        {
+          # https://stackoverflow.com/a/66892807
+          net.ipv4.ip_unprivileged_port_start = 0;
+        }
+        // attrs
+      ));
+    };
+
+  mkEnv = attrs:
+    mkOptions {
+      env = lib.attrsToList (
+        {
+          TZ = "Europe/Berlin";
+        }
+        // attrs
+      );
     };
 
   mkHosts = let

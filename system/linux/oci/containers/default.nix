@@ -1,14 +1,11 @@
 {
   config,
-  options,
   lib,
   ...
 }: let
   cfg = config.custom.oci;
   containersCfg = cfg.containers;
   networksCfg = cfg.networks;
-
-  getDefault = attr: options.custom.oci.containers.${attr}.default;
 
   mkLinks = let
     mkLink = container: link: let
@@ -53,7 +50,6 @@
         ;
 
       image = cli.mkImage container.image;
-      environment = (getDefault "environment") // container.environment;
       volumes = cli.mkVolumes container.volumes;
       dependsOn =
         container.dependsOn
@@ -78,9 +74,10 @@
         })
         ++ (mkNetworks container.networks)
         ++ (mkLinks container.links)
+        ++ (cli.mkEnv container.environment)
         ++ (cli.mkHosts container.hosts)
-        ++ (cli.mkCaps ((getDefault "caps") // container.caps))
-        ++ (cli.mkSysctl ((getDefault "sysctl") // container.sysctl))
+        ++ (cli.mkCaps container.caps)
+        ++ (cli.mkSysctl container.sysctl)
         ++ (cli.mkOptions container.extraOptions)
         ++ container.extraArgs;
     };

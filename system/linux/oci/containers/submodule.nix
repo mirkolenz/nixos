@@ -95,9 +95,7 @@
 
     environment = mkOption {
       type = with types; attrsOf str;
-      default = {
-        TZ = "Europe/Berlin";
-      };
+      default = {};
       description = lib.mdDoc "Environment variables to set for this container.";
       example = literalExpression ''
         {
@@ -216,19 +214,13 @@
 
     caps = mkOption {
       type = with types; attrsOf bool;
-      default = {
-        NET_RAW = true;
-        NET_BIND_SERVICE = true;
-      };
+      default = {};
       description = lib.mdDoc "Linux system capabilities to set for this container.";
     };
 
     sysctl = mkOption {
       type = with types; attrsOf (either str (attrsOf anything));
-      default = {
-        # https://stackoverflow.com/a/66892807
-        net.ipv4.ip_unprivileged_port_start = 0;
-      };
+      default = {};
       description = lib.mdDoc "Configure namespaced kernel parameters at runtime.";
     };
 

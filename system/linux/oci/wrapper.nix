@@ -2,24 +2,22 @@
   lib,
   pkgs,
   config,
-  options,
   ...
 }: let
   cfg = config.custom.oci;
-  getDefault = attr: options.custom.oci.containers.${attr}.default;
   wrapperCfg = cfg.shellWrapper;
   cli = import ./containers/cli.nix lib;
 
   podmanArgs =
     (cli.mkOptions {
       rm = true;
-      subuidname = getDefault "subidname";
-      subgidname = getDefault "subidname";
-      env = lib.attrsToList (getDefault "environment");
+      subuidname = cfg.subidname;
+      subgidname = cfg.subidname;
     })
-    ++ (cli.mkHosts (getDefault "hosts"))
-    ++ (cli.mkCaps (getDefault "caps"))
-    ++ (cli.mkSysctls (getDefault "sysctls"));
+    ++ (cli.mkEnv {})
+    ++ (cli.mkHosts {})
+    ++ (cli.mkCaps {})
+    ++ (cli.mkSysctls {});
 in {
   options.custom.oci.shellWrapper = with lib; {
     enable = mkOption {
