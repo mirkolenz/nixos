@@ -55,6 +55,6 @@ in
       makejinja
       arguebuf
       (writeShellScriptBin "poetryup" ''exec ${lib.getExe poetry} up "$@"'')
-      (writeShellScriptBin "npmup" nodePackages.npm-check-updates)
+      (writeShellScriptBin "npmup" ''exec ${lib.getExe nodePackages.npm-check-updates} "$@"'')
     ];
   }
