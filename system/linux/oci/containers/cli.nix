@@ -2,8 +2,7 @@ lib: let
   isNameValuePair = value:
     builtins.attrNames value
     == ["name" "value"]
-    && builtins.isString value.name
-    && builtins.isAttrs value.value;
+    && builtins.isString value.name;
 
   mkDefaultValue = lib.generators.mkValueStringDefault {};
 
