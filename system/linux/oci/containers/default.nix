@@ -1,83 +1,42 @@
 {
   config,
+  options,
   lib,
   ...
 }: let
-  mkCliOptions = import ./cli.nix lib;
   cfg = config.custom.oci;
   containersCfg = cfg.containers;
   networksCfg = cfg.networks;
 
-  mkNetwork = name: value:
-    lib.nameValuePair name {
-      inherit (value) alias mac;
-      ip = "${networksCfg.${name}.prefix}.${value.suffix}";
-      interface_name = value.interface;
-    };
-  mkNetworks = attrs:
-    assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
-      mkCliOptions {
-        network = lib.mapAttrsToList mkNetwork attrs;
+  getDefault = attr: options.custom.oci.containers.${attr}.default;
+
+  mkLinks = let
+    mkLink = container: link: let
+      prefix = networksCfg.${link.network}.prefix;
+      suffix = containersCfg.${container}.networks.${link.network}.suffix;
+      ip = "${prefix}.${suffix}";
+    in "${link.name}:${ip}";
+  in
+    attrs:
+      cli.mkOptions {
+        add-host = lib.mapAttrsToList mkLink attrs;
       };
 
-  mkHost = name: value: "${name}:${value}";
-  mkHosts = attrs:
-    mkCliOptions {
-      add-host = lib.mapAttrsToList mkHost attrs;
-    };
+  mkNetworks = let
+    mkNetwork = name: value:
+      lib.nameValuePair name {
+        inherit (value) alias mac;
+        ip = "${networksCfg.${name}.prefix}.${value.suffix}";
+        interface_name = value.interface;
+      };
+  in
+    attrs:
+      assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
+        cli.mkOptions {
+          network = lib.mapAttrsToList mkNetwork attrs;
+        };
 
-  mkLink = container: link: let
-    prefix = networksCfg.${link.network}.prefix;
-    suffix = containersCfg.${container}.networks.${link.network}.suffix;
-    ip = "${prefix}.${suffix}";
-  in "${link.name}:${ip}";
-  mkLinks = attrs:
-    mkCliOptions {
-      add-host = lib.mapAttrsToList mkLink attrs;
-    };
-
-  mkAttrVolume = {
-    source,
-    target,
-    mode ? null,
-  }:
-    if mode == null
-    then "${source}:${target}"
-    else "${source}:${target}:${mode}";
-  mkListVolume = values: lib.concatStringsSep ":" values;
-  mkVolume = value:
-    if builtins.isAttrs value
-    then mkAttrVolume value
-    else if builtins.isList value
-    then mkListVolume value
-    else value;
-  mkVolumes = values: builtins.map mkVolume values;
-
-  mkCaps = attrs:
-    mkCliOptions {
-      cap-add = builtins.attrNames (lib.filterAttrs (k: v: v) attrs);
-      cap-drop = builtins.attrNames (lib.filterAttrs (k: v: !v) attrs);
-    };
-
-  mkSysctl = attrs:
-    mkCliOptions {
-      sysctl = lib.attrsToList (lib.flocken.getLeaves attrs);
-    };
-
-  mkImage = image:
-    if builtins.isAttrs image
-    then "${image.registry}/${image.name}:${image.tag}"
-    else image;
-
-  defaultCaps = {
-    NET_RAW = true;
-    NET_BIND_SERVICE = true;
-  };
-  defaultSysctl = {
-    # https://stackoverflow.com/a/66892807
-    net.ipv4.ip_unprivileged_port_start = 0;
-  };
-  defaultEnv = {TZ = "Europe/Berlin";};
+  cli = import ./cli.nix lib;
 
   mkContainer = name: container:
     lib.mkIf container.enable {
@@ -93,9 +52,9 @@
         autoStart
         ;
 
-      image = mkImage container.image;
-      environment = defaultEnv // container.environment;
-      volumes = mkVolumes container.volumes;
+      image = cli.mkImage container.image;
+      environment = (getDefault "environment") // container.environment;
+      volumes = cli.mkVolumes container.volumes;
       dependsOn =
         container.dependsOn
         ++ (builtins.attrNames
@@ -112,17 +71,17 @@
           {"io.containers.autoupdate" = container.update;}
         );
       extraOptions =
-        (mkCliOptions {
+        (cli.mkOptions {
           pull = container.pull;
           subuidname = container.subidname;
           subgidname = container.subidname;
         })
         ++ (mkNetworks container.networks)
-        ++ (mkHosts container.hosts)
         ++ (mkLinks container.links)
-        ++ (mkCaps (defaultCaps // container.caps))
-        ++ (mkSysctl (defaultSysctl // container.sysctl))
-        ++ (mkCliOptions container.extraOptions)
+        ++ (cli.mkHosts container.hosts)
+        ++ (cli.mkCaps ((getDefault "caps") // container.caps))
+        ++ (cli.mkSysctl ((getDefault "sysctl") // container.sysctl))
+        ++ (cli.mkOptions container.extraOptions)
         ++ container.extraArgs;
     };
 in {

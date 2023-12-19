@@ -2,24 +2,24 @@
   lib,
   pkgs,
   config,
+  options,
   ...
 }: let
   cfg = config.custom.oci;
+  getDefault = attr: options.custom.oci.containers.${attr}.default;
   wrapperCfg = cfg.shellWrapper;
-  mkOptions = import ./containers/cli.nix lib;
+  cli = import ./containers/cli.nix lib;
 
-  podmanArgs = mkOptions {
-    rm = true;
-    subuidname = cfg.subidname;
-    subgidname = cfg.subidname;
-    cap-add = ["NET_RAW" "NET_BIND_SERVICE"];
-    sysctl = [
-      (lib.nameValuePair "net.ipv4.ip_unprivileged_port_start" 0)
-    ];
-    env = [
-      (lib.nameValuePair "TZ" "Europe/Berlin")
-    ];
-  };
+  podmanArgs =
+    (cli.mkOptions {
+      rm = true;
+      subuidname = getDefault "subidname";
+      subgidname = getDefault "subidname";
+      env = lib.attrsToList (getDefault "environment");
+    })
+    ++ (cli.mkHosts (getDefault "hosts"))
+    ++ (cli.mkCaps (getDefault "caps"))
+    ++ (cli.mkSysctls (getDefault "sysctls"));
 in {
   options.custom.oci.shellWrapper = with lib; {
     enable = mkOption {
