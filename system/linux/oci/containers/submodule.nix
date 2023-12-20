@@ -55,10 +55,10 @@
       default = "newer";
     };
 
-    # subidname = mkOption {
-    #   type = with types; nullOr str;
-    #   default = null;
-    # };
+    subidname = mkOption {
+      type = with types; nullOr str;
+      default = null;
+    };
 
     cmd = mkOption {
       type = with types; listOf str;

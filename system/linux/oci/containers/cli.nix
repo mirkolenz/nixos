@@ -119,6 +119,12 @@ lib: rec {
       );
     };
 
+  mkSubidname = value:
+    mkOptions {
+      subuidname = value;
+      subgidname = value;
+    };
+
   mkHosts = let
     mkHost = name: value: "${name}:${value}";
   in

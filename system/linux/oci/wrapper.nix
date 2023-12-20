@@ -11,9 +11,8 @@
   podmanArgs =
     (cli.mkOptions {
       rm = true;
-      subuidname = cfg.subidname;
-      subgidname = cfg.subidname;
     })
+    ++ (cli.mkSubidname cfg.subidname)
     ++ (cli.mkEnv {})
     ++ (cli.mkHosts {})
     ++ (cli.mkCaps {})

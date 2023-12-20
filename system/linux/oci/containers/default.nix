@@ -53,27 +53,33 @@
       volumes = cli.mkVolumes container.volumes;
       dependsOn =
         container.dependsOn
-        ++ (builtins.attrNames
+        ++ (
+          builtins.attrNames
           (
             lib.filterAttrs
             (name: value: value.required)
             container.links
-          ));
-      labels =
+          )
+        );
+      labels = lib.flocken.getLeaves (
         container.labels
         // (
           lib.optionalAttrs
           (container.update != null)
-          {"io.containers.autoupdate" = container.update;}
-        );
+          {io.containers.autoupdate = container.update;}
+        )
+      );
       extraOptions =
         (cli.mkOptions {
-          pull = container.pull;
-          subuidname = container.subidname;
-          subgidname = container.subidname;
+          inherit (container) pull;
         })
         ++ (mkNetworks container.networks)
         ++ (mkLinks container.links)
+        ++ (cli.mkSubidname (
+          if builtins.isString container.subidname
+          then container.subidname
+          else cfg.subidname
+        ))
         ++ (cli.mkEnv container.environment)
         ++ (cli.mkHosts container.hosts)
         ++ (cli.mkCaps container.caps)
