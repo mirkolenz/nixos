@@ -38,7 +38,7 @@
         exec sudo ${lib.getExe pkgs.podman} exec "''${@:2}"
       fi
       if [ "$1" = "service" ]; then
-        exec sudo systemctl "''${3:-status}" "podman-$2.service" "''${@:}"
+        exec sudo systemctl "''${3:-status}" "podman-$2.service" "''${@:4}"
       fi
       if [ "$1" = "journal" ]; then
         exec sudo journalctl --unit "podman-$2.service" "''${@:3}"
