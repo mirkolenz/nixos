@@ -31,16 +31,16 @@
         echo "journal: Show the logs of the podman service"
         exit 1
       fi
-      if [ "$1" -eq "run" ]; then
+      if [ "$1" = "run" ]; then
         exec sudo ${lib.getExe pkgs.podman} run ${lib.escapeShellArgs podmanArgs} "''${@:2}"
       fi
-      if [ "$1" -eq "exec" ]; then
+      if [ "$1" = "exec" ]; then
         exec sudo ${lib.getExe pkgs.podman} exec "''${@:2}"
       fi
-      if [ "$1" -eq "service" ]; then
+      if [ "$1" = "service" ]; then
         exec sudo systemctl "''${3:-status}" "podman-$2.service" "''${@:}"
       fi
-      if [ "$1" -eq "journal" ]; then
+      if [ "$1" = "journal" ]; then
         exec sudo journalctl --unit "podman-$2.service" "''${@:3}"
       fi
     '';
