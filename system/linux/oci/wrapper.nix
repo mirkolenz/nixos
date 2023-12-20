@@ -44,7 +44,7 @@
         exec sudo journalctl --unit "podman-$2.service" "''${@:3}"
       fi
       if [ "$1" = "unshare" ]; then
-        exec unshare --user --map-auto --setuid "$1" --setgid "$2" -- "''${@:2}"
+        exec unshare --user --map-auto --setuid "$2" --setgid "$2" -- "''${@:3}"
       fi
     '';
   };
