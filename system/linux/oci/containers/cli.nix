@@ -14,11 +14,9 @@ lib: rec {
       lib.concatStringsSep "," convertedValues;
 
     concatAttrsOptionValue = attrs: let
-      mkKeyValue = k: v:
-        if v == null
-        then k
-        else "${k}=${mkDefaultValue v}";
-      convertedAttrs = lib.mapAttrsToList mkKeyValue attrs;
+      filteredAttrs = lib.filterAttrs (k: v: v != null) attrs;
+      mkKeyValue = k: v: "${k}=${mkDefaultValue v}";
+      convertedAttrs = lib.mapAttrsToList mkKeyValue filteredAttrs;
     in
       mkListOptionValue convertedAttrs;
 
@@ -33,7 +31,9 @@ lib: rec {
     }: "${name}=${mkDefaultValue value}";
 
     mkAttrsOptionValue = attrs:
-      if isNameValuePair attrs && builtins.isAttrs attrs.value
+      if isNameValuePair attrs && attrs.value == null
+      then attrs.name
+      else if isNameValuePair attrs && builtins.isAttrs attrs.value
       then mkNestedAttrsOptionValuePair attrs
       else if isNameValuePair attrs
       then mkAttrsOptionValuePair attrs
