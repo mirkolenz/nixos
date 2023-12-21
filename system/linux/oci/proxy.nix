@@ -90,28 +90,45 @@ in {
   options.custom.oci.proxy = with lib; {
     enable = mkEnableOption "Reverse proxy with Caddy";
 
-    network = mkOption {
-      type = with types; str;
-      default = "proxy";
-    };
-
-    networkSuffix = mkOption {
-      type = with types; str;
-      default = "2";
+    networks = {
+      proxy = {
+        name = mkOption {
+          type = with types; str;
+        };
+        suffix = mkOption {
+          type = with types; str;
+        };
+      };
+      external = {
+        name = mkOption {
+          type = with types; str;
+        };
+        suffix = mkOption {
+          type = with types; str;
+        };
+      };
     };
 
     # https://hub.docker.com/_/caddy
-    imageTag = mkOption {
-      type = with types; str;
-      default = "2";
+    image = {
+      name = mkOption {
+        type = with types; str;
+        default = "caddy";
+      };
+      tag = mkOption {
+        type = with types; str;
+        default = "2";
+      };
     };
 
-    dataDir = mkOption {
-      type = with types; str;
-    };
+    storage = {
+      data = mkOption {
+        type = with types; str;
+      };
 
-    configDir = mkOption {
-      type = with types; str;
+      config = mkOption {
+        type = with types; str;
+      };
     };
 
     email = mkOption {
@@ -146,19 +163,18 @@ in {
   };
   config = lib.mkIf (cfg.enable && proxyCfg.enable) {
     custom.oci.containers.proxy = {
-      inherit (cfg) enable;
-      image = {
-        name = "caddy";
-        tag = proxyCfg.imageTag;
-      };
+      inherit (proxyCfg) enable image;
       volumes = [
         ["${Caddyfile}/Caddyfile" "/etc/caddy/Caddyfile" "ro"]
-        [(builtins.toString proxyCfg.dataDir) "/data"]
-        [(builtins.toString proxyCfg.configDir) "/config"]
+        [(builtins.toString proxyCfg.storage.data) "/data"]
+        [(builtins.toString proxyCfg.storage.config) "/config"]
       ];
       networks = {
-        ${proxyCfg.network} = {
-          suffix = proxyCfg.networkSuffix;
+        ${proxyCfg.networks.proxy.name} = {
+          suffix = proxyCfg.networks.proxy.suffix;
+        };
+        ${proxyCfg.networks.external.name} = {
+          suffix = proxyCfg.networks.external.suffix;
         };
       };
       ports = [
