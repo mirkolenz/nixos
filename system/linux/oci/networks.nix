@@ -9,6 +9,7 @@
 
   mkNetwork = name: network: let
     networkConfig =
+      lib.foldl lib.recursiveUpdate
       {
         inherit name;
         inherit (network) driver id subnets internal;
@@ -19,16 +20,17 @@
         # Using aardvark dns currently does not work, hostnames are not resolved
         # https://github.com/containers/podman/pull/17578
         dns_enabled = false;
-      }
-      // (lib.optionalAttrs (network.driver == "bridge") {
-        options = {
-          metric = builtins.toString network.metric;
-          no_default_route =
+      } [
+        (lib.optionalAttrs (network.driver == "bridge" && network.metric != null) {
+          options.metric = builtins.toString network.metric;
+        })
+        (lib.optionalAttrs (network.driver == "bridge" && network.defaultRoute != null) {
+          options.no_default_route =
             if network.defaultRoute
             then "false"
             else "true";
-        };
-      });
+        })
+      ];
   in
     lib.mkIf network.enable (
       json.generate "${name}.json" networkConfig
@@ -44,11 +46,12 @@ in {
             default = true;
           };
           metric = mkOption {
-            type = with types; int;
+            type = with types; nullOr int;
+            default = null;
           };
           defaultRoute = mkOption {
-            type = with types; bool;
-            default = true;
+            type = with types; nullOr bool;
+            default = null;
           };
           driver = mkOption {
             type = types.enum ["bridge" "macvlan"];
