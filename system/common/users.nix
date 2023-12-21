@@ -31,22 +31,14 @@ in {
         openssh.authorizedKeys.keys = user.sshKeys;
         subUidRanges = [
           {
-            count = 1;
-            startUid = 1000;
-          }
-          {
             count = 65536;
-            startUid = 100001;
+            startUid = 100000;
           }
         ];
         subGidRanges = [
           {
-            count = 1;
-            startGid = 1000;
-          }
-          {
             count = 65536;
-            startGid = 100001;
+            startGid = 100000;
           }
         ];
       })
