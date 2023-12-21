@@ -14,9 +14,11 @@ lib: rec {
       lib.concatStringsSep "," convertedValues;
 
     concatAttrsOptionValue = attrs: let
-      filteredAttrs = lib.filterAttrs (k: v: v != null) attrs;
-      mkKeyValue = k: v: "${k}=${mkDefaultValue v}";
-      convertedAttrs = lib.mapAttrsToList mkKeyValue filteredAttrs;
+      mkKeyValue = k: v:
+        if v == null
+        then k
+        else "${k}=${mkDefaultValue v}";
+      convertedAttrs = lib.mapAttrsToList mkKeyValue attrs;
     in
       mkListOptionValue convertedAttrs;
 
@@ -119,7 +121,7 @@ lib: rec {
       );
     };
 
-  mkSubidname = value:
+  mkUserns = value:
     mkOptions {
       subuidname = value;
       subgidname = value;

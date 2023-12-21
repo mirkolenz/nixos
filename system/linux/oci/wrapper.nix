@@ -12,7 +12,7 @@
     (cli.mkOptions {
       rm = true;
     })
-    ++ (cli.mkSubidname cfg.subidname)
+    ++ (cli.mkUserns cfg.userns)
     ++ (cli.mkEnv {})
     ++ (cli.mkHosts {})
     ++ (cli.mkCaps {})

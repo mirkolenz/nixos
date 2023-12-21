@@ -1,4 +1,4 @@
-{lib, ...}: {
+cfg: {lib, ...}: {
   options = with lib; {
     enable = mkOption {
       type = types.bool;
@@ -55,9 +55,9 @@
       default = "newer";
     };
 
-    subidname = mkOption {
-      type = with types; nullOr str;
-      default = null;
+    userns = mkOption {
+      type = with types; str;
+      default = cfg.userns;
     };
 
     cmd = mkOption {

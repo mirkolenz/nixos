@@ -7,22 +7,25 @@
 }: let
   cfg = config.custom.docker;
 in {
-  options.custom.docker = {
-    enable = lib.mkEnableOption "Docker";
-    usernsRemap = lib.mkEnableOption "userns-remap";
+  options.custom.docker = with lib; {
+    enable = mkEnableOption "Docker";
+    userns = mkOption {
+      type = with types; nullOr str;
+      default = null;
+    };
+    enableIcc = mkEnableOption "Enable inter-container communication";
   };
 
   config = lib.mkIf cfg.enable {
     virtualisation.docker = {
       enable = true;
-      # logDriver = "json-file";
       autoPrune = {
         enable = true;
         dates = "daily";
       };
       daemon.settings = {
-        icc = false;
-        userns-remap = lib.mkIf cfg.usernsRemap user.login;
+        icc = cfg.enableIcc;
+        userns-remap = lib.mkIf (builtins.isString cfg.userns) cfg.userns;
       };
     };
   };

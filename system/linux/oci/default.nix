@@ -9,7 +9,7 @@ in {
   options.custom.oci = with lib; {
     enable = mkEnableOption "Enable OCI containers";
 
-    subidname = mkOption {
+    userns = mkOption {
       type = with types; str;
     };
   };

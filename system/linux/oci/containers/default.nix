@@ -75,11 +75,7 @@
         })
         ++ (mkNetworks container.networks)
         ++ (mkLinks container.links)
-        ++ (cli.mkSubidname (
-          if builtins.isString container.subidname
-          then container.subidname
-          else cfg.subidname
-        ))
+        ++ (cli.mkUserns container.userns)
         ++ (cli.mkEnv container.environment)
         ++ (cli.mkHosts container.hosts)
         ++ (cli.mkCaps container.caps)
@@ -91,7 +87,7 @@ in {
   options.custom.oci.containers = with lib;
     mkOption {
       default = {};
-      type = with types; attrsOf (submodule (import ./submodule.nix));
+      type = with types; attrsOf (submodule (import ./submodule.nix cfg));
     };
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers =

@@ -1,10 +1,10 @@
-{...}: {
+{user, ...}: {
   imports = [
     ./headless.nix
   ];
 
   services.openssh.enable = true;
-  custom.docker.usernsRemap = true;
+  custom.docker.userns = user.login;
 
   system.autoUpgrade = {
     enable = true;
