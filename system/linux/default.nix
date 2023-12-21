@@ -7,7 +7,6 @@
 }: {
   imports = [../common] ++ (lib.flocken.getModules ./.);
 
-  custom.docker.enable = true;
   custom.podman.enable = true;
 
   networking = {

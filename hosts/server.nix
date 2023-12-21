@@ -4,7 +4,6 @@
   ];
 
   services.openssh.enable = true;
-  custom.docker.userns = user.login;
 
   system.autoUpgrade = {
     enable = true;
