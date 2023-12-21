@@ -90,7 +90,7 @@
     '';
     backup = ''
       if [ "$#" -ne 2 ]; then
-        ${echo} "Usage: $0 SOURCE TARGET" >&2
+        ${echo} "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
       fi
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
@@ -99,7 +99,7 @@
     '';
     restore = ''
       if [ "$#" -ne 2 ]; then
-        ${echo} "Usage: $0 SOURCE TARGET" >&2
+        ${echo} "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
       fi
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
