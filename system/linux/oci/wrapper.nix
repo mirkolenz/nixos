@@ -38,10 +38,10 @@
         exec sudo podman exec "''${@:2}"
       fi
       if [ "$1" = "service" ]; then
-        exec sudo systemctl "''${3:-status}" "podman-$2.service" "''${@:4}"
+        exec systemctl "''${3:-status}" "podman-$2.service" "''${@:4}"
       fi
       if [ "$1" = "journal" ]; then
-        exec sudo journalctl --unit "podman-$2.service" "''${@:3}"
+        exec journalctl --unit "podman-$2.service" "''${@:3}"
       fi
       if [ "$1" = "unshare" ]; then
         exec unshare --user --map-auto --setuid "$2" --setgid "$2" -- "''${@:3}"
