@@ -73,7 +73,7 @@
         inherit (container) workdir entrypoint hostname user;
         rm = true;
         volume = cli.mkVolumes container.volumes;
-        label = cli.mkLabels container.labels;
+        label = lib.attrsToList (cli.mkLabels container.labels);
         env-file = container.environmentFiles;
         publish = container.ports;
         replace = false;
