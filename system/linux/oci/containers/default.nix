@@ -77,11 +77,12 @@
         env-file = container.environmentFiles;
         publish = container.ports;
         replace = false;
-        # from upstream: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/oci-containers.nix
+        # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/oci-containers.nix
+        # these seem to be systemd-specific
         # cidfile = "/run/podman-${name}.ctr-id";
         # log-driver = "journald";
-        cgroups = "no-conmon";
-        sdnotify = "conmon";
+        # cgroups = "no-conmon";
+        # sdnotify = "conmon";
       })
       ++ (mkExtraOptions container)
     );
