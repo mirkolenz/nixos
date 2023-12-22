@@ -8,31 +8,8 @@
   containersCfg = cfg.containers;
   networksCfg = cfg.networks;
 
-  mkLinks = let
-    mkLink = container: link: let
-      prefix = networksCfg.${link.network}.prefix;
-      suffix = containersCfg.${container}.networks.${link.network}.suffix;
-      ip = "${prefix}.${suffix}";
-    in "${link.name}:${ip}";
-  in
-    attrs:
-      cli.mkOptions {
-        add-host = lib.mapAttrsToList mkLink attrs;
-      };
-
-  mkNetworks = let
-    mkNetwork = name: value:
-      lib.nameValuePair name {
-        inherit (value) alias mac;
-        ip = "${networksCfg.${name}.prefix}.${value.suffix}";
-        interface_name = value.interface;
-      };
-  in
-    attrs:
-      assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
-        cli.mkOptions {
-          network = lib.mapAttrsToList mkNetwork attrs;
-        };
+  mkLinks = cli.mkLinks networksCfg containersCfg;
+  mkNetworks = cli.mkNetworks networksCfg;
 
   mkExtraOptions = container:
     (cli.mkOptions {

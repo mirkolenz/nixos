@@ -141,4 +141,30 @@ lib: rec {
     else image;
 
   mkLabels = attrs: lib.flocken.getLeaves attrs;
+
+  mkLinks = networks: containers: let
+    mkLink = container: link: let
+      prefix = networks.${link.network}.prefix;
+      suffix = containers.${container}.networks.${link.network}.suffix;
+      ip = "${prefix}.${suffix}";
+    in "${link.name}:${ip}";
+  in
+    attrs:
+      mkOptions {
+        add-host = lib.mapAttrsToList mkLink attrs;
+      };
+
+  mkNetworks = networks: let
+    mkNetwork = name: value:
+      lib.nameValuePair name {
+        inherit (value) alias mac;
+        ip = "${networks.${name}.prefix}.${value.suffix}";
+        interface_name = value.interface;
+      };
+  in
+    attrs:
+      assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0) "At least one network must be specified.");
+        mkOptions {
+          network = lib.mapAttrsToList mkNetwork attrs;
+        };
 }
