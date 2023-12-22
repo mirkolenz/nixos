@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.oci;
@@ -33,6 +34,20 @@
           network = lib.mapAttrsToList mkNetwork attrs;
         };
 
+  mkExtraOptions = container:
+    (cli.mkOptions {
+      inherit (container) pull;
+    })
+    ++ (mkNetworks container.networks)
+    ++ (mkLinks container.links)
+    ++ (cli.mkUserns container.userns)
+    ++ (cli.mkEnv container.environment)
+    ++ (cli.mkHosts container.hosts)
+    ++ (cli.mkCaps container.caps)
+    ++ (cli.mkSysctls container.sysctls)
+    ++ (cli.mkOptions container.extraOptions)
+    ++ container.extraArgs;
+
   cli = import ./cli.nix lib;
 
   mkContainer = name: container:
@@ -41,6 +56,7 @@
         (container)
         imageFile
         cmd
+        entrypoint
         environmentFiles
         ports
         user
@@ -61,7 +77,7 @@
             container.links
           )
         );
-      labels = lib.flocken.getLeaves (
+      labels = cli.mkLabels (
         container.labels
         // (
           lib.optionalAttrs
@@ -69,19 +85,36 @@
           {io.containers.autoupdate = container.update;}
         )
       );
-      extraOptions =
-        (cli.mkOptions {
-          inherit (container) pull;
-        })
-        ++ (mkNetworks container.networks)
-        ++ (mkLinks container.links)
-        ++ (cli.mkUserns container.userns)
-        ++ (cli.mkEnv container.environment)
-        ++ (cli.mkHosts container.hosts)
-        ++ (cli.mkCaps container.caps)
-        ++ (cli.mkSysctls container.sysctls)
-        ++ (cli.mkOptions container.extraOptions)
-        ++ container.extraArgs;
+      extraOptions = mkExtraOptions container;
+    };
+
+  mkWrapper = name: container: let
+    image = cli.mkImage container.image;
+    args = lib.escapeShellArgs (
+      (cli.mkOptions {
+        inherit name;
+        inherit (container) workdir entrypoint hostname user;
+        rm = true;
+        volume = cli.mkVolumes container.volumes;
+        label = cli.mkLabels container.labels;
+        env-file = container.environmentFiles;
+        publish = container.ports;
+        # from upstream: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/oci-containers.nix
+        # cidfile = "/run/podman-${name}.ctr-id";
+        # log-driver = "journald";
+        cgroups = "no-conmon";
+        sdnotify = "conmon";
+        replace = true;
+      })
+      ++ (mkExtraOptions container)
+    );
+    cmd = lib.escapeShellArgs container.cmd;
+  in
+    pkgs.writeShellApplication {
+      name = "oci-${name}";
+      text = ''
+        exec sudo ${lib.getExe' pkgs.podman "podman"} run ${args} ${image} ${cmd}
+      '';
     };
 
   mkSystemd = attrs:
@@ -115,5 +148,6 @@ in {
         value = mkSystemd value.systemd;
       })
       containersCfg;
+    environment.systemPackages = lib.mapAttrsToList mkWrapper containersCfg;
   };
 }

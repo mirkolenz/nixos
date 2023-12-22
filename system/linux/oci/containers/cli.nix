@@ -139,4 +139,6 @@ lib: rec {
     if builtins.isAttrs image
     then "${image.registry}/${image.name}:${image.tag}"
     else image;
+
+  mkLabels = attrs: lib.flocken.getLeaves attrs;
 }
