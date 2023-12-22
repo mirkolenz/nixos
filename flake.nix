@@ -336,32 +336,36 @@
             installerModule = ./installer/iso.nix;
           };
         };
-        nixosConfigurations = builtins.mapAttrs mkLinuxSystem {
-          vm = {
-            channel = "unstable";
-            system = "x86_64-linux";
+        nixosConfigurations =
+          (builtins.mapAttrs mkLinuxSystem {
+            vm = {
+              channel = "unstable";
+              system = "x86_64-linux";
+            };
+            orbstack = {
+              channel = "unstable";
+              system = "x86_64-linux";
+            };
+            macpro = {
+              channel = "stable";
+              system = "x86_64-linux";
+            };
+            raspi = {
+              channel = "stable";
+              system = "aarch64-linux";
+            };
+            macbook-9-1 = {
+              channel = "unstable";
+              system = "x86_64-linux";
+            };
+            macbook-11-3 = {
+              channel = "unstable";
+              system = "x86_64-linux";
+            };
+          })
+          // {
+            homeserver = self.nixosConfigurations.macpro;
           };
-          orbstack = {
-            channel = "unstable";
-            system = "x86_64-linux";
-          };
-          macpro = {
-            channel = "stable";
-            system = "x86_64-linux";
-          };
-          raspi = {
-            channel = "stable";
-            system = "aarch64-linux";
-          };
-          macbook-9-1 = {
-            channel = "unstable";
-            system = "x86_64-linux";
-          };
-          macbook-11-3 = {
-            channel = "unstable";
-            system = "x86_64-linux";
-          };
-        };
         darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
           mirkos-macbook = {
             channel = "unstable";
