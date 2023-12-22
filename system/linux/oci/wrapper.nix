@@ -22,7 +22,7 @@
     name = "oci";
     text = ''
       if [ "$#" -eq 0 ]; then
-        $1="help"
+        set -- "help"
       fi
       if [ "$1" = "run" ]; then
         exec sudo ${lib.getExe' pkgs.podman "podman"} run ${lib.escapeShellArgs podmanArgs} "''${@:2}"
