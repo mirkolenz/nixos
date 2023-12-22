@@ -21,21 +21,14 @@
   wrapper = pkgs.writeShellApplication {
     name = "oci";
     text = ''
-      if [ "$#" -eq 0 ]; then
-        echo "Usage: oci <command> [<args>]"
-        echo ""
-        echo "Available commands:"
-        echo "exec: Run a command in an existing container"
-        echo "run: Run a command in a new container"
-        echo "service: Control the systemd service"
-        echo "journal: Show the logs of the podman service"
-        exit 1
-      fi
       if [ "$1" = "run" ]; then
         exec sudo ${lib.getExe' pkgs.podman "podman"} run ${lib.escapeShellArgs podmanArgs} "''${@:2}"
       fi
       if [ "$1" = "exec" ]; then
         exec sudo ${lib.getExe' pkgs.podman "podman"} exec "''${@:2}"
+      fi
+      if [ "$1" = "update" ]; then
+        exec sudo ${lib.getExe' pkgs.podman "podman"} auto-update "''${@:2}"
       fi
       if [ "$1" = "service" ]; then
         exec systemctl "''${3:-status}" "podman-$2.service" "''${@:4}"
@@ -46,6 +39,16 @@
       if [ "$1" = "unshare" ]; then
         exec unshare --user --map-auto --setuid "$2" --setgid "$2" -- "''${@:3}"
       fi
+      echo "Usage: oci <command> [<args>]"
+      echo ""
+      echo "Available commands:"
+      echo "exec: Run a command in an existing container"
+      echo "run: Run a command in a new container"
+      echo "update: Run podman auto-update"
+      echo "service: Control the systemd service"
+      echo "journal: Show the logs of the podman service"
+      echo "unshare: Run a command in a new user namespace"
+      exit 1
     '';
   };
 in {
