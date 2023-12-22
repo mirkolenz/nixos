@@ -76,12 +76,12 @@
         label = cli.mkLabels container.labels;
         env-file = container.environmentFiles;
         publish = container.ports;
+        replace = false;
         # from upstream: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/oci-containers.nix
         # cidfile = "/run/podman-${name}.ctr-id";
         # log-driver = "journald";
         cgroups = "no-conmon";
         sdnotify = "conmon";
-        replace = true;
       })
       ++ (mkExtraOptions container)
     );
@@ -90,7 +90,7 @@
     pkgs.writeShellApplication {
       name = "oci-${name}";
       text = ''
-        exec sudo ${lib.getExe' pkgs.podman "podman"} run ${args} ${image} ${cmd}
+        exec sudo ${lib.getExe' pkgs.podman "podman"} run ${args} "$@" ${image} ${cmd}
       '';
     };
 
