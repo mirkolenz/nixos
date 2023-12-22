@@ -52,7 +52,10 @@ lib: rec {
       else "--${k}";
 
     mkOption = k: v:
-      if v == null
+      if
+        (v == null)
+        || (builtins.isList v && builtins.length v == 0)
+        || (builtins.isAttrs v && builtins.length (builtins.attrNames v) == 0)
       then []
       else [(mkOptionName k) (mkOptionValue v)];
 
