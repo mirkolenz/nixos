@@ -83,6 +83,20 @@
         ++ (cli.mkOptions container.extraOptions)
         ++ container.extraArgs;
     };
+
+  mkSystemd = name: config:
+    lib.recursiveUpdate {
+      serviceConfig = {
+        RestartSec = 30;
+      };
+      unitConfig = {
+        # StartLimitIntervalSec must be greater than RestartSec * StartLimitBurst
+        # otherwise the service will be restarted indefinitely.
+        StartLimitIntervalSec = 120;
+        StartLimitBurst = 3;
+      };
+    }
+    config;
 in {
   options.custom.oci.containers = with lib;
     mkOption {
@@ -98,7 +112,7 @@ in {
     systemd.services =
       lib.mapAttrs' (name: value: {
         name = "podman-${name}";
-        value = value.systemd;
+        value = mkSystemd value.systemd;
       })
       containersCfg;
   };
