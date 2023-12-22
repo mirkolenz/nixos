@@ -84,7 +84,7 @@
         ++ container.extraArgs;
     };
 
-  mkSystemd = name: config:
+  mkSystemd = attrs:
     lib.recursiveUpdate {
       serviceConfig = {
         RestartSec = 30;
@@ -96,7 +96,7 @@
         StartLimitBurst = 3;
       };
     }
-    config;
+    attrs;
 in {
   options.custom.oci.containers = with lib;
     mkOption {
