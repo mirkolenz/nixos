@@ -6,16 +6,6 @@
 }: let
   echo = lib.getExe' pkgs.coreutils "echo";
   cmdTexts = {
-    pull-rebuild = ''
-      set -x #echo on
-      FLAKE=''${1:-"github:mirkolenz/nixos"}
-
-      if [[ "$FLAKE" != github* ]]; then
-        ${lib.getExe pkgs.git} -C "$FLAKE" pull
-      fi
-
-      exec ${lib.getExe pkgs.nix} run "$FLAKE" -- "''${@:2}"
-    '';
     # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
     mogrify-convert = ''
       if [ "$#" -ne 3 ]; then

@@ -1,4 +1,4 @@
-{user, ...}: {
+{...}: {
   imports = [
     ./headless.nix
   ];
