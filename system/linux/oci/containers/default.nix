@@ -98,13 +98,13 @@
   mkSystemd = attrs:
     lib.recursiveUpdate {
       serviceConfig = {
-        RestartSec = 30;
+        RestartSec = 15;
       };
       unitConfig = {
         # StartLimitIntervalSec must be greater than RestartSec * StartLimitBurst
         # otherwise the service will be restarted indefinitely.
         StartLimitIntervalSec = 120;
-        StartLimitBurst = 3;
+        StartLimitBurst = 6;
       };
     }
     attrs;
