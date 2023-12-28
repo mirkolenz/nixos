@@ -304,12 +304,6 @@ cfg: {lib, ...}: {
             type = with types; str;
             description = lib.mdDoc "The network to link to.";
           };
-
-          required = mkOption {
-            type = with types; bool;
-            default = false;
-            description = lib.mdDoc "Whether this link is required.";
-          };
         };
       }));
     };

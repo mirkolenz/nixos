@@ -31,6 +31,7 @@
     lib.mkIf container.enable {
       inherit
         (container)
+        dependsOn
         imageFile
         cmd
         entrypoint
@@ -44,16 +45,6 @@
 
       image = cli.mkImage container.image;
       volumes = cli.mkVolumes container.volumes;
-      dependsOn =
-        container.dependsOn
-        ++ (
-          builtins.attrNames
-          (
-            lib.filterAttrs
-            (name: value: value.required)
-            container.links
-          )
-        );
       labels = cli.mkLabels (
         container.labels
         // (
