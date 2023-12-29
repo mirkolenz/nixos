@@ -21,7 +21,10 @@
     pulse.enable = true;
   };
 
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    useDHCP = false;
+  };
   systemd.network.wait-online.enable = false;
   users.users.${user.login}.extraGroups = ["networkmanager"];
 }

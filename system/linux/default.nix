@@ -11,7 +11,7 @@
 
   networking = {
     useNetworkd = true;
-    useDHCP = true;
+    useDHCP = lib.mkDefault true;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
