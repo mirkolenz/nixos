@@ -35,5 +35,21 @@
     after = ["default.target"];
   };
 
+  # systemd.network.links."20-eth0" = {
+  #   matchConfig.OriginalName = "enp9s0";
+  #   linkConfig.Name = "eth0";
+  # };
+  # systemd.network.links."20-eth1" = {
+  #   matchConfig.OriginalName = "enp10s0";
+  #   linkConfig.Name = "eth1";
+  # };
+  systemd.network.networks."20-failover" = {
+    matchConfig.Name = "enp10s0";
+    linkConfig = {
+      RequiredForOnline = false;
+      DHCP = true;
+    };
+  };
+
   powerManagement.cpuFreqGovernor = "powersave";
 }
