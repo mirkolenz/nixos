@@ -19,13 +19,9 @@
     poe-plus-hat.enable = true;
   };
 
-  systemd.network.links."20-primary" = {
-    matchConfig.Name = "end0";
+  systemd.network.links."20-eth0" = {
+    matchConfig.OriginalName = "end0";
     linkConfig.Name = "eth0";
-  };
-  networking.interfaces = {
-    end0.useDHCP = true;
-    wlan0.useDHCP = false;
   };
 
   powerManagement.cpuFreqGovernor = "ondemand";
