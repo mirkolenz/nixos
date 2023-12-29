@@ -19,10 +19,10 @@
     poe-plus-hat.enable = true;
   };
 
-  systemd.network.links."20-eth0" = {
-    matchConfig.OriginalName = "end0";
-    linkConfig.Name = "eth0";
-  };
+  # systemd.network.links."20-eth0" = {
+  #   matchConfig.OriginalName = "end0";
+  #   linkConfig.Name = "eth0";
+  # };
 
   powerManagement.cpuFreqGovernor = "ondemand";
 }
