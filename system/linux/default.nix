@@ -17,6 +17,10 @@
     useHostResolvConf = false;
   };
 
+  systemd.network.wait-online = {
+    timeout = 30;
+  };
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   nix = {
