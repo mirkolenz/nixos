@@ -33,14 +33,6 @@
     . /opt/orbstack-guest/etc/profile-late
   '';
 
-  # resolv.conf: NixOS doesn't use systemd-resolved
-
-  # faster DHCP - OrbStack uses SLAAC exclusively
-  networking.dhcpcd.extraConfig = ''
-    noarp
-    noipv6
-  '';
-
   # disable sshd
   services.openssh.enable = false;
 
