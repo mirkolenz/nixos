@@ -47,6 +47,8 @@
     matchConfig.Name = "enp10s0";
     linkConfig = {
       RequiredForOnline = false;
+    };
+    networkConfig = {
       DHCP = true;
     };
   };
