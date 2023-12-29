@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  user,
+  ...
+}: {
   services.xserver.enable = true;
   services.printing.enable = true;
 
@@ -16,4 +20,8 @@
     };
     pulse.enable = true;
   };
+
+  networking.networkmanager.enable = true;
+  systemd.network.wait-online.enable = false;
+  users.users.${user.login}.extraGroups = ["networkmanager"];
 }

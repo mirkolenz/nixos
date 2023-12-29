@@ -10,9 +10,8 @@
   custom.podman.enable = true;
 
   networking = {
-    networkmanager.enable = true;
-    # useDHCP = true;
-    # useNetworkd = true;
+    useNetworkd = true;
+    useDHCP = true;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
