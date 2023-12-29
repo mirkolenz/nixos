@@ -19,6 +19,7 @@ in {
     systemd.services.oci-update = {
       inherit (updateCfg) startAt;
       wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = ["network-online.target"];
       serviceConfig.Type = "oneshot";
       script = ''
