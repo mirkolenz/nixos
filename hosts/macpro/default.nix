@@ -29,10 +29,10 @@
 
   # https://nixos.wiki/wiki/Hardware/Apple
   # https://superuser.com/a/1051137
-  systemd.services.enable-autorestart = {
+  systemd.services.autorestart-powerloss = {
     script = "${lib.getExe' pkgs.pciutils "setpci"} -s 00:1f.0 0xa4.b=0";
-    wantedBy = ["default.target"];
-    after = ["default.target"];
+    wantedBy = ["multi-user.target"];
+    after = ["multi-user.target"];
   };
 
   # systemd.network.links."20-eth0" = {
