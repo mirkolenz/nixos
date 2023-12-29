@@ -9,18 +9,6 @@
 
   custom.podman.enable = true;
 
-  networking = {
-    useNetworkd = true;
-    # this is overridden by NetworkManager on workstations
-    useDHCP = lib.mkDefault true;
-    # this is not compatible with networkd
-    useHostResolvConf = false;
-  };
-
-  systemd.network.wait-online = {
-    timeout = 30;
-  };
-
   i18n.defaultLocale = "en_US.UTF-8";
 
   nix = {
