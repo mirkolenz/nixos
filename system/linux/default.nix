@@ -11,7 +11,10 @@
 
   networking = {
     useNetworkd = true;
+    # this is overridden by NetworkManager on workstations
     useDHCP = lib.mkDefault true;
+    # this is not compatible with networkd
+    useHostResolvConf = false;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
