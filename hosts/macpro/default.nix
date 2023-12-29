@@ -45,12 +45,8 @@
   # };
   systemd.network.networks."20-failover" = {
     matchConfig.Name = "enp10s0";
-    linkConfig = {
-      RequiredForOnline = false;
-    };
-    networkConfig = {
-      DHCP = true;
-    };
+    linkConfig.RequiredForOnline = false;
+    DHCP = "yes";
   };
 
   powerManagement.cpuFreqGovernor = "powersave";
