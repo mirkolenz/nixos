@@ -126,6 +126,7 @@
       "viscosity"
       "visual-studio-code"
       "vivaldi"
+      "warp"
       "whatsapp"
       "zed"
       "zoom"
