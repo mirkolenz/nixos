@@ -7,6 +7,8 @@
 lib.mkIf pkgs.stdenv.isDarwin {
   home.packages = with pkgs; [
     mas
+    neovide-bin
+    vimr-bin
   ];
   custom.texlive = {
     enable = true;
