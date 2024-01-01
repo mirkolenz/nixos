@@ -77,9 +77,12 @@
     pkgs.writeShellApplication {
       name = "oci-${name}";
       text = ''
-        ARGS=("''${ARGS[@]:-""}")
-        DEFAULt_CMD=(${defaultCmd})
-        CMD=("''${CMD[@]:-"''${DEFAULT_CMD[@]}"}")
+        if ! [[ -v CMD ]]; then
+          CMD=(${defaultCmd})
+        fi
+        if ! [[ -v ARGS ]]; then
+          ARGS=()
+        fi
         exec sudo ${lib.getExe' pkgs.podman "podman"} run ${defaultArgs} "''${ARGS[@]}" ${image} "''${CMD[@]}"
       '';
     };
