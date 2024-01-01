@@ -43,15 +43,16 @@
         exec unshare --user --map-auto --setuid "$2" --setgid "$2" -- "''${@:3}"
       fi
       if [ "$1" = "help" ]; then
-        echo "Usage: oci <command> [<args>]"
-        echo ""
-        echo "Available commands:"
-        echo "exec: Run a command in an existing container"
-        echo "run: Run a command in a new container"
-        echo "update: Run podman auto-update"
-        echo "service: Control the systemd service"
-        echo "journal: Show the logs of the podman service"
-        echo "unshare: Run a command in a new user namespace"
+        echo "Usage: oci <command>
+
+        Available commands:
+        run <cmd>: Run a command in a new container
+        exec <container> <cmd>: Run a command in an existing container
+        update <args>: Run podman auto-update
+        service <container> <action> <args>: Control the systemd service
+        journal <container> <args>: Show the logs of the podman service
+        unshare <id> <cmd>: Run a command in a new user namespace
+        "
         exit 0
       fi
     '';

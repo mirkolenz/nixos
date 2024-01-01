@@ -58,7 +58,8 @@
 
   mkWrapper = name: container: let
     image = cli.mkImage container.image;
-    args = lib.escapeShellArgs (
+    # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/oci-containers.nix
+    defaultArgs = lib.escapeShellArgs (
       (cli.mkOptions {
         inherit name;
         inherit (container) workdir entrypoint hostname user;
@@ -68,21 +69,18 @@
         env-file = container.environmentFiles;
         publish = container.ports;
         replace = false;
-        # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/oci-containers.nix
-        # these seem to be systemd-specific
-        # cidfile = "/run/podman-${name}.ctr-id";
-        # log-driver = "journald";
-        # cgroups = "no-conmon";
-        # sdnotify = "conmon";
       })
       ++ (mkExtraOptions container)
     );
-    cmd = lib.escapeShellArgs container.cmd;
+    defaultCmd = lib.escapeShellArgs container.cmd;
   in
     pkgs.writeShellApplication {
       name = "oci-${name}";
       text = ''
-        exec sudo ${lib.getExe' pkgs.podman "podman"} run ${args} "$@" ${image} ${cmd}
+        ARGS=("''${ARGS[@]:-""}")
+        DEFAULt_CMD=(${defaultCmd})
+        CMD=("''${CMD[@]:-"''${DEFAULT_CMD[@]}"}")
+        exec sudo ${lib.getExe' pkgs.podman "podman"} run ${defaultArgs} "''${ARGS[@]}" ${image} "''${CMD[@]}"
       '';
     };
 
@@ -117,6 +115,8 @@ in {
         value = mkSystemd value.systemd;
       })
       containersCfg;
-    environment.systemPackages = lib.mapAttrsToList mkWrapper containersCfg;
+    environment.systemPackages = lib.mkIf cfg.shellWrapper.enable (
+      lib.mapAttrsToList mkWrapper containersCfg
+    );
   };
 }
