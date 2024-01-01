@@ -8,7 +8,7 @@
     nix-index.enable = true;
     bat.enable = true;
     ripgrep.enable = true;
-    carapace.enable = true;
+    carapace.enable = false;
     thefuck.enable = true;
   };
 }
