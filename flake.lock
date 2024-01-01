@@ -306,11 +306,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1704018314,
-        "narHash": "sha256-TJGHzB3mcQ0hk0l7/I6sK6s7YcJp59WabwyFH2KJyO4=",
+        "lastModified": 1704105102,
+        "narHash": "sha256-c4VWO9plhINjQzYPHSKURWgQ2D2q24aI3OIN0MTPjz0=",
         "owner": "mirkolenz",
         "repo": "flocken",
-        "rev": "59445a6d66d66f7024d7a6dddbd53e8a48a7df32",
+        "rev": "3a846dfca17f989805d9f4177de85c96dc0f8542",
         "type": "github"
       },
       "original": {
