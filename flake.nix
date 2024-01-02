@@ -174,18 +174,7 @@
       channel,
       system,
     }: let
-      # upstream currently does not allow to override lib, thus we use a custom version
-      # https://github.com/NixOS/nixpkgs/blob/master/flake.nix
-      lib = (extendLib inputs."nixpkgs-linux-${channel}").extend (final: prev: {
-        nixosSystem = args:
-          import "${inputs."nixpkgs-linux-${channel}".outPath}/nixos/lib/eval-config.nix" (
-            {
-              inherit (inputs."nixpkgs-linux-${channel}") lib;
-              system = null;
-            }
-            // args
-          );
-      });
+      lib = extendLib inputs."nixpkgs-linux-${channel}";
     in
       lib.nixosSystem {
         inherit specialArgs system lib;
