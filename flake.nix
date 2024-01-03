@@ -144,15 +144,18 @@
       };
     };
 
-    vimHomeModule = {
+    homeModule = {
       pkgs,
       lib,
       ...
     }: {
+      imports = [./home/mlenz];
+      _module.args = moduleArgs;
       programs.nixvim = mkVimConfig {inherit pkgs lib;};
     };
 
-    homeModule = {pkgs, ...}: {
+    standaloneHomeModule = {pkgs, ...}: {
+      _module.args.osConfig = {};
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
@@ -170,11 +173,7 @@
         useUserPackages = true;
         extraSpecialArgs = specialArgs;
         users.mlenz.imports = [
-          {
-            _module.args = moduleArgs;
-          }
-          ./home/mlenz
-          vimHomeModule
+          homeModule
         ];
       };
     };
@@ -250,18 +249,11 @@
         };
         extraSpecialArgs = specialArgs;
         modules = [
+          standaloneHomeModule
           homeModule
-          vimHomeModule
-          ./home/mlenz
-          ({lib, ...}: {
-            _module.args =
-              lib.recursiveUpdate
-              moduleArgs
-              {
-                osConfig = {};
-                user.login = userName;
-              };
-          })
+          {
+            _module.args.user.login = userName;
+          }
         ];
       };
 
