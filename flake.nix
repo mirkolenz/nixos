@@ -144,16 +144,19 @@
       };
     };
 
-    homeModule = {
+    vimHomeModule = {
       pkgs,
       lib,
       ...
     }: {
+      programs.nixvim = mkVimConfig {inherit pkgs lib;};
+    };
+
+    homeModule = {pkgs, ...}: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
-      programs.nixvim = mkVimConfig {inherit pkgs lib;};
       targets.genericLinux.enable = pkgs.stdenv.isLinux;
     };
 
@@ -171,6 +174,7 @@
             _module.args = moduleArgs;
           }
           ./home/mlenz
+          vimHomeModule
         ];
       };
     };
@@ -247,6 +251,7 @@
         extraSpecialArgs = specialArgs;
         modules = [
           homeModule
+          vimHomeModule
           ./home/mlenz
           ({lib, ...}: {
             _module.args =
