@@ -7,8 +7,8 @@
 }: {...}: {
   imports =
     (lib.flocken.getModules ./.)
-    ++ (lib.optional (lib.versionOlder lib.trivial.release specialArgs.unstableVersion) ./_stable.nix)
-    ++ (lib.optional (lib.versionAtLeast lib.trivial.release specialArgs.unstableVersion) ./_unstable.nix);
+    ++ (lib.optional lib.custom.isStable ./_stable.nix)
+    ++ (lib.optional lib.custom.isUnstable ./_unstable.nix);
 
   config = {
     _module.args = lib.optionalAttrs (type == "standalone") moduleArgs;

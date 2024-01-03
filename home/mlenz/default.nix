@@ -5,7 +5,6 @@
   inputs,
   user,
   stateVersion,
-  unstableVersion,
   ...
 }: let
   homeDirectory =
@@ -13,7 +12,7 @@
     then "/Users/${user.login}"
     else "/home/${user.login}";
   nixvimInput =
-    if lib.versionAtLeast lib.trivial.release unstableVersion
+    if lib.custom.isUnstable
     then inputs.nixvim-unstable
     else inputs.nixvim-linux-stable;
 in {

@@ -126,8 +126,6 @@
       inherit inputs;
       stateVersion = "23.11";
       stateVersionDarwin = 4;
-      stableVersion = "23.11";
-      unstableVersion = "24.05";
     };
 
     # can be overriden in module

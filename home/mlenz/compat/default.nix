@@ -1,3 +1,5 @@
 {lib, ...}: {
-  imports = lib.flocken.getModules ./.;
+  imports =
+    (lib.optional lib.custom.isStable ./stable.nix)
+    ++ (lib.optional lib.custom.isUnstable ./unstable.nix);
 }
