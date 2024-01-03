@@ -10,5 +10,7 @@
     ripgrep.enable = true;
     carapace.enable = false;
     thefuck.enable = true;
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ruff.enable
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gradle.enable
   };
 }
