@@ -150,8 +150,18 @@
       ...
     }: {
       imports = [./home/mlenz];
-      _module.args = moduleArgs;
-      programs.nixvim = mkVimConfig {inherit pkgs lib;};
+      options = {
+        # programs.nixvim = mkVimOptions {inherit pkgs lib;};
+        programs.nixvim = lib.mkOption {
+          type = lib.types.submodule (import ./vim {
+            inherit lib specialArgs moduleArgs;
+            type = "hm";
+          });
+        };
+      };
+      config = {
+        _module.args = moduleArgs;
+      };
     };
 
     standaloneHomeModule = {pkgs, ...}: {
@@ -267,14 +277,6 @@
         inherit system;
         channel = "unstable";
       };
-
-    mkVimConfig = args @ {
-      pkgs,
-      lib,
-    }:
-      import ./vim (
-        moduleArgs // specialArgs // args
-      );
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -305,15 +307,17 @@
               '';
             };
         mkNixVim = input:
-          input.legacyPackages.${system}.makeNixvim (
-            mkVimConfig {
+          input.legacyPackages.${system}.makeNixvimWithModule {
+            pkgs = import input.inputs.nixpkgs {
+              inherit system;
+              config = import ./nixpkgs-config.nix;
+            };
+            module = import ./vim {
+              inherit specialArgs moduleArgs;
               lib = extendLib input.inputs.nixpkgs;
-              pkgs = import input.inputs.nixpkgs {
-                inherit system;
-                config = import ./nixpkgs-config.nix;
-              };
-            }
-          );
+              type = "standalone";
+            };
+          };
       in {
         formatter = pkgs.alejandra;
         packages = {

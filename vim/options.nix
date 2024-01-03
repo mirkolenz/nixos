@@ -1,5 +1,5 @@
 {...}: {
-  options = {
+  config.options = {
     # syntax = "on";
     autoindent = true;
     clipboard = "unnamed";

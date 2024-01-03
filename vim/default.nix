@@ -1,14 +1,19 @@
 # https://nix-community.github.io/nixvim/
-args @ {lib, ...}: let
-  mergeModules = start: modules: lib.foldl (a: b: lib.recursiveUpdate a b) start modules;
-  importModule = path: import path args;
-  modules = lib.flocken.getModules ./.;
-  importedModules = builtins.map importModule modules;
-in
-  mergeModules
-  {
+{
+  lib,
+  specialArgs,
+  moduleArgs,
+  type,
+}: {...}: {
+  imports =
+    (lib.flocken.getModules ./.)
+    ++ (lib.optional (lib.versionOlder lib.trivial.release specialArgs.unstableVersion) ./_stable.nix)
+    ++ (lib.optional (lib.versionAtLeast lib.trivial.release specialArgs.unstableVersion) ./_unstable.nix);
+
+  config = {
+    _module.args = lib.optionalAttrs (type == "standalone") moduleArgs;
     filetype.extension = {
       astro = "astro";
     };
-  }
-  importedModules
+  };
+}
