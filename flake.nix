@@ -252,7 +252,12 @@
           standaloneHomeModule
           homeModule
           ({lib, ...}: {
-            _module.args.user.login = lib.mkForce userName;
+            _module.args.user = lib.mkForce (
+              moduleArgs.user
+              // {
+                login = userName;
+              }
+            );
           })
         ];
       };
