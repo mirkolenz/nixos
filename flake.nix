@@ -144,11 +144,16 @@
       };
     };
 
-    homeModule = {pkgs, ...}: {
+    homeModule = {
+      pkgs,
+      lib,
+      ...
+    }: {
       nixpkgs = {
         config = import ./nixpkgs-config.nix;
         overlays = import ./overlays inputs;
       };
+      programs.nixvim = mkVimConfig {inherit pkgs lib;};
       targets.genericLinux.enable = pkgs.stdenv.isLinux;
     };
 
@@ -260,6 +265,14 @@
         inherit system;
         channel = "unstable";
       };
+
+    mkVimConfig = args @ {
+      pkgs,
+      lib,
+    }:
+      import ./vim (
+        moduleArgs // specialArgs // args
+      );
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
@@ -289,12 +302,24 @@
                 sudo ${lib.getExe pkgs.nixos-rebuild} "$@"
               '';
             };
+        mkNixVim = input:
+          input.legacyPackages.${system}.makeNixvim (
+            mkVimConfig {
+              lib = extendLib input.inputs.nixpkgs;
+              pkgs = import input.inputs.nixpkgs {
+                inherit system;
+                config = import ./nixpkgs-config.nix;
+              };
+            }
+          );
       in {
         formatter = pkgs.alejandra;
         packages = {
           default = self'.packages.system;
           system = mkBuilder systemBuilder;
           home = mkBuilder inputs.home-manager-linux-unstable.packages.${system}.default;
+          vim = mkNixVim inputs.nixvim-unstable;
+          vim-stable = mkNixVim inputs.nixvim-linux-stable;
         };
         legacyPackages.homeConfigurations =
           lib.genAttrs
