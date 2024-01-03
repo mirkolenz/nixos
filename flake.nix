@@ -251,9 +251,9 @@
         modules = [
           standaloneHomeModule
           homeModule
-          {
-            _module.args.user.login = userName;
-          }
+          ({lib, ...}: {
+            _module.args.user.login = lib.mkForce userName;
+          })
         ];
       };
 
