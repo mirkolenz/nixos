@@ -17,8 +17,23 @@
     todo-comments = {
       enable = true;
     };
+    comment-nvim = {
+      enable = true;
+    };
+    trouble = {
+      enable = true;
+    };
+    fugitive = {
+      enable = true;
+    };
+    gitgutter = {
+      enable = true;
+    };
     copilot-vim = {
       enable = true;
+    };
+    oil = {
+      enable = false;
     };
   };
 }
