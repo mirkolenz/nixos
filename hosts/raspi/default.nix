@@ -19,10 +19,11 @@
     poe-plus-hat.enable = true;
   };
 
-  # systemd.network.links."20-eth0" = {
-  #   matchConfig.OriginalName = "end0";
-  #   linkConfig.Name = "eth0";
-  # };
+  systemd.network.links."20-ethernet0" = {
+    # matchConfig.OriginalName = "end0";
+    matchConfig.PermanentMACAddress = "e4:5f:01:98:a7:60";
+    linkConfig.Name = "ethernet0";
+  };
 
   powerManagement.cpuFreqGovernor = "ondemand";
 }
