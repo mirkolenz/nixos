@@ -12,7 +12,7 @@ cfg: {lib, ...}: {
     };
 
     image = mkOption {
-      type = types.submodule {
+      type = types.either types.str (types.submodule {
         options = {
           name = mkOption {
             type = with types; str;
@@ -21,7 +21,7 @@ cfg: {lib, ...}: {
           };
 
           registry = mkOption {
-            type = with types; str;
+            type = with types; nullOr str;
             default = "docker.io";
             description = lib.mdDoc "The registry to pull the image from.";
           };
@@ -32,7 +32,7 @@ cfg: {lib, ...}: {
             description = lib.mdDoc "The tag of the image to use.";
           };
         };
-      };
+      });
     };
 
     imageFile = mkOption {
