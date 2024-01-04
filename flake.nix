@@ -116,7 +116,7 @@
     getOs = system: nixpkgs.lib.last (nixpkgs.lib.splitString "-" system);
 
     extendLib = input:
-      input.lib.extend (nixpkgs.lib.composeManyExtensions [
+      input.lib.extend (input.lib.composeManyExtensions [
         self.overlays.lib
         flocken.overlays.lib
       ]);
