@@ -106,18 +106,18 @@
       exec ${lib.getExe pkgs.nix} hash to-sri --type "sha256" "$(${lib.getExe' pkgs.nix "nix-prefetch-url"} "$1")"
     '';
     fetch-sri-str = ''
-      if [ "$#" -ne 1 ]; then
-        ${echo} "Usage: $0 NIX_EVAL_ATTRIBUTE" >&2
+      if [ "$#" -lt 1 ]; then
+        ${echo} "Usage: $0 NIX_EVAL_ARGS..." >&2
         exit 1
       fi
-      ${lib.getExe cmds.fetch-sri} "$(${lib.getExe pkgs.nix} eval --raw "$1")"
+      ${lib.getExe cmds.fetch-sri} "$(${lib.getExe pkgs.nix} eval --raw "$@")"
     '';
     fetch-sri-attrs = ''
-      if [ "$#" -ne 1 ]; then
-        ${echo} "Usage: $0 NIX_EVAL_ATTRIBUTE" >&2
+      if [ "$#" -lt 1 ]; then
+        ${echo} "Usage: $0 NIX_EVAL_ARGS..." >&2
         exit 1
       fi
-      exec ${lib.getExe pkgs.nix} eval --raw "$1" \
+      exec ${lib.getExe pkgs.nix} eval --raw "$@" \
        --apply "attrs: builtins.concatStringsSep \"\\n\" (builtins.attrValues (builtins.mapAttrs (name: value: value.url) attrs))" \
        | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe cmds.fetch-sri}
     '';
