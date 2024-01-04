@@ -124,12 +124,12 @@
     # available during import
     specialArgs = {
       inherit inputs;
-      stateVersion = "23.11";
-      stateVersionDarwin = 4;
     };
 
     # can be overriden in module
     moduleArgs = {
+      stateVersion = "23.11";
+      stateVersionDarwin = 4;
       user = {
         name = "Mirko Lenz";
         mail = "mirko@mirkolenz.com";
