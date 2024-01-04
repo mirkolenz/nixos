@@ -12,7 +12,7 @@
       inputs.nixos-hardware.nixosModules.common-hidpi
       ./hardware.nix
       ./samba.nix
-      ../server.nix
+      ../../profiles/server.nix
     ]
     ++ lib.flocken.optionalPath "/etc/nixos/default.nix";
 

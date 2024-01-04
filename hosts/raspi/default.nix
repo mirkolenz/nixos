@@ -8,7 +8,7 @@
     [
       inputs.nixos-hardware.nixosModules.raspberry-pi-4
       ./hardware.nix
-      ../server.nix
+      ../../profiles/server.nix
     ]
     ++ lib.flocken.optionalPath "/etc/nixos/default.nix";
 

@@ -6,7 +6,7 @@
   imports = [
     inputs.vscode-server.nixosModule
     ./hardware-qemu.nix
-    ../workstation.nix
+    ../../profiles/workstation.nix
   ];
   services.openssh.enable = true;
 
