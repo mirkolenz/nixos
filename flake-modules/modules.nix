@@ -17,9 +17,7 @@
     imports = [../home/mlenz];
     options = {
       programs.nixvim = lib.mkOption {
-        type = lib.types.submodule (import ../vim {
-          inherit lib' specialArgs moduleArgs;
-        });
+        type = lib.types.submodule (import ../vim lib');
       };
     };
     config = {

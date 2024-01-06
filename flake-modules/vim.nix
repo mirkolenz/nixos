@@ -16,8 +16,12 @@
           inherit system;
           config = import ../nixpkgs-config.nix;
         };
-        module = import ../vim {
-          inherit lib' specialArgs moduleArgs;
+        extraSpecialArgs = specialArgs;
+        module = {
+          imports = [
+            (import ../vim lib')
+          ];
+          _module.args = moduleArgs;
         };
       };
   in {
