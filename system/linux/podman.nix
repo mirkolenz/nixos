@@ -1,8 +1,6 @@
 {
   config,
-  pkgs,
   lib,
-  user,
   ...
 }: let
   cfg = config.custom.podman;

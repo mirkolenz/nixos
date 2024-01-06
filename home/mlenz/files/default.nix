@@ -2,8 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
-  osConfig,
   ...
 }: let
   poetryPrefix =

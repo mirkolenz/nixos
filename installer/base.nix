@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   stateVersion,
   user,
