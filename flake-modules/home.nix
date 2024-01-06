@@ -5,7 +5,6 @@
   self,
   lib,
   lib',
-  moduleWithSystem,
   ...
 }: let
   mkHomeConfig = userName: {
@@ -40,8 +39,10 @@
       channel = "unstable";
     };
 in {
-  flake.homeConfigurations = moduleWithSystem ({system}:
-    lib.genAttrs
-    ["mlenz" "lenz" "mirkolenz" "mirkol"]
-    (mkDefaultHomeConfig system));
+  perSystem = {system, ...}: {
+    legacyPackages.homeConfigurations =
+      lib.genAttrs
+      ["mlenz" "lenz" "mirkolenz" "mirkol"]
+      (mkDefaultHomeConfig system);
+  };
 }
