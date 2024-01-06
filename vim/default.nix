@@ -1,17 +1,16 @@
 # https://nix-community.github.io/nixvim/
 {
-  lib,
+  lib',
   specialArgs,
   moduleArgs,
-  type,
-}: {...}: {
+}: {lib, ...}: {
   imports =
-    (lib.flocken.getModules ./.)
-    ++ (lib.optional lib.custom.isStable ./_stable.nix)
-    ++ (lib.optional lib.custom.isUnstable ./_unstable.nix);
+    (lib'.flocken.getModules ./.)
+    ++ (lib.optional (lib'.self.isStable lib) ./_stable.nix)
+    ++ (lib.optional (lib'.self.isUnstable lib) ./_unstable.nix);
 
   config = {
-    _module.args = lib.optionalAttrs (type == "standalone") moduleArgs;
+    _module.args = moduleArgs // specialArgs;
     filetype.extension = {
       astro = "astro";
     };

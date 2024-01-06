@@ -1,4 +1,7 @@
-lib: rec {
+{
+  lib,
+  lib',
+}: rec {
   mkOptions = let
     isNameValuePair = value:
       builtins.attrNames value
@@ -105,7 +108,7 @@ lib: rec {
 
   mkSysctls = attrs:
     mkOptions {
-      sysctl = lib.attrsToList (lib.flocken.getLeaves (
+      sysctl = lib.attrsToList (lib'.flocken.getLeaves (
         {
           # https://stackoverflow.com/a/66892807
           net.ipv4.ip_unprivileged_port_start = 0;
@@ -145,7 +148,7 @@ lib: rec {
     then "${image.name}:${image.tag}"
     else "${image.registry}/${image.name}:${image.tag}";
 
-  mkLabels = attrs: lib.flocken.getLeaves attrs;
+  mkLabels = attrs: lib'.flocken.getLeaves attrs;
 
   mkLinks = networks: containers: let
     mkLink = container: link: let

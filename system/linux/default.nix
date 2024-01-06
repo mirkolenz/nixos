@@ -1,11 +1,11 @@
 {
   config,
-  lib,
+  lib',
   pkgs,
   stateVersion,
   ...
 }: {
-  imports = [../common] ++ (lib.flocken.getModules ./.);
+  imports = [../common] ++ (lib'.flocken.getModules ./.);
 
   custom.podman.enable = true;
 

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  lib',
   pkgs,
   ...
 }: let
@@ -25,7 +26,7 @@
     ++ (cli.mkOptions container.extraOptions)
     ++ container.extraArgs;
 
-  cli = import ./cli.nix lib;
+  cli = import ./cli.nix {inherit lib lib';};
 
   mkContainer = name: container:
     lib.mkIf container.enable {

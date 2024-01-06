@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  lib',
   osConfig,
   inputs,
   user,
@@ -12,7 +13,7 @@
     then "/Users/${user.login}"
     else "/home/${user.login}";
   nixvimInput =
-    if lib.custom.isUnstable
+    if (lib'.self.isUnstable lib)
     then inputs.nixvim-unstable
     else inputs.nixvim-linux-stable;
 in {
@@ -21,7 +22,7 @@ in {
       inputs.nix-index-database.hmModules.nix-index
       nixvimInput.homeManagerModules.nixvim
     ]
-    ++ (lib.flocken.getModules ./.);
+    ++ (lib'.flocken.getModules ./.);
 
   home = {
     inherit homeDirectory stateVersion;

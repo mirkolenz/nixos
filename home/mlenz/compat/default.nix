@@ -1,5 +1,9 @@
-{lib, ...}: {
+{
+  lib,
+  lib',
+  ...
+}: {
   imports =
-    (lib.optional lib.custom.isStable ./stable.nix)
-    ++ (lib.optional lib.custom.isUnstable ./unstable.nix);
+    (lib.optional (lib'.self.isStable lib) ./stable.nix)
+    ++ (lib.optional (lib'.self.isUnstable lib) ./unstable.nix);
 }

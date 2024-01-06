@@ -1,12 +1,13 @@
 {
   lib,
+  lib',
   pkgs,
   config,
   ...
 }: let
   cfg = config.custom.oci;
   wrapperCfg = cfg.shellWrapper;
-  cli = import ./containers/cli.nix lib;
+  cli = import ./containers/cli.nix {inherit lib lib';};
 
   podmanArgs =
     (cli.mkOptions {
