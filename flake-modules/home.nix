@@ -11,7 +11,7 @@
     channel,
     system,
   }: let
-    os = lib'.self.getOs system;
+    os = lib'.self.systemOs system;
     hmInput = inputs."home-manager-${os}-${channel}";
   in
     hmInput.lib.homeManagerConfiguration {

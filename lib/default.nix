@@ -3,5 +3,6 @@ lib: rec {
   unstableVersion = "24.05";
   isStable = checkedLib: lib.versionOlder checkedLib.trivial.release unstableVersion;
   isUnstable = checkedLib: lib.versionAtLeast checkedLib.trivial.release unstableVersion;
-  getOs = system: lib.last (lib.splitString "-" system);
+  systemOs = system: lib.last (lib.splitString "-" system);
+  systemArch = system: builtins.head (lib.splitString "-" system);
 }
