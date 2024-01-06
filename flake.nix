@@ -10,7 +10,10 @@
     nixpkgs-darwin-unstable.follows = "nixpkgs";
 
     # Small helpers
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
     systems.url = "github:nix-systems/default";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -50,16 +53,19 @@
     flocken = {
       url = "github:mirkolenz/flocken/v2";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
     makejinja = {
       url = "github:mirkolenz/makejinja/v2";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.poetry2nix.follows = "poetry2nix";
       inputs.flocken.follows = "flocken";
     };
     arguebuf = {
       url = "github:recap-utr/arguebuf-python/v2";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.poetry2nix.follows = "poetry2nix";
       inputs.flocken.follows = "flocken";
     };
