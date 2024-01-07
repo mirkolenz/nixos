@@ -1,7 +1,7 @@
 {
   inputs,
   moduleArgs,
-  specialArgs,
+  specialModuleArgs,
   self,
   lib,
   lib',
@@ -18,7 +18,7 @@
       pkgs = import hmInput.inputs.nixpkgs {
         inherit system;
       };
-      extraSpecialArgs = specialArgs;
+      extraSpecialArgs = specialModuleArgs;
       modules = [
         self.configModules.homeManager
         self.configModules.home

@@ -1,6 +1,6 @@
 {
   inputs,
-  specialArgs,
+  specialModuleArgs,
   moduleArgs,
   ...
 }: let
@@ -10,7 +10,8 @@
     module,
   }:
     inputs.nixos-generators.nixosGenerate {
-      inherit specialArgs system format;
+      inherit system format;
+      specialArgs = specialModuleArgs;
       customFormats = import ../installer/formats.nix inputs.nixos-generators.inputs.nixpkgs;
       modules = [
         {_module.args = moduleArgs;}

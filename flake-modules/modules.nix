@@ -1,6 +1,6 @@
 {
   inputs,
-  specialArgs,
+  specialModuleArgs,
   moduleArgs,
   lib',
   ...
@@ -39,7 +39,7 @@ in {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        extraSpecialArgs = specialArgs;
+        extraSpecialArgs = specialModuleArgs;
         users.mlenz = homeModule;
       };
     };

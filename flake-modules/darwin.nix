@@ -1,6 +1,6 @@
 {
   inputs,
-  specialArgs,
+  specialModuleArgs,
   self,
   ...
 }: let
@@ -10,7 +10,8 @@
     computerName,
   }:
     inputs."nix-darwin-${channel}".lib.darwinSystem {
-      inherit specialArgs system;
+      inherit system;
+      specialArgs = specialModuleArgs;
       modules = [
         self.configModules.system
         inputs."home-manager-darwin-${channel}".darwinModules.home-manager

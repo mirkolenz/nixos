@@ -5,7 +5,7 @@
 }: {
   _module.args = {
     # available during import
-    specialArgs = {
+    specialModuleArgs = {
       inherit inputs lib';
     };
 

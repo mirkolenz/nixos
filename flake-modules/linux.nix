@@ -1,6 +1,6 @@
 {
   inputs,
-  specialArgs,
+  specialModuleArgs,
   self,
   ...
 }: let
@@ -9,7 +9,8 @@
     system,
   }:
     inputs."nixpkgs-linux-${channel}".lib.nixosSystem {
-      inherit specialArgs system;
+      inherit system;
+      specialArgs = specialModuleArgs;
       modules = [
         self.configModules.system
         inputs."home-manager-linux-${channel}".nixosModules.home-manager

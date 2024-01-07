@@ -1,6 +1,6 @@
 {
   inputs,
-  specialArgs,
+  specialModuleArgs,
   moduleArgs,
   lib',
   ...
@@ -16,7 +16,7 @@
           inherit system;
           config = import ../nixpkgs-config.nix;
         };
-        extraSpecialArgs = specialArgs;
+        extraSpecialArgs = specialModuleArgs;
         module = {
           imports = [
             (import ../vim lib')
