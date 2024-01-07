@@ -2,7 +2,6 @@
   inputs,
   specialModuleArgs,
   moduleArgs,
-  lib',
   ...
 }: let
   nixpkgs = {
@@ -17,7 +16,17 @@
     imports = [../home/mlenz];
     options = {
       programs.nixvim = lib.mkOption {
-        type = lib.types.submodule (import ../vim lib');
+        type = lib.types.submoduleWith {
+          specialArgs = specialModuleArgs;
+          modules = [
+            ../vim
+            {_module.args = moduleArgs;}
+          ];
+          # If set to false (default), the following error is thrown:
+          # A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values
+          # Reason: HM uses the type `submodule` where this is set to true by default
+          shorthandOnlyDefinesConfig = true;
+        };
       };
     };
     config = {

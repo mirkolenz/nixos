@@ -2,7 +2,6 @@
   inputs,
   specialModuleArgs,
   moduleArgs,
-  lib',
   ...
 }: {
   perSystem = {
@@ -18,16 +17,15 @@
         };
         extraSpecialArgs = specialModuleArgs;
         module = {
-          imports = [
-            (import ../vim lib')
-          ];
+          imports = [../vim];
           _module.args = moduleArgs;
         };
       };
   in {
     packages = {
       vim = mkVim inputs.nixvim-unstable;
-      vim-stable = mkVim inputs.nixvim-linux-stable;
+      # Currently broken, see https://github.com/nix-community/nixvim/pull/914
+      # vim-stable = mkVim inputs.nixvim-linux-stable;
     };
   };
 }

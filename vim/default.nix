@@ -1,5 +1,9 @@
 # https://nix-community.github.io/nixvim/
-lib': {lib, ...}: {
+{
+  lib,
+  lib',
+  ...
+}: {
   imports =
     (lib'.flocken.getModules ./.)
     ++ (lib.optional (lib'.self.isStable lib) ./_stable.nix)
