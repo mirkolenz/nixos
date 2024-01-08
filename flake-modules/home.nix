@@ -7,10 +7,11 @@
   lib',
   ...
 }: let
-  mkHomeConfig = userName: {
+  mkHomeConfig = name: {
     channel,
     system,
   }: let
+    login = builtins.head (lib.splitString "@" name);
     os = lib'.self.systemOs system;
     hmInput = inputs."home-manager-${os}-${channel}";
   in
@@ -24,25 +25,16 @@
         self.configModules.home
         {
           _module.args.user = lib.mkForce (
-            moduleArgs.user
-            // {
-              login = userName;
-            }
+            moduleArgs.user // {inherit login;}
           );
         }
       ];
     };
-
-  mkDefaultHomeConfig = system: userName:
-    mkHomeConfig userName {
-      inherit system;
-      channel = "unstable";
-    };
 in {
-  perSystem = {system, ...}: {
-    legacyPackages.homeConfigurations =
-      lib.genAttrs
-      ["mlenz" "lenz" "mirkolenz" "mirkol"]
-      (mkDefaultHomeConfig system);
+  flake.homeConfigurations = builtins.mapAttrs mkHomeConfig {
+    "lenz@gpu.wi2.uni-trier.de" = {
+      channel = "unstable";
+      system = "x86_64-linux";
+    };
   };
 }
