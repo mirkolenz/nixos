@@ -37,7 +37,7 @@ in {
   flake.configModules = {
     home = {pkgs, ...}: {
       inherit nixpkgs;
-      _module.args = moduleArgs // {osConfig = {};};
+      _module.args.osConfig = {};
       imports = [homeModule];
       targets.genericLinux.enable = pkgs.stdenv.isLinux;
     };
