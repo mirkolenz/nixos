@@ -21,7 +21,6 @@
       };
       extraSpecialArgs = specialModuleArgs;
       modules = [
-        self.configModules.homeManager
         self.configModules.home
         {
           _module.args.user = lib.mkForce (
