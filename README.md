@@ -180,9 +180,9 @@ nix build github:mirkolenz/nixos#FORMAT --system SYSTEM
 https://nix.dev/tutorials/installing-nixos-on-a-raspberry-pi#updating-firmware
 
 ```shell
-nix shell nixpkgs#raspberrypi-eeprom
+nix shell pkgs#raspberrypi-eeprom
 sudo mount /dev/disk/by-label/FIRMWARE /mnt
-BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=stable sudo rpi-eeprom-update -d -a
+sudo env BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=default rpi-eeprom-update -d -a
 sudo reboot
 ```
 
@@ -192,7 +192,7 @@ sudo reboot
 # otherwise the optical drive is not found: https://discourse.nixos.org/t/makemkv-cant-find-my-usb-blu-ray-drive/23714
 sudo modprobe sg
 # if that does not work, try again with sudo
-NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#makemkv --impure
+NIXPKGS_ALLOW_UNFREE=1 nix run pkgs#makemkv --impure
 ```
 
 ### Investigate ID Mappings
