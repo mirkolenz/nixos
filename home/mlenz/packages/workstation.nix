@@ -4,8 +4,11 @@
   osConfig,
   ...
 }: let
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/package-management/poetry/default.nix#L40
   poetry = pkgs.poetry.withPlugins (ps: with ps; [poetry-plugin-up]);
+  python = pkgs.python3.withPackages (ps:
+    with ps; [
+      typer
+    ]);
 in
   lib.mkIf (pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"] true osConfig)) {
     home.packages = with pkgs; [
@@ -41,7 +44,7 @@ in
       goreleaser
       # python
       poetry
-      python3Full
+      python
       ruff
       black
       # nodejs

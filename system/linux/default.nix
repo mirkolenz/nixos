@@ -42,7 +42,7 @@
 
   environment.defaultPackages = with pkgs; [
     rsync
-    python3Minimal
+    python3
     strace
   ];
 
