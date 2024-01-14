@@ -1,4 +1,5 @@
 {
+  self,
   config,
   lib',
   pkgs,
@@ -12,6 +13,9 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   nix = {
+    nixPath = [
+      # "nixos-config=${self.outPath}/flake.nix"
+    ];
     settings = {
       # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
       auto-optimise-store = true;

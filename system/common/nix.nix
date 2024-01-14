@@ -9,7 +9,10 @@
     extraOptions = ''
       !include nix.local.conf
     '';
-    nixPath = ["nixpkgs=flake:nixpkgs"];
+    nixPath = [
+      "nixpkgs=flake:nixpkgs"
+      # "nixpkgs=${pkgs.path}"
+    ];
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
