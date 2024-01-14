@@ -9,6 +9,7 @@
     extraOptions = ''
       !include nix.local.conf
     '';
+    nixPath = ["nixpkgs=flake:nixpkgs"];
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
@@ -18,8 +19,6 @@
       keep-outputs = true;
       keep-derivations = false;
       keep-failed = false;
-      # https://github.com/DeterminateSystems/nix-installer/pull/270
-      extra-nix-path = "nixpkgs=flake:nixpkgs";
       # https://github.com/DeterminateSystems/nix-installer/pull/196
       # auto-allocate-uids = true;
       # does not build on Linux

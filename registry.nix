@@ -15,5 +15,9 @@
     if pkgs.stdenv.isDarwin
     then inputs.nixpkgs-darwin-unstable
     else inputs.nixpkgs-linux-unstable;
+  nixpkgs.flake =
+    if pkgs.stdenv.isDarwin
+    then inputs.nixpkgs-darwin-unstable
+    else inputs.nixpkgs-linux-unstable;
   self.flake = inputs.self;
 }
