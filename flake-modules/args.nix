@@ -1,4 +1,5 @@
 {
+  self,
   inputs,
   lib',
   ...
@@ -6,7 +7,7 @@
   _module.args = {
     # available during import
     specialModuleArgs = {
-      inherit inputs lib';
+      inherit self inputs lib';
     };
 
     # can be overriden in module
