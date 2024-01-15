@@ -167,8 +167,8 @@ in {
       inherit (proxyCfg) enable image;
       volumes = [
         ["${Caddyfile}/Caddyfile" "/etc/caddy/Caddyfile" "ro"]
-        [(builtins.toString proxyCfg.storage.data) "/data"]
-        [(builtins.toString proxyCfg.storage.config) "/config"]
+        [(toString proxyCfg.storage.data) "/data"]
+        [(toString proxyCfg.storage.config) "/config"]
       ];
       networks = {
         ${proxyCfg.networks.proxy.name} = {

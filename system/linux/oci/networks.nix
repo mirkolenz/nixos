@@ -22,7 +22,7 @@
         dns_enabled = false;
       } [
         (lib.optionalAttrs (network.driver == "bridge" && network.metric != null) {
-          options.metric = builtins.toString network.metric;
+          options.metric = toString network.metric;
         })
         (lib.optionalAttrs (network.driver == "bridge" && network.defaultRoute != null) {
           options.no_default_route =

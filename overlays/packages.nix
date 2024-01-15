@@ -4,7 +4,7 @@ inputs: (final: prev: let
   lib = final.lib;
 in {
   bibtex2cff = final.poetry2nix.mkPoetryApplication {
-    projectDir = builtins.toString inputs.bibtex2cff;
+    projectDir = toString inputs.bibtex2cff;
     preferWheels = true;
     python = final.python3;
   };

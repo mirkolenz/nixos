@@ -27,7 +27,7 @@
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
         --no-align --no-wrap --blank-lines --no-escape \
         --omit="${lib.concatStringsSep "," cfg.bibtidyOmit}" \
-        --max-authors="${builtins.toString cfg.bibtidyMaxAuthors}" \
+        --max-authors="${toString cfg.bibtidyMaxAuthors}" \
         "$@"
     '';
     bibcat = ''
@@ -141,7 +141,7 @@ in {
         ++ (builtins.attrValues cmds);
       file = {
         ".latexmkrc".source = ../files/.latexmkrc;
-        "texmf".source = builtins.toString inputs.texmf;
+        "texmf".source = toString inputs.texmf;
       };
     };
   };
