@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   user,
@@ -9,9 +10,8 @@
     extraOptions = ''
       !include nix.local.conf
     '';
-    nixPath = [
+    nixPath = lib.mkForce [
       "nixpkgs=flake:nixpkgs"
-      # "nixpkgs=${pkgs.path}"
     ];
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
