@@ -1,5 +1,4 @@
 {
-  self,
   config,
   lib',
   pkgs,
@@ -13,9 +12,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   nix = {
-    nixPath = [
-      # "nixos-config=${self.outPath}/flake.nix"
-    ];
     channel.enable = false;
     settings = {
       # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986

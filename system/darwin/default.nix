@@ -1,5 +1,4 @@
 {
-  self,
   lib',
   pkgs,
   stateVersionDarwin,
@@ -12,9 +11,6 @@
 
   nix = {
     linux-builder.enable = true;
-    nixPath = [
-      # "darwin-config=${self.outPath}/flake.nix"
-    ];
     settings = {
       build-users-group = "nixbld";
     };
