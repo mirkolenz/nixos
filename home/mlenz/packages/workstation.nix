@@ -10,7 +10,7 @@
       typer
     ]);
 in
-  lib.mkIf (pkgs.stdenv.isDarwin || (lib.attrByPath ["services" "xserver" "enable"] true osConfig)) {
+  lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     home.packages = with pkgs; [
       exiftool
       fontforge
