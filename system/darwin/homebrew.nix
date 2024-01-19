@@ -37,6 +37,7 @@
       "devonthink"
       "discord"
       "element"
+      "figma"
       "firefox"
       "fission"
       "font-big-shoulders-display"
