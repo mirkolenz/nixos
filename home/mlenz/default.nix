@@ -31,6 +31,7 @@ in {
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
       HOMEBREW_AUTOREMOVE = "1";
+      NIXPKGS_ALLOW_UNFREE = "1";
     };
   };
 
