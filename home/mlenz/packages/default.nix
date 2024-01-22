@@ -36,7 +36,7 @@
     curl
     wget
     macchina
-    speedtest-cli
+    ookla-speedtest
     restic
     autorestic
     sqlite
