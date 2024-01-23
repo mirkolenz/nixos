@@ -10,19 +10,6 @@
     config,
     ...
   }: let
-    wrapper =
-      pkgs.writers.writePython3Bin "builder-wrapper" {
-        libraries = with pkgs.python3Packages; [typer];
-        flakeIgnore = ["E203" "E501"];
-      }
-      (builtins.readFile ./builder.py);
-    mkBuilder = builderExe:
-      pkgs.writeShellApplication {
-        name = "builder";
-        text = ''
-          exec ${lib.getExe wrapper} ${builderExe} --flake ${self.outPath} "$@"
-        '';
-      };
     systemBuilder =
       if pkgs.stdenv.isDarwin
       then lib.getExe' inputs.nix-darwin-unstable.packages.${system}.default "darwin-rebuild"
@@ -31,8 +18,29 @@
   in {
     packages = {
       default = config.packages.system;
-      system = mkBuilder systemBuilder;
-      home = mkBuilder homeBuilder;
+      system = config.legacyPackages.mkBuilder {
+        exe = systemBuilder;
+      };
+      home = config.legacyPackages.mkBuilder {
+        exe = homeBuilder;
+      };
+      builder-wrapper =
+        pkgs.writers.writePython3Bin "builder-wrapper" {
+          libraries = with pkgs.python3Packages; [typer];
+          flakeIgnore = ["E203" "E501"];
+        }
+        (builtins.readFile ./builder-wrapper.py);
     };
+    legacyPackages.mkBuilder = {
+      exe,
+      flake ? self,
+      args ? [],
+    }:
+      pkgs.writeShellApplication {
+        name = "builder";
+        text = ''
+          exec ${lib.getExe config.packages.builder-wrapper} ${exe} --flake ${self.outPath} ${lib.escapeShellArgs args} "$@"
+        '';
+      };
   };
 }
