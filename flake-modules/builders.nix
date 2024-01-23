@@ -10,27 +10,24 @@
     config,
     ...
   }: let
-    builderOpts = lib.escapeShellArgs ["--impure" "--no-write-lock-file"];
-    mkBuilder = builder:
+    wrapper =
+      pkgs.writers.writePython3Bin "builder-wrapper" {
+        libraries = with pkgs.python3Packages; [typer];
+        flakeIgnore = ["E203" "E501"];
+      }
+      (builtins.readFile ./builder.py);
+    mkBuilder = builderExe:
       pkgs.writeShellApplication {
         name = "builder";
         text = ''
-          set -x #echo on
-          exec ${lib.getExe builder} --flake "${self.outPath}" ${builderOpts} "''${1:-switch}" "''${@:2}"
+          exec ${lib.getExe wrapper} ${builderExe} --flake ${self.outPath} "$@"
         '';
       };
     systemBuilder =
       if pkgs.stdenv.isDarwin
-      then inputs.nix-darwin-unstable.packages.${system}.default
-      else
-        pkgs.writeShellApplication {
-          name = "sudo-nixos-rebuild";
-          text = ''
-            sudo ${lib.getExe pkgs.nixos-rebuild} "$@"
-          '';
-        };
-
-    homeBuilder = inputs.home-manager-linux-unstable.packages.${system}.default;
+      then lib.getExe' inputs.nix-darwin-unstable.packages.${system}.default "darwin-rebuild"
+      else lib.getExe pkgs.nixos-rebuild;
+    homeBuilder = lib.getExe' inputs.home-manager-linux-unstable.packages.${system}.default "home-manager";
   in {
     packages = {
       default = config.packages.system;
