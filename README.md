@@ -7,6 +7,12 @@ When setting up a new host, please run the following first:
 hostname MACHINE_NAME
 ```
 
+You may also change the hostname as follows:
+
+```shell
+nix run github:mirkolenz/nixos -- --hostname MACHINE_NAME
+```
+
 ## NixOS
 
 ### Graphical Setup
@@ -18,9 +24,9 @@ hostname MACHINE_NAME
 
 ```shell
 # Large changes (like first time)
-nix run github:mirkolenz/nixos -- boot
+sudo nix run github:mirkolenz/nixos -- -o boot
 # Small changes
-nix run github:mirkolenz/nixos
+sudo nix run github:mirkolenz/nixos
 ```
 
 ### Terminal Setup
