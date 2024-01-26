@@ -52,14 +52,21 @@
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication {inherit name text;}) cmdTexts;
 in {
   options = {
+    # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/texlive.section.md
     custom.texlive = {
       enable = lib.mkEnableOption "TeX Live";
 
-      package = lib.mkOption {
+      packageScheme = lib.mkOption {
         type = lib.types.package;
         description = "TeX Live package set to use.";
         default = pkgs.texliveFull;
         defaultText = lib.literalExpression "pkgs.texliveFull";
+      };
+
+      packageConfig = lib.mkOption {
+        type = lib.types.attrsOf lib.types.str;
+        description = "Options to pass to the TeX Live package set.";
+        default = {};
       };
 
       bibFolder = lib.mkOption {
@@ -136,7 +143,7 @@ in {
   config = lib.mkIf cfg.enable {
     home = {
       packages =
-        [cfg.package]
+        [(cfg.packageScheme.__overrideTeXConfig cfg.packageConfig)]
         ++ cfg.extraPackages
         ++ (builtins.attrValues cmds);
       file = {
