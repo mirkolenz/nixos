@@ -11,13 +11,19 @@
   homeModule = {
     pkgs,
     lib,
+    channel,
+    os,
     ...
   }: {
     imports = [../home/mlenz];
     options = {
       programs.nixvim = lib.mkOption {
         type = lib.types.submoduleWith {
-          specialArgs = specialModuleArgs;
+          specialArgs =
+            specialModuleArgs
+            // {
+              inherit channel os;
+            };
           modules = [
             ../vim
             {_module.args = moduleArgs;}
