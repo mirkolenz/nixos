@@ -6,10 +6,10 @@
   channel,
   ...
 }: let
-  name = "nixpkgs";
   mkEntry = channel:
     lib'.self.systemInput {
-      inherit inputs os name channel;
+      inherit inputs os channel;
+      name = "nixpkgs";
     };
 in {
   stable.flake = mkEntry "stable";
