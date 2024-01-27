@@ -29,7 +29,6 @@ in
       imagemagick
       pngquant
       # nix
-      nixpkgs-fmt
       nil
       nixd
       nixfmt

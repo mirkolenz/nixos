@@ -17,4 +17,5 @@ in {
   makejinja = getPkg "makejinja";
   arguebuf = getPkg "arguebuf";
   dummy = final.writeShellScriptBin "dummy" ":";
+  nixfmt = final.unstable.nixfmt-rfc-style;
 })

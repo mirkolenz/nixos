@@ -14,6 +14,6 @@
       config = import ../nixpkgs-config.nix;
       overlays = import ../overlays inputs;
     };
-    formatter = pkgs.alejandra;
+    formatter = pkgs.nixfmt;
   };
 }
