@@ -6,11 +6,11 @@
 }:
 mkApp rec {
   pname = "neovide";
-  version = "0.12.0";
+  version = "0.12.1";
   appname = "Neovide";
   src = fetchzip {
     url = "https://github.com/neovide/neovide/releases/download/${version}/${pname}.dmg.zip";
-    hash = "sha256-mnOqybXBclikGnVvqgx12GOiVY6zUa9xaLS12M5BhpA=";
+    hash = "sha256-2DiF2DPK2hKlL+c04xUG4BehzBvQ1hWhaMH+WWN09aE=";
   };
   # undmg cannot handle APFS dmg files, so we need to mount it manually
   unpackCmd = ''
