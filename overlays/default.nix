@@ -1,5 +1,5 @@
 inputs: [
-  (import ./apps.nix)
+  (import ./apps)
   (import ./channels.nix inputs)
   (import ./compat.nix)
   (import ./packages.nix inputs)
