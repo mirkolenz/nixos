@@ -123,7 +123,7 @@
         inherit inputs;
         specialArgs = {
           lib' = {
-            self = self.lib;
+            self = import ./lib inputs.nixpkgs.lib;
             flocken = inputs.flocken.lib;
           };
         };
@@ -131,6 +131,5 @@
       {
         systems = import systems;
         imports = [ ./flake-modules ];
-        flake.lib = import ./lib inputs.nixpkgs.lib;
       };
 }

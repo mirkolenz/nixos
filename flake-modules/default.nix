@@ -11,4 +11,7 @@
       };
       formatter = pkgs.nixfmt;
     };
+  flake = {
+    lib = lib'.self;
+  };
 }
