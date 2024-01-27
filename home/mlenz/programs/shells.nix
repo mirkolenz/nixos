@@ -12,6 +12,8 @@
       end
     ''
     else "";
+  # If PATH is wrong on darwin, try this:
+  # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
   fixNixProfile =
     if osConfig == {}
     then ''
