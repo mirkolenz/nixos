@@ -3,21 +3,18 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   cfg = config.custom.oci;
   proxyCfg = cfg.proxy;
 
   hostOptions = {
     options = with lib; {
       # unique to generic proxies
-      reverseProxy = mkOption {
-        type = with types; str;
-      };
+      reverseProxy = mkOption { type = with types; str; };
 
       # also used for container proxies
-      names = mkOption {
-        type = with types; listOf str;
-      };
+      names = mkOption { type = with types; listOf str; };
 
       lanOnly = mkOption {
         type = with types; bool;
@@ -43,26 +40,20 @@
     }
   '';
 
-  mkContainerHostConf = container: let
-    proxyNetwork = proxyCfg.networks.proxy.name;
-    prefix = cfg.networks.${proxyNetwork}.prefix;
-    suffix = container.networks.${proxyNetwork}.suffix;
-  in
-    mkHostConf (container.proxy
-      // {
-        reverseProxy = "${prefix}.${suffix}";
-      });
+  mkContainerHostConf =
+    container:
+    let
+      proxyNetwork = proxyCfg.networks.proxy.name;
+      prefix = cfg.networks.${proxyNetwork}.prefix;
+      suffix = container.networks.${proxyNetwork}.suffix;
+    in
+    mkHostConf (container.proxy // { reverseProxy = "${prefix}.${suffix}"; });
 
   filteredContainers = builtins.attrValues (
-    lib.filterAttrs
-    (name: container: container.proxy != null)
-    cfg.containers
+    lib.filterAttrs (name: container: container.proxy != null) cfg.containers
   );
 
-  boolToOnOff = b:
-    if b
-    then "on"
-    else "off";
+  boolToOnOff = b: if b then "on" else "off";
 
   Caddyfile = pkgs.writeTextDir "Caddyfile" ''
     {
@@ -87,26 +78,19 @@
     ${lib.concatLines (builtins.map mkContainerHostConf filteredContainers)}
     ${lib.concatLines (builtins.map mkHostConf proxyCfg.hosts)}
   '';
-in {
+in
+{
   options.custom.oci.proxy = with lib; {
     enable = mkEnableOption "Reverse proxy with Caddy";
 
     networks = {
       proxy = {
-        name = mkOption {
-          type = with types; str;
-        };
-        suffix = mkOption {
-          type = with types; str;
-        };
+        name = mkOption { type = with types; str; };
+        suffix = mkOption { type = with types; str; };
       };
       external = {
-        name = mkOption {
-          type = with types; str;
-        };
-        suffix = mkOption {
-          type = with types; str;
-        };
+        name = mkOption { type = with types; str; };
+        suffix = mkOption { type = with types; str; };
       };
     };
 
@@ -123,18 +107,12 @@ in {
     };
 
     storage = {
-      data = mkOption {
-        type = with types; str;
-      };
+      data = mkOption { type = with types; str; };
 
-      config = mkOption {
-        type = with types; str;
-      };
+      config = mkOption { type = with types; str; };
     };
 
-    email = mkOption {
-      type = with types; str;
-    };
+    email = mkOption { type = with types; str; };
 
     autoHttps = mkOption {
       type = with types; bool;
@@ -143,7 +121,7 @@ in {
 
     hosts = mkOption {
       type = with types; listOf (submodule hostOptions);
-      default = [];
+      default = [ ];
     };
 
     extraConfig = mkOption {
@@ -166,9 +144,19 @@ in {
     custom.oci.containers.proxy = {
       inherit (proxyCfg) enable image;
       volumes = [
-        ["${Caddyfile}/Caddyfile" "/etc/caddy/Caddyfile" "ro"]
-        [(toString proxyCfg.storage.data) "/data"]
-        [(toString proxyCfg.storage.config) "/config"]
+        [
+          "${Caddyfile}/Caddyfile"
+          "/etc/caddy/Caddyfile"
+          "ro"
+        ]
+        [
+          (toString proxyCfg.storage.data)
+          "/data"
+        ]
+        [
+          (toString proxyCfg.storage.config)
+          "/config"
+        ]
       ];
       networks = {
         ${proxyCfg.networks.proxy.name} = {

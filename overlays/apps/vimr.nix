@@ -20,6 +20,6 @@ mkApp rec {
     description = "Neovim GUI for macOS in Swift";
     homepage = "https://github.com/qvacua/vimr";
     downloadPage = "https://github.com/qvacua/vimr/releases";
-    license = with lib.licenses; [mit];
+    license = with lib.licenses; [ mit ];
   };
 }

@@ -5,7 +5,8 @@
   osConfig,
   config,
   ...
-}: {
+}:
+{
   imports = lib'.flocken.getModules ./.;
 
   home.packages = with pkgs; [
@@ -51,14 +52,15 @@
     py = "poetry run python"; # should use local poetry if possible
     cat = lib.getExe pkgs.bat;
     l = "ll";
-    sudo = let
-      customPaths = [
-        "${config.home.homeDirectory}/.nix-profile/bin"
-        "/nix/var/nix/profiles/default/bin"
-        "/nix/var/nix/profiles/default/sbin"
-      ];
-    in
-      lib.mkIf (osConfig == {})
-      ''/usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"'';
+    sudo =
+      let
+        customPaths = [
+          "${config.home.homeDirectory}/.nix-profile/bin"
+          "/nix/var/nix/profiles/default/bin"
+          "/nix/var/nix/profiles/default/sbin"
+        ];
+      in
+      lib.mkIf (osConfig == { })
+        ''/usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"'';
   };
 }

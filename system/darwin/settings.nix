@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   security.pam.enableSudoTouchIdAuth = true;
 
   system.defaults = {
@@ -143,7 +144,7 @@
       NSTableViewDefaultSizeMode = 2;
       NSTextShowsControlCharacters = false;
       NSUseAnimatedFocusRing = true;
-      NSWindowResizeTime = 0.020;
+      NSWindowResizeTime = 2.0e-2;
       PMPrintingExpandedStateForPrint = true;
       PMPrintingExpandedStateForPrint2 = true;
     };

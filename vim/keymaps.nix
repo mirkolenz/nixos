@@ -1,22 +1,23 @@
-{...}: {
+{ ... }:
+{
   keymaps = [
     {
       # Use 'jk' to exit insert mode
       key = "jk";
       mode = "i";
-      action = ''<esc>'';
+      action = "<esc>";
     }
     {
       # Use 'shift+return' to prepend new line
       key = "<S-Enter>";
       mode = "n";
-      action = ''O<Esc>'';
+      action = "O<Esc>";
     }
     {
       # Use 'return' to append new line
       key = "<CR>";
       mode = "n";
-      action = ''o<Esc>'';
+      action = "o<Esc>";
     }
     {
       # Do not yank deleted content (normal mode)
@@ -33,7 +34,7 @@
     {
       key = "<Esc>";
       mode = "t";
-      action = ''<C-\><C-n>'';
+      action = "<C-\\><C-n>";
     }
   ];
 }

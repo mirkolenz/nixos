@@ -4,20 +4,19 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   cfg = config.custom.oci;
   wrapperCfg = cfg.shellWrapper;
-  cli = import ./containers/cli.nix {inherit lib lib';};
+  cli = import ./containers/cli.nix { inherit lib lib'; };
 
   podmanArgs =
-    (cli.mkOptions {
-      rm = true;
-    })
+    (cli.mkOptions { rm = true; })
     ++ (cli.mkUserns cfg.userns)
-    ++ (cli.mkEnv {})
-    ++ (cli.mkHosts {})
-    ++ (cli.mkCaps {})
-    ++ (cli.mkSysctls {});
+    ++ (cli.mkEnv { })
+    ++ (cli.mkHosts { })
+    ++ (cli.mkCaps { })
+    ++ (cli.mkSysctls { });
 
   wrapper = pkgs.writeShellApplication {
     name = "oci";
@@ -58,7 +57,8 @@
       fi
     '';
   };
-in {
+in
+{
   options.custom.oci.shellWrapper = with lib; {
     enable = mkOption {
       default = true;
@@ -66,9 +66,5 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.enable && wrapperCfg.enable) {
-    environment.systemPackages = [
-      wrapper
-    ];
-  };
+  config = lib.mkIf (cfg.enable && wrapperCfg.enable) { environment.systemPackages = [ wrapper ]; };
 }

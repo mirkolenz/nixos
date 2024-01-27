@@ -3,8 +3,9 @@
   pkgs,
   stateVersionDarwin,
   ...
-}: {
-  imports = [../common] ++ (lib'.flocken.getModules ./.);
+}:
+{
+  imports = [ ../common ] ++ (lib'.flocken.getModules ./.);
 
   environment.loginShell = pkgs.fish;
   services.nix-daemon.enable = true;

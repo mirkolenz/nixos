@@ -3,7 +3,7 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs. url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
@@ -111,23 +111,26 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    flake-parts,
-    systems,
-    ...
-  }:
-    flake-parts.lib.mkFlake {
-      inherit inputs;
-      specialArgs = {
-        lib' = {
-          self = self.lib;
-          flocken = inputs.flocken.lib;
+  outputs =
+    inputs@{
+      self,
+      flake-parts,
+      systems,
+      ...
+    }:
+    flake-parts.lib.mkFlake
+      {
+        inherit inputs;
+        specialArgs = {
+          lib' = {
+            self = self.lib;
+            flocken = inputs.flocken.lib;
+          };
         };
+      }
+      {
+        systems = import systems;
+        imports = [ ./flake-modules ];
+        flake.lib = import ./lib inputs.nixpkgs.lib;
       };
-    } {
-      systems = import systems;
-      imports = [./flake-modules];
-      flake.lib = import ./lib inputs.nixpkgs.lib;
-    };
 }

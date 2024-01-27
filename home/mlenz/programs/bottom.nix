@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.bottom = {
     enable = true;
     settings = {
@@ -79,7 +80,15 @@
       };
 
       processes = {
-        columns = ["pid" "name" "cpu%" "mem%" "read" "write" "user"];
+        columns = [
+          "pid"
+          "name"
+          "cpu%"
+          "mem%"
+          "read"
+          "write"
+          "user"
+        ];
       };
 
       # row = [

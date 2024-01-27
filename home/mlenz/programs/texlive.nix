@@ -4,14 +4,15 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.custom.texlive;
 
   acronymPresetToList = lib.mapAttrsToList (name: value: "${name}=${value}");
   acronymReplacements =
     lib.mapAttrsToList
-    (name: preset: "sd -F 'preset=${name}' '${lib.concatStringsSep ", " (acronymPresetToList preset)}'")
-    cfg.acronymPresets;
+      (name: preset: "sd -F 'preset=${name}' '${lib.concatStringsSep ", " (acronymPresetToList preset)}'")
+      cfg.acronymPresets;
 
   cmdTexts = {
     texmfup = ''
@@ -49,8 +50,9 @@
     '';
   };
 
-  cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication {inherit name text;}) cmdTexts;
-in {
+  cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
+in
+{
   options = {
     # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/texlive.section.md
     custom.texlive = {
@@ -66,7 +68,7 @@ in {
       packageConfig = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
         description = "Options to pass to the TeX Live package set.";
-        default = {};
+        default = { };
       };
 
       bibFolder = lib.mkOption {
@@ -142,10 +144,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages =
-        [(cfg.packageScheme.__overrideTeXConfig cfg.packageConfig)]
-        ++ cfg.extraPackages
-        ++ (builtins.attrValues cmds);
+      packages = [
+        (cfg.packageScheme.__overrideTeXConfig cfg.packageConfig)
+      ] ++ cfg.extraPackages ++ (builtins.attrValues cmds);
       file = {
         ".latexmkrc".source = ../files/.latexmkrc;
         "texmf".source = toString inputs.texmf;

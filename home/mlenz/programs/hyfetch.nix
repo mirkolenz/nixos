@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.hyfetch = {
     enable = true;
     settings = {
@@ -8,12 +9,12 @@
       "lightness" = 0.65;
       color_align = {
         mode = "horizontal";
-        custom_colors = [];
+        custom_colors = [ ];
         force_back = null;
       };
       backend = "neofetch";
       distro = null;
-      pride_month_shown = [];
+      pride_month_shown = [ ];
     };
   };
 }

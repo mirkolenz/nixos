@@ -4,8 +4,9 @@
   pkgs,
   stateVersion,
   ...
-}: {
-  imports = [../common] ++ (lib'.flocken.getModules ./.);
+}:
+{
+  imports = [ ../common ] ++ (lib'.flocken.getModules ./.);
 
   custom.podman.enable = true;
 
@@ -57,11 +58,7 @@
 
   security.sudo-rs = {
     enable = true;
-    inherit
-      (config.security.sudo)
-      execWheelOnly
-      wheelNeedsPassword
-      ;
+    inherit (config.security.sudo) execWheelOnly wheelNeedsPassword;
   };
 
   boot.loader = {

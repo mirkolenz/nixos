@@ -3,7 +3,8 @@
   pkgs,
   user,
   ...
-}: {
+}:
+{
   programs.gh = {
     enable = true;
     settings = {

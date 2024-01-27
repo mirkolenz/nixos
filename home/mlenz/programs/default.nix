@@ -1,4 +1,5 @@
-{lib', ...}: {
+{ lib', ... }:
+{
   imports = lib'.flocken.getModules ./.;
 
   programs = {

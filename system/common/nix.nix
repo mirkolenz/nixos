@@ -1,21 +1,26 @@
-args @ {
+args@{
   lib,
   pkgs,
   user,
   ...
-}: {
+}:
+{
   nix = {
     package = pkgs.nix;
     extraOptions = ''
       !include nix.local.conf
     '';
-    nixPath = lib.mkForce [
-      "nixpkgs=flake:nixpkgs"
-    ];
+    nixPath = lib.mkForce [ "nixpkgs=flake:nixpkgs" ];
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
-      experimental-features = ["nix-command" "flakes" "impure-derivations" "ca-derivations" "repl-flake"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "impure-derivations"
+        "ca-derivations"
+        "repl-flake"
+      ];
       max-jobs = "auto";
       keep-going = true;
       keep-outputs = true;
@@ -25,8 +30,11 @@ args @ {
       # auto-allocate-uids = true;
       # does not build on Linux
       # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
-      allowed-users = ["@wheel"];
-      trusted-users = ["root" user.login];
+      allowed-users = [ "@wheel" ];
+      trusted-users = [
+        "root"
+        user.login
+      ];
       log-lines = 25;
       builders-use-substitutes = true;
     };

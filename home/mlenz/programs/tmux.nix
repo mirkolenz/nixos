@@ -3,9 +3,11 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   opensshEnabled = pkgs.stdenv.isLinux && (osConfig.services.openssh.enable or true);
-in {
+in
+{
   programs.tmux = {
     enable = opensshEnabled;
     clock24 = true;

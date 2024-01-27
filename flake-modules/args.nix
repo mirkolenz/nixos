@@ -3,7 +3,8 @@
   inputs,
   lib',
   ...
-}: {
+}:
+{
   _module.args = {
     # available during import
     specialModuleArgs = {

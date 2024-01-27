@@ -1,10 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.custom.docker;
-in {
+in
+{
   options.custom.docker = with lib; {
     enable = mkEnableOption "Docker";
     userns = mkOption {

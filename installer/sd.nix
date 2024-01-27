@@ -1,5 +1,6 @@
-{...}: {
-  imports = [./base.nix];
+{ ... }:
+{
+  imports = [ ./base.nix ];
   sdImage = {
     compressImage = false;
   };

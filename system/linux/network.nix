@@ -1,5 +1,6 @@
 # https://github.com/mirkolenz/nixos/commit/fb5a0a77b8157809c1b610f1931d4f94f5e6be42
-{lib, ...}: {
+{ lib, ... }:
+{
   networking = {
     useNetworkd = true;
     # this is overridden by NetworkManager on workstations

@@ -26,6 +26,6 @@ mkApp rec {
     description = "No Nonsense Neovim Client in Rust";
     homepage = "https://neovide.dev";
     downloadPage = "https://github.com/neovide/neovide/releases";
-    license = with lib.licenses; [mit];
+    license = with lib.licenses; [ mit ];
   };
 }

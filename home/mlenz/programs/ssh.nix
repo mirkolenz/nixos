@@ -1,8 +1,5 @@
+{ pkgs, lib, ... }:
 {
-  pkgs,
-  lib,
-  ...
-}: {
   programs.ssh = {
     enable = true;
     matchBlocks = {
@@ -11,7 +8,7 @@
           UseKeychain = "yes";
           AddKeysToAgent = "yes";
         };
-        identityFile = ["id_ed25519"];
+        identityFile = [ "id_ed25519" ];
       };
       "wi2gpu" = {
         hostname = "gpu.wi2.uni-trier.de";

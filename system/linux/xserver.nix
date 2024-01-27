@@ -41,9 +41,7 @@ lib.mkIf config.services.xserver.enable {
     };
     layout = "us";
     xkbVariant = "";
-    excludePackages = with pkgs; [
-      xterm
-    ];
+    excludePackages = with pkgs; [ xterm ];
   };
   # Enable/disable default GNOME apps.
   services.gnome.core-utilities.enable = false;

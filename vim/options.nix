@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   config.options = {
     # syntax = "on";
     autoindent = true;

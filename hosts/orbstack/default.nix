@@ -1,15 +1,12 @@
+{ modulesPath, inputs, ... }:
 {
-  modulesPath,
-  inputs,
-  ...
-}: {
   imports = [
     inputs.vscode-server.nixosModule
     "${modulesPath}/virtualisation/lxc-container.nix"
     ../../profiles/headless.nix
   ];
 
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   services.vscode-server.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
@@ -59,10 +56,11 @@
   '';
 
   # extra certificates
-  security.pki.certificateFiles = [
-    "/opt/orbstack-guest/run/extra-certs.crt"
-  ];
+  security.pki.certificateFiles = [ "/opt/orbstack-guest/run/extra-certs.crt" ];
 
   # indicate builder support for emulated architectures
-  nix.settings.extra-platforms = ["x86_64-linux" "i686-linux"];
+  nix.settings.extra-platforms = [
+    "x86_64-linux"
+    "i686-linux"
+  ];
 }

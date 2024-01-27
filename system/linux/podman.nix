@@ -1,10 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.custom.podman;
-in {
+in
+{
   options.custom.podman = {
     enable = lib.mkEnableOption "Podman";
   };
@@ -34,6 +32,6 @@ in {
         }
       ];
     };
-    users.groups.containers = {};
+    users.groups.containers = { };
   };
 }

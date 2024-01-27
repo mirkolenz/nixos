@@ -1,3 +1,1 @@
-{...}: {
-  plugins.lsp.servers.dockerls.enable = true;
-}
+{ ... }: { plugins.lsp.servers.dockerls.enable = true; }

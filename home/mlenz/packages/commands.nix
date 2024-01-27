@@ -1,8 +1,5 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{ pkgs, lib, ... }:
+let
   echo = lib.getExe' pkgs.coreutils "echo";
   cmdTexts = {
     # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
@@ -121,7 +118,8 @@
        | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe cmds.fetch-sri}
     '';
   };
-  cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication {inherit name text;}) cmdTexts;
-in {
+  cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
+in
+{
   home.packages = builtins.attrValues cmds;
 }

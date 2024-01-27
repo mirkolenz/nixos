@@ -3,10 +3,12 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.custom.oci;
   updateCfg = cfg.update;
-in {
+in
+{
   options.custom.oci.update = with lib; {
     enable = mkEnableOption "Automatic updates of container images";
     startAt = mkOption {
@@ -18,9 +20,9 @@ in {
   config = lib.mkIf (cfg.enable && updateCfg.enable) {
     systemd.services.oci-update = {
       inherit (updateCfg) startAt;
-      wantedBy = ["multi-user.target"];
-      wants = ["network-online.target"];
-      after = ["network-online.target"];
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
       serviceConfig.Type = "oneshot";
       script = ''
         ${lib.getExe' pkgs.podman "podman"} auto-update

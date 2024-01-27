@@ -1,14 +1,16 @@
-{...}: {
-  imports = [
-    ./headless.nix
-  ];
+{ ... }:
+{
+  imports = [ ./headless.nix ];
 
   services.openssh.enable = true;
 
   system.autoUpgrade = {
     enable = true;
     flake = "github:mirkolenz/nixos";
-    flags = ["--impure" "--no-write-lock-file"];
+    flags = [
+      "--impure"
+      "--no-write-lock-file"
+    ];
     dates = "04:00";
     allowReboot = true;
     rebootWindow = {

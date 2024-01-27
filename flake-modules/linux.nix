@@ -4,39 +4,37 @@
   self,
   lib',
   ...
-}: let
-  mkLinuxSystem = hostName: {
-    channel,
-    system,
-  }: let
-    os = "linux";
-    nixpkgs = lib'.self.systemInput {
-      inherit inputs channel os;
-      name = "nixpkgs";
-    };
-    homeManager = lib'.self.systemInput {
-      inherit inputs channel os;
-      name = "home-manager";
-    };
-  in
+}:
+let
+  mkLinuxSystem =
+    hostName:
+    { channel, system }:
+    let
+      os = "linux";
+      nixpkgs = lib'.self.systemInput {
+        inherit inputs channel os;
+        name = "nixpkgs";
+      };
+      homeManager = lib'.self.systemInput {
+        inherit inputs channel os;
+        name = "home-manager";
+      };
+    in
     nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs =
-        specialModuleArgs
-        // {
-          inherit channel os;
-        };
+      specialArgs = specialModuleArgs // {
+        inherit channel os;
+      };
       modules = [
         self.configModules.system
         homeManager.nixosModules.home-manager
         ../system/linux
         ../hosts/${hostName}
-        {
-          networking.hostName = hostName;
-        }
+        { networking.hostName = hostName; }
       ];
     };
-in {
+in
+{
   flake.nixosConfigurations = builtins.mapAttrs mkLinuxSystem {
     vm = {
       channel = "unstable";

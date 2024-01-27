@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.micro = {
     enable = true;
     settings = {
@@ -35,7 +36,7 @@
       pluginchannels = [
         "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
       ];
-      pluginrepos = [];
+      pluginrepos = [ ];
       readonly = false;
       rmtrailingws = false;
       ruler = true;

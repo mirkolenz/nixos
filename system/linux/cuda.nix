@@ -1,10 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.custom.cuda;
-in {
+in
+{
   options.custom.cuda = {
     enable = lib.mkEnableOption "CUDA";
     driver = lib.mkOption {
@@ -35,8 +33,10 @@ in {
       };
     };
     nix.settings = {
-      substituters = ["https://cuda-maintainers.cachix.org"];
-      trusted-public-keys = ["cuda-maintainers.cachix.org-1:0dp3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="];
+      substituters = [ "https://cuda-maintainers.cachix.org" ];
+      trusted-public-keys = [
+        "cuda-maintainers.cachix.org-1:0dp3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+      ];
     };
   };
 }

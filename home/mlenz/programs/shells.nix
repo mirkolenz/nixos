@@ -3,26 +3,30 @@
   lib,
   osConfig,
   ...
-}: let
+}:
+let
   fishGreeting =
-    if pkgs.stdenv.isLinux
-    then ''
-      if set -q SSH_TTY; and status is-login
-        ${lib.getExe pkgs.macchina}
-      end
-    ''
-    else "";
+    if pkgs.stdenv.isLinux then
+      ''
+        if set -q SSH_TTY; and status is-login
+          ${lib.getExe pkgs.macchina}
+        end
+      ''
+    else
+      "";
   # If PATH is wrong on darwin, try this:
   # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
   fixNixProfile =
-    if osConfig == {}
-    then ''
-      for profile in (string split " " "$NIX_PROFILES")
-        fish_add_path --prepend --move "$profile/bin"
-      end
-    ''
-    else "";
-in {
+    if osConfig == { } then
+      ''
+        for profile in (string split " " "$NIX_PROFILES")
+          fish_add_path --prepend --move "$profile/bin"
+        end
+      ''
+    else
+      "";
+in
+{
   programs.fish = {
     enable = true;
     # https://github.com/direnv/direnv/issues/614#issuecomment-744575699
@@ -72,7 +76,10 @@ in {
         '';
         description = "Convert an OpenType font to TrueType";
         wraps = "fontforge";
-        argumentNames = ["source" "target"];
+        argumentNames = [
+          "source"
+          "target"
+        ];
       };
     };
   };

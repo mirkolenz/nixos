@@ -1,4 +1,6 @@
-cfg: {lib, ...}: {
+cfg:
+{ lib, ... }:
+{
   options = with lib; {
     enable = mkOption {
       type = types.bool;
@@ -8,31 +10,33 @@ cfg: {lib, ...}: {
 
     systemd = mkOption {
       type = with types; attrsOf anything;
-      default = {};
+      default = { };
     };
 
     image = mkOption {
-      type = types.either types.str (types.submodule {
-        options = {
-          name = mkOption {
-            type = with types; str;
-            description = lib.mdDoc "The name of the image to use.";
-            example = "hello-world";
-          };
+      type = types.either types.str (
+        types.submodule {
+          options = {
+            name = mkOption {
+              type = with types; str;
+              description = lib.mdDoc "The name of the image to use.";
+              example = "hello-world";
+            };
 
-          registry = mkOption {
-            type = with types; nullOr str;
-            default = "docker.io";
-            description = lib.mdDoc "The registry to pull the image from.";
-          };
+            registry = mkOption {
+              type = with types; nullOr str;
+              default = "docker.io";
+              description = lib.mdDoc "The registry to pull the image from.";
+            };
 
-          tag = mkOption {
-            type = with types; str;
-            default = "latest";
-            description = lib.mdDoc "The tag of the image to use.";
+            tag = mkOption {
+              type = with types; str;
+              default = "latest";
+              description = lib.mdDoc "The tag of the image to use.";
+            };
           };
-        };
-      });
+        }
+      );
     };
 
     imageFile = mkOption {
@@ -70,7 +74,7 @@ cfg: {lib, ...}: {
 
     cmd = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc "Commandline arguments to pass to the image's entrypoint.";
       example = literalExpression ''
         ["--port=9000"]
@@ -79,7 +83,7 @@ cfg: {lib, ...}: {
 
     labels = mkOption {
       type = with types; attrsOf str;
-      default = {};
+      default = { };
       description = lib.mdDoc "Labels to attach to the container at runtime.";
       example = literalExpression ''
         {
@@ -103,7 +107,7 @@ cfg: {lib, ...}: {
 
     environment = mkOption {
       type = with types; attrsOf str;
-      default = {};
+      default = { };
       description = lib.mdDoc "Environment variables to set for this container.";
       example = literalExpression ''
         {
@@ -115,7 +119,7 @@ cfg: {lib, ...}: {
 
     environmentFiles = mkOption {
       type = with types; listOf path;
-      default = [];
+      default = [ ];
       description = lib.mdDoc "Environment files for this container.";
       example = literalExpression ''
         [
@@ -127,7 +131,7 @@ cfg: {lib, ...}: {
 
     ports = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Network ports to publish from the container to the outer host.
 
@@ -169,7 +173,7 @@ cfg: {lib, ...}: {
 
     volumes = mkOption {
       type = with types; listOf (listOf str);
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         List of volumes to attach to this container.
 
@@ -197,7 +201,7 @@ cfg: {lib, ...}: {
 
     dependsOn = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Define which other containers this one depends on. They will be added to both After and Requires for the unit.
 
@@ -222,19 +226,19 @@ cfg: {lib, ...}: {
 
     caps = mkOption {
       type = with types; attrsOf bool;
-      default = {};
+      default = { };
       description = lib.mdDoc "Linux system capabilities to set for this container.";
     };
 
     sysctls = mkOption {
       type = with types; attrsOf (either str (attrsOf anything));
-      default = {};
+      default = { };
       description = lib.mdDoc "Configure namespaced kernel parameters at runtime.";
     };
 
     extraArgs = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc "Extra flags for {command}`${defaultBackend} run`.";
       example = literalExpression ''
         ["--network=host"]
@@ -242,19 +246,24 @@ cfg: {lib, ...}: {
     };
 
     extraOptions = mkOption {
-      type = with types;
-        attrsOf (oneOf [
-          str
-          bool
-          (attrsOf str)
-          (listOf (onOf [
+      type =
+        with types;
+        attrsOf (
+          oneOf [
             str
             bool
             (attrsOf str)
-            (listOf str)
-          ]))
-        ]);
-      default = {};
+            (listOf (
+              onOf [
+                str
+                bool
+                (attrsOf str)
+                (listOf str)
+              ]
+            ))
+          ]
+        );
+      default = { };
       description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
       example = literalExpression ''
         {
@@ -264,53 +273,62 @@ cfg: {lib, ...}: {
     };
 
     networks = mkOption {
-      default = {};
-      type = types.attrsOf (types.nullOr (types.submodule {
-        options = {
-          suffix = mkOption {
-            type = with types; str;
-            description = lib.mdDoc "The suffix of the IP address in the specified network.";
-          };
+      default = { };
+      type = types.attrsOf (
+        types.nullOr (
+          types.submodule {
+            options = {
+              suffix = mkOption {
+                type = with types; str;
+                description = lib.mdDoc "The suffix of the IP address in the specified network.";
+              };
 
-          alias = mkOption {
-            type = with types; nullOr str;
-            default = null;
-          };
+              alias = mkOption {
+                type = with types; nullOr str;
+                default = null;
+              };
 
-          mac = mkOption {
-            type = with types; nullOr str;
-            default = null;
-          };
+              mac = mkOption {
+                type = with types; nullOr str;
+                default = null;
+              };
 
-          interface = mkOption {
-            type = with types; nullOr str;
-            default = null;
-          };
-        };
-      }));
+              interface = mkOption {
+                type = with types; nullOr str;
+                default = null;
+              };
+            };
+          }
+        )
+      );
     };
 
     links = mkOption {
-      default = {};
-      type = types.attrsOf (types.submodule ({name, ...}: {
-        options = {
-          name = mkOption {
-            type = with types; str;
-            description = lib.mdDoc "The name of the link inside the container.";
-            default = name;
-          };
+      default = { };
+      type = types.attrsOf (
+        types.submodule (
+          { name, ... }:
+          {
+            options = {
+              name = mkOption {
+                type = with types; str;
+                description = lib.mdDoc "The name of the link inside the container.";
+                default = name;
+              };
 
-          network = mkOption {
-            type = with types; str;
-            description = lib.mdDoc "The network to link to.";
-          };
-        };
-      }));
+              network = mkOption {
+                type = with types; str;
+                description = lib.mdDoc "The network to link to.";
+              };
+            };
+          }
+        )
+      );
     };
 
     hosts = mkOption {
       type = with types; attrsOf str;
-      default = {};
+      default = { };
     };
 
     autoStart = mkOption {
@@ -324,28 +342,28 @@ cfg: {lib, ...}: {
 
     proxy = mkOption {
       default = null;
-      type = types.nullOr (types.submodule {
-        options = with lib; {
-          names = mkOption {
-            type = with types; listOf str;
-          };
+      type = types.nullOr (
+        types.submodule {
+          options = with lib; {
+            names = mkOption { type = with types; listOf str; };
 
-          lanOnly = mkOption {
-            type = with types; bool;
-            default = true;
-            description = "Only allow access from the local network";
-          };
+            lanOnly = mkOption {
+              type = with types; bool;
+              default = true;
+              description = "Only allow access from the local network";
+            };
 
-          extraConfig = mkOption {
-            type = types.lines;
-            default = "";
-            description = lib.mdDoc ''
-              Additional lines of configuration appended to this virtual host in the
-              automatically generated `Caddyfile`.
-            '';
+            extraConfig = mkOption {
+              type = types.lines;
+              default = "";
+              description = lib.mdDoc ''
+                Additional lines of configuration appended to this virtual host in the
+                automatically generated `Caddyfile`.
+              '';
+            };
           };
-        };
-      });
+        }
+      );
     };
   };
 }

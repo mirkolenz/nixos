@@ -4,29 +4,31 @@
   self,
   lib',
   ...
-}: let
-  mkDarwinSystem = hostName: {
-    channel,
-    system,
-    computerName,
-  }: let
-    os = "darwin";
-    nixDarwin = lib'.self.systemInput {
-      inherit inputs channel os;
-      name = "nix";
-    };
-    homeManager = lib'.self.systemInput {
-      inherit inputs channel os;
-      name = "home-manager";
-    };
-  in
+}:
+let
+  mkDarwinSystem =
+    hostName:
+    {
+      channel,
+      system,
+      computerName,
+    }:
+    let
+      os = "darwin";
+      nixDarwin = lib'.self.systemInput {
+        inherit inputs channel os;
+        name = "nix";
+      };
+      homeManager = lib'.self.systemInput {
+        inherit inputs channel os;
+        name = "home-manager";
+      };
+    in
     nixDarwin.lib.darwinSystem {
       inherit system;
-      specialArgs =
-        specialModuleArgs
-        // {
-          inherit channel os;
-        };
+      specialArgs = specialModuleArgs // {
+        inherit channel os;
+      };
       modules = [
         self.configModules.system
         homeManager.darwinModules.home-manager
@@ -39,7 +41,8 @@
         }
       ];
     };
-in {
+in
+{
   flake.darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
     mirkos-macbook = {
       channel = "unstable";

@@ -18,6 +18,6 @@ mkApp rec {
     description = "A GUI to browse and restore restic backup repositories.";
     homepage = "https://github.com/emuell/restic-browser";
     downloadPage = "https://github.com/emuell/restic-browser/releases";
-    license = with lib.licenses; [mit];
+    license = with lib.licenses; [ mit ];
   };
 }

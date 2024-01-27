@@ -1,4 +1,5 @@
-{inputs, ...}: {
+{ inputs, ... }:
+{
   imports = [
     inputs.vscode-server.nixosModule
     ./hardware-qemu.nix
@@ -6,7 +7,7 @@
   ];
   services.openssh.enable = true;
 
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   services.vscode-server.enable = true;
   # Parallels
   # boot.loader.grub = {

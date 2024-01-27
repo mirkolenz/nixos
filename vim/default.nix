@@ -4,10 +4,9 @@
   lib',
   channel,
   ...
-}: {
-  imports =
-    (lib'.flocken.getModules ./.)
-    ++ (lib.singleton ./_${channel}.nix);
+}:
+{
+  imports = (lib'.flocken.getModules ./.) ++ (lib.singleton ./_${channel}.nix);
 
   config = {
     filetype.extension = {

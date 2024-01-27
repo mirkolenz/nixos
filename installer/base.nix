@@ -3,12 +3,13 @@
   stateVersion,
   user,
   ...
-}: {
+}:
+{
   system = {
     inherit stateVersion;
   };
   users.users.root.openssh.authorizedKeys.keys = user.sshKeys;
-  systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
+  systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
   services.openssh.enable = true;
 
   programs = {
