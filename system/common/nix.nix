@@ -1,7 +1,6 @@
-{
+args @ {
   lib,
   pkgs,
-  inputs,
   user,
   ...
 }: {
@@ -35,8 +34,6 @@
       automatic = true;
       options = "--delete-older-than 7d";
     };
-    registry = import ../../registry.nix {
-      inherit inputs pkgs;
-    };
+    registry = import ../../registry.nix args;
   };
 }

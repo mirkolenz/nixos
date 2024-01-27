@@ -42,13 +42,21 @@ in {
       targets.genericLinux.enable = pkgs.stdenv.isLinux;
     };
 
-    system = {...}: {
+    system = {
+      channel,
+      os,
+      ...
+    }: {
       inherit nixpkgs;
       _module.args = moduleArgs;
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        extraSpecialArgs = specialModuleArgs;
+        extraSpecialArgs =
+          specialModuleArgs
+          // {
+            inherit channel os;
+          };
         users.mlenz = homeModule;
       };
     };

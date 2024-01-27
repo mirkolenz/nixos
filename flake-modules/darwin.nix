@@ -2,19 +2,34 @@
   inputs,
   specialModuleArgs,
   self,
+  lib',
   ...
 }: let
   mkDarwinSystem = hostName: {
     channel,
     system,
     computerName,
-  }:
-    inputs."nix-darwin-${channel}".lib.darwinSystem {
+  }: let
+    os = "darwin";
+    nixDarwin = lib'.self.systemInput {
+      inherit inputs channel os;
+      name = "nix";
+    };
+    homeManager = lib'.self.systemInput {
+      inherit inputs channel os;
+      name = "home-manager";
+    };
+  in
+    nixDarwin.lib.darwinSystem {
       inherit system;
-      specialArgs = specialModuleArgs;
+      specialArgs =
+        specialModuleArgs
+        // {
+          inherit channel os;
+        };
       modules = [
         self.configModules.system
-        inputs."home-manager-darwin-${channel}".darwinModules.home-manager
+        homeManager.darwinModules.home-manager
         ../system/darwin
         ../hosts/${hostName}
         {

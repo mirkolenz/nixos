@@ -13,13 +13,20 @@
   }: let
     login = builtins.head (lib.splitString "@" name);
     os = lib'.self.systemOs system;
-    hmInput = inputs."home-manager-${os}-${channel}";
+    homeManager = lib'.self.systemInput {
+      inherit inputs channel os;
+      name = "home-manager";
+    };
   in
-    hmInput.lib.homeManagerConfiguration {
-      pkgs = import hmInput.inputs.nixpkgs {
+    homeManager.lib.homeManagerConfiguration {
+      pkgs = import homeManager.inputs.nixpkgs {
         inherit system;
       };
-      extraSpecialArgs = specialModuleArgs;
+      extraSpecialArgs =
+        specialModuleArgs
+        // {
+          inherit channel os;
+        };
       modules = [
         self.configModules.home
         {

@@ -1,4 +1,4 @@
-{
+args @ {
   pkgs,
   lib,
   lib',
@@ -6,21 +6,23 @@
   inputs,
   user,
   stateVersion,
+  channel,
+  os,
   ...
 }: let
   homeDirectory =
     if pkgs.stdenv.isDarwin
     then "/Users/${user.login}"
     else "/home/${user.login}";
-  nixvimInput =
-    if (lib'.self.isUnstable lib)
-    then inputs.nixvim-unstable
-    else inputs.nixvim-linux-stable;
+  nixvim = lib'.self.systemInput {
+    inherit inputs channel os;
+    name = "nixvim";
+  };
 in {
   imports =
     [
       inputs.nix-index-database.hmModules.nix-index
-      nixvimInput.homeManagerModules.nixvim
+      nixvim.homeManagerModules.nixvim
     ]
     ++ (lib'.flocken.getModules ./.);
 
@@ -37,8 +39,6 @@ in {
 
   nix = lib.mkIf (osConfig == {}) {
     package = pkgs.nix;
-    registry = import ../../registry.nix {
-      inherit inputs pkgs;
-    };
+    registry = import ../../registry.nix args;
   };
 }

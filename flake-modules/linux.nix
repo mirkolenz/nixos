@@ -2,18 +2,33 @@
   inputs,
   specialModuleArgs,
   self,
+  lib',
   ...
 }: let
   mkLinuxSystem = hostName: {
     channel,
     system,
-  }:
-    inputs."nixpkgs-linux-${channel}".lib.nixosSystem {
+  }: let
+    os = "linux";
+    nixpkgs = lib'.self.systemInput {
+      inherit inputs channel os;
+      name = "nixpkgs";
+    };
+    homeManager = lib'.self.systemInput {
+      inherit inputs channel os;
+      name = "home-manager";
+    };
+  in
+    nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = specialModuleArgs;
+      specialArgs =
+        specialModuleArgs
+        // {
+          inherit channel os;
+        };
       modules = [
         self.configModules.system
-        inputs."home-manager-linux-${channel}".nixosModules.home-manager
+        homeManager.nixosModules.home-manager
         ../system/linux
         ../hosts/${hostName}
         {

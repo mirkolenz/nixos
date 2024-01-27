@@ -11,7 +11,12 @@
   }:
     inputs.nixos-generators.nixosGenerate {
       inherit system format;
-      specialArgs = specialModuleArgs;
+      specialArgs =
+        specialModuleArgs
+        // {
+          channel = "stable";
+          os = "linux";
+        };
       customFormats = import ../installer/formats.nix inputs.nixos-generators.inputs.nixpkgs;
       modules = [
         {_module.args = moduleArgs;}

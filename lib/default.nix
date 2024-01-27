@@ -9,11 +9,11 @@ lib: rec {
     else "unstable";
   systemInput = {
     inputs,
-    prefix,
+    name,
     channel,
     os,
   }:
-    inputs."${prefix}-${os}-${channel}";
+    inputs."${name}-${os}-${channel}" or inputs.${name};
   systemOs = system: lib.last (lib.splitString "-" system);
   systemArch = system: builtins.head (lib.splitString "-" system);
 }

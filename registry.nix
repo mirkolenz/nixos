@@ -1,23 +1,27 @@
 # https://github.com/gytis-ivaskevicius/flake-utils-plus/blob/master/lib/options.nix
 {
   inputs,
-  pkgs,
-}: {
-  stable.flake =
-    if pkgs.stdenv.isDarwin
-    then inputs.nixpkgs-darwin-stable
-    else inputs.nixpkgs-linux-stable;
-  unstable.flake =
-    if pkgs.stdenv.isDarwin
-    then inputs.nixpkgs-darwin-unstable
-    else inputs.nixpkgs-linux-unstable;
-  pkgs.flake =
-    if pkgs.stdenv.isDarwin
-    then inputs.nixpkgs-darwin-unstable
-    else inputs.nixpkgs-linux-unstable;
-  nixpkgs.flake =
-    if pkgs.stdenv.isDarwin
-    then inputs.nixpkgs-darwin-unstable
-    else inputs.nixpkgs-linux-unstable;
+  lib',
+  os,
+  channel,
+  ...
+}: let
+  name = "nixpkgs";
+in {
+  stable.flake = lib'.self.systemInput {
+    inherit inputs os name;
+    channel = "stable";
+  };
+  unstable.flake = lib'.self.systemInput {
+    inherit inputs os name;
+    channel = "unstable";
+  };
+  pkgs.flake = lib'.self.systemInput {
+    inherit inputs os channel name;
+  };
+  nixpkgs.flake = lib'.self.systemInput {
+    inherit inputs os name;
+    channel = "unstable";
+  };
   self.flake = inputs.self;
 }

@@ -91,7 +91,7 @@
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim-unstable = {
+    nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
