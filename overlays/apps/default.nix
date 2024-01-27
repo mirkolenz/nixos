@@ -37,4 +37,5 @@ final: prev: {
     );
   neovide-bin = final.callPackage ./neovide.nix {};
   vimr-bin = final.callPackage ./vimr.nix {};
+  restic-browser-bin = final.callPackage ./restic-browser.nix {};
 }

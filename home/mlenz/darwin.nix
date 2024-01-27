@@ -9,6 +9,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     mas
     neovide-bin
     vimr-bin
+    restic-browser-bin
   ];
   custom.texlive = {
     enable = true;
