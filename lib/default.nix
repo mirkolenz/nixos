@@ -1,12 +1,4 @@
-lib: rec {
-  stableVersion = "23.11";
-  unstableVersion = "24.05";
-  isStable = release: lib.versionOlder release unstableVersion;
-  isUnstable = release: lib.versionAtLeast release unstableVersion;
-  channel = release:
-    if (isStable release)
-    then "stable"
-    else "unstable";
+lib: {
   systemInput = {
     inputs,
     name,
