@@ -15,16 +15,22 @@ lib.mkIf pkgs.stdenv.isDarwin {
   # currently required for the following apps:
   # restic-browser, vim guis
   home.file."bin".source = let
-    env = pkgs.buildEnv {
-      name = "home-bin";
-      paths = with pkgs; [
-        restic
-        # https://github.com/nix-community/nixvim/blob/main/wrappers/hm.nix
-        config.programs.nixvim.finalPackage
-      ];
-      pathsToLink = ["/bin"];
+    binaries = {
+      restic = pkgs.restic;
+      # https://github.com/nix-community/nixvim/blob/main/wrappers/hm.nix
+      nvim = config.programs.nixvim.finalPackage;
     };
-  in "${lib.getBin env}/bin";
+    symbolicLinks =
+      lib.mapAttrsToList
+      (name: path: ''
+        ln -s "${lib.getBin path}/bin/${name}" "$out/${name}"
+      '')
+      binaries;
+  in
+    pkgs.runCommand "home-bin" {} ''
+      mkdir -p "$out"
+      ${lib.concatLines symbolicLinks}
+    '';
   custom.texlive = {
     enable = true;
     bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
