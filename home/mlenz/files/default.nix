@@ -14,8 +14,8 @@ in
 {
   home.file = {
     "${poetryPrefix}/config.toml".source = ./poetry.toml;
-    ".mackup.cfg".source = lib.mkIf pkgs.stdenv.isDarwin ./.mackup.cfg;
-    ".amethyst.yml".source = lib.mkIf pkgs.stdenv.isDarwin ./.amethyst.yml;
+    ".mackup.cfg" = lib.mkIf pkgs.stdenv.isDarwin { source = ./.mackup.cfg; };
+    ".amethyst.yml" = lib.mkIf pkgs.stdenv.isDarwin { source = ./.amethyst.yml; };
   };
   xdg = {
     configFile = {
