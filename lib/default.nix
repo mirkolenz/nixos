@@ -1,10 +1,10 @@
 lib: rec {
   stableVersion = "23.11";
   unstableVersion = "24.05";
-  isStable = lib': lib.versionOlder lib'.trivial.release unstableVersion;
-  isUnstable = lib': lib.versionAtLeast lib'.trivial.release unstableVersion;
-  channel = lib':
-    if (isStable lib')
+  isStable = release: lib.versionOlder release unstableVersion;
+  isUnstable = release: lib.versionAtLeast release unstableVersion;
+  channel = release:
+    if (isStable release)
     then "stable"
     else "unstable";
   systemInput = {
