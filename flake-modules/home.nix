@@ -44,6 +44,11 @@ in
     "lenz@gpu.wi2.uni-trier.de" = {
       channel = "unstable";
       system = "x86_64-linux";
+      extraModule = {
+        home.sessionVariables = {
+          PATH = "/run/system-manager/sw/bin:$PATH";
+        };
+      };
     };
   };
 }
