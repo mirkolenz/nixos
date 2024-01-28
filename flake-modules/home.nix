@@ -45,7 +45,7 @@ in
       channel = "unstable";
       system = "x86_64-linux";
       extraModule = {
-        sessionPath = "/run/system-manager/sw/bin";
+        home.sessionPath = "/run/system-manager/sw/bin";
       };
     };
   };
