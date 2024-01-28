@@ -12,6 +12,7 @@ let
       channel,
       system,
       computerName,
+      extraModule ? { },
     }:
     let
       os = "darwin";
@@ -30,6 +31,7 @@ let
         inherit channel os;
       };
       modules = [
+        extraModule
         self.configModules.system
         homeManager.darwinModules.home-manager
         ../system/darwin

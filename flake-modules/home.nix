@@ -10,7 +10,11 @@
 let
   mkHomeConfig =
     name:
-    { channel, system }:
+    {
+      channel,
+      system,
+      extraModule ? { },
+    }:
     let
       login = builtins.head (lib.splitString "@" name);
       os = lib'.self.systemOs system;
@@ -25,6 +29,7 @@ let
         inherit channel os;
       };
       modules = [
+        extraModule
         self.configModules.home
         { _module.args.user = lib.mkForce (moduleArgs.user // { inherit login; }); }
       ];

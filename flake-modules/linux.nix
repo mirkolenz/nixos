@@ -8,7 +8,11 @@
 let
   mkLinuxSystem =
     hostName:
-    { channel, system }:
+    {
+      channel,
+      system,
+      extraModule ? { },
+    }:
     let
       os = "linux";
       nixpkgs = lib'.self.systemInput {
@@ -26,6 +30,7 @@ let
         inherit channel os;
       };
       modules = [
+        extraModule
         self.configModules.system
         homeManager.nixosModules.home-manager
         ../system/linux
