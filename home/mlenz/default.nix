@@ -1,8 +1,6 @@
-args@{
+{
   pkgs,
-  lib,
   lib',
-  osConfig,
   inputs,
   user,
   stateVersion,
@@ -31,10 +29,5 @@ in
       HOMEBREW_AUTOREMOVE = "1";
       NIXPKGS_ALLOW_UNFREE = "1";
     };
-  };
-
-  nix = lib.mkIf (osConfig == { }) {
-    package = pkgs.nix;
-    registry = import ../../registry.nix args;
   };
 }
