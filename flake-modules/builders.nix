@@ -23,6 +23,9 @@
           "home-manager";
     in
     {
+      checks = {
+        inherit (config.packages) system home builder-wrapper;
+      };
       packages = {
         default = config.packages.system;
         system = config.legacyPackages.mkBuilder { exe = systemBuilder; };

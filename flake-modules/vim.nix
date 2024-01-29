@@ -10,7 +10,7 @@
     {
       pkgs,
       system,
-      self',
+      config,
       ...
     }:
     let
@@ -38,8 +38,11 @@
         };
     in
     {
+      checks = {
+        inherit (config.packages) vim;
+      };
       packages = {
-        vim = self'.packages.vim-unstable;
+        vim = config.packages.vim-unstable;
         vim-unstable = mkVim "unstable";
         # Currently broken, see https://github.com/nix-community/nixvim/pull/914
         # vim-stable = mkVim "stable";
