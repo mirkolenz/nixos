@@ -29,5 +29,5 @@
     intelBusId = "PCI:0:2:0";
   };
 
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = "performance";
 }
