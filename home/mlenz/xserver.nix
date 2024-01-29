@@ -11,7 +11,7 @@ lib.mkIf xserverEnabled {
   programs = {
     vscode = {
       enable = true;
-      package = pkgs.vscode.fhs;
+      package = pkgs.vscode-fhs;
     };
     foot = {
       enable = true;
