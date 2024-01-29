@@ -118,6 +118,14 @@ nixos-install --flake github:mirkolenz/nixos#MACHINE_NAME
 
 A warning about `/boot` being world-readable is not an issue, [the permissions are correctly set after a reboot](https://discourse.nixos.org/t/nixos-install-with-custom-flake-results-in-boot-being-world-accessible/34555).
 
+### Troubleshooting
+
+If getting an error like `Getting status of /nix/store/...: No such file or directory`, try the following
+
+```shell
+nix-store --verify --check-contents --repair
+```
+
 ## Mac Computers
 
 ### Installation
