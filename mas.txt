@@ -3,7 +3,7 @@
 768053424   Gapplin               (2.3.0)
 470158793   Keka                  (1.3.5)
 302584613   Kindle                (7.0)
-462058435   Microsoft Excel       (16.78.3)
+462058435   Microsoft Excel       (16.79)
 985367838   Microsoft Outlook     (16.79)
 462062816   Microsoft PowerPoint  (16.79)
 462054704   Microsoft Word        (16.79)
