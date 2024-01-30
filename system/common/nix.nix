@@ -37,10 +37,8 @@ args@{
       ];
       log-lines = 25;
       builders-use-substitutes = true;
-      substituters = [ "https://mirkolenz-nixos.cachix.org" ];
-      trusted-public-keys = [
-        "mirkolenz-nixos.cachix.org-1:9WzIsoj8hYzpik6FxfmterPFEX7v1v2T30J6u08/wKE="
-      ];
+      substituters = [ "https://mirkolenz.cachix.org" ];
+      trusted-public-keys = [ "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho=" ];
     };
     gc = {
       automatic = true;

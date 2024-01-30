@@ -18,6 +18,6 @@ jobs:
             extra-platforms = aarch64-linux
       - uses: cachix/cachix-action@v14
         with:
-          name: mirkolenz-nixos
+          name: mirkolenz
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - run: nix flake check
