@@ -108,7 +108,6 @@ in
 
     storage = {
       data = mkOption { type = with types; str; };
-
       config = mkOption { type = with types; str; };
     };
 
@@ -150,11 +149,11 @@ in
           "ro"
         ]
         [
-          (toString proxyCfg.storage.data)
+          proxyCfg.storage.data
           "/data"
         ]
         [
-          (toString proxyCfg.storage.config)
+          proxyCfg.storage.config
           "/config"
         ]
       ];
