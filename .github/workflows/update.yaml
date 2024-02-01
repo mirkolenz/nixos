@@ -30,8 +30,8 @@ jobs:
       - run: echo "ref=$(git rev-parse HEAD )" >> "$GITHUB_OUTPUT"
         id: ref
         name: Set ref output
-  test:
+  build:
     needs: update
-    uses: ./.github/workflows/test.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       ref: ${{ needs.update.outputs.ref }}

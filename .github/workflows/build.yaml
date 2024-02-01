@@ -1,11 +1,7 @@
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_call:
     inputs:
       ref:
-        required: true
         type: string
 jobs:
   test:
@@ -37,5 +33,5 @@ jobs:
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - run: nix flake check
-      - run: nix flake check --system ${{ matrix.extra-platform }}
+      - run: nix build .#ci
+      - run: nix build .#ci --system ${{ matrix.extra-platform }}
