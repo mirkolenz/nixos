@@ -7,15 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      ref: ${{ steps.ref.outputs.ref }}
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
       - uses: DeterminateSystems/nix-installer-action@v9
-        with:
-          extra-conf: |
-            extra-platforms = aarch64-linux
       - uses: cachix/cachix-action@v14
         with:
           name: mirkolenz
@@ -31,3 +27,11 @@ jobs:
         name: Run nix flake update
       - run: nix flake check
       - run: git push
+      - run: echo "ref=$(git rev-parse HEAD )" >> "$GITHUB_OUTPUT"
+        id: ref
+        name: Set ref output
+  test:
+    needs: update
+    uses: ./.github/workflows/test.yaml
+    with:
+      ref: ${{ needs.update.outputs.ref }}

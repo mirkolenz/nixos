@@ -2,22 +2,40 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
 jobs:
   test:
+    strategy:
+      matrix:
+        include:
+          - os-name: "ubuntu"
+            os-version: "22.04"
+            extra-platform: "aarch64-linux"
+          - os-name: "macos"
+            os-version: "14"
+            extra-platform: "x86_64-darwin"
     permissions:
       contents: read
-    runs-on: ubuntu-latest
+    runs-on: "${{ matrix.os-name }}-${{ matrix.os-version }}"
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
       - uses: docker/setup-qemu-action@v3
+        if: ${{ matrix.os-name == 'ubuntu' }}
         with:
           platforms: arm64
       - uses: DeterminateSystems/nix-installer-action@v9
         with:
           extra-conf: |
-            extra-platforms = aarch64-linux
+            extra-platforms = ${{ matrix.extra-platform }}
       - uses: cachix/cachix-action@v14
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - run: nix flake check
+      - run: nix flake check --system ${{ matrix.extra-platform }}
