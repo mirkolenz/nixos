@@ -4,25 +4,31 @@ from typing import Annotated, Optional
 
 import typer
 
-app = typer.Typer()
+app = typer.Typer(add_completion=False)
 
 
 @app.command(
-    context_settings={"allow_extra_args": True, "ignore_unknown_options": True}
+    context_settings={
+        "allow_extra_args": True,
+        "ignore_unknown_options": True,
+        "help_option_names": ["--wrapper-help"],
+    }
 )
 def run(
     ctx: typer.Context,
     builder: str,
-    operation: Annotated[str, typer.Option("--operation", "-o")] = "switch",
+    operation: Annotated[
+        str, typer.Option("--operation", "-o", "--mode", "-m")
+    ] = "switch",
     flake: str = "github:mirkolenz/nixos",
-    hostname: Optional[str] = None,
+    name: Annotated[Optional[str], typer.Option("--name", "-n")] = None,
     pure: Annotated[bool, typer.Option("--pure/--impure")] = False,
     write_lock_file: bool = False,
 ):
     cmd: list[str] = [builder, operation]
 
-    if hostname:
-        cmd.extend(["--flake", f"{flake}#{hostname}"])
+    if name:
+        cmd.extend(["--flake", f"{flake}#{name}"])
     else:
         cmd.extend(["--flake", flake])
 
@@ -34,7 +40,7 @@ def run(
 
     cmd.extend(ctx.args)
 
-    typer.echo(f"Running: {shlex.join(cmd)}")
+    typer.echo(f"Running {shlex.join(cmd)}")
     subprocess.run(cmd)
 
 
