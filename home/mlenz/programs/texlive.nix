@@ -43,6 +43,17 @@ let
       ${lib.getExe cmds.bibtidy} --output="$targetDir/references.bib" "$sourceDir/$format.bib"
       ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
     '';
+    bibcopy-full = ''
+      format="''${1:-bibtex}"
+      sourceDir="''${2:-${cfg.bibFolder}}"
+      targetDir="''${3:-.}"
+      ${lib.getExe pkgs.bibtex-tidy} --v2 \
+        --no-align --no-wrap --blank-lines --no-escape \
+        --omit="abstract" \
+        --output="$targetDir/references.bib" \
+        "$sourceDir/$format.bib"
+      ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
+    '';
     acrocat = ''
       sourceDir="''${1:-${cfg.bibFolder}}"
       # shellcheck disable=SC2002 # the sd commands are generated via nix, so cat is more elegant than piping
