@@ -22,7 +22,6 @@ let
       set -x #echo on
       sudo ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
       ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
-      ${lib.getExe pkgs.nix} store gc
       ${lib.getExe pkgs.nix} store optimise
     '';
     # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/tasks/auto-upgrade.nix#L204
