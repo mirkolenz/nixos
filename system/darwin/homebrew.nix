@@ -100,6 +100,7 @@
       "google-chrome"
       "google-drive"
       "handbrake"
+      "ia-presenter"
       "iterm2"
       "lunar"
       "mediathekview"
