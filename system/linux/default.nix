@@ -40,6 +40,9 @@
       viAlias = true;
       vimAlias = true;
     };
+    programs = {
+      _1password.enable = true;
+    };
   };
 
   environment.defaultPackages = with pkgs; [

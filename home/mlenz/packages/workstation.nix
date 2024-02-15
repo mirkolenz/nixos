@@ -13,7 +13,6 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     exiftool
     fontforge
     unpaper
-    _1password
     buf
     dvc
     gomplate

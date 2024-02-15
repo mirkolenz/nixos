@@ -21,6 +21,8 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [ _1password ];
+
   system.checks.verifyBuildUsers = false;
   system.stateVersion = stateVersionDarwin;
 }

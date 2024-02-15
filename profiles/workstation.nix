@@ -21,4 +21,8 @@
   networking.networkmanager.enable = true;
   systemd.network.wait-online.enable = false;
   users.users.${user.login}.extraGroups = [ "networkmanager" ];
+
+  programs = {
+    _1password-gui.enable = true;
+  };
 }
