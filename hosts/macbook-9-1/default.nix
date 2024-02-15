@@ -18,5 +18,5 @@
 
   environment.systemPackages = with pkgs; [ brightnessctl ];
 
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = "performance";
 }
