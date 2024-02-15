@@ -14,6 +14,7 @@
     zsh
     fish
     coreutils-full
+    moreutils
     findutils
     gnused
     gnupg
@@ -42,6 +43,11 @@
     autorestic
     sqlite
     mkpasswd
+    # json parsing
+    jaq
+    jq
+    jql
+    yq
     # bulk renaming
     massren
     mmv-go
