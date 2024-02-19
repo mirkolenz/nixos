@@ -18,6 +18,10 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Nix Darwin
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin-stable = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
@@ -94,10 +98,14 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nix-darwin.follows = "nix-darwin";
     };
     nixvim-linux-stable = {
       url = "github:nix-community/nixvim/nixos-23.11";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
+      # inputs.home-manager.follows = "home-manager-linux-stable";
+      # inputs.nix-darwin.follows = "nix-darwin-stable";
     };
 
     # Non-flakes
