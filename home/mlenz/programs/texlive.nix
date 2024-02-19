@@ -22,7 +22,7 @@ let
         | ${lib.getExe pkgs.gnutar} xz --strip-components=1 --directory="./texmf"
     '';
     latexmkrc = ''
-      exec cat ${../files/.latexmkrc} > "''${1:-.latexmkrc}"
+      exec cp -f ${config.home.homeDirectory}/.latexmkrc "''${1:-.latexmkrc}"
     '';
     bibtidy = ''
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
