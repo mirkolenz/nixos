@@ -9,7 +9,6 @@
     flake = "github:mirkolenz/nixos";
     flags = [
       "--impure"
-      "--no-write-lock-file"
     ];
     dates = "04:00";
     allowReboot = true;

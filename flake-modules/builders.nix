@@ -50,7 +50,7 @@
         pkgs.writeShellApplication {
           name = "builder";
           text = ''
-            exec ${lib.getExe config.packages.builder-wrapper} ${exe} --flake ${self.outPath} ${lib.escapeShellArgs args} "$@"
+            exec ${lib.getExe config.packages.builder-wrapper} ${exe} --flake ${flake.outPath} ${lib.escapeShellArgs args} "$@"
           '';
         };
     };

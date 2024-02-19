@@ -23,7 +23,6 @@ def run(
     flake: str = "github:mirkolenz/nixos",
     name: Annotated[Optional[str], typer.Option("--name", "-n")] = None,
     pure: Annotated[bool, typer.Option("--pure/--impure")] = False,
-    write_lock_file: bool = False,
 ):
     cmd: list[str] = [builder, operation]
 
@@ -34,9 +33,6 @@ def run(
 
     if not pure:
         cmd.append("--impure")
-
-    if not write_lock_file:
-        cmd.append("--no-write-lock-file")
 
     cmd.extend(ctx.args)
 
