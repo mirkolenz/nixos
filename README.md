@@ -156,6 +156,7 @@ ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
 
 ```shell
 chsh -s /bin/zsh
+# todo: uninstall home-manager first
 nix run github:lnl7/nix-darwin#darwin-uninstaller
 /nix/nix-installer uninstall
 ```
