@@ -20,11 +20,6 @@ lib.mkIf config.services.xserver.enable {
       gnome-shell-extensions
       dconf-editor
       yelp
-    ])
-    ++ (with pkgs.gnomeExtensions; [
-      dash-to-dock
-      user-themes
-      blur-my-shell
     ]);
   # Wayland support
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

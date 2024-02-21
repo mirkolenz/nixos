@@ -6,8 +6,14 @@
 }:
 let
   xserverEnabled = pkgs.stdenv.isLinux && (osConfig.services.xserver.enable or false);
+  gnomeExtensions = with pkgs.gnomeExtensions; [
+    dash-to-dock
+    user-themes
+    blur-my-shell
+  ];
 in
 lib.mkIf xserverEnabled {
+  home.packages = gnomeExtensions;
   programs = {
     vscode = {
       enable = true;
@@ -31,23 +37,15 @@ lib.mkIf xserverEnabled {
     };
   };
   # dconf watch /
-  # /org/gnome/desktop/interface/gtk-theme
-  #   'Adwaita'
-  # /org/gnome/shell/extensions/user-theme/name
-  #   ''
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      enabled-extensions = with pkgs.gnomeExtensions; [
-        dash-to-dock.extensionUuid
-        user-themes.extensionUuid
-        blur-my-shell.extensionUuid
-      ];
+      enabled-extensions = map (ext: ext.extensionUuid) gnomeExtensions;
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "google-chrome.desktop"
         "code.desktop"
-        "foot.desktop"
+        "org.codeberg.dnkl.foot.desktop"
         "org.gnome.Settings.desktop"
       ];
     };
