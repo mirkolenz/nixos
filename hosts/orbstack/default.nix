@@ -6,6 +6,8 @@
     ../../profiles/headless.nix
   ];
 
+  zramSwap.enable = true;
+
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   services.vscode-server.enable = true;
 
