@@ -5,7 +5,6 @@
   ...
 }:
 let
-  poetry = pkgs.poetry.withPlugins (ps: with ps; [ poetry-plugin-up ]);
   python = pkgs.python3.withPackages (ps: with ps; [ typer ]);
 in
 lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
@@ -39,7 +38,6 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     go-outline
     goreleaser
     # python
-    poetry
     python
     ruff
     black
