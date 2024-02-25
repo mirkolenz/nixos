@@ -7,23 +7,23 @@
 }:
 lib.mkIf config.services.xserver.enable {
   # Packages
-  environment.systemPackages =
-    (with pkgs; [
-      google-chrome
-      gparted
-    ])
-    ++ (with pkgs.gnome; [
-      nautilus
-      gnome-system-monitor
-      gnome-disk-utility
-      gnome-tweaks
-      gnome-shell-extensions
-      dconf-editor
-      yelp
-    ]);
-  # Wayland support
-  # currently broken: https://github.com/NixOS/nixpkgs/issues/271461
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment = {
+    systemPackages =
+      (with pkgs; [
+        google-chrome
+        gparted
+        gnome-console
+      ])
+      ++ (with pkgs.gnome; [
+        nautilus
+        gnome-system-monitor
+        gnome-disk-utility
+        gnome-tweaks
+        gnome-shell-extensions
+        dconf-editor
+        yelp
+      ]);
+  };
   services.xserver = {
     displayManager = {
       gdm.enable = true;
@@ -41,6 +41,7 @@ lib.mkIf config.services.xserver.enable {
   };
   # Enable/disable default GNOME apps.
   services.gnome.core-utilities.enable = false;
+  security.pam.services.gdm.enableGnomeKeyring = true;
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;

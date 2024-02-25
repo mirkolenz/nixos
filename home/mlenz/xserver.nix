@@ -14,15 +14,6 @@ let
 in
 lib.mkIf xserverEnabled {
   home.packages = gnomeExtensions;
-  programs = {
-    vscode = {
-      enable = true;
-      package = pkgs.vscode-fhs;
-    };
-    foot = {
-      enable = true;
-    };
-  };
   gtk = {
     enable = true;
     iconTheme = {
@@ -45,7 +36,7 @@ lib.mkIf xserverEnabled {
         "org.gnome.Nautilus.desktop"
         "google-chrome.desktop"
         "code.desktop"
-        "org.codeberg.dnkl.foot.desktop"
+        "org.gnome.Console.desktop"
         "org.gnome.Settings.desktop"
       ];
     };
