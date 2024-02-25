@@ -11,6 +11,7 @@ let
     user-themes
     blur-my-shell
   ];
+  gv = lib.hm.gvariant;
 in
 lib.mkIf xserverEnabled {
   home.packages = gnomeExtensions;
