@@ -11,6 +11,7 @@ let
     user-themes
     blur-my-shell
   ];
+  # https://github.com/nix-community/home-manager/blob/master/modules/lib/gvariant.nix
   gv = lib.hm.gvariant;
 in
 lib.mkIf xserverEnabled {
