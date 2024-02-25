@@ -31,10 +31,7 @@
     intelBusId = "PCI:0:2:0";
   };
 
-  powerManagement.cpuFreqGovernor = "performance";
-
   services = {
-    auto-cpufreq.enable = true;
     thermald.enable = true;
   };
 }

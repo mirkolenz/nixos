@@ -19,6 +19,4 @@
     matchConfig.PermanentMACAddress = "e4:5f:01:98:a7:60";
     linkConfig.Name = "ethernet0";
   };
-
-  powerManagement.cpuFreqGovernor = "ondemand";
 }
