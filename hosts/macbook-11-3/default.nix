@@ -21,6 +21,7 @@
   custom.cuda = {
     enable = false;
     driver = "legacy_470";
+    xserverDriver = "nvidiaLegacy470";
   };
 
   hardware.nvidia.prime = {

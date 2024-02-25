@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 {
   imports = [
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
@@ -16,7 +16,11 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ brightnessctl ];
+  custom.cuda = {
+    enable = true;
+    driver = "legacy_470";
+    xserverDriver = "nvidiaLegacy470";
+  };
 
   powerManagement.cpuFreqGovernor = "performance";
 }

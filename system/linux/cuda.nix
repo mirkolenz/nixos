@@ -14,10 +14,16 @@ in
         https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
       '';
     };
+    xserverDriver = lib.mkOption {
+      type = lib.types.str;
+      default = "nvidia";
+      description = "Name of the xserver driver to use.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     # nixpkgs.config.cudaSupport = true;
+    services.xserver.videoDrivers = [ cfg.xserverDriver ];
     virtualisation = {
       docker.enableNvidia = true;
       podman.enableNvidia = true;
