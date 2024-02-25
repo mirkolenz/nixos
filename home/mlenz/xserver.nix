@@ -51,5 +51,34 @@ lib.mkIf xserverEnabled {
     "org/gnome/nautilus/preferences" = {
       default-folder-viewer = "list-view";
     };
+    "org/gnome/shell/extensions/dash-to-dock" = {
+      multi-monitor = true;
+      dock-position = "BOTTOM";
+      dash-max-icon-size = 32;
+      dock-fixed = false;
+      autohide-in-fullscreen = true;
+      require-pressure-to-show = true;
+      intellihide = false;
+      animation-time = 5.0e-2;
+      hide-delay = 0.2;
+      pressure-threshold = 100.0;
+    };
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-enabled = true;
+      night-light-schedule-automatic = true;
+      night-light-temperature = 2000;
+    };
+    "org/gnome/desktop/peripherals/touchpad" = {
+      speed = 0.3;
+      tap-to-click = true;
+      natural-scroll = true;
+    };
+    "org/gnome/desktop/interface" = {
+      clock-format = "24h";
+      clock-show-weekday = true;
+      clock-show-date = true;
+      clock-show-seconds = true;
+      clock-show-week-numbers = false;
+    };
   };
 }
