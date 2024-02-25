@@ -1,9 +1,4 @@
-{
-  self,
-  lib,
-  inputs,
-  ...
-}:
+{ lib, inputs, ... }:
 {
   perSystem =
     {
@@ -44,13 +39,13 @@
       legacyPackages.mkBuilder =
         {
           exe,
-          flake ? self,
+          flake ? inputs.self,
           args ? [ ],
         }:
         pkgs.writeShellApplication {
           name = "builder";
           text = ''
-            exec ${lib.getExe config.packages.builder-wrapper} ${exe} --flake ${flake.outPath} ${lib.escapeShellArgs args} "$@"
+            exec ${lib.getExe config.packages.builder-wrapper} ${exe} --flake ${flake} ${lib.escapeShellArgs args} "$@"
           '';
         };
     };

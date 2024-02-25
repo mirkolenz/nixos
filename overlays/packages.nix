@@ -6,7 +6,7 @@ let
 in
 {
   bibtex2cff = final.poetry2nix.mkPoetryApplication {
-    projectDir = inputs.bibtex2cff.outPath;
+    projectDir = inputs.bibtex2cff;
     preferWheels = true;
     python = final.python3;
   };

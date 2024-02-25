@@ -160,7 +160,7 @@ in
       ] ++ cfg.extraPackages ++ (builtins.attrValues cmds);
       file = {
         ".latexmkrc".source = ../files/.latexmkrc;
-        "texmf".source = inputs.texmf.outPath;
+        "texmf".source = inputs.texmf;
       };
     };
   };
