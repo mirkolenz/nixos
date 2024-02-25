@@ -22,7 +22,7 @@ lib.mkIf config.services.xserver.enable {
       yelp
     ]);
   # Wayland support
-  environment.sessionVariables.NIXOS_OZONE_WL = 1;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   services.xserver = {
     displayManager = {
       gdm.enable = true;
