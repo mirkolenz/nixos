@@ -3,10 +3,14 @@
   lib',
   pkgs,
   stateVersion,
+  channel,
   ...
 }:
 {
-  imports = [ ../common ] ++ (lib'.flocken.getModules ./.);
+  imports = [
+    ../common
+    ./_${channel}.nix
+  ] ++ (lib'.flocken.getModules ./.);
 
   custom.podman.enable = true;
 

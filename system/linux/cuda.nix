@@ -24,7 +24,6 @@ in
   config = lib.mkIf cfg.enable {
     # nixpkgs.config.cudaSupport = true;
     services.xserver.videoDrivers = [ cfg.xserverDriver ];
-    virtualisation.containers.cdi.dynamic.nvidia.enable = true;
     hardware = {
       opengl = {
         enable = true;
