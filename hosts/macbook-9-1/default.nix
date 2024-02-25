@@ -24,4 +24,9 @@
   };
 
   powerManagement.cpuFreqGovernor = "performance";
+
+  services = {
+    auto-cpufreq.enable = true;
+    thermald.enable = true;
+  };
 }
