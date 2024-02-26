@@ -85,5 +85,8 @@ lib.mkIf xserverEnabled {
       clock-show-seconds = true;
       clock-show-week-numbers = false;
     };
+    "org/gnome/mutter" = {
+      experimental-features = [ "scale-monitor-framebuffer" ];
+    };
   };
 }
