@@ -8,6 +8,7 @@
 lib.mkIf config.services.xserver.enable {
   # Packages
   environment = {
+    sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages =
       (with pkgs; [
         google-chrome
