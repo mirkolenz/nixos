@@ -19,7 +19,7 @@
             IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
           })
         ];
-        identityFile = [ "id_ed25519" ];
+        identityFile = lib.mkIf pkgs.stdenv.isDarwin [ "id_ed25519" ];
       };
       "wi2gpu" = {
         hostname = "gpu.wi2.uni-trier.de";
