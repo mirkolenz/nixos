@@ -29,6 +29,7 @@ lib.mkIf xserverEnabled {
       name = "Adwaita";
     };
   };
+  # https://github.com/gvolpe/dconf2nix
   # dconf watch /
   dconf.settings = {
     "org/gnome/shell" = {
