@@ -34,4 +34,8 @@
   services = {
     thermald.enable = true;
   };
+
+  # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
+  # https://askubuntu.com/a/1242574
+  boot.kernelParams = [ "intel_idle.max_cstate=1" ];
 }
