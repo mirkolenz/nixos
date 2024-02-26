@@ -7,9 +7,7 @@
   system.autoUpgrade = {
     enable = true;
     flake = "github:mirkolenz/nixos";
-    flags = [
-      "--impure"
-    ];
+    flags = [ "--impure" ];
     dates = "04:00";
     allowReboot = true;
     rebootWindow = {
