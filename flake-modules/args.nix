@@ -22,7 +22,7 @@
         id = 1000;
         sshKeys = lib'.flocken.githubSshKeys {
           user = "mirkolenz";
-          sha256 = "0f52mwv3ja24q1nz65aig8id2cpvnm0w92f9xdc80xn3qg3ji374";
+          sha256 = "1rwabnyccmj9jxrjxf56f4ngia7zjyxwdir33wyl6qbya3aigwja";
         };
       };
     };
