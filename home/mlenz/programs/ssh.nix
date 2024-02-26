@@ -1,13 +1,24 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  osConfig,
+  ...
+}:
 {
   programs.ssh = {
     enable = true;
     matchBlocks = {
       "*" = {
-        extraOptions = lib.mkIf pkgs.stdenv.isDarwin {
-          UseKeychain = "yes";
-          AddKeysToAgent = "yes";
-        };
+        extraOptions = lib.mkMerge [
+          (lib.mkIf pkgs.stdenv.isDarwin {
+            UseKeychain = "yes";
+            AddKeysToAgent = "yes";
+          })
+          (lib.mkIf (pkgs.stdenv.isLinux && (osConfig.services.xserver.enable or false)) {
+            IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
+          })
+        ];
         identityFile = [ "id_ed25519" ];
       };
       "wi2gpu" = {
