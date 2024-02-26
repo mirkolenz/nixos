@@ -35,18 +35,20 @@ lib.mkIf xserverEnabled {
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = map (ext: ext.extensionUuid) gnomeExtensions;
-      favorite-apps = [
-        "org.gnome.Nautilus.desktop"
-        "google-chrome.desktop"
-        "code.desktop"
-        "org.gnome.Console.desktop"
-        "org.gnome.Settings.desktop"
+      favorite-apps = map (x: "${x}.desktop") [
+        "org.gnome.Nautilus"
+        "1password"
+        "google-chrome"
+        "code"
+        "org.gnome.Console"
+        "org.gnome.Settings"
       ];
     };
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       show-battery-percentage = true;
       enable-hot-corners = false;
+      font-aliasing = "rgba";
     };
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
