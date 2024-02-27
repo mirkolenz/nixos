@@ -66,7 +66,7 @@ lib.mkIf xserverEnabled {
       intellihide = false;
       animation-time = 5.0e-2;
       hide-delay = 0.2;
-      pressure-threshold = 50.0;
+      pressure-threshold = 10.0;
     };
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
