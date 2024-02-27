@@ -14,6 +14,7 @@ lib.mkIf config.services.xserver.enable {
       obsidian
       zoom-us
       zotero_7
+      gnome.gnome-tweaks
     ];
     gnome.excludePackages = with pkgs; [ gnome-tour ];
   };
