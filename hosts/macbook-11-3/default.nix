@@ -36,6 +36,11 @@
     thermald.enable = true;
   };
 
+  hardware.facetimehd = {
+    enable = true;
+    withCalibration = true;
+  };
+
   # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
   # https://askubuntu.com/a/1242574
   # https://www.reddit.com/r/mac/comments/9pyort/apple_macbook_pro_sudden_crash_fix_for_models/
