@@ -32,6 +32,4 @@
     enable = true;
     withCalibration = true;
   };
-
-  boot.kernelParams = [ "intel_idle.max_cstate=3" ];
 }
