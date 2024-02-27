@@ -19,8 +19,7 @@ lib.mkIf config.services.xserver.enable {
     desktopManager.gnome = {
       enable = true;
     };
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
     excludePackages = with pkgs; [ xterm ];
   };
   services.gnome = {
