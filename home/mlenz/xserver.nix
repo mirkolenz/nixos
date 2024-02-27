@@ -64,7 +64,8 @@ lib.mkIf xserverEnabled {
     "org/gnome/shell/extensions/dash-to-dock" = {
       multi-monitor = true;
       dock-position = "BOTTOM";
-      dash-max-icon-size = 32;
+      dash-max-icon-size = 42;
+      height-fraction = 1.0;
       dock-fixed = false;
       autohide-in-fullscreen = true;
       require-pressure-to-show = true;
@@ -72,6 +73,8 @@ lib.mkIf xserverEnabled {
       animation-time = 5.0e-2;
       hide-delay = 0.2;
       pressure-threshold = 10.0;
+      custom-theme-shrink = true;
+      disable-overview-on-startup = true;
     };
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
