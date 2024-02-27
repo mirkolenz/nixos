@@ -2,14 +2,20 @@
   pkgs,
   config,
   lib,
-  user,
   ...
 }:
 lib.mkIf config.services.xserver.enable {
   # Packages
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
-    systemPackages = with pkgs; [ google-chrome ];
+    systemPackages = with pkgs; [
+      anydesk
+      google-chrome
+      obsidian
+      teams
+      zoom-us
+      zotero_7
+    ];
     gnome.excludePackages = with pkgs; [ gnome-tour ];
   };
   services.xserver = {
