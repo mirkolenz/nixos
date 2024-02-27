@@ -12,7 +12,6 @@ lib.mkIf config.services.xserver.enable {
       anydesk
       google-chrome
       obsidian
-      teams
       zoom-us
       zotero_7
     ];
