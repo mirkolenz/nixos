@@ -43,6 +43,7 @@ lib.mkIf xserverEnabled {
         "org.gnome.Nautilus"
         "1password"
         "google-chrome"
+        "Zoom"
         "code"
         "org.gnome.Console"
         "org.gnome.Settings"
@@ -73,7 +74,7 @@ lib.mkIf xserverEnabled {
       animation-time = 5.0e-2;
       hide-delay = 0.2;
       pressure-threshold = 10.0;
-      custom-theme-shrink = true;
+      custom-theme-shrink = false;
       disable-overview-on-startup = true;
     };
     "org/gnome/settings-daemon/plugins/color" = {
