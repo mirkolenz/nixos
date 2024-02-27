@@ -53,6 +53,7 @@ lib.mkIf xserverEnabled {
       show-battery-percentage = true;
       enable-hot-corners = false;
       font-aliasing = "rgba";
+      font-hinting = "full";
     };
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
