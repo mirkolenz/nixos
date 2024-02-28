@@ -8,6 +8,33 @@
 let
   cfg = config.custom.texlive;
 
+  latexmkrc = pkgs.writeText "latexmkrc" ''
+    # 1: pdflatex
+    # 4: lualatex
+    # 5: xelatex
+    $pdf_mode = 1;
+
+    # Regular
+    $pdflatex = "pdflatex %O %S";
+    $xelatex = "xelatex %O %S";
+    $lualatex = "lualatex %O %S";
+
+    # Shell escape
+    # $pdflatex = "pdflatex -shell-escape %O %S";
+    # $xelatex = "xelatex -shell-escape %O %S";
+    # $lualatex = "lualatex -shell-escape %O %S";
+
+    # Texmf path
+    # $ENV{"TEXINPUTS"} = "./texmf//:" . $ENV{"TEXINPUTS"};
+    # $ENV{"BSTINPUTS"} = "./texmf//:" . $ENV{"BSTINPUTS"};
+    # $ENV{"BIBINPUTS"} = "./texmf//:" . $ENV{"BIBINPUTS"};
+
+    $postscript_mode = $dvi_mode = 0;
+    $clean_ext = "";
+    $ENV{"TZ"} = "Europe/Berlin";
+
+  '';
+
   acronymPresetToList = lib.mapAttrsToList (name: value: "${name}=${value}");
   acronymReplacements =
     lib.mapAttrsToList
@@ -22,7 +49,7 @@ let
         | ${lib.getExe pkgs.gnutar} xz --strip-components=1 --directory="./texmf"
     '';
     latexmkrc = ''
-      exec cp -f ${config.home.homeDirectory}/.latexmkrc "''${1:-.latexmkrc}"
+      exec cp -f ${latexmkrc} "''${1:-.latexmkrc}"
     '';
     bibtidy = ''
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
@@ -159,7 +186,7 @@ in
         (cfg.packageScheme.__overrideTeXConfig cfg.packageConfig)
       ] ++ cfg.extraPackages ++ (builtins.attrValues cmds);
       file = {
-        ".latexmkrc".source = ../files/.latexmkrc;
+        ".latexmkrc".source = latexmkrc;
         "texmf".source = inputs.texmf;
       };
     };

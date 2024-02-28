@@ -37,7 +37,6 @@
     rsync
     curl
     wget
-    macchina
     ookla-speedtest
     restic
     autorestic

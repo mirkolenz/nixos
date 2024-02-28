@@ -5,6 +5,9 @@
   osConfig,
   ...
 }:
+let
+  tomlFormat = pkgs.formats.toml { };
+in
 {
   programs.ssh = {
     enable = true;
@@ -46,4 +49,17 @@
   #     chmod 400 ${config.home.homeDirectory}/.ssh/config
   #   '';
   # };
+  # https://developer.1password.com/docs/ssh/agent/config
+  xdg.configFile."1Password/ssh/agent.toml" =
+    lib.mkIf (osConfig.programs._1password-gui.enable or false)
+      {
+        source = tomlFormat.generate "1password-ssh-agent" {
+          ssh-keys = [
+            {
+              vault = "Mirko";
+              item = "Mirkos NixBook SSH Key";
+            }
+          ];
+        };
+      };
 }
