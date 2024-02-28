@@ -2,6 +2,6 @@ inputs: [
   (import ./apps)
   (import ./channels.nix inputs)
   (import ./compat.nix)
-  (import ./packages.nix inputs)
+  (import ./packages inputs)
   inputs.poetry2nix.overlays.default
 ]

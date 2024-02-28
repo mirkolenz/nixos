@@ -54,39 +54,6 @@
         "type": "github"
       }
     },
-    "bibtex2cff": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1685989765,
-        "narHash": "sha256-Xuj2kDJzX2owIjjBRrfXNJCZeGRZ7OoD1X+ibU4b1C8=",
-        "owner": "anselmoo",
-        "repo": "bibtex2cff",
-        "rev": "e4b8fe8da3f92ba64a259089893204cfe688d6bb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "anselmoo",
-        "ref": "v0.2.1",
-        "repo": "bibtex2cff",
-        "type": "github"
-      }
-    },
-    "bibtexbrowser": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1705220846,
-        "narHash": "sha256-kAaVi5GTgghfGD/B0Hw6aE6k1NFNSEFX/6G2/pVTCaY=",
-        "owner": "monperrus",
-        "repo": "bibtexbrowser",
-        "rev": "8fdc86f4bd4ebbce5740c8653620ba02aa51af73",
-        "type": "github"
-      },
-      "original": {
-        "owner": "monperrus",
-        "repo": "bibtexbrowser",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "locked": {
         "lastModified": 1696426674,
@@ -858,8 +825,6 @@
     "root": {
       "inputs": {
         "arguebuf": "arguebuf",
-        "bibtex2cff": "bibtex2cff",
-        "bibtexbrowser": "bibtexbrowser",
         "flake-parts": "flake-parts",
         "flocken": "flocken",
         "home-manager": "home-manager",

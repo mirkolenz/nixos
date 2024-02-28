@@ -107,16 +107,6 @@
       # inputs.home-manager.follows = "home-manager-linux-stable";
       # inputs.nix-darwin.follows = "nix-darwin-stable";
     };
-
-    # Non-flakes
-    bibtex2cff = {
-      url = "github:anselmoo/bibtex2cff/v0.2.1";
-      flake = false;
-    };
-    bibtexbrowser = {
-      url = "github:monperrus/bibtexbrowser";
-      flake = false;
-    };
   };
 
   outputs =
