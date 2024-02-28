@@ -14,7 +14,6 @@
       cleanup = "none";
     };
     taps = [
-      "homebrew/cask-drivers"
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
     ];
