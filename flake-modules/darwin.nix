@@ -51,5 +51,10 @@ in
       system = "x86_64-darwin";
       computerName = "Mirkos MacBook";
     };
+    mirkos-unibook = {
+      channel = "unstable";
+      system = "x86_64-darwin";
+      computerName = "Mirkos UniBook";
+    };
   };
 }
