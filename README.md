@@ -161,12 +161,6 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 /nix/nix-installer uninstall
 ```
 
-### Backup Mac App Store Apps
-
-```shell
-mas list | sort -k 2 > mas.txt
-```
-
 ## Home-Manger Standalone
 
 _Note:_ Reconnect via SSH after installing nix.
