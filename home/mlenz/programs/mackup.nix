@@ -27,5 +27,5 @@ lib.mkIf pkgs.stdenv.isDarwin {
         (name: null);
   };
   # currently not packaged
-  # home.packages = with pkgs; [ mackup ];
+  home.packages = with pkgs; [ mackup ];
 }
