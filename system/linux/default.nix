@@ -72,4 +72,10 @@
     grub.configurationLimit = 7;
     raspberryPi.uboot.configurationLimit = 7;
   };
+
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+    memoryMax = 8 * 1024 * 1024 * 1024;
+  };
 }
