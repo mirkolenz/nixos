@@ -130,10 +130,11 @@ nix-store --verify --check-contents --repair
 
 ### Installation
 
-1. `xcode-select --install`
-2. [Homebrew](https://brew.sh)
-3. [Nix](https://github.com/DeterminateSystems/nix-installer)
-4. Enable Full Disk Access for terminal application
+1. Install Apple Developer Tools: `xcode-select --install`
+2. [Install Homebrew](https://brew.sh)
+3. [Install Nix](https://github.com/DeterminateSystems/nix-installer)
+4. Sign in to the App Store
+5. Enable Full Disk Access for terminal application
 
 ```shell
 # First invokation
