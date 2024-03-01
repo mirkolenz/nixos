@@ -45,7 +45,29 @@
     '';
 
   system.defaults = {
-    CustomUserPreferences = { };
+    CustomUserPreferences = {
+      NSGlobalDomain = {
+        NSCloseAlwaysConfirmsChanges = false;
+        AppleSpacesSwitchOnActivate = true;
+      };
+      "com.apple.Music" = {
+        userWantsPlaybackNotifications = false;
+      };
+      "com.apple.ActivityMonitor" = {
+        UpdatePeriod = 1;
+      };
+      "com.apple.TextEdit" = {
+        SmartQuotes = false;
+        RichText = false;
+      };
+      "com.apple.spaces" = {
+        "spans-displays" = false;
+      };
+      com.apple.menuextra.clock = {
+        DateFormat = "EEE d MMM HH:mm:ss";
+        FlashDateSeparators = false;
+      };
+    };
     alf = {
       allowdownloadsignedenabled = 0;
       allowsignedenabled = 1;
