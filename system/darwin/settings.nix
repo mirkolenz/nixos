@@ -63,7 +63,7 @@
       "com.apple.spaces" = {
         "spans-displays" = false;
       };
-      com.apple.menuextra.clock = {
+      "com.apple.menuextra.clock" = {
         DateFormat = "EEE d MMM HH:mm:ss";
         FlashDateSeparators = false;
       };
