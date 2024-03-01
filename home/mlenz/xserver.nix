@@ -28,10 +28,7 @@ lib.mkIf xserverEnabled {
       inter
       jetbrains-mono
     ]);
-  home.file.".face".source = builtins.fetchurl {
-    url = "https://github.com/mirkolenz.png";
-    sha256 = "1cyxw64xvpgb0kzdp73a1xvrqv5ik1fgkn9qnh6k2kry2w4r7gra";
-  };
+  home.file.".face".source = ./mlenz.jpg;
   gtk = {
     enable = true;
     cursorTheme.name = "Adwaita";
