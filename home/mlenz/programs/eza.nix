@@ -6,7 +6,7 @@
     extraOptions = [
       "--long"
       "--group-directories-first"
-      "--color=always"
+      "--color=auto"
       "--time-style=long-iso"
     ];
     git = true;
