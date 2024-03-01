@@ -20,10 +20,12 @@
         mail = "mirko@mirkolenz.com";
         login = "mlenz";
         id = 1000;
-        sshKeys = lib'.flocken.githubSshKeys {
-          user = "mirkolenz";
-          sha256 = "1rwabnyccmj9jxrjxf56f4ngia7zjyxwdir33wyl6qbya3aigwja";
-        };
+        # https://github.com/mirkolenz.keys
+        sshKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFT0P6ZLB5QOtEdpPHCF0frL3WJEQQGEpMf2r010gYH3"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIq4FI/+G9JoUDXlUoKEdMtVnhapUScSqGg34r+jLgax"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHTD8HTidTJM3RLmU+WW7tBlDz6L2x8zoHJhqzA6m3+B"
+        ];
       };
     };
   };
