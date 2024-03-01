@@ -1,8 +1,51 @@
-{ ... }:
+{ lib, ... }:
 {
   security.pam.enableSudoTouchIdAuth = true;
 
+  # https://stackoverflow.com/q/59614341
+  # Not possible to set via Nix, because all `dict` entries are prefixed with `-string`
+  system.activationScripts.extraUserActivation.text =
+    let
+      mkEntry =
+        path:
+        "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>${path}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>";
+      persistentApps = [
+        "/Applications/DEVONthink 3.app"
+        "/Applications/Obsidian.app"
+        "/System/Applications/App Store.app"
+        "/System/Applications/Music.app"
+        "/Applications/Arc.app"
+        "/Applications/Raindrop.io.app"
+        "/Applications/1Password.app"
+        "/System/Applications/Messages.app"
+        "/Applications/WhatsApp.app"
+        "/System/Applications/Mail.app"
+        "/Applications/zoom.us.app"
+        "/Applications/Microsoft Teams (work or school).app"
+        "/Applications/Todoist.app"
+        "/System/Applications/Calendar.app"
+        "/Applications/Visual Studio Code.app"
+        "/Applications/iTerm.app"
+        "/Applications/Tower.app"
+        "/Applications/OrbStack.app"
+        "/Applications/Zotero.app"
+        "/Applications/PDF Expert.app"
+        "/Applications/iA Presenter.app"
+        "/Applications/Microsoft Word.app"
+        "/Applications/Microsoft Excel.app"
+        "/Applications/Microsoft PowerPoint.app"
+        "/System/Applications/Utilities/Activity Monitor.app"
+        "/System/Applications/System Settings.app"
+      ];
+    in
+    ''
+      defaults write com.apple.dock persistent-apps -array ${
+        lib.escapeShellArgs (map mkEntry persistentApps)
+      }
+    '';
+
   system.defaults = {
+    CustomUserPreferences = { };
     alf = {
       allowdownloadsignedenabled = 0;
       allowsignedenabled = 1;
