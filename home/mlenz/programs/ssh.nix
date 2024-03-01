@@ -57,7 +57,7 @@ in
           ssh-keys = [
             {
               vault = "Mirko";
-              item = "Mirkos NixBook SSH Key";
+              item = "mlenz@1password";
             }
           ];
         };
