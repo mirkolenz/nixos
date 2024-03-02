@@ -8,6 +8,9 @@ let
   python = pkgs.python3.withPackages (ps: with ps; [ typer ]);
 in
 lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
+  home.sessionVariables = {
+    RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
+  };
   home.packages = with pkgs; [
     exiftool
     fontforge
@@ -48,6 +51,12 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     # java
     jdk
     gradle
+    # rust
+    rustc
+    cargo
+    rustfmt
+    clippy
+    rust-analyzer
     # my own packages
     makejinja
     arguebuf
