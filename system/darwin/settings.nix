@@ -212,4 +212,7 @@
       PMPrintingExpandedStateForPrint2 = true;
     };
   };
+  system.startup = {
+    chime = false;
+  };
 }
