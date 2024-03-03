@@ -81,8 +81,7 @@ rec {
         else
           mkOption k v;
     in
-    options:
-    builtins.concatLists (lib.mapAttrsToList render options);
+    options: builtins.concatLists (lib.mapAttrsToList render options);
 
   mkVolumes =
     let
@@ -103,8 +102,7 @@ rec {
         else
           value;
     in
-    values:
-    builtins.map mkVolume values;
+    values: builtins.map mkVolume values;
 
   mkCaps =
     attrs:
@@ -146,8 +144,7 @@ rec {
     let
       mkHost = name: value: "${name}:${value}";
     in
-    attrs:
-    mkOptions { add-host = lib.mapAttrsToList mkHost attrs; };
+    attrs: mkOptions { add-host = lib.mapAttrsToList mkHost attrs; };
 
   mkImage =
     image:
@@ -172,8 +169,7 @@ rec {
         in
         "${link.name}:${ip}";
     in
-    attrs:
-    mkOptions { add-host = lib.mapAttrsToList mkLink attrs; };
+    attrs: mkOptions { add-host = lib.mapAttrsToList mkLink attrs; };
 
   mkNetworks =
     networks:
@@ -187,8 +183,10 @@ rec {
         };
     in
     attrs:
-    assert (lib.assertMsg (builtins.length (builtins.attrNames attrs) > 0)
-      "At least one network must be specified."
+    assert (
+      lib.assertMsg (
+        builtins.length (builtins.attrNames attrs) > 0
+      ) "At least one network must be specified."
     );
     mkOptions { network = lib.mapAttrsToList mkNetwork attrs; };
 }

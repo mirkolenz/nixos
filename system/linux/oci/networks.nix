@@ -81,14 +81,11 @@ in
       );
     };
   config = lib.mkIf cfg.enable {
-    environment.etc =
-      lib.mapAttrs'
-        (name: value: {
-          name = "containers/networks/${name}.json";
-          value = {
-            source = mkNetwork name value;
-          };
-        })
-        cfg.networks;
+    environment.etc = lib.mapAttrs' (name: value: {
+      name = "containers/networks/${name}.json";
+      value = {
+        source = mkNetwork name value;
+      };
+    }) cfg.networks;
   };
 }

@@ -248,21 +248,17 @@ cfg:
     extraOptions = mkOption {
       type =
         with types;
-        attrsOf (
-          oneOf [
+        attrsOf (oneOf [
+          str
+          bool
+          (attrsOf str)
+          (listOf (onOf [
             str
             bool
             (attrsOf str)
-            (listOf (
-              onOf [
-                str
-                bool
-                (attrsOf str)
-                (listOf str)
-              ]
-            ))
-          ]
-        );
+            (listOf str)
+          ]))
+        ]);
       default = { };
       description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
       example = literalExpression ''

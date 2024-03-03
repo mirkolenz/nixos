@@ -21,12 +21,9 @@ lib.mkIf pkgs.stdenv.isDarwin {
         # https://github.com/nix-community/nixvim/blob/main/wrappers/hm.nix
         nvim = config.programs.nixvim.finalPackage;
       };
-      symbolicLinks =
-        lib.mapAttrsToList
-          (name: path: ''
-            ln -s "${lib.getBin path}/bin/${name}" "$out/${name}"
-          '')
-          binaries;
+      symbolicLinks = lib.mapAttrsToList (name: path: ''
+        ln -s "${lib.getBin path}/bin/${name}" "$out/${name}"
+      '') binaries;
     in
     pkgs.runCommand "home-bin" { } ''
       mkdir -p "$out"

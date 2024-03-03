@@ -27,14 +27,11 @@ lib.mkIf pkgs.stdenv.isDarwin {
         applications_to_sync = mkList (builtinApps ++ builtins.attrNames customApps);
       };
     }
-    // (lib.mapAttrs'
-      (name: value: {
-        name = ".mackup/${name}.cfg";
-        value = {
-          source = iniFormat.generate "mackup-config-${name}" value;
-        };
-      })
-      customApps
-    );
+    // (lib.mapAttrs' (name: value: {
+      name = ".mackup/${name}.cfg";
+      value = {
+        source = iniFormat.generate "mackup-config-${name}" value;
+      };
+    }) customApps);
   home.packages = with pkgs; [ mackup ];
 }

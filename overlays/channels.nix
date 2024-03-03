@@ -8,9 +8,7 @@ let
       config = import ../nixpkgs-config.nix;
     };
 in
-prev.lib.genAttrs
-  [
-    "stable"
-    "unstable"
-  ]
-  mkChannel
+prev.lib.genAttrs [
+  "stable"
+  "unstable"
+] mkChannel

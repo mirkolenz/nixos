@@ -109,18 +109,15 @@ lib.mkIf xserverEnabled {
         switch-input-source-backward = [ ];
       };
       "org/gnome/settings-daemon/plugins/media-keys" = {
-        custom-keybindings =
-          lib.imap0
-            (idx: _: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString idx}/")
-            keybindings;
+        custom-keybindings = lib.imap0 (
+          idx: _: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString idx}/"
+        ) keybindings;
       };
     }
     // (lib.listToAttrs (
-      lib.imap0
-        (idx: value: {
-          inherit value;
-          name = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString idx}";
-        })
-        keybindings
+      lib.imap0 (idx: value: {
+        inherit value;
+        name = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString idx}";
+      }) keybindings
     ));
 }

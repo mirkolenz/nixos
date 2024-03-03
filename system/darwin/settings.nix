@@ -39,9 +39,7 @@
       ];
     in
     ''
-      defaults write com.apple.dock persistent-apps -array ${
-        lib.escapeShellArgs (map mkEntry persistentApps)
-      }
+      defaults write com.apple.dock persistent-apps -array ${lib.escapeShellArgs (map mkEntry persistentApps)}
     '';
 
   system.defaults = {

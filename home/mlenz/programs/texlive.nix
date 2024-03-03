@@ -36,10 +36,9 @@ let
   '';
 
   acronymPresetToList = lib.mapAttrsToList (name: value: "${name}=${value}");
-  acronymReplacements =
-    lib.mapAttrsToList
-      (name: preset: "sd -F 'preset=${name}' '${lib.concatStringsSep ", " (acronymPresetToList preset)}'")
-      cfg.acronymPresets;
+  acronymReplacements = lib.mapAttrsToList (
+    name: preset: "sd -F 'preset=${name}' '${lib.concatStringsSep ", " (acronymPresetToList preset)}'"
+  ) cfg.acronymPresets;
 
   cmdTexts = {
     texmfup = ''

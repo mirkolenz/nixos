@@ -25,16 +25,13 @@
         default = config.packages.system;
         system = config.legacyPackages.mkBuilder { exe = systemBuilder; };
         home = config.legacyPackages.mkBuilder { exe = homeBuilder; };
-        builder-wrapper =
-          pkgs.writers.writePython3Bin "builder-wrapper"
-            {
-              libraries = with pkgs.python3Packages; [ typer ];
-              flakeIgnore = [
-                "E203"
-                "E501"
-              ];
-            }
-            (builtins.readFile ./builder-wrapper.py);
+        builder-wrapper = pkgs.writers.writePython3Bin "builder-wrapper" {
+          libraries = with pkgs.python3Packages; [ typer ];
+          flakeIgnore = [
+            "E203"
+            "E501"
+          ];
+        } (builtins.readFile ./builder-wrapper.py);
       };
       legacyPackages.mkBuilder =
         {

@@ -93,19 +93,17 @@ let
 
   mkSystemd =
     attrs:
-    lib.recursiveUpdate
-      {
-        serviceConfig = {
-          RestartSec = 15;
-        };
-        unitConfig = {
-          # StartLimitIntervalSec must be greater than RestartSec * StartLimitBurst
-          # otherwise the service will be restarted indefinitely.
-          StartLimitIntervalSec = 120;
-          StartLimitBurst = 6;
-        };
-      }
-      attrs;
+    lib.recursiveUpdate {
+      serviceConfig = {
+        RestartSec = 15;
+      };
+      unitConfig = {
+        # StartLimitIntervalSec must be greater than RestartSec * StartLimitBurst
+        # otherwise the service will be restarted indefinitely.
+        StartLimitIntervalSec = 120;
+        StartLimitBurst = 6;
+      };
+    } attrs;
 in
 {
   options.custom.oci.containers =
@@ -115,16 +113,13 @@ in
       type = with types; attrsOf (submodule (import ./submodule.nix cfg));
     };
   config = lib.mkIf cfg.enable {
-    virtualisation.oci-containers.containers =
-      lib.mapAttrs (name: value: mkContainer name value)
-        containersCfg;
-    systemd.services =
-      lib.mapAttrs'
-        (name: value: {
-          name = "podman-${name}";
-          value = mkSystemd value.systemd;
-        })
-        containersCfg;
+    virtualisation.oci-containers.containers = lib.mapAttrs (
+      name: value: mkContainer name value
+    ) containersCfg;
+    systemd.services = lib.mapAttrs' (name: value: {
+      name = "podman-${name}";
+      value = mkSystemd value.systemd;
+    }) containersCfg;
     environment.systemPackages = lib.mkIf cfg.shellWrapper.enable (
       lib.mapAttrsToList mkWrapper containersCfg
     );
