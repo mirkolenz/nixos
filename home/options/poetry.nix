@@ -13,14 +13,9 @@ in
   meta.maintainers = with lib.maintainers; [ mirkolenz ];
   options.programs.poetry = with lib; {
     enable = mkEnableOption "poetry";
-    package = mkOption {
-      type = types.package;
-      default = pkgs.poetry;
-      defaultText = literalExpression "pkgs.poetry";
-      description = ''
-        The poetry package to use. You may enable plugins as follows:
-        `pkgs.poetry.withPlugins (ps: with ps; [ poetry-plugin-up ])`
-      '';
+    package = mkPackageOption pkgs "poetry" {
+      example = literalExpression "pkgs.poetry.withPlugins (ps: with ps; [ poetry-plugin-up ])";
+      extraDescription = "May be used to install custom poetry plugins.";
     };
     settings = mkOption {
       type = tomlFormat.type;
@@ -43,6 +38,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
+
     home.file."${configDir}/pypoetry/config.toml" = lib.mkIf (cfg.settings != { }) {
       source = tomlFormat.generate "poetry-config" cfg.settings;
     };

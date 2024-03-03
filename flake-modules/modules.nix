@@ -18,7 +18,10 @@ let
       ...
     }:
     {
-      imports = [ ../home/mlenz ];
+      imports = [
+        ../home/mlenz
+        ../home/options
+      ];
       options = {
         programs.nixvim = lib.mkOption {
           type = lib.types.submoduleWith {

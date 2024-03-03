@@ -19,7 +19,6 @@ in
   imports = [
     inputs.nix-index-database.hmModules.nix-index
     nixvim.homeManagerModules.nixvim
-    ./_${channel}.nix
   ] ++ (lib'.flocken.getModules ./.);
 
   home = {

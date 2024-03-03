@@ -1,12 +1,7 @@
 # https://nix-community.github.io/nixvim/
+{ lib', ... }:
 {
-  lib,
-  lib',
-  channel,
-  ...
-}:
-{
-  imports = (lib'.flocken.getModules ./.) ++ (lib.singleton ./_${channel}.nix);
+  imports = lib'.flocken.getModules ./.;
 
   config = {
     filetype.extension = {
