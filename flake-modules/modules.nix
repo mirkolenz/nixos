@@ -1,13 +1,8 @@
-{
-  inputs,
-  specialModuleArgs,
-  moduleArgs,
-  ...
-}:
+{ specialModuleArgs, moduleArgs, ... }:
 let
   nixpkgs = {
     config = import ../nixpkgs-config.nix;
-    overlays = import ../overlays inputs;
+    overlays = import ../overlays specialModuleArgs;
   };
   homeModule =
     {

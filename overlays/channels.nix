@@ -1,13 +1,23 @@
-inputs: final: prev:
+{ inputs, lib', ... }:
+final: prev:
 let
-  os = if final.stdenv.isDarwin then "darwin" else "linux";
+  inherit (final.pkgs) system;
+  os = lib'.self.systemOs system;
+
   mkChannel =
     channel:
-    import inputs."nixpkgs-${os}-${channel}" {
-      system = final.pkgs.system;
+    let
+      nixpkgs = lib'.self.systemInput {
+        inherit inputs channel os;
+        name = "nixpkgs";
+      };
+    in
+    import nixpkgs {
+      inherit system;
       config = import ../nixpkgs-config.nix;
     };
   useChannel = channel: names: prev.lib.genAttrs names (name: final.${channel}.${name});
+
   stablePkgs = [ ];
   unstablePkgs = [ ];
 in

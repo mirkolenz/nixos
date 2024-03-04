@@ -1,4 +1,5 @@
-inputs: final: prev:
+{ inputs, ... }:
+final: prev:
 let
   inherit (final) system;
   getPkg = input: inputs.${input}.packages.${system}.default;

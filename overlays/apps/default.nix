@@ -1,5 +1,6 @@
 # https://github.com/jwiegley/nix-config/blob/master/overlays/30-apps.nix
 # https://cmacr.ae/blog/managing-firefox-on-macos-with-nix/
+{ ... }:
 final: prev: {
   mkApp =
     args@{
