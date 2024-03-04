@@ -9,12 +9,12 @@ in
 {
   options.custom.dock = with lib; {
     persistentApps = mkOption {
-      type = with types; listOf string;
+      type = with types; listOf str;
       default = [ ];
       description = "List of applications to keep in the dock";
     };
     activationScript = mkOption {
-      type = with types; string;
+      type = with types; str;
       description = "Command to run for setting the apps";
       internal = true;
       readOnly = true;
