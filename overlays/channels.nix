@@ -7,8 +7,13 @@ let
       system = final.pkgs.system;
       config = import ../nixpkgs-config.nix;
     };
+  useChannel = channel: names: prev.lib.genAttrs names (name: final.${channel}.${name});
+  stablePkgs = [ ];
+  unstablePkgs = [ ];
 in
-prev.lib.genAttrs [
+(prev.lib.genAttrs [
   "stable"
   "unstable"
-] mkChannel
+] mkChannel)
+// (useChannel "stable" stablePkgs)
+// (useChannel "unstable" unstablePkgs)
