@@ -2,6 +2,7 @@
   pkgs,
   lib,
   osConfig,
+  config,
   ...
 }:
 let
@@ -60,7 +61,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     # my own packages
     makejinja
     arguebuf
-    (writeShellScriptBin "poetryup" ''exec ${lib.getExe poetry} up "$@"'')
+    (writeShellScriptBin "poetryup" ''exec ${lib.getExe config.programs.poetry.package} up "$@"'')
     (writeShellScriptBin "npmup" ''exec ${lib.getExe nodePackages.npm-check-updates} "$@"'')
   ];
 }
