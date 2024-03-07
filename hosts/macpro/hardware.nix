@@ -37,6 +37,11 @@
     fsType = "vfat";
   };
 
+  fileSystems."/mnt/backup" = {
+    device = "/dev/disk/by-label/backup";
+    fsType = "ext4";
+  };
+
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
