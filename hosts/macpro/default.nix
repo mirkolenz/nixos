@@ -16,7 +16,6 @@
     ../../profiles/server.nix
   ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
 
-  services.samba.enable = false;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   boot.loader = {
