@@ -137,20 +137,11 @@ nix-store --verify --check-contents --repair
 5. Enable Full Disk Access for terminal application
 
 ```shell
-# First invokation
-nix run github:mirkolenz/nixos
-# You could get the following error: error: Directory /run does not exist, aborting activation
-# You need to run apfs.util with sudo, otherwise you will get this error:
-# failed to stitch firmlinks and/or create synthetics for root volume (c00d) ...
-# You may need to manually remove some existing files like the following
-# ATTENTION: Do not close the shell before rebuilding again, otherwise your path may be broken
-sudo rm /etc/bashrc /etc/shells /etc/zshrc /etc/nix/nix.conf
-# Activate again
 nix run github:mirkolenz/nixos
 chsh -s /run/current-system/sw/bin/fish
 sudo reboot
-# Add all ssh keys to keychain
-ssh-add --apple-load-keychain ~/.ssh/KEY_NAME
+# Add ssh key to keychain
+ssh-add  --apple-use-keychain ~/.ssh/id_ed25519
 ```
 
 ### Uninstallation
