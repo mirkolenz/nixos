@@ -21,8 +21,8 @@
     '';
     shares = {
       timemachine = {
-        path = "/mnt/backup/timemachine";
-        "valid users" = user.login;
+        path = "/mnt/backup/timemachine/%U";
+        "valid users" = "%U";
         public = "no";
         writeable = "yes";
         "fruit:time machine" = "yes";
