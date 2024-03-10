@@ -95,15 +95,13 @@ in
     custom.texlive = {
       enable = lib.mkEnableOption "TeX Live";
 
-      packageScheme = lib.mkOption {
-        type = lib.types.package;
-        description = "TeX Live package set to use.";
-        default = pkgs.texliveFull;
-        defaultText = lib.literalExpression "pkgs.texliveFull";
+      packageScheme = lib.mkPackageOption pkgs "TeX Live Scheme" {
+        default = [ "texliveFull" ];
+        example = "pkgs.texliveSmall";
       };
 
       packageConfig = lib.mkOption {
-        type = lib.types.attrsOf lib.types.str;
+        type = with lib.types; attrsOf anything;
         description = "Options to pass to the TeX Live package set.";
         default = { };
       };
@@ -114,7 +112,7 @@ in
       };
 
       extraPackages = lib.mkOption {
-        type = lib.types.listOf lib.types.package;
+        type = with lib.types; listOf package;
         description = "Extra TeX Live packages to install.";
         default = with pkgs; [
           tectonic
@@ -126,7 +124,7 @@ in
       };
 
       acronymPresets = lib.mkOption {
-        type = lib.types.attrs;
+        type = with lib.types; attrsOf anything;
         description = "Acronym presets to use.";
         default = {
           short = {
@@ -143,7 +141,7 @@ in
       };
 
       bibtidyOmit = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
+        type = with lib.types; listOf str;
         description = "Fields to omit from the bibliography.";
         default = [
           "abstract"
