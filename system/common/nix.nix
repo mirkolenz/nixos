@@ -39,6 +39,7 @@ args@{
       builders-use-substitutes = true;
       substituters = [ "https://mirkolenz.cachix.org" ];
       trusted-public-keys = [ "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho=" ];
+      warn-dirty = false;
     };
     gc = {
       automatic = true;
