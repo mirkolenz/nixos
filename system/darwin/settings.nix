@@ -2,35 +2,6 @@
 {
   security.pam.enableSudoTouchIdAuth = true;
 
-  custom.dock.persistentApps = [
-    "/Applications/DEVONthink 3.app"
-    "/Applications/Obsidian.app"
-    "/System/Applications/App Store.app"
-    "/System/Applications/Music.app"
-    "/Applications/Arc.app"
-    "/Applications/Raindrop.io.app"
-    "/Applications/1Password.app"
-    "/System/Applications/Messages.app"
-    "/Applications/WhatsApp.app"
-    "/System/Applications/Mail.app"
-    "/Applications/zoom.us.app"
-    "/Applications/Microsoft Teams (work or school).app"
-    "/Applications/Todoist.app"
-    "/System/Applications/Calendar.app"
-    "/Applications/Visual Studio Code.app"
-    "/Applications/iTerm.app"
-    "/Applications/Tower.app"
-    "/Applications/OrbStack.app"
-    "/Applications/Zotero.app"
-    "/Applications/PDF Expert.app"
-    "/Applications/iA Presenter.app"
-    "/Applications/Microsoft Word.app"
-    "/Applications/Microsoft Excel.app"
-    "/Applications/Microsoft PowerPoint.app"
-    "/System/Applications/Utilities/Activity Monitor.app"
-    "/System/Applications/System Settings.app"
-  ];
-
   system.defaults = {
     CustomUserPreferences = {
       NSGlobalDomain = {
@@ -86,6 +57,34 @@
       wvous-br-corner = 1;
       wvous-tl-corner = 1;
       wvous-tr-corner = 1;
+      persistent-apps = [
+        "/Applications/DEVONthink 3.app"
+        "/Applications/Obsidian.app"
+        "/System/Applications/App Store.app"
+        "/System/Applications/Music.app"
+        "/Applications/Arc.app"
+        "/Applications/Raindrop.io.app"
+        "/Applications/1Password.app"
+        "/System/Applications/Messages.app"
+        "/Applications/WhatsApp.app"
+        "/System/Applications/Mail.app"
+        "/Applications/zoom.us.app"
+        "/Applications/Microsoft Teams (work or school).app"
+        "/Applications/Todoist.app"
+        "/System/Applications/Calendar.app"
+        "/Applications/Visual Studio Code.app"
+        "/Applications/iTerm.app"
+        "/Applications/Tower.app"
+        "/Applications/OrbStack.app"
+        "/Applications/Zotero.app"
+        "/Applications/PDF Expert.app"
+        "/Applications/iA Presenter.app"
+        "/Applications/Microsoft Word.app"
+        "/Applications/Microsoft Excel.app"
+        "/Applications/Microsoft PowerPoint.app"
+        "/System/Applications/Utilities/Activity Monitor.app"
+        "/System/Applications/System Settings.app"
+      ];
     };
     finder = {
       _FXShowPosixPathInTitle = false;
