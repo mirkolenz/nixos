@@ -30,7 +30,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     pngquant
     # nix
     nil
-    nixd
+    # nixd # https://github.com/nix-community/nixd/issues/357
     nixfmt
     alejandra
     nix-update
