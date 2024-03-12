@@ -153,6 +153,46 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 /nix/nix-installer uninstall
 ```
 
+### Applications and Settings
+
+<details>
+<summary>System Preferences</summary>
+
+- `General > About`: Set name
+- `Wallpaper`: Solid color (black)
+- `Appearance > Allow wallpaper tinting in windows`: Off
+- `Keyboard > Keyboard Shortcuts > Modifier Keys`: Caps Lock -> Option
+- `Keyboard > Keyboard Shortcuts > App Shortcuts`: Disable all
+- `Keyboard > Keyboard Shortcuts > Spotlight`: Disable all
+</details>
+
+<details>
+<summary>iTerm2</summary>
+
+- `Setting > General > Preferences > Load preferences from a custom folder or URL`: iCloud Drive
+</details>
+
+<details>
+<summary>Raycast</summary>
+
+- `Settings > Advanced > Import/Export` (also set up new schedule)
+- `Settings > Account > Login`
+- `Settings > Extensions > Scripts > Plus`: iCloud Drive
+- `Launch > Manage Fallback Command`: Add Kagi
+</details>
+
+<details>
+<summary>Visual Studio Code</summary>
+
+- `Settings > Backup and Sync Setting > GitHub`
+</details>
+
+<details>
+<summary>Rectangle</summary>
+
+- `Settings > General > Sync over iCloud`
+</details>
+
 ## Home-Manger Standalone
 
 _Note:_ Reconnect via SSH after installing nix.
