@@ -12,7 +12,7 @@
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-hidpi
     ./hardware.nix
-    ./samba.nix
+    ./timemachine.nix
     ../../profiles/server.nix
   ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
 
