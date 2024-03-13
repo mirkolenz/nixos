@@ -25,7 +25,7 @@ jobs:
             --commit-lock-file \
             --commit-lockfile-summary "chore(deps): update flake.lock"
         name: Run nix flake update
-      - run: nix flake check
+      - run: nix flake check --show-trace
       - run: git push
       - run: echo "ref=$(git rev-parse HEAD )" >> "$GITHUB_OUTPUT"
         id: ref

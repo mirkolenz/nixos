@@ -14,7 +14,7 @@ jobs:
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - run: nix flake check
+      - run: nix flake check --show-trace
   build:
     if: ${{ github.event_name == 'push' }}
     needs: check
