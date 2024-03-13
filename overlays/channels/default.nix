@@ -18,8 +18,8 @@ let
     };
   useChannel = channel: names: prev.lib.genAttrs names (name: final.${channel}.${name});
 
-  stablePkgs = [ ];
-  unstablePkgs = [ ];
+  stablePkgs = import ./stable.nix;
+  unstablePkgs = import ./unstable.nix;
 in
 (prev.lib.genAttrs [
   "stable"
