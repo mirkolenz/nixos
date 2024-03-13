@@ -14,7 +14,7 @@ let
     in
     import nixpkgs {
       inherit system;
-      config = import ../nixpkgs-config.nix;
+      config = import ../../nixpkgs-config.nix;
     };
   useChannel = channel: names: prev.lib.genAttrs names (name: final.${channel}.${name});
 
