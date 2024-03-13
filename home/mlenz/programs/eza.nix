@@ -2,7 +2,6 @@
 {
   programs.eza = {
     enable = true;
-    enableAliases = true;
     extraOptions = [
       "--long"
       "--group-directories-first"

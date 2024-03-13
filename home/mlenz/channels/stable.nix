@@ -1,1 +1,4 @@
-{ ... }: { }
+{ ... }:
+{
+  programs.eza.enableAliases = true;
+}
