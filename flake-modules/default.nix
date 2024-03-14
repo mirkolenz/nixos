@@ -7,7 +7,12 @@
 {
   imports = lib'.flocken.getModules ./.;
   perSystem =
-    { pkgs, system, ... }:
+    {
+      pkgs,
+      system,
+      lib,
+      ...
+    }:
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
@@ -15,6 +20,13 @@
         overlays = import ../overlays specialModuleArgs;
       };
       formatter = pkgs.nixfmt;
+      packages =
+        {
+          inherit (pkgs) bibtexbrowser2cff mackup; # bibtex2cff
+        }
+        // (lib.optionalAttrs pkgs.stdenv.isDarwin {
+          inherit (pkgs) neovide-bin restic-browser-bin vimr-bin;
+        });
     };
   flake = {
     lib = lib'.self;
