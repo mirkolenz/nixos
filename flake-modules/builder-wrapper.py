@@ -17,12 +17,12 @@ app = typer.Typer(add_completion=False)
 def run(
     ctx: typer.Context,
     builder: str,
+    pure: Annotated[bool, typer.Option("--pure/--impure")],
     operation: Annotated[
         str, typer.Option("--operation", "-o", "--mode", "-m")
     ] = "switch",
     flake: str = "github:mirkolenz/nixos",
     name: Annotated[Optional[str], typer.Option("--name", "-n")] = None,
-    pure: Annotated[bool, typer.Option("--pure/--impure")] = False,
 ):
     cmd: list[str] = [builder, operation]
 
