@@ -45,16 +45,21 @@ let
     };
 in
 {
-  flake.darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
-    mirkos-macbook = {
-      channel = "unstable";
-      system = "x86_64-darwin";
-      computerName = "Mirkos MacBook";
+  flake = {
+    checks.x86_64-darwin = {
+      mirkos-macbook = self.darwinConfigurations.mirkos-macbook.config.system.build.toplevel;
     };
-    mirkos-unibook = {
-      channel = "unstable";
-      system = "x86_64-darwin";
-      computerName = "Mirkos UniBook";
+    darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
+      mirkos-macbook = {
+        channel = "unstable";
+        system = "x86_64-darwin";
+        computerName = "Mirkos MacBook";
+      };
+      mirkos-unibook = {
+        channel = "unstable";
+        system = "x86_64-darwin";
+        computerName = "Mirkos UniBook";
+      };
     };
   };
 }
