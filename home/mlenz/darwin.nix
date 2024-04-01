@@ -31,6 +31,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     '';
   custom.texlive = {
     enable = true;
+    packageScheme = pkgs.stable.texliveFull;
     # causes `too many open files`
     # packageConfig = {
     #   withDocs = true;
