@@ -88,6 +88,12 @@ let
   };
 
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
+
+  finalPackage =
+    if cfg.packageConfig == { } then
+      cfg.packageScheme
+    else
+      cfg.packageScheme.__overrideTeXConfig cfg.packageConfig;
 in
 {
   options = {
@@ -179,9 +185,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = [
-        (cfg.packageScheme.__overrideTeXConfig cfg.packageConfig)
-      ] ++ cfg.extraPackages ++ (builtins.attrValues cmds);
+      packages = lib.singleton finalPackage ++ cfg.extraPackages ++ (builtins.attrValues cmds);
       file = {
         ".latexmkrc".source = latexmkrc;
         "texmf".source = inputs.texmf;
