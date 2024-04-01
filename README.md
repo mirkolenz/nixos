@@ -193,6 +193,18 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 - `Settings > General > Sync over iCloud`
 </details>
 
+<details>
+<summary>Zotero</summary>
+
+- [Install Better BibTeX](https://github.com/retorquere/zotero-better-bibtex)
+- `Settings > General > Customize Filename Format > {{ creators max="1" case="hyphen" }}-{{ year }}-{{ title truncate="50" case="hyphen" }}`
+- `Settings General > Reader > Tabs > Creator - Title - Year`
+- `Settings > Export > Item Format > Better BibTeX Citation Key Quick Copy`
+- `Settings > Export > Note Format > Markdown + Rich Text`
+- `Settings > Better BibTeX > Citation Key Format > auth.capitalize + year + shorttitle(3,3)`
+- `Settings > Better BibTeX > Citation Key Format > Automatic Export > Delay > 10 seconds`
+</details>
+
 ## Home-Manger Standalone
 
 _Note:_ Reconnect via SSH after installing nix.
