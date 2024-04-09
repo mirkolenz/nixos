@@ -14,16 +14,8 @@
     };
     telescope = {
       enable = true;
-      extensions = {
-        file_browser = {
-          enable = true;
-        };
-      };
     };
     todo-comments = {
-      enable = true;
-    };
-    comment-nvim = {
       enable = true;
     };
     trouble = {
