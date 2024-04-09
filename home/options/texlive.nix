@@ -168,7 +168,6 @@ in
           "lccn"
           "month"
           "number"
-          "pages"
           "pmcid"
           "pmid"
           "primaryclass"
@@ -178,6 +177,7 @@ in
           "urldate"
           "volume"
           # "eprinttype"
+          # "pages"
         ];
       };
     };
