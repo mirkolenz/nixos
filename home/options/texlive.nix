@@ -126,6 +126,7 @@ in
           bibtex2cff
           bibtexbrowser2cff
           bibtex-tidy
+          arxiv-latex-cleaner
         ];
       };
 
