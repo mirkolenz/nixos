@@ -136,6 +136,7 @@
       "1Password Safari" = 1569813296;
       "AusweisApp" = 948660805;
       "Bitwarden" = 1352778147;
+      "Dropover" = 1355679052;
       "EasyLetter" = 1495179755;
       "Gapplin" = 768053424;
       "Goodnotes" = 1444383602;
@@ -161,14 +162,12 @@
       "SnipNotes" = 967594709;
       "Step Two" = 1448916662;
       "StopTheMadness Pro" = 6471380298;
-      "Structured" = 1499198946;
       "Tempus Stopwatch" = 1491326665;
       "TestFlight" = 899247664;
       "Todoist" = 585829637;
       "Vinegar" = 1591303229;
       "WhatsApp" = 310633997;
       "WireGuard" = 1451685025;
-      "Yoink" = 457622435;
     };
   };
 }
