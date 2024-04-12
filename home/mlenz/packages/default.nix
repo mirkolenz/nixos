@@ -47,6 +47,7 @@
     jq
     jql
     yq
+    dasel
     # bulk renaming
     massren
     mmv-go
