@@ -5,7 +5,7 @@ cfg:
     enable = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Enable the containers.";
+      description = "Enable the containers.";
     };
 
     systemd = mkOption {
@@ -19,20 +19,20 @@ cfg:
           options = {
             name = mkOption {
               type = with types; str;
-              description = lib.mdDoc "The name of the image to use.";
+              description = "The name of the image to use.";
               example = "hello-world";
             };
 
             registry = mkOption {
               type = with types; nullOr str;
               default = "docker.io";
-              description = lib.mdDoc "The registry to pull the image from.";
+              description = "The registry to pull the image from.";
             };
 
             tag = mkOption {
               type = with types; str;
               default = "latest";
-              description = lib.mdDoc "The tag of the image to use.";
+              description = "The tag of the image to use.";
             };
           };
         }
@@ -42,7 +42,7 @@ cfg:
     imageFile = mkOption {
       type = with types; nullOr package;
       default = null;
-      description = lib.mdDoc ''
+      description = ''
         Path to an image file to load before running the image. This can
         be used to bypass pulling the image from the registry.
 
@@ -57,7 +57,7 @@ cfg:
     pull = mkOption {
       type = with types; str;
       default = "missing";
-      description = lib.mdDoc ''
+      description = ''
         Pull image policy. The default is missing.
 
         - always: Always pull the image and throw an error if the pull fails.
@@ -75,7 +75,7 @@ cfg:
     cmd = mkOption {
       type = with types; listOf str;
       default = [ ];
-      description = lib.mdDoc "Commandline arguments to pass to the image's entrypoint.";
+      description = "Commandline arguments to pass to the image's entrypoint.";
       example = literalExpression ''
         ["--port=9000"]
       '';
@@ -84,7 +84,7 @@ cfg:
     labels = mkOption {
       type = with types; attrsOf str;
       default = { };
-      description = lib.mdDoc "Labels to attach to the container at runtime.";
+      description = "Labels to attach to the container at runtime.";
       example = literalExpression ''
         {
           "traefik.https.routers.example.rule" = "Host(`example.container`)";
@@ -95,12 +95,12 @@ cfg:
     update = mkOption {
       type = with types; nullOr str;
       default = "registry";
-      description = lib.mdDoc "If not null, add the label `io.containers.autoupdate=VALUE` to the container.";
+      description = "If not null, add the label `io.containers.autoupdate=VALUE` to the container.";
     };
 
     entrypoint = mkOption {
       type = with types; nullOr str;
-      description = lib.mdDoc "Override the default entrypoint of the image.";
+      description = "Override the default entrypoint of the image.";
       default = null;
       example = "/bin/my-app";
     };
@@ -108,7 +108,7 @@ cfg:
     environment = mkOption {
       type = with types; attrsOf str;
       default = { };
-      description = lib.mdDoc "Environment variables to set for this container.";
+      description = "Environment variables to set for this container.";
       example = literalExpression ''
         {
           DATABASE_HOST = "db.example.com";
@@ -120,7 +120,7 @@ cfg:
     environmentFiles = mkOption {
       type = with types; listOf path;
       default = [ ];
-      description = lib.mdDoc "Environment files for this container.";
+      description = "Environment files for this container.";
       example = literalExpression ''
         [
           /path/to/.env
@@ -132,7 +132,7 @@ cfg:
     ports = mkOption {
       type = with types; listOf str;
       default = [ ];
-      description = lib.mdDoc ''
+      description = ''
         Network ports to publish from the container to the outer host.
 
         Valid formats:
@@ -164,7 +164,7 @@ cfg:
     user = mkOption {
       type = with types; nullOr str;
       default = null;
-      description = lib.mdDoc ''
+      description = ''
         Override the username or UID (and optionally groupname or GID) used
         in the container.
       '';
@@ -174,7 +174,7 @@ cfg:
     volumes = mkOption {
       type = with types; listOf (listOf str);
       default = [ ];
-      description = lib.mdDoc ''
+      description = ''
         List of volumes to attach to this container.
 
         Note that this is a list of `"src:dst"` strings to
@@ -195,14 +195,14 @@ cfg:
     workdir = mkOption {
       type = with types; nullOr str;
       default = null;
-      description = lib.mdDoc "Override the default working directory for the container.";
+      description = "Override the default working directory for the container.";
       example = "/var/lib/hello_world";
     };
 
     dependsOn = mkOption {
       type = with types; listOf str;
       default = [ ];
-      description = lib.mdDoc ''
+      description = ''
         Define which other containers this one depends on. They will be added to both After and Requires for the unit.
 
         Use the same name as the attribute under `virtualisation.oci-containers.containers`.
@@ -220,26 +220,26 @@ cfg:
     hostname = mkOption {
       type = with types; nullOr str;
       default = null;
-      description = lib.mdDoc "The hostname of the container.";
+      description = "The hostname of the container.";
       example = "hello-world";
     };
 
     caps = mkOption {
       type = with types; attrsOf bool;
       default = { };
-      description = lib.mdDoc "Linux system capabilities to set for this container.";
+      description = "Linux system capabilities to set for this container.";
     };
 
     sysctls = mkOption {
       type = with types; attrsOf (either str (attrsOf anything));
       default = { };
-      description = lib.mdDoc "Configure namespaced kernel parameters at runtime.";
+      description = "Configure namespaced kernel parameters at runtime.";
     };
 
     extraArgs = mkOption {
       type = with types; listOf str;
       default = [ ];
-      description = lib.mdDoc "Extra flags for {command}`${defaultBackend} run`.";
+      description = "Extra flags for {command}`${defaultBackend} run`.";
       example = literalExpression ''
         ["--network=host"]
       '';
@@ -260,7 +260,7 @@ cfg:
           ]))
         ]);
       default = { };
-      description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
+      description = "Extra options for {command}`${defaultBackend} run`.";
       example = literalExpression ''
         {
           "network" = "host";
@@ -276,7 +276,7 @@ cfg:
             options = {
               suffix = mkOption {
                 type = with types; str;
-                description = lib.mdDoc "The suffix of the IP address in the specified network.";
+                description = "The suffix of the IP address in the specified network.";
               };
 
               alias = mkOption {
@@ -308,13 +308,13 @@ cfg:
             options = {
               name = mkOption {
                 type = with types; str;
-                description = lib.mdDoc "The name of the link inside the container.";
+                description = "The name of the link inside the container.";
                 default = name;
               };
 
               network = mkOption {
                 type = with types; str;
-                description = lib.mdDoc "The network to link to.";
+                description = "The network to link to.";
               };
             };
           }
@@ -330,7 +330,7 @@ cfg:
     autoStart = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc ''
+      description = ''
         When enabled, the container is automatically started on boot.
         If this option is set to false, the container has to be started on-demand via its service.
       '';
@@ -352,7 +352,7 @@ cfg:
             extraConfig = mkOption {
               type = types.lines;
               default = "";
-              description = lib.mdDoc ''
+              description = ''
                 Additional lines of configuration appended to this virtual host in the
                 automatically generated `Caddyfile`.
               '';

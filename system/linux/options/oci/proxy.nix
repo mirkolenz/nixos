@@ -25,7 +25,7 @@ let
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc ''
+        description = ''
           Additional lines of configuration appended to this virtual host in the
           automatically generated `Caddyfile`.
         '';
@@ -126,7 +126,7 @@ in
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      description = lib.mdDoc ''
+      description = ''
         Additional lines of configuration appended to the automatically generated `Caddyfile`.
       '';
     };
@@ -134,7 +134,7 @@ in
     globalConfig = mkOption {
       type = types.lines;
       default = "";
-      description = lib.mdDoc ''
+      description = ''
         Additional lines of configuration appended to the automatically generated `Caddyfile`.
       '';
     };
