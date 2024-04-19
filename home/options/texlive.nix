@@ -160,13 +160,13 @@ in
           "pmcid"
           "pmid"
           "primaryclass"
-          "publisher"
           "series"
           "url"
           "urldate"
           "volume"
           # "eprinttype"
           # "pages"
+          # "publisher"
         ];
       };
     };
