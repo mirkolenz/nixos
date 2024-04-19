@@ -88,12 +88,6 @@ let
   };
 
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
-
-  finalPackage =
-    if cfg.packageConfig == { } then
-      cfg.packageScheme
-    else
-      cfg.packageScheme.__overrideTeXConfig cfg.packageConfig;
 in
 {
   options = {
@@ -101,15 +95,9 @@ in
     custom.texlive = {
       enable = lib.mkEnableOption "TeX Live";
 
-      packageScheme = lib.mkPackageOption pkgs "TeX Live Scheme" {
+      package = lib.mkPackageOption pkgs "TeX Live Scheme" {
         default = [ "texliveFull" ];
         example = "pkgs.texliveSmall";
-      };
-
-      packageConfig = lib.mkOption {
-        type = with lib.types; attrsOf anything;
-        description = "Options to pass to the TeX Live package set.";
-        default = { };
       };
 
       bibFolder = lib.mkOption {
@@ -186,7 +174,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = lib.singleton finalPackage ++ cfg.extraPackages ++ (builtins.attrValues cmds);
+      packages = lib.singleton cfg.package ++ cfg.extraPackages ++ (builtins.attrValues cmds);
       file = {
         ".latexmkrc".source = latexmkrc;
         "texmf".source = inputs.texmf;
