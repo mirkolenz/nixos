@@ -10,6 +10,13 @@ lib.mkIf pkgs.stdenv.isDarwin {
     neovide-bin
     vimr-bin
     restic-browser-bin
+    (pkgs.writeShellApplication {
+      name = "scansnapreset";
+      text = ''
+        pkill -f ScanSnap
+        open /Applications/ScanSnapHomeMain.app
+      '';
+    })
   ];
   # add binaries for desktop apps to ~/bin
   # currently required for the following apps:
