@@ -25,7 +25,7 @@ jobs:
         if: ${{ matrix.os-name == 'ubuntu' }}
         with:
           platforms: arm64
-      - uses: DeterminateSystems/nix-installer-action@v10
+      - uses: DeterminateSystems/nix-installer-action@v11
         with:
           extra-conf: |
             extra-platforms = ${{ matrix.extra-platform }}
