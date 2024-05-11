@@ -13,14 +13,15 @@
       jsonls.enable = true;
       ltex.enable = true;
       nil_ls = {
-        enable = true;
-        settings.formatting.command = [ "nixfmt" ];
-      };
-      nixd = {
         enable = false;
         settings = {
+          formatting.command = [ "nixfmt" ];
+        };
+      };
+      nixd = {
+        enable = true;
+        settings = {
           formatting.command = "nixfmt";
-          options.enable = false;
         };
       };
       pyright.enable = true;
