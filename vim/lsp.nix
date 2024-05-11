@@ -21,7 +21,7 @@
       nixd = {
         enable = true;
         settings = {
-          formatting.command = [ "nixfmt" ];
+          formatting.command = "nixfmt";
         };
       };
       pyright.enable = true;
