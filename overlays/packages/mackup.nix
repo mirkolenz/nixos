@@ -32,6 +32,7 @@ python3Packages.buildPythonApplication {
     description = "Keep your application settings in sync (OS X/Linux)";
     homepage = "https://github.com/lra/mackup";
     license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "mackup";
   };
 }
