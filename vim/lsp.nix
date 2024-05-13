@@ -20,9 +20,7 @@
       };
       nixd = {
         enable = true;
-        settings = {
-          formatting.command = "nixfmt";
-        };
+        settings = { };
       };
       pyright.enable = true;
       ruff-lsp.enable = true;
