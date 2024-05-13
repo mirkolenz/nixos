@@ -11,7 +11,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     vimr-bin
     restic-browser-bin
     (writeShellApplication {
-      name = "scansnapreset";
+      name = "scansnap-reset";
       text = ''
         pkill -f ScanSnap
         open /Applications/ScanSnapHomeMain.app
