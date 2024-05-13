@@ -10,7 +10,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     neovide-bin
     vimr-bin
     restic-browser-bin
-    (pkgs.writeShellApplication {
+    (writeShellApplication {
       name = "scansnapreset";
       text = ''
         pkill -f ScanSnap
