@@ -85,6 +85,7 @@
         "/System/Applications/Utilities/Activity Monitor.app"
         "/System/Applications/System Settings.app"
       ];
+      persistent-others = [ "~/Downloads" ];
     };
     finder = {
       _FXShowPosixPathInTitle = false;
