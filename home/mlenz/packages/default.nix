@@ -14,6 +14,8 @@
     zsh
     fish
     coreutils-full
+    procps
+    gawk
     moreutils
     findutils
     gnused
