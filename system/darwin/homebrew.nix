@@ -127,7 +127,7 @@
       "whatsapp"
       "zed"
       "zoom"
-      "zotero-beta"
+      "zotero@beta"
     ];
     masApps = {
       "1Password Safari" = 1569813296;
