@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD033 -->
+
 # NixOS Setup
 
 All configurations select the correct device name through their hostname.
@@ -31,9 +33,9 @@ sudo nix run github:mirkolenz/nixos
 
 ### Terminal Setup
 
-- https://www.adaltas.com/en/2022/02/08/nixos-installation/
-- https://nixos.wiki/wiki/NixOS_Installation_Guide
-- https://gist.github.com/Vincibean/baf1b76ca5147449a1a479b5fcc9a222
+- <https://www.adaltas.com/en/2022/02/08/nixos-installation/>
+- <https://nixos.wiki/wiki/NixOS_Installation_Guide>
+- <https://gist.github.com/Vincibean/baf1b76ca5147449a1a479b5fcc9a222>
 
 #### Partitioning using `parted`
 
@@ -164,12 +166,14 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 - `Keyboard > Keyboard Shortcuts > Modifier Keys`: Caps Lock -> Option
 - `Keyboard > Keyboard Shortcuts > App Shortcuts`: Disable all
 - `Keyboard > Keyboard Shortcuts > Spotlight`: Disable all
+
 </details>
 
 <details>
 <summary>iTerm2</summary>
 
 - `Setting > General > Preferences > Load preferences from a custom folder or URL`: iCloud Drive
+
 </details>
 
 <details>
@@ -179,18 +183,21 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 - `Settings > Account > Login`
 - `Settings > Extensions > Scripts > Plus`: iCloud Drive
 - `Launch > Manage Fallback Command`: Add Kagi
+
 </details>
 
 <details>
 <summary>Visual Studio Code</summary>
 
 - `Settings > Backup and Sync Setting > GitHub`
+
 </details>
 
 <details>
 <summary>Rectangle</summary>
 
 - `Settings > General > Sync over iCloud`
+
 </details>
 
 <details>
@@ -203,6 +210,30 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 - `Settings > Export > Note Format > Markdown + Rich Text`
 - `Settings > Better BibTeX > Citation Key Format > auth.capitalize + year + shorttitle(3,3)`
 - `Settings > Better BibTeX > Citation Key Format > Automatic Export > Delay > 10 seconds`
+
+</details>
+
+<details>
+<summary>Default Folder X</summary>
+
+- `Settings > Options > Sync settings via iCloud`
+
+</details>
+
+<details>
+<summary>Contexts</summary>
+
+- `Sidebar > Show Sidebar on > No display`
+- `Search > Search with > Disable`
+- `Command-Tab > Command-Tab`: Show windows of all apps
+  - Minimized: Show at bottom
+  - Hidden: Show at bottom
+  - Apps without windows: Do not show
+- `Command-Tab > Command-Backtick`: Show windows of active app
+  - Minimized: Do not show
+  - Hidden: Do not show
+  - Apps without windows: Do not show
+
 </details>
 
 ## Home-Manger Standalone
@@ -230,7 +261,7 @@ nix build github:mirkolenz/nixos#FORMAT --system SYSTEM
 
 ### Update Raspberry Pi
 
-https://nix.dev/tutorials/installing-nixos-on-a-raspberry-pi#updating-firmware
+<https://nix.dev/tutorials/installing-nixos-on-a-raspberry-pi#updating-firmware>
 
 ```shell
 nix shell pkgs#raspberrypi-eeprom
