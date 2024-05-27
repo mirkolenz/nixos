@@ -19,7 +19,7 @@
       enable = true;
     };
     difftastic = {
-      enable = true;
+      enable = false; # TODO: broken on darwin
       background = "dark";
       color = "always";
       display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
