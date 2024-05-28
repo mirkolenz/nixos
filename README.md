@@ -221,6 +221,13 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 </details>
 
 <details>
+<summary>iA Presenter</summary>
+
+- Move theme to `~/Library/Containers/net.ia.presenter/Data/Library/Application Support/iA Presenter/Themes`
+
+</details>
+
+<details>
 <summary>Contexts</summary>
 
 - `Sidebar > Show Sidebar on > No display`
@@ -233,6 +240,24 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
   - Minimized: Do not show
   - Hidden: Do not show
   - Apps without windows: Do not show
+
+</details>
+
+<details>
+<summary>Arq Backup</summary>
+
+Additional wildcard exclude rules:
+
+```txt
+.venv
+.direnv
+.devenv
+node_modules
+*/OrbStack
+*/.orbstack
+*/Library/CloudStorage
+*/Library/Application Support/
+```
 
 </details>
 
