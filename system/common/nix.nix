@@ -37,8 +37,6 @@ args@{
       ];
       log-lines = 25;
       builders-use-substitutes = true;
-      substituters = [ "https://mirkolenz.cachix.org" ];
-      trusted-public-keys = [ "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho=" ];
       warn-dirty = false;
     };
     gc = {
@@ -48,4 +46,14 @@ args@{
     optimise.automatic = true;
     registry = import ../../registry.nix args;
   };
+  custom.caches = [
+    {
+      url = "https://mirkolenz.cachix.org";
+      key = "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho=";
+    }
+    {
+      url = "https://nix-community.cachix.org";
+      key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+    }
+  ];
 }
