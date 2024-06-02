@@ -6,6 +6,7 @@
       astro.enable = true;
       bashls.enable = true;
       cssls.enable = true;
+      dockerls.enable = true;
       eslint.enable = true;
       gopls.enable = true;
       html.enable = true;
@@ -20,7 +21,9 @@
       };
       nixd = {
         enable = true;
-        settings = { };
+        settings = {
+          formatting.command = [ "nixfmt" ];
+        };
       };
       pyright.enable = true;
       ruff-lsp.enable = true;

@@ -38,7 +38,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     '';
   custom.texlive = {
     enable = true;
-    package = pkgs.stable.texliveFull;
+    package = pkgs.texliveFull;
     bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
   };
   home.sessionVariables = {

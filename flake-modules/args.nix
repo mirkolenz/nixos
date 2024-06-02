@@ -13,7 +13,7 @@
 
     # can be overriden in module
     moduleArgs = {
-      stateVersion = "23.11";
+      stateVersion = "24.05";
       stateVersionDarwin = 4;
       user = {
         name = "Mirko Lenz";

@@ -4,9 +4,9 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
+    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
 
     # Small helpers
@@ -37,7 +37,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-linux-stable = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
     home-manager-linux-unstable = {
@@ -45,7 +45,7 @@
       inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
     };
     home-manager-darwin-stable = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     };
     home-manager-darwin-unstable = {
@@ -102,20 +102,15 @@
       inputs.nix-darwin.follows = "nix-darwin";
     };
     nixvim-linux-stable = {
-      url = "github:nix-community/nixvim/nixos-23.11";
+      url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
-      # inputs.home-manager.follows = "home-manager-linux-stable";
-      # inputs.nix-darwin.follows = "nix-darwin-stable";
+      inputs.home-manager.follows = "home-manager-linux-stable";
+      inputs.nix-darwin.follows = "nix-darwin-stable";
     };
   };
 
   outputs =
-    inputs@{
-      self,
-      flake-parts,
-      systems,
-      ...
-    }:
+    inputs@{ flake-parts, systems, ... }:
     flake-parts.lib.mkFlake
       {
         inherit inputs;

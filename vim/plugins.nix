@@ -1,6 +1,9 @@
 { ... }:
 {
   plugins = {
+    comment = {
+      enable = true;
+    };
     treesitter = {
       enable = true;
       folding = true;
@@ -14,6 +17,7 @@
     };
     telescope = {
       enable = true;
+      extensions.file-browser.enable = true;
     };
     todo-comments = {
       enable = true;
