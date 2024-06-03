@@ -1,6 +1,6 @@
 { ... }:
 {
-  config.opts = {
+  opts = {
     # syntax = "on";
     autoindent = true;
     clipboard = "unnamed";
