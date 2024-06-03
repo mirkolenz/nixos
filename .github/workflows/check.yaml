@@ -8,13 +8,24 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-          - os: macos-latest
+          - os-name: ubuntu
+            os-version: latest
+            extra-platform: aarch64-linux
+          - os-name: macos
+            os-version: latest
+            extra-platform: x86_64-darwin
     permissions:
       contents: read
-    runs-on: "${{ matrix.os }}"
+    runs-on: "${{ matrix.os-name }}-${{ matrix.os-version }}"
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+        if: ${{ matrix.os-name == 'ubuntu' }}
+        with:
+          platforms: arm64
       - uses: DeterminateSystems/nix-installer-action@v12
+        with:
+          extra-conf: |
+            extra-platforms = ${{ matrix.extra-platform }}
       - uses: DeterminateSystems/magic-nix-cache-action@v7
       - run: nix flake check --show-trace
