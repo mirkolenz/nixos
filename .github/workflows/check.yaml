@@ -18,5 +18,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v12
-      - uses: DeterminateSystems/magic-nix-cache-action@v6
+      - uses: DeterminateSystems/magic-nix-cache-action@v7
       - run: nix flake check --system ${{ matrix.system }} --show-trace
