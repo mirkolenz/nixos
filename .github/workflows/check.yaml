@@ -8,8 +8,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: "ubuntu-22.04"
-          - os: "macos-14"
+          - os: ubuntu-latest
+            system: x86_64-linux
+          - os: macos-latest
+            system: aarch64-darwin
     permissions:
       contents: read
     runs-on: "${{ matrix.os }}"
@@ -17,4 +19,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v11
       - uses: DeterminateSystems/magic-nix-cache-action@v6
-      - run: nix flake check --show-trace
+      - run: nix flake check --system ${{ matrix.system }} --show-trace
