@@ -15,7 +15,6 @@
     #   bash-prompt-prefix = (nix:$name)\040
     #   upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
     # };
-    linux-builder.enable = true;
     settings = {
       build-users-group = "nixbld";
     };
