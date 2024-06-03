@@ -1,4 +1,4 @@
-{ user, stdenv, ... }:
+{ user, pkgs, ... }:
 {
   # https://github.com/LnL7/nix-darwin/blob/master/modules/nix/linux-builder.nix
   # https://docs.orbstack.dev/machines/ssh
@@ -18,7 +18,7 @@
           "benchmark"
           "big-parallel"
         ];
-        systems = [ "${stdenv.hostPlatform.uname.processor}-linux" ];
+        systems = [ "${pkgs.stdenv.hostPlatform.uname.processor}-linux" ];
       }
     ];
   };
