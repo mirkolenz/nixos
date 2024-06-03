@@ -13,7 +13,7 @@
       java-language-server.enable = true;
       jsonls.enable = true;
       ltex.enable = true;
-      nil_ls = {
+      nil-ls = {
         enable = false;
         settings = {
           formatting.command = [ "nixfmt" ];
