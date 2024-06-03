@@ -38,9 +38,11 @@
         };
     in
     {
-      checks = {
-        inherit (config.packages) vim;
-      };
+      # https://github.com/nix-community/nixvim/issues/1154
+      # https://github.com/nix-community/nixvim/issues/1525
+      # checks = {
+      #   inherit (config.packages) vim;
+      # };
       packages = {
         vim = config.packages.vim-unstable;
         vim-unstable = mkVim "unstable";
