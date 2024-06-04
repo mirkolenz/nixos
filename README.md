@@ -223,7 +223,7 @@ nix run github:lnl7/nix-darwin#darwin-uninstaller
 <details>
 <summary>iA Presenter</summary>
 
-- Move theme to `~/Library/Containers/net.ia.presenter/Data/Library/Application Support/iA Presenter/Themes`
+- Move theme to `$HOME/Library/Containers/net.ia.presenter/Data/Library/Application Support/iA Presenter/Themes`
 
 </details>
 
