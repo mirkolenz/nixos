@@ -55,9 +55,6 @@
     Include /opt/orbstack-guest/etc/ssh_config
   '';
 
-  # extra certificates
-  security.pki.certificateFiles = [ "/opt/orbstack-guest/run/extra-certs.crt" ];
-
   # indicate builder support for emulated architectures
   nix.settings.extra-platforms = [
     "x86_64-linux"
