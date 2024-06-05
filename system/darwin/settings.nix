@@ -1,4 +1,4 @@
-{ ... }:
+{ user, ... }:
 {
   security.pam.enableSudoTouchIdAuth = true;
 
@@ -69,7 +69,7 @@
         "/Applications/WhatsApp.app"
         "/System/Applications/Mail.app"
         "/Applications/zoom.us.app"
-        "/Applications/Microsoft Teams (work or school).app"
+        "/Applications/Microsoft Teams.app"
         "/Applications/Todoist.app"
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
@@ -85,7 +85,7 @@
         "/System/Applications/Utilities/Activity Monitor.app"
         "/System/Applications/System Settings.app"
       ];
-      persistent-others = [ "~/Downloads" ];
+      persistent-others = [ "/Users/${user.login}/Downloads/" ];
     };
     finder = {
       _FXShowPosixPathInTitle = false;
