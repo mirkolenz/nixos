@@ -1,5 +1,7 @@
 { modulesPath, inputs, ... }:
 {
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/lxc-instance-common.nix
+
   imports = [
     inputs.vscode-server.nixosModule
     "${modulesPath}/virtualisation/lxc-container.nix"
