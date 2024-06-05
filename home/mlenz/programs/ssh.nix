@@ -39,6 +39,14 @@ in
         forwardAgent = true;
         user = "mlenz";
       };
+      # /Users/mlenz/.orbstack/ssh/config
+      "orb" = lib.mkIf pkgs.stdenv.isDarwin {
+        hostname = "127.0.0.1";
+        port = 32222;
+        user = "default";
+        identityFile = "${config.home.homeDirectory}/.orbstack/ssh/id_ed25519";
+        identitiesOnly = true;
+      };
     };
   };
   # https://github.com/nix-community/home-manager/issues/322#issuecomment-1856128020
