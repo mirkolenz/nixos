@@ -25,7 +25,6 @@
       "arc"
       "arq"
       "balenaetcher"
-      "bartender"
       "betterdisplay"
       "cleanshot"
       "contexts"
