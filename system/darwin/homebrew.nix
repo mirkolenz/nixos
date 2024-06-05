@@ -98,6 +98,7 @@
       "handbrake"
       "ia-presenter"
       "iterm2"
+      "jordanbaird-ice"
       "mediathekview"
       "microsoft-teams"
       "notion"
