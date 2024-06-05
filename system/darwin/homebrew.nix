@@ -124,7 +124,6 @@
       "viscosity"
       "visual-studio-code"
       "warp"
-      "whatsapp"
       "zed"
       "zoom"
       "zotero@beta"
