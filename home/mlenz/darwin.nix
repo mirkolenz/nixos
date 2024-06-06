@@ -21,21 +21,29 @@ lib.mkIf pkgs.stdenv.isDarwin {
   # add binaries for desktop apps to ~/bin
   # currently required for the following apps:
   # restic-browser, vim guis
-  home.file."bin".source =
-    let
-      binaries = {
-        restic = pkgs.restic;
-        # https://github.com/nix-community/nixvim/blob/main/wrappers/hm.nix
-        nvim = config.programs.nixvim.finalPackage;
-      };
-      symbolicLinks = lib.mapAttrsToList (name: path: ''
-        ln -s "${lib.getBin path}/bin/${name}" "$out/${name}"
-      '') binaries;
-    in
-    pkgs.runCommand "home-bin" { } ''
-      mkdir -p "$out"
-      ${lib.concatLines symbolicLinks}
-    '';
+  home.file = {
+    "bin".source =
+      let
+        binaries = {
+          restic = pkgs.restic;
+          # https://github.com/nix-community/nixvim/blob/main/wrappers/hm.nix
+          nvim = config.programs.nixvim.finalPackage;
+        };
+        symbolicLinks = lib.mapAttrsToList (name: path: ''
+          ln -s "${lib.getBin path}/bin/${name}" "$out/${name}"
+        '') binaries;
+      in
+      pkgs.runCommand "home-bin" { } ''
+        mkdir -p "$out"
+        ${lib.concatLines symbolicLinks}
+      '';
+    "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".text =
+      lib.concatLines
+        [
+          "mirkolenz"
+          "Argumentgraph"
+        ];
+  };
   custom.texlive = {
     enable = true;
     package = pkgs.texliveFull;
