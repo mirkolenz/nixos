@@ -7,12 +7,7 @@
 }:
 {
   perSystem =
-    {
-      pkgs,
-      system,
-      config,
-      ...
-    }:
+    { system, config, ... }:
     let
       os = lib'.self.systemOs system;
       mkVim =
@@ -44,8 +39,7 @@
       packages = {
         vim = config.packages.vim-unstable;
         vim-unstable = mkVim "unstable";
-        # Currently broken, see https://github.com/nix-community/nixvim/pull/914
-        # vim-stable = mkVim "stable";
+        vim-stable = mkVim "stable";
       };
     };
 }
