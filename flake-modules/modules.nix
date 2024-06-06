@@ -6,7 +6,6 @@ let
   };
   homeModule =
     {
-      pkgs,
       lib,
       channel,
       os,
@@ -56,6 +55,7 @@ in
         inherit nixpkgs;
         _module.args = moduleArgs;
         home-manager = {
+          backupFileExtension = "backup";
           useGlobalPkgs = true;
           useUserPackages = true;
           extraSpecialArgs = specialModuleArgs // {
