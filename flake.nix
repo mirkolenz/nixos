@@ -102,7 +102,7 @@
       inputs.nix-darwin.follows = "nix-darwin";
     };
     nixvim-linux-stable = {
-      url = "github:nix-community/nixvim/main";
+      url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
       inputs.home-manager.follows = "home-manager-linux-stable";
       inputs.nix-darwin.follows = "nix-darwin-stable";
