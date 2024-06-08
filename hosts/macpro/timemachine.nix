@@ -1,8 +1,11 @@
 { pkgs, ... }:
 {
-  # For a user to be authenticated on the samba server,
-  # you must add their password using smbpasswd -a <user> as root.
-  # https://gist.github.com/vy-let/a030c1079f09ecae4135aebf1e121ea6
+  # Samba user management is independent of the system users
+  # https://www.samba.org/samba/docs/current/man-html/pdbedit.8.html
+  # Add user: sudo pdbedit -a -u USER
+  # Change password: sudo pdbedit -u USER
+  # Delete user: sudo pdbedit -x USER
+  # List users: sudo pdbedit -L
   users = {
     users.timemachine = {
       isSystemUser = true;
