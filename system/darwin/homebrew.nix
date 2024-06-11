@@ -101,6 +101,7 @@
       "jordanbaird-ice"
       "mediathekview"
       "microsoft-teams"
+      "mullvadvpn"
       "notion"
       "obsidian"
       "omnigraffle"
