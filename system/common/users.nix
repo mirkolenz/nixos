@@ -12,7 +12,7 @@ in
     users.root = lib.mkIf pkgs.stdenv.isLinux {
       # Disable root login
       # https://discourse.nixos.org/t/how-to-disable-root-user-account-in-configuration-nix/13235/2
-      hashedPassword = lib.mkDefault "!";
+      initialHashedPassword = lib.mkDefault "!";
     };
     users.${user.login} = lib.mkMerge [
       {
