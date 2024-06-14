@@ -5,15 +5,6 @@
   ...
 }:
 let
-  fishGreeting =
-    if pkgs.stdenv.isLinux then
-      ''
-        if set -q SSH_TTY; and status is-login
-          ${lib.getExe pkgs.macchina}
-        end
-      ''
-    else
-      "";
   # If PATH is wrong on darwin, try this:
   # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
   fixNixProfile =
@@ -34,11 +25,22 @@ in
       set -q DIRENV_DIR
       and test -n "$DIRENV_DIR"
       and eval (pushd /; direnv export fish; popd;)
+
       ${fixNixProfile}
+
+      source ${../files/iterm-shell-integration.fish}
     '';
     functions = {
       fish_greeting = {
-        body = fishGreeting;
+        body =
+          if pkgs.stdenv.isLinux then
+            ''
+              if set -q SSH_TTY; and status is-login
+                ${lib.getExe pkgs.macchina}
+              end
+            ''
+          else
+            "";
         description = "Override the default greeting";
       };
       # https://github.com/fish-shell/fish-shell/blob/master/share/functions/_validate_int.fish
