@@ -8,7 +8,8 @@
     nixpkgs-linux-v2311.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
-    nixpkgs-darwin-v2311.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
+    # https://hydra.nixos.org/job/nixpkgs/nixpkgs-23.11-darwin/texliveFull.x86_64-darwin
+    nixpkgs-darwin-v2311.url = "github:nixos/nixpkgs/e13f3602fb31a0985f212ae75d4aadda17ad8c85";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
 
     # Small helpers
