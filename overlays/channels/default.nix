@@ -24,6 +24,7 @@ in
 (prev.lib.genAttrs [
   "stable"
   "unstable"
+  "v2311"
 ] mkChannel)
 // (useChannel "stable" stablePkgs)
 // (useChannel "unstable" unstablePkgs)

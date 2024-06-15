@@ -5,8 +5,10 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-linux-v2311.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
+    nixpkgs-darwin-v2311.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
 
     # Small helpers

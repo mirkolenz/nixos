@@ -709,6 +709,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-darwin-v2311": {
+      "locked": {
+        "lastModified": 1718308197,
+        "narHash": "sha256-61KJ0bnNXxbQ0CbOOKFHbB9BWrqCzVhLGhYRZFfJXv0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "0fc70ac44ab22b4a6bb434dadc5bb34e30bdb327",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-23.11-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-linux-stable": {
       "locked": {
         "lastModified": 1718208800,
@@ -737,6 +753,22 @@
       "original": {
         "owner": "nixos",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-linux-v2311": {
+      "locked": {
+        "lastModified": 1718229064,
+        "narHash": "sha256-ZFav8A9zPNfjZg/wrxh1uZeMJHELRfRgFP+meq01XYk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5c2ec3a5c2ee9909904f860dadc19bc12cd9cc44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-23.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -850,8 +882,10 @@
         "nixpkgs-darwin-unstable": [
           "nixpkgs"
         ],
+        "nixpkgs-darwin-v2311": "nixpkgs-darwin-v2311",
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
+        "nixpkgs-linux-v2311": "nixpkgs-linux-v2311",
         "nixvim": "nixvim",
         "nixvim-linux-stable": "nixvim-linux-stable",
         "poetry2nix": "poetry2nix",
