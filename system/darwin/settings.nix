@@ -117,7 +117,8 @@
     };
     screencapture = {
       disable-shadow = true;
-      location = null;
+      location = "~/Downloads";
+      show-thumbnail = true;
       type = "png";
     };
     smb = {
@@ -135,6 +136,7 @@
       SecondClickThreshold = 2;
       TrackpadRightClick = true;
       TrackpadThreeFingerDrag = true;
+      TrackpadThreeFingerTapGesture = 0;
     };
     universalaccess = {
       closeViewScrollWheelToggle = false;
@@ -162,6 +164,7 @@
       "com.apple.springing.enabled" = null;
       "com.apple.swipescrolldirection" = true;
       "com.apple.trackpad.enableSecondaryClick" = true;
+      "com.apple.trackpad.forceClick" = false;
       "com.apple.trackpad.scaling" = null;
       "com.apple.trackpad.trackpadCornerClickBehavior" = null;
       AppleEnableMouseSwipeNavigateWithScrolls = true;
