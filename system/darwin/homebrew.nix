@@ -98,7 +98,7 @@
       "handbrake"
       "ia-presenter"
       "iterm2"
-      "jordanbaird-ice"
+      # "jordanbaird-ice"
       "mediathekview"
       "microsoft-teams"
       "mullvadvpn"
