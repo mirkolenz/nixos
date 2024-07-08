@@ -1,1 +1,1 @@
-[ "buf" ]
+[ "thefuck" ]
