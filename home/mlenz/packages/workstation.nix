@@ -62,6 +62,6 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     makejinja
     arguebuf
     (writeShellScriptBin "poetryup" ''exec ${lib.getExe config.programs.poetry.package} up "$@"'')
-    (writeShellScriptBin "npmup" ''exec ${lib.getExe nodePackages.npm-check-updates} "$@"'')
+    (writeShellScriptBin "npmup" ''exec ${lib.getExe npm-check-updates} "$@"'')
   ];
 }
