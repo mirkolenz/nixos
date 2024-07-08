@@ -9,7 +9,6 @@ in
   arguebuf = getPkg "arguebuf";
   dummy = final.writeShellScriptBin "dummy" ":";
   nixfmt = final.unstable.nixfmt-rfc-style;
-  mackup = final.callPackage ./mackup.nix { };
   bibtex2cff = final.callPackage ./bibtex2cff.nix { };
   bibtexbrowser2cff = final.callPackage ./bibtexbrowser2cff.nix { };
 }
