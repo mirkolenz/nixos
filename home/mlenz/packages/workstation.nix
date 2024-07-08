@@ -24,7 +24,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     plantuml
     pre-commit
     mu-repo
-    youtube-dl
+    yt-dlp
     cc2538-bsl
     imagemagick
     pngquant
