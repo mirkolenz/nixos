@@ -7,7 +7,6 @@
     treesitter = {
       enable = true;
       folding = true;
-      indent = true;
     };
     treesitter-refactor = {
       enable = true;

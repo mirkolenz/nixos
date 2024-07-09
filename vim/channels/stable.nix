@@ -1,1 +1,4 @@
-{ ... }: { }
+{ ... }:
+{
+  plugins.treesitter.indent = true;
+}
