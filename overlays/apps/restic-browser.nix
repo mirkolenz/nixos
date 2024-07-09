@@ -5,11 +5,11 @@
 }:
 mkApp rec {
   pname = "restic-browser";
-  version = "0.3.0";
+  version = "0.3.1";
   appname = "Restic-Browser";
   src = fetchzip {
     url = "https://github.com/emuell/restic-browser/releases/download/v${version}/${appname}-v${version}-macOS.zip";
-    hash = "sha256-sOHwE6actnB2P5G+KBM4oVnaOcq+ibWFepI7zVqt6uI=";
+    hash = "sha256-KYxf+dtpmenJLc7/9QeB8Q5d6+jdqVqjRIGfLc+KUiY=";
   };
   unpackCmd = ''
     tar -xf "$curSrc/${appname}.app.tar" -C .
