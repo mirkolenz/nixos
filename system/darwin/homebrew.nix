@@ -109,6 +109,7 @@
       "orbstack"
       "orion"
       "parallels"
+      "piezo"
       "pixelsnap"
       "postman"
       "presentation"
