@@ -45,6 +45,7 @@
     sqlite
     mkpasswd
     nixpkgs-review
+    nix-output-monitor
     # json parsing
     jaq
     jq
