@@ -44,6 +44,7 @@
     autorestic
     sqlite
     mkpasswd
+    nixpkgs-review
     # json parsing
     jaq
     jq
