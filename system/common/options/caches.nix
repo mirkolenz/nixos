@@ -13,6 +13,7 @@ in
   config = lib.mkIf (cfg != { }) {
     nix.settings = {
       substituters = builtins.attrNames cfg;
+      trusted-substituters = builtins.attrNames cfg;
       trusted-public-keys = builtins.attrValues cfg;
     };
   };
