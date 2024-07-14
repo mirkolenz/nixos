@@ -6,8 +6,11 @@
 }:
 let
   cfg = config.custom.mackup;
-  iniFormat = pkgs.formats.ini { };
-  mkList = values: lib.genAttrs values (_: "");
+  kvDefault = lib.generators.mkKeyValueDefault { } "=";
+  iniFormat = pkgs.formats.ini {
+    mkKeyValue = (k: v: if v == null then k else kvDefault);
+    listToValue = v: lib.genAttrs v (_: null);
+  };
 in
 {
   options.custom.mackup = {
@@ -36,10 +39,7 @@ in
     home.file =
       {
         ".mackup.cfg".source = iniFormat.generate "mackup-config" (
-          cfg.settings
-          // {
-            applications_to_sync = mkList (cfg.builtinApps ++ (builtins.attrNames cfg.customApps));
-          }
+          cfg.settings // { applications_to_sync = cfg.builtinApps ++ (builtins.attrNames cfg.customApps); }
         );
       }
       // (lib.mapAttrs' (name: value: {
