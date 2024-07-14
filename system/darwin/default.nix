@@ -17,6 +17,7 @@
     # };
     settings = {
       build-users-group = "nixbld";
+      allowed-users = [ "@staff" ];
     };
     gc.interval = {
       Hour = 1;

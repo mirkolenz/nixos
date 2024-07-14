@@ -30,10 +30,6 @@ args@{
       # auto-allocate-uids = true;
       # does not build on Linux
       # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
-      allowed-users = [
-        "@wheel"
-        user.login
-      ];
       log-lines = 25;
       builders-use-substitutes = true;
       warn-dirty = false;
