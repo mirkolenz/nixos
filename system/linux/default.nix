@@ -12,16 +12,6 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  nix = {
-    channel.enable = false;
-    settings = {
-      # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
-      auto-optimise-store = true;
-      allowed-users = [ "@wheel" ];
-    };
-    gc.dates = "daily";
-  };
-
   users = {
     mutableUsers = true;
     defaultUserShell = pkgs.fish;
