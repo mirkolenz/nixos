@@ -30,6 +30,11 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     pngquant
     ffmpeg
     ffmpeg-normalize
+    # typst
+    typst
+    typst-lsp
+    typstyle
+    tinymist
     # nix
     nil
     nixd
