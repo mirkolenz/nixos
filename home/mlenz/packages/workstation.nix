@@ -28,6 +28,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     cc2538-bsl
     imagemagick
     pngquant
+    poppler_utils
     ffmpeg
     ffmpeg-normalize
     # typst
