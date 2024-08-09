@@ -130,7 +130,7 @@
       "warp"
       "zed"
       "zoom"
-      "zotero@beta"
+      "zotero"
     ];
     masApps = {
       "1Password Safari" = 1569813296;
