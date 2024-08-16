@@ -73,6 +73,7 @@
         "/Applications/Todoist.app"
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
+        "/Applications/Zed.app"
         "/Applications/iTerm.app"
         "/Applications/Tower.app"
         "/Applications/OrbStack.app"
