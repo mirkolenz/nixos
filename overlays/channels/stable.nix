@@ -1,1 +1,4 @@
-[ "thefuck" ]
+[
+  "thefuck"
+  "typst-lsp"
+]
