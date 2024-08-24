@@ -8,9 +8,10 @@ let
   cfg = config.custom.mackup;
   kvDefault = lib.generators.mkKeyValueDefault { } "=";
   iniFormat = pkgs.formats.ini {
-    mkKeyValue = (k: v: if v == null then k else kvDefault);
-    listToValue = v: lib.genAttrs v (_: null);
+    mkKeyValue = (k: v: if v == null then k else kvDefault k v);
   };
+  mkList = v: lib.genAttrs v (_: null);
+  allAppNames = cfg.builtinApps ++ (builtins.attrNames cfg.customApps);
 in
 {
   options.custom.mackup = {
@@ -39,7 +40,7 @@ in
     home.file =
       {
         ".mackup.cfg".source = iniFormat.generate "mackup-config" (
-          cfg.settings // { applications_to_sync = cfg.builtinApps ++ (builtins.attrNames cfg.customApps); }
+          cfg.settings // { applications_to_sync = mkList allAppNames; }
         );
       }
       // (lib.mapAttrs' (name: value: {
