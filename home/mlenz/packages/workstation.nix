@@ -31,6 +31,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     poppler_utils
     ffmpeg
     ffmpeg-normalize
+    qpdf
     # typst
     typst
     typst-lsp
