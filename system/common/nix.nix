@@ -41,6 +41,7 @@ args@{
     };
     optimise.automatic = true;
     registry = import ../../registry.nix args;
+    channel.enable = false;
   };
   custom.nix-binary-caches = {
     "https://mirkolenz.cachix.org" = "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho=";
