@@ -1,7 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 {
   custom.mackup = {
-    enable = false; # pkgs.stdenv.isDarwin;
+    enable = pkgs.stdenv.isDarwin;
     settings = {
       storage.engine = "icloud";
     };
