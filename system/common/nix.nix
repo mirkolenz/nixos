@@ -2,6 +2,7 @@ args@{
   lib,
   pkgs,
   user,
+  config,
   ...
 }:
 {
@@ -13,6 +14,15 @@ args@{
     nixPath = lib.mkForce [ "nixpkgs=flake:nixpkgs" ];
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
+      substituters = [
+        "https://mirkolenz.cachix.org"
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+      trusted-substituters = config.nix.settings.substituters;
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
       experimental-features = [
         "nix-command"
@@ -42,9 +52,5 @@ args@{
     optimise.automatic = true;
     registry = import ../../registry.nix args;
     channel.enable = false;
-  };
-  custom.nix-binary-caches = {
-    "https://mirkolenz.cachix.org" = "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho=";
-    "https://nix-community.cachix.org" = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
   };
 }
