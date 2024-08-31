@@ -47,6 +47,6 @@
   # https://www.thomas-krenn.com/en/wiki/Processor_P-states_and_C-states
   boot.kernelParams = [
     "intel_idle.max_cstate=0"
-    "processor.max_cstate=3"
+    "processor.max_cstate=4"
   ];
 }
