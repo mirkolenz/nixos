@@ -21,7 +21,7 @@ lib.mkIf config.services.xserver.enable {
       obsidian
       zoom-us
       zotero_7
-      gnome.gnome-tweaks
+      gnome-tweaks
       ulauncher
       wmctrl
     ];
