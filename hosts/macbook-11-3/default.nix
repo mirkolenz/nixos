@@ -46,7 +46,7 @@
   # https://www.reddit.com/r/mac/comments/9pyort/apple_macbook_pro_sudden_crash_fix_for_models/
   # https://www.thomas-krenn.com/en/wiki/Processor_P-states_and_C-states
   boot.kernelParams = [
-    "intel_idle.max_cstate=1"
-    "processor.max_cstate=1"
+    "intel_idle.max_cstate=0"
+    "processor.max_cstate=3"
   ];
 }
