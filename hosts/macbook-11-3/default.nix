@@ -49,6 +49,6 @@
     # disable intel_idle
     "intel_idle.max_cstate=0"
     # allow acpi_idle states C0-C3 (sleep)
-    "processor.max_cstate=3"
+    # "processor.max_cstate=3"
   ];
 }
