@@ -43,4 +43,11 @@ lib.mkIf config.services.xserver.enable {
   };
   security.pam.services.gdm.enableGnomeKeyring = true;
   programs.dconf.enable = true;
+
+  networking.networkmanager = {
+    # true by default when using GNOME
+    enable = true;
+    # there is an issue with wpa_supplicant and broadcom-wl (used in Macs)
+    wifi.backend = "iwd";
+  };
 }
