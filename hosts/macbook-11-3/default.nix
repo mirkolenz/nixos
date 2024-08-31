@@ -32,10 +32,6 @@
     intelBusId = "PCI:0:2:0";
   };
 
-  services = {
-    thermald.enable = true;
-  };
-
   hardware.facetimehd = {
     enable = true;
     withCalibration = true;

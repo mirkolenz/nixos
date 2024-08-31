@@ -24,10 +24,6 @@
     xserverDriver = "nvidiaLegacy470";
   };
 
-  services = {
-    thermald.enable = true;
-  };
-
   hardware.facetimehd = {
     enable = true;
     withCalibration = true;
