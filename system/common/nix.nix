@@ -44,6 +44,7 @@ args@{
       log-lines = 25;
       builders-use-substitutes = true;
       warn-dirty = false;
+      accept-flake-config = true;
     };
     gc = {
       automatic = true;
