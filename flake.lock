@@ -1047,13 +1047,13 @@
       "locked": {
         "lastModified": 1725210417,
         "narHash": "sha256-1gHz8xHkSKu4/BkOuxRIXVfHwJPWJTh5AogETlAsuys=",
-        "owner": "WGUNDERWOOD",
+        "owner": "wgunderwood",
         "repo": "tex-fmt",
         "rev": "ac68d128b792d51cc17303be1c96dd31e838d672",
         "type": "github"
       },
       "original": {
-        "owner": "WGUNDERWOOD",
+        "owner": "wgunderwood",
         "ref": "v0.4.1",
         "repo": "tex-fmt",
         "type": "github"

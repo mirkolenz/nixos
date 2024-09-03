@@ -128,7 +128,7 @@
       inputs.nix-darwin.follows = "nix-darwin-stable";
     };
     tex-fmt = {
-      url = "github:WGUNDERWOOD/tex-fmt/v0.4.1";
+      url = "github:wgunderwood/tex-fmt/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
