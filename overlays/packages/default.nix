@@ -7,6 +7,7 @@ in
 {
   makejinja = getPkg "makejinja";
   arguebuf = getPkg "arguebuf";
+  tex-fmt = getPkg "tex-fmt";
   dummy = final.writeShellScriptBin "dummy" ":";
   nixfmt = final.unstable.nixfmt-rfc-style;
   bibtex2cff = final.callPackage ./bibtex2cff.nix { };

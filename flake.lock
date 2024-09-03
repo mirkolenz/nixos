@@ -220,6 +220,24 @@
         "systems": "systems_8"
       },
       "locked": {
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_4": {
+      "inputs": {
+        "systems": "systems_9"
+      },
+      "locked": {
         "lastModified": 1681202837,
         "narHash": "sha256-H+Rh19JDwRtpVPAWp64F+rlEtxUWBAQW28eAi3SRSzg=",
         "owner": "numtide",
@@ -880,6 +898,7 @@
         "nixvim-linux-stable": "nixvim-linux-stable",
         "poetry2nix": "poetry2nix",
         "systems": "systems_7",
+        "tex-fmt": "tex-fmt",
         "texmf": "texmf",
         "vscode-server": "vscode-server"
       }
@@ -1003,6 +1022,42 @@
         "type": "github"
       }
     },
+    "systems_9": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "tex-fmt": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1725211429,
+        "narHash": "sha256-LAZ4lP667wcbNay9QRIgn5ZOV1/I6msoXMY39D2ZBEk=",
+        "owner": "WGUNDERWOOD",
+        "repo": "tex-fmt",
+        "rev": "3183b0cc2b6b72905c723f55d66685998eaf5dc7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WGUNDERWOOD",
+        "repo": "tex-fmt",
+        "type": "github"
+      }
+    },
     "texmf": {
       "flake": false,
       "locked": {
@@ -1084,7 +1139,7 @@
     },
     "vscode-server": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "nixpkgs"
         ]

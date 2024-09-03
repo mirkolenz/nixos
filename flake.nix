@@ -127,6 +127,10 @@
       inputs.home-manager.follows = "home-manager-linux-stable";
       inputs.nix-darwin.follows = "nix-darwin-stable";
     };
+    tex-fmt = {
+      url = "github:WGUNDERWOOD/tex-fmt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
