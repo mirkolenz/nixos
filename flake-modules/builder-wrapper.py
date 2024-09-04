@@ -21,9 +21,6 @@ def run(
     operation: Annotated[
         str, typer.Option("--operation", "-o", "--mode", "-m")
     ] = "switch",
-    accept_flake_config: Annotated[
-        bool, typer.Option("--accept-flake-config/--reject-flake-config")
-    ] = True,
     flake: str = "github:mirkolenz/nixos",
     name: Annotated[Optional[str], typer.Option("--name", "-n")] = None,
 ):
@@ -36,9 +33,6 @@ def run(
 
     if not pure:
         cmd.append("--impure")
-
-    if accept_flake_config:
-        cmd.append("--accept-flake-config")
 
     cmd.extend(ctx.args)
 
