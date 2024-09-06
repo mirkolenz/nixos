@@ -5,7 +5,6 @@ let
   getPkg = input: inputs.${input}.packages.${system}.default;
 in
 {
-  makejinja = getPkg "makejinja";
   arguebuf = getPkg "arguebuf";
   tex-fmt = getPkg "tex-fmt";
   dummy = final.writeShellScriptBin "dummy" ":";

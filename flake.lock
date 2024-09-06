@@ -181,7 +181,7 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1710146030,
@@ -199,7 +199,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_5"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1710146030,
@@ -217,7 +217,7 @@
     },
     "flake-utils_3": {
       "inputs": {
-        "systems": "systems_8"
+        "systems": "systems_7"
       },
       "locked": {
         "lastModified": 1710146030,
@@ -235,7 +235,7 @@
     },
     "flake-utils_4": {
       "inputs": {
-        "systems": "systems_9"
+        "systems": "systems_8"
       },
       "locked": {
         "lastModified": 1681202837,
@@ -476,37 +476,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "makejinja": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "flocken": [
-          "flocken"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "poetry2nix": [
-          "poetry2nix"
-        ],
-        "systems": "systems_3"
-      },
-      "locked": {
-        "lastModified": 1722194743,
-        "narHash": "sha256-xrXyXFmh9df04I/zcSvQXsyUPrAvbOyyrhx8RNS3Ojs=",
-        "owner": "mirkolenz",
-        "repo": "makejinja",
-        "rev": "13d3190400d9efb34f16583cbf81334838df96c9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mirkolenz",
-        "ref": "v2",
-        "repo": "makejinja",
         "type": "github"
       }
     },
@@ -851,7 +820,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_6",
+        "systems": "systems_5",
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
@@ -878,7 +847,6 @@
         "home-manager-darwin-unstable": "home-manager-darwin-unstable",
         "home-manager-linux-stable": "home-manager-linux-stable",
         "home-manager-linux-unstable": "home-manager-linux-unstable",
-        "makejinja": "makejinja",
         "nix-darwin": "nix-darwin",
         "nix-darwin-stable": "nix-darwin-stable",
         "nix-darwin-unstable": "nix-darwin-unstable",
@@ -897,7 +865,7 @@
         "nixvim": "nixvim",
         "nixvim-linux-stable": "nixvim-linux-stable",
         "poetry2nix": "poetry2nix",
-        "systems": "systems_7",
+        "systems": "systems_6",
         "tex-fmt": "tex-fmt",
         "texmf": "texmf",
         "vscode-server": "vscode-server"
@@ -973,9 +941,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
+        "id": "systems",
+        "type": "indirect"
       }
     },
     "systems_6": {
@@ -988,8 +955,9 @@
         "type": "github"
       },
       "original": {
-        "id": "systems",
-        "type": "indirect"
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
       }
     },
     "systems_7": {
@@ -1008,21 +976,6 @@
       }
     },
     "systems_8": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_9": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

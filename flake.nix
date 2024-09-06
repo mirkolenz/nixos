@@ -79,13 +79,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-    makejinja = {
-      url = "github:mirkolenz/makejinja/v2";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.poetry2nix.follows = "poetry2nix";
-      inputs.flocken.follows = "flocken";
-    };
     arguebuf = {
       url = "github:recap-utr/arguebuf-python/v2";
       inputs.nixpkgs.follows = "nixpkgs";
