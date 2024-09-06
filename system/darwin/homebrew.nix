@@ -157,7 +157,7 @@
       "Pure Paste" = 1611378436;
       "QR Factory" = 1609285899;
       "Raindrop.io Safari" = 1549370672;
-      "Reeder" = 1529448980;
+      "Reeder" = 6475002485;
       "ShellFish" = 1336634154;
       "SnipNotes" = 967594709;
       "Step Two" = 1448916662;
