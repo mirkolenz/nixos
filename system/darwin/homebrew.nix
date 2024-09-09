@@ -128,6 +128,7 @@
       "viscosity"
       "visual-studio-code"
       "warp"
+      "wifiman"
       "zed"
       "zoom"
       "zotero"
@@ -162,6 +163,7 @@
       "SnipNotes" = 967594709;
       "Step Two" = 1448916662;
       "StopTheMadness Pro" = 6471380298;
+      "Tailscale" = 1475387142;
       "Tempus Stopwatch" = 1491326665;
       "TestFlight" = 899247664;
       "Todoist" = 585829637;
