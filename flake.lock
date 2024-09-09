@@ -998,16 +998,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1725210417,
-        "narHash": "sha256-1gHz8xHkSKu4/BkOuxRIXVfHwJPWJTh5AogETlAsuys=",
+        "lastModified": 1725801454,
+        "narHash": "sha256-fm55jaw1dj5rZWz8oF1o5WtjYjxNwnrD6GGa3OgZSpA=",
         "owner": "wgunderwood",
         "repo": "tex-fmt",
-        "rev": "ac68d128b792d51cc17303be1c96dd31e838d672",
+        "rev": "cf665f6c2237fa5d5aa6c9187f2f8d689d4e6957",
         "type": "github"
       },
       "original": {
         "owner": "wgunderwood",
-        "ref": "v0.4.1",
+        "ref": "v0.4.2",
         "repo": "tex-fmt",
         "type": "github"
       }
