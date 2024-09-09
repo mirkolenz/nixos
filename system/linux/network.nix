@@ -18,4 +18,9 @@
     matchConfig.Type = "wlan";
     linkConfig.Unmanaged = true;
   };
+
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
 }
