@@ -2,6 +2,7 @@
   poetry2nix,
   python3,
   fetchFromGitHub,
+  lib,
 }:
 poetry2nix.mkPoetryApplication rec {
   pname = "bibtex2cff";
@@ -15,5 +16,13 @@ poetry2nix.mkPoetryApplication rec {
   };
   preferWheels = true;
   python = python3;
-  meta = { };
+  meta = {
+    description = "Convert from bibtex to CITATION.cff";
+    homepage = "https://github.com/Anselmoo/bibtex2cff";
+    downloadPage = "https://github.com/Anselmoo/bibtex2cff/releases";
+    license = with lib.licenses; [ mit ];
+    mainProgram = "bibtex2cff";
+    platforms = with lib.platforms; darwin ++ linux;
+    maintainers = with lib.maintainers; [ mirkolenz ];
+  };
 }
