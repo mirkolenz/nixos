@@ -28,5 +28,5 @@ jobs:
           extra-conf: |
             extra-platforms = ${{ matrix.extra-platform }}
             accept-flake-config = true
-      - uses: DeterminateSystems/magic-nix-cache-action@v7
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
       - run: nix flake check --show-trace

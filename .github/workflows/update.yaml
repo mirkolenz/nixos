@@ -17,7 +17,7 @@ jobs:
           extra-conf: |
             extra-platforms = aarch64-linux
             accept-flake-config = true
-      - uses: DeterminateSystems/magic-nix-cache-action@v7
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
       - run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
