@@ -44,6 +44,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     alejandra
     nix-update
     nvfetcher
+    devenv
     # go
     go
     gopls
