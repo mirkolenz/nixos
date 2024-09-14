@@ -1,17 +1,20 @@
 args@{
-  lib,
   pkgs,
   user,
   config,
   ...
 }:
 {
+  nixpkgs.flake = {
+    setNixPath = true;
+    # we do this ourselves
+    setFlakeRegistry = false;
+  };
   nix = {
     package = pkgs.nix;
     extraOptions = ''
       !include nix.local.conf
     '';
-    nixPath = lib.mkForce [ "nixpkgs=flake:nixpkgs" ];
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
       substituters = [
