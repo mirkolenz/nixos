@@ -5,11 +5,6 @@ args@{
   ...
 }:
 {
-  nixpkgs.flake = {
-    setNixPath = true;
-    # we do this ourselves
-    setFlakeRegistry = false;
-  };
   nix = {
     package = pkgs.nix;
     extraOptions = ''
