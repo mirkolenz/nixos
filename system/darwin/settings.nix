@@ -1,4 +1,4 @@
-{ user, ... }:
+{ ... }:
 {
   security.pam.enableSudoTouchIdAuth = true;
 
@@ -58,11 +58,13 @@
       wvous-tl-corner = 1;
       wvous-tr-corner = 1;
       persistent-apps = [
+        "/Applications/Marta.app"
         "/Applications/DEVONthink 3.app"
         "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
         "/Applications/Arc.app"
+        "/Applications/Reeder.app"
         "/Applications/Raindrop.io.app"
         "/Applications/1Password.app"
         "/System/Applications/Messages.app"
@@ -70,7 +72,7 @@
         "/System/Applications/Mail.app"
         "/Applications/zoom.us.app"
         "/Applications/Microsoft Teams.app"
-        "/Applications/Todoist.app"
+        "/Applications/Godspeed.app"
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Zed.app"
