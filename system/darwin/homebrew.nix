@@ -93,6 +93,7 @@
       "font-varela-round"
       "fork"
       "forklift"
+      "godspeed"
       "google-chrome"
       "google-drive"
       "handbrake"
