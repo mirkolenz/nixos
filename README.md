@@ -143,14 +143,14 @@ nix run github:mirkolenz/nixos
 chsh -s /run/current-system/sw/bin/fish
 sudo reboot
 # Add ssh key to keychain
-ssh-add  --apple-use-keychain ~/.ssh/id_ed25519
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ```
 
 ### Uninstallation
 
 ```shell
+# TODO: Remove old nix-darwin/home-manager generations
 chsh -s /bin/zsh
-# todo: uninstall home-manager first
 nix run github:lnl7/nix-darwin#darwin-uninstaller
 /nix/nix-installer uninstall
 ```
