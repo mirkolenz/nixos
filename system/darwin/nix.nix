@@ -1,12 +1,9 @@
 {
   nix = {
-    # settings= {
-    #   bash-prompt-prefix = (nix:$name)\040
-    #   upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
-    # };
     settings = {
       build-users-group = "nixbld";
       allowed-users = [ "@staff" ];
+      # upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
     };
     gc.interval = {
       Hour = 1;

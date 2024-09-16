@@ -20,6 +20,7 @@ args@{
         "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      # always-allow-substitutes = true;
       trusted-substituters = config.nix.settings.substituters;
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
       experimental-features = [
@@ -34,8 +35,6 @@ args@{
       keep-outputs = true;
       keep-derivations = false;
       keep-failed = false;
-      # https://github.com/DeterminateSystems/nix-installer/pull/196
-      # auto-allocate-uids = true;
       # does not build on Linux
       # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
       allowed-users = [ user.login ];
@@ -43,6 +42,7 @@ args@{
       builders-use-substitutes = true;
       warn-dirty = false;
       accept-flake-config = true;
+      # bash-prompt-prefix = ''(nix:$name)\040'';
     };
     gc = {
       automatic = true;
