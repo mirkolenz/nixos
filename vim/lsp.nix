@@ -27,7 +27,6 @@
       };
       pyright.enable = true;
       ruff-lsp.enable = true;
-      tsserver.enable = true;
       yamlls.enable = true;
     };
   };
