@@ -22,7 +22,7 @@
       formatter = pkgs.nixfmt;
       packages =
         {
-          inherit (pkgs) bibtexbrowser2cff; # bibtex2cff
+          inherit (pkgs) bibtexbrowser2cff bibtex2cff;
         }
         // (lib.optionalAttrs pkgs.stdenv.isDarwin {
           inherit (pkgs) neovide-bin restic-browser-bin vimr-bin;
