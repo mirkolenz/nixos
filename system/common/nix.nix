@@ -13,11 +13,11 @@ args@{
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
       substituters = [
-        "https://mirkolenz.cachix.org"
+        # "https://mirkolenz.cachix.org"
         "https://nix-community.cachix.org"
       ];
       trusted-public-keys = [
-        "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
+        # "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
       # always-allow-substitutes = true;
