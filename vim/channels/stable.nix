@@ -1,5 +1,5 @@
 { ... }:
 {
   plugins.treesitter.indent = true;
-  plugins.lsp.tsserver.enable = true;
+  plugins.lsp.servers.tsserver.enable = true;
 }
