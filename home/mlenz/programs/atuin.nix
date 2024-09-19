@@ -2,6 +2,10 @@
 {
   programs.atuin = {
     enable = true;
+    flags = [
+      "--disable-up-arrow"
+      # "--disable-ctrl-r"
+    ];
     # https://docs.atuin.sh/configuration/config/
     settings = {
       auto_sync = true;
