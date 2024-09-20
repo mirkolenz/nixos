@@ -72,7 +72,7 @@
         "/System/Applications/Mail.app"
         "/Applications/zoom.us.app"
         "/Applications/Microsoft Teams.app"
-        "/Applications/Godspeed.app"
+        "/Applications/Todoist.app"
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Zed.app"
