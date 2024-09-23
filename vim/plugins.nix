@@ -36,8 +36,5 @@
     oil = {
       enable = false;
     };
-    web-devicons = {
-      enable = true;
-    };
   };
 }
