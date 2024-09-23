@@ -1,5 +1,21 @@
 {
   description = "NixOS / Home Manager / nix-darwin configuration files (@mirkolenz)";
+
+  # state folder: ~/.local/share/nix/trusted-settings.json
+  nixConfig = {
+    extra-experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    # also change in ./system/common/nix.nix
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
