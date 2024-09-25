@@ -5,8 +5,6 @@ final: prev: {
   mkApp =
     args@{
       pname,
-      version,
-      src,
       appname ? pname,
       meta ? { },
       nativeBuildInputs ? [ ],
