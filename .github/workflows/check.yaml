@@ -11,9 +11,9 @@ jobs:
           - os-name: ubuntu
             os-version: latest
             extra-platform: aarch64-linux
-          # - os-name: macos
-          #   os-version: latest
-          #   extra-platform: x86_64-darwin
+          - os-name: macos
+            os-version: latest
+            extra-platform: x86_64-darwin
     permissions:
       contents: read
     runs-on: "${{ matrix.os-name }}-${{ matrix.os-version }}"
