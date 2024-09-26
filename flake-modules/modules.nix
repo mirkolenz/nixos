@@ -31,6 +31,7 @@ let
               ../vim
               { _module.args = moduleArgs; }
             ];
+            shorthandOnlyDefinesConfig = if channel == "stable" then true else false;
           };
           # nixvim = lib'.self.systemInput {
           #   inherit inputs channel os;
