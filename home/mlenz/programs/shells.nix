@@ -2,17 +2,27 @@
   pkgs,
   lib,
   osConfig,
+  os,
   ...
 }:
 let
-  # If PATH is wrong on darwin, try this:
+  # The order of $PATH is wrong on standalone installations and on macOS
   # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
+  dquote = str: "\"" + str + "\"";
+  makeBinPathList = map (path: path + "/bin");
+  profilePaths = lib.concatMapStringsSep " " dquote (makeBinPathList osConfig.environment.profiles);
   fixNixProfile =
     if osConfig == { } then
       ''
         for profile in (string split " " "$NIX_PROFILES")
           fish_add_path --prepend --move "$profile/bin"
         end
+        set fish_user_paths $fish_user_paths
+      ''
+    else if os == "darwin" then
+      ''
+        fish_add_path --prepend --move --path ${profilePaths}
+        set fish_user_paths $fish_user_paths
       ''
     else
       "";
