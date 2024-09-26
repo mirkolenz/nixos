@@ -1,4 +1,8 @@
-{ specialModuleArgs, moduleArgs, ... }:
+{
+  specialModuleArgs,
+  moduleArgs,
+  ...
+}:
 let
   nixpkgs = {
     config = import ../nixpkgs-config.nix;
@@ -17,6 +21,7 @@ let
         ../home/options
       ];
       options = {
+        # https://github.com/nix-community/nixvim/blob/main/wrappers/hm.nix
         programs.nixvim = lib.mkOption {
           type = lib.types.submoduleWith {
             specialArgs = specialModuleArgs // {
@@ -26,11 +31,22 @@ let
               ../vim
               { _module.args = moduleArgs; }
             ];
-            # If set to false (default), the following error is thrown:
-            # A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values
-            # Reason: HM uses the type `submodule` where this is set to true by default
-            shorthandOnlyDefinesConfig = true;
           };
+          # nixvim = lib'.self.systemInput {
+          #   inherit inputs channel os;
+          #   name = "nixvim";
+          # };
+          # nixvimConfig = nixvim.lib.modules.evalNixvim {
+          #   extraSpecialArgs = specialModuleArgs // {
+          #     inherit channel os;
+          #   };
+          #   modules = [
+          #     ../vim
+          #     { _module.args = moduleArgs; }
+          #   ];
+          #   check = false;
+          # };
+          # inherit (nixvimConfig) type;
         };
       };
       config = {
