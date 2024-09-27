@@ -25,13 +25,13 @@ let
         set -- "help"
       fi
       if [ "$1" = "run" ]; then
-        exec sudo ${lib.getExe' pkgs.podman "podman"} run ${lib.escapeShellArgs podmanArgs} "''${@:2}"
+        exec sudo ${lib.getExe pkgs.podman} run ${lib.escapeShellArgs podmanArgs} "''${@:2}"
       fi
       if [ "$1" = "exec" ]; then
-        exec sudo ${lib.getExe' pkgs.podman "podman"} exec "''${@:2}"
+        exec sudo ${lib.getExe pkgs.podman} exec "''${@:2}"
       fi
       if [ "$1" = "update" ]; then
-        exec sudo ${lib.getExe' pkgs.podman "podman"} auto-update "''${@:2}"
+        exec sudo ${lib.getExe pkgs.podman} auto-update "''${@:2}"
       fi
       if [ "$1" = "service" ]; then
         exec systemctl "''${3:-status}" "podman-$2.service" "''${@:4}"

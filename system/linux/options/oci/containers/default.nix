@@ -87,7 +87,7 @@ let
         if ! [[ -v ARGS ]]; then
           ARGS=()
         fi
-        exec sudo ${lib.getExe' pkgs.podman "podman"} run ${defaultArgs} "''${ARGS[@]}" ${image} "''${CMD[@]}"
+        exec sudo ${lib.getExe pkgs.podman} run ${defaultArgs} "''${ARGS[@]}" ${image} "''${CMD[@]}"
       '';
     };
 

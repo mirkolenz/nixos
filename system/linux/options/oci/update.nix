@@ -25,7 +25,7 @@ in
       after = [ "network-online.target" ];
       serviceConfig.Type = "oneshot";
       script = ''
-        ${lib.getExe' pkgs.podman "podman"} auto-update
+        ${lib.getExe pkgs.podman} auto-update
       '';
     };
   };
