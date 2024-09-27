@@ -40,17 +40,22 @@
     strace
   ];
 
+  services = {
+    printing.enable = false;
+  };
+
   system = {
     inherit stateVersion;
   };
 
-  security.sudo = {
-    execWheelOnly = true;
-  };
-
-  security.sudo-rs = {
-    enable = true;
-    inherit (config.security.sudo) execWheelOnly wheelNeedsPassword;
+  security = {
+    sudo = {
+      execWheelOnly = true;
+    };
+    sudo-rs = {
+      enable = true;
+      inherit (config.security.sudo) execWheelOnly wheelNeedsPassword;
+    };
   };
 
   boot.loader = {

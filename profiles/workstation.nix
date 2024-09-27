@@ -1,7 +1,6 @@
 { config, user, ... }:
 {
   services.xserver.enable = true;
-  services.printing.enable = true;
 
   security.rtkit.enable = config.services.pipewire.enable;
   hardware.pulseaudio.enable = false;
