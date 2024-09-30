@@ -77,10 +77,15 @@
         autocrlf = "input";
         editor = "nvim";
         eol = "lf";
+        fsmonitor = lib.mkIf pkgs.stdenv.isDarwin true; # not supported on linux
+      };
+      feature = {
+        manyFiles = true;
       };
       fetch = {
         prune = true;
         pruneTags = true;
+        writeCommitGraph = true;
       };
       pull = {
         rebase = true;
