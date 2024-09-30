@@ -19,7 +19,7 @@
       enable = true;
     };
     difftastic = {
-      enable = false; # TODO: broken on darwin
+      enable = true;
       background = "dark";
       color = "always";
       display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
@@ -127,5 +127,11 @@
         email = user.mail;
       };
     };
+  };
+  programs.gitui = {
+    enable = true;
+  };
+  programs.lazygit = {
+    enable = true;
   };
 }
