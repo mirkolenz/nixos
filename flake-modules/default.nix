@@ -19,7 +19,6 @@
         config = import ../nixpkgs-config.nix;
         overlays = import ../overlays specialModuleArgs;
       };
-      formatter = pkgs.nixfmt-rfc-style;
       packages =
         {
           inherit (pkgs) bibtexbrowser2cff bibtex2cff;
