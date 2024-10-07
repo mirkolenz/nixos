@@ -92,6 +92,13 @@
       url = "github:mirkolenz/texmf";
       flake = false;
     };
+    custom-caddy = {
+      url = "github:mirkolenz/caddy";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.flocken.follows = "flocken";
+    };
 
     # Utils
     poetry2nix = {
