@@ -172,7 +172,7 @@ in
       config = mkOption { type = with types; str; };
       home = mkOption { type = with types; str; };
       certificates = mkOption {
-        type = with types; nullOrstr;
+        type = with types; nullOr str;
         default = null;
       };
     };
