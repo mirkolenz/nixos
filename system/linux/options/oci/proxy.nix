@@ -124,6 +124,7 @@ let
   Caddyfile-raw = pkgs.writeTextDir "Caddyfile" ''
     {
       email ${proxyCfg.email}
+      ${lib.optionalString proxyCfg.acmeStaging "acme_ca https://acme-staging-v02.api.letsencrypt.org/directory"}
       ${proxyCfg.globalConfig}
     }
 
@@ -172,6 +173,8 @@ in
     };
 
     email = mkOption { type = with types; str; };
+
+    acmeStaging = mkEnableOption "use Let's Encrypt staging server";
 
     domains = mkOption {
       type = with types; attrsOf (submodule domainOptions);
@@ -248,6 +251,13 @@ in
         "443:443"
         "443:443/udp"
       ];
+      # https://caddyserver.com/docs/conventions#file-locations
+      # https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl
+      # TODO: could also be set in the custom caddy image
+      environment = {
+        XDG_CONFIG_HOME = "/config";
+        XDG_DATA_HOME = "/data";
+      };
     };
   };
 }
