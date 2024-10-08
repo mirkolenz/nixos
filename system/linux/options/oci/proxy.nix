@@ -30,6 +30,15 @@ let
         # only defined here
         reverseProxy = mkOption { type = with types; str; };
 
+        reverseProxyConfig = mkOption {
+          type = types.lines;
+          default = "";
+          description = ''
+            Additional lines of configuration appended to the reverse proxy in the
+            automatically generated `Caddyfile`.
+          '';
+        };
+
         # defined in ./containers/submodule.nix
         name = mkOption {
           type = with types; str;
@@ -61,7 +70,13 @@ let
     ''
       @${value.name} host ${lib.concatStringsSep " " allHostNames}
       handle @${value.name} {
-        reverse_proxy ${value.reverseProxy}
+        reverse_proxy ${value.reverseProxy} ${
+          lib.optionalString (
+            value.reverseProxyConfig != ""
+          ) "{
+          ${value.reverseProxyConfig}
+        }"
+        }
         ${value.extraConfig}
       }
     '';
@@ -77,6 +92,7 @@ let
       inherit domain;
       value = value.proxy // {
         reverseProxy = "${prefix}.${suffix}";
+        reverseProxyConfig = "";
       };
     };
 
