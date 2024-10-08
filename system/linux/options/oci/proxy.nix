@@ -105,7 +105,7 @@ let
       }
     '';
 
-  Caddyfile = pkgs.writeTextDir "Caddyfile" ''
+  Caddyfile-raw = pkgs.writeTextDir "Caddyfile" ''
     {
       email ${proxyCfg.email}
       ${proxyCfg.globalConfig}
@@ -120,6 +120,20 @@ let
 
     ${lib.concatLines (map mkDomainConfig (lib.attrValues proxyCfg.domains))}
   '';
+
+  Caddyfile-formatted =
+    pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ cfg.package ]; }
+      ''
+        mkdir -p $out
+        cp --no-preserve=mode ${Caddyfile-raw}/Caddyfile $out/Caddyfile
+        caddy fmt --overwrite $out/Caddyfile
+      '';
+
+  Caddyfile =
+    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
+      Caddyfile-formatted
+    else
+      Caddyfile-raw;
 in
 {
   options.custom.oci.proxy = with lib; {
@@ -168,6 +182,11 @@ in
         Additional lines of configuration appended to the automatically generated `Caddyfile`.
       '';
     };
+
+    configFile = mkOption {
+      type = types.path;
+      default = "${Caddyfile}/Caddyfile";
+    };
   };
   config = lib.mkIf (cfg.enable && proxyCfg.enable) {
     custom.oci.containers.proxy = {
@@ -187,7 +206,7 @@ in
 
       volumes = [
         [
-          "${Caddyfile}/Caddyfile"
+          proxyCfg.configFile
           "/etc/caddy/Caddyfile"
           "ro"
         ]
