@@ -34,6 +34,7 @@ let
       inherit (container)
         dependsOn
         imageFile
+        # imageStream # TODO: 24.11
         cmd
         entrypoint
         environmentFiles

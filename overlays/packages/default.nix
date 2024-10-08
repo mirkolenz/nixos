@@ -7,6 +7,7 @@ in
 {
   arguebuf = getPkg "arguebuf";
   custom-caddy = getPkg "custom-caddy";
+  custom-caddy-docker = inputs.custom-caddy.packages.${system}.docker;
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   bibtex2cff = final.callPackage ./bibtex2cff.nix { };

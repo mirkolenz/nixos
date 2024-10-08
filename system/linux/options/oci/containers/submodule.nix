@@ -1,11 +1,16 @@
 cfg:
-{ lib, ... }:
+{ name, lib, ... }:
 {
   options = with lib; {
     enable = mkOption {
       type = types.bool;
       default = true;
       description = "Enable the containers.";
+    };
+
+    name = mkOption {
+      type = types.str;
+      default = name;
     };
 
     systemd = mkOption {
@@ -52,6 +57,25 @@ cfg:
         image will be pulled from the registry as usual.
       '';
       example = literalExpression "pkgs.dockerTools.buildImage {...};";
+    };
+
+    imageStream = mkOption {
+      type = with types; nullOr package;
+      default = null;
+      description = ''
+        Path to a script that streams the desired image on standard output.
+
+        This option is mainly intended for use with
+        `pkgs.dockerTools.streamLayeredImage` so that the intermediate
+        image archive does not need to be stored in the Nix store.  For
+        larger images this optimization can significantly reduce Nix store
+        churn compared to using the `imageFile` option, because you don't
+        have to store a new copy of the image archive in the Nix store
+        every time you change the image.  Instead, if you stream the image
+        then you only need to build and store the layers that differ from
+        the previous image.
+      '';
+      example = literalExpression "pkgs.dockerTools.streamLayeredImage {...};";
     };
 
     pull = mkOption {
@@ -337,29 +361,27 @@ cfg:
     };
 
     proxy = mkOption {
-      default = null;
-      type = types.nullOr (
-        types.submodule {
-          options = with lib; {
-            names = mkOption { type = with types; listOf str; };
-
-            lanOnly = mkOption {
-              type = with types; bool;
-              default = true;
-              description = "Only allow access from the local network";
-            };
-
-            extraConfig = mkOption {
-              type = types.lines;
-              default = "";
-              description = ''
-                Additional lines of configuration appended to this virtual host in the
-                automatically generated `Caddyfile`.
-              '';
-            };
+      default = { };
+      type = types.submodule {
+        options = with lib; {
+          name = mkOption {
+            type = with types; str;
+            default = name;
           };
-        }
-      );
+          extraNames = mkOption {
+            type = with types; listOf str;
+            default = [ ];
+          };
+          extraConfig = mkOption {
+            type = types.lines;
+            default = "";
+            description = ''
+              Additional lines of configuration appended to this virtual host in the
+              automatically generated `Caddyfile`.
+            '';
+          };
+        };
+      };
     };
   };
 }

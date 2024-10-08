@@ -8,57 +8,102 @@ let
   cfg = config.custom.oci;
   proxyCfg = cfg.proxy;
 
-  hostOptions = {
-    options = with lib; {
-      # unique to generic proxies
-      reverseProxy = mkOption { type = with types; str; };
-
-      # also used for container proxies
-      names = mkOption { type = with types; listOf str; };
-
-      lanOnly = mkOption {
-        type = with types; bool;
-        default = true;
-        description = "Only allow access from the local network";
-      };
-
-      extraConfig = mkOption {
-        type = types.lines;
-        default = "";
-        description = ''
-          Additional lines of configuration appended to this virtual host in the
-          automatically generated `Caddyfile`.
-        '';
+  domainOptions =
+    { name, ... }:
+    {
+      options = with lib; {
+        name = mkOption {
+          type = types.str;
+          default = name;
+        };
+        extraConfig = mkOption { type = types.lines; };
       };
     };
-  };
-  mkHostConf = attrs: ''
-    ${lib.concatStringsSep " " attrs.names} {
-      reverse_proxy ${attrs.reverseProxy}
-      ${lib.optionalString attrs.lanOnly "import only_lan"}
-      ${attrs.extraConfig}
-    }
-  '';
+
+  hostOptions =
+    { name, ... }:
+    {
+      options = with lib; {
+        # only defined here
+        reverseProxy = mkOption { type = with types; str; };
+
+        # defined in ./containers/submodule.nix
+        name = mkOption {
+          type = with types; str;
+          default = name;
+        };
+        extraNames = mkOption {
+          type = with types; listOf str;
+          default = [ ];
+        };
+        extraConfig = mkOption {
+          type = types.lines;
+          default = "";
+          description = ''
+            Additional lines of configuration appended to this virtual host in the
+            automatically generated `Caddyfile`.
+          '';
+        };
+      };
+    };
+  mkHostConf =
+    {
+      name,
+      extraNames,
+      reverseProxy,
+      extraConfig,
+      domain,
+    }:
+    let
+      allNames = [ name ] ++ extraNames;
+      allHostNames = map (name: "${name}.${domain}") allNames;
+    in
+    ''
+      @${name} host ${lib.concatStringsSep " " allHostNames}
+      handle @${name} {
+        reverse_proxy ${reverseProxy}
+        ${extraConfig}
+      }
+    '';
 
   mkContainerHostConf =
-    container:
+    container: domain:
     let
       proxyNetwork = proxyCfg.networks.proxy.name;
       prefix = cfg.networks.${proxyNetwork}.prefix;
       suffix = container.networks.${proxyNetwork}.suffix;
     in
-    mkHostConf (container.proxy // { reverseProxy = "${prefix}.${suffix}"; });
+    mkHostConf (
+      container.proxy
+      // {
+        inherit domain;
+        reverseProxy = "${prefix}.${suffix}";
+      }
+    );
 
-  filteredContainers = builtins.attrValues (
-    lib.filterAttrs (name: container: container.proxy != null) cfg.containers
-  );
+  mkDomainConfig =
+    { name, extraConfig }:
+    let
+      proxyContainers = lib.filterAttrs (_: val: val.networks ? proxy) cfg.containers;
+      injectDomain = attrs: map (val: val // { domain = name; }) (lib.attrValues attrs);
+    in
+    ''
+      *.${name} {
+        ${extraConfig}
 
-  boolToOnOff = b: if b then "on" else "off";
+        ${lib.concatLines (map mkContainerHostConf (injectDomain proxyContainers))}
+
+        ${lib.concatLines (map mkHostConf (injectDomain proxyCfg.hosts))}
+
+        handle {
+          abort
+        }
+      }
+    '';
 
   Caddyfile = pkgs.writeTextDir "Caddyfile" ''
     {
       email ${proxyCfg.email}
-      auto_https ${boolToOnOff proxyCfg.autoHttps}
       ${proxyCfg.globalConfig}
     }
 
@@ -67,16 +112,9 @@ let
       abort @wan
     }
 
-    # (add_basicauth) {
-    # 	basicauth * {
-    # 		admin {$CADDY_AUTH_ADMIN}
-    # 	}
-    # }
-
     ${proxyCfg.extraConfig}
 
-    ${lib.concatLines (builtins.map mkContainerHostConf filteredContainers)}
-    ${lib.concatLines (builtins.map mkHostConf proxyCfg.hosts)}
+    ${lib.concatLines (map mkDomainConfig (lib.attrValues proxyCfg.domains))}
   '';
 in
 {
@@ -94,18 +132,6 @@ in
       };
     };
 
-    # https://hub.docker.com/_/caddy
-    image = {
-      name = mkOption {
-        type = with types; str;
-        default = "caddy";
-      };
-      tag = mkOption {
-        type = with types; str;
-        default = "2";
-      };
-    };
-
     storage = {
       data = mkOption { type = with types; str; };
       config = mkOption { type = with types; str; };
@@ -113,14 +139,14 @@ in
 
     email = mkOption { type = with types; str; };
 
-    autoHttps = mkOption {
-      type = with types; bool;
-      default = true;
+    domains = mkOption {
+      type = with types; attrsOf (submodule domainOptions);
+      default = { };
     };
 
     hosts = mkOption {
-      type = with types; listOf (submodule hostOptions);
-      default = [ ];
+      type = with types; attrsOf (submodule hostOptions);
+      default = { };
     };
 
     extraConfig = mkOption {
@@ -141,7 +167,17 @@ in
   };
   config = lib.mkIf (cfg.enable && proxyCfg.enable) {
     custom.oci.containers.proxy = {
-      inherit (proxyCfg) enable image;
+      inherit (proxyCfg) enable;
+
+      image = {
+        name = lib.mkDefault "caddy";
+        registry = lib.mkDefault null;
+        tag = lib.mkDefault "latest";
+      };
+
+      imageFile = lib.mkDefault pkgs.custom-caddy-docker;
+      # imageStream = lib.mkDefault pkgs.custom-caddy-docker.passthru.stream; # TODO: 24.11
+
       volumes = [
         [
           "${Caddyfile}/Caddyfile"
