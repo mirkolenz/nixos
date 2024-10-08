@@ -182,8 +182,8 @@ in
       imageFile = lib.mkDefault pkgs.custom-caddy-docker;
       # imageStream = lib.mkDefault pkgs.custom-caddy-docker.passthru.stream; # TODO: 24.11
 
-      # does not work with custom images
-      update = lib.mkDefault null;
+      # required due to our custom image file
+      update = lib.mkDefault "local";
 
       volumes = [
         [

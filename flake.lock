@@ -48,11 +48,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728369498,
-        "narHash": "sha256-P6R4tvf0V+z2kJFAZqTwpf5y+x33Q/ltL7Uc4nYtAQA=",
+        "lastModified": 1728371688,
+        "narHash": "sha256-lZVtmbunwE3O86uUTga7KFCMgX1AVW0aihWMuqx0Vcc=",
         "owner": "mirkolenz",
         "repo": "caddy",
-        "rev": "b87766cf6008439df753dd85ab8d5a9d4d0df7e4",
+        "rev": "e86204a2607fbf53784b73fa5678e0836ab51de0",
         "type": "github"
       },
       "original": {
