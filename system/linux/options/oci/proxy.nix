@@ -51,44 +51,45 @@ let
     };
   mkHostConf =
     {
-      name,
-      extraNames,
-      reverseProxy,
-      extraConfig,
       domain,
+      value,
     }:
     let
-      allNames = [ name ] ++ extraNames;
+      allNames = [ value.name ] ++ value.extraNames;
       allHostNames = map (name: "${name}.${domain}") allNames;
     in
     ''
-      @${name} host ${lib.concatStringsSep " " allHostNames}
-      handle @${name} {
-        reverse_proxy ${reverseProxy}
-        ${extraConfig}
+      @${value.name} host ${lib.concatStringsSep " " allHostNames}
+      handle @${value.name} {
+        reverse_proxy ${value.reverseProxy}
+        ${value.extraConfig}
       }
     '';
 
   mkContainerHostConf =
-    container: domain:
+    { domain, value }:
     let
       proxyNetwork = proxyCfg.networks.proxy.name;
       prefix = cfg.networks.${proxyNetwork}.prefix;
-      suffix = container.networks.${proxyNetwork}.suffix;
+      suffix = value.networks.${proxyNetwork}.suffix;
     in
-    mkHostConf (
-      container.proxy
-      // {
-        inherit domain;
+    mkHostConf {
+      inherit domain;
+      value = value.proxy // {
         reverseProxy = "${prefix}.${suffix}";
-      }
-    );
+      };
+    };
 
   mkDomainConfig =
     { name, extraConfig }:
     let
-      proxyContainers = lib.filterAttrs (_: val: val.networks ? proxy) cfg.containers;
-      injectDomain = attrs: map (val: val // { domain = name; }) (lib.attrValues attrs);
+      proxyContainers = lib.filterAttrs (_: value: value.networks ? proxy) cfg.containers;
+      injectDomain =
+        attrs:
+        map (value: {
+          inherit value;
+          domain = name;
+        }) (lib.attrValues attrs);
     in
     ''
       *.${name} {
