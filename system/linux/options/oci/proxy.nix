@@ -171,6 +171,10 @@ in
       data = mkOption { type = with types; str; };
       config = mkOption { type = with types; str; };
       home = mkOption { type = with types; str; };
+      certificates = mkOption {
+        type = with types; nullOrstr;
+        default = null;
+      };
     };
 
     email = mkOption { type = with types; str; };
@@ -224,25 +228,30 @@ in
       # required due to our custom image file
       update = lib.mkDefault "local";
 
-      volumes = [
+      volumes =
         [
-          proxyCfg.configFile
-          "/etc/caddy/Caddyfile"
-          "ro"
+          [
+            proxyCfg.configFile
+            "/etc/caddy/Caddyfile"
+            "ro"
+          ]
+          [
+            proxyCfg.storage.data
+            "/data"
+          ]
+          [
+            proxyCfg.storage.config
+            "/config"
+          ]
+          [
+            proxyCfg.storage.home
+            "/home"
+          ]
         ]
-        [
-          proxyCfg.storage.data
-          "/data"
-        ]
-        [
-          proxyCfg.storage.config
-          "/config"
-        ]
-        [
-          proxyCfg.storage.home
-          "/home"
-        ]
-      ];
+        ++ (lib.optional (proxyCfg.storage.certificates != null) [
+          proxyCfg.storage.certificates
+          "/certificates"
+        ]);
       networks = {
         ${proxyCfg.networks.proxy.name} = {
           suffix = proxyCfg.networks.proxy.suffix;
