@@ -170,6 +170,7 @@ in
     storage = {
       data = mkOption { type = with types; str; };
       config = mkOption { type = with types; str; };
+      home = mkOption { type = with types; str; };
     };
 
     email = mkOption { type = with types; str; };
@@ -237,6 +238,10 @@ in
           proxyCfg.storage.config
           "/config"
         ]
+        [
+          proxyCfg.storage.home
+          "/home"
+        ]
       ];
       networks = {
         ${proxyCfg.networks.proxy.name} = {
@@ -257,6 +262,7 @@ in
       environment = {
         XDG_CONFIG_HOME = "/config";
         XDG_DATA_HOME = "/data";
+        HOME = "/home";
       };
     };
   };
