@@ -16,7 +16,10 @@ let
           type = types.str;
           default = name;
         };
-        extraConfig = mkOption { type = types.lines; };
+        extraConfig = mkOption {
+          type = types.lines;
+          default = "";
+        };
       };
     };
 
