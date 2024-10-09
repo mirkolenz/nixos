@@ -30,8 +30,8 @@ in
       default = "5m";
     };
   };
-  systemd = lib.mkIf cfg.enable {
-    timers.${cfg.name} = {
+  config = lib.mkIf cfg.enable {
+    systemd.timers.${cfg.name} = {
       wantedBy = [ "timers.target" ];
       description = "Link IP to NextDNS";
       timerConfig = {
@@ -40,7 +40,7 @@ in
         Unit = "${cfg.name}.service";
       };
     };
-    services.${cfg.name} = {
+    systemd.services.${cfg.name} = {
       script = ''
         ${lib.getExe pkgs.wget} "${cfg.url}" -O -
       '';
