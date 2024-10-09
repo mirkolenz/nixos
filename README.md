@@ -128,6 +128,16 @@ If getting an error like `Getting status of /nix/store/...: No such file or dire
 nix-store --verify --check-contents --repair
 ```
 
+### Tailscale
+
+- Create auth key: <https://login.tailscale.com/admin/settings/keys>
+- SSH into the machine
+- Save the auth key to `./tsauth.txt`
+- Run `sudo tailscale up --auth-key file:tsauth.txt`
+- Run `tailscale status` to verify the connection
+- Remove the auth key file: `rm ./tsauth.txt`
+- Approve exit-node/routes: <https://login.tailscale.com/admin/machines>
+
 ## Mac Computers
 
 ### Installation
