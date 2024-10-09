@@ -50,5 +50,12 @@
     DHCP = "yes";
   };
 
+  services.tailscale = {
+    extraSetFlags = [
+      "--advertise-exit-node"
+    ];
+    useRoutingFeatures = "server";
+  };
+
   powerManagement.cpuFreqGovernor = "powersave";
 }
