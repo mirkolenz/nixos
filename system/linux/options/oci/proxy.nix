@@ -170,7 +170,6 @@ in
     storage = {
       data = mkOption { type = with types; str; };
       config = mkOption { type = with types; str; };
-      home = mkOption { type = with types; str; };
       certificates = mkOption {
         type = with types; nullOr str;
         default = null;
@@ -243,10 +242,6 @@ in
             proxyCfg.storage.config
             "/config"
           ]
-          [
-            proxyCfg.storage.home
-            "/home"
-          ]
         ]
         ++ (lib.optional (proxyCfg.storage.certificates != null) [
           proxyCfg.storage.certificates
@@ -265,14 +260,6 @@ in
         "443:443"
         "443:443/udp"
       ];
-      # https://caddyserver.com/docs/conventions#file-locations
-      # https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl
-      # TODO: could also be set in the custom caddy image
-      environment = {
-        XDG_CONFIG_HOME = "/config";
-        XDG_DATA_HOME = "/data";
-        HOME = "/home";
-      };
     };
   };
 }
