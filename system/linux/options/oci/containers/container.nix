@@ -1,5 +1,10 @@
 cfg:
-{ name, lib, ... }:
+{
+  name,
+  lib,
+  config,
+  ...
+}:
 {
   options = with lib; {
     enable = mkOption {
@@ -360,28 +365,20 @@ cfg:
       '';
     };
 
-    proxy = mkOption {
-      default = { };
-      type = types.submodule {
-        options = with lib; {
-          name = mkOption {
-            type = with types; str;
-            default = name;
-          };
-          extraNames = mkOption {
-            type = with types; listOf str;
-            default = [ ];
-          };
-          extraConfig = mkOption {
-            type = types.lines;
-            default = "";
-            description = ''
-              Additional lines of configuration appended to this virtual host in the
-              automatically generated `Caddyfile`.
-            '';
-          };
-        };
+    proxyVirtualHost =
+      let
+        network = cfg.proxy.networks.proxy.name;
+        prefix = cfg.networks.${network}.prefix;
+        suffix = config.networks.${network}.suffix or null;
+      in
+      mkOption {
+        default = { };
+        type = types.submodule (
+          import ../proxy/vhost.nix {
+            inherit name lib;
+            defaultUpstreams = if suffix == null then [ ] else [ "${prefix}.${suffix}" ];
+          }
+        );
       };
-    };
   };
 }

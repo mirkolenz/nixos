@@ -8,102 +8,40 @@ let
   cfg = config.custom.oci;
   proxyCfg = cfg.proxy;
 
-  domainOptions =
-    { name, ... }:
-    {
-      options = with lib; {
-        name = mkOption {
-          type = types.str;
-          default = name;
-        };
-        extraConfig = mkOption {
-          type = types.lines;
-          default = "";
-        };
-      };
-    };
-
-  hostOptions =
-    { name, ... }:
-    {
-      options = with lib; {
-        # only defined here
-        reverseProxy = mkOption { type = with types; str; };
-
-        reverseProxyConfig = mkOption {
-          type = types.lines;
-          default = "";
-          description = ''
-            Additional lines of configuration appended to the reverse proxy in the
-            automatically generated `Caddyfile`.
-          '';
-        };
-
-        # defined in ./containers/submodule.nix
-        name = mkOption {
-          type = with types; str;
-          default = name;
-        };
-        extraNames = mkOption {
-          type = with types; listOf str;
-          default = [ ];
-        };
-        extraConfig = mkOption {
-          type = types.lines;
-          default = "";
-          description = ''
-            Additional lines of configuration appended to this virtual host in the
-            automatically generated `Caddyfile`.
-          '';
-        };
-      };
-    };
-  mkHostConf =
+  mkVirtualHost =
     {
       domain,
-      value,
+      vhost,
     }:
     let
-      allNames = [ value.name ] ++ value.extraNames;
+      allNames = [ vhost.name ] ++ vhost.extraNames;
       allHostNames = map (name: "${name}.${domain}") allNames;
     in
     ''
-      @${value.name} host ${lib.concatStringsSep " " allHostNames}
-      handle @${value.name} {
-        reverse_proxy ${value.reverseProxy} ${
-          lib.optionalString (
-            value.reverseProxyConfig != ""
-          ) "{
-          ${value.reverseProxyConfig}
-        }"
+      @${vhost.name} host ${lib.concatStringsSep " " allHostNames}
+      handle @${vhost.name} {
+        ${
+          lib.optionalString vhost.reverseProxy.upstreams != [ ] ''
+            reverse_proxy ${lib.concatStringsSet " " vhost.reverseProxy.upstreams} {
+              ${vhost.reverseProxy.config}
+            }
+          ''
         }
-        ${value.extraConfig}
+        ${vhost.extraConfig}
       }
     '';
-
-  mkContainerHostConf =
-    { domain, value }:
-    let
-      proxyNetwork = proxyCfg.networks.proxy.name;
-      prefix = cfg.networks.${proxyNetwork}.prefix;
-      suffix = value.networks.${proxyNetwork}.suffix;
-    in
-    mkHostConf {
-      inherit domain;
-      value = value.proxy // {
-        reverseProxy = "${prefix}.${suffix}";
-        reverseProxyConfig = "";
-      };
-    };
 
   mkDomainConfig =
     { name, extraConfig }:
     let
-      proxyContainers = lib.filterAttrs (_: value: value.networks ? proxy) cfg.containers;
-      injectDomain =
+      proxyNetwork = proxyCfg.networks.proxy.name;
+      proxyContainers = lib.filterAttrs (
+        _: container: container.networks ? ${proxyNetwork} && container.networks.${proxyNetwork} != null
+      ) cfg.containers;
+      parseVirtualHosts =
         attrs:
         map (value: {
-          inherit value;
+          vhost = value.proxyVirtualHost or value;
           domain = name;
         }) (lib.attrValues attrs);
     in
@@ -111,9 +49,9 @@ let
       *.${name} {
         ${extraConfig}
 
-        ${lib.concatLines (map mkContainerHostConf (injectDomain proxyContainers))}
+        ${lib.concatLines (map mkVirtualHost (parseVirtualHosts proxyContainers))}
 
-        ${lib.concatLines (map mkHostConf (injectDomain proxyCfg.hosts))}
+        ${lib.concatLines (map mkVirtualHost (parseVirtualHosts proxyCfg.virtualHosts))}
 
         handle {
           abort
@@ -181,13 +119,38 @@ in
     acmeStaging = mkEnableOption "use Let's Encrypt staging server";
 
     domains = mkOption {
-      type = with types; attrsOf (submodule domainOptions);
       default = { };
+      type = types.attrsOf (
+        types.submodule (
+          { name, ... }:
+          {
+            options = {
+              name = mkOption {
+                type = types.str;
+                default = name;
+              };
+              extraConfig = mkOption {
+                type = types.lines;
+                default = "";
+              };
+            };
+          }
+        )
+      );
     };
 
-    hosts = mkOption {
-      type = with types; attrsOf (submodule hostOptions);
+    # change in ./containers/submodule.nix as well
+    virtualHosts = mkOption {
       default = { };
+      type = types.attrsOf (
+        types.submodule (
+          { name, ... }:
+          import ./vhost.nix {
+            inherit name lib;
+            defaultUpstreams = [ ];
+          }
+        )
+      );
     };
 
     extraConfig = mkOption {
@@ -202,7 +165,7 @@ in
       type = types.lines;
       default = "";
       description = ''
-        Additional lines of configuration appended to the automatically generated `Caddyfile`.
+        Additional lines of global configuration appended to the automatically generated `Caddyfile`.
       '';
     };
 

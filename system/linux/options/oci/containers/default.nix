@@ -111,7 +111,7 @@ in
     with lib;
     mkOption {
       default = { };
-      type = with types; attrsOf (submodule (import ./submodule.nix cfg));
+      type = with types; attrsOf (submodule (import ./container.nix cfg));
     };
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = lib.mapAttrs (
