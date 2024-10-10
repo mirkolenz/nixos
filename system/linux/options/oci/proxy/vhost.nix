@@ -14,6 +14,7 @@
       default = [ ];
     };
     reverseProxy = mkOption {
+      default = { };
       type = types.submodule {
         options = {
           upstreams = mkOption {
