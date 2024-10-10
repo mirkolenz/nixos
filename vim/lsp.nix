@@ -10,15 +10,8 @@
       eslint.enable = true;
       gopls.enable = true;
       html.enable = true;
-      java-language-server.enable = true;
       jsonls.enable = true;
       ltex.enable = true;
-      nil-ls = {
-        enable = false;
-        settings = {
-          formatting.command = [ "nixfmt" ];
-        };
-      };
       nixd = {
         enable = true;
         settings = {
@@ -26,7 +19,6 @@
         };
       };
       pyright.enable = true;
-      ruff-lsp.enable = true;
       yamlls.enable = true;
     };
   };
