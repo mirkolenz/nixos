@@ -1,4 +1,5 @@
 [
   "dvc"
   "php"
+  "tectonic"
 ]
