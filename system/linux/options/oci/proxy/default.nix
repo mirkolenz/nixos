@@ -23,7 +23,7 @@ let
         ${
           lib.optionalString (vhost.reverseProxy.upstreams != [ ]) ''
             reverse_proxy ${lib.concatStringsSep " " vhost.reverseProxy.upstreams} {
-              ${vhost.reverseProxy.config}
+              ${vhost.reverseProxy.extraConfig}
             }
           ''
         }
