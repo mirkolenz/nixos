@@ -21,7 +21,7 @@ let
       @${vhost.name} host ${lib.concatStringsSep " " allHostNames}
       handle @${vhost.name} {
         ${
-          lib.optionalString vhost.reverseProxy.upstreams != [ ] ''
+          lib.optionalString (vhost.reverseProxy.upstreams != [ ]) ''
             reverse_proxy ${lib.concatStringsSet " " vhost.reverseProxy.upstreams} {
               ${vhost.reverseProxy.config}
             }
@@ -36,7 +36,7 @@ let
     let
       proxyNetwork = proxyCfg.networks.proxy.name;
       proxyContainers = lib.filterAttrs (
-        _: container: container.networks ? ${proxyNetwork} && container.networks.${proxyNetwork} != null
+        _: container: (container.networks ? ${proxyNetwork}) && (container.networks.${proxyNetwork} != null)
       ) cfg.containers;
       parseVirtualHosts =
         attrs:
