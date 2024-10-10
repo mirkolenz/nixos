@@ -22,7 +22,7 @@ let
       handle @${vhost.name} {
         ${
           lib.optionalString (vhost.reverseProxy.upstreams != [ ]) ''
-            reverse_proxy ${lib.concatStringsSet " " vhost.reverseProxy.upstreams} {
+            reverse_proxy ${lib.concatStringsSep " " vhost.reverseProxy.upstreams} {
               ${vhost.reverseProxy.config}
             }
           ''
