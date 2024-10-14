@@ -27,7 +27,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
         binaries = {
           restic = pkgs.restic;
           git = config.programs.git.package;
-          nvim = config.programs.nixvim.build.package;
+          nvim = config.custom.neovim.package;
         };
         symbolicLinks = lib.mapAttrsToList (name: path: ''
           ln -s "${lib.getBin path}/bin/${name}" "$out/${name}"
