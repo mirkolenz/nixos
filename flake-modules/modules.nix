@@ -8,52 +8,13 @@ let
     config = import ../nixpkgs-config.nix;
     overlays = import ../overlays specialModuleArgs;
   };
-  homeModule =
-    {
-      lib,
-      channel,
-      os,
-      ...
-    }:
-    {
-      imports = [
-        ../home/mlenz
-        ../home/options
-      ];
-      options = {
-        # https://github.com/nix-community/nixvim/blob/main/wrappers/hm.nix
-        programs.nixvim = lib.mkOption {
-          type = lib.types.submoduleWith {
-            specialArgs = specialModuleArgs // {
-              inherit channel os;
-            };
-            modules = [
-              ../vim
-              { _module.args = moduleArgs; }
-            ];
-            shorthandOnlyDefinesConfig = if channel == "stable" then true else false;
-          };
-          # nixvim = lib'.self.systemInput {
-          #   inherit inputs channel os;
-          #   name = "nixvim";
-          # };
-          # nixvimConfig = nixvim.lib.modules.evalNixvim {
-          #   extraSpecialArgs = specialModuleArgs // {
-          #     inherit channel os;
-          #   };
-          #   modules = [
-          #     ../vim
-          #     { _module.args = moduleArgs; }
-          #   ];
-          #   check = false;
-          # };
-          # inherit (nixvimConfig) type;
-        };
-      };
-      config = {
-        _module.args = moduleArgs;
-      };
-    };
+  homeModule = {
+    imports = [
+      ../home/mlenz
+      ../home/options
+    ];
+    _module.args = moduleArgs;
+  };
 in
 {
   flake.configModules = {
