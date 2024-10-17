@@ -3,7 +3,7 @@
   plugins.lsp = {
     enable = true;
     servers = {
-      astro.enable = true;
+      # astro.enable = true; # TODO: broken on darwin: https://hydra.nixos.org/job/nixpkgs/trunk/astro-language-server.x86_64-darwin
       bashls.enable = true;
       cssls.enable = true;
       dockerls.enable = true;
