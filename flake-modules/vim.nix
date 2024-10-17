@@ -22,6 +22,7 @@
           pkgs = import nixvim.inputs.nixpkgs {
             inherit system;
             config = import ../nixpkgs-config.nix;
+            overlays = import ../overlays specialModuleArgs;
           };
           extraSpecialArgs = specialModuleArgs // {
             inherit channel os;
