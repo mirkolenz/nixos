@@ -3,11 +3,12 @@
 
   # state folder: ~/.local/share/nix/trusted-settings.json
   nixConfig = {
-    extra-experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
     # also change in ./system/common/nix.nix
+    extra-experimental-features = [
+      "flakes"
+      "impure-derivations"
+      "nix-command"
+    ];
     extra-substituters = [
       "https://nix-community.cachix.org"
     ];
