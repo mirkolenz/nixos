@@ -9,6 +9,5 @@
       "--time-style=long-iso"
     ];
     git = true;
-    icons = false; # requires nerd fonts
   };
 }
