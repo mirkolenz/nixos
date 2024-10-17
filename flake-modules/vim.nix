@@ -35,7 +35,7 @@
     in
     {
       checks = {
-        inherit (config.packages) vim;
+        inherit (config.packages) vim-unstable vim-stable;
       };
       packages = {
         vim = config.packages.vim-unstable;
