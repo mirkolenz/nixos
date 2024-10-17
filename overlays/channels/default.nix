@@ -18,13 +18,12 @@ let
     };
   useChannel = channel: names: prev.lib.genAttrs names (name: final.${channel}.${name});
 
-  stablePkgs = import ./stable.nix;
-  unstablePkgs = import ./unstable.nix;
+  packages = import ./packages.nix;
 in
 (prev.lib.genAttrs [
   "stable"
   "unstable"
   "v2311"
 ] mkChannel)
-// (useChannel "stable" stablePkgs)
-// (useChannel "unstable" unstablePkgs)
+// (useChannel "stable" packages.stable)
+// (useChannel "unstable" packages.unstable)
