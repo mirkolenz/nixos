@@ -1,1 +1,4 @@
-{ ... }: { }
+{ ... }:
+{
+  systemd.enableStrictShellChecks = true;
+}
