@@ -98,7 +98,7 @@ let
         ${echo} "Usage: $0 URL" >&2
         exit 1
       fi
-      exec ${lib.getExe pkgs.nix} hash to-sri --type "sha256" "$(${lib.getExe' pkgs.nix "nix-prefetch-url"} "$1")"
+      exec ${lib.getExe pkgs.nix} hash convert --hash-algo sha256 --to sri "$(${lib.getExe' pkgs.nix "nix-prefetch-url"} "$1")"
     '';
     fetch-sri-str = ''
       if [ "$#" -lt 1 ]; then
