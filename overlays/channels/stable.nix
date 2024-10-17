@@ -1,5 +1,4 @@
 [
   "dvc"
-  "php"
-  "tectonic"
+  "nodejs_22"
 ]
