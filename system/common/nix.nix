@@ -24,11 +24,9 @@ args@{
       trusted-substituters = config.nix.settings.substituters;
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
       experimental-features = [
-        "nix-command"
         "flakes"
         "impure-derivations"
-        "ca-derivations"
-        "repl-flake"
+        "nix-command"
       ];
       max-jobs = "auto";
       keep-going = true;
