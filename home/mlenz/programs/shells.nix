@@ -31,6 +31,7 @@ in
   programs.fish = {
     enable = true;
     # https://github.com/direnv/direnv/issues/614#issuecomment-744575699
+    # https://github.com/warpdotdev/Warp/issues/871#issuecomment-1639003331
     loginShellInit = ''
       set -q DIRENV_DIR
       and test -n "$DIRENV_DIR"
@@ -39,6 +40,10 @@ in
       ${fixNixProfile}
 
       source ${../files/iterm-shell-integration.fish}
+
+      if set -q SSH_TTY; and status is-interactive
+        printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
+      end
     '';
     functions = {
       fish_greeting = {
