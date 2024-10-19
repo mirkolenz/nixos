@@ -17,10 +17,6 @@
     defaultUserShell = pkgs.fish;
   };
 
-  # Currently produces an error on darwin
-  # https://github.com/LnL7/nix-darwin/issues/359
-  time.timeZone = "Europe/Berlin";
-
   programs = {
     git = {
       enable = true;
