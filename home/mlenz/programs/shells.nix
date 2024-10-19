@@ -39,8 +39,6 @@ in
 
       ${fixNixProfile}
 
-      source ${../files/iterm-shell-integration.fish}
-
       if set -q SSH_TTY; and status is-interactive
         printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
       end
