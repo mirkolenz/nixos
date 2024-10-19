@@ -10,6 +10,6 @@
           nixfmt.enable = true;
         };
       };
-      packages.treefmt = config.treefmt.build.wrapper;
+      packages.treefmt-nix = config.treefmt.build.wrapper;
     };
 }

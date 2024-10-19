@@ -11,6 +11,7 @@
       pkgs,
       system,
       lib,
+      config,
       ...
     }:
     {
@@ -19,9 +20,10 @@
         config = import ../nixpkgs-config.nix;
         overlays = import ../overlays specialModuleArgs;
       };
+      checks = config.packages;
       packages =
         {
-          inherit (pkgs) bibtexbrowser2cff bibtex2cff;
+          inherit (pkgs) bibtexbrowser2cff bibtex2cff hkknx;
         }
         // (lib.optionalAttrs pkgs.stdenv.isDarwin {
           inherit (pkgs) neovide-bin restic-browser-bin vimr-bin;
