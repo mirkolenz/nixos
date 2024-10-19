@@ -94,27 +94,27 @@ let
       exec sudo ${lib.getExe' pkgs.nix "nix-env"} --profile /nix/var/nix/profiles/system "$@"
     '';
     fetch-sri = ''
-      if [ "$#" -ne 1 ]; then
-        ${echo} "Usage: $0 URL" >&2
+      if [ "$#" -lt 1 ]; then
+        ${echo} "Usage: $0 NIX_PREFETCH_URL_ARGS..." >&2
         exit 1
       fi
-      exec ${lib.getExe pkgs.nix} hash convert --hash-algo sha256 --to sri "$(${lib.getExe' pkgs.nix "nix-prefetch-url"} "$1")"
+      exec ${lib.getExe pkgs.nix} hash convert --hash-algo sha256 --to sri "$(${lib.getExe' pkgs.nix "nix-prefetch-url"} "$@")"
     '';
     fetch-sri-str = ''
       if [ "$#" -lt 1 ]; then
-        ${echo} "Usage: $0 NIX_EVAL_ARGS..." >&2
+        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_URL_ARGS...]" >&2
         exit 1
       fi
-      ${lib.getExe cmds.fetch-sri} "$(${lib.getExe pkgs.nix} eval --raw "$@")"
+      ${lib.getExe cmds.fetch-sri} "$(${lib.getExe pkgs.nix} eval --raw "$1")" "''${@:2}"
     '';
     fetch-sri-attrs = ''
       if [ "$#" -lt 1 ]; then
-        ${echo} "Usage: $0 NIX_EVAL_ARGS..." >&2
+        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_URL_ARGS...]" >&2
         exit 1
       fi
-      exec ${lib.getExe pkgs.nix} eval --raw "$@" \
+      exec ${lib.getExe pkgs.nix} eval --raw "$1" \
        --apply "attrs: builtins.concatStringsSep \"\\n\" (builtins.attrValues (builtins.mapAttrs (name: value: value.url) attrs))" \
-       | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe cmds.fetch-sri}
+       | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe cmds.fetch-sri} "''${@:2}"
     '';
   };
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
