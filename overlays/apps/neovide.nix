@@ -21,20 +21,14 @@ mkApp rec {
     url = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-${platform}.dmg";
     hash = "sha256-zlQLwhdgly4za5KVDjKtQtV5yNtXY84zxRX4d/Qs4LQ=";
   };
-  # undmg cannot handle APFS dmg files, so we need to mount it manually
-  # unpackCmd = ''
-  #   /usr/bin/hdiutil mount "$curSrc/${pname}.dmg"
-  #   cp -R /Volumes/${pname}/${appname}.app .
-  #   /usr/bin/hdiutil unmount /Volumes/${pname}
-  # '';
   postInstall = ''
     mkdir -p "$out/bin"
     makeWrapper "$out/Applications/${appname}.app/Contents/MacOS/neovide" "$out/bin/${pname}"
   '';
-  meta = {
+  meta = with lib; {
     description = "No Nonsense Neovim Client in Rust";
     homepage = "https://neovide.dev";
     downloadPage = "https://github.com/neovide/neovide/releases";
-    license = with lib.licenses; [ mit ];
+    license = licenses.mit;
   };
 }

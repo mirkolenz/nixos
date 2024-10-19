@@ -5,12 +5,12 @@
 }:
 mkApp rec {
   pname = "vimr";
-  version = "0.48.0";
-  build = "20240727.082947";
+  version = "0.49.0";
+  build = "20241006.202133";
   appname = "VimR";
   src = fetchurl {
     url = "https://github.com/qvacua/vimr/releases/download/v${version}-${build}/${appname}-v${version}.tar.bz2";
-    hash = "sha256-0hkVEHODIzJ6iTpRaAlaqSjdi9Tlj7kN4tFOZ7RxkCg=";
+    hash = "sha256-b+BA4ABy/Wjsxnz9LQyR5ZEZOQGHk1Oiq03y2I6l9Vc=";
   };
   postInstall = ''
     mkdir -p "$out/bin"
