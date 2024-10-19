@@ -29,13 +29,23 @@ in
         forwardAgent = true;
         user = "lenz";
       };
-      "macpro homeserver" = {
+      "macpro-local" = {
         hostname = "10.16.2.22";
         forwardAgent = true;
         user = "mlenz";
       };
-      "raspi" = {
+      "raspi-local" = {
         hostname = "10.16.2.23";
+        forwardAgent = true;
+        user = "mlenz";
+      };
+      "macpro-tailscale" = {
+        hostname = "100.87.219.52";
+        forwardAgent = true;
+        user = "mlenz";
+      };
+      "raspi-tailscale" = {
+        hostname = "100.71.1.54";
         forwardAgent = true;
         user = "mlenz";
       };
