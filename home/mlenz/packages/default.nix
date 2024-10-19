@@ -44,6 +44,7 @@
     autorestic
     sqlite
     mkpasswd
+    icloudpd
     nixpkgs-review
     nix-output-monitor
     # json parsing

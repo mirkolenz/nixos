@@ -3,5 +3,7 @@
     "dvc"
     "nodejs_22"
   ];
-  unstable = [ ];
+  unstable = [
+    "icloudpd"
+  ];
 }
