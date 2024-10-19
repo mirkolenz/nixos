@@ -22,12 +22,9 @@
       };
       checks = config.packages;
       packages =
-        {
-          inherit (pkgs) bibtexbrowser2cff bibtex2cff hkknx;
-        }
-        // (lib.optionalAttrs pkgs.stdenv.isDarwin {
-          inherit (pkgs) neovide-bin restic-browser-bin vimr-bin;
-        });
+        pkgs.custom.common
+        // (lib.optionalAttrs pkgs.stdenv.isDarwin pkgs.custom.darwin)
+        // (lib.optionalAttrs pkgs.stdenv.isLinux pkgs.custom.linux);
     };
   flake = {
     lib = lib'.self;

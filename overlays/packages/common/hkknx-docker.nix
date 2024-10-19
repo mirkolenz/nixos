@@ -4,7 +4,7 @@
   cacert,
   tzdata,
   coreutils,
-  hkknx,
+  hkknx-bin,
 }:
 let
   mkCliOptions = lib.cli.toGNUCommandLine rec {
@@ -33,5 +33,5 @@ dockerTools.buildLayeredImage {
   extraCommands = ''
     ${coreutils}/bin/mkdir -m 1777 tmp
   '';
-  config.entrypoint = [ (lib.getExe hkknx) ] ++ defaultOptions;
+  config.entrypoint = [ (lib.getExe hkknx-bin) ] ++ defaultOptions;
 }
