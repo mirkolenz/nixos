@@ -6,6 +6,6 @@
 {
   custom.neovim = {
     enable = true;
-    package = pkgs."vim-${channel}";
+    package = pkgs."nixvim-${channel}";
   };
 }

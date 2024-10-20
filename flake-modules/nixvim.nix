@@ -8,9 +8,9 @@
 }:
 {
   perSystem =
-    { system, config, ... }:
-    let
-      mkVim =
+    { system, ... }:
+    {
+      legacyPackages.mkNixvim =
         channel:
         let
           os = lib'.self.systemOs system;
@@ -32,12 +32,5 @@
             _module.args = moduleArgs;
           };
         };
-    in
-    {
-      packages = {
-        vim = config.packages.vim-unstable;
-        vim-unstable = mkVim "unstable";
-        vim-stable = mkVim "stable";
-      };
     };
 }
