@@ -4,8 +4,27 @@
   lib',
   ...
 }:
+let
+  nixpkgsArgs = {
+    config = {
+      allowUnfree = true;
+      nvidia.acceptLicense = true;
+    };
+  };
+in
 {
   _module.args = {
+    nixpkgsArgs = nixpkgsArgs // {
+      overlays = import ../overlays {
+        inherit
+          self
+          inputs
+          lib'
+          nixpkgsArgs
+          ;
+      };
+    };
+
     # available during import
     specialModuleArgs = {
       inherit self inputs lib';

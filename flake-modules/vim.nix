@@ -2,6 +2,7 @@
   inputs,
   specialModuleArgs,
   moduleArgs,
+  nixpkgsArgs,
   lib',
   ...
 }:
@@ -9,10 +10,10 @@
   perSystem =
     { system, config, ... }:
     let
-      os = lib'.self.systemOs system;
       mkVim =
         channel:
         let
+          os = lib'.self.systemOs system;
           nixvim = lib'.self.systemInput {
             inherit inputs channel os;
             name = "nixvim";
@@ -21,8 +22,7 @@
         nixvim.legacyPackages.${system}.makeNixvimWithModule {
           pkgs = import nixvim.inputs.nixpkgs {
             inherit system;
-            config = import ../nixpkgs-config.nix;
-            overlays = import ../overlays specialModuleArgs;
+            inherit (nixpkgsArgs) config overlays;
           };
           extraSpecialArgs = specialModuleArgs // {
             inherit channel os;

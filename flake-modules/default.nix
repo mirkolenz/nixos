@@ -1,7 +1,7 @@
 {
   lib',
   inputs,
-  specialModuleArgs,
+  nixpkgsArgs,
   ...
 }:
 {
@@ -17,14 +17,13 @@
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
-        config = import ../nixpkgs-config.nix;
-        overlays = import ../overlays specialModuleArgs;
+        inherit (nixpkgsArgs) config overlays;
       };
       checks = config.packages;
       packages =
-        pkgs.custom.common
-        // (lib.optionalAttrs pkgs.stdenv.isDarwin pkgs.custom.darwin)
-        // (lib.optionalAttrs pkgs.stdenv.isLinux pkgs.custom.linux);
+        (lib'.self.filterAttrsByPlatform system (lib.platforms.darwin ++ lib.platforms.linux) pkgs.custom)
+        // (lib'.self.filterAttrsByPlatform system lib.platforms.darwin pkgs.custom)
+        // (lib'.self.filterAttrsByPlatform system lib.platforms.linux pkgs.custom);
     };
   flake = {
     lib = lib'.self;

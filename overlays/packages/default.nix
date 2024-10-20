@@ -1,12 +1,17 @@
-{ inputs, ... }@args:
+{ inputs, self, ... }:
 final: prev:
 let
   customPackages = {
-    common = import ./common args final prev;
-    darwin = import ./darwin args final prev;
-    linux = { };
+    bibtex2cff = final.callPackage ./bibtex2cff.nix { };
+    bibtexbrowser = final.callPackage ./bibtexbrowser.nix { };
+    bibtexbrowser2cff = final.callPackage ./bibtexbrowser2cff.nix { };
+    hkknx-bin = final.callPackage ./hkknx.nix { };
+    hkknx-docker = final.callPackage ./hkknx-docker.nix { };
+    neovide-bin = final.callPackage ./neovide.nix { };
+    vimr-bin = final.callPackage ./vimr.nix { };
+    restic-browser-bin = final.callPackage ./restic-browser.nix { };
   };
-  inherit (final) system;
+  inherit (final.stdenv.hostPlatform) system;
   getPkg = input: inputs.${input}.packages.${system}.default;
 in
 {
@@ -17,7 +22,6 @@ in
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };
+  inherit (self.packages.${system}) vim-stable vim-unstable;
 }
-// customPackages.common
-// customPackages.linux
-// customPackages.darwin
+// customPackages

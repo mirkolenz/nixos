@@ -1,4 +1,9 @@
-{ inputs, lib', ... }:
+{
+  inputs,
+  lib',
+  nixpkgsArgs,
+  ...
+}:
 final: prev:
 let
   inherit (final.pkgs) system;
@@ -14,7 +19,7 @@ let
     in
     import nixpkgs {
       inherit system;
-      config = import ../../nixpkgs-config.nix;
+      inherit (nixpkgsArgs) config;
     };
   useChannel = channel: names: prev.lib.genAttrs names (name: final.${channel}.${name});
 

@@ -3,7 +3,6 @@
   dockerTools,
   cacert,
   tzdata,
-  coreutils,
   hkknx-bin,
 }:
 let
@@ -31,7 +30,7 @@ dockerTools.buildLayeredImage {
   ];
   # create /tmp for backup feature to work
   extraCommands = ''
-    ${coreutils}/bin/mkdir -m 1777 tmp
+    mkdir -m 1777 tmp
   '';
   config.entrypoint = [ (lib.getExe hkknx-bin) ] ++ defaultOptions;
 }

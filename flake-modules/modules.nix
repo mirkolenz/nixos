@@ -1,13 +1,10 @@
 {
   specialModuleArgs,
   moduleArgs,
+  nixpkgsArgs,
   ...
 }:
 let
-  nixpkgs = {
-    config = import ../nixpkgs-config.nix;
-    overlays = import ../overlays specialModuleArgs;
-  };
   homeModule = {
     imports = [
       ../home/mlenz
@@ -21,7 +18,7 @@ in
     home =
       { pkgs, ... }:
       {
-        inherit nixpkgs;
+        nixpkgs = nixpkgsArgs;
         _module.args.osConfig = { };
         imports = [ homeModule ];
         targets.genericLinux.enable = pkgs.stdenv.isLinux;
@@ -30,7 +27,7 @@ in
     system =
       { channel, os, ... }:
       {
-        inherit nixpkgs;
+        nixpkgs = nixpkgsArgs;
         _module.args = moduleArgs;
         home-manager = {
           backupFileExtension = "backup";
