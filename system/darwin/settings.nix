@@ -77,6 +77,7 @@
         "/Applications/Visual Studio Code.app"
         "/Applications/Zed.app"
         "/Applications/iTerm.app"
+        "/Applications/Warp.app"
         "/Applications/Tower.app"
         "/Applications/OrbStack.app"
         "/Applications/Zotero.app"
