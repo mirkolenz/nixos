@@ -16,4 +16,31 @@ lib: rec {
     lib.optionalAttrs (lib.elem system platforms) (
       lib.filterAttrs (_: pkg: setEqual (pkg.meta.platforms or [ ]) platforms) pkgs
     );
+  mkRegistry =
+    {
+      channel,
+      inputs,
+      os,
+    }:
+    {
+      stable.flake = systemInput {
+        inherit inputs os;
+        channel = "stable";
+        name = "nixpkgs";
+      };
+      unstable.flake = systemInput {
+        inherit inputs os;
+        channel = "unstable";
+        name = "nixpkgs";
+      };
+      pkgs.flake = systemInput {
+        inherit inputs os channel;
+        name = "nixpkgs";
+      };
+      nixpkgs.flake = systemInput {
+        inherit inputs os channel;
+        name = "nixpkgs";
+      };
+      self.flake = inputs.self;
+    };
 }

@@ -1,12 +1,16 @@
-args@{
+{
   pkgs,
   lib,
   osConfig,
+  os,
+  channel,
+  inputs,
+  lib',
   ...
 }:
 {
   nix = lib.mkIf (osConfig == { }) {
     package = pkgs.nix;
-    registry = import ../../registry.nix args;
+    registry = lib'.self.mkRegistry { inherit inputs os channel; };
   };
 }

@@ -1,7 +1,10 @@
-args@{
-  pkgs,
+{
   user,
   config,
+  inputs,
+  lib',
+  os,
+  channel,
   ...
 }:
 {
@@ -47,7 +50,7 @@ args@{
       options = "--delete-older-than 7d";
     };
     optimise.automatic = true;
-    registry = import ../../registry.nix args;
+    registry = lib'.self.mkRegistry { inherit inputs os channel; };
     channel.enable = false;
   };
 }
