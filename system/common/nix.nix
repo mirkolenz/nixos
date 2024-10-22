@@ -9,7 +9,6 @@
 }:
 {
   nix = {
-    package = pkgs.nix;
     extraOptions = ''
       !include nix.local.conf
     '';
@@ -22,7 +21,6 @@
         "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
-      # always-allow-substitutes = true;
       trusted-substituters = config.nix.settings.substituters ++ [
         "https://mirkolenz.cachix.org"
       ];
@@ -44,7 +42,6 @@
       builders-use-substitutes = true;
       warn-dirty = false;
       accept-flake-config = true;
-      # bash-prompt-prefix = ''(nix:$name)\040'';
     };
     gc = {
       automatic = true;

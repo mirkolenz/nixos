@@ -36,6 +36,10 @@
     };
     systems.url = "github:nix-systems/default";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    determinate = {
+      url = "github:determinatesystems/determinate";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -33,7 +33,8 @@ let
       modules = [
         extraModule
         self.configModules.system
-        homeManager.darwinModules.home-manager
+        homeManager.darwinModules.default
+        inputs.determinate.darwinModules.default
         ../system/darwin
         ../hosts/${hostName}
         {

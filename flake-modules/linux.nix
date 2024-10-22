@@ -32,7 +32,8 @@ let
       modules = [
         extraModule
         self.configModules.system
-        homeManager.nixosModules.home-manager
+        homeManager.nixosModules.default
+        inputs.determinate.nixosModules.default
         ../system/linux
         ../hosts/${hostName}
         { networking.hostName = hostName; }
