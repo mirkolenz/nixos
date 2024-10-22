@@ -59,14 +59,6 @@ in
       };
     };
   };
-  # https://github.com/nix-community/home-manager/issues/322#issuecomment-1856128020
-  # home.file.".ssh/config" = {
-  #   target = ".ssh/config_source";
-  #   onChange = ''
-  #     cp -f ${config.home.homeDirectory}/.ssh/config_source ${config.home.homeDirectory}/.ssh/config
-  #     chmod 400 ${config.home.homeDirectory}/.ssh/config
-  #   '';
-  # };
   # https://developer.1password.com/docs/ssh/agent/config
   xdg.configFile."1Password/ssh/agent.toml" =
     lib.mkIf (osConfig.programs._1password-gui.enable or false)
