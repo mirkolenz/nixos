@@ -39,12 +39,12 @@ in
         forwardAgent = true;
         user = "mlenz";
       };
-      "macpro-tailscale" = {
+      "macpro-tailscale macpro" = {
         hostname = "100.87.219.52";
         forwardAgent = true;
         user = "mlenz";
       };
-      "raspi-tailscale" = {
+      "raspi-tailscale raspi" = {
         hostname = "100.71.1.54";
         forwardAgent = true;
         user = "mlenz";
