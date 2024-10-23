@@ -47,6 +47,7 @@
     icloudpd
     nixpkgs-review
     nix-output-monitor
+    rlwrap
     # json parsing
     jaq
     jq
