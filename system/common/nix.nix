@@ -20,9 +20,12 @@
       trusted-public-keys = [
         "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nixbuild.net/BMAQHF-1:Q4LUtdLL0mXTO1Cs5jhcOKDZQUVlNA0u3QItwZ6uyq0="
       ];
       trusted-substituters = config.nix.settings.substituters ++ [
         "https://mirkolenz.cachix.org"
+        "ssh://eu.nixbuild.net"
+
       ];
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
       experimental-features = [
