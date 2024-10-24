@@ -3,17 +3,10 @@
 
   # state folder: ~/.local/share/nix/trusted-settings.json
   nixConfig = {
-    # also change in ./system/common/nix.nix
-    extra-experimental-features = [
-      "flakes"
-      "impure-derivations"
-      "nix-command"
-    ];
     extra-substituters = [
       "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
