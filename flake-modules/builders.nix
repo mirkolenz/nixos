@@ -3,19 +3,16 @@
   perSystem =
     {
       pkgs,
-      system,
       config,
       ...
     }:
     let
       systemBuilder =
         if pkgs.stdenv.isDarwin then
-          lib.getExe' inputs.nix-darwin-unstable.packages.${system}.default "darwin-rebuild"
+          lib.getExe' pkgs.darwin-rebuild "darwin-rebuild"
         else
           lib.getExe pkgs.nixos-rebuild;
-      homeBuilder =
-        lib.getExe' inputs.home-manager-linux-unstable.packages.${system}.default
-          "home-manager";
+      homeBuilder = lib.getExe pkgs.home-manager;
     in
     {
       packages = {

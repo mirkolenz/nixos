@@ -50,13 +50,6 @@ in
     checks.x86_64-darwin = {
       mirkos-macbook = self.darwinConfigurations.mirkos-macbook.config.system.build.toplevel;
     };
-    perSystem =
-      { system, ... }:
-      {
-        packages = {
-          inherit (inputs.nix-darwin-unstable.packages.${system}) darwin-uninstaller;
-        };
-      };
     darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
       mirkos-macbook = {
         channel = "unstable";
