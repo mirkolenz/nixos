@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation (
     installPhase = ''
       runHook preInstall
 
-      mkdir -p "$out/Applications/${appname}.app"
+      mkdir -p "$out/Applications/${appname}.app" "$out/bin"
       cp -R . "$out/Applications/${appname}.app"
 
       runHook postInstall

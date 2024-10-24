@@ -13,7 +13,6 @@ mkApp rec {
     hash = "sha256-b+BA4ABy/Wjsxnz9LQyR5ZEZOQGHk1Oiq03y2I6l9Vc=";
   };
   postInstall = ''
-    mkdir -p "$out/bin"
     makeWrapper "$out/Applications/${appname}.app/Contents/Resources/vimr" "$out/bin/${pname}"
   '';
   meta = {

@@ -22,7 +22,6 @@ mkApp rec {
     hash = "sha256-zlQLwhdgly4za5KVDjKtQtV5yNtXY84zxRX4d/Qs4LQ=";
   };
   postInstall = ''
-    mkdir -p "$out/bin"
     makeWrapper "$out/Applications/${appname}.app/Contents/MacOS/neovide" "$out/bin/${pname}"
   '';
   meta = with lib; {
