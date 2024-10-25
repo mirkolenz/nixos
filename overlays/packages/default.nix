@@ -8,6 +8,7 @@ let
     hkknx-bin = final.callPackage ./hkknx.nix { };
     hkknx-docker = final.callPackage ./hkknx-docker.nix { };
     neovide-bin = final.callPackage ./neovide.nix { };
+    pam-watchid = final.callPackage ./pam-watchid.nix { };
     restic-browser-bin = final.callPackage ./restic-browser.nix { };
     vimr-bin = final.callPackage ./vimr.nix { };
   };
