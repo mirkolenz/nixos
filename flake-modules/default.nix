@@ -14,6 +14,11 @@
       config,
       ...
     }:
+    let
+      inherit (lib'.self) filterAttrsByPlatform;
+      inherit (lib.platforms) darwin linux;
+      filterPkgsByPlatform = platforms: filterAttrsByPlatform system platforms pkgs.flake-exposed;
+    in
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
@@ -21,9 +26,9 @@
       };
       checks = config.packages;
       packages =
-        (lib'.self.filterAttrsByPlatform system (lib.platforms.darwin ++ lib.platforms.linux) pkgs.custom)
-        // (lib'.self.filterAttrsByPlatform system lib.platforms.darwin pkgs.custom)
-        // (lib'.self.filterAttrsByPlatform system lib.platforms.linux pkgs.custom)
+        (filterPkgsByPlatform (darwin ++ linux))
+        // (filterPkgsByPlatform darwin)
+        // (filterPkgsByPlatform linux)
         // {
           inherit (pkgs)
             home-manager
