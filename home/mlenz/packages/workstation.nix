@@ -17,7 +17,6 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     fontforge
     unpaper
     buf
-    dvc
     gomplate
     grpcui
     mqttui
