@@ -21,6 +21,7 @@ mkApp rec {
     url = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-${platform}.dmg";
     hash = "sha256-zlQLwhdgly4za5KVDjKtQtV5yNtXY84zxRX4d/Qs4LQ=";
   };
+  sourceRoot = ".";
   wrapperPath = "Contents/MacOS/${pname}";
   meta = with lib; {
     description = "No Nonsense Neovim Client in Rust";
