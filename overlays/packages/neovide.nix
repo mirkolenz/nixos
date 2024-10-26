@@ -17,11 +17,13 @@ mkApp rec {
   pname = "neovide";
   version = "0.13.3";
   appname = "Neovide";
+  sourceRoot = "${appname}.app";
   src = fetchurl {
     url = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-${platform}.dmg";
     hash = "sha256-zlQLwhdgly4za5KVDjKtQtV5yNtXY84zxRX4d/Qs4LQ=";
   };
   postInstall = ''
+    mkdir -p "$out/bin"
     makeWrapper "$out/Applications/${appname}.app/Contents/MacOS/neovide" "$out/bin/${pname}"
   '';
   meta = with lib; {

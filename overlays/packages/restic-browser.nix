@@ -7,6 +7,7 @@ mkApp rec {
   pname = "restic-browser";
   version = "0.3.1";
   appname = "Restic-Browser";
+  sourceRoot = "${appname}.app";
   src = fetchzip {
     url = "https://github.com/emuell/restic-browser/releases/download/v${version}/${appname}-v${version}-macOS.zip";
     hash = "sha256-KYxf+dtpmenJLc7/9QeB8Q5d6+jdqVqjRIGfLc+KUiY=";

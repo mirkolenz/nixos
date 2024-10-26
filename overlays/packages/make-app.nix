@@ -1,6 +1,5 @@
 {
   stdenvNoCC,
-  unzip,
   undmg,
   makeWrapper,
   lib,
@@ -18,18 +17,16 @@ stdenvNoCC.mkDerivation (
       "unpackPhase"
       "installPhase"
     ];
-    sourceRoot = "${appname}.app";
     installPhase = ''
       runHook preInstall
 
-      mkdir -p "$out/Applications/${appname}.app" "$out/bin"
+      mkdir -p "$out/Applications/${appname}.app"
       cp -R . "$out/Applications/${appname}.app"
 
       runHook postInstall
     '';
     # all of the following attributes need to removed from args
     nativeBuildInputs = nativeBuildInputs ++ [
-      unzip
       undmg
       makeWrapper
     ];

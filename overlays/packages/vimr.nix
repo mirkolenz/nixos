@@ -1,18 +1,21 @@
 {
   mkApp,
   lib,
-  fetchurl,
+  fetchzip,
 }:
 mkApp rec {
   pname = "vimr";
   version = "0.49.0";
   build = "20241006.202133";
   appname = "VimR";
-  src = fetchurl {
+  sourceRoot = "${src.name}/${appname}.app";
+  src = fetchzip {
     url = "https://github.com/qvacua/vimr/releases/download/v${version}-${build}/${appname}-v${version}.tar.bz2";
-    hash = "sha256-b+BA4ABy/Wjsxnz9LQyR5ZEZOQGHk1Oiq03y2I6l9Vc=";
+    hash = "sha256-aQjyENqRPBhgk6cPQCvhjl8hRWjmsJ++zhDgv7ot5o8=";
+    stripRoot = false;
   };
   postInstall = ''
+    mkdir -p "$out/bin"
     makeWrapper "$out/Applications/${appname}.app/Contents/Resources/vimr" "$out/bin/${pname}"
   '';
   meta = {
