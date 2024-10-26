@@ -16,10 +16,10 @@ mkApp rec {
       rm "$out/${appname}.app.tar"
     '';
   };
-  meta = {
+  meta = with lib; {
     description = "A GUI to browse and restore restic backup repositories.";
     homepage = "https://github.com/emuell/restic-browser";
     downloadPage = "https://github.com/emuell/restic-browser/releases";
-    license = with lib.licenses; [ mit ];
+    license = licenses.mit;
   };
 }

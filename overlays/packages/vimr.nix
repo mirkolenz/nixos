@@ -14,10 +14,10 @@ mkApp rec {
     stripRoot = false;
   };
   wrapperPath = "Contents/Resources/${pname}";
-  meta = {
+  meta = with lib; {
     description = "Neovim GUI for macOS in Swift";
     homepage = "https://github.com/qvacua/vimr";
     downloadPage = "https://github.com/qvacua/vimr/releases";
-    license = with lib.licenses; [ mit ];
+    license = licenses.mit;
   };
 }
