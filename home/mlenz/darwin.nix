@@ -9,6 +9,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     mas
     neovide-bin
     vimr-bin
+    goneovim-bin
     restic-browser-bin
     (writeShellApplication {
       name = "scansnap-reset";
