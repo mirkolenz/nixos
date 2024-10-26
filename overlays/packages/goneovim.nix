@@ -16,7 +16,6 @@ mkApp rec {
   pname = "goneovim";
   version = "0.6.9";
   appname = pname;
-  sourceRoot = "${src.name}/${appname}.app";
   src = fetchzip {
     url = "https://github.com/akiyosi/goneovim/releases/download/v${version}/${pname}-v${version}-${platform}.tar.bz2";
     hash = "sha256-fIFoViBMwW0JRSUlVZgNwrcg1/Mb2iozD1bwm8QVz7U=";

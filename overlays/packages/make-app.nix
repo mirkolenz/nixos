@@ -1,6 +1,7 @@
 {
   stdenvNoCC,
   undmg,
+  unzip,
   makeWrapper,
   lib,
 }:
@@ -21,8 +22,8 @@ stdenvNoCC.mkDerivation (
     installPhase = ''
       runHook preInstall
 
-      mkdir -p "$out/Applications/${appname}.app"
-      cp -R . "$out/Applications/${appname}.app"
+      mkdir -p "$out/Applications"
+      cp -R "${appname}.app" "$out/Applications"
 
       ${lib.optionalString (wrapperPath != "") ''
         mkdir -p "$out/bin"
@@ -32,10 +33,12 @@ stdenvNoCC.mkDerivation (
       runHook postInstall
     '';
     # all of the following attributes need to removed from args
-    nativeBuildInputs = nativeBuildInputs ++ [
-      undmg
-      makeWrapper
-    ];
+    nativeBuildInputs =
+      nativeBuildInputs
+      ++ [
+        undmg
+      ]
+      ++ (lib.optional (wrapperPath != "") makeWrapper);
     meta =
       with lib;
       {
