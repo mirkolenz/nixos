@@ -9,6 +9,7 @@ args@{
   appname ? pname,
   meta ? { },
   nativeBuildInputs ? [ ],
+  wrapperPath ? "",
   ...
 }:
 stdenvNoCC.mkDerivation (
@@ -22,6 +23,11 @@ stdenvNoCC.mkDerivation (
 
       mkdir -p "$out/Applications/${appname}.app"
       cp -R . "$out/Applications/${appname}.app"
+
+      ${lib.optionalString (wrapperPath != "") ''
+        mkdir -p "$out/bin"
+        makeWrapper "$out/Applications/${appname}.app/${wrapperPath}" "$out/bin/${pname}"
+      ''}
 
       runHook postInstall
     '';

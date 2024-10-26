@@ -14,10 +14,7 @@ mkApp rec {
     hash = "sha256-aQjyENqRPBhgk6cPQCvhjl8hRWjmsJ++zhDgv7ot5o8=";
     stripRoot = false;
   };
-  postInstall = ''
-    mkdir -p "$out/bin"
-    makeWrapper "$out/Applications/${appname}.app/Contents/Resources/vimr" "$out/bin/${pname}"
-  '';
+  wrapperPath = "Contents/Resources/${pname}";
   meta = {
     description = "Neovim GUI for macOS in Swift";
     homepage = "https://github.com/qvacua/vimr";
