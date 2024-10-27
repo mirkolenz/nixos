@@ -61,7 +61,8 @@
         "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
-        "/Applications/Arc.app"
+        "/Applications/Safari.app"
+        "/Applications/Google Chrome.app"
         "/Applications/Reeder.app"
         "/Applications/Raindrop.io.app"
         "/Applications/1Password.app"
@@ -91,6 +92,7 @@
     };
     finder = {
       _FXShowPosixPathInTitle = false;
+      _FXSortFoldersFirst = true;
       AppleShowAllExtensions = true;
       AppleShowAllFiles = false;
       CreateDesktop = true;
@@ -179,10 +181,11 @@
       AppleMeasurementUnits = "Centimeters";
       AppleMetricUnits = 1;
       ApplePressAndHoldEnabled = false;
+      AppleScrollerPagingBehavior = true;
       AppleShowAllExtensions = true;
       AppleShowAllFiles = false;
       AppleShowScrollBars = "WhenScrolling";
-      AppleScrollerPagingBehavior = true;
+      AppleSpacesSwitchOnActivate = true;
       AppleTemperatureUnit = "Celsius";
       AppleWindowTabbingMode = "always";
       InitialKeyRepeat = 15; # slider values: 120, 94, 68, 35, 25, 15
