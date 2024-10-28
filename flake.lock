@@ -1477,7 +1477,6 @@
         "nixvim-linux-unstable": "nixvim-linux-unstable",
         "poetry2nix": "poetry2nix",
         "systems": "systems_8",
-        "texmf": "texmf",
         "treefmt-nix": "treefmt-nix_7",
         "vscode-server": "vscode-server"
       }
@@ -1613,22 +1612,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "texmf": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1715764087,
-        "narHash": "sha256-6yM1eNshsOPiFVU0fv1OLAsISwmHVdpxTj+xZ7jUjUo=",
-        "owner": "mirkolenz",
-        "repo": "texmf",
-        "rev": "05e7b3d3a39fc1d069d19bc3472eb089fa5bc8b5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mirkolenz",
-        "repo": "texmf",
         "type": "github"
       }
     },

@@ -103,10 +103,6 @@
       inputs.poetry2nix.follows = "poetry2nix";
       inputs.flocken.follows = "flocken";
     };
-    texmf = {
-      url = "github:mirkolenz/texmf";
-      flake = false;
-    };
     custom-caddy = {
       url = "github:mirkolenz/caddy";
       inputs.nixpkgs.follows = "nixpkgs";

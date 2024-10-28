@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 lib.mkIf pkgs.stdenv.isDarwin {
@@ -50,17 +49,6 @@ lib.mkIf pkgs.stdenv.isDarwin {
           "mirkolenz"
           "Argumentgraph"
         ];
-  };
-  custom.texlive = {
-    enable = true;
-    package =
-      let
-        prPkgs = import inputs.nixpkgs-texlive {
-          inherit (pkgs) system;
-        };
-      in
-      prPkgs.texliveFull;
-    bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
   };
   home.sessionVariables = {
     EDITOR = "code -w";
