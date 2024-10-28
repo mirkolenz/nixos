@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 lib.mkIf pkgs.stdenv.isDarwin {
@@ -52,7 +53,13 @@ lib.mkIf pkgs.stdenv.isDarwin {
   };
   custom.texlive = {
     enable = true;
-    package = pkgs.v2311.texliveFull;
+    package =
+      let
+        prPkgs = import inputs.nixpkgs-texlive {
+          inherit (pkgs) system;
+        };
+      in
+      prPkgs.texliveFull;
     bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
   };
   home.sessionVariables = {

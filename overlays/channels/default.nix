@@ -28,7 +28,6 @@ in
 (prev.lib.genAttrs [
   "stable"
   "unstable"
-  "v2311"
 ] mkChannel)
 // (useChannel "stable" packages.stable)
 // (useChannel "unstable" packages.unstable)

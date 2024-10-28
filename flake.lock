@@ -1155,22 +1155,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-darwin-v2311": {
-      "locked": {
-        "lastModified": 1714995731,
-        "narHash": "sha256-f9ZM5BGwiaHiQPZd0V+Ds98dBUpss5qxLjtX7809l5Q=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "e13f3602fb31a0985f212ae75d4aadda17ad8c85",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "e13f3602fb31a0985f212ae75d4aadda17ad8c85",
-        "type": "github"
-      }
-    },
     "nixpkgs-linux-stable": {
       "locked": {
         "lastModified": 1729973466,
@@ -1203,22 +1187,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-linux-v2311": {
-      "locked": {
-        "lastModified": 1720535198,
-        "narHash": "sha256-zwVvxrdIzralnSbcpghA92tWu2DV2lwv89xZc8MTrbg=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "205fd4226592cc83fd4c0885a3e4c9c400efabb5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-23.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -1232,6 +1200,22 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
+        "type": "github"
+      }
+    },
+    "nixpkgs-texlive": {
+      "locked": {
+        "lastModified": 1730099334,
+        "narHash": "sha256-FbSPe2tsXjfqX0Wq66ch66RKo8/nOKkmuRuH/eqQhD4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "010fc8eb9a0ec2dc3c13035ed44d6c793857b579",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "pull/351790/merge",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -1484,10 +1468,9 @@
         "nixpkgs-darwin-unstable": [
           "nixpkgs"
         ],
-        "nixpkgs-darwin-v2311": "nixpkgs-darwin-v2311",
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
-        "nixpkgs-linux-v2311": "nixpkgs-linux-v2311",
+        "nixpkgs-texlive": "nixpkgs-texlive",
         "nixvim-darwin-stable": "nixvim-darwin-stable",
         "nixvim-darwin-unstable": "nixvim-darwin-unstable",
         "nixvim-linux-stable": "nixvim-linux-stable",
