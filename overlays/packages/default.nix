@@ -14,13 +14,12 @@ let
     vimr-bin = final.callPackage ./vimr.nix { };
   };
   inherit (final.stdenv.hostPlatform) system;
-  getPkg = input: inputs.${input}.packages.${system}.default;
 in
 {
   flake-exposed = flakeExposed;
-  arguebuf = getPkg "arguebuf";
-  custom-caddy = getPkg "custom-caddy";
-  custom-caddy-docker = inputs.custom-caddy.packages.${system}.docker;
+  arguebuf = inputs.arguebuf.packages.${system}.default;
+  custom-caddy = inputs.caddy.packages.${system}.default;
+  custom-caddy-docker = inputs.caddy.packages.${system}.docker;
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };

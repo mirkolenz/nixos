@@ -103,7 +103,7 @@
       inputs.poetry2nix.follows = "poetry2nix";
       inputs.flocken.follows = "flocken";
     };
-    custom-caddy = {
+    caddy = {
       url = "github:mirkolenz/caddy";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";

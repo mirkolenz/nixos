@@ -32,7 +32,7 @@
         "type": "github"
       }
     },
-    "custom-caddy": {
+    "caddy": {
       "inputs": {
         "flake-parts": [
           "flake-parts"
@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1729486253,
-        "narHash": "sha256-EeEHUkUfFqBC22kUvkrBn+1P4WRo2XcVRxHvx/6kAqQ=",
+        "lastModified": 1730084780,
+        "narHash": "sha256-oo/sbDTLRZv8sCriLNqKwsflqHDx2g3/fKiDWu8Ub3E=",
         "owner": "mirkolenz",
         "repo": "caddy",
-        "rev": "0b2346b8009b3fb5486f80dd5d039ba7a151a637",
+        "rev": "0a4b22b0f32111cd54de91a7dd2aab56aabf636f",
         "type": "github"
       },
       "original": {
@@ -1450,7 +1450,7 @@
     "root": {
       "inputs": {
         "arguebuf": "arguebuf",
-        "custom-caddy": "custom-caddy",
+        "caddy": "caddy",
         "determinate": "determinate",
         "flake-parts": "flake-parts_2",
         "flocken": "flocken",
