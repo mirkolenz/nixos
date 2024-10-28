@@ -29,23 +29,13 @@ in
         forwardAgent = true;
         user = "lenz";
       };
-      "macpro-local" = {
-        hostname = "10.16.2.22";
+      "macpro" = {
+        hostname = "macpro.lenz.casa";
         forwardAgent = true;
         user = "mlenz";
       };
-      "raspi-local" = {
-        hostname = "10.16.2.23";
-        forwardAgent = true;
-        user = "mlenz";
-      };
-      "macpro-tailscale macpro" = {
-        hostname = "100.87.219.52";
-        forwardAgent = true;
-        user = "mlenz";
-      };
-      "raspi-tailscale raspi" = {
-        hostname = "100.71.1.54";
+      "raspi" = {
+        hostname = "raspi.lenz.casa";
         forwardAgent = true;
         user = "mlenz";
       };
