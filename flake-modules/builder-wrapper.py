@@ -17,7 +17,7 @@ app = typer.Typer(add_completion=False)
 def run(
     ctx: typer.Context,
     builder: str,
-    pure: Annotated[bool, typer.Option("--pure/--impure")],
+    pure: Annotated[bool, typer.Option("--pure/--impure")] = False,
     operation: Annotated[
         str, typer.Option("--operation", "-o", "--mode", "-m")
     ] = "switch",
