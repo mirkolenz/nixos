@@ -15,7 +15,6 @@
       in
       prPkgs.texliveFull;
     bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
-    texmfFolder = "${config.home.homeDirectory}/Developer/mirkolenz/texmf";
     latexmkrc = ''
       # 1: pdflatex
       # 4: lualatex

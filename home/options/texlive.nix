@@ -77,11 +77,6 @@ in
         description = "Location of the bibliography files.";
       };
 
-      texmfFolder = lib.mkOption {
-        type = lib.types.str;
-        description = "Location of the texmf folder.";
-      };
-
       latexmkrc = lib.mkOption {
         type = lib.types.lines;
         description = "Content of the .latexmkrc file.";
@@ -160,7 +155,6 @@ in
       packages = lib.singleton cfg.package ++ cfg.extraPackages ++ (builtins.attrValues cmds);
       file = {
         ".latexmkrc".source = pkgs.writeText "latexmkrc" cfg.latexmkrc;
-        "texmf".source = cfg.texmfFolder;
       };
     };
   };
