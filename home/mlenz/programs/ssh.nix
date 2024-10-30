@@ -29,7 +29,7 @@ in
         forwardAgent = true;
         user = "lenz";
       };
-      "macpro" = {
+      "macpro homeserver" = {
         hostname = "macpro.lenz.casa";
         forwardAgent = true;
         user = "mlenz";
