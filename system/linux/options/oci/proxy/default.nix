@@ -7,6 +7,7 @@
 let
   cfg = config.custom.oci;
   proxyCfg = cfg.proxy;
+  proxyContainerCfg = cfg.containers.proxy;
 
   mkVirtualHost =
     {
@@ -175,12 +176,12 @@ in
     };
   };
   config = lib.mkIf (cfg.enable && proxyCfg.enable) {
-    custom.oci.containers.proxy = rec {
+    custom.oci.containers.proxy = {
       inherit (proxyCfg) enable;
 
       image = {
-        name = imageFile.imageName;
-        tag = imageFile.imageTag;
+        name = proxyContainerCfg.imageFile.imageName;
+        tag = proxyContainerCfg.imageFile.imageTag;
         registry = null;
       };
 
