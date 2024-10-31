@@ -10,26 +10,18 @@
     {
       pkgs,
       system,
-      lib,
       config,
       ...
     }:
-    let
-      inherit (lib'.self) filterAttrsByPlatform;
-      inherit (lib.platforms) darwin linux;
-      filterPkgsByPlatform = platforms: filterAttrsByPlatform system platforms pkgs.flake-exposed;
-    in
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
         inherit (nixpkgsArgs) config overlays;
       };
       checks = config.packages;
-      packages =
-        (filterPkgsByPlatform (darwin ++ linux))
-        // (filterPkgsByPlatform darwin)
-        // (filterPkgsByPlatform linux)
-        // {
+      packages = lib'.self.filterPackagePlatforms {
+        inherit system;
+        packages = pkgs.flake-exports // {
           inherit (pkgs)
             home-manager
             nixos-rebuild
@@ -37,6 +29,7 @@
             darwin-uninstaller
             ;
         };
+      };
     };
   flake = {
     lib = lib'.self;
