@@ -175,20 +175,17 @@ in
     };
   };
   config = lib.mkIf (cfg.enable && proxyCfg.enable) {
-    custom.oci.containers.proxy = {
+    custom.oci.containers.proxy = rec {
       inherit (proxyCfg) enable;
 
       image = {
-        name = lib.mkDefault "caddy";
-        registry = lib.mkDefault null;
-        tag = lib.mkDefault "latest";
+        name = imageFile.imageName;
+        tag = imageFile.imageTag;
+        registry = null;
       };
 
       imageFile = lib.mkDefault pkgs.custom-caddy-docker;
       # imageStream = lib.mkDefault pkgs.custom-caddy-docker.passthru.stream; # TODO: 24.11
-
-      # required due to our custom image file
-      update = lib.mkDefault "local";
 
       volumes =
         [

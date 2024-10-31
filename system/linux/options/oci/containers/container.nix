@@ -35,14 +35,14 @@ cfg:
 
             registry = mkOption {
               type = with types; nullOr str;
-              default = "docker.io";
               description = "The registry to pull the image from.";
+              example = "docker.io";
             };
 
             tag = mkOption {
               type = with types; str;
-              default = "latest";
               description = "The tag of the image to use.";
+              example = "latest";
             };
           };
         }
@@ -123,7 +123,7 @@ cfg:
 
     update = mkOption {
       type = with types; nullOr str;
-      default = "registry";
+      default = if config.imageFile == null && config.imageStream == null then "local" else "remote";
       description = "If not null, add the label `io.containers.autoupdate=VALUE` to the container.";
     };
 
