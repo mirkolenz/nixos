@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/bin
-    install -m755 -D $src/hkknx $out/bin/hkknx
+    install -m755 -D hkknx $out/bin/hkknx
 
     runHook postInstall
   '';
