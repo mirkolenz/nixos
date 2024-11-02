@@ -61,7 +61,7 @@
         "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
-        "/Applications/Safari.app"
+        "/System/Cryptexes/App/System/Applications/Safari.app"
         "/Applications/Google Chrome.app"
         "/Applications/Reeder.app"
         "/Applications/Raindrop.io.app"
