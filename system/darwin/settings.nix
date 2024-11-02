@@ -1,4 +1,4 @@
-{ ... }:
+{ user, ... }:
 {
   system.defaults = {
     CustomUserPreferences = {
@@ -56,13 +56,14 @@
       wvous-tl-corner = 1;
       wvous-tr-corner = 1;
       persistent-apps = [
-        "/Applications/Marta.app"
         "/Applications/DEVONthink 3.app"
         "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
         "/System/Cryptexes/App/System/Applications/Safari.app"
         "/Applications/Google Chrome.app"
+        "/Users/${user.login}/Applications/ChatGPT.app"
+        "/Users/${user.login}/Applications/Overleaf.app"
         "/Applications/Reeder.app"
         "/Applications/Raindrop.io.app"
         "/Applications/1Password.app"
