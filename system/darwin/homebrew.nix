@@ -99,7 +99,7 @@
       "handbrake"
       "ia-presenter"
       "iterm2"
-      # "jordanbaird-ice"
+      "jordanbaird-ice"
       "juxtacode"
       "mediathekview"
       "microsoft-teams"
