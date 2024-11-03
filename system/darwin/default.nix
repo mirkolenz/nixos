@@ -1,7 +1,7 @@
 {
   lib',
   pkgs,
-  stateVersionDarwin,
+  stateVersions,
   ...
 }:
 {
@@ -9,5 +9,5 @@
 
   environment.systemPackages = with pkgs; [ _1password ];
 
-  system.stateVersion = stateVersionDarwin;
+  system.stateVersion = stateVersions.darwin;
 }

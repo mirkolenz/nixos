@@ -32,8 +32,11 @@ in
 
     # can be overriden in module
     moduleArgs = {
-      stateVersion = "24.05";
-      stateVersionDarwin = 4;
+      stateVersions = {
+        linux = "24.05";
+        darwin = 4;
+        home = "24.05";
+      };
       user = {
         name = "Mirko Lenz";
         mail = "mirko@mirkolenz.com";

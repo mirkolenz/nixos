@@ -3,20 +3,18 @@
   lib',
   inputs,
   user,
-  stateVersion,
+  stateVersions,
   ...
 }:
-let
-  homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user.login}" else "/home/${user.login}";
-in
 {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
   ] ++ (lib'.flocken.getModules ./.);
 
   home = {
-    inherit homeDirectory stateVersion;
+    stateVersion = stateVersions.home;
     username = user.login;
+    homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user.login}" else "/home/${user.login}";
     sessionVariables = {
       DIRENV_LOG_FORMAT = "";
       HOMEBREW_AUTOREMOVE = "1";

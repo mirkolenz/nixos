@@ -2,7 +2,7 @@
   config,
   lib',
   pkgs,
-  stateVersion,
+  stateVersions,
   ...
 }:
 {
@@ -40,9 +40,7 @@
     printing.enable = false;
   };
 
-  system = {
-    inherit stateVersion;
-  };
+  system.stateVersion = stateVersions.linux;
 
   security = {
     sudo = {
