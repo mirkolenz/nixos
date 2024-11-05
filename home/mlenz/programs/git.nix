@@ -80,8 +80,7 @@
         fsmonitor = lib.mkIf pkgs.stdenv.isDarwin true; # not supported on linux
       };
       index = {
-        # TODO: otherwise, treefmt has the following error:
-        # failed to generate change set: failed to open git index: invalid checksum
+        # otherwise, treefmt has the following error: failed to generate change set: failed to open git index: invalid checksum
         skipHash = false;
       };
       feature = {
