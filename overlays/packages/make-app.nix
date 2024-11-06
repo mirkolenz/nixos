@@ -1,7 +1,6 @@
 {
   stdenvNoCC,
   undmg,
-  unzip,
   makeWrapper,
   lib,
 }:
