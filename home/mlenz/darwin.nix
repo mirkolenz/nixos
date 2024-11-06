@@ -11,6 +11,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     vimr-bin
     goneovim-bin
     restic-browser-bin
+    neohtop-bin
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''
