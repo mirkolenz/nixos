@@ -43,12 +43,11 @@ lib.mkIf pkgs.stdenv.isDarwin {
     #     inherit name path;
     #   }) binaries
     # );
-    "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".text =
-      lib.concatLines
-        [
-          "mirkolenz"
-          "Argumentgraph"
-        ];
+    # add entries to the local dictionary
+    "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".text = ''
+      mirkolenz
+      Argumentgraph
+    '';
   };
   home.sessionVariables = {
     EDITOR = "code -w";
