@@ -23,26 +23,18 @@ lib.mkIf pkgs.stdenv.isDarwin {
   # currently required for the following apps:
   # restic-browser, git guis, vim guis
   home.file = {
-    "bin".source =
-      let
-        binaries = {
+    "bin".source = pkgs.linkFarm "home-bin" (
+      lib.mapAttrsToList
+        (name: value: {
+          inherit name;
+          path = lib.getExe value;
+        })
+        {
           restic = pkgs.restic;
           git = config.programs.git.package;
           nvim = config.custom.neovim.package;
-        };
-        symbolicLinks = lib.mapAttrsToList (name: path: ''
-          ln -s "${lib.getBin path}/bin/${name}" "$out/${name}"
-        '') binaries;
-      in
-      pkgs.runCommand "home-bin" { } ''
-        mkdir -p "$out"
-        ${lib.concatLines symbolicLinks}
-      '';
-    # pkgs.linkFarm (
-    #   lib.mapAttrsToList (name: path: {
-    #     inherit name path;
-    #   }) binaries
-    # );
+        }
+    );
     # add entries to the local dictionary
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".text = ''
       mirkolenz
