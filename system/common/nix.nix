@@ -41,7 +41,7 @@
       # does not build on Linux
       # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
       allowed-users = [ user.login ];
-      log-lines = 25;
+      log-lines = 1000;
       builders-use-substitutes = true;
       warn-dirty = false;
       accept-flake-config = true;
