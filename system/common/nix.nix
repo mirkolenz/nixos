@@ -32,6 +32,8 @@
         "flakes"
         "impure-derivations"
         "nix-command"
+        "no-url-literals"
+        "pipe-operators"
       ];
       max-jobs = "auto";
       keep-going = true;
