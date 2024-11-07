@@ -1,11 +1,10 @@
 {
-  swift,
-  fetchFromGitHub,
-  stdenv,
   lib,
-  darwinMinVersionHook,
+  fetchFromGitHub,
+  swift,
+  swiftPackages,
 }:
-stdenv.mkDerivation {
+swiftPackages.stdenv.mkDerivation {
   name = "pam-watchid";
   src = fetchFromGitHub {
     owner = "biscuitehh";
@@ -20,18 +19,18 @@ stdenv.mkDerivation {
   #   rev = "2a40e98940a5fa2655a88432b7c970d3ebf6fc6a";
   #   hash = "sha256-lp88RXwN/WwIFaFnrG8aNA3HBVWDNCIfUnBLAtcaaHc=";
   # };
-  buildInputs = [ (darwinMinVersionHook "15.0") ];
   nativeBuildInputs = [ swift ];
-  patchPhase = ''
-    runHook prePatch
+  # needs macos 15, but swift failes with apple-sdk_15
+  # patchPhase = ''
+  #   runHook prePatch
 
-    substituteInPlace watchid-pam-extension.swift \
-      --replace-fail \
-      'return .deviceOwnerAuthenticationWithBiometricsOrWatch' \
-      'return .deviceOwnerAuthenticationWithBiometricsOrCompanion'
+  #   substituteInPlace watchid-pam-extension.swift \
+  #     --replace-fail \
+  #     'return .deviceOwnerAuthenticationWithBiometricsOrWatch' \
+  #     'return .deviceOwnerAuthenticationWithBiometricsOrCompanion'
 
-    runHook postPatch
-  '';
+  #   runHook postPatch
+  # '';
   buildPhase = ''
     runHook preBuild
 
