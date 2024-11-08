@@ -18,11 +18,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1731052076,
-        "narHash": "sha256-K/fQ7Qf338nWfA8anI5dGv/SGDHtd4NUJrT5jnGQmOQ=",
+        "lastModified": 1731055605,
+        "narHash": "sha256-9FOqPHep5IFq3/iaBLsgy6a1p9PxNprEPSBvQ9ZCiXA=",
         "owner": "recap-utr",
         "repo": "arguebuf-python",
-        "rev": "d187a6c9d5e20f82d50ab0443068aec6be7480af",
+        "rev": "610adf3ae8f1bff57d2410221ccbba4a3216015d",
         "type": "github"
       },
       "original": {
