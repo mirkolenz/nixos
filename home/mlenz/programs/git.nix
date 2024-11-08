@@ -5,6 +5,9 @@
   ...
 }:
 {
+  home.packages = with pkgs; [
+    git-annex
+  ];
   programs.gh = {
     enable = true;
     settings = {
