@@ -4,6 +4,20 @@
   config,
   ...
 }:
+let
+  mkLinkFarm =
+    {
+      name,
+      paths,
+      transform ? x: x,
+    }:
+    pkgs.linkFarm name (
+      lib.mapAttrsToList (name: value: {
+        inherit name;
+        path = transform value;
+      }) paths
+    );
+in
 lib.mkIf pkgs.stdenv.isDarwin {
   home.packages = with pkgs; [
     mas
@@ -24,35 +38,25 @@ lib.mkIf pkgs.stdenv.isDarwin {
   # currently required for the following apps:
   # restic-browser, git guis, vim guis
   home.file = {
-    "bin".source =
-      let
-        mkPaths = lib.mapAttrsToList (
-          name: value: {
-            inherit name;
-            path = lib.getExe value;
-          }
-        );
-      in
-      pkgs.linkFarm "home-bin" (mkPaths {
+    "bin".source = mkLinkFarm {
+      name = "home-bin";
+      paths = {
         restic = pkgs.restic;
         git = config.programs.git.package;
         nvim = config.custom.neovim.package;
-      });
+      };
+      transform = lib.getExe;
+    };
     # add libraries for desktop apps to ~/node_modules
     # currently required for the following apps:
     # vscode/prettier
-    "lib".source =
-      let
-        mkPaths = lib.mapAttrsToList (
-          name: value: {
-            inherit name;
-            path = "${lib.getLib value}/lib";
-          }
-        );
-      in
-      pkgs.linkFarm "home-lib" (mkPaths {
+    "lib".source = mkLinkFarm {
+      name = "home-lib";
+      paths = {
         prettier = pkgs.nodePackages.prettier;
-      });
+      };
+      transform = x: "${lib.getLib x}/lib";
+    };
     # add entries to the local dictionary
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".text = ''
       mirkolenz
