@@ -26,6 +26,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     goneovim-bin
     restic-browser-bin
     neohtop-bin
+    zigstar-multitool
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''

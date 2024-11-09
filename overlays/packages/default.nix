@@ -14,6 +14,7 @@ let
     pam-watchid = final.callPackage ./pam-watchid.nix { };
     restic-browser-bin = final.callPackage ./restic-browser.nix { };
     vimr-bin = final.callPackage ./vimr.nix { };
+    zigstar-multitool = final.callPackage ./zigstar-multitool.nix { };
   };
 in
 {
