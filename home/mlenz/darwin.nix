@@ -41,16 +41,18 @@ lib.mkIf pkgs.stdenv.isDarwin {
     # add libraries for desktop apps to ~/node_modules
     # currently required for the following apps:
     # vscode/prettier
-    "node_modules".source =
+    "lib".source =
       let
-        mkPaths = map (name: {
-          inherit name;
-          path = "${lib.getLib pkgs.nodePackages.${name}}/lib/node_modules/${name}";
-        });
+        mkPaths = lib.mapAttrsToList (
+          name: value: {
+            inherit name;
+            path = "${lib.getLib value}/lib";
+          }
+        );
       in
-      pkgs.linkFarm "home-node-modules" (mkPaths [
-        "prettier"
-      ]);
+      pkgs.linkFarm "home-lib" (mkPaths {
+        prettier = pkgs.nodePackages.prettier;
+      });
     # add entries to the local dictionary
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".text = ''
       mirkolenz
