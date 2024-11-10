@@ -5,5 +5,6 @@
   ];
   unstable = [
     "icloudpd"
+    "jujutsu"
   ];
 }
