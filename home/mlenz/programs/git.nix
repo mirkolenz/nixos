@@ -27,9 +27,6 @@
       color = "always";
       display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
     };
-    delta = {
-      enable = true;
-    };
     ignores = [
       # nix
       "/.direnv/"
