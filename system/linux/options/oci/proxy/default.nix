@@ -78,7 +78,7 @@ let
   '';
 
   Caddyfile-formatted =
-    pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ pkgs.custom-caddy ]; }
+    pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ pkgs.caddy ]; }
       ''
         mkdir -p $out
         cp --no-preserve=mode ${Caddyfile-raw}/Caddyfile $out/Caddyfile
