@@ -10,24 +10,24 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "hkknx";
-  version = "3.0.0";
+  version = "3.1.0";
 
   passthru.srcs = {
     x86_64-linux = {
       url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_amd64.tar.gz";
-      hash = "sha256-hL2Jpm2OA1yBH6ttoYY4F9W1t9UiV315l5FNsNyWzys=";
+      hash = "sha256-SQXBwqzcAA9z4+tyCF1tKdwpQqeGEIPPmPLUIwWM0B8=";
     };
     aarch64-linux = {
       url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_arm64.tar.gz";
-      hash = "sha256-Q+YjKV6qUdPK2GH9Ihq8LVSg1id4FT7yXoM/DpjAjmQ=";
+      hash = "sha256-UIhP+OMZYZ2tRG0a2IwXMH5s9bMoGGSr/nFe6X0uC+4=";
     };
     x86_64-darwin = {
       url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_amd64.tar.gz";
-      hash = "sha256-H5/fDzULHEBONMt4qS1kQJB7aP24BowHVS+cVjlnuzQ=";
+      hash = "sha256-i27DW5lHMqdPgOT2SqGqUOy3ixiR4KSaMbNyOfC7AVU=";
     };
     aarch64-darwin = {
       url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_arm64.tar.gz";
-      hash = "sha256-7RV7+8cg+udtBrKxP5tAWda3TeDH/cimeYrm66wKMxM=";
+      hash = "sha256-GcRykKZC+X8uCQSe2vH8vK3ep3qhKpfkDQj9Firsr7o=";
     };
   };
 
