@@ -1,7 +1,8 @@
-args@{ lib', inputs, ... }:
+args@{ inputs, ... }:
 [
+  (import ./channels args)
+  (import ./packages args)
   inputs.poetry2nix.overlays.default
   inputs.caddy-nix.overlays.default
   inputs.nix-darwin-unstable.overlays.default
 ]
-++ (map (value: import value args) (lib'.flocken.getModules ./.))

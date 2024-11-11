@@ -7,7 +7,7 @@ let
     bibtexbrowser = final.callPackage ./bibtexbrowser.nix { };
     bibtexbrowser2cff = final.callPackage ./bibtexbrowser2cff.nix { };
     caddy-docker = final.callPackage ./caddy-docker.nix { };
-    custom-caddy = final.unstable.caddy.withPlugins {
+    custom-caddy = final.caddy.withPlugins {
       plugins = [
         "github.com/caddy-dns/cloudflare@89f16b99c18ef49c8bb470a82f895bce01cbaece"
       ];
@@ -34,5 +34,6 @@ in
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };
+  caddy = final.nixpkgs.caddy;
 }
 // flake-exports

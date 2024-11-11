@@ -31,3 +31,9 @@ in
 ] mkChannel)
 // (useChannel "stable" packages.stable)
 // (useChannel "unstable" packages.unstable)
+// {
+  nixpkgs = import inputs.nixpkgs {
+    inherit system;
+    inherit (nixpkgsArgs) config;
+  };
+}
