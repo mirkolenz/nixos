@@ -34,7 +34,5 @@ in
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };
-  # fixes the issue of having multiple versions of caddy depending on the system channel
-  caddy = final.nixpkgs.caddy;
 }
 // flake-exports
