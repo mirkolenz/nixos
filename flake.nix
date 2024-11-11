@@ -103,18 +103,14 @@
       inputs.poetry2nix.follows = "poetry2nix";
       inputs.flocken.follows = "flocken";
     };
-    caddy = {
-      url = "github:mirkolenz/caddy";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-      inputs.flocken.follows = "flocken";
-    };
 
     # Utils
     poetry2nix = {
       url = "github:nix-community/poetry2nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    caddy-nix = {
+      url = "github:vincentbernat/caddy-nix";
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";

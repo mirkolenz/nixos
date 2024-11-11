@@ -6,6 +6,16 @@ let
     bibtex2cff = final.callPackage ./bibtex2cff.nix { };
     bibtexbrowser = final.callPackage ./bibtexbrowser.nix { };
     bibtexbrowser2cff = final.callPackage ./bibtexbrowser2cff.nix { };
+    caddy-docker = final.callPackage ./caddy-docker.nix { };
+    custom-caddy = final.caddy.withPlugins {
+      plugins = [
+        "github.com/caddy-dns/cloudflare@89f16b99c18ef49c8bb470a82f895bce01cbaece"
+      ];
+      hash = "sha256-R3vwJPCuiCLkAJnkPIj6gPWm6899K09JpTF+KzTaPAc=";
+    };
+    custom-caddy-docker = final.callPackage ./caddy-docker.nix {
+      caddy = final.custom-caddy;
+    };
     goneovim-bin = final.callPackage ./goneovim.nix { };
     hkknx-bin = final.callPackage ./hkknx.nix { };
     hkknx-docker = final.callPackage ./hkknx-docker.nix { };
@@ -21,8 +31,6 @@ in
   inherit flake-exports;
   inherit (self.packages.${system}) nixvim nixvim-unstable nixvim-stable;
   arguebuf = inputs.arguebuf.packages.${system}.default;
-  custom-caddy = inputs.caddy.packages.${system}.default;
-  custom-caddy-docker = inputs.caddy.packages.${system}.docker;
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };
