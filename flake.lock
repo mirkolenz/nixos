@@ -1432,6 +1432,26 @@
         "type": "github"
       }
     },
+    "pyproject-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731223003,
+        "narHash": "sha256-hFf8/IeZKPUubMC452Mm+JiAEnvcw/a4Cvn2bcpeJqs=",
+        "owner": "nix-community",
+        "repo": "pyproject.nix",
+        "rev": "359dd9cd562730bbd31ab164832aae4dacd9c302",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "pyproject.nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "arguebuf": "arguebuf",
@@ -1461,8 +1481,10 @@
         "nixvim-linux-stable": "nixvim-linux-stable",
         "nixvim-linux-unstable": "nixvim-linux-unstable",
         "poetry2nix": "poetry2nix",
+        "pyproject-nix": "pyproject-nix",
         "systems": "systems_7",
         "treefmt-nix": "treefmt-nix_7",
+        "uv2nix": "uv2nix",
         "vscode-server": "vscode-server"
       }
     },
@@ -1728,6 +1750,29 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "uv2nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pyproject-nix": [
+          "pyproject-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731375416,
+        "narHash": "sha256-foYwh+QEgda8EuymxOydvkv5nVaVsPW7yN0/CLLDCM0=",
+        "owner": "adisbladis",
+        "repo": "uv2nix",
+        "rev": "3f1bfa56f3acd32762690a1b6362f75d30748cab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adisbladis",
+        "repo": "uv2nix",
         "type": "github"
       }
     },
