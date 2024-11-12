@@ -6,7 +6,7 @@
   ...
 }:
 let
-  python = pkgs.python3.withPackages (ps: with ps; [ typer ]);
+  pythonWithPackages = pkgs.python3.withPackages (ps: with ps; [ typer ]);
 in
 lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
   home.sessionVariables = {
@@ -51,9 +51,10 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     go-outline
     goreleaser
     # python
-    python
+    pythonWithPackages
     ruff
     black
+    uv
     # nodejs
     nodejs
     nodePackages.prettier
