@@ -1060,7 +1060,7 @@
       "inputs": {
         "nixlib": "nixlib",
         "nixpkgs": [
-          "nixpkgs-linux-stable"
+          "nixpkgs-linux-unstable"
         ]
       },
       "locked": {

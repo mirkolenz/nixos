@@ -9,7 +9,7 @@ let
     {
       system,
       format,
-      extraModule,
+      module,
     }:
     inputs.nixos-generators.nixosGenerate {
       inherit system format;
@@ -17,9 +17,8 @@ let
         channel = "stable";
         os = "linux";
       };
-      customFormats = import ../installer/formats.nix inputs.nixos-generators.inputs.nixpkgs;
       modules = [
-        extraModule
+        module
         { _module.args = moduleArgs; }
       ];
     };
@@ -28,18 +27,18 @@ in
   flake.packages = {
     aarch64-linux.installer-raspi = mkInstaller {
       system = "aarch64-linux";
-      format = "custom-sd";
-      extraModule = ../installer/raspi.nix;
+      format = "sd-aarch64";
+      module = ../installer/raspi.nix;
     };
     aarch64-linux.installer-iso = mkInstaller {
       system = "aarch64-linux";
-      format = "custom-iso";
-      extraModule = ../installer/iso.nix;
+      format = "install-iso";
+      module = ../installer/iso.nix;
     };
     x86_64-linux.installer-iso = mkInstaller {
       system = "x86_64-linux";
-      format = "custom-iso";
-      extraModule = ../installer/iso.nix;
+      format = "install-iso";
+      module = ../installer/iso.nix;
     };
   };
 }

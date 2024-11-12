@@ -114,7 +114,7 @@
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
+      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
     };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
