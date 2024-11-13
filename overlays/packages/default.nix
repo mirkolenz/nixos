@@ -11,7 +11,7 @@ let
       plugins = [
         "github.com/caddy-dns/cloudflare@89f16b99c18ef49c8bb470a82f895bce01cbaece"
       ];
-      hash = "sha256-R3vwJPCuiCLkAJnkPIj6gPWm6899K09JpTF+KzTaPAc=";
+      hash = "sha256-43SOmmz/iAvUhbzFZ9THRqsys7/eK6Oo1xVGZcsmZIw=";
     };
     custom-caddy-docker = final.callPackage ./caddy-docker.nix {
       caddy = final.custom-caddy;
