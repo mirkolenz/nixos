@@ -1,7 +1,7 @@
 {
   stable = [
     "nodejs_22"
-    "atuin"
+    "imagemagick"
   ];
   unstable = [
     "icloudpd"
