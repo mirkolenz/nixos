@@ -51,7 +51,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    xdg.configFile."/uv/uv.toml" = lib.mkIf (cfg.settings != { }) {
+    xdg.configFile."uv/uv.toml" = lib.mkIf (cfg.settings != { }) {
       source = tomlFormat.generate "uv-config" cfg.settings;
     };
   };
