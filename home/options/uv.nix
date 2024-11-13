@@ -15,14 +15,14 @@ let
     ;
 
   tomlFormat = pkgs.formats.toml { };
-  cfg = config.programs.poetry;
+  cfg = config.programs.uv;
 
 in
 {
   meta.maintainers = with lib.maintainers; [ mirkolenz ];
 
-  options.programs.poetry = {
-    enable = mkEnableOption "poetry";
+  options.programs.uv = {
+    enable = mkEnableOption "uv";
 
     package = mkPackageOption pkgs "uv" { };
 
