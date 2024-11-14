@@ -7,13 +7,13 @@
 {
   custom.texlive = {
     enable = pkgs.stdenv.isDarwin;
-    # package =
-    #   let
-    #     prPkgs = import inputs.nixpkgs-texlive {
-    #       inherit (pkgs) system;
-    #     };
-    #   in
-    #   prPkgs.texliveFull;
+    package =
+      let
+        prPkgs = import inputs.nixpkgs-texlive {
+          inherit (pkgs) system;
+        };
+      in
+      prPkgs.texliveFull;
     bibFolder = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
     latexmkrc = ''
       # 1: pdflatex
