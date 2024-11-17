@@ -1190,11 +1190,11 @@
     },
     "nixpkgs-texlive": {
       "locked": {
-        "lastModified": 1731846048,
-        "narHash": "sha256-VKj1LwjBOZKUWqujRGf2MT8CeIFZB6sdXvRLZN9bWqI=",
+        "lastModified": 1731853213,
+        "narHash": "sha256-i9fM1nhrfTQaaZ4e0XrUuCbwWf/AKPDYYefNRL7quSc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cd7cb9fb983b831df55c268340f6349ffc377858",
+        "rev": "cd9d1628d4995ddfbd3fc1578de1affffe10c3d0",
         "type": "github"
       },
       "original": {
