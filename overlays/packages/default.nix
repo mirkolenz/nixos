@@ -30,12 +30,10 @@ in
 {
   inherit flake-exports;
   inherit (self.packages.${system}) nixvim nixvim-unstable nixvim-stable;
+  inherit (inputs.arguebuf.packages.${system}) arguebuf;
   inherit (inputs.uv2nix.packages.${system}) uv-bin;
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };
-  arguebuf = inputs.arguebuf.packages.${system}.default.overrideAttrs (oldAttrs: {
-    dontCheck = true;
-  });
 }
 // flake-exports

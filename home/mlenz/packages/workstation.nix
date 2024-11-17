@@ -69,7 +69,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     rust-analyzer
     # my own packages
     makejinja
-    arguebuf
+    # arguebuf
     (writeShellScriptBin "poetryup" ''exec ${lib.getExe config.programs.poetry.package} up "$@"'')
     (writeShellScriptBin "npmup" ''exec ${lib.getExe npm-check-updates} "$@"'')
   ];
