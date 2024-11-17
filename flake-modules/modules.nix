@@ -2,6 +2,7 @@
   specialModuleArgs,
   moduleArgs,
   nixpkgsArgs,
+  inputs,
   ...
 }:
 let
@@ -9,6 +10,7 @@ let
     imports = [
       ../home/mlenz
       ../home/options
+      inputs.vscode-server.homeModules.default
     ];
     _module.args = moduleArgs;
   };
