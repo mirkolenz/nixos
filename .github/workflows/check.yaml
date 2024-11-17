@@ -28,5 +28,14 @@ jobs:
           extra-conf: |
             extra-platforms = ${{ matrix.extra-platform }}
             accept-flake-config = true
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - run: nix flake check --show-trace
+      - uses: nixbuild/nixbuild-action@v20
+        with:
+          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+      - run: |
+          nix flake check \
+            --show-trace \
+            --print-build-logs \
+            --builders "" \
+            --max-jobs 2 \
+            --eval-store auto \
+            --store ssh-ng://eu.nixbuild.net

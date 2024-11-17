@@ -17,7 +17,9 @@ jobs:
           extra-conf: |
             extra-platforms = aarch64-linux
             accept-flake-config = true
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
+      - uses: nixbuild/nixbuild-action@v20
+        with:
+          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
       - run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
@@ -27,5 +29,12 @@ jobs:
             --commit-lock-file \
             --commit-lock-file-summary "chore(deps): update flake.lock"
         name: Run nix flake update
-      - run: nix flake check --show-trace
+      - run: |
+          nix flake check \
+            --show-trace \
+            --print-build-logs \
+            --builders "" \
+            --max-jobs 2 \
+            --eval-store auto \
+            --store ssh-ng://eu.nixbuild.net
       - run: git push
