@@ -1,7 +1,7 @@
 {
   inputs,
   lib',
-  nixpkgsArgs,
+  nixpkgsConfig,
   ...
 }:
 final: prev:
@@ -19,7 +19,7 @@ let
     in
     import nixpkgs {
       inherit system;
-      inherit (nixpkgsArgs) config;
+      config = nixpkgsConfig;
     };
   useChannel = channel: names: prev.lib.genAttrs names (name: final.${channel}.${name});
 
@@ -34,6 +34,6 @@ in
 // {
   nixpkgs = import inputs.nixpkgs {
     inherit system;
-    inherit (nixpkgsArgs) config;
+    config = nixpkgsConfig;
   };
 }
