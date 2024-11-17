@@ -5,28 +5,14 @@ on:
   pull_request:
 jobs:
   check:
-    strategy:
-      matrix:
-        include:
-          - os-name: ubuntu
-            os-version: latest
-            extra-platform: aarch64-linux
-          # - os-name: macos
-          #   os-version: latest
-          #   extra-platform: x86_64-darwin
     permissions:
       contents: read
-    runs-on: "${{ matrix.os-name }}-${{ matrix.os-version }}"
+    runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-qemu-action@v3
-        if: ${{ matrix.os-name == 'ubuntu' }}
-        with:
-          platforms: arm64
       - uses: DeterminateSystems/nix-installer-action@v16
         with:
           extra-conf: |
-            extra-platforms = ${{ matrix.extra-platform }}
             accept-flake-config = true
       - uses: nixbuild/nixbuild-action@v20
         with:
