@@ -1140,6 +1140,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-darwin-unstable": {
+      "locked": {
+        "lastModified": 1731676161,
+        "narHash": "sha256-R0HVwLNR6/a7tonc/7ChJIRB8fJ0dyQmJYH4lOU1Zm0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "8809585e6937d0b07fc066792c8c9abf9c3fe5c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "8809585e6937d0b07fc066792c8c9abf9c3fe5c4",
+        "type": "github"
+      }
+    },
     "nixpkgs-linux-stable": {
       "locked": {
         "lastModified": 1731652201,
@@ -1190,11 +1206,11 @@
     },
     "nixpkgs-texlive": {
       "locked": {
-        "lastModified": 1731853213,
-        "narHash": "sha256-i9fM1nhrfTQaaZ4e0XrUuCbwWf/AKPDYYefNRL7quSc=",
+        "lastModified": 1731854839,
+        "narHash": "sha256-Ro2P0ZU1sv+msez5Z3NOlBlpHhzmHbmdSpJRYZhHl8M=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cd9d1628d4995ddfbd3fc1578de1affffe10c3d0",
+        "rev": "a00181195246501b7976d7e14f5b154b73e92cd6",
         "type": "github"
       },
       "original": {
@@ -1470,9 +1486,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-darwin-stable": "nixpkgs-darwin-stable",
-        "nixpkgs-darwin-unstable": [
-          "nixpkgs"
-        ],
+        "nixpkgs-darwin-unstable": "nixpkgs-darwin-unstable",
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
         "nixpkgs-texlive": "nixpkgs-texlive",

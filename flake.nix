@@ -16,7 +16,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-darwin-unstable.follows = "nixpkgs";
+    # TODO: 24.11 https://github.com/LnL7/nix-darwin/issues/1176
+    nixpkgs-darwin-unstable.url = "github:nixos/nixpkgs/8809585e6937d0b07fc066792c8c9abf9c3fe5c4";
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
     nixpkgs-texlive.url = "github:nixos/nixpkgs/pull/351790/merge";
 
