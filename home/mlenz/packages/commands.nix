@@ -116,6 +116,9 @@ let
        --apply "attrs: builtins.concatStringsSep \"\\n\" (builtins.attrValues (builtins.mapAttrs (name: value: value.url) attrs))" \
        | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe cmds.fetch-sri} "''${@:2}"
     '';
+    nixbuild-shell = ''
+      exec rlwrap ssh eu.nixbuild.net shell
+    '';
   };
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
 in
