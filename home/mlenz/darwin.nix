@@ -67,4 +67,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
   home.sessionVariables = {
     EDITOR = "code -w";
   };
+  programs.ssh.includes = [
+    "${config.home.homeDirectory}/.orbstack/ssh/config"
+  ];
 }

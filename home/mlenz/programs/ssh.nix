@@ -39,14 +39,6 @@ in
         forwardAgent = true;
         user = "mlenz";
       };
-      # /Users/mlenz/.orbstack/ssh/config
-      "orb" = lib.mkIf pkgs.stdenv.isDarwin {
-        hostname = "127.0.0.1";
-        port = 32222;
-        user = "default";
-        identityFile = "${config.home.homeDirectory}/.orbstack/ssh/id_ed25519";
-        identitiesOnly = true;
-      };
     };
   };
   # https://developer.1password.com/docs/ssh/agent/config
