@@ -44,6 +44,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     nix-update
     nvfetcher
     devenv
+    nurl
     # go
     go
     gopls
