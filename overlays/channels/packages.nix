@@ -1,6 +1,5 @@
 {
   stable = [
-    "nodejs_22"
     "git-annex"
     "nix-init"
   ];
