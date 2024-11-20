@@ -35,6 +35,6 @@ in
     }
   )
 )
-// (lib.mapAttrs (
+// (lib.concatMapAttrs (
   channel: packages: lib.genAttrs packages (package: final.${channel}.${package})
 ) (import ./overrides.nix))
