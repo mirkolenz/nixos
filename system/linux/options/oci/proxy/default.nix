@@ -180,8 +180,8 @@ in
       inherit (proxyCfg) enable;
 
       image = {
-        name = proxyContainerCfg.imageFile.imageName;
-        tag = proxyContainerCfg.imageFile.imageTag;
+        name = proxyContainerCfg.imageStream.imageName;
+        tag = proxyContainerCfg.imageStream.imageTag;
         registry = null;
       };
 
