@@ -3,14 +3,12 @@
   services.xserver.enable = true;
 
   security.rtkit.enable = config.services.pipewire.enable;
-  hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa = {
       enable = true;
       support32Bit = true;
     };
-    pulse.enable = true;
   };
 
   networking.networkmanager.enable = true;

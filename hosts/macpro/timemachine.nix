@@ -18,19 +18,18 @@
     enable = true;
     package = pkgs.samba4Full;
     openFirewall = true;
-    securityType = "user";
-    extraConfig = ''
-      server smb encrypt = required
-      server string = homeserver
-      hosts allow = 10.16.0.1/16 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
-      fruit:aapl = yes
-      fruit:model = MacPro
-      fruit:advertise_fullsync = true
-    '';
-    shares = {
+    settings = {
+      global = {
+        "server smb encrypt" = "required";
+        "server string" = "homeserver";
+        "hosts allow" = "10.16.0.1/16 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+        "fruit:aapl" = "yes";
+        "fruit:model" = "MacPro";
+        "fruit:advertise_fullsync" = "true";
+      };
       timemachine = {
         path = "/mnt/backup/timemachine";
         "valid users" = "timemachine";

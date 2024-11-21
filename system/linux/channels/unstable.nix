@@ -1,4 +1,1 @@
-{ ... }:
-{
-  systemd.enableStrictShellChecks = true;
-}
+{ ... }: { }

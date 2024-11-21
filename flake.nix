@@ -15,9 +15,9 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
-    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
+    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     nixpkgs-texlive.url = "github:nixos/nixpkgs/pull/351790/merge";
 
     # Small helpers
@@ -52,7 +52,7 @@
       inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
     };
     home-manager-linux-stable = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
     home-manager-darwin-unstable = {
@@ -60,7 +60,7 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
     home-manager-darwin-stable = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     };
 
@@ -71,8 +71,9 @@
       inputs.home-manager.follows = "home-manager-linux-unstable";
       inputs.nix-darwin.follows = "nix-darwin-unstable";
     };
+    # todo: use release branch once available
     nixvim-linux-stable = {
-      url = "github:nix-community/nixvim/nixos-24.05";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
       inputs.home-manager.follows = "home-manager-linux-stable";
       inputs.nix-darwin.follows = "nix-darwin-stable";
@@ -83,8 +84,9 @@
       inputs.home-manager.follows = "home-manager-darwin-unstable";
       inputs.nix-darwin.follows = "nix-darwin-unstable";
     };
+    # todo: use release branch once available
     nixvim-darwin-stable = {
-      url = "github:nix-community/nixvim/nixos-24.05";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
       inputs.home-manager.follows = "home-manager-darwin-stable";
       inputs.nix-darwin.follows = "nix-darwin-stable";

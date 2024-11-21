@@ -24,7 +24,7 @@ let
       ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
       ${lib.getExe pkgs.nix} store optimise
     '';
-    # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/tasks/auto-upgrade.nix#L215
+    # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/modules/tasks/auto-upgrade.nix#L214
     needs-reboot = ''
       booted="$(${lib.getExe' pkgs.coreutils "readlink"} /run/booted-system/{initrd,kernel,kernel-modules})"
       built="$(${lib.getExe' pkgs.coreutils "readlink"} /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"

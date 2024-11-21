@@ -20,7 +20,7 @@ let
     port = 80;
   };
 in
-dockerTools.buildLayeredImage {
+dockerTools.streamLayeredImage {
   name = "hkknx";
   tag = "latest";
   created = "now";

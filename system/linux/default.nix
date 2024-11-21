@@ -52,11 +52,12 @@
     };
   };
 
+  systemd.enableStrictShellChecks = true;
+
   boot.loader = {
-    systemd-boot.configurationLimit = 7;
-    generic-extlinux-compatible.configurationLimit = 7;
-    grub.configurationLimit = 7;
-    raspberryPi.uboot.configurationLimit = 7;
+    systemd-boot.configurationLimit = 10;
+    generic-extlinux-compatible.configurationLimit = 10;
+    grub.configurationLimit = 10;
   };
 
   zramSwap = {

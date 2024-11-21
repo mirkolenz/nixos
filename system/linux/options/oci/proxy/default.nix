@@ -185,8 +185,7 @@ in
         registry = null;
       };
 
-      imageFile = lib.mkDefault pkgs.custom-caddy-docker;
-      # imageStream = lib.mkDefault pkgs.custom-caddy-docker.passthru.stream; # TODO: 24.11
+      imageStream = lib.mkDefault pkgs.caddy-custom-docker;
 
       volumes =
         [

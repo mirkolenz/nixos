@@ -6,7 +6,7 @@
   cacert,
   tzdata,
 }:
-dockerTools.buildLayeredImage {
+dockerTools.streamLayeredImage {
   name = "caddy";
   tag = "latest";
   created = "now";
