@@ -123,7 +123,7 @@ cfg:
 
     update = mkOption {
       type = with types; nullOr str;
-      default = if config.imageFile == null && config.imageStream == null then "local" else "registry";
+      default = if config.imageFile != null || config.imageStream != null then "local" else "registry";
       description = "If not null, add the label `io.containers.autoupdate=VALUE` to the container.";
     };
 
