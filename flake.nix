@@ -108,11 +108,11 @@
 
     # Utils
     pyproject-nix = {
-      url = "github:nix-community/pyproject.nix";
+      url = "github:pyproject-nix/pyproject.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     uv2nix = {
-      url = "github:adisbladis/uv2nix";
+      url = "github:pyproject-nix/uv2nix";
       inputs.pyproject-nix.follows = "pyproject-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };

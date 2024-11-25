@@ -1553,13 +1553,13 @@
       "locked": {
         "lastModified": 1732502826,
         "narHash": "sha256-tgInDnNOGd5haarL7i94TZ/TqOR1UHvYliw+Db0lk6U=",
-        "owner": "nix-community",
+        "owner": "pyproject-nix",
         "repo": "pyproject.nix",
         "rev": "fb87b3bad09fbd71b448e2f71f0337087430dbc7",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "pyproject-nix",
         "repo": "pyproject.nix",
         "type": "github"
       }
@@ -1907,13 +1907,13 @@
       "locked": {
         "lastModified": 1732495242,
         "narHash": "sha256-oqVuojgQlvuIMcyx98Rx/Iwi9WkTzDLvNB2Bxkkfj40=",
-        "owner": "adisbladis",
+        "owner": "pyproject-nix",
         "repo": "uv2nix",
         "rev": "cb4b2ba5c1cd24668c7c6d819f1c30b0a6960560",
         "type": "github"
       },
       "original": {
-        "owner": "adisbladis",
+        "owner": "pyproject-nix",
         "repo": "uv2nix",
         "type": "github"
       }
