@@ -1256,16 +1256,16 @@
     },
     "nixpkgs-texlive": {
       "locked": {
-        "lastModified": 1732402370,
-        "narHash": "sha256-ggXYkP3aEZpJLY5wO4GKAzLEKoCbyQ1EFV2gUAUldug=",
+        "lastModified": 1732524464,
+        "narHash": "sha256-fAiMvhxUvCn+LC2E+1Fisp9ggeBx1sF4m7QmyZZWBPs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7715346522a6dcf8840272ae160c1bfe5a09b7ee",
+        "rev": "ff57eb8c6cf0980ed165e67c7dbb6ab8560f5a44",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "pull/351790/merge",
+        "ref": "master",
         "repo": "nixpkgs",
         "type": "github"
       }
