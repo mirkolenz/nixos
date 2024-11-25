@@ -8,34 +8,26 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      # When set to uninstall, all vscode extensions are removed
-      # nix-darwin does not yet support vscode extensions in brew bundle
-      # https://github.com/Homebrew/homebrew-bundle/pull/1208
-      cleanup = "none";
+      cleanup = "zap";
     };
     taps = [ ];
     brews = [ ];
     casks = [
       "1password"
       "adobe-creative-cloud"
-      "amethyst"
+      "alt-tab"
       "anydesk"
-      "app-tamer"
       "appcleaner"
-      "arc"
       "arq"
       "balenaetcher"
       "betterdisplay"
       "cleanshot"
-      "contexts"
-      "coteditor"
-      "dadroit-json-viewer"
+      "cursor"
       "default-folder-x"
       "devonthink"
       "discord"
       "element"
       "figma"
-      "firefox"
       "fission"
       "font-big-shoulders-display"
       "font-big-shoulders-inline-display"
@@ -102,32 +94,26 @@
       "jordanbaird-ice"
       "juxtacode"
       "mediathekview"
+      "microsoft-auto-update"
       "microsoft-teams"
-      "mullvadvpn"
       "notion"
       "obsidian"
       "omnigraffle"
-      "openinterminal"
-      "openvpn-connect"
       "orbstack"
       "orion"
       "parallels"
-      "piezo"
       "pixelsnap"
       "postman"
       "presentation"
       "raindropio"
       "raycast"
-      "rectangle-pro"
-      "shottr"
       "signal"
-      "skim"
       "soundsource"
-      "stats"
       "steermouse"
       "tailscale"
       "tiptoi-manager"
       "tower"
+      "viscosity"
       "visual-studio-code"
       "warp"
       "wifiman"
@@ -136,40 +122,37 @@
       "zotero"
     ];
     masApps = {
-      "1Password Safari" = 1569813296;
-      "AusweisApp" = 948660805;
-      "Bitwarden" = 1352778147;
-      "Dropover" = 1355679052;
-      "EasyLetter" = 1495179755;
-      "Gapplin" = 768053424;
-      "Goodnotes" = 1444383602;
-      "Home Assistant" = 1099568401;
-      "Kagi Search" = 1622835804;
-      "Keka" = 470158793;
-      "Kindle" = 302584613;
-      "Meeting Owl" = 1219076447;
-      "Mela" = 1568924476;
-      "Microsoft Excel" = 462058435;
-      "Microsoft Outlook" = 985367838;
-      "Microsoft PowerPoint" = 462062816;
-      "Microsoft Word" = 462054704;
-      "OneDrive" = 823766827;
-      "PDF Expert" = 1055273043;
-      "Pitch" = 1551335606;
-      "Prime Video" = 545519333;
-      "Pure Paste" = 1611378436;
-      "QR Factory" = 1609285899;
-      "Raindrop.io Safari" = 1549370672;
-      "Reeder" = 6475002485;
-      "ShellFish" = 1336634154;
-      "SnipNotes" = 967594709;
-      "Step Two" = 1448916662;
-      "StopTheMadness Pro" = 6471380298;
-      "Tempus Stopwatch" = 1491326665;
-      "TestFlight" = 899247664;
-      "Todoist" = 585829637;
-      "Vinegar" = 1591303229;
-      "WhatsApp" = 310633997;
+      "1password-safari" = 1569813296;
+      "ausweisapp" = 948660805;
+      "bitwarden" = 1352778147;
+      "dropover" = 1355679052;
+      "easyletter" = 1495179755;
+      "gapplin" = 768053424;
+      "goodnotes" = 1444383602;
+      "home-assistant" = 1099568401;
+      "kagi" = 1622835804;
+      "keka" = 470158793;
+      "kindle" = 302584613;
+      "meeting-owl" = 1219076447;
+      "mela" = 1568924476;
+      "microsoft-excel" = 462058435;
+      "microsoft-outlook" = 985367838;
+      "microsoft-powerpoint" = 462062816;
+      "microsoft-word" = 462054704;
+      "onedrive" = 823766827;
+      "pdf-expert" = 1055273043;
+      "qr-factory" = 1609285899;
+      "qr-pop" = 1587360435;
+      "raindrop-io-safari" = 1549370672;
+      "reeder" = 6475002485;
+      "shellfish" = 1336634154;
+      "step-two" = 1448916662;
+      "stopthemadness-pro" = 6471380298;
+      "tabback" = 1660506599;
+      "testflight" = 899247664;
+      "todoist" = 585829637;
+      "vinegar" = 1591303229;
+      "whatsapp" = 310633997;
     };
   };
 }
