@@ -1544,6 +1544,32 @@
         "type": "github"
       }
     },
+    "pyproject-build-systems": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pyproject-nix": [
+          "pyproject-nix"
+        ],
+        "uv2nix": [
+          "uv2nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1732506638,
+        "narHash": "sha256-aIjGCa8Lvhb8QnbHPOtkZ6yTrb8KURRlYzlo7UaBeac=",
+        "owner": "pyproject-nix",
+        "repo": "build-system-pkgs",
+        "rev": "70c271e7a64199c71c9dbcbe513c7b2402573789",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "build-system-pkgs",
+        "type": "github"
+      }
+    },
     "pyproject-nix": {
       "inputs": {
         "nixpkgs": [
@@ -1593,6 +1619,7 @@
         "nixvim-linux-stable": "nixvim-linux-stable",
         "nixvim-linux-unstable": "nixvim-linux-unstable",
         "poetry2nix": "poetry2nix",
+        "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
         "systems": "systems_9",
         "treefmt-nix": "treefmt-nix_7",
