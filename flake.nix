@@ -18,7 +18,6 @@
     nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
-    nixpkgs-texlive.url = "github:nixos/nixpkgs/master";
 
     # Small helpers
     flake-parts = {
