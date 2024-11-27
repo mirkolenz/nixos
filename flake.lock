@@ -1254,22 +1254,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-texlive": {
-      "locked": {
-        "lastModified": 1732671213,
-        "narHash": "sha256-kLSsaIbDEJUaWDMZ2ztFfc8+7JaRRcnxiZjN9Af1n40=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "e6681626478150ffe8ebadc743758f8f89381c5e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1730137625,
@@ -1613,7 +1597,6 @@
         ],
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
-        "nixpkgs-texlive": "nixpkgs-texlive",
         "nixvim-darwin-stable": "nixvim-darwin-stable",
         "nixvim-darwin-unstable": "nixvim-darwin-unstable",
         "nixvim-linux-stable": "nixvim-linux-stable",
