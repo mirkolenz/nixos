@@ -85,6 +85,7 @@
       "font-varela-round"
       "fork"
       "forklift"
+      "gitbutler"
       "godspeed"
       "google-chrome"
       "google-drive"
