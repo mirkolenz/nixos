@@ -1,7 +1,7 @@
 {
   description = "NixOS / Home Manager / nix-darwin configuration files (@mirkolenz)";
 
-  # state folder: ~/.local/share/nix/trusted-settings.json
+  # state dir: ~/.local/share/nix/trusted-settings.json
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"

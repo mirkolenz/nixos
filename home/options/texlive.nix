@@ -31,19 +31,19 @@ let
     '';
     bibcat = ''
       format="''${1:-bibtex}"
-      sourceDir="''${2:-${cfg.bibFolder}}"
+      sourceDir="''${2:-${cfg.bibDir}}"
       ${lib.getExe cmds.bibtidy} "$sourceDir/$format.bib"
     '';
     bibcopy = ''
       format="''${1:-bibtex}"
-      sourceDir="''${2:-${cfg.bibFolder}}"
+      sourceDir="''${2:-${cfg.bibDir}}"
       targetDir="''${3:-.}"
       ${lib.getExe cmds.bibtidy} --output="$targetDir/references.bib" "$sourceDir/$format.bib"
       ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
     '';
     bibcopy-full = ''
       format="''${1:-bibtex}"
-      sourceDir="''${2:-${cfg.bibFolder}}"
+      sourceDir="''${2:-${cfg.bibDir}}"
       targetDir="''${3:-.}"
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
         --no-align --no-wrap --blank-lines --no-escape \
@@ -53,7 +53,7 @@ let
       ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
     '';
     acrocat = ''
-      sourceDir="''${1:-${cfg.bibFolder}}"
+      sourceDir="''${1:-${cfg.bibDir}}"
       # shellcheck disable=SC2002 # the sd commands are generated via nix, so cat is more elegant than piping
       cat "$sourceDir/acronyms.tex" | ${lib.concatStringsSep " | " acronymReplacements}
     '';
@@ -72,7 +72,7 @@ in
         example = "pkgs.texliveSmall";
       };
 
-      bibFolder = lib.mkOption {
+      bibDir = lib.mkOption {
         type = lib.types.str;
         description = "Location of the bibliography files.";
       };
