@@ -70,9 +70,8 @@
       inputs.home-manager.follows = "home-manager-linux-unstable";
       inputs.nix-darwin.follows = "nix-darwin-unstable";
     };
-    # todo: use release branch once available
     nixvim-linux-stable = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
       inputs.home-manager.follows = "home-manager-linux-stable";
       inputs.nix-darwin.follows = "nix-darwin-stable";
@@ -83,9 +82,8 @@
       inputs.home-manager.follows = "home-manager-darwin-unstable";
       inputs.nix-darwin.follows = "nix-darwin-unstable";
     };
-    # todo: use release branch once available
     nixvim-darwin-stable = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
       inputs.home-manager.follows = "home-manager-darwin-stable";
       inputs.nix-darwin.follows = "nix-darwin-stable";
