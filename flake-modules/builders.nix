@@ -11,10 +11,7 @@
         default = config.packages.system;
         system = config.legacyPackages.mkBuilder {
           exe =
-            if pkgs.stdenv.isDarwin then
-              lib.getExe' pkgs.darwin-rebuild "darwin-rebuild"
-            else
-              lib.getExe pkgs.nixos-rebuild;
+            if pkgs.stdenv.isDarwin then lib.getExe pkgs.darwin-rebuild else lib.getExe pkgs.nixos-rebuild;
           args = if pkgs.stdenv.isDarwin then [ "--pure" ] else [ "--impure" ];
         };
         home = config.legacyPackages.mkBuilder {

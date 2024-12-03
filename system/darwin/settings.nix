@@ -39,7 +39,7 @@
       dashboard-in-overlay = false;
       enable-spring-load-actions-on-all-items = false;
       expose-animation-duration = 0.2;
-      expose-group-by-app = false;
+      expose-group-apps = false;
       launchanim = true;
       mineffect = "genie";
       minimize-to-application = false;
@@ -154,6 +154,17 @@
     };
     LaunchServices = {
       LSQuarantine = true;
+    };
+    WindowManager = {
+      AppWindowGroupingBehavior = true;
+      AutoHide = false;
+      EnableStandardClickToShowDesktop = false;
+      EnableTiledWindowMargins = false;
+      GloballyEnabled = false;
+      HideDesktop = false;
+      StageManagerHideWidgets = false;
+      StandardHideDesktopIcons = false;
+      StandardHideWidgets = false;
     };
     ".GlobalPreferences" = {
       "com.apple.mouse.scaling" = null;
