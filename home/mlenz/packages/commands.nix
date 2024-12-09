@@ -93,28 +93,21 @@ let
     nixos-env = ''
       exec sudo ${lib.getExe' pkgs.nix "nix-env"} --profile /nix/var/nix/profiles/system "$@"
     '';
-    fetch-sri = ''
+    prefetch-attr = ''
       if [ "$#" -lt 1 ]; then
-        ${echo} "Usage: $0 NIX_PREFETCH_URL_ARGS..." >&2
+        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
         exit 1
       fi
-      exec ${lib.getExe pkgs.nix} hash convert --hash-algo sha256 --to sri "$(${lib.getExe' pkgs.nix "nix-prefetch-url"} "$@")"
+      ${lib.getExe pkgs.nix} store prefetch-file "$(${lib.getExe pkgs.nix} eval --raw "$1")" "''${@:2}"
     '';
-    fetch-sri-str = ''
+    prefetch-attrs = ''
       if [ "$#" -lt 1 ]; then
-        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_URL_ARGS...]" >&2
-        exit 1
-      fi
-      ${lib.getExe cmds.fetch-sri} "$(${lib.getExe pkgs.nix} eval --raw "$1")" "''${@:2}"
-    '';
-    fetch-sri-attrs = ''
-      if [ "$#" -lt 1 ]; then
-        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_URL_ARGS...]" >&2
+        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
         exit 1
       fi
       exec ${lib.getExe pkgs.nix} eval --raw "$1" \
        --apply "attrs: builtins.concatStringsSep \"\\n\" (builtins.attrValues (builtins.mapAttrs (name: value: value.url) attrs))" \
-       | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe cmds.fetch-sri} "''${@:2}"
+       | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe pkgs.nix} store prefetch-file "''${@:2}"
     '';
     nixbuild-shell = ''
       exec rlwrap ssh eu.nixbuild.net shell
