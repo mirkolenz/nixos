@@ -36,6 +36,9 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     typst-lsp
     typstyle
     tinymist
+    # presentation
+    pympress
+    # pdfpc # webkitgtk broken
     # nix
     nil
     nixd
