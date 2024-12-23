@@ -108,6 +108,7 @@
       "presentation"
       "raindropio"
       "raycast"
+      "rode-central"
       "signal"
       "soundsource"
       "steermouse"
