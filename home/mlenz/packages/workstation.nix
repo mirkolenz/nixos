@@ -31,14 +31,12 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     ffmpeg
     ffmpeg-normalize
     qpdf
+    markitdown
     # typst
     typst
     typst-lsp
     typstyle
     tinymist
-    # presentation
-    pympress
-    # pdfpc # webkitgtk broken
     # nix
     nil
     nixd
