@@ -1,4 +1,4 @@
-{ user, ... }:
+{ ... }:
 {
   system.defaults = {
     CustomUserPreferences = {
@@ -62,9 +62,6 @@
         "/System/Applications/Music.app"
         "/System/Cryptexes/App/System/Applications/Safari.app"
         "/Applications/Google Chrome.app"
-        "/Users/${user.login}/Applications/ChatGPT.app"
-        "/Users/${user.login}/Applications/Overleaf.app"
-        "/Applications/Reeder.app"
         "/Applications/Raindrop.io.app"
         "/Applications/1Password.app"
         "/System/Applications/Messages.app"
@@ -76,9 +73,8 @@
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Zed.app"
-        "/Applications/iTerm.app"
         "/Applications/Warp.app"
-        "/Applications/Tower.app"
+        "/Applications/Fork.app"
         "/Applications/OrbStack.app"
         "/Applications/Zotero.app"
         "/Applications/PDF Expert.app"
