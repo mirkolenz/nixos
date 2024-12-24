@@ -31,7 +31,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     ffmpeg
     ffmpeg-normalize
     qpdf
-    markitdown
+    python3Packages.markitdown
     # typst
     typst
     typst-lsp
