@@ -47,6 +47,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     devenv
     nurl
     nix-init
+    hydra-check
     # go
     go
     gopls
