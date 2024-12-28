@@ -123,9 +123,6 @@
       url = "github:nix-community/poetry2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    caddy-nix = {
-      url = "github:vincentbernat/caddy-nix";
-    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
