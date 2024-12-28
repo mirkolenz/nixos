@@ -21,6 +21,7 @@
       "arq"
       "balenaetcher"
       "betterdisplay"
+      "cameracontroller"
       "cleanshot"
       "cursor"
       "default-folder-x"
