@@ -21,13 +21,11 @@ let
     ''
       @${vhost.name} host ${lib.concatStringsSep " " allHostNames}
       handle @${vhost.name} {
-        ${
-          lib.optionalString (vhost.reverseProxy.upstreams != [ ]) ''
-            reverse_proxy ${lib.concatStringsSep " " vhost.reverseProxy.upstreams} {
-              ${vhost.reverseProxy.extraConfig}
-            }
-          ''
-        }
+        ${lib.optionalString (vhost.reverseProxy.upstreams != [ ]) ''
+          reverse_proxy ${lib.concatStringsSep " " vhost.reverseProxy.upstreams} {
+            ${vhost.reverseProxy.extraConfig}
+          }
+        ''}
         ${vhost.extraConfig}
       }
     '';
