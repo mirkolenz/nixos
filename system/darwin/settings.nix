@@ -73,7 +73,7 @@
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Zed.app"
-        "/Applications/Warp.app"
+        "/Applications/Ghostty.app"
         "/Applications/Fork.app"
         "/Applications/OrbStack.app"
         "/Applications/Zotero.app"
