@@ -6,8 +6,12 @@
       font-family = "Berkeley Mono";
       font-size = 13;
       font-thicken = true;
-      theme = "GitHub Dark";
       shell-integration = "none";
+      theme = "GitHub Dark";
+      window-height = 30;
+      window-padding-x = 8;
+      window-padding-y = 8;
+      window-width = 120;
     };
   };
 }
