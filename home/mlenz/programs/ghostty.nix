@@ -4,8 +4,10 @@
     enable = pkgs.stdenv.isDarwin;
     settings = {
       font-family = "Berkeley Mono";
-      # theme = "catppuccin-mocha";
+      font-size = 13;
+      font-thicken = true;
       theme = "GitHub Dark";
+      shell-integration = "none";
     };
   };
 }
