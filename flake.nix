@@ -89,6 +89,22 @@
       inputs.nix-darwin.follows = "nix-darwin-stable";
     };
 
+    # catppuccin
+    catppuccin-linux = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
+      inputs.home-manager.follows = "home-manager-linux-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs-linux-stable";
+      inputs.home-manager-stable.follows = "home-manager-linux-stable";
+    };
+    catppuccin-darwin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
+      inputs.home-manager.follows = "home-manager-darwin-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs-darwin-stable";
+      inputs.home-manager-stable.follows = "home-manager-darwin-stable";
+    };
+
     # My own
     flocken = {
       url = "github:mirkolenz/flocken/v2";
