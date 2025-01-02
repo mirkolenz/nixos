@@ -89,20 +89,18 @@
       inputs.nix-darwin.follows = "nix-darwin-stable";
     };
 
-    # catppuccin
-    catppuccin-linux = {
-      url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
-      inputs.home-manager.follows = "home-manager-linux-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs-linux-stable";
-      inputs.home-manager-stable.follows = "home-manager-linux-stable";
-    };
-    catppuccin-darwin = {
-      url = "github:catppuccin/nix";
+    # plist-manager
+    plist-manager-unstable = {
+      url = "github:z0al/plist-manager";
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
-      inputs.home-manager.follows = "home-manager-darwin-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs-darwin-stable";
-      inputs.home-manager-stable.follows = "home-manager-darwin-stable";
+      inputs.nix-darwin.follows = "nix-darwin-unstable";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+    plist-manager-stable = {
+      url = "github:z0al/plist-manager";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
+      inputs.nix-darwin.follows = "nix-darwin-stable";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # My own
