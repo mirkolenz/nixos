@@ -3,7 +3,7 @@
   programs.ghostty-homebrew = {
     enable = pkgs.stdenv.isDarwin;
     settings = {
-      font-family = "Berkeley Mono";
+      font-family = "TX-02";
       font-size = 13;
       font-thicken = true;
       shell-integration = "none";
