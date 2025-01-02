@@ -103,7 +103,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        programs.ghostty.settings = lib.mkIf cfg.clearDefaultKeybinds {
+        programs.ghostty-homebrew.settings = lib.mkIf cfg.clearDefaultKeybinds {
           keybind = lib.mkBefore [ "clear" ];
         };
 
