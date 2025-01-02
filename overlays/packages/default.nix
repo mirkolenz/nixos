@@ -28,5 +28,6 @@ in
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };
+  caddy = final.nixpkgs.caddy;
 }
 // flake-exports

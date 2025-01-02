@@ -1,4 +1,4 @@
 {
-  stable = [ "makejinja" ];
-  unstable = [ "caddy" ];
+  stable = [ ];
+  unstable = [ ];
 }
