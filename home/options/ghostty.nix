@@ -1,3 +1,4 @@
+# https://github.com/nix-community/home-manager/blob/master/modules/programs/ghostty.nix
 {
   config,
   lib,
@@ -6,14 +7,16 @@
 }:
 let
   cfg = config.programs.ghostty-homebrew;
-  keyValue = pkgs.formats.keyValue {
+
+  keyValueSettings = {
     listsAsDuplicateKeys = true;
     mkKeyValue = lib.generators.mkKeyValueDefault { } " = ";
   };
+  keyValue = pkgs.formats.keyValue keyValueSettings;
 in
 {
   options.programs.ghostty-homebrew = {
-    enable = lib.mkEnableOption "ghostty";
+    enable = lib.mkEnableOption "Ghostty";
 
     settings = lib.mkOption {
       inherit (keyValue) type;
@@ -67,22 +70,86 @@ in
         See <https://ghostty.org/docs/features/theme#authoring-a-custom-theme> for more information.
       '';
     };
+
+    clearDefaultKeybinds = lib.mkEnableOption "" // {
+      description = "Whether to clear default keybinds.";
+    };
+
+    enableBashIntegration = lib.mkEnableOption ''
+      bash shell integration.
+
+      This is ensures that shell integration works in more scenarios, such as switching shells within Ghostty.
+      But it is not needed to have shell integration.
+      See <https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup> for more information
+    '';
+
+    enableFishIntegration = lib.mkEnableOption ''
+      fish shell integration.
+
+      This is ensures that shell integration works in more scenarios, such as switching shells within Ghostty.
+      But it is not needed to have shell integration.
+      See <https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup> for more information
+    '';
+
+    enableZshIntegration = lib.mkEnableOption ''
+      zsh shell integration.
+
+      This is ensures that shell integration works in more scenarios, such as switching shells within Ghostty.
+      But it is not needed to have shell integration.
+      See <https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup> for more information
+    '';
   };
 
-  config = lib.mkIf cfg.enable {
-    xdg.configFile = lib.mkMerge [
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
       {
-        "ghostty/config" = lib.mkIf (cfg.settings != { }) {
-          source = keyValue.generate "ghostty-config" cfg.settings;
+        programs.ghostty.settings = lib.mkIf cfg.clearDefaultKeybinds {
+          keybind = lib.mkBefore [ "clear" ];
         };
+
+        # MacOS also supports XDG configuration directory, so we use it for both
+        # Linux and macOS to reduce complexity
+        xdg.configFile = lib.mkMerge [
+          {
+            "ghostty/config" = lib.mkIf (cfg.settings != { }) {
+              source = keyValue.generate "ghostty-config" cfg.settings;
+            };
+          }
+
+          (lib.mkIf (cfg.themes != { }) (
+            lib.mapAttrs' (name: value: {
+              name = "ghostty/themes/${name}";
+              value.source = keyValue.generate "ghostty-${name}-theme" value;
+            }) cfg.themes
+          ))
+        ];
       }
 
-      (lib.mkIf (cfg.themes != { }) (
-        lib.mapAttrs' (name: value: {
-          name = "ghostty/themes/${name}";
-          value.source = keyValue.generate "ghostty-${name}-theme" value;
-        }) cfg.themes
-      ))
-    ];
-  };
+      (lib.mkIf cfg.enableBashIntegration {
+        # Make order 101 to be placed exactly after bash completions, as Ghostty
+        # documentation suggests sourcing the script as soon as possible
+        programs.bash.initExtra = lib.mkOrder 101 ''
+          if [[ -n "''${GHOSTTY_RESOURCES_DIR}" ]]; then
+            builtin source "''${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+          fi
+        '';
+      })
+
+      (lib.mkIf cfg.enableFishIntegration {
+        programs.fish.shellInit = ''
+          if set -q GHOSTTY_RESOURCES_DIR
+            source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
+          end
+        '';
+      })
+
+      (lib.mkIf cfg.enableZshIntegration {
+        programs.zsh.initExtra = ''
+          if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+            source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+          fi
+        '';
+      })
+    ]
+  );
 }

@@ -38,11 +38,6 @@ in
 
       ${fixNixProfile}
     '';
-    interactiveShellInit = ''
-      if set -q GHOSTTY_RESOURCES_DIR
-        source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
-      end
-    '';
     functions = {
       fish_greeting = {
         body =
@@ -103,19 +98,9 @@ in
     autosuggestion.enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
-    initExtraFirst = ''
-      if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
-        source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
-      fi
-    '';
   };
   programs.bash = {
     enable = true;
-    initExtra = ''
-      if [ -n "$GHOSTTY_RESOURCES_DIR" ]; then
-        source "$GHOSTTY_RESOURCES_DIR/shell-integration/bash/ghostty.bash"
-      fi
-    '';
   };
   programs.direnv = {
     enable = true;

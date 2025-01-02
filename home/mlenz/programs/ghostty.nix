@@ -13,5 +13,8 @@
       window-padding-y = 8;
       window-width = 120;
     };
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 }

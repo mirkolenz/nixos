@@ -122,6 +122,7 @@
       location = "~/Downloads";
       show-thumbnail = true;
       type = "png";
+      target = "file";
     };
     smb = {
       NetBIOSName = null;
