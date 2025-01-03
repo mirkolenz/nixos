@@ -10,28 +10,28 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "hkknx";
-  version = "3.1.0";
+  version = "3.1.1";
 
-  passthru.srcs = {
-    x86_64-linux = {
-      url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_amd64.tar.gz";
-      hash = "sha256-SQXBwqzcAA9z4+tyCF1tKdwpQqeGEIPPmPLUIwWM0B8=";
+  passthru = {
+    urls = {
+      aarch64-darwin = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_arm64.tar.gz";
+      aarch64-linux = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_arm64.tar.gz";
+      x86_64-darwin = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_amd64.tar.gz";
+      x86_64-linux = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_amd64.tar.gz";
     };
-    aarch64-linux = {
-      url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_arm64.tar.gz";
-      hash = "sha256-UIhP+OMZYZ2tRG0a2IwXMH5s9bMoGGSr/nFe6X0uC+4=";
-    };
-    x86_64-darwin = {
-      url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_amd64.tar.gz";
-      hash = "sha256-i27DW5lHMqdPgOT2SqGqUOy3ixiR4KSaMbNyOfC7AVU=";
-    };
-    aarch64-darwin = {
-      url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_arm64.tar.gz";
-      hash = "sha256-GcRykKZC+X8uCQSe2vH8vK3ep3qhKpfkDQj9Firsr7o=";
+    hashes = {
+      aarch64-darwin = "sha256-YuFdI1+NjYUe7ygFtWIe7xXpmROs+Kyz9SSmZFVzBSs=";
+      aarch64-linux = "sha256-YKU/xpQBSEqCJTTQKd22YsddQpyh3IK0b3JO838ZIoE=";
+      x86_64-darwin = "sha256-wll3cIk3Oqy+wQ+08H33IWad/kBzkeMx4RHqj4e4aoM=";
+      x86_64-linux = "sha256-XbNCNi/v0N96NCWQ6H/gXV+UVn/dAUjG9iUu8ZiBpPc=";
     };
   };
 
-  src = fetchzip (passthru.srcs.${system} // { stripRoot = false; });
+  src = fetchzip {
+    url = passthru.urls.${system};
+    hash = passthru.hashes.${system};
+    stripRoot = false;
+  };
 
   nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://hochgatterer.me/hkknx";
     downloadPage = "https://github.com/brutella/hkknx-public/releases";
     mainProgram = pname;
-    platforms = attrNames passthru.srcs;
+    platforms = attrNames passthru.urls;
     maintainers = with maintainers; [ mirkolenz ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
