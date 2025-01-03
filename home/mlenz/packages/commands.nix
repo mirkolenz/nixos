@@ -98,7 +98,7 @@ let
         ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
         exit 1
       fi
-      ${lib.getExe pkgs.nix} store prefetch-file "$(${lib.getExe pkgs.nix} eval --raw "$1")" "''${@:2}"
+      ${lib.getExe pkgs.nix} store prefetch-file "''${@:2}" "$(${lib.getExe pkgs.nix} eval --raw "$1")" | ${lib.getExe pkgs.jq} -r .hash
     '';
     prefetch-attrs = ''
       if [ "$#" -lt 1 ]; then
