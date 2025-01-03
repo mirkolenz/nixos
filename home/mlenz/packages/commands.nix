@@ -102,12 +102,21 @@ let
     '';
     prefetch-attrs = ''
       if [ "$#" -lt 1 ]; then
-        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
+        echo "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
         exit 1
       fi
-      exec ${lib.getExe pkgs.nix} eval --raw "$1" \
-       --apply "attrs: builtins.concatStringsSep \"\\n\" (builtins.attrValues (builtins.mapAttrs (name: value: value.url) attrs))" \
-       | ${lib.getExe' pkgs.findutils "xargs"} -l ${lib.getExe pkgs.nix} store prefetch-file "''${@:2}"
+      TMPFILE="$(mktemp)"
+      echo "{" >> "$TMPFILE"
+      ${lib.getExe pkgs.nix} eval --json "$1" \
+        | ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key) \(.value)"' \
+        | while read -r key value; do
+          echo "Evaluating $key" >&2
+          hash="$(${lib.getExe pkgs.nix} store prefetch-file --json "''${@:2}" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
+          echo "  $key = \"$hash\";" >> "$TMPFILE"
+        done
+      echo "}" >> "$TMPFILE"
+      cat "$TMPFILE"
+      rm "$TMPFILE"
     '';
     nixbuild-shell = ''
       exec rlwrap ssh eu.nixbuild.net shell
