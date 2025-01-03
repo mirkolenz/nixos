@@ -13,18 +13,21 @@ mkApp rec {
   version = "1.0.5";
   appname = "NeoHtop";
 
-  passthru.srcs = {
-    x86_64-darwin = {
-      url = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/${appname}-intel.dmg";
-      hash = "sha256-8psDjmT5xzw/dWAE8teYsgexCePCcPBPFiZpJHzPSbs=";
+  passthru = {
+    urls = {
+      x86_64-darwin = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/${appname}-intel.dmg";
+      aarch64-darwin = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/${appname}-silicon.dmg";
     };
-    aarch64-darwin = {
-      url = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/${appname}-silicon.dmg";
-      hash = "sha256-7qm/KhEtwM+Xin0a6HYI2Y1ezMJI8QV0aZWc/WMPC0Y=";
+    hashes = {
+      x86_64-darwin = "sha256-8psDjmT5xzw/dWAE8teYsgexCePCcPBPFiZpJHzPSbs=";
+      aarch64-darwin = "sha256-7qm/KhEtwM+Xin0a6HYI2Y1ezMJI8QV0aZWc/WMPC0Y=";
     };
   };
 
-  src = fetchurl passthru.srcs.${system};
+  src = fetchurl {
+    url = passthru.urls.${system};
+    hash = passthru.hashes.${system};
+  };
   sourceRoot = ".";
   wrapperPath = "Contents/MacOS/${appname}";
 
@@ -33,6 +36,6 @@ mkApp rec {
     homepage = "https://abdenasser.github.io/neohtop/";
     downloadPage = "https://github.com/Abdenasser/neohtop/releases";
     license = licenses.mit;
-    platforms = attrNames passthru.srcs;
+    platforms = attrNames passthru.urls;
   };
 }

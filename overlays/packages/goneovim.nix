@@ -12,18 +12,21 @@ mkApp rec {
   version = "0.6.9";
   appname = pname;
 
-  passthru.srcs = {
-    x86_64-darwin = {
-      url = "https://github.com/akiyosi/goneovim/releases/download/v${version}/${pname}-v${version}-macos-x86_64.tar.bz2";
-      hash = "sha256-fIFoViBMwW0JRSUlVZgNwrcg1/Mb2iozD1bwm8QVz7U=";
+  passthru = {
+    urls = {
+      x86_64-darwin = "https://github.com/akiyosi/goneovim/releases/download/v${version}/${pname}-v${version}-macos-x86_64.tar.bz2";
+      aarch64-darwin = "https://github.com/akiyosi/goneovim/releases/download/v${version}/${pname}-v${version}-macos-arm64.tar.bz2";
     };
-    aarch64-darwin = {
-      url = "https://github.com/akiyosi/goneovim/releases/download/v${version}/${pname}-v${version}-macos-arm64.tar.bz2";
-      hash = "sha256-7ysz2LzAJxYnf1nAHwEu3NfPtLDyhirMCbNeLtIp0mo=";
+    hashes = {
+      x86_64-darwin = "sha256-fIFoViBMwW0JRSUlVZgNwrcg1/Mb2iozD1bwm8QVz7U=";
+      aarch64-darwin = "sha256-7ysz2LzAJxYnf1nAHwEu3NfPtLDyhirMCbNeLtIp0mo=";
     };
   };
 
-  src = fetchzip passthru.srcs.${system};
+  src = fetchzip {
+    url = passthru.urls.${system};
+    hash = passthru.hashes.${system};
+  };
   wrapperPath = "Contents/MacOS/${pname}";
 
   meta = with lib; {
@@ -31,6 +34,6 @@ mkApp rec {
     homepage = "https://github.com/akiyosi/goneovim";
     downloadPage = "https://github.com/akiyosi/goneovim/releases";
     license = licenses.mit;
-    platforms = attrNames passthru.srcs;
+    platforms = attrNames passthru.urls;
   };
 }

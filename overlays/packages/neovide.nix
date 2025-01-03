@@ -13,18 +13,21 @@ mkApp rec {
   version = "0.13.3";
   appname = "Neovide";
 
-  passthru.srcs = {
-    x86_64-darwin = {
-      url = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-x86_64-apple-darwin.dmg";
-      hash = "sha256-zlQLwhdgly4za5KVDjKtQtV5yNtXY84zxRX4d/Qs4LQ=";
+  passthru = {
+    urls = {
+      aarch64-darwin = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-aarch64-apple-darwin.dmg";
+      x86_64-darwin = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-x86_64-apple-darwin.dmg";
     };
-    aarch64-darwin = {
-      url = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-aarch64-apple-darwin.dmg";
-      hash = "sha256-0XiDoasWlMJNZwmGzU9YVt/t6RNMu0kEJg5+duYU3qA=";
+    hashes = {
+      aarch64-darwin = "sha256-0XiDoasWlMJNZwmGzU9YVt/t6RNMu0kEJg5+duYU3qA=";
+      x86_64-darwin = "sha256-zlQLwhdgly4za5KVDjKtQtV5yNtXY84zxRX4d/Qs4LQ=";
     };
   };
 
-  src = fetchurl passthru.srcs.${system};
+  src = fetchurl {
+    url = passthru.urls.${system};
+    hash = passthru.hashes.${system};
+  };
   sourceRoot = ".";
   wrapperPath = "Contents/MacOS/${pname}";
 
@@ -33,6 +36,6 @@ mkApp rec {
     homepage = "https://neovide.dev";
     downloadPage = "https://github.com/neovide/neovide/releases";
     license = licenses.mit;
-    platforms = attrNames passthru.srcs;
+    platforms = attrNames passthru.urls;
   };
 }
