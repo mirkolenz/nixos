@@ -19,14 +19,14 @@ mkApp rec {
       x86_64-darwin = "https://github.com/neovide/neovide/releases/download/${version}/${appname}-x86_64-apple-darwin.dmg";
     };
     hashes = {
-      aarch64-darwin = "sha256-0XiDoasWlMJNZwmGzU9YVt/t6RNMu0kEJg5+duYU3qA=";
-      x86_64-darwin = "sha256-zlQLwhdgly4za5KVDjKtQtV5yNtXY84zxRX4d/Qs4LQ=";
+      aarch64-darwin = "sha256-0Hb20nkbmE8NHO4gVyKQMhL8o3Vy7RqHvlpmnFAce0I=";
+      x86_64-darwin = "sha256-F0vqo2lTYeCRZT64tKCV0OETsXL1qsmEPTbtCwbtSCY=";
     };
   };
 
   src = fetchurl {
-    aarch64-darwin = "sha256-0Hb20nkbmE8NHO4gVyKQMhL8o3Vy7RqHvlpmnFAce0I=";
-    x86_64-darwin = "sha256-F0vqo2lTYeCRZT64tKCV0OETsXL1qsmEPTbtCwbtSCY=";
+    url = passthru.urls.${system};
+    hash = passthru.hashes.${system};
   };
   sourceRoot = ".";
   wrapperPath = "Contents/MacOS/${pname}";
