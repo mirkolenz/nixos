@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.programs.ghostty-homebrew;
+  cfg = config.programs.ghostty-custom;
 
   keyValueSettings = {
     listsAsDuplicateKeys = true;
@@ -15,7 +15,7 @@ let
   keyValue = pkgs.formats.keyValue keyValueSettings;
 in
 {
-  options.programs.ghostty-homebrew = {
+  options.programs.ghostty-custom = {
     enable = lib.mkEnableOption "Ghostty";
 
     settings = lib.mkOption {
@@ -103,7 +103,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        programs.ghostty-homebrew.settings = lib.mkIf cfg.clearDefaultKeybinds {
+        programs.ghostty-custom.settings = lib.mkIf cfg.clearDefaultKeybinds {
           keybind = lib.mkBefore [ "clear" ];
         };
 
