@@ -5,12 +5,12 @@
 }:
 mkApp rec {
   pname = "vimr";
-  version = "0.49.0";
-  build = "20241006.202133";
+  version = "0.50.0";
+  build = "20241224.155723";
   appname = "VimR";
   src = fetchzip {
     url = "https://github.com/qvacua/vimr/releases/download/v${version}-${build}/${appname}-v${version}.tar.bz2";
-    hash = "sha256-aQjyENqRPBhgk6cPQCvhjl8hRWjmsJ++zhDgv7ot5o8=";
+    hash = "sha256-ErTi2DXNT/QBazwOb4Y7Ltmd2x9qY9qLZeXIapz9tyI=";
     stripRoot = false;
   };
   wrapperPath = "Contents/Resources/${pname}";

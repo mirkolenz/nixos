@@ -10,7 +10,7 @@ let
 in
 mkApp rec {
   pname = "neovide";
-  version = "0.13.3";
+  version = "0.14.0";
   appname = "Neovide";
 
   passthru = {
@@ -25,8 +25,8 @@ mkApp rec {
   };
 
   src = fetchurl {
-    url = passthru.urls.${system};
-    hash = passthru.hashes.${system};
+    aarch64-darwin = "sha256-0Hb20nkbmE8NHO4gVyKQMhL8o3Vy7RqHvlpmnFAce0I=";
+    x86_64-darwin = "sha256-F0vqo2lTYeCRZT64tKCV0OETsXL1qsmEPTbtCwbtSCY=";
   };
   sourceRoot = ".";
   wrapperPath = "Contents/MacOS/${pname}";

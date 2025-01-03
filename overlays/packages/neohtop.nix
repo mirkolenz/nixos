@@ -10,17 +10,17 @@ let
 in
 mkApp rec {
   pname = "neohtop";
-  version = "1.0.5";
+  version = "1.1.2";
   appname = "NeoHtop";
 
   passthru = {
     urls = {
-      x86_64-darwin = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/${appname}-intel.dmg";
-      aarch64-darwin = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/${appname}-silicon.dmg";
+      x86_64-darwin = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/intel-${appname}_${version}_x64.dmg";
+      aarch64-darwin = "https://github.com/Abdenasser/neohtop/releases/download/v${version}/silicon-${appname}_${version}_aarch64.dmg";
     };
     hashes = {
-      x86_64-darwin = "sha256-8psDjmT5xzw/dWAE8teYsgexCePCcPBPFiZpJHzPSbs=";
-      aarch64-darwin = "sha256-7qm/KhEtwM+Xin0a6HYI2Y1ezMJI8QV0aZWc/WMPC0Y=";
+      aarch64-darwin = "sha256-Qbjo64qdiX2EhXYKbaNPLhNZAnVsTV7c7fVNCUEKXXc=";
+      x86_64-darwin = "sha256-FSYyA1G5GZuljWnTRFBmEmK75CJk+8P6zH3N3SDOe7g=";
     };
   };
 

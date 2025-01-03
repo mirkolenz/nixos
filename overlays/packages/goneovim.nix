@@ -9,7 +9,7 @@ let
 in
 mkApp rec {
   pname = "goneovim";
-  version = "0.6.9";
+  version = "0.6.11";
   appname = pname;
 
   passthru = {
@@ -18,8 +18,8 @@ mkApp rec {
       aarch64-darwin = "https://github.com/akiyosi/goneovim/releases/download/v${version}/${pname}-v${version}-macos-arm64.tar.bz2";
     };
     hashes = {
-      x86_64-darwin = "sha256-fIFoViBMwW0JRSUlVZgNwrcg1/Mb2iozD1bwm8QVz7U=";
-      aarch64-darwin = "sha256-7ysz2LzAJxYnf1nAHwEu3NfPtLDyhirMCbNeLtIp0mo=";
+      aarch64-darwin = "sha256-c/mIFxCaknoQTl9YWhnaBghX6zRmV7WhXq3td//9OKc=";
+      x86_64-darwin = "sha256-laKJ8dVyqYmOe88IWNugb73llbMM7AmBytHrlQFT2Ms=";
     };
   };
 
