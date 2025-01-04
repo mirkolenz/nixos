@@ -122,6 +122,9 @@ let
     nixbuild-shell = ''
       exec rlwrap ssh eu.nixbuild.net shell
     '';
+    noeol = ''
+      exec ${lib.getExe' pkgs.coreutils "tr"} -d '\n'
+    '';
   };
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
 in
