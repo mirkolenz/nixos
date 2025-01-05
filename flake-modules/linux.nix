@@ -23,10 +23,6 @@ let
         inherit inputs channel os;
         name = "home-manager";
       };
-      quadlet = lib'.self.systemInput {
-        inherit inputs channel os;
-        name = "quadlet";
-      };
     in
     nixpkgs.lib.nixosSystem {
       inherit system;
@@ -37,7 +33,7 @@ let
         extraModule
         self.configModules.system
         homeManager.nixosModules.default
-        quadlet.nixosModules.quadlet
+        inputs.quadlet-nix.nixosModules.quadlet
         inputs.determinate.nixosModules.default
         ../system/linux
         ../hosts/${hostName}

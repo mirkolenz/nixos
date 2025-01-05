@@ -1597,42 +1597,23 @@
         "type": "github"
       }
     },
-    "quadlet-linux-stable": {
+    "quadlet-nix": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-linux-stable"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1734736118,
-        "narHash": "sha256-40uV/6LzQUO1AegOZWaDo+ADbZcXBDJQx7xjrIVe4RQ=",
-        "owner": "seiarotg",
+        "lastModified": 1736082337,
+        "narHash": "sha256-8bcMlY/d/k58n0mlgtbAODjB/+mIaRup3rnVt2jb7D4=",
+        "owner": "mirkolenz",
         "repo": "quadlet-nix",
-        "rev": "03fc47a4775f7cc463fe62f8bddf698a255095f5",
+        "rev": "d7748e711c9d3085e26969f5cddb4b0120834ac7",
         "type": "github"
       },
       "original": {
-        "owner": "seiarotg",
-        "repo": "quadlet-nix",
-        "type": "github"
-      }
-    },
-    "quadlet-linux-unstable": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-linux-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1734736118,
-        "narHash": "sha256-40uV/6LzQUO1AegOZWaDo+ADbZcXBDJQx7xjrIVe4RQ=",
-        "owner": "seiarotg",
-        "repo": "quadlet-nix",
-        "rev": "03fc47a4775f7cc463fe62f8bddf698a255095f5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "seiarotg",
+        "owner": "mirkolenz",
+        "ref": "improvements",
         "repo": "quadlet-nix",
         "type": "github"
       }
@@ -1668,8 +1649,7 @@
         "poetry2nix": "poetry2nix",
         "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
-        "quadlet-linux-stable": "quadlet-linux-stable",
-        "quadlet-linux-unstable": "quadlet-linux-unstable",
+        "quadlet-nix": "quadlet-nix",
         "systems": "systems_9",
         "treefmt-nix": "treefmt-nix_7",
         "uv2nix": "uv2nix",
