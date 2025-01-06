@@ -24,6 +24,7 @@
       "cameracontroller"
       "cleanshot"
       "cursor"
+      "ddpm"
       "default-folder-x"
       "devonthink"
       "discord"
