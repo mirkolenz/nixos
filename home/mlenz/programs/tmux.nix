@@ -18,4 +18,13 @@ in
     shortcut = "a";
     terminal = "xterm-256color";
   };
+  programs.zellij = {
+    enable = opensshEnabled;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+  };
+  home.packages = with pkgs; [
+    shpool
+  ];
 }
