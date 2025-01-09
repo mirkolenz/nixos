@@ -150,7 +150,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     quadlet-nix = {
-      url = "github:mirkolenz/quadlet-nix/improvements";
+      url = "github:mirkolenz/quadlet-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

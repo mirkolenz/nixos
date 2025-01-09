@@ -1613,7 +1613,6 @@
       },
       "original": {
         "owner": "mirkolenz",
-        "ref": "improvements",
         "repo": "quadlet-nix",
         "type": "github"
       }
