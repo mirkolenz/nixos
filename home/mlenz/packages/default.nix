@@ -61,7 +61,7 @@
     edir
   ];
   home.shellAliases = {
-    py = "${lib.getExe config.programs.uv.package} run";
+    py = "${lib.getExe' config.programs.uv.package "uv"} run";
     cat = lib.getExe config.programs.bat.package;
     l = "ll";
     sudo =
