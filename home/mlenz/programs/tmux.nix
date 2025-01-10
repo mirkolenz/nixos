@@ -24,7 +24,10 @@ in
     enableFishIntegration = true;
     enableZshIntegration = true;
   };
-  home.packages = with pkgs; [
-    shpool
-  ];
+  home.packages = lib.mkIf opensshEnabled (
+    with pkgs;
+    [
+      shpool
+    ]
+  );
 }
