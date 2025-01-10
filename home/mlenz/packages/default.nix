@@ -61,8 +61,8 @@
     edir
   ];
   home.shellAliases = {
-    py = "poetry run python"; # should use local poetry if possible
-    cat = lib.getExe pkgs.bat;
+    py = "${lib.getExe config.programs.uv.package} run";
+    cat = lib.getExe config.programs.bat.package;
     l = "ll";
     sudo =
       let
