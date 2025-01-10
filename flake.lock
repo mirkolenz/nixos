@@ -377,6 +377,48 @@
         "type": "github"
       }
     },
+    "flake-parts_7": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "quadlet-nix-linux-stable",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736143030,
+        "narHash": "sha256-+hu54pAoLDEZT9pjHlqL9DNzWz0NbUn8NEAHP7PQPzU=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "b905f6fc23a9051a6e1b741e1438dbfc0634c6de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_8": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "quadlet-nix-linux-unstable",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736143030,
+        "narHash": "sha256-+hu54pAoLDEZT9pjHlqL9DNzWz0NbUn8NEAHP7PQPzU=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "b905f6fc23a9051a6e1b741e1438dbfc0634c6de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -1597,18 +1639,40 @@
         "type": "github"
       }
     },
-    "quadlet-nix": {
+    "quadlet-nix-linux-stable": {
       "inputs": {
+        "flake-parts": "flake-parts_7",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-linux-stable"
         ]
       },
       "locked": {
-        "lastModified": 1736083037,
-        "narHash": "sha256-4ewS9mACsWd83045DEPigt5Nt7tpigvG/FlJrj8fRig=",
+        "lastModified": 1736504679,
+        "narHash": "sha256-3CVVjkFZRQq40cyZ3rcJ/I/4TBmAc4KN7SqxvVRmSqI=",
         "owner": "mirkolenz",
         "repo": "quadlet-nix",
-        "rev": "fcbf045b8adb8b6f298a6c2487c544755ff0dcaf",
+        "rev": "5aa31a0fd13e4105ccf7c32e6c26f91de7e72588",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mirkolenz",
+        "repo": "quadlet-nix",
+        "type": "github"
+      }
+    },
+    "quadlet-nix-linux-unstable": {
+      "inputs": {
+        "flake-parts": "flake-parts_8",
+        "nixpkgs": [
+          "nixpkgs-linux-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736504679,
+        "narHash": "sha256-3CVVjkFZRQq40cyZ3rcJ/I/4TBmAc4KN7SqxvVRmSqI=",
+        "owner": "mirkolenz",
+        "repo": "quadlet-nix",
+        "rev": "5aa31a0fd13e4105ccf7c32e6c26f91de7e72588",
         "type": "github"
       },
       "original": {
@@ -1647,7 +1711,8 @@
         "plist-manager-unstable": "plist-manager-unstable",
         "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
-        "quadlet-nix": "quadlet-nix",
+        "quadlet-nix-linux-stable": "quadlet-nix-linux-stable",
+        "quadlet-nix-linux-unstable": "quadlet-nix-linux-unstable",
         "systems": "systems_9",
         "treefmt-nix": "treefmt-nix_7",
         "uv2nix": "uv2nix",

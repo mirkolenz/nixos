@@ -37,7 +37,7 @@ let
         _: container:
         (lib.findSingle (
           network: lib.hasPrefix "${proxyNetwork}:" network
-        ) null null container.containerConfig.networks) != null
+        ) null null container.containerConfig.Network) != null
       ) config.virtualisation.quadlet.containers;
     in
     ''
@@ -190,23 +190,18 @@ in
   config = lib.mkIf (config.virtualisation.quadlet.enable && cfg.enable) {
     virtualisation.quadlet.containers.proxy = lib.mkMerge [
       {
-        imageStream = lib.mkDefault pkgs.caddy-custom-docker;
+        imageStream = pkgs.caddy-custom-docker;
         containerConfig = {
-          image =
-            let
-              imageStream = config.virtualisation.quadlet.containers.proxy.imageStream;
-            in
-            "localhost/${imageStream.imageName}:${imageStream.imageTag}";
-          volumes = [
+          Volume = [
             "${cfg.configFile}:/etc/caddy/Caddyfile:ro"
             "${cfg.storage.data}:/data"
             "${cfg.storage.config}:/config"
           ] ++ (lib.optional (cfg.storage.certificates != null) "${cfg.storage.certificates}:/certificates");
-          networks = [
+          Network = [
             "${cfg.networks.internal.ref}:ip=${cfg.networks.internal.ip}"
             "${cfg.networks.external.ref}:ip=${cfg.networks.external.ip}"
           ];
-          publishPorts = [
+          PublishPort = [
             "80:80"
             "443:443"
             "443:443/udp"

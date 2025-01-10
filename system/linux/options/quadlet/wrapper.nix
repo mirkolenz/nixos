@@ -5,8 +5,7 @@
   ...
 }:
 let
-  cfg = config.virtualisation.quadlet;
-  wrapperCfg = cfg.shellWrapper;
+  cfg = config.virtualisation.quadlet.shellWrapper;
 
   wrapper = pkgs.writeShellApplication {
     name = "quadlet";
@@ -52,5 +51,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && wrapperCfg.enable) { environment.systemPackages = [ wrapper ]; };
+  config = lib.mkIf (config.virtualisation.quadlet.enable && cfg.enable) {
+    environment.systemPackages = [ wrapper ];
+  };
 }

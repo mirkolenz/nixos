@@ -1,4 +1,4 @@
-{ quadletCfg, writeShellApplication }:
+{ quadletCfg }:
 {
   lib,
   config,
@@ -10,22 +10,13 @@ let
 in
 {
   options = {
-    imageFile = mkOption {
-      type = with types; nullOr package;
-      default = null;
-    };
-    imageStream = mkOption {
-      type = with types; nullOr package;
-      default = null;
-    };
-
     virtualHost =
       let
         networkRef = quadletCfg.proxy.networks.internal.ref;
-        networkConfig = lib.findSingle (
+        networkEntry = lib.findSingle (
           network: lib.hasPrefix "${networkRef}:" network
-        ) "" "" config.containerConfig.networks;
-        matches = lib.match "ip=([[:digit:].]+)" networkConfig;
+        ) "" "" config.containerConfig.Network;
+        matches = lib.match "ip=([[:digit:].]+)" networkEntry;
         ip = if matches != null && lib.length matches > 0 then lib.head matches else null;
       in
       mkOption {
@@ -38,23 +29,4 @@ in
         );
       };
   };
-  config =
-    let
-      prestart = writeShellApplication {
-        name = "prestart";
-        text = ''
-          ${lib.optionalString (config.imageFile != null) ''
-            podman load -i ${config.imageFile}
-          ''}
-          ${lib.optionalString (config.imageStream != null) ''
-            ${config.imageStream} | podman load
-          ''}
-        '';
-      };
-    in
-    {
-      serviceConfig = {
-        ExecStartPre = [ (lib.getExe prestart) ];
-      };
-    };
 }

@@ -144,9 +144,13 @@
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    quadlet-nix = {
+    quadlet-nix-linux-unstable = {
       url = "github:mirkolenz/quadlet-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
+    };
+    quadlet-nix-linux-stable = {
+      url = "github:mirkolenz/quadlet-nix";
+      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
   };
 
