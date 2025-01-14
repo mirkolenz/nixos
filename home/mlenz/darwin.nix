@@ -54,10 +54,9 @@ lib.mkIf pkgs.stdenv.isDarwin {
       transform = x: "${lib.getLib x}/lib";
     };
     # add entries to the local dictionary
-    "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".text = ''
-      mirkolenz
-      Argumentgraph
-    '';
+    "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = {
+      source = ./dictionary.txt;
+    };
   };
   home.sessionVariables = {
     EDITOR = "code -w";
