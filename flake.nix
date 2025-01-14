@@ -109,6 +109,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    quadlet-nix = {
+      url = "github:mirkolenz/quadlet-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     arguebuf = {
       url = "github:recap-utr/arguebuf-python/v2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -143,14 +148,6 @@
     nix-index-database = {
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    quadlet-nix-linux-unstable = {
-      url = "github:mirkolenz/quadlet-nix";
-      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
-    };
-    quadlet-nix-linux-stable = {
-      url = "github:mirkolenz/quadlet-nix";
-      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
   };
 
