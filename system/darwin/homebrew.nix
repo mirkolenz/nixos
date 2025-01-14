@@ -10,6 +10,9 @@
       upgrade = true;
       cleanup = "zap";
     };
+    caskArgs = {
+      ignore_dependencies = true;
+    };
     taps = [ ];
     brews = [ ];
     casks = [
