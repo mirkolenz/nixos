@@ -21,6 +21,11 @@ in
 lib.mkIf pkgs.stdenv.isDarwin {
   home.packages = with pkgs; [
     mas
+    neovide-bin
+    vimr-bin
+    goneovim-bin
+    restic-browser-bin
+    neohtop-bin
     zigstar-multitool
     (writeShellApplication {
       name = "scansnap-reset";
