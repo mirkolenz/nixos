@@ -26,7 +26,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       name = "scansnap-reset";
       text = ''
         pkill -f ScanSnap
-        open /Applications/ScanSnapHomeMain.app
+        open --hide /Applications/ScanSnapHomeMain.app
       '';
     })
   ];
