@@ -36,13 +36,12 @@ let
         homeManager.darwinModules.default
         inputs.determinate.darwinModules.default
         ../system/darwin
-        ../hosts/${hostName}
         {
           networking = {
             inherit hostName computerName;
           };
         }
-      ];
+      ] ++ lib'.flocken.optionalPath ../hosts/${hostName};
     };
 in
 {
@@ -51,6 +50,16 @@ in
       mirkos-macbook = self.darwinConfigurations.mirkos-macbook.config.system.build.toplevel;
     };
     darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
+      intel = {
+        channel = "unstable";
+        system = "x86_64-darwin";
+        computerName = "Intel Mac";
+      };
+      arm = {
+        channel = "unstable";
+        system = "aarch64-darwin";
+        computerName = "Apple Silicon Mac";
+      };
       mirkos-macbook = {
         channel = "unstable";
         system = "x86_64-darwin";

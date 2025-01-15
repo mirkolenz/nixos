@@ -36,13 +36,20 @@ let
         inputs.quadlet-nix.nixosModules.default
         inputs.determinate.nixosModules.default
         ../system/linux
-        ../hosts/${hostName}
         { networking.hostName = hostName; }
-      ];
+      ] ++ lib'.flocken.optionalPath ../hosts/${hostName};
     };
 in
 {
   flake.nixosConfigurations = builtins.mapAttrs mkLinuxSystem {
+    intel = {
+      channel = "unstable";
+      system = "x86_64-linux";
+    };
+    arm = {
+      channel = "unstable";
+      system = "aarch64-linux";
+    };
     vm = {
       channel = "unstable";
       system = "x86_64-linux";

@@ -37,9 +37,13 @@ let
 in
 {
   flake.homeConfigurations = builtins.mapAttrs mkHomeConfig {
-    default = {
+    intel-linux = {
       channel = "unstable";
-      system = builtins.currentSystem;
+      system = "x86_64-linux";
+    };
+    arm-linux = {
+      channel = "unstable";
+      system = "aarch64-linux";
     };
     "lenz@gpu.wi2.uni-trier.de" = {
       channel = "unstable";
