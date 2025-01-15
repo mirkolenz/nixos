@@ -46,8 +46,9 @@ let
 in
 {
   flake = {
-    checks.x86_64-darwin = {
-      mirkos-macbook = self.darwinConfigurations.mirkos-macbook.config.system.build.toplevel;
+    checks = {
+      x86_64-darwin.default = self.darwinConfigurations.intel.config.system.build.toplevel;
+      aarch64-darwin.default = self.darwinConfigurations.arm.config.system.build.toplevel;
     };
     darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
       intel = {
