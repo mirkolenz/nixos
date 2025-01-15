@@ -164,6 +164,7 @@
         };
       }
       {
+        debug = true;
         systems = import systems;
         imports = [ ./flake-modules ];
       };
