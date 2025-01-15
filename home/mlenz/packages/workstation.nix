@@ -47,6 +47,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     nurl
     nix-init
     hydra-check
+    nixos-render-docs
     # go
     go
     gopls
