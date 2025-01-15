@@ -39,16 +39,24 @@ let
         { networking.hostName = hostName; }
       ] ++ lib'.flocken.optionalPath ../hosts/${hostName};
     };
+
+  dummyConfig =
+    { modulesPath, ... }:
+    {
+      imports = [ "${modulesPath}/virtualisation/qemu-vm.nix" ];
+    };
 in
 {
   flake.nixosConfigurations = builtins.mapAttrs mkLinuxSystem {
     intel = {
       channel = "unstable";
       system = "x86_64-linux";
+      extraModule = dummyConfig;
     };
     arm = {
       channel = "unstable";
       system = "aarch64-linux";
+      extraModule = dummyConfig;
     };
     vm = {
       channel = "unstable";
