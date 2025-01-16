@@ -110,7 +110,7 @@
       inputs.flake-parts.follows = "flake-parts";
     };
     quadlet-nix = {
-      url = "github:mirkolenz/quadlet-nix";
+      url = "github:mirkolenz/quadlet-nix/v1";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
