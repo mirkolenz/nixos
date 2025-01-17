@@ -1,8 +1,8 @@
 builds:
   exclude: []
   include:
-    - "*.x86_64-linux.*"
-    - "*.x86_64-darwin.*"
+    - "checks.x86_64-linux.*"
+    - "checks.x86_64-darwin.*"
     - homeConfigurations.*
     - darwinConfigurations.*
     - nixosConfigurations.*
