@@ -50,6 +50,7 @@
       builders-use-substitutes = true;
       warn-dirty = false;
       accept-flake-config = true;
+      sandbox = true;
     };
     gc = {
       automatic = true;
