@@ -82,10 +82,6 @@
         eol = "lf";
         fsmonitor = lib.mkIf pkgs.stdenv.isDarwin true; # not supported on linux
       };
-      index = {
-        # otherwise, treefmt has the following error: failed to generate change set: failed to open git index: invalid checksum
-        skipHash = false;
-      };
       feature = {
         manyFiles = true;
       };
