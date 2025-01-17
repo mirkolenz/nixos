@@ -1,7 +1,9 @@
 builds:
   exclude: []
   include:
+    - "checks.aarch64-linux.*"
     - "checks.x86_64-linux.*"
+    - "checks.aarch64-darwin.*"
     - "checks.x86_64-darwin.*"
     - homeConfigurations.*
     - darwinConfigurations.*
