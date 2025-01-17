@@ -1,10 +1,12 @@
 builds:
-  exclude: []
+  exclude:
+    # sandbox initialization failed: pattern serialization length 431536 exceeds maximum (65535)
+    # failed to configure sandbox: pattern serialization length 431536 exceeds maximum (65535))
+    - darwinConfigurations.*
   include:
     - "checks.aarch64-linux.*"
     - "checks.x86_64-linux.*"
     - "checks.aarch64-darwin.*"
     - "checks.x86_64-darwin.*"
     - homeConfigurations.*
-    - darwinConfigurations.*
     - nixosConfigurations.*
