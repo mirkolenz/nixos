@@ -31,6 +31,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     ffmpeg-normalize
     qpdf
     comrak
+    mdbook
     # python3Packages.markitdown # fails on darwin
     # typst
     typst
