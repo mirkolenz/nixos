@@ -22,7 +22,12 @@ let
 in
 {
   inherit flake-exports;
-  inherit (self.packages.${system}) nixvim nixvim-unstable nixvim-stable;
+  inherit (self.packages.${system})
+    nixvim
+    nixvim-unstable
+    nixvim-stable
+    treefmt-nix
+    ;
   inherit (inputs.arguebuf.packages.${system}) arguebuf;
   inherit (inputs.uv2nix.packages.${system}) uv-bin;
   nixfmt = final.nixfmt-rfc-style;
