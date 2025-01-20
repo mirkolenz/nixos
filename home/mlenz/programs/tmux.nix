@@ -23,6 +23,16 @@ in
     enableBashIntegration = true;
     enableFishIntegration = true;
     enableZshIntegration = true;
+    settings = {
+      auto_layout = true;
+      default_layout = "default";
+      on_force_close = "detach";
+      theme = "default";
+    };
+  };
+  home.sessionVariables = {
+    ZELLIJ_AUTO_ATTACH = "1";
+    ZELLIJ_AUTO_EXIT = "0";
   };
   home.packages = lib.mkIf opensshEnabled (
     with pkgs;
