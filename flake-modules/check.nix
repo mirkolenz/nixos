@@ -16,13 +16,17 @@ let
       value = module.activationPackage;
     }) self.homeConfigurations);
 
-  onlyEvalPackage = name: _: !lib.elem name (lib.attrNames evalChecks);
+  uncheckedPackages = (lib.attrNames evalChecks) ++ [
+    "default"
+    "nixvim"
+  ];
+  shouldCheck = name: _: !lib.elem name uncheckedPackages;
 in
 {
   perSystem =
     { config, ... }:
     {
-      checks = lib.filterAttrs onlyEvalPackage config.packages;
+      checks = lib.filterAttrs shouldCheck config.packages;
       packages = evalChecks;
     };
   flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
