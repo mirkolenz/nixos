@@ -41,7 +41,7 @@ jobs:
             --show-trace \
             --no-build
 
-  check-build:
+  check-build-matrix:
     name: ${{ matrix.name }}.${{ matrix.system }}
     needs: matrix
     runs-on: ${{ matrix.os }}
@@ -61,3 +61,9 @@ jobs:
             --print-build-logs \
             --show-trace \
             '.#${{ matrix.attr }}'
+
+  check-build:
+    needs: check-build-matrix
+    runs-on: ubuntu-latest
+    steps:
+      - run: true
