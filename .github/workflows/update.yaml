@@ -7,17 +7,26 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v16
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - uses: DeterminateSystems/update-flake-lock@v24
-        id: update
         with:
-          commit-msg: "chore(deps): update flake.lock"
-          pr-title: "chore(deps): update flake.lock"
-      - run: gh pr merge --auto --rebase ${{ steps.update.outputs.pull-request-number }}
-        if: steps.update.outputs.pull-request-number != ''
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          extra-conf: |
+            accept-flake-config = true
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
+      - name: git config
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+      - name: nix flake update
+        run: |
+          nix flake update \
+            --commit-lock-file \
+            --commit-lock-file-summary "chore(deps): update flake.lock"
+      - name: nix flake check
+        run: |
+          nix flake check \
+            --print-build-logs \
+            --show-trace
+      - name: git push
+        run: git push
