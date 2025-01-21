@@ -13,10 +13,7 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-      - uses: nixbuild/nixbuild-action@v20
-        with:
-          nixbuild_token: ${{ secrets.nixbuild_token }}
-          generate_summary_for: job
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
       - name: nix flake update
         run: |
           nix flake update \
@@ -26,12 +23,8 @@ jobs:
         run: |
           nix flake check \
             --print-build-logs \
-            --show-trace \
-            --builders "" \
-            --max-jobs 2 \
-            --eval-store auto \
-            --store ssh-ng://eu.nixbuild.net
-      - name: git
+            --show-trace
+      - name: git config and push
         run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
