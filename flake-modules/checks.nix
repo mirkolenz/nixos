@@ -7,10 +7,6 @@ let
   evalChecks =
     { }
     // (lib.mapAttrs' (name: module: {
-      name = "nixos-config-${name}";
-      value = module.config.system.build.toplevel;
-    }) self.nixosConfigurations)
-    // (lib.mapAttrs' (name: module: {
       name = "darwin-config-${name}";
       value = module.config.system.build.toplevel;
     }) self.darwinConfigurations)
