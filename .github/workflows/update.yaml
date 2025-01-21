@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v16
@@ -24,4 +25,6 @@ jobs:
         run: gh pr merge --auto --rebase ${{ steps.update.outputs.pull-request-number }}
         if: steps.update.outputs.pull-request-number != ''
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          # if using a personal access token, workflows are run twice
+          # first in the pr and then after merging
+          GITHUB_TOKEN: ${{ github.token }}
