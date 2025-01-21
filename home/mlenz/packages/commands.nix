@@ -129,5 +129,5 @@ let
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
 in
 {
-  home.packages = builtins.attrValues cmds;
+  home.packages = lib.attrValues cmds;
 }

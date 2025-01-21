@@ -21,7 +21,7 @@ in
       };
       daemon.settings = {
         icc = cfg.enableIcc;
-        userns-remap = lib.mkIf (builtins.isString cfg.userns) cfg.userns;
+        userns-remap = lib.mkIf (cfg.userns != null) cfg.userns;
       };
     };
   };

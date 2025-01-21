@@ -16,7 +16,7 @@ let
       extraModule ? { },
     }:
     let
-      login = builtins.head (lib.splitString "@" name);
+      login = lib.head (lib.splitString "@" name);
       os = lib'.self.systemOs system;
       homeManager = lib'.self.systemInput {
         inherit inputs channel os;
@@ -36,7 +36,7 @@ let
     };
 in
 {
-  flake.homeConfigurations = builtins.mapAttrs mkHomeConfig {
+  flake.homeConfigurations = lib.mapAttrs mkHomeConfig {
     intel-linux = {
       channel = "unstable";
       system = "x86_64-linux";

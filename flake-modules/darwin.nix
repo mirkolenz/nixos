@@ -3,6 +3,7 @@
   specialModuleArgs,
   self,
   lib',
+  lib,
   ...
 }:
 let
@@ -46,7 +47,7 @@ let
 in
 {
   flake = {
-    darwinConfigurations = builtins.mapAttrs mkDarwinSystem {
+    darwinConfigurations = lib.mapAttrs mkDarwinSystem {
       intel = {
         channel = "unstable";
         system = "x86_64-darwin";

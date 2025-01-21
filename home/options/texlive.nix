@@ -152,7 +152,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = lib.singleton cfg.package ++ cfg.extraPackages ++ (builtins.attrValues cmds);
+      packages = lib.singleton cfg.package ++ cfg.extraPackages ++ (lib.attrValues cmds);
       file = {
         ".latexmkrc".source = pkgs.writeText "latexmkrc" cfg.latexmkrc;
       };

@@ -3,6 +3,7 @@
   specialModuleArgs,
   self,
   lib',
+  lib,
   ...
 }:
 let
@@ -47,7 +48,7 @@ let
     };
 in
 {
-  flake.nixosConfigurations = builtins.mapAttrs mkLinuxSystem {
+  flake.nixosConfigurations = lib.mapAttrs mkLinuxSystem {
     intel = {
       channel = "unstable";
       system = "x86_64-linux";

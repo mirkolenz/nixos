@@ -11,7 +11,7 @@ let
     mkKeyValue = (k: v: if v == null then k else kvDefault k v);
   };
   mkList = v: lib.genAttrs v (_: null);
-  allAppNames = cfg.builtinApps ++ (builtins.attrNames cfg.customApps);
+  allAppNames = cfg.builtinApps ++ (lib.attrNames cfg.customApps);
 in
 {
   options.custom.mackup = {
