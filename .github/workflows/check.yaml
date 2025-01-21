@@ -30,6 +30,7 @@ jobs:
     needs: matrix
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix: ${{fromJSON(needs.matrix.outputs.build)}}
     steps:
       - uses: actions/checkout@v4
@@ -42,7 +43,7 @@ jobs:
         run: |
           nix build \
             --print-build-logs \
-            --show-stack-trace \
+            --show-trace \
             '.#${{ matrix.attr }}'
 
   eval:
@@ -50,6 +51,7 @@ jobs:
     needs: matrix
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix: ${{fromJSON(needs.matrix.outputs.eval)}}
     steps:
       - uses: actions/checkout@v4
@@ -62,5 +64,5 @@ jobs:
         run: |
           nix eval \
             --print-build-logs \
-            --show-stack-trace \
+            --show-trace \
             '.#${{ matrix.attr }}'
