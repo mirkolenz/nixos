@@ -26,7 +26,7 @@ in
     nixvim
     nixvim-unstable
     nixvim-stable
-    treefmt-nix
+    treefmt
     ;
   inherit (inputs.arguebuf.packages.${system}) arguebuf;
   inherit (inputs.uv2nix.packages.${system}) uv-bin;
