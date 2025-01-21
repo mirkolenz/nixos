@@ -26,7 +26,7 @@ jobs:
           echo "eval-matrix=$(nix eval --json '.#githubActionsEval.matrix')" >> "$GITHUB_OUTPUT"
 
   build:
-    name: ${{ matrix.name }} (${{ matrix.system }})
+    name: build ${{ matrix.name }} (${{ matrix.system }})
     needs: matrix
     runs-on: ${{ matrix.os }}
     strategy:
@@ -47,7 +47,7 @@ jobs:
             '.#${{ matrix.attr }}'
 
   eval:
-    name: ${{ matrix.name }} (${{ matrix.system }})
+    name: eval ${{ matrix.name }} (${{ matrix.system }})
     needs: matrix
     runs-on: ${{ matrix.os }}
     strategy:
