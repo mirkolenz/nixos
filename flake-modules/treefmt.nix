@@ -2,7 +2,7 @@
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
   perSystem =
-    { ... }:
+    { config, ... }:
     {
       treefmt = {
         projectRootFile = "flake.nix";
@@ -14,5 +14,6 @@
           texfmt.enable = true;
         };
       };
+      packages.treefmt-nix = config.treefmt.build.wrapper;
     };
 }

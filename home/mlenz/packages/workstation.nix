@@ -32,7 +32,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     qpdf
     comrak
     mdbook
-    treefmt
+    treefmt-nix
     # python3Packages.markitdown # fails on darwin
     # typst
     typst
