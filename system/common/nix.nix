@@ -22,13 +22,11 @@
         "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
         "pyproject-nix.cachix.org-1:UNzugsOlQIu2iOz0VyZNBQm2JSrL/kwxeCcFGw+jMe0="
         "nixbuild.net/BMAQHF-1:Q4LUtdLL0mXTO1Cs5jhcOKDZQUVlNA0u3QItwZ6uyq0="
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
       trusted-substituters = config.nix.settings.substituters ++ [
         "https://mirkolenz.cachix.org"
         "https://pyproject-nix.cachix.org"
         "ssh://eu.nixbuild.net"
-        "https://cache.garnix.io"
       ];
       # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
       experimental-features = [
