@@ -48,25 +48,15 @@ in
 {
   flake = {
     darwinConfigurations = lib.mapAttrs mkDarwinSystem {
-      intel = {
-        channel = "unstable";
-        system = "x86_64-darwin";
-        computerName = "Intel Mac";
-      };
-      arm = {
-        channel = "unstable";
-        system = "aarch64-darwin";
-        computerName = "Apple Silicon Mac";
-      };
       mirkos-macbook = {
         channel = "unstable";
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook";
       };
-      mirkos-unibook = {
+      mirkos-macbook-arm = {
         channel = "unstable";
         system = "x86_64-darwin";
-        computerName = "Mirkos UniBook";
+        computerName = "Mirkos MacBook Apple Silicon";
       };
     };
   };
