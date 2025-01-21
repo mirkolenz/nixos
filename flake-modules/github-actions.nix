@@ -12,9 +12,9 @@
     githubActionsEval = inputs.nix-github-actions.lib.mkGithubMatrix {
       checks.x86_64-linux =
         { }
-        // (lib.mapAttrs (name: value: value.config.system.toplevel.build) self.nixosConfigurations)
-        // (lib.mapAttrs (name: value: value.config.system.toplevel.build) self.darwinConfigurations)
-        // (lib.mapAttrs (name: value: value.activationPackage) self.homeConfigurations);
+        // (lib.mapAttrs (_: module: module.config.system.toplevel.build) self.nixosConfigurations)
+        // (lib.mapAttrs (_: module: module.config.system.toplevel.build) self.darwinConfigurations)
+        // (lib.mapAttrs (_: module: module.activationPackage) self.homeConfigurations);
     };
   };
 }
