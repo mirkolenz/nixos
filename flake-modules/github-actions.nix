@@ -14,7 +14,7 @@ let
       // (lib.mapAttrs (_: module: module.activationPackage) self.homeConfigurations);
   };
   allChecks = lib.recursiveUpdate evalChecks buildChecks;
-  filterChecks = checks: lib.filterAttrs [ "x86_64-linux" "x86_64-darwin" ] checks;
+  filterChecks = checks: lib.getAttrs [ "x86_64-linux" "x86_64-darwin" ] checks;
 in
 {
   flake = {
