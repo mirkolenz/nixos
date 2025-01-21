@@ -4,13 +4,10 @@ on:
       - main
   pull_request:
 jobs:
-  matrix:
+  check:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    outputs:
-      build: ${{ steps.generate.outputs.build-matrix }}
-      eval: ${{ steps.generate.outputs.eval-matrix }}
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v16
@@ -18,51 +15,8 @@ jobs:
           extra-conf: |
             accept-flake-config = true
       - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - id: generate
-        name: Generate Matrix
+      - name: nix flake check
         run: |
-          set -Eeu
-          echo "build-matrix=$(nix eval --json '.#githubActionsBuild.matrix')" >> "$GITHUB_OUTPUT"
-          echo "eval-matrix=$(nix eval --json '.#githubActionsEval.matrix')" >> "$GITHUB_OUTPUT"
-
-  build:
-    name: build ${{ matrix.name }} (${{ matrix.system }})
-    needs: matrix
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix: ${{fromJSON(needs.matrix.outputs.build)}}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v16
-        with:
-          extra-conf: |
-            accept-flake-config = true
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - name: nix build
-        run: |
-          nix build \
+          nix flake check \
             --print-build-logs \
-            --show-trace \
-            '.#${{ matrix.attr }}'
-
-  eval:
-    name: eval ${{ matrix.name }} (${{ matrix.system }})
-    needs: matrix
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix: ${{fromJSON(needs.matrix.outputs.eval)}}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v16
-        with:
-          extra-conf: |
-            accept-flake-config = true
-      - uses: DeterminateSystems/magic-nix-cache-action@v8
-      - name: nix eval
-        run: |
-          nix eval \
-            --print-build-logs \
-            --show-trace \
-            '.#${{ matrix.attr }}'
+            --show-trace

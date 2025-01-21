@@ -10,7 +10,6 @@
     {
       pkgs,
       system,
-      config,
       ...
     }:
     {
@@ -18,7 +17,6 @@
         inherit system;
         inherit (nixpkgsArgs) config overlays;
       };
-      checks = config.packages;
       packages = lib'.self.filterPackagePlatforms {
         inherit system;
         packages = pkgs.flake-exports // {
