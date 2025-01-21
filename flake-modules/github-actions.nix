@@ -14,7 +14,7 @@
         { }
         // (lib.mapAttrs (name: value: value.config.system.toplevel.build) self.nixosConfigurations)
         // (lib.mapAttrs (name: value: value.config.system.toplevel.build) self.darwinConfigurations)
-        // (lib.mapAttrs (name: value: value.config.activationPackage) self.homeConfigurations);
+        // (lib.mapAttrs (name: value: value.activationPackage) self.homeConfigurations);
     };
   };
 }
