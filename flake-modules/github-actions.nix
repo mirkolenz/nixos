@@ -9,8 +9,8 @@ let
   evalChecks = {
     x86_64-linux =
       { }
-      // (lib.mapAttrs (_: module: module.config.system.toplevel.build) self.nixosConfigurations)
-      // (lib.mapAttrs (_: module: module.config.system.toplevel.build) self.darwinConfigurations)
+      // (lib.mapAttrs (_: module: module.config.system.build.toplevel) self.nixosConfigurations)
+      // (lib.mapAttrs (_: module: module.config.system.build.toplevel) self.darwinConfigurations)
       // (lib.mapAttrs (_: module: module.activationPackage) self.homeConfigurations);
   };
   allChecks = lib.recursiveUpdate evalChecks buildChecks;
