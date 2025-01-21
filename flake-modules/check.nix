@@ -1,6 +1,7 @@
 {
   lib,
   self,
+  inputs,
   ...
 }:
 let
@@ -24,4 +25,7 @@ in
       checks = lib.filterAttrs onlyEvalPackage config.packages;
       packages = evalChecks;
     };
+  flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
+    checks = lib.getAttrs [ "x86_64-linux" ] self.checks;
+  };
 }

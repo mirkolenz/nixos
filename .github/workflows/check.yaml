@@ -4,7 +4,26 @@ on:
       - main
   pull_request:
 jobs:
-  check:
+  matrix:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+        with:
+          extra-conf: |
+            accept-flake-config = true
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
+      - id: generate
+        name: generate Matrix
+        run: |
+          set -Eeu
+          echo "matrix=$(nix eval --json '.#githubActions.matrix')" >> "$GITHUB_OUTPUT"
+
+  check-eval:
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -19,4 +38,26 @@ jobs:
         run: |
           nix flake check \
             --print-build-logs \
-            --show-trace
+            --show-trace \
+            --no-build
+
+  check-build:
+    name: ${{ matrix.name }}.${{ matrix.system }}
+    needs: matrix
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJSON(needs.matrix.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+        with:
+          extra-conf: |
+            accept-flake-config = true
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
+      - name: nix build
+        run: |
+          nix build \
+            --print-build-logs \
+            --show-trace \
+            '.#${{ matrix.attr }}'
