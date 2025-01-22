@@ -44,8 +44,7 @@ jobs:
         run: |
           nix flake check \
             --print-build-logs \
-            --show-trace \
-            --no-build
+            --show-trace
 
   check-build-matrix:
     name: ${{ matrix.name }}.${{ matrix.system }}
