@@ -69,6 +69,7 @@ jobs:
           nix build \
             --print-build-logs \
             --show-trace \
+            --no-link \
             '.#${{ matrix.attr }}'
 
   check-build:
