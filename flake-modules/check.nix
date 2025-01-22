@@ -30,6 +30,6 @@ in
       packages = evalChecks;
     };
   flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-    checks = lib.getAttrs [ "x86_64-linux" ] self.checks;
+    checks = lib.getAttrs [ "x86_64-linux" "aarch64-darwin" ] self.checks;
   };
 }
