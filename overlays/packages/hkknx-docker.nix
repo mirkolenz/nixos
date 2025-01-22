@@ -20,7 +20,7 @@ let
     port = 80;
   };
 in
-dockerTools.streamLayeredImage {
+(dockerTools.streamLayeredImage {
   name = "hkknx";
   tag = "latest";
   created = "now";
@@ -33,4 +33,10 @@ dockerTools.streamLayeredImage {
     mkdir -m 1777 tmp
   '';
   config.entrypoint = [ (lib.getExe hkknx-bin) ] ++ defaultOptions;
-}
+}).overrideAttrs
+  (finalAttrs: {
+    meta = (finalAttrs.meta or { }) // {
+      maintainers = with lib.maintainers; [ mirkolenz ];
+      platforms = lib.platforms.linux;
+    };
+  })

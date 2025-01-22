@@ -6,7 +6,7 @@
   cacert,
   tzdata,
 }:
-dockerTools.streamLayeredImage {
+(dockerTools.streamLayeredImage {
   name = "caddy";
   tag = "latest";
   created = "now";
@@ -40,4 +40,10 @@ dockerTools.streamLayeredImage {
     ];
     WorkingDir = "/srv";
   };
-}
+}).overrideAttrs
+  (finalAttrs: {
+    meta = (finalAttrs.meta or { }) // {
+      maintainers = with lib.maintainers; [ mirkolenz ];
+      platforms = lib.platforms.linux;
+    };
+  })
