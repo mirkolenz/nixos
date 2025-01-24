@@ -1,7 +1,7 @@
 {
   inputs,
   lib',
-  nixpkgsConfig,
+  config,
   ...
 }:
 final: prev:
@@ -9,12 +9,12 @@ let
   inherit (final.pkgs) system;
   inherit (prev) lib;
   os = lib'.self.systemOs system;
+  importArgs = {
+    inherit system config;
+  };
 in
 {
-  nixpkgs = import inputs.nixpkgs {
-    inherit system;
-    config = nixpkgsConfig;
-  };
+  nixpkgs = import inputs.nixpkgs importArgs;
 }
 // (lib.genAttrs
   [
@@ -29,10 +29,7 @@ in
         name = "nixpkgs";
       };
     in
-    import nixpkgsInput {
-      inherit system;
-      config = nixpkgsConfig;
-    }
+    import nixpkgsInput importArgs
   )
 )
 // (lib.concatMapAttrs (

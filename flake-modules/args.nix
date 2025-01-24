@@ -17,7 +17,7 @@
           inputs
           lib'
           ;
-        nixpkgsConfig = config;
+        inherit config;
       };
     };
 
