@@ -15,6 +15,7 @@ let
 in
 {
   nixpkgs = import inputs.nixpkgs importArgs;
+  nixpkgs-texlive = import inputs.nixpkgs-texlive importArgs;
 }
 // (lib.genAttrs
   [
