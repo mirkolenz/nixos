@@ -10,6 +10,7 @@
     {
       pkgs,
       system,
+      config,
       ...
     }:
     {
@@ -17,16 +18,23 @@
         inherit system;
         inherit (nixpkgsArgs) config overlays;
       };
-      packages = lib'.self.filterPackagePlatforms {
-        inherit system;
-        packages = pkgs.flake-exports // {
-          inherit (pkgs)
-            home-manager
-            nixos-rebuild
-            darwin-rebuild
-            darwin-uninstaller
-            ;
+      legacyPackages = {
+        exports = lib'.self.filterPackagePlatforms {
+          inherit system;
+          packages = pkgs.flake-exports;
         };
+        github-checks = config.legacyPackages.exports // {
+          inherit (config.packages) nixvim-stable nixvim-unstable
+          builder-wrapper;
+        };
+      };
+      packages = config.legacyPackages.exports // {
+        inherit (pkgs)
+          home-manager
+          nixos-rebuild
+          darwin-rebuild
+          darwin-uninstaller
+          ;
       };
     };
   flake = {

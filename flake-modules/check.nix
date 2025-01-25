@@ -5,37 +5,30 @@
   ...
 }:
 let
-  evalPackages =
-    { }
-    // (lib.mapAttrs' (name: module: {
-      name = "darwin-config-${name}";
-      value = module.config.system.build.toplevel;
-    }) self.darwinConfigurations)
-    // (lib.mapAttrs' (name: module: {
-      name = "home-config-${name}";
-      value = module.activationPackage;
-    }) self.homeConfigurations);
-
-  noBuildPackages = (lib.attrNames evalPackages) ++ [
-    "default"
-    "nixvim"
-  ];
-  buildSystems = [
+  systems = [
     "x86_64-linux"
     "aarch64-darwin"
   ];
-
-  shouldBuild = name: _: !lib.elem name noBuildPackages;
-  buildPackagesPerSystem = lib.getAttrs buildSystems self.packages;
-  getBuildPackage = system: packages: lib.filterAttrs shouldBuild packages;
+  checks = lib.mapAttrs (
+    system: packages: packages.github-checks
+  ) self.legacyPackages;
 in
 {
   perSystem =
     { ... }:
     {
-      packages = evalPackages;
+      packages =
+        { }
+        // (lib.mapAttrs' (name: module: {
+          name = "darwin-config-${name}";
+          value = module.config.system.build.toplevel;
+        }) self.darwinConfigurations)
+        // (lib.mapAttrs' (name: module: {
+          name = "home-config-${name}";
+          value = module.activationPackage;
+        }) self.homeConfigurations);
     };
   flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-    checks = lib.mapAttrs getBuildPackage buildPackagesPerSystem;
+    checks = lib.getAttrs systems checks;
   };
 }
