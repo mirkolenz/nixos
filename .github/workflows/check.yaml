@@ -75,4 +75,10 @@ jobs:
     needs: check-build-matrix
     runs-on: ubuntu-latest
     steps:
-      - run: true
+      - run: |
+          result="${{ needs.check-build-matrix.result }}"
+          if [[ $result == "success" ]]; then
+            exit 0
+          else
+            exit 1
+          fi
