@@ -9,9 +9,7 @@ let
     "x86_64-linux"
     "aarch64-darwin"
   ];
-  checks = lib.mapAttrs (
-    system: packages: packages.github-checks
-  ) self.legacyPackages;
+  checks = lib.mapAttrs (system: packages: packages.github-checks) self.legacyPackages;
 in
 {
   perSystem =

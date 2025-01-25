@@ -24,8 +24,11 @@
           packages = pkgs.flake-exports;
         };
         github-checks = config.legacyPackages.exports // {
-          inherit (config.packages) nixvim-stable nixvim-unstable
-          builder-wrapper;
+          inherit (config.packages)
+            nixvim-stable
+            nixvim-unstable
+            builder-wrapper
+            ;
         };
       };
       packages = config.legacyPackages.exports // {
