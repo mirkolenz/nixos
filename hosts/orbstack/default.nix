@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ modulesPath, user, ... }:
 {
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/lxc-instance-common.nix
 
@@ -11,5 +11,6 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  home-manager.users.mlenz.services.vscode-server.enable = true;
+  home-manager.users.${user.login}.services.vscode-server.enable = true;
+  nix.settings.trusted-users = [ user.login ];
 }
