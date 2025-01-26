@@ -10,6 +10,7 @@
         error_symbol = "[🗙](bold red)";
       };
       container.format = "[$symbol]($style) ";
+      direnv.disabled = false;
     };
     # Disable nerd fonts: starship preset no-nerd-font
     settings = {
