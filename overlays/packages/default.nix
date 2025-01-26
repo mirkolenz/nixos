@@ -16,6 +16,7 @@ let
     neovide-bin = final.callPackage ./neovide.nix { };
     pam-watchid = final.callPackage ./pam-watchid.nix { };
     restic-browser-bin = final.callPackage ./restic-browser.nix { };
+    uv-migrator = final.callPackage ./uv-migrator.nix { };
     vimr-bin = final.callPackage ./vimr.nix { };
     zigstar-multitool = final.callPackage ./zigstar-multitool.nix { };
   };

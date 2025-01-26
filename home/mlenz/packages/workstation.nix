@@ -33,6 +33,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     comrak
     mdbook
     treefmt-nix
+    uv-migrator
     # python3Packages.markitdown # fails on darwin
     # typst
     typst
