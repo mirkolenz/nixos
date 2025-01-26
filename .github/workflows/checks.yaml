@@ -16,10 +16,6 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-      - uses: cachix/cachix-action@v15
-        with:
-          name: mirkolenz
-          authToken: ${{ secrets.CACHIX_TOKEN }}
       - id: generate
         name: generate Matrix
         run: |
@@ -36,10 +32,6 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-      - uses: cachix/cachix-action@v15
-        with:
-          name: mirkolenz
-          authToken: ${{ secrets.CACHIX_TOKEN }}
       - name: nix flake check
         run: |
           nix flake check \
@@ -59,17 +51,16 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-      - uses: cachix/cachix-action@v15
-        with:
-          name: mirkolenz
-          authToken: ${{ secrets.CACHIX_TOKEN }}
       - name: nix build
         run: |
-          nix build \
-            --print-build-logs \
-            --show-trace \
+          nix run .#nix-fast-build -- \
+            --no-nom \
+            --skip-cached \
             --no-link \
-            '.#${{ matrix.attr }}'
+            --cachix-cache mirkolenz \
+            --flake '.#${{ matrix.attr }}'
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_TOKEN }}
 
   check-build:
     needs: check-build-matrix
