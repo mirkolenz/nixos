@@ -74,6 +74,7 @@ jobs:
   check-build:
     needs: check-build-matrix
     runs-on: ubuntu-latest
+    if: always()
     steps:
       - run: |
           result="${{ needs.check-build-matrix.result }}"
