@@ -35,7 +35,7 @@ let
         self.configModules.system
         homeManager.nixosModules.default
         inputs.quadlet-nix.nixosModules.default
-        inputs.determinate.nixosModules.default
+        # inputs.determinate.nixosModules.default
         ../system/linux
         { networking.hostName = hostName; }
       ] ++ lib'.flocken.optionalPath ../hosts/${hostName};

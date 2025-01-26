@@ -5,10 +5,12 @@
   lib',
   os,
   channel,
+  pkgs,
   ...
 }:
 {
   nix = {
+    package = pkgs.nix;
     extraOptions = ''
       !include nix.local.conf
     '';

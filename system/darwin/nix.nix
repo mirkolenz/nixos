@@ -7,6 +7,11 @@
       trusted-users = [ user.login ];
       # https://github.com/NixOS/nix/issues/4119#issuecomment-2561973914
       extra-sandbox-paths = [ "/nix/store" ];
+      upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
+    };
+    gc.interval = {
+      Hour = 1;
+      Minute = 0;
     };
   };
 }

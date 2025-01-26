@@ -35,7 +35,7 @@ let
         extraModule
         self.configModules.system
         homeManager.darwinModules.default
-        inputs.determinate.darwinModules.default
+        # inputs.determinate.darwinModules.default
         ../system/darwin
         {
           networking = {
