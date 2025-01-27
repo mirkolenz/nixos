@@ -16,7 +16,7 @@
         unloaded_msg = "unloaded";
         disabled = false;
       };
-      nix-shell.format = "via [$symbol(nix)]($style) ";
+      nix_shell.format = "via [$symbol(nix)]($style) ";
     };
     # Disable nerd fonts: starship preset no-nerd-font
     settings = {
