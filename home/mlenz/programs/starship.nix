@@ -11,6 +11,7 @@
       };
       container.format = "[$symbol]($style) ";
       direnv.disabled = false;
+      nix-shell.format = "via [$symbol(nix)]($style) ";
     };
     # Disable nerd fonts: starship preset no-nerd-font
     settings = {
