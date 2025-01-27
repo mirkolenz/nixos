@@ -10,7 +10,12 @@
         error_symbol = "[🗙](bold red)";
       };
       container.format = "[$symbol]($style) ";
-      direnv.disabled = false;
+      direnv = {
+        format = "[$symbol$loaded]($style) ";
+        loaded_msg = "loaded";
+        unloaded_msg = "unloaded";
+        disabled = false;
+      };
       nix-shell.format = "via [$symbol(nix)]($style) ";
     };
     # Disable nerd fonts: starship preset no-nerd-font
