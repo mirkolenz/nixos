@@ -61,6 +61,7 @@ lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
     pythonWithPackages
     ruff
     black
+    pylyzer
     # nodejs
     nodejs
     nodePackages.prettier
