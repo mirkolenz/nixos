@@ -3,9 +3,10 @@
   programs.uv = {
     enable = true;
     package = pkgs.uv-bin;
+    # https://docs.astral.sh/uv/reference/settings/
     settings = {
-      python-downloads = "never";
-      python-preference = "only-system";
+      python-downloads = "manual";
+      python-preference = "system";
     };
   };
 }
