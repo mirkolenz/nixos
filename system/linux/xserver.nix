@@ -5,13 +5,6 @@
   ...
 }:
 lib.mkIf config.services.xserver.enable {
-  systemd.user.services.ulauncher = {
-    enable = true;
-    description = "Ulauncher";
-    script = "${lib.getExe pkgs.ulauncher} --hide-window";
-    wantedBy = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-  };
   # Packages
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -21,33 +14,13 @@ lib.mkIf config.services.xserver.enable {
       obsidian
       zoom-us
       zotero_7
-      gnome-tweaks
-      ulauncher
-      wmctrl
     ];
-    gnome.excludePackages = with pkgs; [ gnome-tour ];
   };
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
   services.xserver = {
-    displayManager.gdm = {
-      enable = true;
-    };
-    desktopManager.gnome = {
-      enable = true;
-    };
     xkb.layout = "us";
-    excludePackages = with pkgs; [ xterm ];
   };
-  services.gnome = {
-    core-utilities.enable = true;
-    core-developer-tools.enable = true;
-  };
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  programs.dconf.enable = true;
-
-  networking.networkmanager = {
-    # true by default when using GNOME
-    enable = true;
-    # there is an issue with wpa_supplicant and broadcom-wl (used in Macs)
-    wifi.backend = "iwd";
-  };
+  # there is an issue with wpa_supplicant and broadcom-wl (used in Macs)
+  networking.networkmanager.wifi.backend = "iwd";
 }

@@ -35,6 +35,7 @@ let
         self.configModules.system
         homeManager.nixosModules.default
         inputs.quadlet-nix.nixosModules.default
+        inputs.nixos-cosmic.nixosModules.default
         # inputs.determinate.nixosModules.default
         ../system/linux
         { networking.hostName = hostName; }

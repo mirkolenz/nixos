@@ -6,10 +6,12 @@
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://mirkolenz.cachix.org"
+      "https://cosmic.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
     ];
   };
 
@@ -104,6 +106,21 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
       inputs.nix-darwin.follows = "nix-darwin-stable";
       inputs.flake-parts.follows = "flake-parts";
+    };
+
+    # cosmic
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs-linux-stable";
+    };
+    cosmic-manager = {
+      url = "github:heitoraugustoln/cosmic-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-linux-unstable";
+        home-manager.follows = "home-manager-linux-unstable";
+        flake-parts.follows = "flake-parts";
+      };
     };
 
     # My own

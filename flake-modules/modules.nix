@@ -11,6 +11,7 @@ let
       ../home/mlenz
       ../home/options
       inputs.vscode-server.homeModules.default
+      inputs.cosmic-manager.homeManagerModules.cosmic-manager
     ];
     _module.args = moduleArgs;
   };

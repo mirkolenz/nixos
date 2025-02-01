@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }:
 let
@@ -14,30 +15,38 @@ let
     else
       value
   );
+  settings = mkSettings {
+    cursor-click-to-move = true;
+    font-family = "Berkeley Mono";
+    font-size = 13;
+    font-thicken = true;
+    shell-integration = "none";
+    shell-integration-features = [
+      "no-cursor"
+      "sudo"
+      "title"
+    ];
+    theme = {
+      dark = "GitHub Dark";
+      light = "GitHub";
+    };
+    window-height = 30;
+    window-padding-x = 8;
+    window-padding-y = 8;
+    window-width = 120;
+  };
 in
 {
   programs.ghostty-custom = {
+    inherit settings;
     enable = pkgs.stdenv.isDarwin;
-    settings = mkSettings {
-      cursor-click-to-move = true;
-      font-family = "Berkeley Mono";
-      font-size = 13;
-      font-thicken = true;
-      shell-integration = "none";
-      shell-integration-features = [
-        "no-cursor"
-        "sudo"
-        "title"
-      ];
-      theme = {
-        dark = "GitHub Dark";
-        light = "GitHub";
-      };
-      window-height = 30;
-      window-padding-x = 8;
-      window-padding-y = 8;
-      window-width = 120;
-    };
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+  };
+  programs.ghostty = {
+    inherit settings;
+    enable = pkgs.stdenv.isLinux && (osConfig.services.xserver.enable or false);
     enableBashIntegration = true;
     enableFishIntegration = true;
     enableZshIntegration = true;
