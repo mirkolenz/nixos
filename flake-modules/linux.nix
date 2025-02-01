@@ -20,10 +20,6 @@ let
         inherit inputs channel os;
         name = "nixpkgs";
       };
-      homeManager = lib'.self.systemInput {
-        inherit inputs channel os;
-        name = "home-manager";
-      };
     in
     nixpkgs.lib.nixosSystem {
       inherit system;
@@ -32,12 +28,7 @@ let
       };
       modules = [
         extraModule
-        self.configModules.system
-        homeManager.nixosModules.default
-        inputs.quadlet-nix.nixosModules.default
-        inputs.nixos-cosmic.nixosModules.default
-        # inputs.determinate.nixosModules.default
-        ../system/linux
+        self.nixosModules.default
         { networking.hostName = hostName; }
       ] ++ lib'.flocken.optionalPath ../hosts/${hostName};
     };

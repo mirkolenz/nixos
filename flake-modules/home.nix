@@ -30,7 +30,7 @@ let
       };
       modules = [
         extraModule
-        self.configModules.home
+        self.homeModules.standalone
         { _module.args.user = lib.mkForce (moduleArgs.user // { inherit login; }); }
       ];
     };

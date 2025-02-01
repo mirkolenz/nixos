@@ -3,31 +3,13 @@
   moduleArgs,
   nixpkgsArgs,
   inputs,
+  self,
+  lib',
   ...
 }:
-let
-  homeModule = {
-    imports = [
-      ../home/mlenz
-      ../home/options
-      inputs.vscode-server.homeModules.default
-      inputs.cosmic-manager.homeManagerModules.cosmic-manager
-    ];
-    _module.args = moduleArgs;
-  };
-in
 {
-  flake.configModules = {
-    home =
-      { pkgs, ... }:
-      {
-        nixpkgs = nixpkgsArgs;
-        _module.args.osConfig = { };
-        imports = [ homeModule ];
-        targets.genericLinux.enable = pkgs.stdenv.isLinux;
-      };
-
-    system =
+  flake = {
+    systemModules.default =
       { channel, os, ... }:
       {
         nixpkgs = nixpkgsArgs;
@@ -39,8 +21,57 @@ in
           extraSpecialArgs = specialModuleArgs // {
             inherit channel os;
           };
-          users.mlenz = homeModule;
+          users.mlenz = self.homeModules.default;
         };
+      };
+    homeModules.default = {
+      imports = [
+        ../home/mlenz
+        ../home/options
+        inputs.vscode-server.homeModules.default
+        inputs.cosmic-manager.homeManagerModules.cosmic-manager
+      ];
+      _module.args = moduleArgs;
+    };
+    homeModules.standalone =
+      { pkgs, ... }:
+      {
+        nixpkgs = nixpkgsArgs;
+        _module.args.osConfig = { };
+        imports = [ self.homeModules.default ];
+        targets.genericLinux.enable = pkgs.stdenv.isLinux;
+      };
+    nixosModules.default =
+      { channel, os, ... }:
+      let
+        homeManager = lib'.self.systemInput {
+          inherit inputs channel os;
+          name = "home-manager";
+        };
+      in
+      {
+        imports = [
+          self.systemModules.default
+          homeManager.nixosModules.default
+          inputs.quadlet-nix.nixosModules.default
+          inputs.nixos-cosmic.nixosModules.default
+          ../system/linux
+        ];
+      };
+    darwinModules.default =
+      { channel, os, ... }:
+      let
+        homeManager = lib'.self.systemInput {
+          inherit inputs channel os;
+          name = "home-manager";
+        };
+      in
+      {
+        imports = [
+          self.systemModules.default
+          homeManager.darwinModules.default
+          ../system/darwin
+        ];
       };
   };
 }

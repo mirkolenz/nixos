@@ -21,10 +21,6 @@ let
         inherit inputs channel os;
         name = "nix";
       };
-      homeManager = lib'.self.systemInput {
-        inherit inputs channel os;
-        name = "home-manager";
-      };
     in
     nixDarwin.lib.darwinSystem {
       inherit system;
@@ -33,10 +29,7 @@ let
       };
       modules = [
         extraModule
-        self.configModules.system
-        homeManager.darwinModules.default
-        # inputs.determinate.darwinModules.default
-        ../system/darwin
+        self.darwinModules.default
         {
           networking = {
             inherit hostName computerName;
