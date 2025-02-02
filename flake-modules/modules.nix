@@ -12,6 +12,9 @@
     systemModules.default =
       { channel, os, ... }:
       {
+        imports = [
+          ../system/common
+        ];
         nixpkgs = nixpkgsArgs;
         _module.args = moduleArgs;
         home-manager = {
@@ -21,27 +24,41 @@
           extraSpecialArgs = specialModuleArgs // {
             inherit channel os;
           };
-          users.mlenz = self.homeModules.default;
         };
       };
     homeModules.default = {
       imports = [
-        ../home/mlenz
+        inputs.nix-index-database.hmModules.nix-index
+        ../home/mlenz/common
         ../home/options
-        inputs.vscode-server.homeModules.default
-        # TODO: broken
-        # inputs.cosmic-manager.homeManagerModules.default
       ];
       _module.args = moduleArgs;
     };
-    homeModules.standalone =
+    homeModules.linux = {
+      imports = [
+        ../home/mlenz/linux
+        self.homeModules.default
+        inputs.vscode-server.homeModules.default
+        inputs.cosmic-manager.homeManagerModules.default
+      ];
+    };
+    homeModules.darwin = {
+      imports = [
+        ../home/mlenz/darwin
+        self.homeModules.default
+      ];
+    };
+    homeModules.linux-standalone =
       { pkgs, ... }:
       {
         nixpkgs = nixpkgsArgs;
-        _module.args.osConfig = { };
-        imports = [ self.homeModules.default ];
+        imports = [ self.homeModules.linux ];
         targets.genericLinux.enable = pkgs.stdenv.isLinux;
       };
+    homeModules.darwin-standalone = {
+      nixpkgs = nixpkgsArgs;
+      imports = [ self.homeModules.darwin ];
+    };
     nixosModules.default =
       { channel, os, ... }:
       let
@@ -57,6 +74,9 @@
           inputs.quadlet-nix.nixosModules.default
           inputs.nixos-cosmic.nixosModules.default
           ../system/linux
+          {
+            home-manager.users.mlenz = self.homeModules.linux;
+          }
         ];
       };
     darwinModules.default =
@@ -72,6 +92,9 @@
           self.systemModules.default
           homeManager.darwinModules.default
           ../system/darwin
+          {
+            home-manager.users.mlenz = self.homeModules.darwin;
+          }
         ];
       };
   };

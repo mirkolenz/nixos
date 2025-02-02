@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ ../common ] ++ (lib'.flocken.getModules ./.);
+  imports = lib'.flocken.getModules ./.;
 
   environment.systemPackages = with pkgs; [ _1password-cli ];
 

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  lib',
   ...
 }:
 let
@@ -18,7 +19,9 @@ let
       }) paths
     );
 in
-lib.mkIf pkgs.stdenv.isDarwin {
+{
+  imports = lib'.flocken.getModules ./.;
+
   home.packages = with pkgs; [
     mas
     neovide-bin
@@ -60,7 +63,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     };
     # add entries to the local dictionary
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = {
-      source = ./dictionary.txt;
+      source = ../dictionary.txt;
     };
   };
   home.sessionVariables = {

@@ -27,10 +27,11 @@ let
       pkgs = import homeManager.inputs.nixpkgs { inherit system; };
       extraSpecialArgs = specialModuleArgs // {
         inherit channel os;
+        osConfig = { };
       };
       modules = [
         extraModule
-        self.homeModules.standalone
+        self.homeModules."${os}-standalone"
         { _module.args.user = lib.mkForce (moduleArgs.user // { inherit login; }); }
       ];
     };

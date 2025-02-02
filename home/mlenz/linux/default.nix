@@ -1,5 +1,12 @@
-{ pkgs, lib, ... }:
-lib.mkIf pkgs.stdenv.isLinux {
+{
+  pkgs,
+  lib,
+  lib',
+  ...
+}:
+{
+  imports = lib'.flocken.getModules ./.;
+
   home.packages = with pkgs; [
     fastfetch
     cfspeedtest

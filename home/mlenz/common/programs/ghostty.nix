@@ -18,8 +18,7 @@ let
 in
 {
   programs.ghostty = {
-    enable =
-      pkgs.stdenv.isDarwin || (pkgs.stdenv.isLinux && (osConfig.services.xserver.enable or false));
+    enable = pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false);
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
     enableBashIntegration = true;
     enableFishIntegration = true;

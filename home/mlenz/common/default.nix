@@ -1,15 +1,12 @@
 {
   pkgs,
   lib',
-  inputs,
   user,
   stateVersions,
   ...
 }:
 {
-  imports = [
-    inputs.nix-index-database.hmModules.nix-index
-  ] ++ (lib'.flocken.getModules ./.);
+  imports = lib'.flocken.getModules ./.;
 
   home = {
     stateVersion = stateVersions.home;

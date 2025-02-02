@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ ../common ] ++ (lib'.flocken.getModules ./.);
+  imports = lib'.flocken.getModules ./.;
 
   custom.podman.enable = true;
 

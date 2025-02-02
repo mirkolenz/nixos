@@ -18,7 +18,7 @@ in
             UseKeychain = "yes";
             AddKeysToAgent = "yes";
           })
-          (lib.mkIf (pkgs.stdenv.isLinux && (osConfig.services.xserver.enable or false)) {
+          (lib.mkIf (osConfig.services.xserver.enable or false) {
             IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
           })
         ];
