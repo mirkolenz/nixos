@@ -29,7 +29,8 @@
         ../home/mlenz
         ../home/options
         inputs.vscode-server.homeModules.default
-        # inputs.cosmic-manager.homeManagerModules.cosmic-manager
+        # TODO: broken
+        # inputs.cosmic-manager.homeManagerModules.default
       ];
       _module.args = moduleArgs;
     };

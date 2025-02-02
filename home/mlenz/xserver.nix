@@ -13,4 +13,6 @@ lib.mkIf xserverEnabled {
     jetbrains-mono
   ];
   home.file.".face".source = ./mlenz.jpg;
+  # TODO: broken
+  # wayland.desktopManager.cosmic.enable = true;
 }
