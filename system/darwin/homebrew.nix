@@ -119,6 +119,7 @@
       "rode-central"
       "signal"
       "soundsource"
+      "stats"
       "steermouse"
       "tailscale"
       "tiptoi-manager"
