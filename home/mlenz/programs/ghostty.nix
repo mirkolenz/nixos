@@ -26,8 +26,8 @@ in
     enableZshIntegration = true;
     settings = mkSettings {
       cursor-click-to-move = true;
-      font-family = "Berkeley Mono";
-      font-size = if pkgs.stdenv.isDarwin then 13 else 12;
+      font-family = if pkgs.stdenv.isDarwin then "Berkeley Mono" else "JetBrains Mono";
+      font-size = if pkgs.stdenv.isDarwin then 13 else 11;
       font-thicken = true;
       shell-integration = "none";
       shell-integration-features = [
