@@ -15,44 +15,38 @@ let
     else
       value
   );
-  settings = mkSettings {
-    cursor-click-to-move = true;
-    font-family = "Berkeley Mono";
-    font-size = if pkgs.stdenv.isDarwin then 13 else 12;
-    font-thicken = true;
-    shell-integration = "none";
-    shell-integration-features = [
-      "no-cursor"
-      "sudo"
-      "title"
-    ];
-    theme = {
-      dark = "GitHub Dark";
-      light = "GitHub";
-    };
-    window-height = 30;
-    window-padding-x = 8;
-    window-padding-y = 8;
-    window-width = 120;
-  };
 in
 {
-  programs.ghostty-custom = {
-    inherit settings;
-    enable = pkgs.stdenv.isDarwin;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-    enableZshIntegration = true;
-  };
   programs.ghostty = {
-    inherit settings;
-    enable = pkgs.stdenv.isLinux && (osConfig.services.xserver.enable or false);
+    enable =
+      pkgs.stdenv.isDarwin || (pkgs.stdenv.isLinux && (osConfig.services.xserver.enable or false));
+    package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
     enableBashIntegration = true;
     enableFishIntegration = true;
     enableZshIntegration = true;
+    settings = mkSettings {
+      cursor-click-to-move = true;
+      font-family = "Berkeley Mono";
+      font-size = if pkgs.stdenv.isDarwin then 13 else 12;
+      font-thicken = true;
+      shell-integration = "none";
+      shell-integration-features = [
+        "no-cursor"
+        "sudo"
+        "title"
+      ];
+      theme = {
+        dark = "GitHub-Dark-Default";
+        light = "GitHub-Light-Default";
+      };
+      window-height = 30;
+      window-padding-x = 8;
+      window-padding-y = 8;
+      window-width = 120;
+    };
   };
 
-  programs.ssh.matchBlocks."*".extraOptions = lib.mkIf config.programs.ghostty-custom.enable {
+  programs.ssh.matchBlocks."*".extraOptions = lib.mkIf config.programs.ghostty.enable {
     SetEnv = "TERM=xterm-256color";
   };
 }
