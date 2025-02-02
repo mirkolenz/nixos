@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738422954,
-        "narHash": "sha256-CN0L2TF1QdauCCT3T7pmA7VXM4poRp3NYpoKd4uEXjk=",
+        "lastModified": 1738497343,
+        "narHash": "sha256-iIXQ897baI9gZJfjNXZlgnVNoJp+A9/53fgxLD5T4eQ=",
         "owner": "heitoraugustoln",
         "repo": "cosmic-manager",
-        "rev": "8e7ccf87a83708798a72e0c32be9e14c6fe3cadb",
+        "rev": "898d13104cbf90cd22e69a2ecab9ad1751a33af0",
         "type": "github"
       },
       "original": {
