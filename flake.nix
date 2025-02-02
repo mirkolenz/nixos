@@ -115,7 +115,7 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-linux-stable";
     };
     cosmic-manager = {
-      url = "github:heitoraugustoln/cosmic-manager/da57fbd79f6c78b89dd4882303f628ba761f616a";
+      url = "github:heitoraugustoln/cosmic-manager";
       inputs = {
         nixpkgs.follows = "nixpkgs-linux-unstable";
         home-manager.follows = "home-manager-linux-unstable";
