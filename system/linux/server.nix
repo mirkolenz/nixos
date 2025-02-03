@@ -16,7 +16,7 @@ lib.mkMerge [
     system.autoUpgrade = {
       enable = true;
       flake = "github:mirkolenz/nixos";
-      flags = [ "--impure" ];
+      flags = lib.optional config.custom.impure_rebuild "--impure";
       dates = "04:00";
       allowReboot = true;
       rebootWindow = {

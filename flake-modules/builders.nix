@@ -1,4 +1,8 @@
-{ lib, inputs, ... }:
+{
+  lib,
+  self,
+  ...
+}:
 {
   perSystem =
     {
@@ -8,16 +12,7 @@
     }:
     {
       packages = {
-        default = config.packages.system;
-        system = config.legacyPackages.mkBuilder {
-          exe =
-            if pkgs.stdenv.isDarwin then lib.getExe pkgs.darwin-rebuild else lib.getExe pkgs.nixos-rebuild;
-          args = if pkgs.stdenv.isDarwin then [ "--pure" ] else [ "--impure" ];
-        };
-        home = config.legacyPackages.mkBuilder {
-          exe = lib.getExe pkgs.home-manager;
-          args = [ "--pure" ];
-        };
+        default = config.legacyPackages.mkBuilder { };
         builder-wrapper = pkgs.writers.writePython3Bin "builder-wrapper" {
           libraries = with pkgs.python3Packages; [ typer ];
           flakeIgnore = [
@@ -28,14 +23,20 @@
       };
       legacyPackages.mkBuilder =
         {
-          exe,
-          flake ? inputs.self,
+          flake ? self,
           args ? [ ],
         }:
         pkgs.writeShellApplication {
           name = "builder";
           text = ''
-            exec ${lib.getExe config.packages.builder-wrapper} ${exe} --flake ${flake} ${lib.escapeShellArgs args} "$@"
+            exec ${lib.getExe config.packages.builder-wrapper} \
+              --nix-exe ${lib.getExe pkgs.nix} \
+              --darwin-builder ${lib.getExe pkgs.darwin-rebuild} \
+              --linux-builder ${lib.getExe pkgs.nixos-rebuild} \
+              --home-builder ${lib.getExe pkgs.home-manager} \
+              --flake ${flake} \
+              ${lib.escapeShellArgs args} \
+              "$@"
           '';
         };
     };
