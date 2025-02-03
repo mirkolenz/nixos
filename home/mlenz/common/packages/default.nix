@@ -10,19 +10,10 @@
   imports = lib'.flocken.getModules ./.;
 
   home.packages = with pkgs; [
-    bashInteractive
     zsh
     fish
-    coreutils-full
-    procps
-    gawk
     moreutils
-    findutils
-    gnused
     gnupg
-    gnupatch
-    gnugrep
-    gnutar
     gnumake
     inetutils
     gcc
@@ -37,13 +28,11 @@
     delta
     fzf
     rsync
-    curl
     wget
     ookla-speedtest
     restic
     autorestic
     sqlite
-    mkpasswd
     icloudpd
     nixpkgs-review
     nix-output-monitor
@@ -59,6 +48,35 @@
     mmv-go
     pipe-rename
     edir
+    # required packages: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/system-path.nix
+    # acl # not available on darwin
+    # attr # not available on darwin
+    bashInteractive # bash with ncurses support
+    bzip2
+    coreutils-full
+    cpio
+    curl
+    diffutils
+    findutils
+    gawk
+    stdenv.cc.libc
+    getent
+    getconf
+    gnugrep
+    gnused
+    gzip
+    xz
+    less
+    # libcap # not available on darwin
+    ncurses
+    netcat
+    mkpasswd
+    procps
+    # su # not available on darwin
+    time
+    util-linux
+    which
+    zstd
   ];
   home.shellAliases = {
     py = "${lib.getExe' config.programs.uv.package "uv"} run";
