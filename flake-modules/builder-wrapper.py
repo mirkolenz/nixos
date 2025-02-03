@@ -29,27 +29,27 @@ def subprocess_stdout(cmd: list[str]) -> str:
 )
 def run(
     ctx: typer.Context,
-    nix_exe: Annotated[str, typer.Option()],
-    darwin_builder: Annotated[str, typer.Option()],
-    linux_builder: Annotated[str, typer.Option()],
-    home_builder: Annotated[str, typer.Option()],
+    nix_exe: Annotated[str, typer.Option()] = "nix",
+    darwin_builder: Annotated[str, typer.Option()] = "darwin-rebuild",
+    linux_builder: Annotated[str, typer.Option()] = "nixos-rebuild",
+    home_builder: Annotated[str, typer.Option()] = "home-manager",
     operation: Annotated[
         str, typer.Option("--operation", "-o", "--mode", "-m")
     ] = "switch",
     flake: str = "github:mirkolenz/nixos",
     name: Annotated[str | None, typer.Option("--name", "-n")] = None,
-    use_home: Annotated[bool, typer.Option("--home/--system")] = False,
+    use_home_builder: Annotated[bool, typer.Option("--home/--system")] = False,
 ):
     os = subprocess_stdout(["uname", "-s"]).lower()
 
     if not name:
         name = subprocess_stdout(["uname", "-n"]).lower()
 
-        if use_home:
+        if use_home_builder:
             user = subprocess_stdout(["whoami"])
             name = f"{user}@{name}"
 
-    if use_home:
+    if use_home_builder:
         builder = home_builder
     elif os == "darwin":
         builder = darwin_builder
@@ -58,7 +58,7 @@ def run(
     else:
         raise ValueError("Unknown target")
 
-    if use_home:
+    if use_home_builder:
         flake_attribute = "homeConfigurations"
     elif os == "darwin":
         flake_attribute = "darwinConfigurations"
