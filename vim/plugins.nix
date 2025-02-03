@@ -40,5 +40,13 @@
     web-devicons = {
       enable = true;
     };
+    wrapping = {
+      enable = true;
+      settings = {
+        softener = {
+          gitcommit = true;
+        };
+      };
+    };
   };
 }
