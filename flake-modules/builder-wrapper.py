@@ -9,7 +9,15 @@ app = typer.Typer(add_completion=False)
 
 
 def subprocess_stdout(cmd: list[str]) -> str:
-    return subprocess.run(cmd, capture_output=True, text=True).stdout.strip()
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    try:
+        result.check_returncode()
+    except subprocess.CalledProcessError as e:
+        typer.echo(e.stderr, err=True)
+        exit(1)
+
+    return result.stdout.strip()
 
 
 @app.command(
@@ -70,7 +78,7 @@ def run(
         )
     )
 
-    cmd: list[str] = [builder, operation, "--flake", f'{flake}#"{name}"']
+    cmd: list[str] = [builder, operation, "--flake", f"{flake}#{name}"]
 
     if is_impure:
         cmd.append("--impure")
