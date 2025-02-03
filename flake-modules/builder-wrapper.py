@@ -1,6 +1,6 @@
 import shlex
 import subprocess
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 
@@ -22,7 +22,7 @@ def run(
         str, typer.Option("--operation", "-o", "--mode", "-m")
     ] = "switch",
     flake: str = "github:mirkolenz/nixos",
-    name: Annotated[Optional[str], typer.Option("--name", "-n")] = None,
+    name: Annotated[str | None, typer.Option("--name", "-n")] = None,
 ):
     cmd: list[str] = [builder, operation]
 
