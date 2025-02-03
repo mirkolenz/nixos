@@ -65,12 +65,12 @@ def run(
                 nix_exe,
                 "eval",
                 "--json",
-                f"{flake}#{flake_attribute}.{name}.config.custom.impure_rebuild",
+                f'{flake}#{flake_attribute}."{name}".config.custom.impure_rebuild',
             ]
         )
     )
 
-    cmd: list[str] = [builder, operation, "--flake", f"{flake}#{name}"]
+    cmd: list[str] = [builder, operation, "--flake", f'{flake}#"{name}"']
 
     if is_impure:
         cmd.append("--impure")
