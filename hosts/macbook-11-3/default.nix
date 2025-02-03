@@ -7,8 +7,8 @@
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.nixos-hardware.nixosModules.common-hidpi
     ./hardware.nix
-    ../../profiles/workstation.nix
   ];
+  custom.profile = "workstation";
   services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

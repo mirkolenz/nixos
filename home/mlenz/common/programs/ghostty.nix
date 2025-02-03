@@ -18,7 +18,7 @@ let
 in
 {
   programs.ghostty = {
-    enable = pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false);
+    enable = config.custom.profile == "workstation";
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
     enableBashIntegration = true;
     enableFishIntegration = true;

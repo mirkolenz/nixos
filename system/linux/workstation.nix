@@ -1,5 +1,10 @@
-{ config, user, ... }:
 {
+  lib,
+  config,
+  user,
+  ...
+}:
+lib.mkIf (config.custom.profile == "workstation") {
   services.xserver.enable = true;
 
   security.rtkit.enable = config.services.pipewire.enable;

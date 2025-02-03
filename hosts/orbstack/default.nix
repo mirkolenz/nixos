@@ -6,8 +6,9 @@
     ./hardware.nix
     ./configuration.nix
     "${modulesPath}/virtualisation/lxc-container.nix"
-    ../../profiles/headless.nix
   ];
+
+  custom.profile = "headless";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

@@ -13,8 +13,9 @@
     inputs.nixos-hardware.nixosModules.common-hidpi
     ./hardware.nix
     ./timemachine.nix
-    ../../profiles/server.nix
   ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
+
+  custom.profile = "server";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

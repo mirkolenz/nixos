@@ -6,8 +6,8 @@
     # inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     ./hardware.nix
-    ../../profiles/workstation.nix
   ];
+  custom.profile = "workstation";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {

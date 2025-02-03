@@ -1,10 +1,10 @@
 {
   lib,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
-lib.mkIf (osConfig.services.xserver.enable or false) {
+lib.mkIf (config.custom.profile == "workstation") {
   home.packages = with pkgs; [
     inter
     jetbrains-mono

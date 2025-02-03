@@ -1,12 +1,11 @@
 {
   pkgs,
-  lib,
-  osConfig,
+  config,
   ...
 }:
-lib.mkIf (osConfig.services.xserver.enable or false) {
+{
   programs.vscode = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux && config.custom.profile == "workstation";
     package = pkgs.vscode;
   };
 }

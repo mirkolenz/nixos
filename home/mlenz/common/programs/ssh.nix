@@ -10,7 +10,7 @@ let
 in
 {
   programs.ssh = {
-    enable = true;
+    enable = config.custom.profile == "workstation";
     matchBlocks = {
       "*" = {
         extraOptions = lib.mkMerge [
@@ -18,7 +18,7 @@ in
             UseKeychain = "yes";
             AddKeysToAgent = "yes";
           })
-          (lib.mkIf (osConfig.services.xserver.enable or false) {
+          (lib.mkIf pkgs.stdenv.isLinux {
             IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
           })
         ];

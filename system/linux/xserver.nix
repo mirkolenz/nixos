@@ -18,9 +18,7 @@ lib.mkIf config.services.xserver.enable {
   };
   services.desktopManager.cosmic.enable = true;
   services.displayManager.cosmic-greeter.enable = true;
-  services.xserver = {
-    xkb.layout = "us";
-  };
+  services.xserver.xkb.layout = "us";
   # there is an issue with wpa_supplicant and broadcom-wl (used in Macs)
   networking.networkmanager.wifi.backend = "iwd";
 }

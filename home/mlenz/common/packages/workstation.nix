@@ -1,13 +1,13 @@
 {
   pkgs,
   lib,
-  osConfig,
+  config,
   ...
 }:
 let
   pythonWithPackages = pkgs.python3.withPackages (ps: with ps; [ typer ]);
 in
-lib.mkIf (pkgs.stdenv.isDarwin || (osConfig.services.xserver.enable or false)) {
+lib.mkIf (config.custom.profile == "workstation") {
   home.sessionVariables = {
     RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
   };

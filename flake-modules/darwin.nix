@@ -45,11 +45,17 @@ in
         channel = "unstable";
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook";
+        extraModule = {
+          custom.profile = "workstation";
+        };
       };
       mirkos-macbook-arm = {
         channel = "unstable";
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook Apple Silicon";
+        extraModule = {
+          custom.profile = "workstation";
+        };
       };
     };
   };

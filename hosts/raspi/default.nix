@@ -4,8 +4,9 @@
   imports = [
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
     ./hardware.nix
-    ../../profiles/server.nix
   ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
+
+  custom.profile = "server";
 
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
