@@ -28,10 +28,12 @@
             nixvim-stable
             nixvim-unstable
             builder-wrapper
+            builder
             ;
         };
       };
       packages = config.legacyPackages.exports // {
+        default = config.packages.builder;
         inherit (pkgs)
           home-manager
           nixos-rebuild

@@ -12,7 +12,7 @@
     }:
     {
       packages = {
-        default = config.legacyPackages.mkBuilder { };
+        builder = config.legacyPackages.mkBuilder { };
         builder-wrapper = pkgs.writers.writePython3Bin "builder-wrapper" {
           libraries = with pkgs.python3Packages; [ typer ];
           flakeIgnore = [
