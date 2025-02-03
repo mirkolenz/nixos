@@ -10,7 +10,7 @@
 }:
 {
   nix = {
-    package = pkgs.nix;
+    package = inputs.nix.packages.${pkgs.stdenv.system}.default;
     extraOptions = ''
       !include nix.local.conf
     '';
@@ -44,19 +44,20 @@
         "no-url-literals"
         "pipe-operators"
       ];
-      max-jobs = "auto";
-      keep-going = true;
-      keep-outputs = true;
+      accept-flake-config = true;
+      allowed-users = [ user.login ];
+      always-allow-substitutes = true;
+      bash-prompt-prefix = "(nix:$name)\\040";
+      builders-use-substitutes = true;
       keep-derivations = false;
       keep-failed = false;
-      # does not build on Linux
-      # plugin-files = ["${pkgs.nix-plugins}/lib/nix/plugins"];
-      allowed-users = [ user.login ];
+      keep-going = true;
+      keep-outputs = true;
       log-lines = 1000;
-      builders-use-substitutes = true;
-      warn-dirty = false;
-      accept-flake-config = true;
+      max-jobs = "auto";
       sandbox = true;
+      upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
+      warn-dirty = false;
     };
     gc = {
       automatic = true;
