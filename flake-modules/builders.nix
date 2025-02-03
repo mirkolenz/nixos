@@ -30,7 +30,6 @@
           name = "builder";
           text = ''
             exec ${lib.getExe config.packages.builder-wrapper} \
-              --nix-exe ${lib.getExe pkgs.nix} \
               --darwin-builder ${lib.getExe pkgs.darwin-rebuild} \
               --linux-builder ${lib.getExe pkgs.nixos-rebuild} \
               --home-builder ${lib.getExe pkgs.home-manager} \

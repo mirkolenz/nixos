@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   echo = lib.getExe' pkgs.coreutils "echo";
   cmdTexts = {
@@ -20,9 +25,9 @@ let
     '';
     gc = ''
       set -x #echo on
-      sudo ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
-      ${lib.getExe' pkgs.nix "nix-collect-garbage"} --delete-older-than 7d
-      ${lib.getExe pkgs.nix} store optimise
+      sudo ${lib.getExe' config.nix.package "nix-collect-garbage"} --delete-older-than 7d
+      ${lib.getExe' config.nix.package "nix-collect-garbage"} --delete-older-than 7d
+      ${lib.getExe config.nix.package} store optimise
     '';
     # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/modules/tasks/auto-upgrade.nix#L214
     needs-reboot = ''
@@ -49,13 +54,13 @@ let
       exec sudo docker system prune --all --force
     '';
     flakeup = ''
-      exec ${lib.getExe pkgs.nix} flake update \
+      exec ${lib.getExe config.nix.package} flake update \
       --commit-lock-file \
       --commit-lockfile-summary 'chore(deps): update flake.lock' \
       "$@"
     '';
     dev = ''
-      exec ${lib.getExe pkgs.nix} develop "$@"
+      exec ${lib.getExe config.nix.package} develop "$@"
     '';
     encrypt = ''
       if [ "$#" -ne 3 ]; then
@@ -91,15 +96,15 @@ let
       sudo ${lib.getExe pkgs.gnutar} xf "$1" -C "$2"
     '';
     nixos-env = ''
-      exec sudo ${lib.getExe' pkgs.nix "nix-env"} --profile /nix/var/nix/profiles/system "$@"
+      exec sudo ${lib.getExe' config.nix.package "nix-env"} --profile /nix/var/nix/profiles/system "$@"
     '';
     prefetch-attr = ''
       if [ "$#" -lt 1 ]; then
         ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
         exit 1
       fi
-      value="$(${lib.getExe pkgs.nix} eval --raw "$1")"
-      ${lib.getExe pkgs.nix} store prefetch-file --json "''${@:2}" "$value" | ${lib.getExe pkgs.jq} -r .hash
+      value="$(${lib.getExe config.nix.package} eval --raw "$1")"
+      ${lib.getExe config.nix.package} store prefetch-file --json "''${@:2}" "$value" | ${lib.getExe pkgs.jq} -r .hash
     '';
     prefetch-attrs = ''
       if [ "$#" -lt 1 ]; then
@@ -108,11 +113,11 @@ let
       fi
       TMPFILE="$(mktemp)"
       echo "{" >> "$TMPFILE"
-      ${lib.getExe pkgs.nix} eval --json "$1" \
+      ${lib.getExe config.nix.package} eval --json "$1" \
         | ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key) \(.value)"' \
         | while read -r key value; do
           echo "Evaluating $key" >&2
-          hash="$(${lib.getExe pkgs.nix} store prefetch-file --json "''${@:2}" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
+          hash="$(${lib.getExe config.nix.package} store prefetch-file --json "''${@:2}" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
           echo "  $key = \"$hash\";" >> "$TMPFILE"
         done
       echo "}" >> "$TMPFILE"
