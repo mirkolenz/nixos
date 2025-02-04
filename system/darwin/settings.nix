@@ -60,7 +60,7 @@
         "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
-        "/System/Cryptexes/App/System/Applications/Safari.app"
+        "/Applications/Orion RC.app"
         "/Applications/Google Chrome.app"
         "/Applications/Raindrop.io.app"
         "/Applications/1Password.app"
