@@ -15,7 +15,6 @@ let
       caddy-custom = final.callPackage ./caddy-custom.nix { };
       goneovim-bin = final.callPackage ./goneovim.nix { };
       hkknx-bin = final.callPackage ./hkknx.nix { };
-      hkknx-docker = final.callPackage ./hkknx-docker.nix { };
       neohtop-bin = final.callPackage ./neohtop.nix { };
       neovide-bin = final.callPackage ./neovide.nix { };
       pam-watchid = final.callPackage ./pam-watchid.nix { };
@@ -44,5 +43,6 @@ in
   caddy = final.nixpkgs.caddy;
   caddy-docker = final.callPackage ./caddy-docker.nix { };
   caddy-custom-docker = final.callPackage ./caddy-docker.nix { caddy = final.caddy-custom; };
+  hkknx-docker = final.callPackage ./hkknx-docker.nix { };
 }
 // flake-exports
