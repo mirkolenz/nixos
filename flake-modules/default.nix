@@ -38,7 +38,6 @@
           nixos-rebuild
           darwin-rebuild
           darwin-uninstaller
-          nix-fast-build
           ;
       };
     };

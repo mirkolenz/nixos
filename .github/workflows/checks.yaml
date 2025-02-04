@@ -51,16 +51,17 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
+      - uses: cachix/cachix-action@v15
+        with:
+          name: mirkolenz
+          authToken: ${{ secrets.CACHIX_TOKEN }}
       - name: nix build
         run: |
-          nix run .#nix-fast-build -- \
-            --no-nom \
-            --skip-cached \
+          nix build \
+            --print-build-logs \
+            --show-trace \
             --no-link \
-            --cachix-cache mirkolenz \
-            --flake '.#${{ matrix.attr }}'
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_TOKEN }}
+            '.#${{ matrix.attr }}'
 
   check-build:
     needs: check-build-matrix
