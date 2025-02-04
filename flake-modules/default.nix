@@ -27,7 +27,6 @@
           inherit (config.packages)
             nixvim-stable
             nixvim-unstable
-            builder-wrapper
             builder
             ;
         };
