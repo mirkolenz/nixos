@@ -77,7 +77,7 @@ lib.mkIf (config.custom.profile == "workstation") {
     rust-analyzer
     # my own packages
     makejinja
-    # arguebuf
+    arguebuf
     (writeShellScriptBin "npmup" ''exec ${lib.getExe npm-check-updates} "$@"'')
   ];
 }

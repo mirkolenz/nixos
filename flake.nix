@@ -128,6 +128,7 @@
       url = "github:mirkolenz/flocken/v2";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "systems";
     };
     quadlet-nix = {
       url = "github:mirkolenz/quadlet-nix/v1";
@@ -139,6 +140,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.flocken.follows = "flocken";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+      inputs.uv2nix.follows = "uv2nix";
+      inputs.pyproject-build-systems.follows = "pyproject-build-systems";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs.systems.follows = "systems";
     };
 
     # Utils
