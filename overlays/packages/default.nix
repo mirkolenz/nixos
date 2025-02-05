@@ -35,8 +35,8 @@ in
     nixvim-stable
     treefmt-nix
     ;
-  inherit (inputs.arguebuf.packages.${system}) arguebuf;
   inherit (inputs.uv2nix.packages.${system}) uv-bin;
+  arguebuf = inputs.arguebuf.packages.${system}.default;
   nixfmt = final.nixfmt-rfc-style;
   dummy = final.writeShellScriptBin "dummy" ":";
   mkApp = final.callPackage ./make-app.nix { };
