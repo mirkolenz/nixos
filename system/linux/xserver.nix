@@ -13,12 +13,17 @@ lib.mkIf config.services.xserver.enable {
       google-chrome
       obsidian
       zoom-us
-      zotero_7
+      zotero
     ];
   };
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-  services.xserver.xkb.layout = "us";
+  services = {
+    desktopManager.cosmic.enable = true;
+    displayManager.cosmic-greeter.enable = true;
+    xserver = {
+      xkb.layout = "us";
+      excludePackages = with pkgs; [ xterm ];
+    };
+  };
   # there is an issue with wpa_supplicant and broadcom-wl (used in Macs)
   networking.networkmanager.wifi.backend = "iwd";
 }
