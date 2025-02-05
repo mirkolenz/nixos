@@ -13,7 +13,7 @@ lib.mkIf (config.custom.profile == "workstation") {
   wayland.desktopManager.cosmic = {
     enable = true;
     appearance.theme.mode = "dark";
-    applets.app-list = {
+    applets.app-list.settings = {
       enable_drag_source = true;
       favorites = [
         "com.system76.CosmicFiles"
