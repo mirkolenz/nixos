@@ -137,5 +137,24 @@
   };
   programs.lazygit = {
     enable = true;
+    # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+    settings = {
+      gui = {
+        nerdFontsVersion = "";
+        splitDiff = "always";
+        showFileTree = false;
+        border = "single";
+        showNumstatInFilesView = true;
+        showRandomTip = false;
+        showCommandLog = false;
+      };
+      git = {
+        commit.autoWrapCommitMessage = false;
+        parseEmoji = true;
+      };
+      os.editPreset = "zed";
+      update.method = "never";
+      disableStartupPopups = true;
+    };
   };
 }
