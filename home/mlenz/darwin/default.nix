@@ -37,6 +37,7 @@ in
         open --hide /Applications/ScanSnapHomeMain.app
       '';
     })
+    (writeShellScriptBin "zed" ''exec zed-preview "$@"'')
   ];
   # add binaries for desktop apps to ~/bin
   # currently required for the following apps:

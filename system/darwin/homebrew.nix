@@ -58,6 +58,7 @@ let
     "vivaldi"
     "wifiman"
     "zed"
+    "zed@preview"
     "zoom"
     "zotero"
   ];
@@ -155,6 +156,9 @@ let
     "ubuntu-nerd-font"
     "ubuntu"
     "varela-round"
+    "zed-mono"
+    "zed-mono-nerd-font"
+    "zed-sans"
   ];
 in
 {
