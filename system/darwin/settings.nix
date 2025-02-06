@@ -1,4 +1,8 @@
-{ ... }:
+{ config, user, ... }:
+let
+  userHome = config.users.${user.login}.home;
+  hmAppDir = "${userHome}/Applications/Home Manager Apps";
+in
 {
   system.defaults = {
     CustomUserPreferences = {
@@ -82,10 +86,10 @@
         "/Applications/Microsoft Word.app"
         "/Applications/Microsoft Excel.app"
         "/Applications/Microsoft PowerPoint.app"
-        "/System/Applications/Utilities/Activity Monitor.app"
+        "${hmAppDir}/Applications/NeoHtop.app"
         "/System/Applications/System Settings.app"
       ];
-      # persistent-others = [ "/Users/${user.login}/Downloads/" ];
+      # persistent-others = [ "${userHome}/Downloads/" ];
     };
     finder = {
       _FXShowPosixPathInTitle = false;

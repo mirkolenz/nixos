@@ -93,6 +93,7 @@ in
           bibtex-tidy
           arxiv-latex-cleaner
           tex-fmt
+          ltex-ls-plus
         ];
       };
 

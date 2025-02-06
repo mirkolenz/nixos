@@ -45,6 +45,7 @@ let
     "raycast"
     "rode-central"
     "signal"
+    "sioyek"
     "soundsource"
     "stats"
     "steermouse"
@@ -59,6 +60,43 @@ let
     "zoom"
     "zotero"
   ];
+
+  masApps = {
+    "1password-safari" = 1569813296;
+    "ausweisapp" = 948660805;
+    "bitwarden" = 1352778147;
+    "dropover" = 1355679052;
+    "easyletter" = 1495179755;
+    "gapplin" = 768053424;
+    "goodnotes" = 1444383602;
+    "home-assistant" = 1099568401;
+    "kagi" = 1622835804;
+    "keka" = 470158793;
+    "kindle" = 302584613;
+    "meeting-owl" = 1219076447;
+    "mela" = 1568924476;
+    "microsoft-excel" = 462058435;
+    "microsoft-outlook" = 985367838;
+    "microsoft-powerpoint" = 462062816;
+    "microsoft-word" = 462054704;
+    "onedrive" = 823766827;
+    "pdf-expert" = 1055273043;
+    "pure-paste" = 1611378436;
+    "qr-factory" = 1609285899;
+    "qr-pop" = 1587360435;
+    "raindrop-io-safari" = 1549370672;
+    "reeder" = 6475002485;
+    "shellfish" = 1336634154;
+    "step-two" = 1448916662;
+    "stopthemadness-pro" = 6471380298;
+    "tabback" = 1660506599;
+    "testflight" = 899247664;
+    "texstage" = 6737460352;
+    "todoist" = 585829637;
+    "vinegar" = 1591303229;
+    "whatsapp" = 310633997;
+  };
+
   caskFonts = map (name: "font-${name}") [
     "big-shoulders-display"
     "big-shoulders-inline-display"
@@ -129,46 +167,9 @@ in
       upgrade = true;
       cleanup = "zap";
     };
-    caskArgs = {
-      ignore_dependencies = true;
-    };
     taps = [ ];
     brews = [ ];
     casks = caskApps ++ caskFonts;
-    masApps = {
-      "1password-safari" = 1569813296;
-      "ausweisapp" = 948660805;
-      "bitwarden" = 1352778147;
-      "dropover" = 1355679052;
-      "easyletter" = 1495179755;
-      "gapplin" = 768053424;
-      "goodnotes" = 1444383602;
-      "home-assistant" = 1099568401;
-      "kagi" = 1622835804;
-      "keka" = 470158793;
-      "kindle" = 302584613;
-      "meeting-owl" = 1219076447;
-      "mela" = 1568924476;
-      "microsoft-excel" = 462058435;
-      "microsoft-outlook" = 985367838;
-      "microsoft-powerpoint" = 462062816;
-      "microsoft-word" = 462054704;
-      "onedrive" = 823766827;
-      "pdf-expert" = 1055273043;
-      "pure-paste" = 1611378436;
-      "qr-factory" = 1609285899;
-      "qr-pop" = 1587360435;
-      "raindrop-io-safari" = 1549370672;
-      "reeder" = 6475002485;
-      "shellfish" = 1336634154;
-      "step-two" = 1448916662;
-      "stopthemadness-pro" = 6471380298;
-      "tabback" = 1660506599;
-      "testflight" = 899247664;
-      "texstage" = 6737460352;
-      "todoist" = 585829637;
-      "vinegar" = 1591303229;
-      "whatsapp" = 310633997;
-    };
+    inherit masApps;
   };
 }

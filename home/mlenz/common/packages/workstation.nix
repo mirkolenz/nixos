@@ -62,6 +62,7 @@ lib.mkIf (config.custom.profile == "workstation") {
     ruff
     black
     pylyzer
+    basedpyright
     # nodejs
     nodejs
     nodePackages.prettier

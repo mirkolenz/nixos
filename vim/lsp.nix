@@ -4,7 +4,18 @@
     enable = true;
     servers = {
       astro.enable = true;
-      basedpyright.enable = true;
+      basedpyright = {
+        enable = true;
+        settings = {
+          basedpyright.analysis = {
+            diagnosticMode = "workspace";
+            inlayHints = {
+              genericTypes = true;
+            };
+          };
+          python.pythonPath = ".venv/bin/python";
+        };
+      };
       bashls.enable = true;
       cssls.enable = true;
       dockerls.enable = true;
