@@ -1,6 +1,6 @@
 { config, user, ... }:
 let
-  userHome = config.users.${user.login}.home;
+  userHome = config.users.users.${user.login}.home;
   hmAppDir = "${userHome}/Applications/Home Manager Apps";
 in
 {

@@ -10,6 +10,7 @@ in
 lib.mkIf (config.custom.profile == "workstation") {
   home.sessionVariables = {
     RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
+    EDITOR = "zed -w";
   };
   home.packages = with pkgs; [
     exiftool

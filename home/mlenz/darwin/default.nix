@@ -66,9 +66,6 @@ in
       source = ../dictionary.txt;
     };
   };
-  home.sessionVariables = {
-    EDITOR = "code -w";
-  };
   home.shellAliases = {
     copy = ''${lib.getExe' pkgs.coreutils "tr"} -d '\n' | pbcopy'';
   };

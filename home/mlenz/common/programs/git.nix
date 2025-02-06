@@ -2,6 +2,7 @@
   lib,
   pkgs,
   user,
+  config,
   ...
 }:
 {
@@ -78,7 +79,7 @@
     extraConfig = {
       core = {
         autocrlf = "input";
-        editor = "nvim";
+        editor = config.home.sessionVariables.EDITOR;
         eol = "lf";
         fsmonitor = lib.mkIf pkgs.stdenv.isDarwin true; # not supported on linux
       };
