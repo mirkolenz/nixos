@@ -77,6 +77,8 @@ lib.mkIf (config.custom.profile == "workstation") {
     rustfmt
     clippy
     rust-analyzer
+    # language servers
+    taplo
     # my own packages
     makejinja
     arguebuf
