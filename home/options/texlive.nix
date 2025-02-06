@@ -94,6 +94,8 @@ in
           arxiv-latex-cleaner
           tex-fmt
           ltex-ls-plus
+          zathura
+          sioyek
         ];
       };
 

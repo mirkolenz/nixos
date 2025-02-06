@@ -46,6 +46,7 @@ let
     "rode-central"
     "signal"
     "sioyek"
+    "skim"
     "soundsource"
     "stats"
     "steermouse"
