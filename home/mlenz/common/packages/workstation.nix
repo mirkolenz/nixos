@@ -35,6 +35,7 @@ lib.mkIf (config.custom.profile == "workstation") {
     mdbook
     treefmt-nix
     uv-migrator
+    llm
     # python3Packages.markitdown # fails on darwin
     # typst
     typst
