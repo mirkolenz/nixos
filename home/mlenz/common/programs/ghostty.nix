@@ -35,8 +35,8 @@ in
         "title"
       ];
       theme = {
-        dark = "GitHub-Dark-Default";
-        light = "GitHub-Light-Default";
+        dark = "catppuccin-latte";
+        light = "catppuccin-mocha";
       };
       window-height = 30;
       window-padding-x = 8;
