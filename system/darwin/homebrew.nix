@@ -67,6 +67,7 @@ let
     _1password-safari = 1569813296;
     ausweisapp = 948660805;
     bitwarden = 1352778147;
+    daisydisk = 411643860;
     dropover = 1355679052;
     easyletter = 1495179755;
     gapplin = 768053424;
