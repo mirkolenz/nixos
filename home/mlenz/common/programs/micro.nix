@@ -9,7 +9,6 @@
       backup = true;
       basename = false;
       colorcolumn = 0;
-      colorscheme = "monokai";
       comment = true;
       cursorline = true;
       diff = true;
