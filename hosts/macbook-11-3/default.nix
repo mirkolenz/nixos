@@ -1,11 +1,12 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
-    # inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-    # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-    inputs.nixos-hardware.nixosModules.common-hidpi
+    "${inputs.nixos-hardware}/apple"
+    "${inputs.nixos-hardware}/common/cpu/intel/haswell"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/prime.nix"
+    "${inputs.nixos-hardware}/common/hidpi.nix"
+    "${inputs.nixos-hardware}/common/pc/laptop/ssd"
     ./hardware.nix
   ];
   custom.profile = "workstation";
@@ -21,13 +22,12 @@
   };
 
   custom.cuda = {
-    enable = false;
+    enable = true;
     driver = "legacy_470";
     xserverDriver = "nvidiaLegacy470";
   };
 
   hardware.nvidia.prime = {
-    sync.enable = false;
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
   };
