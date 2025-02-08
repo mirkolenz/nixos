@@ -2,6 +2,6 @@
 {
   catppuccin = {
     flavor = "mocha";
-    bat.enable = true;
+    enable = true;
   };
 }
