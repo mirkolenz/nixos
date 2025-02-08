@@ -1,0 +1,6 @@
+{ ... }:
+{
+  catppuccin = {
+    flavor = "mocha";
+  };
+}

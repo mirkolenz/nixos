@@ -42,6 +42,26 @@
         "type": "github"
       }
     },
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1738834647,
+        "narHash": "sha256-NdetLk2Ie+syABcq/1MWSpqInhkODItR0xRkwDvWlpk=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "7f2e0e709ad3e47a2ae0e735168438144c134947",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "cosmic-manager": {
       "inputs": {
         "flake-parts": [
@@ -1578,6 +1598,7 @@
     "root": {
       "inputs": {
         "arguebuf": "arguebuf",
+        "catppuccin": "catppuccin",
         "cosmic-manager": "cosmic-manager",
         "flake-parts": "flake-parts",
         "flocken": "flocken",
