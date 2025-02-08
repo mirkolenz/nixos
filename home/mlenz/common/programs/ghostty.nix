@@ -34,8 +34,8 @@ in
         "title"
       ];
       theme = {
-        dark = "catppuccin-latte";
-        light = "catppuccin-mocha";
+        light = "catppuccin-latte";
+        dark = "catppuccin-mocha";
       };
       window-height = 30;
       window-padding-x = 8;
