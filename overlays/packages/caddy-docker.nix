@@ -1,12 +1,12 @@
 # https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl
 {
   lib,
-  dockerTools,
   caddy,
   cacert,
   tzdata,
+  mkDocker,
 }:
-(dockerTools.streamLayeredImage {
+mkDocker {
   name = "caddy";
   tag = "latest";
   created = "now";
@@ -40,10 +40,8 @@
     ];
     WorkingDir = "/srv";
   };
-}).overrideAttrs
-  (finalAttrs: {
-    meta = (finalAttrs.meta or { }) // {
-      maintainers = with lib.maintainers; [ mirkolenz ];
-      platforms = lib.platforms.linux;
-    };
-  })
+  meta = {
+    maintainers = with lib.maintainers; [ mirkolenz ];
+    platforms = lib.platforms.linux;
+  };
+}

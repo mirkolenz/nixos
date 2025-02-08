@@ -24,7 +24,8 @@ in
   caddy = final.nixpkgs.caddy;
   caddy-custom-docker = final.caddy-docker.override { caddy = final.caddy-custom; };
   dummy = final.writeShellScriptBin "dummy" ":";
-  mkApp = final.callPackage ./make-app.nix { };
+  mkApp = final.callPackage ./utils/make-app.nix { };
+  mkDocker = final.callPackage ./utils/make-docker.nix { };
   nixfmt = final.nixfmt-rfc-style;
   uv-bin = inputs.uv2nix.packages.${system}.uv-bin;
 }
