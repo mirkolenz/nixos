@@ -3,8 +3,6 @@
   imports = [
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    # inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-    # inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     ./hardware.nix
   ];
   custom.profile = "workstation";

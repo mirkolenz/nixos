@@ -3,9 +3,8 @@
   imports = [
     "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/haswell"
-    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
-    "${inputs.nixos-hardware}/common/gpu/nvidia/prime.nix"
-    "${inputs.nixos-hardware}/common/hidpi.nix"
+    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/disable.nix"
     "${inputs.nixos-hardware}/common/pc/laptop/ssd"
     ./hardware.nix
   ];
@@ -22,7 +21,7 @@
   };
 
   custom.cuda = {
-    enable = true;
+    enable = false;
     driver = "legacy_470";
     xserverDriver = "nvidiaLegacy470";
   };
