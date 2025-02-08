@@ -75,7 +75,6 @@
         "/Applications/Microsoft Teams.app"
         "/Applications/Godspeed.app"
         "/System/Applications/Calendar.app"
-        "/Applications/Zed.app"
         "/Applications/Zed Preview.app"
         "/Applications/Ghostty.app"
         "/Applications/Fork.app"
