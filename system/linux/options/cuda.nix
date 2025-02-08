@@ -22,18 +22,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # nixpkgs.config.cudaSupport = true;
     services.xserver.videoDrivers = [ cfg.xserverDriver ];
-    virtualisation.containers.cdi.dynamic.nvidia.enable = true;
     hardware = {
       opengl = {
         enable = true;
         driSupport32Bit = true;
       };
-      nvidia = {
-        package = config.boot.kernelPackages.nvidiaPackages.${cfg.driver};
-        modesetting.enable = true;
-      };
+      nvidia.package = config.boot.kernelPackages.nvidiaPackages.${cfg.driver};
     };
   };
 }
