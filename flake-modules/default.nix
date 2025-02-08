@@ -20,7 +20,9 @@
         inherit (nixpkgsArgs) config overlays;
       };
       legacyPackages = {
-        exports = lib.filterAttrs (_: value: lib.meta.availableOn system value) pkgs.flake-exports;
+        exports = lib.filterAttrs (
+          _: value: lib.meta.availableOn pkgs.stdenv.hostPlatform value
+        ) pkgs.flake-exports;
         github-checks = config.legacyPackages.exports // {
           inherit (config.packages)
             nixvim-stable
