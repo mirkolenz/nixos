@@ -1,6 +1,6 @@
 {pkgs, lib, ...}:{
   programs.bat = {
     enable = true;
-    extraPackages = lib.attrValues pkgs.bat-extras;
+    extraPackages = lib.filter lib.isDerivation (lib.attrValues pkgs.bat-extras);
   };
 }
