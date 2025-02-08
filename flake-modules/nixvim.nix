@@ -11,7 +11,6 @@
     { system, config, ... }:
     {
       packages = {
-        nixvim = config.packages.nixvim-unstable;
         nixvim-unstable = config.legacyPackages.mkNixvim "unstable";
         nixvim-stable = config.legacyPackages.mkNixvim "stable";
       };

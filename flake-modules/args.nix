@@ -5,8 +5,8 @@
   ...
 }:
 {
-  _module.args = {
-    nixpkgsArgs = rec {
+  _module.args = rec {
+    nixpkgsArgs = {
       config = {
         allowUnfree = true;
         nvidia.acceptLicense = true;
@@ -17,7 +17,7 @@
           inputs
           lib'
           ;
-        inherit config;
+        inherit (nixpkgsArgs) config;
       };
     };
 

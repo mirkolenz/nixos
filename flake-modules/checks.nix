@@ -8,7 +8,7 @@ let
   systems = [
     "x86_64-linux"
   ];
-  checks = lib.mapAttrs (system: packages: packages.github-checks) self.legacyPackages;
+  checks = lib.mapAttrs (system: attrs: attrs.exported-packages) self.legacyPackages;
 in
 {
   perSystem =

@@ -7,17 +7,16 @@ final: prev:
 let
   inherit (prev.stdenv.hostPlatform) system;
   inherit (prev) lib;
-  customPackages = lib.packagesFromDirectoryRecursive {
+  exportedPackages = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
     directory = ./packages;
   };
 in
 {
-  flake-exports = customPackages;
+  exported-packages = exportedPackages;
   inherit (self.packages.${system})
-    nixvim
-    nixvim-unstable
     nixvim-stable
+    nixvim-unstable
     treefmt-nix
     ;
   arguebuf = inputs.arguebuf.packages.${system}.default;
@@ -28,4 +27,4 @@ in
 // (lib.optionalAttrs (inputs.cosmic-manager.packages ? ${system}) {
   inherit (inputs.cosmic-manager.packages.${system}) cosmic-manager;
 })
-// customPackages
+// exportedPackages
