@@ -11,13 +11,6 @@ lib: rec {
   systemArch = system: lib.head (lib.splitString "-" system);
   # compare two lists irrespective of order
   setEqual = list1: list2: (lib.naturalSort list1) == (lib.naturalSort list2);
-  filterPackagePlatforms =
-    {
-      system,
-      packages,
-      defaultPlatforms ? [ system ],
-    }:
-    lib.filterAttrs (_: v: lib.elem system (v.meta.platforms or defaultPlatforms)) packages;
   mkRegistry =
     {
       channel,

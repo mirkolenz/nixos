@@ -2,6 +2,7 @@
   lib',
   inputs,
   nixpkgsArgs,
+  lib,
   ...
 }:
 {
@@ -19,10 +20,7 @@
         inherit (nixpkgsArgs) config overlays;
       };
       legacyPackages = {
-        exports = lib'.self.filterPackagePlatforms {
-          inherit system;
-          packages = pkgs.flake-exports;
-        };
+        exports = lib.filterAttrs (_: value: lib.meta.availableOn system value) pkgs.flake-exports;
         github-checks = config.legacyPackages.exports // {
           inherit (config.packages)
             nixvim-stable
