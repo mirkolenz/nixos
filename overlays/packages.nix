@@ -21,12 +21,8 @@ in
     treefmt-nix
     ;
   arguebuf = inputs.arguebuf.packages.${system}.default;
-  caddy = final.nixpkgs.caddy;
   caddy-custom-docker = final.caddy-docker.override { caddy = final.caddy-custom; };
   dummy = final.writeShellScriptBin "dummy" ":";
-  mkApp = final.callPackage ./utils/make-app.nix { };
-  mkDocker = final.callPackage ./utils/make-docker.nix { };
-  nixfmt = final.nixfmt-rfc-style;
   uv-bin = inputs.uv2nix.packages.${system}.uv-bin;
 }
 // (lib.optionalAttrs (inputs.cosmic-manager.packages ? ${system}) {

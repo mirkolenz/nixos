@@ -1,0 +1,28 @@
+{
+  inputs,
+  lib',
+  config,
+  ...
+}:
+final: prev:
+let
+  inherit (final.pkgs) system;
+  os = lib'.self.systemOs system;
+  importArgs = {
+    inherit system config;
+  };
+in
+{
+  nixpkgs = import inputs.nixpkgs importArgs;
+  nixpkgs-texlive = import inputs.nixpkgs-texlive importArgs;
+  stable = import (lib'.self.systemInput {
+    inherit inputs os;
+    name = "nixpkgs";
+    channel = "stable";
+  }) importArgs;
+  unstable = import (lib'.self.systemInput {
+    inherit inputs os;
+    name = "nixpkgs";
+    channel = "unstable";
+  }) importArgs;
+}
