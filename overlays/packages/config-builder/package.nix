@@ -1,6 +1,5 @@
 {
   writers,
-  lib,
   python3Packages,
 }:
 writers.writePython3Bin "config-builder" {
