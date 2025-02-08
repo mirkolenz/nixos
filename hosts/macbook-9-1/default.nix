@@ -1,8 +1,9 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    "${inputs.nixos-hardware}/apple"
+    "${inputs.nixos-hardware}/common/cpu/intel"
+    "${inputs.nixos-hardware}/common/pc/laptop/ssd"
     ./hardware.nix
   ];
   custom.profile = "workstation";

@@ -7,9 +7,10 @@
 }:
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    "${inputs.nixos-hardware}/apple"
+    "${inputs.nixos-hardware}/common/cpu/intel/cpu-only.nix"
+    "${inputs.nixos-hardware}/common/gpu/amd"
+    "${inputs.nixos-hardware}/common/pc/ssd"
     ./hardware.nix
     ./timemachine.nix
   ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";

@@ -3,8 +3,8 @@
   imports = [
     "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/haswell"
-    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/gpu/nvidia/disable.nix"
+    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/laptop/ssd"
     ./hardware.nix
   ];
