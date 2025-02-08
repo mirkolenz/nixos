@@ -9,4 +9,4 @@ writers.writePython3Bin "config-builder" {
     "E203"
     "E501"
   ];
-} (lib.readFile ./script.py)
+} ./script.py
