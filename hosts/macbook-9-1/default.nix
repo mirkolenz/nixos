@@ -18,7 +18,7 @@
     };
   };
 
-  # services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
+  services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
 
   hardware.facetimehd = {
