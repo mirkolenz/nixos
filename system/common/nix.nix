@@ -55,7 +55,6 @@
       keep-outputs = true;
       log-lines = 1000;
       max-jobs = "auto";
-      sandbox = true;
       upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
       warn-dirty = false;
     };
