@@ -27,7 +27,6 @@ in
       auto_layout = true;
       default_layout = "default";
       on_force_close = "detach";
-      theme = "default";
     };
   };
   home.packages = lib.mkIf opensshEnabled (
