@@ -26,4 +26,6 @@ lib.mkIf (config.custom.profile == "workstation") {
       polkitPolicyOwners = [ user.login ];
     };
   };
+
+  nix.settings.trusted-users = [ user.login ];
 }
