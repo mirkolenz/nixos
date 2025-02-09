@@ -17,7 +17,7 @@
     };
   };
 
-  custom.cuda = {
+  custom.nvidia = {
     enable = false;
     driver = "legacy_470";
     xserverDriver = "nvidiaLegacy470";

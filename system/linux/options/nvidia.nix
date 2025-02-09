@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.custom.cuda;
+  cfg = config.custom.nvidia;
 in
 {
-  options.custom.cuda = {
-    enable = lib.mkEnableOption "CUDA";
+  options.custom.nvidia = {
+    enable = lib.mkEnableOption "NVIDIA";
     driver = lib.mkOption {
       type = lib.types.str;
       default = "stable";
