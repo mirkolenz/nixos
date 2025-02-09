@@ -6,7 +6,6 @@
 {
   custom.texlive = {
     enable = pkgs.stdenv.isDarwin;
-    package = pkgs.nixpkgs-texlive.texliveFull;
     bibDir = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
     latexmkrc = ''
       # 1: pdflatex

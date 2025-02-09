@@ -14,7 +14,6 @@ let
 in
 {
   nixpkgs = import inputs.nixpkgs importArgs;
-  nixpkgs-texlive = import inputs.nixpkgs-texlive importArgs;
   stable = import (lib'.self.systemInput {
     inherit inputs os;
     name = "nixpkgs";
