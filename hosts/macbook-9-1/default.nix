@@ -1,8 +1,11 @@
-{ inputs, ... }:
+{ config, inputs, ... }:
 {
   imports = [
     "${inputs.nixos-hardware}/apple"
-    "${inputs.nixos-hardware}/common/cpu/intel"
+    # has ivy-bridge cpu, but should be backwards compatible with sandy-bridge
+    "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/disable.nix"
+    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/laptop/ssd"
     ./hardware.nix
   ];
@@ -17,11 +20,8 @@
     };
   };
 
-  custom.nvidia = {
-    enable = false;
-    driver = "legacy_470";
-    xserverDriver = "nvidiaLegacy470";
-  };
+  # services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
 
   hardware.facetimehd = {
     enable = true;

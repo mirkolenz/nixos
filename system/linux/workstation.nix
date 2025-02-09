@@ -16,6 +16,8 @@ lib.mkIf (config.custom.profile == "workstation") {
     };
   };
 
+  hardware.graphics.enable = true;
+
   networking.networkmanager.enable = true;
   systemd.network.wait-online.enable = false;
   users.users.${user.login}.extraGroups = [ "networkmanager" ];

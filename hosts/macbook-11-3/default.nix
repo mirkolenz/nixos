@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ config, inputs, ... }:
 {
   imports = [
     "${inputs.nixos-hardware}/apple"
@@ -20,16 +20,14 @@
     };
   };
 
-  custom.nvidia = {
-    enable = false;
-    driver = "legacy_470";
-    xserverDriver = "nvidiaLegacy470";
-  };
-
-  hardware.nvidia.prime = {
-    nvidiaBusId = "PCI:1:0:0";
-    intelBusId = "PCI:0:2:0";
-  };
+  # services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
+  # hardware.nvidia = {
+  #   package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  #   prime = {
+  #     nvidiaBusId = "PCI:1:0:0";
+  #     intelBusId = "PCI:0:2:0";
+  #   };
+  # };
 
   hardware.facetimehd = {
     enable = true;
