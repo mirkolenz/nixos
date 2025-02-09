@@ -110,7 +110,7 @@
         kaleidoscope.cmd = "ksdiff --partial-changeset --relative-path $MERGED -- $LOCAL $REMOTE";
       };
       diff = {
-        tool = lib.mkIf pkgs.stdenv.isDarwin "vscode";
+        tool = lib.mkIf (config.custom.profile == "workstation") "vscode";
       };
       mergetool = {
         prompt = false;
@@ -118,7 +118,7 @@
         kaleidoscope.cmd = "ksdiff --merge --output $MERGED --base $BASE -- $LOCAL --snapshot $REMOTE --snapshot";
       };
       merge = {
-        tool = lib.mkIf pkgs.stdenv.isDarwin "vscode";
+        tool = lib.mkIf (config.custom.profile == "workstation") "vscode";
         trustExitCode = true;
       };
     };
