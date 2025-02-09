@@ -3,8 +3,7 @@
   imports = [
     "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/haswell"
-    "${inputs.nixos-hardware}/common/gpu/nvidia/disable.nix"
-    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/laptop/ssd"
     ./hardware.nix
   ];
@@ -21,13 +20,13 @@
   };
 
   # services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
-  # hardware.nvidia = {
-  #   package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-  #   prime = {
-  #     nvidiaBusId = "PCI:1:0:0";
-  #     intelBusId = "PCI:0:2:0";
-  #   };
-  # };
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+    prime = {
+      nvidiaBusId = "PCI:1:0:0";
+      intelBusId = "PCI:0:2:0";
+    };
+  };
 
   hardware.facetimehd = {
     enable = true;
