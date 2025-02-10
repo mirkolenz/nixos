@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  plugins.lsp.ltex_plus = {
+  plugins.lsp.servers.ltex_plus = {
     enable = true;
     package = pkgs.ltex-ls-plus;
     settings.ltex = {
