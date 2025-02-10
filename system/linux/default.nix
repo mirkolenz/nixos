@@ -60,6 +60,8 @@
     grub.configurationLimit = 10;
   };
 
+  hardware.enableAllFirmware = true;
+
   zramSwap = {
     enable = true;
     memoryPercent = 100;
