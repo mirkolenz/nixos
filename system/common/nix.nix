@@ -57,6 +57,7 @@
       max-jobs = "auto";
       upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
       warn-dirty = false;
+      download-buffer-size = 1000000000; # 1 GB
     };
     gc = {
       automatic = true;
