@@ -140,13 +140,17 @@
     # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
     settings = {
       gui = {
-        nerdFontsVersion = "";
-        splitDiff = "always";
-        showFileTree = true;
         border = "single";
+        nerdFontsVersion = "";
+        showCommandLog = false;
+        showFileTree = true;
         showNumstatInFilesView = true;
         showRandomTip = false;
-        showCommandLog = false;
+        skipDiscardChangeWarning = false;
+        skipNoStagedFilesWarning = true;
+        skipRewordInEditorWarning = false;
+        skipStashWarning = false;
+        splitDiff = "always";
       };
       git = {
         commit.autoWrapCommitMessage = false;
