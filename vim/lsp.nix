@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   plugins.lsp = {
     enable = true;
@@ -24,7 +24,10 @@
       html.enable = true;
       java_language_server.enable = true;
       jsonls.enable = true;
-      ltex_plus.enable = true;
+      ltex_plus = {
+        enable = true;
+        package = pkgs.ltex-ls-plus;
+      };
       nixd = {
         enable = true;
         settings = {
