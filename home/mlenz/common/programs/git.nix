@@ -8,6 +8,8 @@
 {
   home.packages = with pkgs; [
     git-annex
+    gibo
+    git-ignore
   ];
   programs.gh = {
     enable = true;
