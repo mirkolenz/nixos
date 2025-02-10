@@ -32,7 +32,6 @@
       };
       ruff.enable = true;
       ts_ls.enable = true;
-      tailwindcss.enable = true;
       texlab = {
         enable = true;
         settings.texlab = {
