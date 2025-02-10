@@ -28,7 +28,6 @@ in
     vimr-bin
     goneovim-bin
     restic-browser-bin
-    neohtop-bin
     zigstar-multitool
     (writeShellApplication {
       name = "scansnap-reset";

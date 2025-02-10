@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ ... }:
 # userHome = config.users.users.${user.login}.home;
 {
   system.defaults = {
@@ -85,7 +82,7 @@
         "/Applications/Microsoft Word.app"
         "/Applications/Microsoft Excel.app"
         "/Applications/Microsoft PowerPoint.app"
-        "${pkgs.neohtop-bin}/Applications/NeoHtop.app"
+        "/Applications/NeoHtop.app"
         "/System/Applications/System Settings.app"
       ];
       # persistent-others = [ "${userHome}/Downloads/" ];
