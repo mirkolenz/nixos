@@ -1,1 +1,4 @@
-{ ... }: { }
+{ ... }:
+{
+  home.shell.enableShellIntegration = true;
+}

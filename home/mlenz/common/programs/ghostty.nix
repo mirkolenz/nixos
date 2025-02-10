@@ -19,9 +19,6 @@ in
   programs.ghostty = {
     enable = config.custom.profile == "workstation";
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-    enableZshIntegration = true;
     settings = mkSettings {
       cursor-click-to-move = true;
       font-family = if pkgs.stdenv.isDarwin then "Berkeley Mono" else "JetBrains Mono";
