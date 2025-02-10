@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "anselmoo";
     repo = "bibtex2cff";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-Xuj2kDJzX2owIjjBRrfXNJCZeGRZ7OoD1X+ibU4b1C8=";
   };
 

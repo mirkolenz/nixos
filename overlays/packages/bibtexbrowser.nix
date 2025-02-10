@@ -8,8 +8,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "monperrus";
     repo = "bibtexbrowser";
-    rev = "cf3ad2170062005132b36da6d6eb5a8bddcb6a74";
-    hash = "sha256-vCLu37F0oqBZdG5SXijScbGEEjRjQ+z2R30DT6Rso0w=";
+    rev = "4cdfb81a64e836fb7225e29258bea0258889dd17";
+    hash = "sha256-OwRtRiXNzQUVxc6NFnrSXZp94D2viAnCJoZ0ySplS5Q=";
   };
   installPhase = ''
     runHook preInstall

@@ -32,6 +32,7 @@ let
     "mediathekview"
     "microsoft-auto-update"
     "microsoft-teams"
+    "neohtop"
     "notion"
     "obsidian"
     "omnigraffle"
