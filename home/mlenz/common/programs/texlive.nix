@@ -33,6 +33,17 @@
       $ENV{"TZ"} = "Europe/Berlin";
     '';
   };
+  home.packages = with pkgs; [
+    arxiv-latex-cleaner
+    bibtex-tidy
+    bibtex2cff
+    bibtexbrowser2cff
+    ltex-ls-plus
+    sioyek
+    tectonic
+    texlab
+    zathura
+  ];
   programs.tex-fmt = {
     enable = true;
     settings = {

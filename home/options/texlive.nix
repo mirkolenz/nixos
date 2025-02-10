@@ -74,28 +74,13 @@ in
 
       bibDir = lib.mkOption {
         type = lib.types.str;
+        default = "";
         description = "Location of the bibliography files.";
       };
 
       latexmkrc = lib.mkOption {
         type = lib.types.lines;
         description = "Content of the .latexmkrc file.";
-      };
-
-      extraPackages = lib.mkOption {
-        type = with lib.types; listOf package;
-        description = "Extra TeX Live packages to install.";
-        default = with pkgs; [
-          tectonic
-          texlab
-          bibtex2cff
-          bibtexbrowser2cff
-          bibtex-tidy
-          arxiv-latex-cleaner
-          ltex-ls-plus
-          zathura
-          sioyek
-        ];
       };
 
       acronymPresets = lib.mkOption {
@@ -154,7 +139,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = lib.singleton cfg.package ++ cfg.extraPackages ++ (lib.attrValues cmds);
+      packages = lib.singleton cfg.package ++ (lib.optionals (cfg.bibDir != "") (lib.attrValues cmds));
       file = {
         ".latexmkrc".source = pkgs.writeText "latexmkrc" cfg.latexmkrc;
       };
