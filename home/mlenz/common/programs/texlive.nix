@@ -1,11 +1,12 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
-{
+lib.mkIf pkgs.stdenv.isDarwin {
   custom.texlive = {
-    enable = pkgs.stdenv.isDarwin;
+    enable = true;
     bibDir = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
     latexmkrc = ''
       # 1: pdflatex
