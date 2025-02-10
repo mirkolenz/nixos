@@ -33,6 +33,11 @@
     withCalibration = true;
   };
 
+  # Enable the iGPU by default if present
+  environment.etc."modprobe.d/apple-gmux.conf".text = ''
+    options apple-gmux force_igd=y
+  '';
+
   # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
   # https://askubuntu.com/a/1242574
   # https://www.reddit.com/r/mac/comments/9pyort/apple_macbook_pro_sudden_crash_fix_for_models/
