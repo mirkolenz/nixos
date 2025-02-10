@@ -12,15 +12,16 @@ swiftPackages.stdenv.mkDerivation {
     rev = "6061b86e96c766085718d4589c974184d86cf1d3";
     hash = "sha256-EJekXScC2Oay2ySb+xT1VusZ265WNh3JjezsbSBSEB4=";
   };
-  # does not work with swift 5.8
+  nativeBuildInputs = [ swift ];
+  # requires swift v6
   # src = fetchFromGitHub {
   #   owner = "cdalvaro";
   #   repo = "pam-watchid";
   #   rev = "2a40e98940a5fa2655a88432b7c970d3ebf6fc6a";
   #   hash = "sha256-lp88RXwN/WwIFaFnrG8aNA3HBVWDNCIfUnBLAtcaaHc=";
   # };
-  nativeBuildInputs = [ swift ];
-  # needs macos 15, but swift failes with apple-sdk_15
+  # alternative, but apple sdk v15 requires swift v6 as well
+  # buildInputs = [ apple-sdk_15 ];
   # patchPhase = ''
   #   runHook prePatch
 
