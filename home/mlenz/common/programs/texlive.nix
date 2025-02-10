@@ -51,7 +51,11 @@ lib.mkIf pkgs.stdenv.isDarwin {
       wrap = false;
       tabsize = 2;
       tabchar = "space";
-      lists = [ ];
+      lists = [
+        "enumerate*"
+        "itemize*"
+        "description*"
+      ];
     };
   };
 }
