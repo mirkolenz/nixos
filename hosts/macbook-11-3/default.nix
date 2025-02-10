@@ -8,14 +8,13 @@
     ./hardware.nix
   ];
   custom.profile = "workstation";
-  services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {
     systemd-boot.enable = true;
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
+      efiSysMountPoint = "/boot";
     };
   };
 
@@ -34,7 +33,7 @@
   };
 
   # Enable the iGPU by default if present
-  environment.etc."modprobe.d/apple-gmux.conf".text = ''
+  boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
   '';
 
