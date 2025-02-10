@@ -142,7 +142,7 @@
       gui = {
         nerdFontsVersion = "";
         splitDiff = "always";
-        showFileTree = false;
+        showFileTree = true;
         border = "single";
         showNumstatInFilesView = true;
         showRandomTip = false;
