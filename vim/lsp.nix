@@ -24,7 +24,7 @@
       html.enable = true;
       java_language_server.enable = true;
       jsonls.enable = true;
-      ltex.enable = true;
+      ltex_plus.enable = true;
       nixd = {
         enable = true;
         settings = {
@@ -33,6 +33,7 @@
       };
       ruff.enable = true;
       ts_ls.enable = true;
+      texlab.enable = true;
       yamlls.enable = true;
     };
   };
