@@ -1,4 +1,4 @@
 { lib, ... }:
 {
-  options.custom.impure_rebuild = lib.mkEnableOption "impure rebuild";
+  options.custom.impureRebuild = lib.mkEnableOption "impure rebuild";
 }

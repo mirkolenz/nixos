@@ -73,7 +73,7 @@ def run(
                 nix_exe,
                 "eval",
                 "--json",
-                f'{flake}#{flake_attribute}."{name}".config.custom.impure_rebuild',
+                f'{flake}#{flake_attribute}."{name}".config.custom.impureRebuild',
             ]
         )
     )
