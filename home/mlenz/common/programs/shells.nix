@@ -30,12 +30,7 @@ in
 {
   programs.fish = {
     enable = true;
-    # https://github.com/direnv/direnv/issues/614#issuecomment-744575699
     loginShellInit = ''
-      set -q DIRENV_DIR
-      and test -n "$DIRENV_DIR"
-      and eval (pushd /; direnv export fish; popd;)
-
       ${fixNixProfile}
     '';
     functions = {
@@ -106,10 +101,12 @@ in
     enable = true;
     nix-direnv.enable = true;
     config = {
+      disable_stdin = true;
+      hide_env_diff = true;
       load_dotenv = false;
+      log_format = "-";
       strict_env = true;
       warn_timeout = "0s";
-      log_format = "-";
     };
   };
 }
