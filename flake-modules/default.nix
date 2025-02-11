@@ -30,7 +30,7 @@
         default = pkgs.mkBuilder { flake = self; };
         inherit (pkgs)
           home-manager
-          nixos-rebuild
+          nixos-rebuild-ng
           darwin-rebuild
           darwin-uninstaller
           ;
