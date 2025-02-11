@@ -5,7 +5,10 @@ from typing import Annotated
 
 import typer
 
-app = typer.Typer(add_completion=False)
+app = typer.Typer(
+    add_completion=False,
+    pretty_exceptions_enable=False,
+)
 
 
 def subprocess_stdout(cmd: list[str]) -> str:
@@ -40,6 +43,13 @@ def run(
     name: Annotated[str | None, typer.Option("--name", "-n")] = None,
     use_home_builder: Annotated[bool, typer.Option("--home/--system")] = False,
 ):
+    if operation == "build-image":
+        assert name is not None, "name is required for build-image"
+        cmd = [linux_builder, operation, "--flake", f"{flake}#{name}", *ctx.args]
+        typer.echo(f"Running {shlex.join(cmd)}")
+        subprocess.run(cmd)
+        return
+
     os = subprocess_stdout(["uname", "-s"]).lower()
 
     if not name:
@@ -53,19 +63,15 @@ def run(
         builder = home_builder
     elif os == "darwin":
         builder = darwin_builder
-    elif os == "linux":
-        builder = linux_builder
     else:
-        raise ValueError("Unknown target")
+        builder = linux_builder
 
     if use_home_builder:
         flake_attribute = "homeConfigurations"
     elif os == "darwin":
         flake_attribute = "darwinConfigurations"
-    elif os == "linux":
-        flake_attribute = "nixosConfigurations"
     else:
-        raise ValueError("Unknown target")
+        flake_attribute = "nixosConfigurations"
 
     is_impure: bool = json.loads(
         subprocess_stdout(

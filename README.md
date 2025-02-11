@@ -282,15 +282,18 @@ sudo usermod -s $(which fish) "$USER"
 
 ## Utilities and Snippets
 
-### NixOS Generators
+### Image Building
 
-- If building for another architecture on NixOS: [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
-- Available formats:
-  - `installer-iso`
-  - `installer-raspi`
+If building for another architecture on NixOS:
+[Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
 
 ```shell
-nix build github:mirkolenz/nixos#FORMAT --system SYSTEM
+# for x86_64 iso installer disc
+nix run github:mirkolenz/nixos -- -o build-image -n installer-x86_64 --image-variant iso-installer
+# for aarch64 iso installer disc
+nix run github:mirkolenz/nixos -- -o build-image -n installer-aarch64 --image-variant iso-installer
+# for raspberry pi sd card
+nix run github:mirkolenz/nixos -- -o build-image -n installer-raspi --image-variant sd-card
 ```
 
 ### Update Raspberry Pi

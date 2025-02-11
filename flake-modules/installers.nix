@@ -2,43 +2,66 @@
   inputs,
   specialModuleArgs,
   moduleArgs,
+  lib',
+  self,
   ...
 }:
 let
   mkInstaller =
     {
       system,
-      format,
-      module,
+      channel,
+      extraModule ? { },
     }:
-    inputs.nixos-generators.nixosGenerate {
-      inherit system format;
+    let
+      os = "linux";
+      nixpkgs = lib'.self.systemInput {
+        inherit inputs channel os;
+        name = "nixpkgs";
+      };
+    in
+    nixpkgs.lib.nixosSystem {
+      inherit system;
       specialArgs = specialModuleArgs // {
-        channel = "stable";
-        os = "linux";
+        inherit channel os;
       };
       modules = [
-        module
+        extraModule
+        self.nixosModules.installer
         { _module.args = moduleArgs; }
       ];
     };
 in
 {
-  flake.packages = {
-    aarch64-linux.installer-raspi = mkInstaller {
+  flake.nixosConfigurations = {
+    installer-raspi = mkInstaller {
       system = "aarch64-linux";
-      format = "sd-aarch64";
-      module = ../installer/raspi.nix;
+      extraModule = {
+        imports = [
+          inputs.nixos-hardware.nixosModules.raspberry-pi-4
+        ];
+        boot.tmp = {
+          useTmpfs = true;
+          tmpfsSize = "16G";
+        };
+      };
     };
-    aarch64-linux.installer-iso = mkInstaller {
+    # TODO: add stable variants for nixos 25.05
+    # installer-aarch64-stable = mkInstaller {
+    #   system = "aarch64-linux";
+    #   channel = "stable";
+    # };
+    # installer-x86_64-stable = mkInstaller {
+    #   system = "x86_64-linux";
+    #   channel = "stable";
+    # };
+    installer-aarch64-unstable = mkInstaller {
       system = "aarch64-linux";
-      format = "install-iso";
-      module = ../installer/iso.nix;
+      channel = "unstable";
     };
-    x86_64-linux.installer-iso = mkInstaller {
+    installer-x86_64-unstable = mkInstaller {
       system = "x86_64-linux";
-      format = "install-iso";
-      module = ../installer/iso.nix;
+      channel = "unstable";
     };
   };
 }
