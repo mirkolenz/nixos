@@ -36,6 +36,7 @@ in
   flake.nixosConfigurations = {
     installer-raspi = mkInstaller {
       system = "aarch64-linux";
+      channel = "unstable"; # todo: change to "stable" for nixos 25.05
       extraModule = {
         imports = [
           inputs.nixos-hardware.nixosModules.raspberry-pi-4
