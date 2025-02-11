@@ -13,7 +13,6 @@
     username = user.login;
     homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user.login}" else "/home/${user.login}";
     sessionVariables = {
-      DIRENV_LOG_FORMAT = "";
       NIXPKGS_ALLOW_UNFREE = "1";
     };
   };
