@@ -288,12 +288,10 @@ If building for another architecture on NixOS:
 [Enable cross compiling](https://github.com/nix-community/nixos-generators#cross-compiling)
 
 ```shell
-# for x86_64 iso installer disc
-nix run github:mirkolenz/nixos -- -o build-image -n installer-x86_64 --image-variant iso-installer
-# for aarch64 iso installer disc
-nix run github:mirkolenz/nixos -- -o build-image -n installer-aarch64 --image-variant iso-installer
+# for iso installer disc
+nix run github:mirkolenz/nixos --system SYSTEM -- -o build-image -n installer-unstable --image-variant iso-installer
 # for raspberry pi sd card
-nix run github:mirkolenz/nixos -- -o build-image -n installer-raspi --image-variant sd-card
+nix build github:mirkolenz/nixos#installer-raspi --system aarch64-linux
 ```
 
 ### Update Raspberry Pi

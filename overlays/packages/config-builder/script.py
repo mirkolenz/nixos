@@ -41,11 +41,17 @@ def run(
     ] = "switch",
     flake: str = "github:mirkolenz/nixos",
     name: Annotated[str | None, typer.Option("--name", "-n")] = None,
-    use_home_builder: Annotated[bool, typer.Option("--home/--system")] = False,
+    build_home: Annotated[bool, typer.Option("--build-home/--build-system")] = False,
 ):
     if operation == "build-image":
         assert name is not None, "name is required for build-image"
-        cmd = [linux_builder, operation, "--flake", f"{flake}#{name}", *ctx.args]
+        cmd = [
+            linux_builder,
+            operation,
+            "--flake",
+            f"{flake}#{name}",
+            *ctx.args,
+        ]
         typer.echo(f"Running {shlex.join(cmd)}")
         subprocess.run(cmd)
         return
@@ -55,18 +61,18 @@ def run(
     if not name:
         name = subprocess_stdout(["uname", "-n"]).lower()
 
-        if use_home_builder:
+        if build_home:
             user = subprocess_stdout(["whoami"])
             name = f"{user}@{name}"
 
-    if use_home_builder:
+    if build_home:
         builder = home_builder
     elif os == "darwin":
         builder = darwin_builder
     else:
         builder = linux_builder
 
-    if use_home_builder:
+    if build_home:
         flake_attribute = "homeConfigurations"
     elif os == "darwin":
         flake_attribute = "darwinConfigurations"

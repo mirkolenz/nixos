@@ -3,6 +3,7 @@
   specialModuleArgs,
   moduleArgs,
   lib',
+  lib,
   self,
   ...
 }:
@@ -31,38 +32,34 @@ let
         { _module.args = moduleArgs; }
       ];
     };
+
+  installer-raspi = mkInstaller {
+    system = "aarch64-linux";
+    channel = "unstable"; # todo: change to "stable" for nixos 25.05
+    extraModule = {
+      imports = [
+        inputs.nixos-hardware.nixosModules.raspberry-pi-4
+      ];
+      boot.tmp = {
+        useTmpfs = true;
+        tmpfsSize = "16G";
+      };
+    };
+  };
 in
 {
-  flake.nixosConfigurations = {
-    installer-raspi = mkInstaller {
-      system = "aarch64-linux";
-      channel = "unstable"; # todo: change to "stable" for nixos 25.05
-      extraModule = {
-        imports = [
-          inputs.nixos-hardware.nixosModules.raspberry-pi-4
-        ];
-        boot.tmp = {
-          useTmpfs = true;
-          tmpfsSize = "16G";
+  flake.legacyPackages = {
+    aarch64-linux.installer-raspi = installer-raspi.config.system.build.images.sd-card;
+  };
+  perSystem =
+    { system, ... }:
+    lib.optionalAttrs (lib.hasSuffix "-linux" system) {
+      legacyPackages.nixosConfigurations = {
+        # TODO: add stable variant for nixos 25.05
+        installer-unstable = mkInstaller {
+          inherit system;
+          channel = "unstable";
         };
       };
     };
-    # TODO: add stable variants for nixos 25.05
-    # installer-aarch64-stable = mkInstaller {
-    #   system = "aarch64-linux";
-    #   channel = "stable";
-    # };
-    # installer-x86_64-stable = mkInstaller {
-    #   system = "x86_64-linux";
-    #   channel = "stable";
-    # };
-    installer-aarch64-unstable = mkInstaller {
-      system = "aarch64-linux";
-      channel = "unstable";
-    };
-    installer-x86_64-unstable = mkInstaller {
-      system = "x86_64-linux";
-      channel = "unstable";
-    };
-  };
 }
