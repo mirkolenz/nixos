@@ -30,6 +30,7 @@ in
     restic-browser-bin
     zigstar-multitool
     undmg
+    rcodesign
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''

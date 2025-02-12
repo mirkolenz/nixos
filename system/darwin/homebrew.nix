@@ -47,7 +47,6 @@ let
     "raycast"
     "rode-central"
     "signal"
-    "sioyek"
     "skim"
     "soundsource"
     "stats"
