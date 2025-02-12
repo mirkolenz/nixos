@@ -31,8 +31,8 @@ in
         "title"
       ];
       theme = {
-        light = "catppuccin-latte";
-        dark = "catppuccin-mocha";
+        light = "Monokai Pro Light";
+        dark = "Monokai Pro Spectrum";
       };
       window-height = 30;
       window-padding-x = 8;
