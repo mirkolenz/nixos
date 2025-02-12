@@ -30,7 +30,7 @@
     moduleArgs = {
       stateVersions = {
         linux = "24.11";
-        darwin = 4;
+        darwin = 6;
         home = "24.11";
       };
       user = {
