@@ -49,17 +49,17 @@ let
 in
 {
   flake.legacyPackages = {
-    aarch64-linux.installer-raspi = installer-raspi.config.system.build.images.sd-card;
+    aarch64-linux.installers.raspi = installer-raspi.config.system.build.images.sd-card;
   };
   perSystem =
     { system, ... }:
     lib.optionalAttrs (lib.hasSuffix "-linux" system) {
-      legacyPackages.nixosConfigurations = {
-        # TODO: add stable variant for nixos 25.05
-        installer-unstable = mkInstaller {
-          inherit system;
-          channel = "unstable";
-        };
-      };
+      # TODO: add stable variant for nixos 25.05
+      legacyPackages.installers = lib.genAttrs [ "unstable" ] (
+        channel:
+        (mkInstaller {
+          inherit system channel;
+        }).config.system.build.images
+      );
     };
 }

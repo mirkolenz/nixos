@@ -43,19 +43,6 @@ def run(
     name: Annotated[str | None, typer.Option("--name", "-n")] = None,
     build_home: Annotated[bool, typer.Option("--build-home/--build-system")] = False,
 ):
-    if operation == "build-image":
-        assert name is not None, "name is required for build-image"
-        cmd = [
-            linux_builder,
-            operation,
-            "--flake",
-            f"{flake}#{name}",
-            *ctx.args,
-        ]
-        typer.echo(f"Running {shlex.join(cmd)}")
-        subprocess.run(cmd)
-        return
-
     os = subprocess_stdout(["uname", "-s"]).lower()
 
     if not name:
