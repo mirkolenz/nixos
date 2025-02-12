@@ -29,6 +29,7 @@ in
     goneovim-bin
     restic-browser-bin
     zigstar-multitool
+    undmg
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''

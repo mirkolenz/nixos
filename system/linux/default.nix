@@ -36,6 +36,10 @@
     strace
   ];
 
+  environment.systemPackages = with pkgs; [
+    pciutils
+  ];
+
   services = {
     printing.enable = false;
   };
