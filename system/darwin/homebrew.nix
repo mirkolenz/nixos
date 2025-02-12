@@ -29,6 +29,7 @@ let
     "iterm2"
     "jordanbaird-ice"
     "juxtacode"
+    "lookaway"
     "mediathekview"
     "microsoft-auto-update"
     "microsoft-teams"
