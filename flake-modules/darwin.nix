@@ -59,4 +59,12 @@ in
       };
     };
   };
+  perSystem =
+    { ... }:
+    {
+      packages = lib.mapAttrs' (name: module: {
+        name = "darwin-config-${name}";
+        value = module.config.system.build.toplevel;
+      }) self.darwinConfigurations;
+    };
 }

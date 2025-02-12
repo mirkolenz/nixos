@@ -42,7 +42,7 @@ in
       nameFunction = name: "nixvim-${name}";
     };
     checks = {
-      enable = true;
+      enable = false; # they are manually added to the github actions matrix
       nameFunction = name: "nixvim-${name}";
     };
   };

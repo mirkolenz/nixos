@@ -46,4 +46,12 @@ in
       };
     };
   };
+  perSystem =
+    { ... }:
+    {
+      packages = lib.mapAttrs' (name: module: {
+        name = "home-config-${name}";
+        value = module.activationPackage;
+      }) self.homeConfigurations;
+    };
 }

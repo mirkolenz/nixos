@@ -21,10 +21,13 @@
         inherit (nixpkgsArgs) config overlays;
       };
       legacyPackages = pkgs.exported-functions // {
+        inherit (pkgs) exported-functions;
         exported-packages = lib.filterAttrs (
           _: value: lib.meta.availableOn pkgs.stdenv.hostPlatform value
         ) pkgs.exported-packages;
-        inherit (pkgs) exported-functions;
+        checked-packages = config.legacyPackages.exported-packages // {
+          inherit (config.packages) nixvim-unstable nixvim-stable;
+        };
       };
       packages = config.legacyPackages.exported-packages // {
         default = pkgs.mkBuilder { flake = self; };
