@@ -8,4 +8,10 @@
       additionalRules.motherTongue = "de-DE";
     };
   };
+  colorschemes.monokai-pro = {
+    enable = true;
+    settings = {
+      filter = "spectrum";
+    };
+  };
 }
