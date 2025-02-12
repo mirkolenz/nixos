@@ -1,6 +1,12 @@
 { ... }:
 {
   colorschemes = {
+    monokai-pro = {
+      enable = true;
+      settings = {
+        filter = "spectrum";
+      };
+    };
     catppuccin = {
       enable = false;
       settings = {
