@@ -70,29 +70,15 @@
     };
 
     # NixVim
-    nixvim-linux-unstable = {
+    nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
-      inputs.home-manager.follows = "home-manager-linux-unstable";
-      inputs.nix-darwin.follows = "nix-darwin-unstable";
-    };
-    nixvim-linux-stable = {
-      url = "github:nix-community/nixvim/nixos-24.11";
-      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
-      inputs.home-manager.follows = "home-manager-linux-stable";
-      inputs.nix-darwin.follows = "nix-darwin-stable";
-    };
-    nixvim-darwin-unstable = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
-      inputs.home-manager.follows = "home-manager-darwin-unstable";
-      inputs.nix-darwin.follows = "nix-darwin-unstable";
-    };
-    nixvim-darwin-stable = {
-      url = "github:nix-community/nixvim/nixos-24.11";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
-      inputs.home-manager.follows = "home-manager-darwin-stable";
-      inputs.nix-darwin.follows = "nix-darwin-stable";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+        home-manager.follows = "";
+        nix-darwin.follows = "";
+      };
     };
 
     # plist-manager
