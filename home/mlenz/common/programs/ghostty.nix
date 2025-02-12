@@ -31,8 +31,8 @@ in
         "title"
       ];
       theme = {
-        light = "Monokai Pro Light";
-        dark = "Monokai Pro Spectrum";
+        light = "GitHub-Light-Default";
+        dark = "GitHub-Dark-Default";
       };
       window-height = 30;
       window-padding-x = 8;
