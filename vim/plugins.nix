@@ -17,7 +17,14 @@
     };
     telescope = {
       enable = true;
-      extensions.file-browser.enable = true;
+      extensions = {
+        file-browser = {
+          enable = true;
+          settings = {
+            hijack_netrw = true;
+          };
+        };
+      };
     };
     todo-comments = {
       enable = true;
