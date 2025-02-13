@@ -36,7 +36,6 @@ lib.mkIf (config.custom.profile == "workstation") {
     treefmt-nix
     uv-migrator
     llm
-    catppuccin-whiskers
     python3Packages.markitdown
     # typst
     typst

@@ -29,7 +29,6 @@
     homeModules.default = {
       imports = [
         inputs.nix-index-database.hmModules.nix-index
-        inputs.catppuccin.homeManagerModules.catppuccin
         ../home/mlenz/common
         ../home/options
       ];
@@ -74,7 +73,6 @@
           homeManager.nixosModules.default
           inputs.quadlet-nix.nixosModules.default
           inputs.nixos-cosmic.nixosModules.default
-          inputs.catppuccin.nixosModules.catppuccin
           ../system/linux
           {
             home-manager.users.mlenz = self.homeModules.linux;
