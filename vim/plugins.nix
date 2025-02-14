@@ -24,6 +24,11 @@
             hijack_netrw = true;
           };
         };
+        frecency.enable = true;
+        fzf-native.enable = true;
+        live-grep.enable = true;
+        media-files.enable = true;
+        project.enable = true;
       };
     };
     todo-comments = {
