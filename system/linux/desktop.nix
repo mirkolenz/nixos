@@ -4,7 +4,7 @@
   user,
   ...
 }:
-lib.mkIf (config.custom.profile == "workstation") {
+lib.mkIf config.custom.profile.isDesktop {
   services.xserver.enable = true;
 
   security.rtkit.enable = config.services.pipewire.enable;

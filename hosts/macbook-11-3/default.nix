@@ -7,7 +7,7 @@
     "${inputs.nixos-hardware}/common/pc/laptop/ssd"
     ./hardware.nix
   ];
-  custom.profile = "workstation";
+  custom.profile.isDesktop = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {

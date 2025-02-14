@@ -7,7 +7,7 @@
 let
   pythonWithPackages = pkgs.python3.withPackages (ps: with ps; [ typer ]);
 in
-lib.mkIf (config.custom.profile == "workstation") {
+lib.mkIf config.custom.profile.isWorkstation {
   home.sessionVariables = {
     RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
     EDITOR = "zed -w";
@@ -36,7 +36,6 @@ lib.mkIf (config.custom.profile == "workstation") {
     treefmt-nix
     uv-migrator
     llm
-    python3Packages.markitdown
     # typst
     typst
     typstyle

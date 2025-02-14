@@ -13,6 +13,7 @@
       { channel, os, ... }:
       {
         imports = [
+          ../common
           ../system/common
         ];
         nixpkgs = nixpkgsArgs;
@@ -31,6 +32,7 @@
         inputs.nix-index-database.hmModules.nix-index
         ../home/mlenz/common
         ../home/options
+        ../common
       ];
       _module.args = moduleArgs;
     };

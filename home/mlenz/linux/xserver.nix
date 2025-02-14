@@ -4,7 +4,7 @@
   config,
   ...
 }:
-lib.mkIf (config.custom.profile == "workstation") {
+lib.mkIf config.custom.profile.isDesktop {
   home.packages = with pkgs; [
     inter
     jetbrains-mono

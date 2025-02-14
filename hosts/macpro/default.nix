@@ -15,7 +15,7 @@
     ./timemachine.nix
   ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
 
-  custom.profile = "server";
+  custom.profile.isServer = true;
   custom.impureRebuild = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

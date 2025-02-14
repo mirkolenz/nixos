@@ -46,7 +46,7 @@ in
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook";
         extraModule = {
-          custom.profile = "workstation";
+          custom.profile.isDesktop = true;
         };
       };
       mirkos-macbook-arm = {
@@ -54,7 +54,7 @@ in
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook Apple Silicon";
         extraModule = {
-          custom.profile = "workstation";
+          custom.profile.isDesktop = true;
         };
       };
     };

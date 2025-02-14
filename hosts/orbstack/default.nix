@@ -8,7 +8,7 @@
     "${modulesPath}/virtualisation/lxc-container.nix"
   ];
 
-  custom.profile = "headless";
+  custom.profile.isWorkstation = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

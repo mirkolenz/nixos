@@ -3,6 +3,8 @@
   lib',
   user,
   stateVersions,
+  lib,
+  config,
   ...
 }:
 {
@@ -14,6 +16,7 @@
     homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user.login}" else "/home/${user.login}";
     sessionVariables = {
       NIXPKGS_ALLOW_UNFREE = "1";
+      BROWSER = lib.mkIf config.custom.profile.isHeadless "echo";
     };
   };
 }

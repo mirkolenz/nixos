@@ -4,7 +4,8 @@
   ...
 }:
 {
-  programs.zed-editor = {
-    enable = pkgs.stdenv.isLinux && config.custom.profile == "workstation";
+  programs.vscode = {
+    enable = pkgs.stdenv.isLinux && config.custom.profile.isDesktop;
+    package = pkgs.vscode;
   };
 }

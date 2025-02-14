@@ -1,18 +1,10 @@
 { lib, config, ... }:
 lib.mkMerge [
-  (lib.mkIf
-    (lib.elem config.custom.profile [
-      "headless"
-      "server"
-    ])
-    {
-      services.openssh.enable = lib.mkDefault true;
-      environment.variables.BROWSER = "echo";
-    }
-  )
-  (lib.mkIf (config.custom.profile == "server") {
-    services.openssh.enable = true;
-
+  (lib.mkIf config.custom.profile.isHeadless {
+    services.openssh.enable = lib.mkDefault true;
+    environment.variables.BROWSER = "echo";
+  })
+  (lib.mkIf config.custom.profile.isServer {
     system.autoUpgrade = {
       enable = true;
       flake = "github:mirkolenz/nixos";

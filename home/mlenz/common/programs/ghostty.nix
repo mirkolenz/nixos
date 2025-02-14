@@ -17,7 +17,7 @@ let
 in
 {
   programs.ghostty = {
-    enable = config.custom.profile == "workstation";
+    enable = config.custom.profile.isDesktop;
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
     settings = mkSettings {
       cursor-click-to-move = true;

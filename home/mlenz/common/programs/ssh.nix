@@ -10,7 +10,7 @@ let
 in
 {
   programs.ssh = {
-    enable = config.custom.profile == "workstation";
+    enable = config.custom.profile.isDesktop;
     matchBlocks = {
       "*" = {
         extraOptions = lib.mkMerge [

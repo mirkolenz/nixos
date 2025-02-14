@@ -41,9 +41,6 @@ in
     "lenz@gpu.wi2.uni-trier.de" = {
       channel = "unstable";
       system = "x86_64-linux";
-      extraModule = {
-        custom.profile = "headless";
-      };
     };
   };
   perSystem =
