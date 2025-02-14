@@ -26,7 +26,7 @@
         };
         frecency.enable = true;
         fzf-native.enable = true;
-        live-grep.enable = true;
+        live-grep-args.enable = true;
         media-files.enable = true;
         project.enable = true;
       };
