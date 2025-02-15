@@ -78,6 +78,7 @@
         "/Applications/OrbStack.app"
         "/Applications/Zotero.app"
         "/Applications/PDF Expert.app"
+        "/Applications/Skim.app"
         "/Applications/iA Presenter.app"
         "/Applications/Microsoft Word.app"
         "/Applications/Microsoft Excel.app"
