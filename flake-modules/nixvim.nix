@@ -52,7 +52,7 @@ in
     {
       packages = {
         nvim = pkgs.nixvim-unstable;
-        inherit (pkgs) linkNixvim;
+        inherit (pkgs) link-nixvim;
       };
       nixvimConfigurations = lib.genAttrs [ "unstable" "stable" ] (
         channel: mkNixvim { inherit channel system; }

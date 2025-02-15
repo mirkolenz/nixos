@@ -25,7 +25,7 @@ in
   dummy = final.writeShellScriptBin "dummy" ":";
   nixfmt = final.nixfmt-rfc-style;
   uv-bin = inputs.uv2nix.packages.${system}.uv-bin;
-  linkNixvim = final.linkExe {
+  link-nixvim = final.linkExe {
     name = "nvim";
     package = final.nixvim-unstable;
     directory = "$HOME/bin";
