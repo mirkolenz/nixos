@@ -3,12 +3,24 @@
 {
   imports = lib'.flocken.getModules ./.;
 
-  config = {
-    viAlias = true;
-    vimAlias = true;
+  viAlias = true;
+  vimAlias = true;
+  enableMan = true;
 
-    filetype.extension = {
-      astro = "astro";
-    };
-  };
+  # load ~/.config/nvim/init.lua for faster development iteration
+  impureRtp = true;
+  extraConfigLua = ''
+    local init_lua_path = vim.fn.stdpath('config') .. '/init.lua'
+
+    if vim.fn.filereadable(init_lua_path) == 1 then
+      vim.cmd('luafile ' .. init_lua_path)
+    end
+  '';
+
+  withNodeJs = true;
+  withPython3 = true;
+  withRuby = true;
+  withPerl = true;
+
+  performance.byteCompileLua.enable = true;
 }

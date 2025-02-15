@@ -14,8 +14,8 @@
   ];
   extraConfigLua = ''
     require('github-theme')
-    vim.cmd('colorscheme github_dark_default')
   '';
+  colorscheme = "github_dark_default";
   colorschemes = {
     monokai-pro = {
       enable = false;
