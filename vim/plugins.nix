@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   plugins = {
     treesitter = {
@@ -32,8 +32,57 @@
         project.enable = true;
       };
     };
-    cmp = {
+    blink-cmp = {
       enable = true;
+      settings = {
+        completion = {
+          menu.border = "single";
+          documentation.window.border = "single";
+          accept = {
+            auto_brackets = {
+              enabled = true;
+              semantic_token_resolution = {
+                enabled = false;
+              };
+            };
+          };
+          documentation = {
+            auto_show = true;
+          };
+        };
+        keymap = {
+          preset = "super-tab";
+        };
+        signature = {
+          enabled = true;
+          window.border = "single";
+        };
+        sources = {
+          default = [
+            "lsp"
+            "path"
+            "snippets"
+            # "luasnip"
+            # "buffer"
+            "copilot"
+          ];
+          providers = {
+            copilot = {
+              async = true;
+              module = "blink-copilot";
+              name = "copilot";
+              score_offset = 100;
+              opts = { };
+            };
+          };
+        };
+      };
+    };
+    blink-copilot = {
+      inherit (config.plugins.blink-cmp) enable;
+    };
+    cmp = {
+      enable = false;
       settings = {
         mapping = {
           "<C-Space>" = "cmp.mapping.complete()";
@@ -53,6 +102,7 @@
           { name = "nvim_lsp"; }
           { name = "path"; }
           { name = "luasnip"; }
+          { name = "copilot"; }
         ];
       };
     };
@@ -83,6 +133,9 @@
     gitignore = {
       enable = true;
     };
+    copilot-cmp = {
+      inherit (config.plugins.cmp) enable;
+    };
     copilot-lua = {
       enable = true;
       settings = {
@@ -90,9 +143,11 @@
           "*" = true;
         };
         panel = {
+          enabled = false;
           auto_refresh = true;
         };
         suggestion = {
+          enabled = false;
           auto_trigger = true;
           hide_during_completion = false;
           debounce = 50;
