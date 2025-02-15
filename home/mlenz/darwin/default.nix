@@ -24,7 +24,6 @@ in
 
   home.packages = with pkgs; [
     mas
-    neovide
     vimr-bin
     goneovim-bin
     restic-browser-bin
