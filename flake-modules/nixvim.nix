@@ -48,9 +48,12 @@ in
   };
   flake.nixvimModules.default = ../vim;
   perSystem =
-    { system, config, ... }:
+    { system, pkgs, ... }:
     {
-      packages.nixvim = config.packages.nixvim-unstable;
+      packages = {
+        nvim = pkgs.nixvim-unstable;
+        inherit (pkgs) linkNixvim;
+      };
       nixvimConfigurations = lib.genAttrs [ "unstable" "stable" ] (
         channel: mkNixvim { inherit channel system; }
       );

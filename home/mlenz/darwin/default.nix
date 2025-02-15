@@ -42,16 +42,21 @@ in
   # add binaries for desktop apps to ~/bin
   # currently required for the following apps:
   # restic-browser, git guis, vim guis
+  home.activation.linkNixvim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${lib.getExe pkgs.linkNixvim} $VERBOSE_ARG
+  '';
   home.file = {
-    "bin".source = mkLinkFarm {
-      name = "home-bin";
-      paths = {
-        restic = pkgs.restic;
-        git = config.programs.git.package;
-        nvim = config.custom.neovim.package;
-      };
-      transform = lib.getExe;
-    };
+    # "bin".source = mkLinkFarm {
+    #   name = "home-bin";
+    #   paths = {
+    #     restic = pkgs.restic;
+    #     git = config.programs.git.package;
+    #     nvim = config.custom.neovim.package;
+    #   };
+    #   transform = lib.getExe;
+    # };
+    "bin/restic".source = lib.getExe pkgs.restic;
+    "bin/git".source = lib.getExe config.programs.git.package;
     # add libraries for desktop apps to ~/node_modules
     # currently required for the following apps:
     # vscode/prettier
