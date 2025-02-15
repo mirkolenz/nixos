@@ -24,10 +24,8 @@ in
 
   home.packages = with pkgs; [
     mas
-    vimr-bin
     goneovim-bin
     restic-browser-bin
-    zigstar-multitool
     undmg
     rcodesign
     (writeShellApplication {

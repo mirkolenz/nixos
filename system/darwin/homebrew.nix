@@ -54,6 +54,7 @@ let
     "tailscale"
     "tiptoi-manager"
     "tower"
+    "vimr"
     "viscosity"
     "visual-studio-code"
     "vivaldi"
@@ -173,6 +174,9 @@ in
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
+    };
+    caskArgs = {
+      # ignore_dependencies = true;
     };
     taps = [ ];
     brews = [ ];
