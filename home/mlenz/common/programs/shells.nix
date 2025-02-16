@@ -1,12 +1,16 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 {
   programs.fish = {
     enable = true;
     generateCompletions = false;
+    loginShellInit = ''
+      fish_add_path "${config.home.homeDirectory}/bin"
+    '';
     functions = {
       fish_greeting = {
         body =

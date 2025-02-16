@@ -54,7 +54,7 @@ in
         nvim = pkgs.nixvim-unstable;
         inherit (pkgs) link-nixvim;
       };
-      nixvimConfigurations = lib.genAttrs [ "unstable" "stable" ] (
+      nixvimConfigurations = lib.genAttrs [ "unstable" ] (
         channel: mkNixvim { inherit channel system; }
       );
     };

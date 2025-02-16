@@ -37,16 +37,8 @@ in
     })
     (writeShellScriptBin "zed" ''exec zed-preview "$@"'')
   ];
-  # add binaries for desktop apps to ~/bin
-  # currently required for the following apps:
-  # restic-browser, git guis, vim guis
-  programs.fish.loginShellInit = ''
-    fish_add_path "${config.home.homeDirectory}/bin"
-  '';
-  home.activation.linkNixvim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run ${lib.getExe pkgs.link-nixvim} $VERBOSE_ARG
-  '';
   home.file = {
+    # add binaries for git/restic gui apps
     "bin/restic".source = lib.getExe pkgs.restic;
     "bin/git".source = lib.getExe config.programs.git.package;
     # add libraries for desktop apps to ~/node_modules
