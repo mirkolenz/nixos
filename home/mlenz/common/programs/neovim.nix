@@ -17,9 +17,6 @@
     };
   };
   # makes it easier/faster to link a new neovim binary
-  programs.fish.loginShellInit = ''
-    fish_add_path "${config.home.homeDirectory}/bin"
-  '';
   home.activation.linkNixvim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${lib.getExe pkgs.link-nixvim} $VERBOSE_ARG
   '';
