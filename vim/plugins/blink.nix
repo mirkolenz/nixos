@@ -4,19 +4,11 @@
     enable = true;
     settings = {
       completion = {
-        ghost_text = {
-          enabled = true;
-        };
-        documentation = {
-          auto_show = true;
-        };
-        keyword = {
-          range = "full";
-        };
-        menu.draw.components.label.width = {
-          fill = true;
-          max = 120;
-        };
+        ghost_text.enabled = false;
+        documentation.auto_show = true;
+        keyword.range = "full";
+        list.selection.preselect = false;
+        menu.draw.components.label.width.max = 60;
       };
       appearance = {
         kind_icons = { };
