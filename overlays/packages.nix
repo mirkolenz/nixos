@@ -15,7 +15,7 @@ in
 {
   exported-packages = exportedPackages;
   inherit (self.packages.${system})
-    nixvim-stable
+    # nixvim-stable
     nixvim-unstable
     treefmt-nix
     ;

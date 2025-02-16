@@ -26,7 +26,10 @@
           _: value: lib.meta.availableOn pkgs.stdenv.hostPlatform value
         ) pkgs.exported-packages;
         checked-packages = config.legacyPackages.exported-packages // {
-          inherit (config.packages) nixvim-unstable nixvim-stable;
+          inherit (config.packages)
+            nixvim-unstable
+            # nixvim-stable
+            ;
         };
       };
       packages = config.legacyPackages.exported-packages // {
