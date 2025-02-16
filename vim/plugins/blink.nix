@@ -19,7 +19,7 @@
         kind_icons = { };
       };
       keymap = {
-        preset = "supter-tab";
+        preset = "super-tab";
       };
       signature = {
         enabled = true;
