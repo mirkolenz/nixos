@@ -1,22 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  extraPlugins = [
-    (pkgs.vimUtils.buildVimPlugin rec {
-      pname = "github-theme";
-      version = "1.1.2";
-      src = pkgs.fetchFromGitHub {
-        owner = "projekt0n";
-        repo = "github-nvim-theme";
-        tag = "v${version}";
-        hash = "sha256-ur/65NtB8fY0acTUN/Xw9fT813UiL3YcP4+IwkaUzTE=";
-      };
-    })
-  ];
-  extraConfigLua = ''
-    require('github-theme')
-  '';
-  colorscheme = "github_dark_default";
   colorschemes = {
+    github-theme = {
+      enable = true;
+      colorscheme = "github_dark_default";
+    };
     monokai-pro = {
       enable = false;
       settings = {
