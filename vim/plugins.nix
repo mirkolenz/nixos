@@ -50,8 +50,13 @@
             auto_show = true;
           };
         };
+        appearance = {
+          kind_icons = {
+            Copilot = "";
+          };
+        };
         keymap = {
-          preset = "super-tab";
+          preset = "enter";
         };
         signature = {
           enabled = true;
@@ -74,11 +79,20 @@
               score_offset = 100;
               opts = { };
             };
+            emoji = {
+              module = "blink-emoji";
+              name = "Emoji";
+              score_offset = 15;
+              opts = { };
+            };
           };
         };
       };
     };
     blink-copilot = {
+      inherit (config.plugins.blink-cmp) enable;
+    };
+    blink-emoji = {
       inherit (config.plugins.blink-cmp) enable;
     };
     cmp = {
@@ -150,7 +164,6 @@
           enabled = false;
           auto_trigger = true;
           hide_during_completion = false;
-          debounce = 50;
           keymap = {
             accept_word = "<M-l>";
             accept_line = "<M-;>";
