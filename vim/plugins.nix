@@ -36,31 +36,28 @@
       enable = true;
       settings = {
         completion = {
-          menu.border = "single";
-          documentation.window.border = "single";
-          accept = {
-            auto_brackets = {
-              enabled = true;
-              semantic_token_resolution = {
-                enabled = false;
-              };
-            };
+          ghost_text = {
+            enabled = true;
           };
           documentation = {
             auto_show = true;
           };
+          keyword = {
+            range = "full";
+          };
+          menu.draw.components.label.width = {
+            fill = true;
+            max = 120;
+          };
         };
         appearance = {
-          kind_icons = {
-            Copilot = "";
-          };
+          kind_icons = { };
         };
         keymap = {
           preset = "enter";
         };
         signature = {
           enabled = true;
-          window.border = "single";
         };
         sources = {
           default = [
@@ -75,7 +72,7 @@
             copilot = {
               async = true;
               module = "blink-copilot";
-              name = "copilot";
+              name = "Copilot";
               score_offset = 100;
               opts = { };
             };
