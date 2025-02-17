@@ -13,11 +13,21 @@
     enable = config.custom.profile.isDesktop;
     settings = {
       fork = true;
-      neovim-bin = "${config.home.homeDirectory}/bin/nvim";
+      neovim-bin = lib.getExe config.custom.neovim.package;
     };
   };
-  # makes it easier/faster to link a new neovim binary
-  home.activation.linkNixvim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run ${lib.getExe pkgs.link-nixvim} $VERBOSE_ARG
-  '';
+  home.packages = lib.mkIf config.programs.neovide.enable [
+    (pkgs.writeShellApplication {
+      name = "neovide-launcher";
+      text = ''
+        if [ "$#" -eq 0 ]; then
+          echo "Usage: $0 <file> [args...]" >&2
+          exit 1
+        fi
+        path="$(realpath "$1")"
+        cd "$(dirname "$path")"
+        ${lib.getExe config.programs.neovide.package} "$path" "''${@:2}"
+      '';
+    })
+  ];
 }

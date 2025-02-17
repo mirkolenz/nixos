@@ -38,12 +38,15 @@ in
     (writeShellScriptBin "zed" ''exec zed-preview "$@"'')
   ];
   home.file = {
-    # add binaries for git/restic gui apps
-    "bin/restic".source = lib.getExe pkgs.restic;
-    "bin/git".source = lib.getExe config.programs.git.package;
-    # add libraries for desktop apps to ~/node_modules
-    # currently required for the following apps:
-    # vscode/prettier
+    "bin".source = mkLinkFarm {
+      name = "home-bin";
+      paths = {
+        git = config.programs.git.package;
+        nvim = config.custom.neovim.package;
+        restic = pkgs.restic;
+      };
+      transform = lib.getExe;
+    };
     "lib".source = mkLinkFarm {
       name = "home-lib";
       paths = {
@@ -51,7 +54,6 @@ in
       };
       transform = x: "${lib.getLib x}/lib";
     };
-    # add entries to the local dictionary
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = {
       source = ../dictionary.txt;
     };

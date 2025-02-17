@@ -25,11 +25,6 @@ in
   dummy = final.writeShellScriptBin "dummy" ":";
   nixfmt = final.nixfmt-rfc-style;
   uv-bin = inputs.uv2nix.packages.${system}.uv-bin;
-  link-nixvim = final.linkExe {
-    name = "nvim";
-    package = final.nixvim-unstable;
-    directory = "$HOME/bin";
-  };
 }
 // (lib.optionalAttrs (inputs.cosmic-manager.packages ? ${system}) {
   inherit (inputs.cosmic-manager.packages.${system}) cosmic-manager;
