@@ -32,6 +32,12 @@
       options.silent = true;
       options.desc = "Start multicursor";
     }
+    {
+      key = "<leader>bf";
+      mode = "n";
+      action = "<cmd>lua vim.lsp.buf.format()<CR>";
+      options.desc = "Format buffer";
+    }
   ];
   # "<cmd>Telescope ${value}<CR>";
   plugins.telescope.keymaps = {

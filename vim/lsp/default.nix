@@ -1,5 +1,6 @@
-{ ... }:
+{ lib', ... }:
 {
+  imports = lib'.flocken.getModules ./.;
   plugins.lsp = {
     enable = true;
     inlayHints = true;

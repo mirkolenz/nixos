@@ -5,15 +5,22 @@
     settings = {
       completion = {
         ghost_text.enabled = false;
-        documentation.auto_show = true;
+        documentation = {
+          auto_show = true;
+          auto_show_delay_ms = 0;
+          update_delay_ms = 0;
+        };
         keyword.range = "full";
         menu.draw.components.label.width.max = 60;
         # https://cmp.saghen.dev/configuration/keymap.html#super-tab
-        list.selection.preselect = lib.nixvim.mkRaw ''
-          function(ctx)
-            return not require('blink.cmp').snippet_active({ direction = 1 })
-          end
-        '';
+        list.selection = {
+          auto_insert = false;
+          preselect = lib.nixvim.mkRaw ''
+            function(ctx)
+              return not require('blink.cmp').snippet_active({ direction = 1 })
+            end
+          '';
+        };
       };
       appearance = {
         kind_icons = { };
