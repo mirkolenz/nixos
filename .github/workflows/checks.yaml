@@ -38,6 +38,7 @@ jobs:
       - name: nix flake check
         run: |
           nix flake check \
+            --impure \
             --print-build-logs \
             --show-trace
 
