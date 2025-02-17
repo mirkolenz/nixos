@@ -14,6 +14,7 @@ let
     "default-folder-x"
     "devonthink"
     "discord"
+    "drawio"
     "element"
     "figma"
     "fission"
