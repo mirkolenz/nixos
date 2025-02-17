@@ -2,7 +2,7 @@
 {
   programs.starship = {
     enable = true;
-    # enableTransience = true;
+    enableTransience = false;
     settings = {
       add_newline = true;
       character = {

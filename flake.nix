@@ -180,6 +180,10 @@
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    github-theme-contrib = {
+      url = "github:/projekt0n/github-theme-contrib/v1.0.2";
+      flake = false;
+    };
   };
 
   outputs =

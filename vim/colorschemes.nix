@@ -4,6 +4,10 @@
     github-theme = {
       enable = true;
       colorscheme = "github_dark_default";
+      settings.options = {
+        transparent = false;
+        terminal_colors = true;
+      };
     };
     monokai-pro = {
       enable = false;

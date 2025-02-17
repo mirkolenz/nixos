@@ -29,5 +29,6 @@ lib.nixvim.plugins.mkNeovimPlugin {
 
   extraConfig = cfg: {
     inherit (cfg) colorscheme;
+    opts.termguicolors = lib.mkDefault true;
   };
 }
