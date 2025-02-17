@@ -1,8 +1,9 @@
-{ config, lib, ... }:
+{ config, ... }:
 {
   plugins.blink-cmp = {
     enable = true;
     settings = {
+      signature.enabled = true;
       completion = {
         ghost_text.enabled = false;
         documentation = {
@@ -12,24 +13,23 @@
         };
         keyword.range = "full";
         menu.draw.components.label.width.max = 60;
-        # https://cmp.saghen.dev/configuration/keymap.html#super-tab
         list.selection = {
           auto_insert = false;
-          preselect = lib.nixvim.mkRaw ''
-            function(ctx)
-              return not require('blink.cmp').snippet_active({ direction = 1 })
-            end
-          '';
+          preselect = false;
+          # lib.nixvim.mkRaw ''
+          #   function(ctx)
+          #     return not require('blink.cmp').snippet_active({ direction = 1 })
+          #   end
+          # '';
         };
       };
-      appearance = {
-        kind_icons = { };
-      };
+      # https://cmp.saghen.dev/configuration/keymap#presets
       keymap = {
         preset = "super-tab";
-      };
-      signature = {
-        enabled = true;
+        "<CR>" = [
+          "accept"
+          "fallback"
+        ];
       };
       sources = {
         default = [

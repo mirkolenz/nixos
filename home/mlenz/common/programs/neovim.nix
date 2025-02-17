@@ -25,8 +25,17 @@
           exit 1
         fi
         path="$(realpath "$1")"
-        cd "$(dirname "$path")"
-        ${lib.getExe config.programs.neovide.package} "$path" "''${@:2}"
+        shift
+        if [ -f "$path" ]; then
+            cd "$(dirname "$path")"
+        elif [ -d "$path" ]; then
+            cd "$path"
+        else
+            echo "Error: $path does not exist."
+            exit 1
+        fi
+
+        ${lib.getExe config.programs.neovide.package} "$path" "$@"
       '';
     })
   ];
