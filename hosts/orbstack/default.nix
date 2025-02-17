@@ -8,19 +8,14 @@
     "${modulesPath}/virtualisation/lxc-container.nix"
   ];
 
+  custom.impureRebuild = true;
   custom.profile.isWorkstation = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.settings.trusted-users = [ user.login ];
 
-  home-manager.users.${user.login} =
-    { lib, ... }:
-    {
-      services.vscode-server.enable = true;
-      home.activation.zedSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run ln -snf $VERBOSE_ARG \
-          /Users/mlenz/.config/zed/settings.json \
-          /home/mlenz/.config/zed/settings.json
-      '';
-    };
+  home-manager.users.${user.login} = {
+    services.vscode-server.enable = true;
+    xdg.configFile."zed/settings.json".source = "/Users/${user.login}/.config/zed/settings.json";
+  };
 }
