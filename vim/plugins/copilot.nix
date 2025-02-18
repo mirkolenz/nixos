@@ -7,11 +7,11 @@
         "*" = true;
       };
       panel = {
-        enabled = false;
+        enabled = true;
         auto_refresh = true;
       };
       suggestion = {
-        enabled = false;
+        enabled = true;
         auto_trigger = true;
         hide_during_completion = false;
         keymap = {

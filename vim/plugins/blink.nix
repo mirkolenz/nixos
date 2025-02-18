@@ -12,7 +12,6 @@
           update_delay_ms = 0;
         };
         keyword.range = "full";
-        menu.draw.components.label.width.max = 60;
         list.selection = {
           auto_insert = false;
           preselect = false;
@@ -36,9 +35,10 @@
           "lsp"
           "path"
           "snippets"
+          "emoji"
           # "luasnip"
           # "buffer"
-          "copilot"
+          # "copilot"
         ];
         providers = {
           copilot = {
