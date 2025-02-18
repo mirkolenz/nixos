@@ -24,6 +24,8 @@ in
 
   home-manager.users.${user.login} = {
     services.vscode-server.enable = true;
-    xdg.configFile."zed/settings.json".source = lib.mkIf (builtins.pathExists zedSettings) zedSettings;
+    xdg.configFile."zed/settings.json" = lib.mkIf (lib.pathExists zedSettings) {
+      source = zedSettings;
+    };
   };
 }
