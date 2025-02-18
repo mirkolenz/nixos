@@ -1,4 +1,12 @@
-{ modulesPath, user, ... }:
+{
+  modulesPath,
+  user,
+  lib,
+  ...
+}:
+let
+  zedSettings = /Users/${user.login}/.config/zed/settings.json;
+in
 {
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/lxc-instance-common.nix
 
@@ -8,6 +16,7 @@
     "${modulesPath}/virtualisation/lxc-container.nix"
   ];
 
+  custom.impureRebuild = true;
   custom.profile.isWorkstation = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -15,5 +24,6 @@
 
   home-manager.users.${user.login} = {
     services.vscode-server.enable = true;
+    xdg.configFile."zed/settings.json".source = lib.mkIf (builtins.pathExists zedSettings) zedSettings;
   };
 }
