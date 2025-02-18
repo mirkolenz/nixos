@@ -41,15 +41,6 @@ let
 
       exit 0
     '';
-    dc = ''
-      exec sudo docker compose "$@"
-    '';
-    dcup = ''
-      sudo docker compose --project-directory "''${1:-.}" pull "''${@:2}"
-      sudo docker compose --project-directory "''${1:-.}" build "''${@:2}"
-      sudo docker compose --project-directory "''${1:-.}" up --detach "''${@:2}"
-      sudo docker image prune --all --force
-    '';
     docker-reset = ''
       exec sudo docker system prune --all --force
     '';
@@ -104,23 +95,26 @@ let
         exit 1
       fi
       value="$(${lib.getExe config.nix.package} eval --raw "$1")"
-      ${lib.getExe config.nix.package} store prefetch-file --json "''${@:2}" "$value" | ${lib.getExe pkgs.jq} -r .hash
+      shift
+      ${lib.getExe config.nix.package} store prefetch-file --json "$@" "$value" | ${lib.getExe pkgs.jq} -r .hash
     '';
     prefetch-attrs = ''
       if [ "$#" -lt 1 ]; then
-        echo "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
+        echo "Usage: $0 NIX_FLAKE_ATTRS [NIX_PREFETCH_ARGS...]" >&2
         exit 1
       fi
       TMPFILE="$(mktemp)"
+      attrs="$1"
+      shift
       echo "{" >> "$TMPFILE"
-      ${lib.getExe config.nix.package} eval --json "$1" \
+      ${lib.getExe config.nix.package} eval --json "$attrs" \
         | ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key) \(.value)"' \
         | while read -r key value; do
           echo "Evaluating $key" >&2
-          hash="$(${lib.getExe config.nix.package} store prefetch-file --json "''${@:2}" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
+          hash="$(${lib.getExe config.nix.package} store prefetch-file --json "$@" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
           echo "  $key = \"$hash\";" >> "$TMPFILE"
         done
-      echo "}" >> "$TMPFILE"
+      echo "};" >> "$TMPFILE"
       cat "$TMPFILE"
       rm "$TMPFILE"
     '';

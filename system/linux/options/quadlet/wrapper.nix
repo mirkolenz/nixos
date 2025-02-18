@@ -13,22 +13,24 @@ let
       if [ "$#" -eq 0 ]; then
         set -- "help"
       fi
-      if [ "$1" = "exec" ]; then
-        exec sudo ${lib.getExe pkgs.podman} exec "''${@:2}"
+      command="$1"
+      shift
+      if [ "$command" = "exec" ]; then
+        exec sudo ${lib.getExe pkgs.podman} exec "$@"
       fi
-      if [ "$1" = "update" ]; then
-        exec sudo ${lib.getExe pkgs.podman} auto-update "''${@:2}"
+      if [ "$command" = "update" ]; then
+        exec sudo ${lib.getExe pkgs.podman} auto-update "$@"
       fi
-      if [ "$1" = "service" ]; then
-        exec systemctl "''${3:-status}" "$2.service" "''${@:4}"
+      if [ "$command" = "service" ]; then
+        exec systemctl "''${2:-status}" "$1.service" "''${@:3}"
       fi
-      if [ "$1" = "journal" ]; then
-        exec journalctl --pager-end --no-hostname --unit "$2.service" "''${@:3}"
+      if [ "$command" = "journal" ]; then
+        exec journalctl --pager-end --no-hostname --unit "$1.service" "''${@:2}"
       fi
-      if [ "$1" = "unshare" ]; then
-        exec unshare --user --map-auto --setuid "$2" --setgid "$2" -- "''${@:3}"
+      if [ "$command" = "unshare" ]; then
+        exec unshare --user --map-auto --setuid "$1" --setgid "$1" -- "''${@:2}"
       fi
-      if [ "$1" = "help" ]; then
+      if [ "$command" = "help" ]; then
         echo "Usage: quadlet <command>
 
         Available commands:
