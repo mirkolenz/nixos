@@ -1,13 +1,9 @@
 { ... }:
-final: prev:
-let
-  inherit (prev) lib;
-in
-{
+final: prev: {
   vimPlugins =
-    (prev.vimPlugins or { })
-    // (lib.packagesFromDirectoryRecursive {
-      inherit (final) callPackage;
+    prev.vimPlugins
+    // prev.lib.packagesFromDirectoryRecursive {
+      inherit (prev) callPackage;
       directory = ./vim-plugins;
-    });
+    };
 }
