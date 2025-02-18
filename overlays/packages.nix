@@ -19,6 +19,7 @@ in
     nixvim-unstable
     treefmt-nix
     ;
+  nixvim = final.nixvim-unstable;
   arguebuf = inputs.arguebuf.packages.${system}.default;
   caddy = final.nixpkgs.caddy;
   caddy-custom-docker = final.caddy-docker.override { caddy = final.caddy-custom; };
