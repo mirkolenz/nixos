@@ -179,13 +179,6 @@ chsh -s /bin/zsh
 </details>
 
 <details>
-<summary>iTerm2</summary>
-
-- `Setting > General > Preferences > Load preferences from a custom folder or URL`: iCloud Drive
-
-</details>
-
-<details>
 <summary>Raycast</summary>
 
 - `Settings > Advanced > Import/Export` (also set up new schedule)
@@ -199,13 +192,6 @@ chsh -s /bin/zsh
 <summary>Visual Studio Code</summary>
 
 - `Settings > Backup and Sync Setting > GitHub`
-
-</details>
-
-<details>
-<summary>Rectangle</summary>
-
-- `Settings > General > Sync over iCloud`
 
 </details>
 
@@ -233,22 +219,6 @@ chsh -s /bin/zsh
 <summary>iA Presenter</summary>
 
 - Move theme to `$HOME/Library/Containers/net.ia.presenter/Data/Library/Application Support/iA Presenter/Themes`
-
-</details>
-
-<details>
-<summary>Contexts</summary>
-
-- `Sidebar > Show Sidebar on > No display`
-- `Search > Search with > Disable`
-- `Command-Tab > Command-Tab`: Show windows of all apps
-  - Minimized: Show at bottom
-  - Hidden: Show at bottom
-  - Apps without windows: Do not show
-- `Command-Tab > Command-Backtick`: Show windows of active app
-  - Minimized: Do not show
-  - Hidden: Do not show
-  - Apps without windows: Do not show
 
 </details>
 
