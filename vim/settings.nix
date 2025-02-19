@@ -16,6 +16,7 @@
     shiftwidth = 2;
     smartcase = true;
     tabstop = 2;
+    laststatus = 3;
   };
   globals = {
     mapleader = " ";
