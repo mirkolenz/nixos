@@ -16,6 +16,7 @@ let
     "drawio"
     "element"
     "figma"
+    "firefox"
     "fission"
     "forklift"
     "ghostty"
