@@ -41,27 +41,27 @@ def run(
     ] = "switch",
     flake: str = "github:mirkolenz/nixos",
     name: Annotated[str | None, typer.Option("--name", "-n")] = None,
-    build_home: Annotated[bool, typer.Option("--build-home/--build-system")] = False,
 ):
-    os = subprocess_stdout(["uname", "-s"]).lower()
+    node = subprocess_stdout(["uname", "-n"]).lower()
+    kernel = subprocess_stdout(["uname", "-s"]).lower()
+    user = subprocess_stdout(["whoami"]).lower()
+
+    # TODO: remove kernel condition once nix-darwin runs as root
+    is_home = user != "root" and kernel != "darwin"
 
     if not name:
-        name = subprocess_stdout(["uname", "-n"]).lower()
+        name = f"{user}@{node}" if is_home else node
 
-        if build_home:
-            user = subprocess_stdout(["whoami"])
-            name = f"{user}@{name}"
-
-    if build_home:
+    if is_home:
         builder = home_builder
-    elif os == "darwin":
+    elif kernel == "darwin":
         builder = darwin_builder
     else:
         builder = linux_builder
 
-    if build_home:
+    if is_home:
         flake_attribute = "homeConfigurations"
-    elif os == "darwin":
+    elif kernel == "darwin":
         flake_attribute = "darwinConfigurations"
     else:
         flake_attribute = "nixosConfigurations"

@@ -246,7 +246,7 @@ _Note:_ Reconnect via SSH after installing nix.
 
 ```shell
 sudo /nix/var/nix/profiles/default/bin/nix upgrade-nix
-nix run github:mirkolenz/nixos -- --home
+nix run github:mirkolenz/nixos
 sudo usermod -s $(which fish) "$USER"
 ```
 
