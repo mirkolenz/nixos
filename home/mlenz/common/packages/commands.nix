@@ -124,6 +124,9 @@ let
     noeol = ''
       exec ${lib.getExe' pkgs.coreutils "tr"} -d '\n'
     '';
+    json-tool = ''
+      exec ${lib.getExe pkgs.python3} -m json.tool "$@"
+    '';
   };
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
 in
