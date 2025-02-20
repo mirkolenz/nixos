@@ -8,7 +8,6 @@
   imports = lib'.flocken.getModules ./.;
 
   home.packages = with pkgs; [
-    fastfetch
     cfspeedtest
     # https://unix.stackexchange.com/a/617686
     (writeShellApplication {
