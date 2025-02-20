@@ -184,6 +184,14 @@
       url = "github:/projekt0n/github-theme-contrib/v1.0.2";
       flake = false;
     };
+    angrr = {
+      url = "github:linyinfeng/angrr";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
   };
 
   outputs =
