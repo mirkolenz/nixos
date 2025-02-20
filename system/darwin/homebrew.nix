@@ -29,6 +29,7 @@ let
     "lookaway"
     "mediathekview"
     "microsoft-auto-update"
+    "microsoft-edge"
     "microsoft-teams"
     "neohtop"
     "notion"
