@@ -11,8 +11,9 @@
   };
   plugins.treesitter-refactor = {
     enable = true;
-    highlightCurrentScope.enable = true;
+    highlightCurrentScope.enable = false;
     highlightDefinitions.enable = true;
+    navigation.enable = true;
     smartRename.enable = true;
   };
 }

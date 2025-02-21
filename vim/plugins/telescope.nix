@@ -5,9 +5,7 @@
     extensions = {
       file-browser = {
         enable = true;
-        settings = {
-          hijack_netrw = true;
-        };
+        settings.hijack_netrw = false;
       };
       frecency.enable = true;
       fzf-native.enable = true;

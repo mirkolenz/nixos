@@ -21,9 +21,9 @@
   globals = {
     mapleader = " ";
     maplocalleader = " ";
-    # https://neovim.io/doc/user/pi_netrw.html#netrw-noload
-    # loaded_netrw = 1;
-    # loaded_netrwPlugin = 1;
     neovide_input_macos_option_key_is_meta = "both";
+    # https://neovim.io/doc/user/pi_netrw.html#netrw-noload
+    loaded_netrw = 1;
+    loaded_netrwPlugin = 1;
   };
 }
