@@ -16,7 +16,4 @@
       neovim-bin = lib.getExe config.custom.neovim.package;
     };
   };
-  home.packages = lib.mkIf config.programs.neovide.enable [
-    pkgs.neovide-launcher
-  ];
 }

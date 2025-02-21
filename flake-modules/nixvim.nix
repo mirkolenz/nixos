@@ -52,6 +52,12 @@ in
     {
       packages = {
         nvim = pkgs.nixvim;
+        neovide = pkgs.writeShellApplication {
+          name = "neovide";
+          text = ''
+            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe pkgs.nixvim} "$@"
+          '';
+        };
       };
       nixvimConfigurations = lib.genAttrs [ "unstable" ] (channel: mkNixvim { inherit channel system; });
     };
