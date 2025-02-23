@@ -1,0 +1,4 @@
+{ channel, ... }:
+{
+  imports = [ ./${channel}.nix ];
+}

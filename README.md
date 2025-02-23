@@ -149,8 +149,7 @@ nix-store --verify --check-contents --repair
 5. Enable Full Disk Access for terminal application
 
 ```shell
-nix --extra-experimental-features "nix-command flakes" run github:mirkolenz/nixos
-chsh -s /run/current-system/sw/bin/fish
+sudo nix --extra-experimental-features "nix-command flakes" run github:mirkolenz/nixos
 sudo reboot
 # Add ssh key to keychain
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
@@ -159,9 +158,8 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ### Uninstallation
 
 ```shell
-chsh -s /bin/zsh
-/nix/var/nix/profiles/default/bin/nix run github:mirkolenz/nixos#darwin-uninstaller
-/nix/nix-installer uninstall
+sudo /nix/var/nix/profiles/default/bin/nix run github:mirkolenz/nixos#darwin-uninstaller
+sudo /nix/nix-installer uninstall
 ```
 
 ### Applications and Settings

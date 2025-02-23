@@ -43,7 +43,7 @@
 
     # Nix Darwin
     nix-darwin-unstable = {
-      url = "github:lnl7/nix-darwin";
+      url = "github:lnl7/nix-darwin/pull/1341/merge";
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
     nix-darwin-stable = {

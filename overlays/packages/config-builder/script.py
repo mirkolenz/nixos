@@ -45,9 +45,7 @@ def run(
     node = subprocess_stdout(["uname", "-n"]).lower()
     kernel = subprocess_stdout(["uname", "-s"]).lower()
     user = subprocess_stdout(["whoami"]).lower()
-
-    # TODO: remove kernel condition once nix-darwin runs as root
-    is_home = user != "root" and kernel != "darwin"
+    is_home = user != "root"
 
     if not name:
         name = f"{user}@{node}" if is_home else node
