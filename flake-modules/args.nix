@@ -37,7 +37,6 @@
         name = "Mirko Lenz";
         mail = "mirko@mirkolenz.com";
         login = "mlenz";
-        id = 1000;
         # https://github.com/mirkolenz.keys
         sshKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFT0P6ZLB5QOtEdpPHCF0frL3WJEQQGEpMf2r010gYH3"

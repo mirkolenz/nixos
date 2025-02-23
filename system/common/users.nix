@@ -18,10 +18,10 @@ in
       {
         description = user.name;
         home = homeDirectory;
-        uid = user.id;
         shell = pkgs.fish;
       }
       (lib.mkIf pkgs.stdenv.isLinux {
+        uid = lib.mkDefault 1000;
         group = user.login;
         # https://wiki.debian.org/SystemGroups#Other_System_Groups
         extraGroups = [
@@ -46,10 +46,13 @@ in
           }
         ];
       })
-      (lib.mkIf pkgs.stdenv.isDarwin { gid = user.id; })
+      (lib.mkIf pkgs.stdenv.isDarwin {
+        uid = lib.mkDefault 501;
+        gid = lib.mkDefault 20;
+      })
     ];
-    groups.${user.login} = {
-      gid = user.id;
+    groups.${user.login} = lib.mkIf pkgs.stdenv.isLinux {
+      gid = lib.mkDefault 1000;
     };
   };
 }
