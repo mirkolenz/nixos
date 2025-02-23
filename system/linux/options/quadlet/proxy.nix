@@ -28,45 +28,33 @@ let
       }
     '';
 
-  mkDomainConfig =
-    domain:
-    let
-      proxyNetwork = cfg.networks.internal.ref;
+  mkDomainConfig = domain: ''
+    *.${domain.name} {
+      ${domain.extraConfig}
 
-      proxyContainers = lib.filterAttrs (
-        _: container:
-        (lib.findSingle (
-          network: lib.hasPrefix "${proxyNetwork}:" network
-        ) null null container.containerConfig.Network) != null
-      ) config.virtualisation.quadlet.containers;
-    in
-    ''
-      *.${domain.name} {
-        ${domain.extraConfig}
+      ${lib.concatLines (
+        map mkVirtualHost (
+          lib.mapAttrsToList (_: value: {
+            domain = domain.name;
+            vhost = value.virtualHost;
+          }) config.virtualisation.quadlet.containers
+        )
+      )}
 
-        ${lib.concatLines (
-          map mkVirtualHost (
-            lib.mapAttrsToList (_: value: {
-              domain = domain.name;
-              vhost = value.virtualHost;
-            }) proxyContainers
-          )
-        )}
+      ${lib.concatLines (
+        map mkVirtualHost (
+          lib.mapAttrsToList (_: value: {
+            domain = domain.name;
+            vhost = value;
+          }) cfg.virtualHosts
+        )
+      )}
 
-        ${lib.concatLines (
-          map mkVirtualHost (
-            lib.mapAttrsToList (_: value: {
-              domain = domain.name;
-              vhost = value;
-            }) cfg.virtualHosts
-          )
-        )}
-
-        handle {
-          abort
-        }
+      handle {
+        abort
       }
-    '';
+    }
+  '';
 
   Caddyfile-raw = pkgs.writeTextDir "Caddyfile" ''
     {
