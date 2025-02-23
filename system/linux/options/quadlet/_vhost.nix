@@ -1,6 +1,7 @@
 {
   name,
   lib,
+  ...
 }:
 {
   options = with lib; {
