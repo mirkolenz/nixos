@@ -155,15 +155,7 @@ in
 
     virtualHosts = mkOption {
       default = { };
-      type = types.attrsOf (
-        types.submodule (
-          { name, ... }:
-          import ./_vhost.nix {
-            inherit name lib;
-            defaultUpstreams = [ ];
-          }
-        )
-      );
+      type = types.attrsOf (types.submodule ./_vhost.nix);
     };
 
     extraConfig = mkOption {

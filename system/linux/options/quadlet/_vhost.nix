@@ -1,7 +1,6 @@
 {
   name,
   lib,
-  defaultUpstreams,
 }:
 {
   options = with lib; {
@@ -19,7 +18,7 @@
         options = {
           upstreams = mkOption {
             type = with types; listOf str;
-            default = defaultUpstreams;
+            default = [ ];
           };
           extraConfig = mkOption {
             type = types.lines;

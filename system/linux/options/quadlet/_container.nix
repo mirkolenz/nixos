@@ -10,6 +10,12 @@ let
 in
 {
   options = {
+    virtualHost = mkOption {
+      default = { };
+      type = types.submodule ./_vhost.nix;
+    };
+  };
+  config = {
     virtualHost =
       let
         networkRef = quadletCfg.proxy.networks.internal.ref;
@@ -19,14 +25,8 @@ in
         matches = lib.match "ip=([[:digit:].]+)" networkEntry;
         ip = if matches != null && lib.length matches > 0 then lib.head matches else null;
       in
-      mkOption {
-        default = { };
-        type = types.submodule (
-          import ./_vhost.nix {
-            inherit name lib;
-            defaultUpstreams = if ip == null then [ ] else [ ip ];
-          }
-        );
+      {
+        reverseProxy.upstreams = lib.mkIf (ip != null) [ ip ];
       };
   };
 }
