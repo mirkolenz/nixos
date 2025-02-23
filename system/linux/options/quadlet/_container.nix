@@ -21,7 +21,7 @@ in
         networkEntry = lib.findSingle (
           network: lib.hasPrefix "${networkRef}:" network
         ) "" "" config.containerConfig.Network;
-        matches = lib.match "ip=([[:digit:].]+)" networkEntry;
+        matches = lib.match "ip=([[:digit:]]\.[[:digit:]]\.[[:digit:]]\.[[:digit:]])" networkEntry;
         ip = if matches != null && lib.length matches > 0 then lib.head matches else null;
       in
       {
