@@ -7,8 +7,8 @@
 let
   cfg = config.virtualisation.quadlet.shellWrapper;
 
-  wrapper = pkgs.writeShellApplication {
-    name = "quadlet";
+  wrapper = pkgs.writeShellApplication rec {
+    name = "quadletctl";
     text = ''
       if [ "$#" -eq 0 ]; then
         set -- "help"
@@ -31,7 +31,7 @@ let
         exec unshare --user --map-auto --setuid "$1" --setgid "$1" -- "''${@:2}"
       fi
       if [ "$command" = "help" ]; then
-        echo "Usage: quadlet <command>
+        echo "Usage: ${name} <command>
 
         Available commands:
         exec <container> <cmd>: Run a command in an existing container
@@ -46,14 +46,14 @@ let
   };
 in
 {
-  options.virtualisation.quadlet.shellWrapper = with lib; {
-    enable = mkOption {
+  options.virtualisation.quadlet.shellWrapper = {
+    enable = lib.mkOption {
       default = true;
-      type = with types; bool;
+      type = with lib.types; bool;
     };
   };
 
-  config = lib.mkIf (config.virtualisation.quadlet.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = [ wrapper ];
   };
 }
