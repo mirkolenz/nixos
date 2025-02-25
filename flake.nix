@@ -75,9 +75,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        treefmt-nix.follows = "treefmt-nix";
-        home-manager.follows = "";
-        nix-darwin.follows = "";
       };
     };
 
