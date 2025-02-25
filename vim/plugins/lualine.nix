@@ -1,6 +1,0 @@
-{ ... }:
-{
-  plugins.lualine = {
-    enable = true;
-  };
-}
