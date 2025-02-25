@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 {
@@ -13,7 +12,7 @@
       fish_add_path "${config.home.homeDirectory}/bin"
     '';
     interactiveShellInit = ''
-      source ${inputs.github-theme-contrib}/themes/fish/github_dark_default.fish
+      source ${pkgs.github-theme-contrib}/themes/fish/github_dark_default.fish
     '';
     functions = {
       fish_greeting = {

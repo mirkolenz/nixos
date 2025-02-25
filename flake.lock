@@ -299,23 +299,6 @@
         "type": "github"
       }
     },
-    "github-theme-contrib": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1705035097,
-        "narHash": "sha256-MKB9JtU6Gv16ma7S9J7n1QCjAiJhBrD0mUHum+blJOs=",
-        "owner": "projekt0n",
-        "repo": "github-theme-contrib",
-        "rev": "54283ff3c1aa095749e79722fe750b2678539620",
-        "type": "github"
-      },
-      "original": {
-        "owner": "projekt0n",
-        "ref": "v1.0.2",
-        "repo": "github-theme-contrib",
-        "type": "github"
-      }
-    },
     "home-manager-darwin-stable": {
       "inputs": {
         "nixpkgs": [
@@ -910,7 +893,6 @@
         "cosmic-manager": "cosmic-manager",
         "flake-parts": "flake-parts",
         "flocken": "flocken",
-        "github-theme-contrib": "github-theme-contrib",
         "home-manager-darwin-stable": "home-manager-darwin-stable",
         "home-manager-darwin-unstable": "home-manager-darwin-unstable",
         "home-manager-linux-stable": "home-manager-linux-stable",
