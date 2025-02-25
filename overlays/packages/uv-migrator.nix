@@ -5,7 +5,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "uv-migrator";
-  version = "2025.6.0";
+  version = "2025.6.3";
   useFetchCargoVendor = true;
 
   src = fetchFromGitHub {
