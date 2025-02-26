@@ -88,7 +88,27 @@
       feature = {
         manyFiles = true;
       };
+      column = {
+        ui = "auto";
+      };
+      branch = {
+        sort = "-committerdate";
+      };
+      tag = {
+        sort = "version:refname";
+      };
+      help = {
+        autocorrect = "prompt";
+      };
+      commit = {
+        verbose = true;
+      };
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
       fetch = {
+        all = true;
         prune = true;
         pruneTags = true;
         writeCommitGraph = true;
@@ -98,6 +118,8 @@
       };
       rebase = {
         autoStash = true;
+        autoSquash = true;
+        updateRefs = true;
       };
       init = {
         defaultBranch = "main";
@@ -112,6 +134,10 @@
         kaleidoscope.cmd = "ksdiff --partial-changeset --relative-path $MERGED -- $LOCAL $REMOTE";
       };
       diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
         tool = lib.mkIf config.custom.profile.isDesktop "vscode";
       };
       mergetool = {
@@ -122,6 +148,7 @@
       merge = {
         tool = lib.mkIf config.custom.profile.isDesktop "vscode";
         trustExitCode = true;
+        conflictstyle = "zdiff3";
       };
     };
   };
