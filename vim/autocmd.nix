@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   autoGroups = {
-    cdpwd.clear = true;
+    autocd.clear = true;
   };
   autoCmd = [
     {
@@ -18,7 +18,7 @@
       '';
       event = "VimEnter";
       pattern = "*";
-      group = "cdpwd";
+      group = "autocd";
       desc = "Change directory to current working directory";
     }
   ];

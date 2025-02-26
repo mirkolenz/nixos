@@ -15,7 +15,6 @@
     neogit.enable = true;
     noice.enable = true;
     todo-comments.enable = true;
-    trouble.enable = true;
     web-devicons.enable = true;
   };
 }
