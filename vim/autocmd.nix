@@ -1,25 +1,23 @@
 { lib, ... }:
 {
   autoGroups = {
-    autocd.clear = true;
+    autoformat.clear = true;
   };
   autoCmd = [
     {
       callback = lib.nixvim.mkRaw ''
-        function()
-          local path = vim.fn.argv(0)
-
-          if vim.fn.isdirectory(path) == 0 then
-            path = vim.fn.fnamemodify(path, ":h")
-          end
-
-          vim.fn.chdir(path)
+        function(args)
+          vim.lsp.buf.format({
+            async = false,
+            bufnr = args.buf,
+            timeout_ms = 1000,
+          })
         end
       '';
-      event = "VimEnter";
+      event = "BufWritePre";
       pattern = "*";
-      group = "autocd";
-      desc = "Change directory to current working directory";
+      group = "autoformat";
+      desc = "Format buffer using LSP";
     }
   ];
 }

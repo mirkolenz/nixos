@@ -1,12 +1,12 @@
 { lib, ... }:
 {
   keymaps = [
-    # {
-    #   key = "jk";
-    #   mode = "i";
-    #   action = "<esc>";
-    #   options.desc = "Use 'jk' to exit insert mode";
-    # }
+    {
+      key = "<C-v>";
+      mode = "i";
+      action = "<C-r>+";
+      options.desc = "Paste from clipboard in insert mode";
+    }
     {
       key = "d";
       mode = [
@@ -35,7 +35,7 @@
     {
       key = "<leader>lf";
       mode = "n";
-      action = lib.nixvim.mkRaw "vim.lsp.buf.format()";
+      action = lib.nixvim.mkRaw "vim.lsp.buf.format";
       options.desc = "Format buffer";
     }
   ];
