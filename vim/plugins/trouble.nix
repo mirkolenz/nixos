@@ -9,7 +9,7 @@
         attrs:
         attrs
         // {
-          action = "<cmd>Trouble ${action}<CR>";
+          action = "<cmd>Trouble ${attrs.action}<CR>";
           mode = attrs.mode or "n";
         }
       )
