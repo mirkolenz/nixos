@@ -26,7 +26,7 @@
       options.desc = "Open yazi in current working directory";
     }
     {
-      key = "<leader>yt";
+      key = "<leader>yy";
       mode = [
         "n"
         "v"

@@ -1,15 +1,9 @@
 { ... }:
 {
-  plugins.dap = {
-    enable = true;
-  };
-  plugins.dap-python = {
-    enable = true;
-  };
-  plugins.dap-virtual-text = {
-    enable = true;
-  };
-  plugins.dap-ui = {
-    enable = true;
+  plugins = {
+    dap.enable = true;
+    dap-python.enable = true;
+    dap-virtual-text.enable = true;
+    dap-ui.enable = true;
   };
 }

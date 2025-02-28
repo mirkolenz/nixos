@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 {
   keymaps = [
     {
@@ -17,12 +17,6 @@
       options.desc = "Do not yank deleted content";
     }
     {
-      key = "<leader>gg";
-      mode = "n";
-      action = "<cmd>LazyGit<CR>";
-      options.desc = "Open lazygit";
-    }
-    {
       key = "<leader>m";
       mode = [
         "n"
@@ -31,12 +25,6 @@
       action = "<cmd>MCstart<CR>";
       options.silent = true;
       options.desc = "Start multicursor";
-    }
-    {
-      key = "<leader>lf";
-      mode = "n";
-      action = lib.nixvim.mkRaw "vim.lsp.buf.format";
-      options.desc = "Format buffer";
     }
   ];
 }

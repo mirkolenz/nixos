@@ -1,4 +1,4 @@
-{ lib', ... }:
+{ lib', lib, ... }:
 {
   imports = lib'.flocken.getModules ./.;
   plugins.lsp = {
@@ -20,4 +20,21 @@
       yamlls.enable = true;
     };
   };
+  keymaps =
+    map
+      (
+        attrs:
+        attrs
+        // {
+          action = lib.nixvim.mkRaw "function() vim.lsp.${attrs.action} end";
+          mode = attrs.mode or "n";
+        }
+      )
+      [
+        {
+          key = "<leader>lf";
+          action = "buf.format()";
+          options.desc = "Format buffer";
+        }
+      ];
 }
