@@ -12,6 +12,7 @@
     multicursors.enable = true;
     neogit.enable = true;
     noice.enable = true;
+    persistence.enable = true;
     todo-comments.enable = true;
     web-devicons.enable = true;
   };

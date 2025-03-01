@@ -6,6 +6,9 @@
       bigfile = {
         enabled = true;
       };
+      bufdelete = {
+        enabled = true;
+      };
       dashboard = {
         enabled = true;
         sections = [
@@ -19,9 +22,15 @@
           # { section = "startup"; }
         ];
       };
+      debug = {
+        enabled = true;
+      };
       explorer = {
         enabled = true;
         replace_netrw = false;
+      };
+      git = {
+        enabled = true;
       };
       gitbrowse = {
         enabled = true;
@@ -41,16 +50,31 @@
       notifier = {
         enabled = true;
       };
+      picker = {
+        enabled = true;
+      };
       quickfile = {
         enabled = true;
       };
-      picker = {
+      rename = {
+        enabled = true;
+      };
+      scope = {
+        enabled = true;
+      };
+      scroll = {
         enabled = true;
       };
       terminal = {
         enabled = true;
       };
       toggle = {
+        enabled = true;
+      };
+      words = {
+        enabled = true;
+      };
+      zen = {
         enabled = true;
       };
     };
