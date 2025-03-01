@@ -21,6 +21,7 @@
       };
       explorer = {
         enabled = true;
+        replace_netrw = false;
       };
       gitbrowse = {
         enabled = true;
