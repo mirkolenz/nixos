@@ -1,8 +1,8 @@
 { lib, ... }:
 {
   autoGroups = {
-    autoformat.clear = true;
-    autodir.clear = true;
+    autoformat = { };
+    autodir = { };
   };
   autoCmd = [
     {
@@ -31,19 +31,19 @@
             if vim.fn.isdirectory(arg) == 1 then
               -- Argument is a directory, change to it directly
               vim.api.nvim_set_current_dir(arg)
-              vim.notify("Changed directory to: " .. arg, vim.log.levels.INFO)
+              -- vim.notify("Changed directory to: " .. arg, vim.log.levels.INFO)
             elseif vim.fn.filereadable(arg) == 1 then
               -- Argument is a file, change to its parent directory
               local dir = vim.fn.fnamemodify(arg, ":p:h")
               vim.api.nvim_set_current_dir(dir)
-              vim.notify("Changed directory to: " .. dir, vim.log.levels.INFO)
+              -- vim.notify("Changed directory to: " .. dir, vim.log.levels.INFO)
             else
               -- Argument exists but is neither a readable file nor a directory
               vim.notify("Argument is not a valid file or directory: " .. arg, vim.log.levels.WARN)
             end
           else
             -- No arguments provided, using current directory
-            vim.notify("No arguments provided, using current directory", vim.log.levels.INFO)
+            -- vim.notify("No arguments provided, using current directory", vim.log.levels.INFO)
           end
         end
       '';

@@ -49,6 +49,7 @@
       };
       notifier = {
         enabled = true;
+        timeout = 10000;
       };
       picker = {
         enabled = true;
