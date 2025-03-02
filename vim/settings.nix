@@ -2,21 +2,29 @@
 {
   clipboard.register = "unnamedplus";
   opts = {
-    # syntax = "on";
     autoindent = true;
+    breakindent = true;
     confirm = true;
+    cursorline = true;
     expandtab = true;
     foldenable = false;
     guifont = "Berkeley\ Mono,JetBrains\ Mono:h13";
     ignorecase = true;
+    inccommand = "split";
+    laststatus = 3;
     linebreak = true;
     mouse = "a";
     number = true;
+    relativenumber = true;
     ruler = true;
+    scrolloff = 10;
     shiftwidth = 2;
+    showmode = false;
+    signcolumn = "yes";
     smartcase = true;
+    splitbelow = true;
+    splitright = true;
     tabstop = 2;
-    laststatus = 3;
   };
   globals = {
     mapleader = " ";
