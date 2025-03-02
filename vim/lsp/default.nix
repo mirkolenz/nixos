@@ -1,4 +1,4 @@
-{ lib', lib, ... }:
+{ lib', ... }:
 {
   imports = lib'.flocken.getModules ./.;
   plugins.lsp = {
@@ -21,15 +21,10 @@
     };
   };
   keymaps =
-    map
-      (
-        attrs:
-        attrs
-        // {
-          action = lib.nixvim.mkRaw "function() vim.lsp.${attrs.action} end";
-          mode = attrs.mode or "n";
-        }
-      )
+    (lib'.self.mkVimKeymaps {
+      prefix = "vim.lsp.";
+      raw = true;
+    })
       [
         {
           key = "<leader>lf";

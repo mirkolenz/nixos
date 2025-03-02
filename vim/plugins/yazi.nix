@@ -1,4 +1,4 @@
-{ ... }:
+{ lib', ... }:
 {
   plugins.yazi = {
     enable = true;
@@ -6,33 +6,38 @@
       enable_mouse_support = true;
     };
   };
-  keymaps = [
-    {
-      key = "<leader>yf";
-      mode = [
-        "n"
-        "v"
+  keymaps =
+    (lib'.self.mkVimKeymaps {
+      prefix = "Yazi ";
+      raw = false;
+    })
+      [
+        {
+          key = "<leader>yf";
+          mode = [
+            "n"
+            "v"
+          ];
+          action = "";
+          options.desc = "Open yazi at current file";
+        }
+        {
+          key = "<leader>yd";
+          mode = [
+            "n"
+            "v"
+          ];
+          action = "cwd";
+          options.desc = "Open yazi in current working directory";
+        }
+        {
+          key = "<leader>yy";
+          mode = [
+            "n"
+            "v"
+          ];
+          action = "toggle";
+          options.desc = "Resume last yazi session";
+        }
       ];
-      action = "<cmd>Yazi<CR>";
-      options.desc = "Open yazi at current file";
-    }
-    {
-      key = "<leader>yd";
-      mode = [
-        "n"
-        "v"
-      ];
-      action = "<cmd>Yazi cwd<CR>";
-      options.desc = "Open yazi in current working directory";
-    }
-    {
-      key = "<leader>yy";
-      mode = [
-        "n"
-        "v"
-      ];
-      action = "<cmd>Yazi toggle<CR>";
-      options.desc = "Resume last yazi session";
-    }
-  ];
 }

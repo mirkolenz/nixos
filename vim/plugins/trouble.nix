@@ -1,18 +1,13 @@
-{ ... }:
+{ lib', ... }:
 {
   plugins.trouble = {
     enable = true;
   };
   keymaps =
-    map
-      (
-        attrs:
-        attrs
-        // {
-          action = "<cmd>Trouble ${attrs.action}<CR>";
-          mode = attrs.mode or "n";
-        }
-      )
+    (lib'.self.mkVimKeymaps {
+      prefix = "Trouble ";
+      raw = false;
+    })
       [
         {
           key = "<leader>xx";

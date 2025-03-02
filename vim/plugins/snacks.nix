@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib', ... }:
 {
   plugins.snacks = {
     enable = true;
@@ -80,15 +80,10 @@
     };
   };
   keymaps =
-    map
-      (
-        attrs:
-        attrs
-        // {
-          action = lib.nixvim.mkRaw "function() Snacks.${attrs.action} end";
-          mode = attrs.mode or "n";
-        }
-      )
+    (lib'.self.mkVimKeymaps {
+      prefix = "Snacks.";
+      raw = true;
+    })
       [
         # https://github.com/folke/snacks.nvim#-usage
         # Top Pickers & Explorer
