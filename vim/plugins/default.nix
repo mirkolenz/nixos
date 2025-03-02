@@ -9,7 +9,6 @@
     gitsigns.enable = true;
     grug-far.enable = true;
     lualine.enable = true;
-    multicursors.enable = true;
     neogit.enable = true;
     noice.enable = true;
     persistence.enable = true;
