@@ -62,7 +62,7 @@
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
         "/Applications/Orion RC.app"
-        "/Applications/Google Chrome.app"
+        "/Applications/Vivaldi.app"
         "/Applications/1Password.app"
         "/Applications/Raindrop.io.app"
         "/System/Applications/Messages.app"

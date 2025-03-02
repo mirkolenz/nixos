@@ -3,7 +3,6 @@
   plugins.blink-cmp = {
     enable = true;
     settings = {
-      fuzzy.prebuilt_binaries.download = false;
       signature.enabled = true;
       completion = {
         ghost_text.enabled = false;
