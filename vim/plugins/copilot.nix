@@ -1,7 +1,15 @@
 { ... }:
 {
-  plugins.copilot-lua = {
+  plugins.copilot-vim = {
     enable = true;
+    settings = {
+      filetypes = {
+        "*" = true;
+      };
+    };
+  };
+  plugins.copilot-lua = {
+    enable = false;
     settings = {
       filetypes = {
         "*" = true;
@@ -17,7 +25,7 @@
           open = "<M-CR>";
         };
         layout = {
-          position = "bottom"; # | top | left | right | horizontal | vertical
+          position = "bottom";
           ratio = 0.4;
         };
       };
