@@ -5,10 +5,8 @@
     settings.basedpyright = {
       typeCheckingMode = "standard";
       analysis = {
-        diagnosticMode = "openFilesOnly";
-        inlayHints = {
-          genericTypes = true;
-        };
+        diagnosticMode = "workspace";
+        useLibraryCodeForTypes = false;
       };
     };
   };
