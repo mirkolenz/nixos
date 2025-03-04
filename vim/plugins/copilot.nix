@@ -1,7 +1,7 @@
 { ... }:
 {
   plugins.copilot-vim = {
-    enable = true;
+    enable = false;
     settings = {
       filetypes = {
         "*" = true;
@@ -9,13 +9,13 @@
     };
   };
   plugins.copilot-lua = {
-    enable = false;
+    enable = true;
     settings = {
       filetypes = {
         "*" = true;
       };
       panel = {
-        enabled = true;
+        enabled = false; # handled by blink-cmp
         auto_refresh = true;
         keymap = {
           jump_prev = "[[";
@@ -30,7 +30,7 @@
         };
       };
       suggestion = {
-        enabled = true;
+        enabled = false; # handled by blink-cmp
         auto_trigger = true;
         hide_during_completion = false;
         keymap = {

@@ -46,11 +46,12 @@
           "path"
           "snippets"
           "emoji"
+          "copilot"
           # "luasnip"
           # "buffer"
-          # "copilot"
         ];
         providers = {
+          lsp.async = true;
           copilot = {
             async = true;
             module = "blink-copilot";
