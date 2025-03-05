@@ -185,13 +185,6 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    blink-cmp = {
-      url = "github:saghen/blink.cmp/main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
   };
 
   outputs =
