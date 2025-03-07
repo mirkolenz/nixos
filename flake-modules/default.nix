@@ -21,7 +21,7 @@
         inherit (nixpkgsArgs) config overlays;
       };
       legacyPackages = pkgs.exported-functions // {
-        inherit (pkgs) exported-functions;
+        inherit (pkgs) exported-functions vimPlugins;
         exported-packages = lib.filterAttrs (
           _: value: lib.meta.availableOn pkgs.stdenv.hostPlatform value
         ) pkgs.exported-packages;
