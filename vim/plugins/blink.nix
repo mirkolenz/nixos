@@ -46,7 +46,7 @@
           "path"
           "snippets"
           "emoji"
-          "copilot"
+          # "copilot"
           # "luasnip"
           # "buffer"
         ];
