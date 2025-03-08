@@ -15,7 +15,6 @@
       options = {
         expr = true;
         silent = true;
-        replace_keycodes = false;
         desc = "Accept Copilot suggestion";
       };
     }
