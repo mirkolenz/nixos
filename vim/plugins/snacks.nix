@@ -46,6 +46,7 @@
       };
       lazygit = {
         enabled = true;
+        configure = false;
       };
       notifier = {
         enabled = true;
