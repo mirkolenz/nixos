@@ -90,5 +90,11 @@
       action = "Ü";
       options.desc = "Write 'Ü'";
     }
+    {
+      key = "<M-s>";
+      mode = "i";
+      action = "ß";
+      options.desc = "Write 'ß'";
+    }
   ];
 }
