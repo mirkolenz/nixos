@@ -28,6 +28,12 @@
       action = "<C-\\><C-n>";
       options.desc = "Exit terminal mode";
     }
+    {
+      key = "<leader>ll";
+      mode = "n";
+      action = "<cmd>lua<space>";
+      options.desc = "Enter Lua command mode";
+    }
     # Use <C-[hjkl]> to switch between windows
     {
       key = "<C-h>";
