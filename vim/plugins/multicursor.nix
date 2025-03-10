@@ -45,10 +45,11 @@
     ];
   };
   keymaps =
-    (lib'.self.mkVimKeymaps {
-      prefix = "require('multicursor-nvim').";
-      raw = true;
-    })
+    lib'.self.mkVimKeymaps
+      {
+        prefix = "require('multicursor-nvim').";
+        raw = true;
+      }
       [
         {
           key = "<C-q>";

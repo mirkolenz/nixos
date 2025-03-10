@@ -7,10 +7,11 @@
     };
   };
   keymaps =
-    (lib'.self.mkVimKeymaps {
-      prefix = "require('which-key')";
-      raw = true;
-    })
+    lib'.self.mkVimKeymaps
+      {
+        prefix = "require('which-key')";
+        raw = true;
+      }
       [
         {
           key = "<leader>?";

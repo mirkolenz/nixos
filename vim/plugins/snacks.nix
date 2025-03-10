@@ -84,10 +84,11 @@
     };
   };
   keymaps =
-    (lib'.self.mkVimKeymaps {
-      prefix = "Snacks.";
-      raw = true;
-    })
+    lib'.self.mkVimKeymaps
+      {
+        prefix = "Snacks.";
+        raw = true;
+      }
       [
         # https://github.com/folke/snacks.nvim#-usage
         # Top Pickers & Explorer

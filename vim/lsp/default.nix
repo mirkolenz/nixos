@@ -21,10 +21,11 @@
     };
   };
   keymaps =
-    (lib'.self.mkVimKeymaps {
-      prefix = "vim.lsp.";
-      raw = true;
-    })
+    lib'.self.mkVimKeymaps
+      {
+        prefix = "vim.lsp.";
+        raw = true;
+      }
       [
         {
           key = "<leader>bf";

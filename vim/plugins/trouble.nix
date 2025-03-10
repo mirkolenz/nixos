@@ -4,10 +4,11 @@
     enable = true;
   };
   keymaps =
-    (lib'.self.mkVimKeymaps {
-      prefix = "Trouble ";
-      raw = false;
-    })
+    lib'.self.mkVimKeymaps
+      {
+        prefix = "Trouble ";
+        raw = false;
+      }
       [
         {
           key = "<leader>xx";

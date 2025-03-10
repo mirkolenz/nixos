@@ -7,10 +7,11 @@
     };
   };
   keymaps =
-    (lib'.self.mkVimKeymaps {
-      prefix = "Yazi ";
-      raw = false;
-    })
+    lib'.self.mkVimKeymaps
+      {
+        prefix = "Yazi ";
+        raw = false;
+      }
       [
         {
           key = "<leader>yf";
