@@ -31,7 +31,7 @@
     {
       key = "<leader>l";
       mode = "n";
-      action = "<cmd>lua<space>";
+      action = ":lua<Space>";
       options.desc = "Enter Lua command mode";
     }
     # Use <C-[hjkl]> to switch between windows

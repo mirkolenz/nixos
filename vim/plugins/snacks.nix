@@ -110,7 +110,7 @@
           options.desc = "Command History";
         }
         {
-          key = "<leader>n";
+          key = "<leader>mm";
           action = "picker.notifications()";
           options.desc = "Notification History";
         }
@@ -371,12 +371,12 @@
           options.desc = "Toggle Scratch Buffer";
         }
         {
-          key = "<leader>S";
+          key = "<leader>bs";
           action = "scratch.select()";
           options.desc = "Select Scratch Buffer";
         }
         {
-          key = "<leader>n";
+          key = "<leader>mh";
           action = "notifier.show_history()";
           options.desc = "Notification History";
         }
@@ -405,7 +405,7 @@
           options.desc = "Lazygit";
         }
         {
-          key = "<leader>un";
+          key = "<leader>md";
           action = "notifier.hide()";
           options.desc = "Dismiss All Notifications";
         }
