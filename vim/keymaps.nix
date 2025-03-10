@@ -29,7 +29,7 @@
       options.desc = "Exit terminal mode";
     }
     {
-      key = "<leader>ll";
+      key = "<leader>l";
       mode = "n";
       action = "<cmd>lua<space>";
       options.desc = "Enter Lua command mode";

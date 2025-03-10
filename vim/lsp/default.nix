@@ -27,7 +27,7 @@
     })
       [
         {
-          key = "<leader>lf";
+          key = "<leader>bf";
           action = "buf.format()";
           options.desc = "Format buffer";
         }

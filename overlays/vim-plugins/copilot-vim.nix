@@ -6,7 +6,7 @@ vimUtils.buildVimPlugin rec {
     owner = "github";
     repo = "copilot.vim";
     tag = "v${version}";
-    sha256 = "sha256-IPLaF6qqhMst9uO6QmJV2Y5/MMw15qA//jM0BWz1FaU=";
+    hash = "sha256-IPLaF6qqhMst9uO6QmJV2Y5/MMw15qA//jM0BWz1FaU=";
   };
   meta.homepage = "https://github.com/github/copilot.vim/";
 }
