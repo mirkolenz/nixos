@@ -35,9 +35,6 @@
       gitbrowse = {
         enabled = true;
       };
-      image = {
-        enabled = true;
-      };
       indent = {
         enabled = true;
       };
@@ -78,6 +75,11 @@
       };
       zen = {
         enabled = true;
+      };
+      styles = {
+        notification = {
+          wo.wrap = true;
+        };
       };
     };
   };
