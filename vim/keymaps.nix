@@ -34,6 +34,12 @@
       action = ":lua<Space>";
       options.desc = "Enter Lua command mode";
     }
+    {
+      key = "<leader>k";
+      mode = "n";
+      action = ":noautocmd<Space>";
+      options.desc = "Run without autocommands";
+    }
     # Use <C-[hjkl]> to switch between windows
     {
       key = "<C-h>";
