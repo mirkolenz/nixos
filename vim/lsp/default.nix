@@ -29,6 +29,10 @@
       [
         {
           key = "<leader>bf";
+          mode = [
+            "n"
+            "x"
+          ];
           action = "buf.format()";
           options.desc = "Format buffer";
         }

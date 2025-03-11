@@ -62,7 +62,7 @@
           emoji = {
             module = "blink-emoji";
             name = "Emoji";
-            score_offset = 15;
+            score_offset = -20;
             opts = { };
           };
         };
