@@ -11,10 +11,9 @@
     {
       key = "<M-;>";
       mode = "i";
-      action = "copilot#Accept(\"<CR>\")";
+      action = ''copilot#Accept("")'';
       options = {
         expr = true;
-        silent = true;
         desc = "Accept Copilot suggestion";
       };
     }

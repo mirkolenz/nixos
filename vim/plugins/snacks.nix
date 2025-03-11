@@ -413,7 +413,7 @@
           options.desc = "Dismiss All Notifications";
         }
         {
-          key = "<c-/>";
+          key = "<c-`>";
           action = "terminal()";
           options.desc = "Toggle Terminal";
         }

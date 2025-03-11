@@ -8,15 +8,6 @@
       options.desc = "Paste from clipboard in insert mode";
     }
     {
-      key = "d";
-      mode = [
-        "n"
-        "v"
-      ];
-      action = "\"_d";
-      options.desc = "Do not yank deleted content";
-    }
-    {
       key = "<Esc>";
       mode = "n";
       action = "<cmd>nohlsearch<CR>";
@@ -29,13 +20,19 @@
       options.desc = "Exit terminal mode";
     }
     {
+      key = "<leader>;";
+      mode = "n";
+      action = ":!";
+      options.desc = "Execute shell command";
+    }
+    {
       key = "<leader>l";
       mode = "n";
       action = ":lua<Space>";
       options.desc = "Enter Lua command mode";
     }
     {
-      key = "<leader>k";
+      key = "<leader>:";
       mode = "n";
       action = ":noautocmd<Space>";
       options.desc = "Run without autocommands";
