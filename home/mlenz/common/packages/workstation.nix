@@ -36,6 +36,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     treefmt-nix
     uv-migrator
     llm
+    ghostscript
     # typst
     typst
     typstyle
