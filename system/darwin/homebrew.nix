@@ -26,6 +26,7 @@ let
     "handbrake"
     "ia-presenter"
     "jordanbaird-ice"
+    "kindavim"
     "lookaway"
     "mediathekview"
     "microsoft-auto-update"
