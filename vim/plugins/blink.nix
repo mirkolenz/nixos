@@ -42,13 +42,11 @@
       };
       sources = {
         default = [
+          # "buffer"
+          "emoji"
           "lsp"
           "path"
           "snippets"
-          "emoji"
-          # "copilot"
-          # "luasnip"
-          # "buffer"
         ];
         providers = {
           lsp.async = true;

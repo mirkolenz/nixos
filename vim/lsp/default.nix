@@ -36,5 +36,14 @@
           action = "buf.format()";
           options.desc = "Format buffer";
         }
+        {
+          key = "g.";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "buf.code_action()";
+          options.desc = "Code action";
+        }
       ];
 }

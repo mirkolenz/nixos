@@ -9,7 +9,7 @@
   keymaps =
     lib'.self.mkVimKeymaps
       {
-        prefix = "require('which-key')";
+        prefix = "require('which-key').";
         raw = true;
       }
       [

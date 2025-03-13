@@ -4,48 +4,95 @@
     copilot_settings = {
       selectedCompletionModel = "gpt-4o-copilot";
     };
-    copilot_no_tab_map = true;
+    copilot_no_maps = true;
     copilot_integration_id = "vscode-chat";
   };
+  extraConfigLua = ''
+    vim.keymap.set('i', '<M-;>', 'copilot#Accept()', {
+      noremap = true,
+      expr = true,
+      silent = true,
+      nowait = true,
+      replace_keycodes = false,
+      desc = "Accept Copilot suggestion";
+    })
+  '';
   keymaps = lib.mkIf config.plugins.copilot-vim.enable [
-    {
-      key = "<M-;>";
-      mode = "i";
-      action = ''copilot#Accept("")'';
-      options = {
-        expr = true;
-        desc = "Accept Copilot suggestion";
-      };
-    }
+    # replace_keycodes not supported by nixvim
+    # {
+    #   key = "<M-;>";
+    #   mode = "i";
+    #   action = "copilot#Accept()";
+    #   options = {
+    #     expr = true;
+    #     silent = true;
+    #     nowait = true;
+    #     replace_keycodes = false;
+    #     desc = "Accept Copilot suggestion";
+    #   };
+    # }
     {
       key = "<M-l>";
       mode = "i";
-      action = "<Plug>(copilot-accept-line)";
-      options.desc = "Accept Copilot line";
+      action = "copilot#AcceptLine()";
+      options = {
+        expr = true;
+        silent = true;
+        nowait = true;
+        desc = "Accept Copilot line";
+      };
     }
     {
       key = "<M-k>";
       mode = "i";
-      action = "<Plug>(copilot-accept-word)";
-      options.desc = "Accept Copilot word";
+      action = "copilot#AcceptWord()";
+      options = {
+        expr = true;
+        silent = true;
+        nowait = true;
+        desc = "Accept Copilot word";
+      };
     }
     {
       key = "<M-'>";
       mode = "i";
-      action = "<Plug>(copilot-dismiss)";
-      options.desc = "Dismiss Copilot suggestion";
+      action = "copilot#Dismiss()";
+      options = {
+        expr = true;
+        silent = true;
+        nowait = true;
+        desc = "Dismiss Copilot suggestion";
+      };
     }
     {
       key = "<M-n>";
       mode = "i";
-      action = "<Plug>(copilot-next)";
-      options.desc = "Next Copilot suggestion";
+      action = "<cmd>call copilot#Next()<CR>";
+      options = {
+        silent = true;
+        nowait = true;
+        desc = "Next Copilot suggestion";
+      };
     }
     {
       key = "<M-p>";
       mode = "i";
-      action = "<Plug>(copilot-previous)";
-      options.desc = "Next Copilot suggestion";
+      action = "<cmd>call copilot#Previous()<CR>";
+      options = {
+        silent = true;
+        nowait = true;
+        desc = "Next Copilot suggestion";
+      };
+    }
+    {
+      key = "<M-j>";
+      mode = "i";
+      action = "<cmd>call copilot#Suggest()<CR>";
+      options = {
+        silent = true;
+        nowait = true;
+        desc = "Trigger Copilot suggestion";
+      };
     }
   ];
   plugins.copilot-vim = {

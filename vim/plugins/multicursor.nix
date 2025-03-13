@@ -62,7 +62,7 @@
         }
         # Add or skip cursor above/below the main cursor
         {
-          key = "<up>";
+          key = "gk";
           mode = [
             "n"
             "x"
@@ -71,7 +71,7 @@
           options.desc = "Add cursor above";
         }
         {
-          key = "<down>";
+          key = "gj";
           mode = [
             "n"
             "x"
@@ -80,7 +80,7 @@
           options.desc = "Add cursor below";
         }
         {
-          key = "<leader><up>";
+          key = "gK";
           mode = [
             "n"
             "x"
@@ -89,7 +89,7 @@
           options.desc = "Skip cursor above";
         }
         {
-          key = "<leader><down>";
+          key = "gJ";
           mode = [
             "n"
             "x"
@@ -99,7 +99,7 @@
         }
         # Add or skip adding a new cursor by matching word/selection
         {
-          key = "<leader>n";
+          key = "gl";
           mode = [
             "n"
             "x"
@@ -108,16 +108,7 @@
           options.desc = "Add next matching cursor";
         }
         {
-          key = "<leader>s";
-          mode = [
-            "n"
-            "x"
-          ];
-          action = "matchSkipCursor(1)";
-          options.desc = "Skip next matching cursor";
-        }
-        {
-          key = "<leader>N";
+          key = "gh";
           mode = [
             "n"
             "x"
@@ -126,7 +117,16 @@
           options.desc = "Add previous matching cursor";
         }
         {
-          key = "<leader>S";
+          key = "gL";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "matchSkipCursor(1)";
+          options.desc = "Skip next matching cursor";
+        }
+        {
+          key = "gH";
           mode = [
             "n"
             "x"
@@ -134,21 +134,57 @@
           action = "matchSkipCursor(-1)";
           options.desc = "Skip previous matching cursor";
         }
+        {
+          key = "gn";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "searchAddCursor(1)";
+          options.desc = "Add next search cursor";
+        }
+        {
+          key = "gN";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "searchAddCursor(-1)";
+          options.desc = "Add previous search cursor";
+        }
+        {
+          key = "gm";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "searchSkipCursor(1)";
+          options.desc = "Skip next search cursor";
+        }
+        {
+          key = "gM";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "searchSkipCursor(-1)";
+          options.desc = "Skip previous search cursor";
+        }
         # Add and remove cursors with control + left click
         {
-          key = "<C-leftmouse>";
+          key = "<M-leftmouse>";
           mode = "n";
           action = "handleMouse()";
           options.desc = "Handle multicursor mouse";
         }
         {
-          key = "<C-leftdrag>";
+          key = "<M-leftdrag>";
           mode = "n";
           action = "handleMouseDrag()";
           options.desc = "Handle multicursor mouse drag";
         }
         {
-          key = "<C-leftrelease>";
+          key = "<M-leftrelease>";
           mode = "n";
           action = "handleMouseRelease()";
           options.desc = "Handle multicursor mouse release";

@@ -1,6 +1,6 @@
 { ... }:
 {
-  clipboard.register = "unnamedplus";
+  clipboard.register = "";
   opts = {
     autoindent = true;
     breakindent = true;

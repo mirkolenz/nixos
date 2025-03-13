@@ -16,4 +16,14 @@
     navigation.enable = true;
     smartRename.enable = true;
   };
+  plugins.treesitter-textobjects = {
+    enable = true;
+    lspInterop.enable = true;
+    move.enable = true;
+    select.enable = true;
+    swap.enable = true;
+  };
+  plugins.treesitter-context = {
+    enable = true;
+  };
 }

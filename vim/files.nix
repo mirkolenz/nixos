@@ -1,7 +1,7 @@
 { lib, ... }:
 let
   languages = {
-    latex.opts = {
+    tex.opts = {
       shiftwidth = 2;
       tabstop = 2;
       wrap = true;
