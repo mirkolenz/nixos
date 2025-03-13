@@ -37,6 +37,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     uv-migrator
     llm
     ghostscript
+    janice
     # typst
     typst
     typstyle
