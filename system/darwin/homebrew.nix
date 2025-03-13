@@ -56,6 +56,7 @@ let
     "viscosity"
     "visual-studio-code"
     "vivaldi"
+    "wezterm"
     "wifiman"
     "zed"
     "zed@preview"
@@ -172,9 +173,6 @@ in
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
-    };
-    caskArgs = {
-      # ignore_dependencies = true;
     };
     taps = [ ];
     brews = [ ];
