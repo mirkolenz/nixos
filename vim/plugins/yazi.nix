@@ -14,31 +14,31 @@
       }
       [
         {
-          key = "<leader>yf";
+          key = "<leader>ef";
           mode = [
             "n"
             "v"
           ];
           action = "";
-          options.desc = "Open yazi at current file";
+          options.desc = "Open explorer at current file";
         }
         {
-          key = "<leader>yd";
+          key = "<leader>ed";
           mode = [
             "n"
             "v"
           ];
           action = "cwd";
-          options.desc = "Open yazi in current working directory";
+          options.desc = "Open explorer at current directory";
         }
         {
-          key = "<leader>yy";
+          key = "<leader>ee";
           mode = [
             "n"
             "v"
           ];
           action = "toggle";
-          options.desc = "Resume last yazi session";
+          options.desc = "Toggle explorer";
         }
       ];
 }

@@ -5,7 +5,7 @@
       key = "<C-v>";
       mode = "i";
       action = "<C-r>+";
-      options.desc = "Paste from clipboard in insert mode";
+      options.desc = "Paste from system clipboard in insert mode";
     }
     {
       key = "<Esc>";
@@ -18,6 +18,48 @@
       mode = "t";
       action = "<C-\\><C-n>";
       options.desc = "Exit terminal mode";
+    }
+    {
+      key = "<leader>p";
+      mode = "x";
+      action = ''"_dp'';
+      options.desc = "Delete to null register and paste after";
+    }
+    {
+      key = "<leader>P";
+      mode = "x";
+      action = ''"_dP'';
+      options.desc = "Delete to null register and paste before";
+    }
+    {
+      key = "<leader>y";
+      mode = [
+        "n"
+        "v"
+      ];
+      action = ''"+y'';
+      options.desc = "Yank to system clipboard";
+    }
+    {
+      key = "<leader>Y";
+      mode = "n";
+      action = ''"+Y'';
+      options.desc = "Yank to system clipboard (whole line)";
+    }
+    {
+      key = "<leader>d";
+      mode = [
+        "n"
+        "v"
+      ];
+      action = ''"_d'';
+      options.desc = "Delete without yanking";
+    }
+    {
+      key = "<leader>D";
+      mode = "n";
+      action = ''"_D'';
+      options.desc = "Delete without yanking (whole line)";
     }
     {
       key = "<leader>;";
