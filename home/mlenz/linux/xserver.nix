@@ -8,6 +8,7 @@ lib.mkIf config.custom.profile.isDesktop {
   home.packages = with pkgs; [
     inter
     jetbrains-mono
+    nerd-fonts.jetbrains-mono
   ];
   home.file.".face".source = ../mlenz.jpg;
   wayland.desktopManager.cosmic = {

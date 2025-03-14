@@ -21,7 +21,7 @@ in
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
     settings = mkSettings {
       cursor-click-to-move = true;
-      font-family = if pkgs.stdenv.isDarwin then "Berkeley Mono" else "JetBrains Mono";
+      font-family = "JetBrainsMono Nerd Font";
       font-size = if pkgs.stdenv.isDarwin then 13 else 11;
       font-thicken = true;
       shell-integration = "none";

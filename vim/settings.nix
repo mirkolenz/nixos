@@ -8,7 +8,7 @@
     cursorline = true;
     expandtab = true;
     foldenable = false;
-    guifont = "Berkeley_Mono,JetBrains_Mono:h13";
+    guifont = "JetBrainsMono_Nerd_Font:h13";
     ignorecase = true;
     inccommand = "split";
     laststatus = 3;
