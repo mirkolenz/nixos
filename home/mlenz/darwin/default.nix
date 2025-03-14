@@ -28,6 +28,7 @@ in
     restic-browser-bin
     undmg
     rcodesign
+    vimr-bin
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''
