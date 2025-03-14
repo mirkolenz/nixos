@@ -1,14 +1,8 @@
 {
-  autoPatchelfHook,
   buildGoModule,
   fetchFromGitHub,
+  fyne,
   lib,
-  libGL,
-  libxkbcommon,
-  pkg-config,
-  stdenv,
-  wayland,
-  xorg,
 }:
 buildGoModule rec {
   pname = "janice";
@@ -28,23 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # https://docs.fyne.io/started/
-  buildInputs = lib.optionals stdenv.isLinux [
-    libGL
-    libxkbcommon
-    wayland
-    xorg.libX11.dev
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXinerama
-    xorg.libXrandr
-    xorg.libXxf86vm
-  ];
-
-  nativeBuildInputs = lib.optionals stdenv.isLinux [
-    pkg-config
-    autoPatchelfHook
-  ];
+  inherit (fyne) buildInputs nativeBuildInputs;
 
   meta = {
     description = "A desktop app for viewing large JSON files";
