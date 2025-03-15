@@ -23,18 +23,5 @@
         unknown_msg = "nix-shell";
       };
     };
-    # Disable nerd fonts: starship preset no-nerd-font
-    settings = {
-      battery = {
-        full_symbol = "• ";
-        charging_symbol = "⇡ ";
-        discharging_symbol = "⇣ ";
-        unknown_symbol = "❓ ";
-        empty_symbol = "❗ ";
-      };
-      erlang.symbol = "ⓔ ";
-      nodejs.symbol = "[⬢](bold green) ";
-      pulumi.symbol = "🧊 ";
-    };
   };
 }

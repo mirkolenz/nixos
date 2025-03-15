@@ -170,7 +170,7 @@
     settings = {
       gui = {
         border = "single";
-        nerdFontsVersion = "";
+        nerdFontsVersion = "3";
         showCommandLog = false;
         showFileTree = true;
         showNumstatInFilesView = true;
