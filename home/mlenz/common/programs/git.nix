@@ -132,6 +132,7 @@
         prompt = false;
         vscode.cmd = "code -dnw --diff --new-window --wait $LOCAL $REMOTE";
         kaleidoscope.cmd = "ksdiff --partial-changeset --relative-path $MERGED -- $LOCAL $REMOTE";
+        nvim.cmd = "nvim -c \"DiffviewOpen\"";
       };
       diff = {
         algorithm = "histogram";
@@ -144,6 +145,7 @@
         prompt = false;
         vscode.cmd = "code --merge --new-window --wait $REMOTE $LOCAL $BASE $MERGED";
         kaleidoscope.cmd = "ksdiff --merge --output $MERGED --base $BASE -- $LOCAL --snapshot $REMOTE --snapshot";
+        nvim.cmd = "nvim -c \"DiffviewOpen\"";
       };
       merge = {
         tool = lib.mkIf config.custom.profile.isDesktop "vscode";
