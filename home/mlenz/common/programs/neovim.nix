@@ -14,6 +14,7 @@
     settings = {
       fork = true;
       neovim-bin = lib.getExe config.custom.neovim.package;
+      no-multigrid = true;
     };
   };
 }
