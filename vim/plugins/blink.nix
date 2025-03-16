@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   plugins.blink-cmp = {
     enable = true;
@@ -43,34 +43,14 @@
       sources = {
         default = [
           # "buffer"
-          "emoji"
           "lsp"
           "path"
           "snippets"
         ];
         providers = {
           lsp.async = true;
-          copilot = {
-            async = true;
-            module = "blink-copilot";
-            name = "Copilot";
-            score_offset = 100;
-            opts = { };
-          };
-          emoji = {
-            module = "blink-emoji";
-            name = "Emoji";
-            score_offset = -20;
-            opts = { };
-          };
         };
       };
     };
-  };
-  plugins.blink-copilot = {
-    inherit (config.plugins.blink-cmp) enable;
-  };
-  plugins.blink-emoji = {
-    inherit (config.plugins.blink-cmp) enable;
   };
 }
