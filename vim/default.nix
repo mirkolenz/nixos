@@ -21,6 +21,4 @@
   withPython3 = true;
   withRuby = true;
   withPerl = true;
-
-  performance.byteCompileLua.enable = true;
 }
