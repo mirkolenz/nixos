@@ -10,6 +10,7 @@ let
     "betterdisplay"
     "cameracontroller"
     "cleanshot"
+    "ddpm"
     "default-folder-x"
     "devonthink"
     "discord"
