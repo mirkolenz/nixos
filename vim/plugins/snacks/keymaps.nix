@@ -1,6 +1,11 @@
-{ lib', ... }:
 {
-  keymaps =
+  lib',
+  lib,
+  config,
+  ...
+}:
+{
+  keymaps = lib.mkIf config.plugins.snacks.enable (
     lib'.self.mkVimKeymaps
       {
         prefix = "Snacks.";
@@ -362,5 +367,6 @@
             "t"
           ];
         }
-      ];
+      ]
+  );
 }

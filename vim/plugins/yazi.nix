@@ -1,4 +1,9 @@
-{ lib', ... }:
+{
+  lib',
+  lib,
+  config,
+  ...
+}:
 {
   plugins.yazi = {
     enable = true;
@@ -6,7 +11,7 @@
       enable_mouse_support = true;
     };
   };
-  keymaps =
+  keymaps = lib.mkIf config.plugins.yazi.enable (
     lib'.self.mkVimKeymaps
       {
         prefix = "Yazi ";
@@ -40,5 +45,6 @@
           action = "toggle";
           options.desc = "Toggle explorer";
         }
-      ];
+      ]
+  );
 }

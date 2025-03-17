@@ -1,4 +1,9 @@
-{ lib', ... }:
+{
+  lib',
+  lib,
+  config,
+  ...
+}:
 {
   plugins.which-key = {
     enable = true;
@@ -6,7 +11,7 @@
       preset = "modern";
     };
   };
-  keymaps =
+  keymaps = lib.mkIf config.plugins.which-key.enable (
     lib'.self.mkVimKeymaps
       {
         prefix = "require('which-key').";
@@ -18,5 +23,6 @@
           action = "show({ global = false })";
           options.desc = "Buffer Local Keymaps (which-key)";
         }
-      ];
+      ]
+  );
 }

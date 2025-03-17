@@ -1,6 +1,11 @@
-{ lib', ... }:
 {
-  keymaps =
+  lib',
+  lib,
+  config,
+  ...
+}:
+{
+  keymaps = lib.mkIf config.plugins.lsp.enable (
     lib'.self.mkVimKeymaps
       {
         prefix = "vim.lsp.";
@@ -25,5 +30,6 @@
           action = "buf.code_action()";
           options.desc = "Code action";
         }
-      ];
+      ]
+  );
 }

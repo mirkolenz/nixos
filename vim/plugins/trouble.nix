@@ -1,9 +1,14 @@
-{ lib', ... }:
+{
+  lib',
+  lib,
+  config,
+  ...
+}:
 {
   plugins.trouble = {
     enable = true;
   };
-  keymaps =
+  keymaps = lib.mkIf config.plugins.trouble.enable (
     lib'.self.mkVimKeymaps
       {
         prefix = "Trouble ";
@@ -46,5 +51,6 @@
           action = "qflist toggle";
           options.desc = "Quickfix List (Trouble)";
         }
-      ];
+      ]
+  );
 }
