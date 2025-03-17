@@ -17,7 +17,7 @@
     number = true;
     relativenumber = true;
     ruler = true;
-    scrolloff = 10;
+    scrolloff = 0;
     shiftwidth = 2;
     showmode = false;
     signcolumn = "yes";
