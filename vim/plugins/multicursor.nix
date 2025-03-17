@@ -1,7 +1,12 @@
-{ lib', lib, ... }:
+{
+  lib',
+  lib,
+  config,
+  ...
+}:
 {
   plugins.multicursor-nvim = {
-    enable = true;
+    enable = false;
     keymapsLayer = [
       # Select a different cursor as the main one
       {
@@ -44,7 +49,7 @@
       }
     ];
   };
-  keymaps =
+  keymaps = lib.mkIf config.plugins.multicursor-nvim.enable (
     lib'.self.mkVimKeymaps
       {
         prefix = "require('multicursor-nvim').";
@@ -189,5 +194,6 @@
           action = "handleMouseRelease()";
           options.desc = "Handle multicursor mouse release";
         }
-      ];
+      ]
+  );
 }
