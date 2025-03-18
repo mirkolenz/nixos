@@ -23,6 +23,7 @@ in
   caddy = final.nixpkgs.caddy;
   caddy-custom-docker = final.caddy-docker.override { caddy = final.caddy-custom; };
   dummy = final.writeShellScriptBin "dummy" ":";
+  nix-converter = inputs.nix-converter.packages.${system}.default;
   nixfmt = final.nixfmt-rfc-style;
   nixvim = final.nixvim-unstable;
   uv-bin = inputs.uv2nix.packages.${system}.uv-bin;

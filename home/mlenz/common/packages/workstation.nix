@@ -54,6 +54,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     nix-init
     hydra-check
     nixos-render-docs
+    nix-converter
     # go
     go
     gopls
