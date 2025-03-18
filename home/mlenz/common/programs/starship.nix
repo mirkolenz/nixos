@@ -1,8 +1,13 @@
 { lib, pkgs, ... }:
 let
-  starshipSymbols = pkgs.runCommandNoCCLocal "starship-symbols" { } ''
-    ${lib.getExe pkgs.starship} preset nerd-font-symbols -o $out
-  '';
+  starshipSymbols =
+    pkgs.runCommandNoCCLocal "starship-symbols"
+      {
+        nativeBuildInputs = with pkgs; [ starship ];
+      }
+      ''
+        starship preset nerd-font-symbols -o $out
+      '';
 in
 {
   programs.starship = {
