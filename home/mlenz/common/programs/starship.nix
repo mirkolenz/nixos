@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  starshipSymbols = pkgs.runCommandNoCC "starship-symbols" { } ''
+  starshipSymbols = pkgs.runCommandNoCCLocal "starship-symbols" { } ''
     ${lib.getExe pkgs.starship} preset nerd-font-symbols -o $out
   '';
 in
