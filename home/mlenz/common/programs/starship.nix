@@ -1,20 +1,10 @@
 { lib, pkgs, ... }:
-let
-  starshipSymbols =
-    pkgs.runCommandNoCCLocal "starship-symbols"
-      {
-        nativeBuildInputs = with pkgs; [ starship ];
-      }
-      ''
-        starship preset nerd-font-symbols -o $out
-      '';
-in
 {
   programs.starship = {
     enable = true;
     enableTransience = false;
     settings = lib.mkMerge [
-      (lib.importTOML starshipSymbols)
+      (lib.importTOML "${pkgs.starship.src}/docs/public/presets/toml/nerd-font-symbols.toml")
       {
         add_newline = true;
         character = {
