@@ -6,7 +6,7 @@
 }:
 {
   plugins.multiple-cursors = {
-    enable = true;
+    enable = false;
   };
   keymaps = lib.mkIf config.plugins.multiple-cursors.enable (
     lib'.self.mkVimKeymaps

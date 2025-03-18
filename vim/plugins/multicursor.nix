@@ -6,7 +6,7 @@
 }:
 {
   plugins.multicursor-nvim = {
-    enable = false;
+    enable = true;
     keymapsLayer = [
       # Select a different cursor as the main one
       {
@@ -64,6 +64,33 @@
           ];
           action = "toggleCursor()";
           options.desc = "Toggle multicursor";
+        }
+        {
+          key = "ga";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "matchAllAddCursors()";
+          options.desc = "Add all matching cursors";
+        }
+        {
+          key = "gA";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "alignCursors()";
+          options.desc = "Align cursor columns";
+        }
+        {
+          key = "g;";
+          mode = [
+            "n"
+            "x"
+          ];
+          action = "addCursorOperator()";
+          options.desc = "Add cursor using vim operator (e.g., g;ip for all lines in a paragraph)";
         }
         # Add or skip cursor above/below the main cursor
         {
