@@ -45,17 +45,4 @@ lib.mkIf pkgs.stdenv.isDarwin {
     texlab
     zathura
   ];
-  programs.tex-fmt = {
-    enable = true;
-    settings = {
-      wrap = false;
-      tabsize = 2;
-      tabchar = "space";
-      lists = [
-        "enumerate*"
-        "itemize*"
-        "description*"
-      ];
-    };
-  };
 }
