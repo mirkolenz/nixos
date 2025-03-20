@@ -6,7 +6,6 @@
     diffview.enable = true;
     flash.enable = true;
     git-conflict.enable = true;
-    gitgutter.enable = true;
     gitignore.enable = true;
     gitsigns.enable = true;
     grug-far.enable = true;
