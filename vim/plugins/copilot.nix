@@ -7,30 +7,19 @@
     copilot_no_maps = true;
     copilot_integration_id = "vscode-chat";
   };
-  extraConfigLua = ''
-    vim.keymap.set('i', '<M-;>', 'copilot#Accept()', {
-      noremap = true,
-      expr = true,
-      silent = true,
-      nowait = true,
-      replace_keycodes = false,
-      desc = "Accept Copilot suggestion";
-    })
-  '';
   keymaps = lib.mkIf config.plugins.copilot-vim.enable [
-    # replace_keycodes not supported by nixvim
-    # {
-    #   key = "<M-;>";
-    #   mode = "i";
-    #   action = "copilot#Accept()";
-    #   options = {
-    #     expr = true;
-    #     silent = true;
-    #     nowait = true;
-    #     replace_keycodes = false;
-    #     desc = "Accept Copilot suggestion";
-    #   };
-    # }
+    {
+      key = "<M-;>";
+      mode = "i";
+      action = "copilot#Accept()";
+      options = {
+        expr = true;
+        silent = true;
+        nowait = true;
+        replace_keycodes = false;
+        desc = "Accept Copilot suggestion";
+      };
+    }
     {
       key = "<M-l>";
       mode = "i";
@@ -39,6 +28,7 @@
         expr = true;
         silent = true;
         nowait = true;
+        replace_keycodes = false;
         desc = "Accept Copilot line";
       };
     }
@@ -50,15 +40,15 @@
         expr = true;
         silent = true;
         nowait = true;
+        replace_keycodes = false;
         desc = "Accept Copilot word";
       };
     }
     {
       key = "<M-'>";
       mode = "i";
-      action = "copilot#Dismiss()";
+      action = "<cmd>call copilot#Dismiss()<CR>";
       options = {
-        expr = true;
         silent = true;
         nowait = true;
         desc = "Dismiss Copilot suggestion";
