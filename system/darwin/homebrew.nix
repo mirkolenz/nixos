@@ -176,6 +176,9 @@ let
   ];
 in
 {
+  environment.sessionVariables = {
+    HOMEBREW_NO_ENV_HINTS = "1";
+  };
   homebrew = {
     enable = true;
     global = {
