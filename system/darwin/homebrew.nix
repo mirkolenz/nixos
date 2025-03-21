@@ -176,7 +176,7 @@ let
   ];
 in
 {
-  environment.sessionVariables = {
+  environment.variables = {
     HOMEBREW_NO_ENV_HINTS = "1";
   };
   homebrew = {
