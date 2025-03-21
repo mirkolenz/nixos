@@ -27,7 +27,7 @@
       quickfile.enabled = true;
       rename.enabled = true;
       scope.enabled = true;
-      scroll.enabled = true;
+      scroll.enabled = false;
       terminal.enabled = true;
       toggle.enabled = true;
       words.enabled = true;
