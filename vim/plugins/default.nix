@@ -13,7 +13,6 @@
     noice.enable = true;
     nvim-autopairs.enable = true;
     persistence.enable = true;
-    todo-comments.enable = true;
     web-devicons.enable = true;
   };
 }

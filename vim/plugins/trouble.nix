@@ -8,6 +8,9 @@
   plugins.trouble = {
     enable = true;
   };
+  plugins.todo-comments = {
+    enable = true;
+  };
   keymaps = lib.mkIf config.plugins.trouble.enable (
     lib'.self.mkVimKeymaps
       {
@@ -50,6 +53,18 @@
           mode = "n";
           action = "qflist toggle";
           options.desc = "Quickfix List (Trouble)";
+        }
+        {
+          key = "<leader>xt";
+          mode = "n";
+          action = "todo";
+          options.desc = "Todo Comments (Trouble)";
+        }
+        {
+          key = "<leader>xT";
+          mode = "n";
+          action = "todo filter.buf=0";
+          options.desc = "Buffer Todo Comments (Trouble)";
         }
       ]
   );
