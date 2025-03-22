@@ -22,6 +22,9 @@
     showmode = false;
     signcolumn = "yes";
     smartcase = true;
+    spell = true;
+    spelllang = "en_us"; # de_de not found
+    spelloptions = "camel";
     splitbelow = true;
     splitright = true;
     tabstop = 2;
