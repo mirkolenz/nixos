@@ -8,6 +8,15 @@
       options.desc = "Paste from system clipboard in insert mode";
     }
     {
+      key = "<C-v>";
+      mode = [
+        "n"
+        "v"
+      ];
+      action = ''"+p'';
+      options.desc = "Paste from system clipboard";
+    }
+    {
       key = "<Esc>";
       mode = "n";
       action = "<cmd>nohlsearch<CR>";
