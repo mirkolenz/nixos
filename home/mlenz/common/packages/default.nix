@@ -37,7 +37,6 @@
     nixpkgs-review
     nix-output-monitor
     rlwrap
-    fastfetch
     # json parsing
     jaq
     jq
