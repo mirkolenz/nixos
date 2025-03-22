@@ -20,7 +20,7 @@
           if pkgs.stdenv.isLinux then
             ''
               if set -q SSH_TTY; and status is-login
-                ${lib.getExe pkgs.macchina}
+                ${lib.getExe config.programs.fastfetch.package}
               end
             ''
           else
