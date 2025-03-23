@@ -106,7 +106,7 @@ let
       TMPFILE="$(mktemp)"
       attrs="$1"
       shift
-      echo "{" >> "$TMPFILE"
+      echo "hashes = {" >> "$TMPFILE"
       ${lib.getExe config.nix.package} eval --json "$attrs" \
         | ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key) \(.value)"' \
         | while read -r key value; do
