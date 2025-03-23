@@ -6,4 +6,7 @@ fetchFromGitHub rec {
   repo = "github-theme-contrib";
   tag = "v${version}";
   hash = "sha256-MKB9JtU6Gv16ma7S9J7n1QCjAiJhBrD0mUHum+blJOs=";
+  meta = {
+    downloadPage = "https://github.com/projekt0n/github-theme-contrib/releases";
+  };
 }

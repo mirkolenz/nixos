@@ -8,8 +8,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "monperrus";
     repo = "bibtexbrowser";
-    rev = "4cdfb81a64e836fb7225e29258bea0258889dd17";
-    hash = "sha256-OwRtRiXNzQUVxc6NFnrSXZp94D2viAnCJoZ0ySplS5Q=";
+    rev = "fbbf95f8a4085d81157ae0df58506b92e4a40b58";
+    hash = "sha256-CUnVkuoFLZkYM8fcHTemN/a66LycAH6LOWqNSZXgIeI=";
   };
   installPhase = ''
     runHook preInstall
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Beautiful publication lists with bibtex and PHP";
     homepage = "www.monperrus.net/martin/bibtexbrowser/";
-    downloadPage = "https://github.com/monperrus/bibtexbrowser/commits/master/";
+    downloadPage = "https://github.com/monperrus/bibtexbrowser/releases/tag/latest";
     maintainers = with maintainers; [ mirkolenz ];
   };
 }
