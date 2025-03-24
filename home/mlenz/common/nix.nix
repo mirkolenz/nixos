@@ -10,7 +10,6 @@
 }:
 {
   nix = lib.mkIf (osConfig == { }) {
-    package = inputs.nix.packages.${pkgs.stdenv.system}.default;
     registry = lib'.self.mkRegistry { inherit inputs os channel; };
     nixPath = [ "nixpkgs=flake:nixpkgs" ];
     keepOldNixPath = false;

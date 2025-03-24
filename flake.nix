@@ -36,10 +36,6 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix = {
-      url = "github:determinatesystems/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Nix Darwin
     nix-darwin-unstable = {

@@ -10,7 +10,6 @@
 }:
 {
   nix = {
-    package = inputs.nix.packages.${pkgs.stdenv.system}.default;
     extraOptions = ''
       !include nix.local.conf
     '';
