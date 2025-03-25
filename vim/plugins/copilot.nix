@@ -5,7 +5,6 @@
       selectedCompletionModel = "gpt-4o-copilot";
     };
     copilot_no_maps = true;
-    copilot_integration_id = "vscode-chat";
   };
   keymaps = lib.mkIf config.plugins.copilot-vim.enable [
     {
