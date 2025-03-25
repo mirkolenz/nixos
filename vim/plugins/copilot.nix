@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   globals = lib.mkIf config.plugins.copilot-vim.enable {
     copilot_settings = {
@@ -90,6 +95,7 @@
       filetypes = {
         "*" = true;
       };
+      node_command = lib.getExe pkgs.nodejs;
     };
   };
   plugins.copilot-lua = {
