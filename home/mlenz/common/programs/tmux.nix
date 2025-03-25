@@ -29,10 +29,6 @@ in
       on_force_close = "detach";
     };
   };
-  home.sessionVariables = {
-    ZELLIJ_AUTO_ATTACH = "true";
-    ZELLIJ_AUTO_EXIT = "true";
-  };
   home.packages = lib.mkIf opensshEnabled (
     with pkgs;
     [
