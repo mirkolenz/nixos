@@ -385,13 +385,13 @@
       "locked": {
         "lastModified": 1743127615,
         "narHash": "sha256-+sMGqywrSr50BGMLMeY789mSrzjkoxZiu61eWjYS/8o=",
-        "owner": "lnl7",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
         "rev": "fc843893cecc1838a59713ee3e50e9e7edc6207c",
         "type": "github"
       },
       "original": {
-        "owner": "lnl7",
+        "owner": "nix-darwin",
         "ref": "nix-darwin-24.11",
         "repo": "nix-darwin",
         "type": "github"
@@ -406,13 +406,13 @@
       "locked": {
         "lastModified": 1742881295,
         "narHash": "sha256-lGXqTG3OdMAjniTXro8FvaMMv4ybHb5JgBK9/dU0kys=",
-        "owner": "lnl7",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
         "rev": "1fc8e765e5379a9fffef53065946b5fc08b351bd",
         "type": "github"
       },
       "original": {
-        "owner": "lnl7",
+        "owner": "nix-darwin",
         "ref": "pull/1341/merge",
         "repo": "nix-darwin",
         "type": "github"
