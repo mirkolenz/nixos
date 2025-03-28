@@ -132,6 +132,9 @@
           prev = "<M-p>";
         };
       };
+      copilot_node_command = lib.getExe pkgs.nodejs;
+      copilot_model = "gpt-4o-copilot";
+      lsp_binary = lib.getExe pkgs.copilot-language-server;
     };
   };
 }
