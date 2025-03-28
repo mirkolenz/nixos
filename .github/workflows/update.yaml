@@ -12,6 +12,11 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.BOT_ID }}
+          private-key: ${{ secrets.BOT_KEY }}
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v16
         with:
@@ -22,7 +27,7 @@ jobs:
         with:
           commit-msg: "chore(deps): update flake.lock"
           pr-title: "chore(deps): update flake.lock"
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
       - name: automerge
         run: gh pr merge --auto --rebase ${{ steps.update.outputs.pull-request-number }}
         if: steps.update.outputs.pull-request-number != ''
