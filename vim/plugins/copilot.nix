@@ -100,6 +100,7 @@
   };
   plugins.copilot-lua = {
     enable = false;
+    nodePackage = pkgs.nodejs;
     settings = {
       filetypes = {
         "*" = true;
