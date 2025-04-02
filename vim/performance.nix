@@ -2,7 +2,7 @@
 {
   performance = {
     byteCompileLua = {
-      enable = true;
+      enable = false;
       configs = true;
       initLua = true;
       nvimRuntime = true;
