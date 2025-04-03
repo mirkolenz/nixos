@@ -37,13 +37,5 @@
     loaded_netrwPlugin = 1;
     # neovide
     neovide_input_macos_option_key_is_meta = "both";
-    # https://neovide.dev/faq.html#how-to-turn-off-all-animations
-    neovide_cursor_animate_command_line = false;
-    neovide_cursor_animate_in_insert_mode = false;
-    neovide_cursor_animation_length = 0;
-    neovide_cursor_trail_size = 0;
-    neovide_position_animation_length = 0;
-    neovide_scroll_animation_far_lines = 0;
-    neovide_scroll_animation_length = 0;
   };
 }
