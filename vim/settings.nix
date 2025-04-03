@@ -23,7 +23,7 @@
     signcolumn = "yes";
     smartcase = true;
     spell = true;
-    spelllang = "en_us"; # de_de not found
+    spelllang = "en_us,de_de";
     spelloptions = "camel";
     splitbelow = true;
     splitright = true;
