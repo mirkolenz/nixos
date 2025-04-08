@@ -657,58 +657,6 @@
         "type": "github"
       }
     },
-    "plist-manager-stable": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nix-darwin": [
-          "nix-darwin-stable"
-        ],
-        "nixpkgs": [
-          "nixpkgs-darwin-stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1735864012,
-        "narHash": "sha256-kRJawkhZjcpvniHNj7wHuTiuFgpR2RKia4pOJrb6560=",
-        "owner": "z0al",
-        "repo": "plist-manager",
-        "rev": "621b261473dc32cc312708e22b5bb68b2d73a5bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "z0al",
-        "repo": "plist-manager",
-        "type": "github"
-      }
-    },
-    "plist-manager-unstable": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nix-darwin": [
-          "nix-darwin-unstable"
-        ],
-        "nixpkgs": [
-          "nixpkgs-darwin-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1735864012,
-        "narHash": "sha256-kRJawkhZjcpvniHNj7wHuTiuFgpR2RKia4pOJrb6560=",
-        "owner": "z0al",
-        "repo": "plist-manager",
-        "rev": "621b261473dc32cc312708e22b5bb68b2d73a5bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "z0al",
-        "repo": "plist-manager",
-        "type": "github"
-      }
-    },
     "pyproject-build-systems": {
       "inputs": {
         "nixpkgs": [
@@ -807,8 +755,6 @@
         "nixpkgs-stable-small": "nixpkgs-stable-small",
         "nixpkgs-unstable-small": "nixpkgs-unstable-small",
         "nixvim": "nixvim",
-        "plist-manager-stable": "plist-manager-stable",
-        "plist-manager-unstable": "plist-manager-unstable",
         "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
         "quadlet-nix": "quadlet-nix",

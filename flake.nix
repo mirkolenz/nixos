@@ -74,24 +74,6 @@
       };
     };
 
-    # plist-manager
-    plist-manager-unstable = {
-      url = "github:z0al/plist-manager";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-darwin-unstable";
-        nix-darwin.follows = "nix-darwin-unstable";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-    plist-manager-stable = {
-      url = "github:z0al/plist-manager";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-darwin-stable";
-        nix-darwin.follows = "nix-darwin-stable";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-
     # cosmic
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
