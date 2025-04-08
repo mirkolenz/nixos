@@ -90,7 +90,7 @@
     }
   ];
   plugins.copilot-vim = {
-    enable = false;
+    enable = true;
     settings = {
       filetypes = {
         "*" = true;
@@ -99,7 +99,7 @@
     };
   };
   plugins.copilot-lua = {
-    enable = true;
+    enable = false;
     nodePackage = pkgs.nodejs;
     settings = {
       filetypes = {
