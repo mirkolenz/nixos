@@ -17,8 +17,6 @@ lib.mkIf config.services.xserver.enable {
     ];
   };
   services = {
-    desktopManager.cosmic.enable = true;
-    displayManager.cosmic-greeter.enable = true;
     xserver = {
       xkb.layout = "us";
       excludePackages = with pkgs; [ xterm ];

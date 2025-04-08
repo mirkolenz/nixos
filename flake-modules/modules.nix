@@ -74,7 +74,6 @@
           self.systemModules.default
           homeManager.nixosModules.default
           inputs.quadlet-nix.nixosModules.default
-          inputs.nixos-cosmic.nixosModules.default
           ../system/linux
           {
             home-manager.users.mlenz = self.homeModules.linux;
