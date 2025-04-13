@@ -192,6 +192,6 @@ in
     taps = [ ];
     brews = [ ];
     casks = caskApps ++ caskFonts;
-    # inherit masApps;
+    inherit masApps;
   };
 }
