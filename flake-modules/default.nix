@@ -2,7 +2,6 @@
   lib',
   inputs,
   nixpkgsArgs,
-  lib,
   self,
   ...
 }:
@@ -12,7 +11,6 @@
     {
       pkgs,
       system,
-      config,
       ...
     }:
     {
@@ -20,26 +18,9 @@
         inherit system;
         inherit (nixpkgsArgs) config overlays;
       };
-      legacyPackages = pkgs.exported-functions // {
-        inherit (pkgs) exported-functions vimPlugins;
-        exported-packages = lib.filterAttrs (
-          _: value: lib.meta.availableOn pkgs.stdenv.hostPlatform value
-        ) pkgs.exported-packages;
-        checked-packages = config.legacyPackages.exported-packages // {
-          inherit (config.packages)
-            nixvim-unstable
-            # nixvim-stable
-            ;
-        };
-      };
-      packages = config.legacyPackages.exported-packages // {
+      legacyPackages = pkgs;
+      packages = pkgs.exported-packages // {
         default = pkgs.mkBuilder { flake = self; };
-        inherit (pkgs)
-          home-manager
-          nixos-rebuild-ng
-          darwin-rebuild
-          darwin-uninstaller
-          ;
       };
     };
   flake = {

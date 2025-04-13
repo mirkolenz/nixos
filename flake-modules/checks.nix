@@ -12,7 +12,13 @@ in
 {
   flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
     checks = lib.getAttrs systems (
-      lib.mapAttrs (system: attrs: attrs.checked-packages) self.legacyPackages
+      lib.mapAttrs (
+        system: pkgs:
+        pkgs.exported-packages
+        // {
+          inherit (pkgs) nixvim-unstable;
+        }
+      ) self.legacyPackages
     );
   };
 }

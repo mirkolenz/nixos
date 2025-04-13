@@ -9,12 +9,14 @@ let
   inherit (prev) lib;
   exportedPackages = lib.packagesFromDirectoryRecursive {
     inherit (prev) newScope;
-    callPackage = lib.callPackageWith (final // { inherit inputs; });
+    callPackage = lib.callPackageWith (prev // { inherit inputs; });
     directory = ./packages;
   };
 in
 {
-  exported-packages = exportedPackages;
+  exported-packages = lib.filterAttrs (
+    _: value: lib.meta.availableOn system value && lib.isDerivation value
+  ) exportedPackages;
   inherit (self.packages.${system})
     # nixvim-stable
     nixvim-unstable
