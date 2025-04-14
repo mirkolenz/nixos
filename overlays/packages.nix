@@ -8,14 +8,14 @@ let
   inherit (prev.stdenv.hostPlatform) system;
   inherit (prev) lib;
   exportedPackages = lib.packagesFromDirectoryRecursive {
-    inherit (prev) newScope;
-    callPackage = lib.callPackageWith (prev // { inherit inputs; });
+    # inherit (prev) newScope;
+    callPackage = lib.callPackageWith (final // { inherit inputs; });
     directory = ./packages;
   };
 in
 {
   exported-packages = lib.filterAttrs (
-    _: value: lib.meta.availableOn system value && lib.isDerivation value
+    _: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
   ) exportedPackages;
   inherit (self.packages.${system})
     # nixvim-stable
