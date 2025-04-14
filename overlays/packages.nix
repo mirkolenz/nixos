@@ -15,7 +15,7 @@ let
 in
 {
   exported-packages = lib.filterAttrs (
-    _: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
+    name: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
   ) exportedPackages;
   inherit (self.packages.${system})
     # nixvim-stable
