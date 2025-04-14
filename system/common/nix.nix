@@ -49,6 +49,7 @@
       always-allow-substitutes = true;
       bash-prompt-prefix = "(nix:$name)\\040";
       builders-use-substitutes = true;
+      download-buffer-size = 1000000000; # 1 GB
       keep-derivations = false;
       keep-failed = false;
       keep-going = true;
@@ -57,7 +58,6 @@
       max-jobs = "auto";
       upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
       warn-dirty = false;
-      download-buffer-size = 1000000000; # 1 GB
     };
     gc = {
       automatic = true;
