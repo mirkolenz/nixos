@@ -38,6 +38,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     llm
     ghostscript
     janice
+    codex
     # typst
     typst
     typstyle

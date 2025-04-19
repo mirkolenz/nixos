@@ -9,4 +9,5 @@ final: prev: {
       hash = "sha256-pT8W/ZdNP7Fv5nyTX9vKbTa2jIk3THN1HVCmuEIibfc=";
     };
   });
+  inherit (final.unstable-small) codex;
 }
