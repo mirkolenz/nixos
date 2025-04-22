@@ -1,10 +1,6 @@
 { ... }:
 {
   home.shell.enableShellIntegration = true;
-  programs.zellij = {
-    attachExistingSession = true;
-    exitShellOnExit = true;
-  };
   programs.tex-fmt = {
     enable = true;
     settings = {
