@@ -1,5 +1,6 @@
 { ... }:
 {
+  imports = [ ./uv.nix ];
   home.shell.enableShellIntegration = true;
   programs.tex-fmt = {
     enable = true;
