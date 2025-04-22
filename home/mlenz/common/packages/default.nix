@@ -79,7 +79,6 @@
     zstd
   ];
   home.shellAliases = {
-    py = "${lib.getExe' config.programs.uv.package "uv"} run";
     cat = lib.getExe config.programs.bat.package;
     lg = lib.getExe config.programs.lazygit.package;
     l = "ll";
