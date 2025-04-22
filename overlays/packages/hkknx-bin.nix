@@ -10,7 +10,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "hkknx";
-  version = "3.1.1";
+  version = "3.1.2";
 
   passthru = {
     urls = {
@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
       x86_64-linux = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_amd64.tar.gz";
     };
     hashes = {
-      aarch64-darwin = "sha256-YuFdI1+NjYUe7ygFtWIe7xXpmROs+Kyz9SSmZFVzBSs=";
-      aarch64-linux = "sha256-YKU/xpQBSEqCJTTQKd22YsddQpyh3IK0b3JO838ZIoE=";
-      x86_64-darwin = "sha256-wll3cIk3Oqy+wQ+08H33IWad/kBzkeMx4RHqj4e4aoM=";
-      x86_64-linux = "sha256-XbNCNi/v0N96NCWQ6H/gXV+UVn/dAUjG9iUu8ZiBpPc=";
+      aarch64-darwin = "sha256-DEiFoW6+MDR0+GKI8IVv+cYddk3Yvp4YsRA+WGfYeEA=";
+      aarch64-linux = "sha256-Vw9Nnvpkhlg45pjQeIgaVf87nDNqXsayDP08zD0ErE4=";
+      x86_64-darwin = "sha256-deN7bstlAhvh7bwdWFr9oiiZ60T5gLgzfYlOKTOj1Z8=";
+      x86_64-linux = "sha256-wUg3NG427AnFX512cSZ7+SxN9uYrsKt/tvElaXM/NGc=";
     };
   };
 
