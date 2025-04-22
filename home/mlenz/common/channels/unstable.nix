@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, config, ... }:
 {
   imports = [
     ./uv.nix
