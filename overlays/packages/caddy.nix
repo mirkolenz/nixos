@@ -1,7 +1,8 @@
-{ nixpkgs }:
-nixpkgs.withPlugins {
+{ unstable-small }:
+unstable-small.caddy.withPlugins {
   plugins = [
-    "github.com/caddy-dns/cloudflare@v0.0.0-20250228175314-1fb64108d4de"
+    # https://github.com/caddy-dns/cloudflare/tags
+    "github.com/caddy-dns/cloudflare@v0.2.1"
   ];
-  hash = "sha256-3nvVGW+ZHLxQxc1VCc/oTzCLZPBKgw4mhn+O3IoyiSs=";
+  hash = "sha256-saKJatiBZ4775IV2C5JLOmZ4BwHKFtRZan94aS5pO90=";
 }
