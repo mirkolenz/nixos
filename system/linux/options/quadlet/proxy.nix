@@ -170,7 +170,7 @@ in
   config = lib.mkIf (config.virtualisation.quadlet.enable && cfg.enable) {
     virtualisation.quadlet.containers.proxy = lib.mkMerge [
       {
-        imageStream = pkgs.caddy-custom-docker;
+        imageStream = pkgs.caddy-docker;
         containerConfig = {
           Volume = [
             "${cfg.configFile}:/etc/caddy/Caddyfile:ro"
