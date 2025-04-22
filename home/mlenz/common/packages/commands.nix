@@ -96,7 +96,8 @@ let
       fi
       value="$(${lib.getExe config.nix.package} eval --raw "$1")"
       shift
-      ${lib.getExe config.nix.package} store prefetch-file --json "$@" "$value" | ${lib.getExe pkgs.jq} -r .hash
+      hash="$(${lib.getExe config.nix.package} store prefetch-file --json "$@" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
+      echo "hash = \"$hash\";"
     '';
     prefetch-attrs = ''
       if [ "$#" -lt 1 ]; then
