@@ -45,6 +45,7 @@
         "pipe-operators"
       ];
       accept-flake-config = true;
+      allow-import-from-derivation = true;
       allowed-users = [ user.login ];
       always-allow-substitutes = true;
       bash-prompt-prefix = "(nix:$name)\\040";
