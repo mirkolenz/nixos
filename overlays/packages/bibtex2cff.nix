@@ -39,13 +39,13 @@ python3Packages.buildPythonApplication rec {
     types-pyyaml
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Convert from bibtex to CITATION.cff";
     homepage = "https://github.com/Anselmoo/bibtex2cff";
     downloadPage = "https://github.com/Anselmoo/bibtex2cff/releases";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     mainProgram = "bibtex2cff";
-    platforms = with platforms; darwin ++ linux;
-    maintainers = with maintainers; [ mirkolenz ];
+    platforms = with lib.platforms; darwin ++ linux;
+    maintainers = with lib.maintainers; [ mirkolenz ];
   };
 }

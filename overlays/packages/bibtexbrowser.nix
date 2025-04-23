@@ -19,10 +19,10 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
-  meta = with lib; {
+  meta = {
     description = "Beautiful publication lists with bibtex and PHP";
     homepage = "www.monperrus.net/martin/bibtexbrowser/";
     downloadPage = "https://github.com/monperrus/bibtexbrowser/releases/tag/latest";
-    maintainers = with maintainers; [ mirkolenz ];
+    maintainers = with lib.maintainers; [ mirkolenz ];
   };
 }

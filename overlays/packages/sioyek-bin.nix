@@ -45,11 +45,11 @@ mkApp rec {
     rcodesign sign ${appname}.app
   '';
 
-  meta = with lib; {
+  meta = {
     description = "PDF viewer with a focus on textbooks and research papers";
     homepage = "https://sioyek.info";
     downloadPage = "https://github.com/ahrm/sioyek/releases";
-    license = licenses.gpl3;
-    platforms = attrNames passthru.urls;
+    license = lib.licenses.gpl3;
+    platforms = lib.attrNames passthru.urls;
   };
 }

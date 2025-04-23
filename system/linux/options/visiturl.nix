@@ -8,40 +8,38 @@ let
   cfg = config.custom.visiturl;
 in
 {
-  options.custom.visiturl =
-    with lib;
-    mkOption {
-      default = { };
-      type = types.attrsOf (
-        types.submodule (
-          { name, ... }:
-          {
-            options = {
-              enable = mkEnableOption "periodically visit a URL";
-              name = mkOption {
-                type = types.str;
-                default = name;
-              };
-              description = mkOption {
-                type = types.str;
-                default = "";
-              };
-              url = mkOption {
-                type = types.str;
-                example = "$URL";
-              };
-              interval = mkOption {
-                type = types.str;
-              };
-              envFile = mkOption {
-                type = with types; nullOr path;
-                default = null;
-              };
+  options.custom.visiturl = lib.mkOption {
+    default = { };
+    type = lib.types.attrsOf (
+      lib.types.submodule (
+        { name, ... }:
+        {
+          options = {
+            enable = lib.mkEnableOption "periodically visit a URL";
+            name = lib.mkOption {
+              type = lib.types.str;
+              default = name;
             };
-          }
-        )
-      );
-    };
+            description = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
+            url = lib.mkOption {
+              type = lib.types.str;
+              example = "$URL";
+            };
+            interval = lib.mkOption {
+              type = lib.types.str;
+            };
+            envFile = lib.mkOption {
+              type = with lib.types; nullOr path;
+              default = null;
+            };
+          };
+        }
+      )
+    );
+  };
   config = {
     systemd.timers = lib.mapAttrs' (_: entry: {
       inherit (entry) name;

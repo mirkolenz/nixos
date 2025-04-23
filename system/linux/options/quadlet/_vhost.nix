@@ -4,25 +4,25 @@
   ...
 }:
 {
-  options = with lib; {
-    name = mkOption {
-      type = with types; str;
+  options = {
+    name = lib.mkOption {
+      type = with lib.types; str;
       default = name;
     };
-    extraNames = mkOption {
-      type = with types; listOf str;
+    extraNames = lib.mkOption {
+      type = with lib.types; listOf str;
       default = [ ];
     };
-    reverseProxy = mkOption {
+    reverseProxy = lib.mkOption {
       default = { };
-      type = types.submodule {
+      type = lib.types.submodule {
         options = {
-          upstreams = mkOption {
-            type = with types; listOf str;
+          upstreams = lib.mkOption {
+            type = with lib.types; listOf str;
             default = [ ];
           };
-          extraConfig = mkOption {
-            type = types.lines;
+          extraConfig = lib.mkOption {
+            type = lib.types.lines;
             default = "";
             description = ''
               Additional lines of configuration appended to the reverse proxy in the automatically generated `Caddyfile`.
@@ -31,8 +31,8 @@
         };
       };
     };
-    extraConfig = mkOption {
-      type = types.lines;
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
       default = "";
       description = ''
         Additional lines of configuration appended to the virtual host in the automatically generated `Caddyfile`.

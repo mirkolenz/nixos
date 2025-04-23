@@ -14,10 +14,10 @@ mkApp rec {
     stripRoot = false;
   };
 
-  meta = with lib; {
+  meta = {
     description = "UI wrapper designed for convenient service work with TI CC1352/CC2538/CC2652 based Zigbee sticks or gateways";
     homepage = "https://github.com/xyzroe/ZigStarGW-MT";
     downloadPage = "https://github.com/xyzroe/ZigStarGW-MT/releases";
-    license = licenses.gpl3;
+    license = lib.licenses.gpl3;
   };
 }

@@ -29,11 +29,11 @@ mkApp rec {
   };
   wrapperPath = "Contents/MacOS/${pname}";
 
-  meta = with lib; {
+  meta = {
     description = "GUI frontend for neovim";
     homepage = "https://github.com/akiyosi/goneovim";
     downloadPage = "https://github.com/akiyosi/goneovim/releases";
-    license = licenses.mit;
-    platforms = attrNames passthru.urls;
+    license = lib.licenses.mit;
+    platforms = lib.attrNames passthru.urls;
   };
 }

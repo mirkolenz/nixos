@@ -3,13 +3,13 @@ let
   cfg = config.custom.docker;
 in
 {
-  options.custom.docker = with lib; {
-    enable = mkEnableOption "Docker";
-    userns = mkOption {
-      type = with types; nullOr str;
+  options.custom.docker = {
+    enable = lib.mkEnableOption "Docker";
+    userns = lib.mkOption {
+      type = with lib.types; nullOr str;
       default = null;
     };
-    enableIcc = mkEnableOption "Enable inter-container communication";
+    enableIcc = lib.mkEnableOption "Enable inter-container communication";
   };
 
   config = lib.mkIf cfg.enable {

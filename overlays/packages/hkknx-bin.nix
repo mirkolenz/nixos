@@ -44,14 +44,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "HomeKit Bridge for KNX";
     homepage = "https://hochgatterer.me/hkknx";
     downloadPage = "https://github.com/brutella/hkknx-public/releases";
     mainProgram = pname;
-    platforms = attrNames passthru.urls;
-    maintainers = with maintainers; [ mirkolenz ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
+    platforms = lib.attrNames passthru.urls;
+    maintainers = with lib.maintainers; [ mirkolenz ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfree;
   };
 }

@@ -88,51 +88,51 @@ let
       Caddyfile-raw;
 in
 {
-  options.virtualisation.quadlet.proxy = with lib; {
-    enable = mkEnableOption "Reverse proxy with Caddy";
+  options.virtualisation.quadlet.proxy = {
+    enable = lib.mkEnableOption "Reverse proxy with Caddy";
 
-    systemdConfig = mkOption {
-      type = types.attrsOf types.anything;
+    systemdConfig = lib.mkOption {
+      type = with lib.types; attrsOf anything;
       default = { };
     };
 
     networks = {
       internal = {
-        ref = mkOption { type = with types; str; };
-        ip = mkOption { type = with types; str; };
+        ref = lib.mkOption { type = with lib.types; str; };
+        ip = lib.mkOption { type = with lib.types; str; };
       };
       external = {
-        ref = mkOption { type = with types; str; };
-        ip = mkOption { type = with types; str; };
+        ref = lib.mkOption { type = with lib.types; str; };
+        ip = lib.mkOption { type = with lib.types; str; };
       };
     };
 
     storage = {
-      data = mkOption { type = with types; str; };
-      config = mkOption { type = with types; str; };
-      certificates = mkOption {
-        type = with types; nullOr str;
+      data = lib.mkOption { type = with lib.types; str; };
+      config = lib.mkOption { type = with lib.types; str; };
+      certificates = lib.mkOption {
+        type = with lib.types; nullOr str;
         default = null;
       };
     };
 
-    email = mkOption { type = with types; str; };
+    email = lib.mkOption { type = with lib.types; str; };
 
-    acmeStaging = mkEnableOption "use Let's Encrypt staging server";
+    acmeStaging = lib.mkEnableOption "use Let's Encrypt staging server";
 
-    domains = mkOption {
+    domains = lib.mkOption {
       default = { };
-      type = types.attrsOf (
-        types.submodule (
+      type = lib.types.attrsOf (
+        lib.types.submodule (
           { name, ... }:
           {
             options = {
-              name = mkOption {
-                type = types.str;
+              name = lib.mkOption {
+                type = lib.types.str;
                 default = name;
               };
-              extraConfig = mkOption {
-                type = types.lines;
+              extraConfig = lib.mkOption {
+                type = lib.types.lines;
                 default = "";
               };
             };
@@ -141,29 +141,29 @@ in
       );
     };
 
-    virtualHosts = mkOption {
+    virtualHosts = lib.mkOption {
       default = { };
-      type = types.attrsOf (types.submodule ./_vhost.nix);
+      type = lib.types.attrsOf (lib.types.submodule ./_vhost.nix);
     };
 
-    extraConfig = mkOption {
-      type = types.lines;
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
       default = "";
       description = ''
         Additional lines of configuration appended to the automatically generated `Caddyfile`.
       '';
     };
 
-    globalConfig = mkOption {
-      type = types.lines;
+    globalConfig = lib.mkOption {
+      type = lib.types.lines;
       default = "";
       description = ''
         Additional lines of global configuration appended to the automatically generated `Caddyfile`.
       '';
     };
 
-    configFile = mkOption {
-      type = types.path;
+    configFile = lib.mkOption {
+      type = lib.types.path;
       default = "${Caddyfile}/Caddyfile";
     };
   };
