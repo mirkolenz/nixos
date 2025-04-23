@@ -33,8 +33,4 @@ mkDocker {
     mkdir -m 1777 tmp
   '';
   config.entrypoint = [ (lib.getExe hkknx-bin) ] ++ defaultOptions;
-  meta = {
-    maintainers = with lib.maintainers; [ mirkolenz ];
-    platforms = lib.platforms.linux;
-  };
 }

@@ -7,11 +7,19 @@ args@{
   builder ? dockerTools.streamLayeredImage,
   ...
 }:
-lib.addMetaAttrs meta (
-  builder (
-    lib.removeAttrs args [
-      "meta"
-      "builder"
-    ]
+lib.addMetaAttrs
+  (
+    {
+      maintainers = with lib.maintainers; [ mirkolenz ];
+      platforms = lib.platforms.linux;
+    }
+    // meta
   )
-)
+  (
+    builder (
+      lib.removeAttrs args [
+        "meta"
+        "builder"
+      ]
+    )
+  )

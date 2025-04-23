@@ -40,8 +40,4 @@ mkDocker {
     ];
     WorkingDir = "/srv";
   };
-  meta = {
-    maintainers = with lib.maintainers; [ mirkolenz ];
-    platforms = lib.platforms.linux;
-  };
 }
