@@ -53,7 +53,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf (cfg.package != null) lib.singleton cfg.package;
+    home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
     xdg.configFile."infat/config.toml" = lib.mkIf (cfg.settings != { }) {
       source = infatSettings;
     };
