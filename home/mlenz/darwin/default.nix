@@ -29,6 +29,7 @@ in
     undmg
     rcodesign
     vimr-bin
+    infat-bin
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''
