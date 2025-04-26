@@ -37,7 +37,6 @@ in
         open --hide /Applications/ScanSnapHomeMain.app
       '';
     })
-    (writeShellScriptBin "zed" ''exec zed-preview "$@"'')
   ];
   home.file = {
     "bin".source = mkLinkFarm {
@@ -62,6 +61,7 @@ in
   };
   home.shellAliases = {
     copy = ''${lib.getExe' pkgs.coreutils "tr"} -d '\n' | pbcopy'';
+    zed = "zed-preview";
   };
   programs.ssh.includes = [
     "${config.home.homeDirectory}/.orbstack/ssh/config"

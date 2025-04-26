@@ -72,6 +72,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     nodejs
     nodePackages.prettier
     nodePackages.dotenv-vault
+    npm-check-updates
     # java
     jdk
     gradle
@@ -86,6 +87,5 @@ lib.mkIf config.custom.profile.isWorkstation {
     # my own packages
     makejinja
     arguebuf
-    (writeShellScriptBin "npmup" ''exec ${lib.getExe npm-check-updates} "$@"'')
   ];
 }
