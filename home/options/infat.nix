@@ -52,12 +52,12 @@ in
       };
     };
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && pkgs.stdenv.hostPlatform.isDarwin) {
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
     xdg.configFile."infat/config.toml" = lib.mkIf (cfg.settings != { }) {
       source = infatSettings;
     };
-    home.activation = lib.mkIf (cfg.settings != { } && cfg.autoActivate) {
+    home.activation = lib.mkIf (cfg.settings != { } && cfg.package != null && cfg.autoActivate) {
       infat = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         run ${lib.getExe cfg.package} --quiet --config ${infatSettings} $VERBOSE_ARG
       '';
