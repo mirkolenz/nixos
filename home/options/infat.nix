@@ -23,7 +23,7 @@ in
         default = { };
         example = lib.literalExpression ''
           {
-            files = {
+            extensions = {
               md = "TextEdit";
               html = "Safari";
               pdf = "Preview";
@@ -31,6 +31,9 @@ in
             schemes = {
               mailto = "Mail";
               web = "Safari";
+            };
+            types = {
+              plain-text = "VSCode";
             };
           }
         '';

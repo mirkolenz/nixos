@@ -1,15 +1,17 @@
-{ pkgs, ... }:
+{ ... }:
 {
   programs.infat = {
     enable = true;
-    package = pkgs.infat-bin;
     settings = {
-      files = {
+      extensions = {
         md = "Zed Preview";
         pdf = "PDF Expert";
       };
       schemes = {
         mailto = "Mail";
+      };
+      types = {
+        plain-text = "Zed Preview";
       };
     };
   };
