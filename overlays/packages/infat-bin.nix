@@ -1,6 +1,5 @@
 {
   fetchzip,
-  infat-bin,
   lib,
   stdenvNoCC,
   testers,
@@ -41,7 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     version = testers.testVersion {
-      package = infat-bin;
+      package = finalAttrs.finalPackage;
       command = "${finalAttrs.pname} --version";
     };
   };
