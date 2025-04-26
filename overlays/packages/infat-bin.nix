@@ -1,14 +1,16 @@
 {
-  lib,
   fetchzip,
-  stdenv,
+  infat-bin,
+  lib,
+  stdenvNoCC,
+  testers,
 }:
 let
-  inherit (stdenv.hostPlatform) system;
+  inherit (stdenvNoCC.hostPlatform) system;
 in
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "infat";
-  version = "1.1.0";
+  version = "2.0.1";
 
   passthru = {
     urls = {
@@ -16,8 +18,8 @@ stdenv.mkDerivation rec {
       x86_64-darwin = "https://github.com/philocalyst/infat/releases/download/v${version}/infat-x86_64-apple-macos.tar.gz";
     };
     hashes = {
-      aarch64-darwin = "sha256-tEpUUOJVAgUrpBtBN7dpw+jrqMU1Ww/PGsNc8BjIIkg=";
-      x86_64-darwin = "sha256-QUijXYiqeZueR0wcGQPFgv01RYjA/+06aAg9yx9PMiQ=";
+      aarch64-darwin = "sha256-8PCKxZ6vB061SWPO0QmaoaMVtT8HpYBO1hoOVXXAsoM=";
+      x86_64-darwin = "sha256-xhnycBSCxLjp2Yln4EF/GYLTDG9uf2+OE01qgt0zXRQ=";
     };
   };
 
@@ -25,6 +27,8 @@ stdenv.mkDerivation rec {
     url = passthru.urls.${system};
     hash = passthru.hashes.${system};
   };
+
+  dontBuild = true;
 
   installPhase = ''
     runHook preInstall
@@ -34,6 +38,13 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
+  passthru.tests = {
+    version = testers.testVersion {
+      package = infat-bin;
+      command = "${pname} --version";
+    };
+  };
 
   meta = {
     description = "Command line tool to set default openers for file formats and url schemes on macos";
