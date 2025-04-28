@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/bin
-    install -m755 -D infat-* $out/bin/infat
+    install -m755 -D infat $out/bin/infat
 
     runHook postInstall
   '';
@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.tests = {
     version = testers.testVersion {
       package = finalAttrs.finalPackage;
-      command = "${finalAttrs.pname} --version";
+      command = "infat --version";
     };
   };
 
@@ -49,7 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Command line tool to set default openers for file formats and url schemes on macos";
     homepage = "https://github.com/philocalyst/infat";
     license = lib.licenses.mit;
-    mainProgram = finalAttrs.pname;
+    mainProgram = "infat";
     maintainers = with lib.maintainers; [ mirkolenz ];
     platforms = lib.attrNames finalAttrs.passthru.urls;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
