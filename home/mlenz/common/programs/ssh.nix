@@ -11,12 +11,15 @@ in
 {
   programs.ssh = {
     enable = config.custom.profile.isDesktop;
+    addKeysToAgent = if pkgs.stdenv.isDarwin then "yes" else "no";
+    includes = lib.mkIf pkgs.stdenv.isDarwin [
+      "${config.home.homeDirectory}/.orbstack/ssh/config"
+    ];
     matchBlocks = {
       "*" = {
         extraOptions = lib.mkMerge [
           (lib.mkIf pkgs.stdenv.isDarwin {
             UseKeychain = "yes";
-            AddKeysToAgent = "yes";
           })
           (lib.mkIf pkgs.stdenv.isLinux {
             IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";

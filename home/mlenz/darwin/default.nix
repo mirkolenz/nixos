@@ -63,7 +63,4 @@ in
     copy = ''${lib.getExe' pkgs.coreutils "tr"} -d '\n' | pbcopy'';
     zed = "zed-preview";
   };
-  programs.ssh.includes = [
-    "${config.home.homeDirectory}/.orbstack/ssh/config"
-  ];
 }
