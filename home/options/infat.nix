@@ -55,7 +55,10 @@ in
       };
     };
   };
-  config = lib.mkIf (cfg.enable && pkgs.stdenv.hostPlatform.isDarwin) {
+  config = lib.mkIf cfg.enable {
+    assertions = [
+      (lib.hm.assertions.assertPlatform "programs.infat" pkgs lib.platforms.darwin)
+    ];
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
     xdg.configFile."infat/config.toml" = lib.mkIf (cfg.settings != { }) {
       source = infatSettings;
