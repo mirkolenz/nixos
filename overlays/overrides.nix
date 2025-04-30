@@ -1,11 +1,9 @@
 { ... }:
 final: prev: {
   inherit (final.unstable)
-    nixos-rebuild-ng
-    ltex-ls-plus
-    jujutsu
-    ;
-  inherit (final.unstable-small)
     codex
+    jujutsu
+    ltex-ls-plus
+    nixos-rebuild-ng
     ;
 }
