@@ -1,5 +1,5 @@
 {
-  fetchzip,
+  fetchurl,
   lib,
   stdenvNoCC,
   testers,
@@ -9,7 +9,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "infat";
-  version = "2.3.1";
+  version = "2.3.3";
 
   passthru = {
     urls = {
@@ -17,15 +17,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       x86_64-darwin = "https://github.com/philocalyst/infat/releases/download/v${finalAttrs.version}/infat-x86_64-apple-macos.tar.gz";
     };
     hashes = {
-      aarch64-darwin = "sha256-J1HccjIIDG2oCdh7jJNHI9iXweSCanxS4svgRak1tJk=";
-      x86_64-darwin = "sha256-AcJ9Cvbq8IE3+M5BZtT8Udp5d0dpre2dr2HsIspdoZQ=";
+      aarch64-darwin = "sha256-PKjMPHEWKyrDdn9kbWPNLicXvXS3JCUnTZSXTpkua4o=";
+      x86_64-darwin = "sha256-YmK6UlBx8BmHbaTIxKZ5jYq5X+bGtd51EZt6hHGRlko=";
     };
   };
 
-  src = fetchzip {
+  src = fetchurl {
     url = finalAttrs.passthru.urls.${system};
     hash = finalAttrs.passthru.hashes.${system};
   };
+
+  # unpacking produces a single file, so we don't want to cd into it
+  sourceRoot = ".";
 
   dontBuild = true;
 
