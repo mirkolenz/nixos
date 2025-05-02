@@ -11,6 +11,7 @@
       dockerls.enable = true;
       eslint.enable = true;
       gopls.enable = true;
+      harper_ls.enable = true;
       html.enable = true;
       java_language_server.enable = true;
       jsonls.enable = true;
