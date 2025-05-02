@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  plugins.lsp.servers.texlab = {
+  lsp.servers.texlab = {
     enable = true;
     settings.texlab = {
       bibtexFormatter = "tex-fmt";

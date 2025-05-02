@@ -1,9 +1,9 @@
 { lib', ... }:
 {
   imports = lib'.flocken.getModules ./.;
-  plugins.lsp = {
-    enable = true;
-    inlayHints = true;
+  plugins.lspconfig.enable = true;
+  lsp = {
+    inlayHints.enable = true;
     servers = {
       astro.enable = true;
       bashls.enable = true;

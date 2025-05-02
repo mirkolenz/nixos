@@ -1,6 +1,6 @@
 { ... }:
 {
-  plugins.lsp.servers.nixd = {
+  lsp.servers.nixd = {
     enable = true;
     settings = {
       formatting.command = [ "nixfmt" ];
