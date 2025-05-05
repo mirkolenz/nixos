@@ -52,7 +52,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     nvfetcher
     devenv
     nurl
-    nix-init
     hydra-check
     nixos-render-docs
     nix-converter
