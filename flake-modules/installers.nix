@@ -38,7 +38,7 @@ let
     channel = "unstable"; # todo: change to "stable" for nixos 25.05
     extraModule = {
       imports = [
-        inputs.nixos-hardware.nixosModules.raspberry-pi-4
+        "${inputs.nixos-hardware}/raspberry-pi/4"
       ];
       boot.tmp = {
         useTmpfs = true;

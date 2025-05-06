@@ -4,7 +4,7 @@
     "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"
     "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
-    "${inputs.nixos-hardware}/common/pc/laptop/ssd"
+    "${inputs.nixos-hardware}/common/pc/ssd"
     ./hardware.nix
   ];
   custom.profile.isDesktop = true;

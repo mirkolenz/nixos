@@ -2,7 +2,7 @@
 { inputs, lib', ... }:
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    "${inputs.nixos-hardware}/raspberry-pi/4"
     ./hardware.nix
   ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
 
