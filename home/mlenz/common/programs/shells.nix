@@ -78,16 +78,4 @@
   programs.bash = {
     enable = true;
   };
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    config = {
-      disable_stdin = true;
-      hide_env_diff = true;
-      load_dotenv = false;
-      log_format = "-";
-      strict_env = true;
-      warn_timeout = "0s";
-    };
-  };
 }
