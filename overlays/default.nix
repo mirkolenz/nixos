@@ -1,18 +1,8 @@
 args@{ inputs, ... }:
 [
-  (
-    final: prev:
-    prev.lib.mergeAttrsList (
-      (map (name: import name args final prev) [
-        ./channels.nix
-        ./functions.nix
-        ./overrides.nix
-        ./packages.nix
-        ./vim-plugins.nix
-      ])
-      ++ (map (name: name final prev) [
-        inputs.nix-darwin-unstable.overlays.default
-      ])
-    )
-  )
+  inputs.nix-darwin-unstable.overlays.default
+  (import ./by-name.nix args)
+  (import ./channels.nix args)
+  (import ./imports.nix args)
+  (import ./overrides.nix args)
 ]
