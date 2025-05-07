@@ -6,7 +6,7 @@
 }:
 final: prev:
 let
-  inherit (final.pkgs) system;
+  inherit (prev.stdenv.hostPlatform) system;
   os = lib'.self.systemOs system;
   importArgs = {
     inherit system config;
