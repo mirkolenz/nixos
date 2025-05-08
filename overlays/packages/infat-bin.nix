@@ -9,7 +9,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "infat";
-  version = "2.3.3";
+  version = "2.3.4";
 
   passthru = {
     urls = {
@@ -17,8 +17,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       x86_64-darwin = "https://github.com/philocalyst/infat/releases/download/v${finalAttrs.version}/infat-x86_64-apple-macos.tar.gz";
     };
     hashes = {
-      aarch64-darwin = "sha256-PKjMPHEWKyrDdn9kbWPNLicXvXS3JCUnTZSXTpkua4o=";
-      x86_64-darwin = "sha256-YmK6UlBx8BmHbaTIxKZ5jYq5X+bGtd51EZt6hHGRlko=";
+      aarch64-darwin = "sha256-yEOBMJt0UgYv5dveYhoMr1DXUxRXn4SR3u5ShuQSGgY=";
+      x86_64-darwin = "sha256-l5N8JcRMhd/kDmtOe6mPsygBdElI2bMwtZwHfjWUJfQ=";
     };
   };
 
