@@ -7,6 +7,7 @@
 lib.mkIf pkgs.stdenv.isDarwin {
   custom.texlive = {
     enable = true;
+    # package = pkgs.texliveFull.__overrideTeXConfig { withDocs = true; };
     bibDir = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
     latexmkrc = ''
       # 1: pdflatex

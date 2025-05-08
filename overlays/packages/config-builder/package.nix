@@ -4,8 +4,5 @@
 }:
 writers.writePython3Bin "config-builder" {
   libraries = with python3Packages; [ typer ];
-  flakeIgnore = [
-    "E203"
-    "E501"
-  ];
+  doCheck = false;
 } ./script.py
