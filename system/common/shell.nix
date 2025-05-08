@@ -10,4 +10,9 @@
     };
   };
   environment.shells = with pkgs; [ fish ];
+  environment.pathsToLink = [
+    "/share/bash-completion"
+    "/share/fish"
+    "/share/zsh"
+  ];
 }

@@ -7,7 +7,7 @@
 {
   programs.fish = {
     enable = true;
-    generateCompletions = false;
+    generateCompletions = true;
     loginShellInit = ''
       fish_add_path "${config.home.homeDirectory}/bin"
     '';
@@ -77,5 +77,6 @@
   };
   programs.bash = {
     enable = true;
+    enableCompletion = true;
   };
 }
