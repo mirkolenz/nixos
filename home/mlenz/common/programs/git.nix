@@ -32,16 +32,21 @@
     };
     ignores = [
       # nix
-      "/.direnv/"
-      "/.devenv/"
-      ".envrc"
+      ".devenv"
+      ".direnv"
       ".env"
-      "/result"
-      # mac
+      ".envrc"
+      "result"
+      "result-*"
+      # editors
+      ".idea"
+      ".vscode"
+      ".zed"
+      # https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
       ".DS_Store"
       ".AppleDouble"
       ".LSOverride"
-      "Icon"
+      "Icon[]"
       "._*"
       ".DocumentRevisions-V100"
       ".fseventsd"
@@ -55,14 +60,14 @@
       "Network Trash Folder"
       "Temporary Items"
       ".apdisk"
-      "*.icloud"
       # linux
       "*~"
       ".fuse_hidden*"
       ".directory"
       ".Trash-*"
       ".nfs*"
-      # windows
+      "nohup.out"
+      # https://github.com/github/gitignore/blob/main/Global/Windows.gitignore
       "Thumbs.db"
       "Thumbs.db:encryptable"
       "ehthumbs.db"
@@ -70,13 +75,12 @@
       "*.stackdump"
       "[Dd]esktop.ini"
       "$RECYCLE.BIN/"
-      # vscode
-      ".vscode/*"
-      "!.vscode/settings.json"
-      "!.vscode/tasks.json"
-      "!.vscode/launch.json"
-      "!.vscode/extensions.json"
-      "!.vscode/*.code-snippets"
+      "*.cab"
+      "*.msi"
+      "*.msix"
+      "*.msm"
+      "*.msp"
+      "*.lnk"
     ];
     extraConfig = {
       core = {
