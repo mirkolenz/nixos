@@ -128,6 +128,17 @@ let
     json-tool = ''
       exec ${lib.getExe pkgs.python3} -m json.tool "$@"
     '';
+    fontconvert = ''
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: $0 SOURCE TARGET [FONTFORGE_ARGS...]" >&2
+        exit 1
+      fi
+      source="$1"
+      shift
+      target="$1"
+      shift
+      exec ${lib.getExe' pkgs.fontforge "fontforge"} -c "Open(\"$source\"); Generate(\"$target\");" "$@"
+    '';
   };
   cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
 in

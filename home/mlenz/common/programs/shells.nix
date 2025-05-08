@@ -51,22 +51,6 @@
         '';
         description = "Print a bold horizontal line";
       };
-      otf2ttf = {
-        body = ''
-          if test (count $argv) -ne 2
-            echo "Usage: otf2ttf <source> <target>" >&2
-            return 1
-          end
-
-          fontforge -c 'Open("$source"); Generate("$target")'
-        '';
-        description = "Convert an OpenType font to TrueType";
-        wraps = "fontforge";
-        argumentNames = [
-          "source"
-          "target"
-        ];
-      };
     };
   };
   programs.zsh = {
