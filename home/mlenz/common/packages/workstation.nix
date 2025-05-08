@@ -72,6 +72,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     nodePackages.prettier
     nodePackages.dotenv-vault
     npm-check-updates
+    biome
     # java
     jdk
     gradle
