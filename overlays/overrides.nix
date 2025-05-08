@@ -6,4 +6,7 @@ final: prev: {
     ltex-ls-plus
     nixos-rebuild-ng
     ;
+  inherit (final.stable)
+    git-annex
+    ;
 }
