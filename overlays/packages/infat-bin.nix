@@ -2,7 +2,7 @@
   fetchurl,
   lib,
   stdenvNoCC,
-  testers,
+  versionCheckHook,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
@@ -41,12 +41,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-      command = "infat --version";
-    };
-  };
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
+  versionCheckProgramArg = "--version";
+  doInstallCheck = true;
 
   meta = {
     description = "Command line tool to set default openers for file formats and url schemes on macos";
