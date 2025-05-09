@@ -3,14 +3,16 @@
   imports = lib'.flocken.getModules ./.;
 
   programs = {
+    btop.enable = true;
+    carapace.enable = false;
+    fastfetch.enable = true;
     home-manager.enable = true;
     htop.enable = true;
-    btop.enable = true;
     nix-index.enable = true;
+    pandoc.enable = true;
     ripgrep.enable = true;
-    carapace.enable = false;
     thefuck.enable = true;
-    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ruff.enable
-    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gradle.enable
+    yazi.enable = true;
+    zoxide.enable = true;
   };
 }

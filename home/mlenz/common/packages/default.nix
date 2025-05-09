@@ -39,7 +39,6 @@
     rlwrap
     # json parsing
     jaq
-    jq
     jql
     yq
     dasel

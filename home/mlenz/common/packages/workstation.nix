@@ -39,6 +39,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     ghostscript
     janice
     codex
+    harper
     # typst
     typst
     typstyle
@@ -63,8 +64,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     goreleaser
     # python
     pythonWithPackages
-    ruff
-    black
     pylyzer
     basedpyright
     # nodejs
@@ -75,7 +74,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     biome
     # java
     jdk
-    gradle
     # rust
     rustc
     cargo

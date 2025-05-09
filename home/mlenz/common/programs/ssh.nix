@@ -9,6 +9,9 @@ let
   tomlFormat = pkgs.formats.toml { };
 in
 {
+  home.packages = lib.mkIf (pkgs.stdenv.isLinux && (osConfig.services.openssh.enable or true)) [
+    pkgs.shpool
+  ];
   programs.ssh = {
     enable = config.custom.profile.isDesktop;
     addKeysToAgent = if pkgs.stdenv.isDarwin then "yes" else "no";
