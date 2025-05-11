@@ -45,7 +45,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     typstyle
     tinymist
     # nix
-    nil
     nixd
     nixfmt
     alejandra
