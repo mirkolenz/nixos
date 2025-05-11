@@ -39,9 +39,9 @@
       "result"
       "result-*"
       # editors
-      ".idea"
-      ".vscode"
-      ".zed"
+      ".idea/*"
+      ".vscode/*"
+      ".zed/*"
       # https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
       ".DS_Store"
       ".AppleDouble"
