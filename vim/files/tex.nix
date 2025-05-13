@@ -15,25 +15,25 @@
     {
       key = "<leader>tB";
       mode = "n";
-      action = "<cmd>TexlabCancelBuild<CR>";
+      action = "<cmd>LspTexlabCancelBuild<CR>";
       options.desc = "Cancel the current build";
     }
     {
       key = "<leader>tc";
       mode = "n";
-      action = "<cmd>TexlabCleanAuxiliary<CR>";
+      action = "<cmd>LspTexlabCleanAuxiliary<CR>";
       options.desc = "Clean auxiliary files";
     }
     {
       key = "<leader>tC";
       mode = "n";
-      action = "<cmd>TexlabCleanArtifacts<CR>";
+      action = "<cmd>LspTexlabCleanArtifacts<CR>";
       options.desc = "Clean auxiliary and output files";
     }
   ];
   userCommands = {
     TexlabWriteBuild = {
-      command = "write | TexlabBuild";
+      command = "write | LspTexlabBuild";
       desc = "Write and build the document";
     };
   };
