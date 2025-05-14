@@ -87,7 +87,10 @@
         autocrlf = "input";
         editor = config.home.sessionVariables.EDITOR;
         eol = "lf";
-        fsmonitor = lib.mkIf pkgs.stdenv.isDarwin true; # not supported on linux
+        # not supported on linux
+        # breaks nix flake operations with path references
+        # https://github.com/NixOS/nix/issues/11567
+        fsmonitor = lib.mkIf pkgs.stdenv.isDarwin false;
       };
       feature = {
         manyFiles = true;
