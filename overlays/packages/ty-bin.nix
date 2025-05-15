@@ -1,14 +1,14 @@
 {
   lib,
   fetchzip,
-  stdenvNoCC,
+  stdenv,
   autoPatchelfHook,
   versionCheckHook,
 }:
 let
-  inherit (stdenvNoCC.hostPlatform) system;
+  inherit (stdenv.hostPlatform) system;
 in
-stdenvNoCC.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "ty";
   version = "0.0.1-alpha.2";
 
@@ -32,7 +32,9 @@ stdenvNoCC.mkDerivation rec {
     hash = passthru.hashes.${system};
   };
 
-  nativeBuildInputs = lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook;
+  buildInputs = lib.optional (!stdenv.isDarwin) (lib.getLib stdenv.cc.cc);
+
+  nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
 
   dontBuild = true;
 
