@@ -10,7 +10,7 @@ let
 in
 stdenvNoCC.mkDerivation rec {
   pname = "ty";
-  version = "0.0.1-alpha.1";
+  version = "0.0.1-alpha.2";
 
   passthru = {
     urls = {
@@ -20,10 +20,10 @@ stdenvNoCC.mkDerivation rec {
       x86_64-linux = "https://github.com/astral-sh/ty/releases/download/${version}/ty-x86_64-unknown-linux-gnu.tar.gz";
     };
     hashes = {
-      aarch64-darwin = "sha256-dYMSkvl91yVgtSoZR324f6RGh3llz67kEnLuodM0o/8=";
-      aarch64-linux = "sha256-fs/nAkhdGYWPZiXwSEYoU3mnglRVCyBWNGi57rtGk8E=";
-      x86_64-darwin = "sha256-4CijJVoLlg89ybayLtKg5bv4bbgprfJ9pYYck3NOqUs=";
-      x86_64-linux = "sha256-3uVH68u+EVe33oo24yWfg1iCkbZQF8mWfpyZZz4Kd88=";
+      aarch64-darwin = "sha256-l5mxjkbIJZ3QCFRZRa1MMWrWxuthMhE3Yal6Nnts3+s=";
+      aarch64-linux = "sha256-veUR5GA+Ba5QGQES5cMAMpSLYLscY1coZHL2fuRjoaw=";
+      x86_64-darwin = "sha256-GuG6aa4QbKcFLphGGpj1VfWONBTu/lAtmOYBllKP2XM=";
+      x86_64-linux = "sha256-cMEcCdCioItQYiQl2JuM7EVpCK+UE1mJgMVPa0JGcEk=";
     };
   };
 
