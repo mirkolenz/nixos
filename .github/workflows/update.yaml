@@ -22,7 +22,7 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-      - uses: DeterminateSystems/update-flake-lock@v24
+      - uses: DeterminateSystems/update-flake-lock@v25
         id: update
         with:
           commit-msg: "chore(deps): update flake.lock"
