@@ -388,16 +388,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1747409712,
+        "lastModified": 1747494142,
         "narHash": "sha256-7TAUwDVZWq82t/x3+zZ5y+Tjl2hLL2c8+8pv9zCUbTo=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "902aa3aee64f7f320066a44b490fef1f05a9a666",
+        "rev": "8e251e45346e9d58e0eece2512e40c183f967e8f",
         "type": "github"
       },
       "original": {
         "owner": "nix-darwin",
-        "ref": "pull/1341/merge",
         "repo": "nix-darwin",
         "type": "github"
       }
