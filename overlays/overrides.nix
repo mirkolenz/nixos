@@ -7,6 +7,6 @@ final: prev: {
     nixos-rebuild-ng
     ;
   inherit (final.stable)
-    git-annex
+    restic
     ;
 }
