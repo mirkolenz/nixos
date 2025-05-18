@@ -147,9 +147,11 @@ nix-store --verify --check-contents --repair
 3. [Install Nix](https://docs.determinate.systems/getting-started/)
 4. Sign in to the App Store
 5. Enable Full Disk Access for terminal application
-6. Exclude the Nix volume from Time Machine and Spotlight:
-  - `General > Time Machine > Options > Exclude from Backups`: Add `/nix`
-  - `Spotlight > Search Privacy`: Add `/nix`
+
+Make sure to exclude the Nix volume from Time Machine and Spotlight:
+
+- `General > Time Machine > Options > Exclude from Backups`: Add `/nix`
+- `Spotlight > Search Privacy`: Add `/nix`
 
 ```shell
 sudo nix --extra-experimental-features "nix-command flakes" run github:mirkolenz/nixos
