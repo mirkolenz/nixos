@@ -281,7 +281,6 @@ nix build --system aarch64-linux github:mirkolenz/nixos#installers.raspi
 <https://nix.dev/tutorials/installing-nixos-on-a-raspberry-pi#updating-firmware>
 
 ```shell
-nix shell pkgs#raspberrypi-eeprom
 sudo mount /dev/disk/by-label/FIRMWARE /mnt
 sudo env BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=default rpi-eeprom-update -d -a
 sudo reboot

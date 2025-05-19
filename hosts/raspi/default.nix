@@ -1,5 +1,10 @@
 # https://nixos.wiki/wiki/NixOS_on_ARM#Installation
-{ inputs, lib', ... }:
+{
+  inputs,
+  lib',
+  pkgs,
+  ...
+}:
 {
   imports = [
     "${inputs.nixos-hardware}/raspberry-pi/4"
@@ -28,4 +33,8 @@
     ];
     useRoutingFeatures = "server";
   };
+
+  environment.systemPackages = with pkgs; [
+    raspberrypi-eeprom
+  ];
 }
