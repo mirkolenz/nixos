@@ -255,6 +255,15 @@ sudo usermod -s $(which fish) "$USER"
 
 ## Utilities and Snippets
 
+### Nix Access Tokens
+
+To avoid rate limiting, add a [GitHub access token](https://nix.dev/manual/nix/stable/command-ref/conf-file.html#conf-access-tokens).
+Add the following to `/etc/nix/nix.local.conf`:
+
+```ini
+access-tokens = github.com=github_pat_XXX
+```
+
 ### Image Building
 
 If building for another architecture on NixOS:
