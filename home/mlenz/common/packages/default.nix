@@ -37,6 +37,7 @@
     nixpkgs-review
     nix-output-monitor
     rlwrap
+    wol
     # json parsing
     jaq
     jql
