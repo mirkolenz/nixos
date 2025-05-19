@@ -17,11 +17,11 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
-    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
     nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-stable-small.url = "github:nixos/nixpkgs/nixos-24.11-small";
+    nixpkgs-stable-small.url = "github:nixos/nixpkgs/nixos-25.05-small";
 
     # Small helpers
     flake-parts = {
@@ -41,7 +41,7 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
     nix-darwin-stable = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
+      url = "github:nix-darwin/nix-darwin"; # todo: nix-darwin-25.05
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     };
 
@@ -51,7 +51,7 @@
       inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
     };
     home-manager-linux-stable = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-linux-stable";
     };
     home-manager-darwin-unstable = {
@@ -59,7 +59,7 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
     home-manager-darwin-stable = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     };
 

@@ -82,6 +82,7 @@
     lg = lib.getExe config.programs.lazygit.package;
     l = "ll";
     dc = "docker compose";
+    py = "${lib.getExe' config.programs.uv.package "uv"} run";
     sudo =
       let
         customPaths = [

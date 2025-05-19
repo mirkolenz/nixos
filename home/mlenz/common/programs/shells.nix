@@ -5,6 +5,7 @@
   ...
 }:
 {
+  home.shell.enableShellIntegration = true;
   programs.fish = {
     enable = true;
     generateCompletions = true;

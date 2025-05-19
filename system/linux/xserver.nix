@@ -5,6 +5,10 @@
   ...
 }:
 lib.mkIf config.services.xserver.enable {
+  services = {
+    desktopManager.cosmic.enable = true;
+    displayManager.cosmic-greeter.enable = true;
+  };
   # Packages
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";

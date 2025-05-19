@@ -45,6 +45,7 @@
   };
 
   system.stateVersion = stateVersions.linux;
+  system.rebuild.enableNg = true;
 
   security = {
     sudo = {
