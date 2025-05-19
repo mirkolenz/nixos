@@ -40,8 +40,4 @@ in
       window-width = 120;
     };
   };
-
-  programs.ssh.matchBlocks."*".extraOptions = lib.mkIf config.programs.ghostty.enable {
-    SetEnv = "TERM=xterm-256color";
-  };
 }
