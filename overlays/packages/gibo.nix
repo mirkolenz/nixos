@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
   buildPackages,
-  versionCheckHook,
 }:
 buildGoModule rec {
   pname = "gibo";
@@ -41,12 +40,6 @@ buildGoModule rec {
         --zsh <(${emulator} $out/bin/gibo completion zsh)
     ''
   );
-
-  nativeInstallCheckInputs = [
-    versionCheckHook
-  ];
-  versionCheckProgramArg = "version";
-  doInstallCheck = false; # gibo can't determine your user cache directory
 
   meta = {
     description = "Easy access to gitignore boilerplates";
