@@ -3,9 +3,9 @@
 
   programs.zellij = {
     enable = pkgs.stdenv.isLinux && (osConfig.services.openssh.enable or true);
-    # enableBashIntegration = false;
-    # enableFishIntegration = false;
-    # enableZshIntegration = false;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
     attachExistingSession = true; # requires shell integration
     exitShellOnExit = true; # requires shell integration
     settings = {
