@@ -1,11 +1,12 @@
 { vimUtils, fetchFromGitHub }:
 vimUtils.buildVimPlugin {
   name = "multicursor.nvim";
+  # prefetch-attr .#vimPlugins.multicursor-nvim.src.url --unpack
   src = fetchFromGitHub {
     owner = "jake-stewart";
     repo = "multicursor.nvim";
-    rev = "c731e52cee7b69fa05915affb09ba65e7cd31fa9";
-    hash = "sha256-rw7jE89Lj5F7bOCAx/rMO+Dpswfg9ohKDyQ3RJtaa3I=";
+    rev = "cecbb3028ba166578eb8620ce885e2362d112ee0";
+    hash = "sha256-IpLBYcqbM2AqVS4qyijmsYqfsXCcaq1yDpwGXw8Vqqg=";
   };
   meta.homepage = "https://github.com/jake-stewart/multicursor.nvim";
 }

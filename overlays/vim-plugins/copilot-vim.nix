@@ -2,6 +2,7 @@
 vimUtils.buildVimPlugin rec {
   pname = "copilot.vim";
   version = "1.49.0";
+  # prefetch-attr .#vimPlugins.copilot-vim.src.url --unpack
   src = fetchFromGitHub {
     owner = "github";
     repo = "copilot.vim";
