@@ -15,13 +15,13 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs-linux-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs-linux-stable.url = "https://channels.nixos.org/nixos-25.05/nixexprs.tar.xz";
     nixpkgs-darwin-unstable.follows = "nixpkgs";
-    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
-    nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-stable-small.url = "github:nixos/nixpkgs/nixos-25.05-small";
+    nixpkgs-darwin-stable.url = "https://channels.nixos.org/nixpkgs-25.05-darwin/nixexprs.tar.xz";
+    nixpkgs-unstable-small.url = "https://channels.nixos.org/nixos-unstable-small/nixexprs.tar.xz";
+    nixpkgs-stable-small.url = "https://channels.nixos.org/nixos-25.05-small/nixexprs.tar.xz";
 
     # Small helpers
     flake-parts = {
