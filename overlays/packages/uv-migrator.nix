@@ -5,17 +5,18 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "uv-migrator";
-  version = "2025.7.1";
+  version = "2025.8.0";
   useFetchCargoVendor = true;
+  # nix-update --flake uv-migrator
 
   src = fetchFromGitHub {
     owner = "stvnksslr";
     repo = "uv-migrator";
     tag = "v${version}";
-    hash = "sha256-LJwOntnLJNSy5CEJuj3+qL1+y8ia537P2Wl6GYgH4x8=";
+    hash = "sha256-VvgMhzmkr6mI3WRIGLKcBi18SZO9Oqcv/zuU/WC+pDk=";
   };
 
-  cargoHash = "sha256-qHMtVFdRgfpXqivb45JWvmV1WrWPocAos1sI0GQF7so=";
+  cargoHash = "sha256-bdBgijlRMMzsORgeB1Qv/8yF/z5mfwvtnG5bSQD7MoU=";
 
   meta = {
     description = "Tool for migrating to the uv package manager";
