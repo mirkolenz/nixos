@@ -62,7 +62,7 @@ let
     "zed"
     "zed@preview"
     "zoom"
-    "zotero"
+    "zotero@beta"
   ];
 
   masApps = {
