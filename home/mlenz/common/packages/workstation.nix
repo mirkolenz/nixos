@@ -39,6 +39,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     ghostscript
     janice
     codex
+    claude-code
     harper
     # typst
     typst
