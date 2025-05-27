@@ -139,7 +139,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = lib.singleton cfg.package ++ (lib.optionals (cfg.bibDir != "") (lib.attrValues cmds));
+      packages = [ cfg.package ] ++ (lib.optionals (cfg.bibDir != "") (lib.attrValues cmds));
       file = {
         ".latexmkrc".source = pkgs.writeText "latexmkrc" cfg.latexmkrc;
       };

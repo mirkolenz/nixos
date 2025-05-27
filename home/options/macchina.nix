@@ -22,7 +22,7 @@ in
   options.programs.macchina = {
     enable = mkEnableOption "macchina";
 
-    package = mkPackageOption pkgs "macchina" { };
+    package = mkPackageOption pkgs "macchina" { nullable = true; };
 
     settings = mkOption {
       type = tomlFormat.type;
@@ -67,7 +67,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
 
     xdg.configFile = lib.mkMerge [
       {

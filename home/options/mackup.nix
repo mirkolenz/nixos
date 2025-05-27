@@ -16,7 +16,7 @@ in
 {
   options.custom.mackup = {
     enable = lib.mkEnableOption "Mackup";
-    package = lib.mkPackageOption pkgs "Mackup" { default = [ "mackup" ]; };
+    package = lib.mkPackageOption pkgs "mackup" { nullable = true; };
     settings = lib.mkOption {
       type = with lib.types; attrsOf anything;
       description = "Settings for Mackup.";
@@ -49,6 +49,6 @@ in
           source = iniFormat.generate "mackup-config-${name}" value;
         };
       }) cfg.customApps);
-    home.packages = lib.singleton cfg.package;
+    home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
   };
 }

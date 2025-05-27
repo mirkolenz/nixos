@@ -11,7 +11,7 @@ in
   options = {
     custom.neovim = {
       enable = lib.mkEnableOption "neovim";
-      package = lib.mkPackageOption pkgs "nvim" { };
+      package = lib.mkPackageOption pkgs "nvim" { nullable = true; };
       defaultEditor = (lib.mkEnableOption "set vim as default editor") // {
         default = true;
       };
@@ -19,7 +19,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     home = {
-      packages = lib.singleton cfg.package;
+      packages = lib.mkIf (cfg.package != null) [ cfg.package ];
       sessionVariables = {
         EDITOR = lib.mkIf cfg.defaultEditor (lib.mkDefault "nvim");
       };

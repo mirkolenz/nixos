@@ -15,9 +15,7 @@ in
   options = {
     programs.infat = {
       enable = lib.mkEnableOption "infat";
-      package = lib.mkPackageOption pkgs "infat-bin" {
-        nullable = true;
-      };
+      package = lib.mkPackageOption pkgs "infat-bin" { nullable = true; };
       settings = lib.mkOption {
         type = tomlFormat.type;
         default = { };
