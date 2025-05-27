@@ -140,6 +140,10 @@
       url = "github:theobori/nix-converter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codex = {
+      url = "github:openai/codex";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     angrr = {
       url = "github:linyinfeng/angrr";
       inputs = {
