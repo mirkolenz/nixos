@@ -5,8 +5,8 @@ vimUtils.buildVimPlugin {
   src = fetchFromGitHub {
     owner = "jake-stewart";
     repo = "multicursor.nvim";
-    rev = "cecbb3028ba166578eb8620ce885e2362d112ee0";
-    hash = "sha256-IpLBYcqbM2AqVS4qyijmsYqfsXCcaq1yDpwGXw8Vqqg=";
+    rev = "9eedebdd395bbbc4711081e33b0606c079e054c3";
+    hash = "sha256-bCk/b1LKORvgcpQwAGv9foa9fl4TwHN64UEdzlncAi4=";
   };
   meta.homepage = "https://github.com/jake-stewart/multicursor.nvim";
 }
