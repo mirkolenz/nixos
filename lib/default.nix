@@ -32,10 +32,9 @@ lib: rec {
         inherit inputs os channel;
         name = "nixpkgs";
       };
-      nixpkgs.flake = systemInput {
-        inherit inputs os channel;
-        name = "nixpkgs";
-      };
+      stable-small.flake = inputs.nixpkgs-stable-small;
+      unstable-small.flake = inputs.nixpkgs-unstable-small;
+      nixpkgs.flake = inputs.nixpkgs;
       self.flake = inputs.self;
     };
   mkVimKeymap =
