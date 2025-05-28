@@ -1,7 +1,9 @@
 { config, ... }:
 {
   programs.claude = {
-    enable = config.custom.profile.isDesktop;
-    settings = { };
+    enable = config.custom.profile.isWorkstation;
+    settings = {
+      model = "opus";
+    };
   };
 }

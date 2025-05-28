@@ -1,9 +1,9 @@
 { config, ... }:
 {
   programs.codex = {
-    enable = config.custom.profile.isDesktop;
+    enable = config.custom.profile.isWorkstation;
     settings = {
-      model = "o3";
+      model = "codex-mini-latest";
     };
   };
 }

@@ -11,7 +11,7 @@ let
     mkOption
     ;
 
-  tomlFormat = pkgs.formats.json { };
+  configFormat = pkgs.formats.json { };
   cfg = config.programs.claude;
 in
 {
@@ -23,7 +23,7 @@ in
     package = mkPackageOption pkgs "claude-code" { nullable = true; };
 
     settings = mkOption {
-      type = tomlFormat.type;
+      type = configFormat.type;
       default = { };
       description = ''
         Configuration written to
@@ -38,7 +38,7 @@ in
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
 
     home.file.".claude/settings.json" = lib.mkIf (cfg.settings != { }) {
-      source = tomlFormat.generate "claude-settings" cfg.settings;
+      source = configFormat.generate "claude-settings" cfg.settings;
     };
   };
 }
