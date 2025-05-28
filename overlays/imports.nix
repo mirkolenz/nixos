@@ -21,7 +21,6 @@ in
     ;
   angrr = fromInput "angrr" "angrr";
   arguebuf = fromInput "arguebuf" "default";
-  codex = fromInput "codex" "codex-rs";
   cosmic-manager = fromInput "cosmic-manager" "cosmic-manager";
   nix-converter = fromInput "nix-converter" "default";
   nixfmt = final.nixfmt-rfc-style;
