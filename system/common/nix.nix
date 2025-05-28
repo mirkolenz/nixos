@@ -67,5 +67,13 @@
     optimise.automatic = true;
     registry = lib'.self.mkRegistry { inherit inputs os channel; };
     channel.enable = false;
+    # we set pkgs in the registry to the packages used to build the system
+    # nixpkgs is set to nixpkgs-unstable in the registry
+    nixPath = [ "nixpkgs=flake:pkgs" ];
+  };
+  # we do this ourselves
+  nixpkgs.flake = {
+    setFlakeRegistry = false;
+    setNixPath = false;
   };
 }
