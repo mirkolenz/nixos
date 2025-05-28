@@ -11,7 +11,7 @@ let
     mkOption
     ;
 
-  configFormat = pkgs.formats.json { };
+  configFormat = pkgs.formats.toml { };
   cfg = config.programs.codex;
 in
 {
@@ -27,7 +27,7 @@ in
       default = { };
       description = ''
         Configuration written to
-        {file}`$HOME/.codex/config.json`.
+        {file}`$HOME/.codex/config.toml`.
         See <https://github.com/openai/codex>
         for more information.
       '';
@@ -37,7 +37,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
 
-    home.file.".codex/config.json" = lib.mkIf (cfg.settings != { }) {
+    home.file.".codex/config.toml" = lib.mkIf (cfg.settings != { }) {
       source = configFormat.generate "codex-config" cfg.settings;
     };
   };
