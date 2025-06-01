@@ -39,6 +39,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     ghostscript
     janice
     harper
+    protobuf-ls
     # typst
     typst
     typstyle
