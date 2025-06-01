@@ -13,8 +13,8 @@
     jqp.enable = true;
     nix-index.enable = true;
     pandoc.enable = true;
+    pay-respects.enable = true;
     ripgrep.enable = true;
-    thefuck.enable = true;
     yazi.enable = true;
     zoxide.enable = true;
   };
