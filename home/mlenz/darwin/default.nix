@@ -48,13 +48,6 @@ in
       };
       transform = lib.getExe;
     };
-    "lib".source = mkLinkFarm {
-      name = "home-lib";
-      paths = {
-        prettier = pkgs.nodePackages.prettier;
-      };
-      transform = x: "${lib.getLib x}/lib";
-    };
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = {
       source = ../dictionary.txt;
     };
