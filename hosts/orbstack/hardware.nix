@@ -59,9 +59,4 @@
     "x86_64-linux"
     "i686-linux"
   ];
-
-  # Extra certificates from OrbStack.
-  security.pki.certificateFiles = [
-    /opt/orbstack-guest/run/extra-certs.crt
-  ];
 }

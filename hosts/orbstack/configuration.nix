@@ -1,5 +1,5 @@
 # /etc/nixos/configuration.nix
-{ lib, ... }:
+{ lib, lib', ... }:
 {
   security.sudo.wheelNeedsPassword = false;
 
@@ -42,4 +42,7 @@
     homeMode = "700";
     useDefaultShell = true;
   };
+
+  # Extra certificates from OrbStack.
+  security.pki.certificateFiles = lib'.flocken.optionalPath /opt/orbstack-guest/run/extra-certs.crt;
 }
