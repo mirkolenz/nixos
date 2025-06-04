@@ -17,7 +17,6 @@ in
   ];
 
   custom.impureRebuild = true;
-  custom.profile.isWorkstation = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.settings.trusted-users = [ user.login ];
