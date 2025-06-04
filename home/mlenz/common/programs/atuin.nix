@@ -1,7 +1,7 @@
 { ... }:
 {
   programs.atuin = {
-    enable = true;
+    enable = false;
     flags = [
       "--disable-up-arrow"
       # "--disable-ctrl-r"
