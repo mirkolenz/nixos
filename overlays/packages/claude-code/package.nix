@@ -5,28 +5,23 @@
   writeShellApplication,
   importNpmLock,
   nodejs,
-  runCommandNoCCLocal,
   nix-update,
 }:
-let
-  version = "1.0.10";
-  upstreamSource = fetchzip {
-    url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-    hash = "sha256-DcHlxeOOIKDe/Due952rH5qGT3KX+lUx84ctuj2/3aw=";
-  };
-  vendoredSource = runCommandNoCCLocal "claude-code-vendored-source" { } ''
-    cp -r --no-preserve=all ${upstreamSource} $out
-    cp ${./package-lock.json} $out/package-lock.json
-  '';
-in
-buildNpmPackage {
+buildNpmPackage rec {
   pname = "claude-code";
-  inherit version;
+  version = "1.0.11";
   # nix run .#claude-code.updateScript
 
-  src = vendoredSource;
+  src = fetchzip {
+    url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+    hash = "sha256-IXNBNjt4Sh5pR+Cz2uEZcCop9reAmQ7hObohtN0f3Ww=";
+  };
 
-  npmDeps = importNpmLock { npmRoot = vendoredSource; };
+  postPatch = ''
+    cp ${./package-lock.json} $out/package-lock.json
+  '';
+
+  npmDeps = importNpmLock { npmRoot = ./.; };
   inherit (importNpmLock) npmConfigHook;
 
   dontNpmBuild = true;
@@ -45,8 +40,7 @@ buildNpmPackage {
     text = ''
       version="$(npm view @anthropic-ai/claude-code version)"
       workdir="overlays/packages/claude-code"
-      npm install --prefix "$workdir" --ignore-scripts --package-lock-only "@anthropic-ai/claude-code@$version"
-      rm -f "$workdir/package.json"
+      npm update --prefix "$workdir" --ignore-scripts --package-lock-only
       nix-update --flake claude-code --version "$version"
     '';
   };
