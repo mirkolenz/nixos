@@ -6,8 +6,6 @@
   # This being `true` leads to a few nasty bugs, change at your own risk!
   users.mutableUsers = lib.mkForce false;
 
-  time.timeZone = "Europe/Berlin";
-
   networking = {
     dhcpcd.enable = false;
     useDHCP = false;
@@ -24,5 +22,24 @@
       };
       linkConfig.RequiredForOnline = "routable";
     };
+  };
+
+  users.groups.orbstack.gid = 67278;
+
+  users.users.mlenz = {
+    uid = 501;
+    extraGroups = [
+      "wheel"
+      "orbstack"
+    ];
+
+    # simulate isNormalUser, but UID < 1000
+    isNormalUser = lib.mkForce false;
+    isSystemUser = true;
+    group = lib.mkForce "users";
+    createHome = true;
+    home = "/home/mlenz";
+    homeMode = "700";
+    useDefaultShell = true;
   };
 }
