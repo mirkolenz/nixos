@@ -1,5 +1,4 @@
 import json
-import shlex
 import subprocess
 from typing import Annotated
 
@@ -82,7 +81,7 @@ def run(
 
     cmd.extend(ctx.args)
 
-    typer.echo(f"Running {shlex.join(cmd)}")
+    # typer.echo(f"Running {shlex.join(cmd)}")
     subprocess.run(cmd)
 
 
