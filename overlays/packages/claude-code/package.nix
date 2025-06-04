@@ -18,7 +18,7 @@ buildNpmPackage rec {
   };
 
   postPatch = ''
-    cp ${./package-lock.json} $out/package-lock.json
+    cp ${./package-lock.json} package-lock.json
   '';
 
   npmDeps = importNpmLock { npmRoot = ./.; };
