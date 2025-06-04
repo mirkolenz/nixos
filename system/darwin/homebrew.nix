@@ -9,6 +9,7 @@ let
     "balenaetcher"
     "betterdisplay"
     "cameracontroller"
+    "claude"
     "cleanshot"
     "ddpm"
     "default-folder-x"
