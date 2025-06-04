@@ -144,14 +144,9 @@ nix-store --verify --check-contents --repair
 
 1. Install Apple Developer Tools: `xcode-select --install`
 2. [Install Homebrew](https://brew.sh)
-3. [Install Nix](https://docs.determinate.systems/getting-started/)
+3. [Install Nix](https://github.com/DeterminateSystems/nix-installer)
 4. Sign in to the App Store
 5. Enable Full Disk Access for terminal application
-
-Make sure to exclude the Nix volume from Time Machine and Spotlight:
-
-- `General > Time Machine > Options > Exclude from Backups`: Add `/nix`
-- `Spotlight > Search Privacy`: Add `/nix`
 
 ```shell
 sudo nix --extra-experimental-features "nix-command flakes" run github:mirkolenz/nixos
@@ -163,7 +158,9 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ### Uninstallation
 
 ```shell
-sudo /nix/var/nix/profiles/default/bin/nix run github:mirkolenz/nixos#darwin-uninstaller
+chsh -s /bin/zsh
+# if nix is not in PATH, use this: /nix/var/nix/profiles/default/bin/nix
+sudo nix --extra-experimental-features "nix-command flakes" run github:mirkolenz/nixos#darwin-uninstaller
 sudo /nix/nix-installer uninstall
 ```
 
