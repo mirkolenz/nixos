@@ -1,4 +1,5 @@
 import json
+import shlex
 import subprocess
 from typing import Annotated
 
@@ -67,6 +68,8 @@ def run(
         subprocess_stdout(
             [
                 nix_exe,
+                "--extra-experimental-features",
+                "nix-command flakes",
                 "eval",
                 "--json",
                 f'{flake}#{flake_attribute}."{name}".config.custom.impureRebuild',
@@ -81,7 +84,11 @@ def run(
 
     cmd.extend(ctx.args)
 
-    # typer.echo(f"Running {shlex.join(cmd)}")
+    typer.echo(
+        shlex.join([cmd[0].split("/")[-1], *cmd[1:]]),
+        err=True,
+    )
+
     subprocess.run(cmd)
 
 
