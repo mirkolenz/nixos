@@ -47,8 +47,19 @@ let
     flakeup = ''
       exec ${lib.getExe config.nix.package} flake update \
       --commit-lock-file \
-      --commit-lockfile-summary 'chore(deps): update flake.lock' \
+      --commit-lockfile-summary "chore(deps): update flake.lock" \
       "$@"
+    '';
+    uvup = ''
+      ${lib.getExe config.programs.uv.package} sync --all-extras --upgrade
+      ${lib.getExe config.programs.git.package} add uv.lock
+      ${lib.getExe config.programs.git.package} commit -m "chore(deps): update uv.lock"
+    '';
+    npmup = ''
+      ${lib.getExe pkgs.npm-check-updates} --interactive --format group --install never
+      ${lib.getExe' pkgs.nodejs "npm"} update
+      ${lib.getExe config.programs.git.package} add package.json package-lock.json
+      ${lib.getExe config.programs.git.package} commit -m "chore(deps): update package.json and package-lock.json"
     '';
     dev = ''
       exec ${lib.getExe config.nix.package} develop "$@"
