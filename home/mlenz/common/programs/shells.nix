@@ -8,7 +8,8 @@
   home.shell.enableShellIntegration = true;
   programs.fish = {
     enable = true;
-    generateCompletions = true;
+    # depends on programs.man.generateCaches
+    generateCompletions = false;
     loginShellInit = ''
       fish_add_path "${config.home.homeDirectory}/bin"
     '';
@@ -64,4 +65,6 @@
     enable = true;
     enableCompletion = true;
   };
+  # this is slow
+  programs.man.generateCaches = false;
 }

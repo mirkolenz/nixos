@@ -58,6 +58,7 @@
   };
 
   systemd.enableStrictShellChecks = true;
+  documentation.man.generateCaches = false;
 
   boot.loader = {
     systemd-boot.configurationLimit = 10;

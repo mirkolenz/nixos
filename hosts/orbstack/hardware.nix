@@ -10,11 +10,6 @@
     . /opt/orbstack-guest/etc/profile-late
   '';
 
-  # Enable documentation
-  documentation.man.enable = true;
-  documentation.doc.enable = true;
-  documentation.info.enable = true;
-
   # Disable systemd-resolved
   services.resolved.enable = false;
   environment.etc."resolv.conf".source = "/opt/orbstack-guest/etc/resolv.conf";
