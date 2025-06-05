@@ -4,13 +4,12 @@
   config,
   ...
 }:
-let
-  echo = lib.getExe' pkgs.coreutils "echo";
-  cmdTexts = {
+{
+  home.packages = lib.mapAttrsToList (name: text: pkgs.writeShellApplication { inherit name text; }) {
     # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
     mogrify-convert = ''
       if [ "$#" -ne 3 ]; then
-        ${echo} "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY" >&2
+        echo "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY" >&2
         exit 1
       fi
       exec ${lib.getExe' pkgs.imagemagick "mogrify"} -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
@@ -18,7 +17,7 @@ let
     # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
     mogrify-resize = ''
       if [ "$#" -ne 4 ]; then
-        ${echo} "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY FINAL_SIZE" >&2
+        echo "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY FINAL_SIZE" >&2
         exit 1
       fi
       exec ${lib.getExe' pkgs.imagemagick "mogrify"} -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
@@ -35,7 +34,7 @@ let
       built="$(${lib.getExe' pkgs.coreutils "readlink"} /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
       if [ "$booted" != "$built" ]; then
-        ${echo} "REBOOT NEEDED"
+        echo "REBOOT NEEDED"
         exit 1
       fi
 
@@ -66,7 +65,7 @@ let
     '';
     encrypt = ''
       if [ "$#" -ne 3 ]; then
-        ${echo} "Usage: $0 SOURCE TARGET RECIPIENT" >&2
+        echo "Usage: $0 SOURCE TARGET RECIPIENT" >&2
         exit 1
       fi
 
@@ -74,7 +73,7 @@ let
     '';
     decrypt = ''
       if [ "$#" -ne 2 ]; then
-        ${echo} "Usage: $0 SOURCE TARGET" >&2
+        echo "Usage: $0 SOURCE TARGET" >&2
         exit 1
       fi
 
@@ -82,7 +81,7 @@ let
     '';
     backup = ''
       if [ "$#" -ne 2 ]; then
-        ${echo} "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
+        echo "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
       fi
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
@@ -91,7 +90,7 @@ let
     '';
     restore = ''
       if [ "$#" -ne 2 ]; then
-        ${echo} "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
+        echo "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
       fi
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
@@ -102,7 +101,7 @@ let
     '';
     prefetch-attr = ''
       if [ "$#" -lt 1 ]; then
-        ${echo} "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
+        echo "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
         exit 1
       fi
       value="$(${lib.getExe config.nix.package} eval --raw "$1")"
@@ -151,8 +150,4 @@ let
       exec ${lib.getExe' pkgs.fontforge "fontforge"} -c "Open(\"$source\"); Generate(\"$target\");" "$@"
     '';
   };
-  cmds = lib.mapAttrs (name: text: pkgs.writeShellApplication { inherit name text; }) cmdTexts;
-in
-{
-  home.packages = lib.attrValues cmds;
 }
