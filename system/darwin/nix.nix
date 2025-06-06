@@ -11,7 +11,7 @@
       build-users-group = "nixbld";
       allowed-users = [ "@staff" ];
       trusted-users = [ user.login ];
-      sandbox = "relaxed";
+      sandbox = false;
     };
   };
 }
