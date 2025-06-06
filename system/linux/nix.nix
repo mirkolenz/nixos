@@ -6,6 +6,5 @@
       allowed-users = [ "@wheel" ];
       sandbox = true;
     };
-    gc.dates = "daily";
   };
 }

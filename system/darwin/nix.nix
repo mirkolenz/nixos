@@ -13,9 +13,5 @@
       trusted-users = [ user.login ];
       sandbox = "relaxed";
     };
-    gc.interval = {
-      Hour = 1;
-      Minute = 0;
-    };
   };
 }

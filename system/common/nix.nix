@@ -36,7 +36,7 @@
         "ssh://eu.nixbuild.net"
         "https://cache.garnix.io"
       ];
-      # https://nixos.org/manual/nix/unstable/contributing/experimental-features.html
+      # https://nix.dev/manual/nix/latest/development/experimental-features
       experimental-features = [
         "flakes"
         "impure-derivations"
@@ -50,6 +50,7 @@
       always-allow-substitutes = true;
       bash-prompt-prefix = "(nix:$name)\\040";
       builders-use-substitutes = true;
+      cores = 0;
       download-buffer-size = 1000000000; # 1 GB
       keep-derivations = false;
       keep-failed = false;
