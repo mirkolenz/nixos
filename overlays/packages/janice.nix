@@ -6,13 +6,14 @@
 }:
 buildGoModule rec {
   pname = "janice";
-  version = "0.8.1";
+  version = "0.9.0";
+  # nix-update --flake janice
 
   src = fetchFromGitHub {
     owner = "ErikKalkoken";
     repo = "janice";
     tag = "v${version}";
-    hash = "sha256-zd8CHisCDP1Bk5qf9dmHfmnNCnPFHkCPGqSPMLCw76g=";
+    hash = "sha256-gzSQFTvIqK+MUTs46lDWUCvxxuEC8N9VmBEOOc+kCV0=";
   };
 
   vendorHash = "sha256-rNL3eMWaT+Q+NoutUDvD9Gs9SM0B6s95P88ynsRp1GQ=";
