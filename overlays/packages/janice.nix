@@ -13,7 +13,7 @@ buildGoModule rec {
     owner = "ErikKalkoken";
     repo = "janice";
     tag = "v${version}";
-    hash = "sha256-gzSQFTvIqK+MUTs46lDWUCvxxuEC8N9VmBEOOc+kCV0=";
+    hash = "sha256-SWs8HX8yzxFxU9wQbwoRU6JUGGySnvtV5iZbOcl7kl0=";
   };
 
   vendorHash = "sha256-rNL3eMWaT+Q+NoutUDvD9Gs9SM0B6s95P88ynsRp1GQ=";
