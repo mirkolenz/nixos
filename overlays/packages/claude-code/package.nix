@@ -6,15 +6,16 @@
   importNpmLock,
   nodejs,
   nix-update,
+  jq,
 }:
 buildNpmPackage rec {
   pname = "claude-code";
-  version = "1.0.16";
+  version = "1.0.17";
   # nix run .#claude-code.updateScript
 
   src = fetchzip {
     url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-    hash = "sha256-WK6EnwciMGh5vo6EB35zbEjSS3ahYeY5lwEUk2a6f9o=";
+    hash = "sha256-RxbsAehJ4zIt86ppmMB1MPg/XFrGWuumNdQbT+ytg8A=";
   };
 
   postPatch = ''
@@ -36,12 +37,20 @@ buildNpmPackage rec {
     runtimeInputs = [
       nodejs
       nix-update
+      jq
     ];
+    runtimeEnv = {
+      PREFIX = "overlays/packages/claude-code";
+    };
     text = ''
-      version="$(npm view @anthropic-ai/claude-code version)"
-      workdir="overlays/packages/claude-code"
-      npm update --prefix "$workdir" --ignore-scripts --package-lock-only
-      nix-update --flake claude-code --version "$version"
+      npm update \
+        --prefix "$PREFIX" \
+        --ignore-scripts \
+        --package-lock-only
+      nix-update \
+        --flake \
+        --version "$(jq -r '.packages."node_modules/@anthropic-ai/claude-code".version' "$PREFIX/package-lock.json")" \
+        claude-code
     '';
   };
 
