@@ -1,4 +1,4 @@
 { ... }:
 final: prev: {
-  inherit (final.stable) pre-commit;
+  inherit (final.stable) pre-commit texliveFull;
 }
