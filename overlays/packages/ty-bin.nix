@@ -10,7 +10,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "ty";
-  version = "0.0.1-alpha.8";
+  version = "0.0.1-alpha.9";
   # prefetch-attrs .#ty-bin.passthru.urls --unpack
 
   passthru = {
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hashes = {
       aarch64-darwin = "sha256-dYPN2MuMFV8tUMlGdpxXWSvo32Z1K0u8Uh/9JRZDkls=";
       aarch64-linux = "sha256-Bji75WjzN0jxeqiqeF4s/B4GHR5hchRPVAT8+TIOUWU=";
-      x86_64-darwin = "sha256-OfFnMz6xRPOtWim9Q7rtchTSkGPkl1VSh3knkA1rq0o=";
+      x86_64-darwin = "sha256-+TahAZxOUibUxiH/Tk+GWbUc7pWbx1MUMiRsl/+K830=";
       x86_64-linux = "sha256-9DkG52uz6vg+gC2yW7QL1EluTX1ioybl5bXsDtupS+o=";
     };
   };
