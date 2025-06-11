@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  programs.codex = {
+  programs.codex-rs = {
     enable = config.custom.profile.isWorkstation;
   };
 }

@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  programs.claude = {
+  programs.claude-code = {
     enable = config.custom.profile.isWorkstation;
   };
 }
