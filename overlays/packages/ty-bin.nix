@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
       x86_64-linux = "https://github.com/astral-sh/ty/releases/download/${version}/ty-x86_64-unknown-linux-gnu.tar.gz";
     };
     hashes = {
-      aarch64-darwin = "sha256-dYPN2MuMFV8tUMlGdpxXWSvo32Z1K0u8Uh/9JRZDkls=";
-      aarch64-linux = "sha256-Bji75WjzN0jxeqiqeF4s/B4GHR5hchRPVAT8+TIOUWU=";
+      aarch64-darwin = "sha256-ihRcqt0YiSLGz2RxC9FGHvIyAhmrrnk9660LVszz4wg=";
+      aarch64-linux = "sha256-joXQh8L2v7g6TjroyWXxZHuVAMtTyjIHmOJeZW8Cs1o=";
       x86_64-darwin = "sha256-+TahAZxOUibUxiH/Tk+GWbUc7pWbx1MUMiRsl/+K830=";
-      x86_64-linux = "sha256-9DkG52uz6vg+gC2yW7QL1EluTX1ioybl5bXsDtupS+o=";
+      x86_64-linux = "sha256-Qp3Md6Yv3Fwk9WLJoWn5AhiF7f7uCHWfOF7pZZM4o/4=";
     };
   };
 
