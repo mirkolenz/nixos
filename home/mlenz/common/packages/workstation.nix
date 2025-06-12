@@ -73,6 +73,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     nodePackages.dotenv-vault
     npm-check-updates
     biome
+    bun
     # java
     jdk
     # rust
