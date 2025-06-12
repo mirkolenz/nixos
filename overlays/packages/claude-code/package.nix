@@ -10,12 +10,12 @@
 }:
 buildNpmPackage rec {
   pname = "claude-code";
-  version = "1.0.18";
+  version = "1.0.21";
   # nix run .#claude-code.updateScript
 
   src = fetchzip {
     url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-    hash = "sha256-xFQEdx29Kpqu/iQsfIneq6+YHgwrniHZb8vS4auA3/I=";
+    hash = "sha256-CtNY7CduAg/QWs58jFnJ/3CMRpRKrJzD49Gqw7kSsao=";
   };
 
   postPatch = ''
