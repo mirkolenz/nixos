@@ -58,6 +58,7 @@ buildNpmPackage rec {
     description = "An agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster";
     homepage = "https://github.com/anthropics/claude-code";
     downloadPage = "https://www.npmjs.com/package/@anthropic-ai/claude-code";
+    changelog = "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md";
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.mirkolenz ];
     mainProgram = "claude";
