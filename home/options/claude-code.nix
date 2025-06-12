@@ -32,6 +32,15 @@ in
         for more information.
       '';
     };
+
+    guidance = lib.mkOption {
+      type = lib.types.lines;
+      description = ''
+        Define custom guidance for the agents.
+        Written to {file}`$HOME/.claude/CLAUDE.md`
+      '';
+      default = "";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -39,6 +48,9 @@ in
 
     home.file.".claude/settings.json" = lib.mkIf (cfg.settings != { }) {
       source = configFormat.generate "claude-settings" cfg.settings;
+    };
+    home.file.".claude/CLAUDE.md" = lib.mkIf (cfg.guidance != "") {
+      text = cfg.guidance;
     };
   };
 }
