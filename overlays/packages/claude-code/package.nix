@@ -7,6 +7,7 @@
   nodejs,
   nix-update,
   jq,
+  makeWrapper,
 }:
 buildNpmPackage rec {
   pname = "claude-code";
@@ -18,8 +19,15 @@ buildNpmPackage rec {
     hash = "sha256-CtNY7CduAg/QWs58jFnJ/3CMRpRKrJzD49Gqw7kSsao=";
   };
 
+  nativeBuildInputs = [ makeWrapper ];
+
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
+  '';
+
+  postInstall = ''
+    wrapProgram $out/bin/claude \
+      --set DISABLE_AUTOUPDATER 1
   '';
 
   npmDeps = importNpmLock { npmRoot = ./.; };
