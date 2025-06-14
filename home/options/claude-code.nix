@@ -41,16 +41,35 @@ in
       '';
       default = "";
     };
+
+    commands = lib.mkOption {
+      type = lib.types.attrsOf lib.types.lines;
+      default = { };
+      description = ''
+        Personal slash commands written to
+        {file}`$HOME/.claude/commands/$name.md`.
+        For nested commands, use "namespace/name"
+        as the key.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
 
-    home.file.".claude/settings.json" = lib.mkIf (cfg.settings != { }) {
-      source = configFormat.generate "claude-settings" cfg.settings;
-    };
-    home.file.".claude/CLAUDE.md" = lib.mkIf (cfg.guidance != "") {
-      text = cfg.guidance;
-    };
+    home.file = lib.mkMerge [
+      {
+        ".claude/settings.json" = lib.mkIf (cfg.settings != { }) {
+          source = configFormat.generate "claude-settings" cfg.settings;
+        };
+        ".claude/CLAUDE.md" = lib.mkIf (cfg.guidance != "") {
+          text = cfg.guidance;
+        };
+      }
+      (lib.mapAttrs' (name: text: {
+        name = ".claude/commands/${name}.md";
+        value = { inherit text; };
+      }) cfg.commands)
+    ];
   };
 }
