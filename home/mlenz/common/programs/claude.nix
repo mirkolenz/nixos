@@ -7,7 +7,7 @@
       autoUpdaterStatus = "disabled";
       cleanupPeriodDays = 30;
       includeCoAuthoredBy = false;
-      model = "sonnet";
+      model = "opus";
       preferredNotifChannel = "terminal_bell";
       theme = "dark";
       verbose = false;
@@ -89,7 +89,8 @@
     guidance = ''
       ## General
 
-      - Use conventional commit messages to describe changes.
+      - Use conventional commit messages to describe changes so that semantic versioning can be applied.
+      - In plain text files, write exactly one sentence per line: txt, md, tex, typ, rst, ...
 
       ## Python
 
