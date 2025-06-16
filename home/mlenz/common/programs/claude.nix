@@ -95,6 +95,8 @@
       ## Python
 
       - Use `uv run` to execute Python scripts and modules, not `python` or `python3`.
+      - Use `ruff` for linting and formatting Python code, not `black` or `flake8`.
+      - Use `basedpyright` for type checking Python code, not `mypy` or `pyright`.
       - Use a src-based layout for Python projects.
       - Add type annotations to Python functions and classes.
       - Add `__all__` to modules to control what is exported.
@@ -112,6 +114,12 @@
 
       - Use flakes to manage Nix projects, not channels.
       - Use flake-parts to structure flake.nix files.
+
+      ## LaTeX
+
+      - Use `latexmk` to compile documents.
+      - Use `cref` for cross-referencing, not `ref`.
+
     '';
   };
 }
