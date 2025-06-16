@@ -39,6 +39,7 @@
     rlwrap
     wol
     # json parsing
+    jq
     jaq
     jql
     yq
