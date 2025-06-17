@@ -15,69 +15,41 @@
       env = {
         CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR = "1";
       };
+      # https://docs.anthropic.com/en/docs/claude-code/iam#configuring-permissions
       # https://github.com/dwillitzer/claude-settings
       permissions = {
         allow = [
-          # basics
-          "Bash(awk:*)"
-          "Bash(basename:*)"
-          "Bash(bc:*)"
-          "Bash(cat:*)"
-          "Bash(cd:*)"
-          "Bash(cut:*)"
-          "Bash(date:*)"
-          "Bash(diff:*)"
-          "Bash(dirname:*)"
-          "Bash(expr:*)"
-          "Bash(false:*)"
-          "Bash(find:*)"
-          "Bash(grep:*)"
-          "Bash(head:*)"
-          "Bash(jq:*)"
-          "Bash(less:*)"
-          "Bash(ls:*)"
-          "Bash(mkdir:*)"
-          "Bash(more:*)"
-          "Bash(popd:*)"
-          "Bash(printf:*)"
-          "Bash(pushd:*)"
-          "Bash(pwd:*)"
-          "Bash(readlink:*)"
-          "Bash(realpath:*)"
-          "Bash(rg:*)"
-          "Bash(sed:*)"
-          "Bash(seq:*)"
-          "Bash(shuf:*)"
-          "Bash(sort:*)"
-          "Bash(tail:*)"
-          "Bash(test:*)"
-          "Bash(time:*)"
-          "Bash(timeout:*)"
-          "Bash(touch:*)"
-          "Bash(tree:*)"
-          "Bash(true:*)"
-          "Bash(uname:*)"
-          "Bash(uniq:*)"
-          "Bash(watch:*)"
-          "Bash(wc:*)"
-          "Bash(which:*)"
-          "Bash(yq:*)"
-          # programs
+          # development
+          "Bash(go build:*)"
+          "Bash(go run:*)"
           "Bash(nix build:*)"
+          "Bash(node:*)"
           "Bash(npm run:*)"
-          "Bash(uv run:*)"
-          "Bash(python:*)"
           "Bash(python3:*)"
+          "Bash(python:*)"
+          "Bash(uv run:*)"
           # git
           "Bash(git add:*)"
+          "Bash(git blame:*)"
           "Bash(git commit:*)"
           "Bash(git diff:*)"
           "Bash(git fetch:*)"
           "Bash(git log:*)"
-          # others
+          "Bash(git show:*)"
+          "Bash(git status:*)"
+          # https://docs.anthropic.com/en/docs/claude-code/settings#tools-available-to-claude
+          "Agent"
           "Edit"
+          "Glob"
+          "Grep"
+          "LS"
           "MultiEdit"
           "NotebookEdit"
+          "NotebookRead"
+          "Read"
+          "TodoRead"
+          "TodoWrite"
+          "WebFetch"
           "WebSearch"
           "Write"
         ];
@@ -90,6 +62,7 @@
     guidance = ''
       ## General
 
+      - Only use the `Bash` tool if no other specialized tool is available for the task.
       - Use conventional commit messages to describe changes so that semantic versioning can be applied.
       - In plain text files, write exactly one sentence per line: txt, md, tex, typ, rst, ...
 
