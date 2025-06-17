@@ -1,8 +1,9 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   # https://docs.anthropic.com/en/docs/claude-code/tutorials
   programs.claude-code = {
     enable = config.custom.profile.isWorkstation;
+    package = pkgs.bun-apps;
     settings = {
       autoUpdaterStatus = "disabled";
       cleanupPeriodDays = 30;

@@ -65,8 +65,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     pythonWithPackages
     pylyzer
     basedpyright
-    ty-bin
-    # pyrefly
+    uv-apps
     # nodejs
     nodejs
     nodePackages.prettier
@@ -74,6 +73,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     npm-check-updates
     biome
     bun
+    bun-apps
     # java
     jdk
     # rust
