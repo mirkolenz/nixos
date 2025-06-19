@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 {
   # https://docs.anthropic.com/en/docs/claude-code/tutorials
+  # https://docs.anthropic.com/en/docs/claude-code/settings
+  # https://docs.anthropic.com/en/docs/claude-code/iam
+  # https://github.com/dwillitzer/claude-settings
   programs.claude-code = {
     enable = config.custom.profile.isWorkstation;
     package = pkgs.bun-apps;
@@ -14,14 +17,20 @@
       verbose = false;
       env = {
         CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR = "1";
+        DISABLE_AUTOUPDATER = "1";
       };
-      # https://docs.anthropic.com/en/docs/claude-code/iam#configuring-permissions
-      # https://github.com/dwillitzer/claude-settings
       permissions = {
         allow = [
+          # basics
+          "Bash(echo:*)"
+          "Bash(fd:*)"
+          "Bash(ls:*)"
+          "Bash(mkdir:*)"
+          "Bash(rg:*)"
           # development
           "Bash(go build:*)"
           "Bash(go run:*)"
+          "Bash(latexmk:*)"
           "Bash(nix build:*)"
           "Bash(node:*)"
           "Bash(npm run:*)"
@@ -37,7 +46,7 @@
           "Bash(git log:*)"
           "Bash(git show:*)"
           "Bash(git status:*)"
-          # https://docs.anthropic.com/en/docs/claude-code/settings#tools-available-to-claude
+          # tools
           "Agent"
           "Edit"
           "Glob"
@@ -55,6 +64,7 @@
         ];
         deny = [
           "Bash(sudo:*)"
+          "Read(.env)"
         ];
       };
     };
@@ -62,7 +72,7 @@
     guidance = ''
       ## General
 
-      - Only use the `Bash` tool if no other specialized tool is available for the task.
+      - Prefer all other available tools over the `Bash` tool and only use it when necessary.
       - Use conventional commit messages to describe changes so that semantic versioning can be applied.
       - In plain text files, write exactly one sentence per line: txt, md, tex, typ, rst, ...
 
