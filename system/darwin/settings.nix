@@ -74,7 +74,7 @@
         "/Applications/Godspeed.app"
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
-        "/Applications/Zed Preview.app"
+        "/Applications/Zed.app"
         "/Applications/Ghostty.app"
         "/Applications/OrbStack.app"
         "/Applications/Zotero.app"
@@ -84,6 +84,7 @@
         "/Applications/Microsoft Word.app"
         "/Applications/Microsoft Excel.app"
         "/Applications/Microsoft PowerPoint.app"
+        "/Applications/Claude.app"
         "/Applications/NeoHtop.app"
         "/System/Applications/System Settings.app"
       ];

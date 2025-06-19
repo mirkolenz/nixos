@@ -4,14 +4,14 @@
     enable = true;
     settings = {
       extensions = {
-        md = "Zed Preview";
+        md = "Zed";
         pdf = "PDF Expert";
       };
       schemes = {
         mailto = "Mail";
       };
       types = {
-        plain-text = "Zed Preview";
+        plain-text = "Zed";
       };
     };
   };

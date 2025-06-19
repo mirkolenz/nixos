@@ -61,7 +61,6 @@ let
     "wezterm"
     "wifiman"
     "zed"
-    "zed@preview"
     "zoom"
     "zotero@beta"
   ];

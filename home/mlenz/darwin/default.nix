@@ -54,6 +54,5 @@ in
   };
   home.shellAliases = {
     copy = ''${lib.getExe' pkgs.coreutils "tr"} -d '\n' | pbcopy'';
-    zed = "zed-preview";
   };
 }
