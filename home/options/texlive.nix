@@ -34,12 +34,19 @@ let
       sourceDir="''${2:-${cfg.bibDir}}"
       ${lib.getExe cmds.bibtidy} "$sourceDir/$format.bib"
     '';
+    bibcat-full = ''
+      format="''${1:-bibtex}"
+      sourceDir="''${2:-${cfg.bibDir}}"
+      ${lib.getExe pkgs.bibtex-tidy} --v2 \
+        --no-align --no-wrap --blank-lines --no-escape \
+        --omit="abstract" \
+        "$sourceDir/$format.bib"
+    '';
     bibcopy = ''
       format="''${1:-bibtex}"
       sourceDir="''${2:-${cfg.bibDir}}"
       targetDir="''${3:-.}"
       ${lib.getExe cmds.bibtidy} --output="$targetDir/references.bib" "$sourceDir/$format.bib"
-      ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
     '';
     bibcopy-full = ''
       format="''${1:-bibtex}"
@@ -50,12 +57,16 @@ let
         --omit="abstract" \
         --output="$targetDir/references.bib" \
         "$sourceDir/$format.bib"
-      ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
     '';
     acrocat = ''
       sourceDir="''${1:-${cfg.bibDir}}"
       # shellcheck disable=SC2002 # the sd commands are generated via nix, so cat is more elegant than piping
       cat "$sourceDir/acronyms.tex" | ${lib.concatStringsSep " | " acronymReplacements}
+    '';
+    acrocopy = ''
+      sourceDir="''${1:-${cfg.bibDir}}"
+      targetDir="''${2:-.}"
+      ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
     '';
   };
 
