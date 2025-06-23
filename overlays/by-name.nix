@@ -3,11 +3,10 @@ final: prev:
 let
   inherit (prev.stdenv.hostPlatform) system;
   inherit (prev) lib;
-  exportedFunctions = {
-    mkApp = final.callPackage ./functions/make-app.nix { };
-    mkBuilder = final.callPackage ./functions/make-builder.nix { };
-    mkDocker = final.callPackage ./functions/make-docker.nix { };
-    linkExe = final.callPackage ./functions/link-exe.nix { };
+  exportedFunctions = lib.packagesFromDirectoryRecursive {
+    # inherit (prev) newScope;
+    callPackage = lib.callPackageWith (final // { inherit inputs; });
+    directory = ./functions;
   };
   exportedPackages = lib.packagesFromDirectoryRecursive {
     # inherit (prev) newScope;
