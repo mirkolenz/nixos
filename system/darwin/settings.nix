@@ -25,13 +25,6 @@
         FlashDateSeparators = false;
       };
     };
-    alf = {
-      allowdownloadsignedenabled = 1;
-      allowsignedenabled = 1;
-      globalstate = 1;
-      loggingenabled = 0;
-      stealthenabled = 1;
-    };
     dock = {
       appswitcher-all-displays = true;
       autohide = true;
