@@ -10,7 +10,7 @@ let
     writeShellApplication {
       inherit name;
       text = ''
-        exec ${lib.getExe' bun "bunx"} --bun ${value} "$@"
+        exec ${lib.getExe' bun "bunx"} --bun ${value}@latest "$@"
       '';
     };
 in
