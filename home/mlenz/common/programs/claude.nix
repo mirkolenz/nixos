@@ -36,6 +36,7 @@
           "Bash(npm run:*)"
           "Bash(python3:*)"
           "Bash(python:*)"
+          "Bash(typst:*)"
           "Bash(uv run:*)"
           # git
           "Bash(git add:*)"
