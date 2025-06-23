@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   # https://docs.anthropic.com/en/docs/claude-code/tutorials
   # https://docs.anthropic.com/en/docs/claude-code/settings
@@ -11,7 +16,7 @@
       autoUpdaterStatus = "disabled";
       cleanupPeriodDays = 30;
       includeCoAuthoredBy = false;
-      model = "sonnet";
+      model = "default";
       preferredNotifChannel = "terminal_bell";
       theme = "dark";
       verbose = false;
@@ -106,5 +111,9 @@
       - Use `cref` for cross-referencing, not `ref`.
 
     '';
+  };
+  home.shellAliases = lib.mkIf config.programs.claude-code.enable {
+    oclaude = "claude --model opus";
+    sclaude = "claude --model sonnet";
   };
 }
