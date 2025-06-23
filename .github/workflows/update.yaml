@@ -28,6 +28,7 @@ jobs:
           commit-msg: "chore(deps): update flake.lock"
           pr-title: "chore(deps): update flake.lock"
           token: ${{ steps.generate-token.outputs.token }}
+          branch: update-flake-lock
       - name: automerge
         run: gh pr merge --auto --rebase ${{ steps.update.outputs.pull-request-number }}
         if: steps.update.outputs.pull-request-number != ''
