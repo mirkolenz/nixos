@@ -11,7 +11,7 @@
       autoUpdaterStatus = "disabled";
       cleanupPeriodDays = 30;
       includeCoAuthoredBy = false;
-      model = "opus";
+      model = "sonnet";
       preferredNotifChannel = "terminal_bell";
       theme = "dark";
       verbose = false;
