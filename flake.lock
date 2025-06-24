@@ -56,11 +56,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738797405,
-        "narHash": "sha256-uuti0humf02GH+xH6kOHimK1SMBDDDaowBU+vjDtawM=",
+        "lastModified": 1750745187,
+        "narHash": "sha256-BMof7ZuHaHyAOdzjaiMvMxzDNXKXBkTFUezRRfeO1Ow=",
         "owner": "recap-utr",
         "repo": "arguebuf-python",
-        "rev": "7c8e8293e16fc9f93a0422889abd9a22a4c6fb3f",
+        "rev": "ac32c385472212909ba41b78e67500f1a150c188",
         "type": "github"
       },
       "original": {
