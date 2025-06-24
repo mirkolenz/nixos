@@ -113,7 +113,7 @@
     '';
   };
   home.shellAliases = lib.mkIf config.programs.claude-code.enable {
-    oclaude = "claude --model opus";
-    sclaude = "claude --model sonnet";
+    opus = "claude --model opus";
+    sonnet = "claude --model sonnet";
   };
 }
