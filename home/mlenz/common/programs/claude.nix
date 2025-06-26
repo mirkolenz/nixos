@@ -9,8 +9,8 @@
   # https://docs.anthropic.com/en/docs/claude-code/settings
   # https://docs.anthropic.com/en/docs/claude-code/iam
   # https://github.com/dwillitzer/claude-settings
-  programs.claude-code = {
-    enable = config.custom.profile.isWorkstation;
+  programs.claude-code = lib.mkIf config.custom.profile.isWorkstation {
+    enable = true;
     package = pkgs.bun-apps;
     settings = {
       autoUpdaterStatus = "disabled";
@@ -114,7 +114,7 @@
 
     '';
   };
-  home.shellAliases = lib.mkIf config.programs.claude-code.enable {
+  home.shellAliases = {
     opus = "claude --model opus";
     sonnet = "claude --model sonnet";
   };
