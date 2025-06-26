@@ -25,6 +25,7 @@
         DISABLE_AUTOUPDATER = "1";
       };
       permissions = {
+        defaultMode = "acceptEdits";
         allow = [
           # basics
           "Bash(echo:*)"
@@ -71,6 +72,7 @@
         deny = [
           "Bash(sudo:*)"
           "Read(.env)"
+          "Read(//**)"
         ];
       };
     };
