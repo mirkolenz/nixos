@@ -50,7 +50,7 @@
       wvous-tl-corner = 1;
       wvous-tr-corner = 1;
       persistent-apps = [
-        "/Applications/DEVONthink 3.app"
+        "/Applications/DEVONthink.app"
         "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
