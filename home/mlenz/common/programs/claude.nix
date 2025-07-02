@@ -28,11 +28,17 @@
         defaultMode = "acceptEdits";
         allow = [
           # basics
+          "Bash(cat:*)"
           "Bash(echo:*)"
           "Bash(fd:*)"
+          "Bash(find:*)"
+          "Bash(grep:*)"
+          "Bash(head:*)"
           "Bash(ls:*)"
           "Bash(mkdir:*)"
           "Bash(rg:*)"
+          "Bash(tail:*)"
+          "Bash(touch:*)"
           # development
           "Bash(go build:*)"
           "Bash(go run:*)"
