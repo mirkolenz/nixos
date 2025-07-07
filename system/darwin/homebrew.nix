@@ -11,7 +11,6 @@ let
     "cameracontroller"
     "claude"
     "cleanshot"
-    "ddpm"
     "default-folder-x"
     "devonthink"
     "discord"
