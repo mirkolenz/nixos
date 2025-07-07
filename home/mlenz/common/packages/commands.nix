@@ -148,17 +148,5 @@
       shift
       exec ${lib.getExe' pkgs.fontforge "fontforge"} -c "Open(\"$source\"); Generate(\"$target\");" "$@"
     '';
-    latexmk-displayline = ''
-      if [ "$#" -lt 2 ]; then
-        echo "Usage: $0 FILE_STEM LINE_NUMBER [LATEXMK_ARGS...]" >&2
-        exit 1
-      fi
-      filestem="$1"
-      shift
-      linenumber="$1"
-      shift
-      latexmk -synctex=1 -interaction=nonstopmode -recorder "$filestem.tex" "$@"
-      displayline -r -g "$linenumber" "$filestem.pdf" "$filestem.tex"
-    '';
   };
 }
