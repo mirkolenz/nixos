@@ -18,18 +18,12 @@ in
     includes = lib.mkIf pkgs.stdenv.isDarwin [
       "${config.home.homeDirectory}/.orbstack/ssh/config"
     ];
+    extraConfig = ''
+      IdentityFile ${config.home.homeDirectory}/.ssh/id_ed25519
+      ${lib.optionalString pkgs.stdenv.isDarwin "UseKeychain yes"}
+      ${lib.optionalString pkgs.stdenv.isLinux "IdentityAgent ${config.home.homeDirectory}/.1password/agent.sock"}
+    '';
     matchBlocks = {
-      "*" = {
-        extraOptions = lib.mkMerge [
-          (lib.mkIf pkgs.stdenv.isDarwin {
-            UseKeychain = "yes";
-          })
-          (lib.mkIf pkgs.stdenv.isLinux {
-            IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
-          })
-        ];
-        identityFile = lib.mkIf pkgs.stdenv.isDarwin [ "id_ed25519" ];
-      };
       "wi2gpu" = {
         hostname = "gpu.wi2.uni-trier.de";
         forwardAgent = true;
