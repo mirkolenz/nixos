@@ -101,6 +101,7 @@ in
           short = {
             first-style = "short";
             long = "{}";
+            class = "short";
           };
         };
       };
