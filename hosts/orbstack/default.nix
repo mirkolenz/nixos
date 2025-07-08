@@ -22,8 +22,7 @@ in
   nix.settings.trusted-users = [ user.login ];
 
   home-manager.users.${user.login} = {
-    programs.claude-code.enable = lib.mkForce true;
-    programs.codex-rs.enable = lib.mkForce true;
+    programs.claude-code.enable = true;
     services.vscode-server.enable = true;
     xdg.configFile."zed/settings.json" = lib.mkIf (lib.pathExists zedSettings) {
       source = zedSettings;
