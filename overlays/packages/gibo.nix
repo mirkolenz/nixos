@@ -8,16 +8,17 @@
 }:
 buildGoModule rec {
   pname = "gibo";
-  version = "3.0.12";
+  version = "3.0.14";
+  # nix-update --flake gibo
 
   src = fetchFromGitHub {
     owner = "simonwhitaker";
     repo = "gibo";
     tag = "v${version}";
-    hash = "sha256-ye6ql9NCoTdqABTPTQTIm60HSJ8Di+l9He5469ux3MI=";
+    hash = "sha256-6w+qhwOHkfKt0hgKO98L6Si0RNJN+CXOOFzGlvxFjcA=";
   };
 
-  vendorHash = "sha256-Z1BzqZDTDa/G7Jnsv/YStihiToTzn3i0YS7ybgD96S0=";
+  vendorHash = "sha256-pD+7yvBydg1+BQFP0G8rRYTCO//Wg/6pzY19DLs42Gk=";
 
   ldflags = [
     "-s"
