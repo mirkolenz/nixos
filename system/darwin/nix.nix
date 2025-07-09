@@ -6,7 +6,7 @@
 }:
 {
   nix = {
-    package = lib.mkForce pkgs.nixVersions.nix_2_29;
+    package = lib.mkForce pkgs.nixVersions.latest;
     settings = {
       build-users-group = "nixbld";
       allowed-users = [ "@staff" ];
