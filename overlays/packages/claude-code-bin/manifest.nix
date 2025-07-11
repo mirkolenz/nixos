@@ -1,0 +1,10 @@
+{
+  version = "1.0.50";
+  hashes = {
+    darwin-arm64 = "ca85ce23d50ff7e32e08fb7535c49aa098440ae8e1197512bae9f52ec51e8670";
+    darwin-x64 = "6a54cbd37e33eff8d3d7aa52b8eebec63376c7d02213558ba4dc49dee9d31864";
+    linux-arm64 = "faa58f737cf97ba1ce205cf51b8fc914d622b1757d990bccbe3d28f883856150";
+    linux-x64 = "1559a5816dc40dee2d4c19e2d7a3156326f4d70e9d5a610993b34e251b7289f4";
+    win32-x64 = "79e88a10094b635ef78d0c47b74e3e609deb09e20e7b9353b580a71268ea408d";
+  };
+}
