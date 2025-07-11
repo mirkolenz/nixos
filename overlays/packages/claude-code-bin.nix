@@ -4,6 +4,7 @@
   fetchurl,
   autoPatchelfHook,
   versionCheckHook,
+  makeWrapper,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
@@ -37,13 +38,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontUnpack = true;
   dontBuild = true;
 
-  nativeBuildInputs = lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook;
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ (lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook);
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
     install -m755 -D $src $out/bin/claude
+
+    wrapProgram $out/bin/claude \
+      --set DISABLE_AUTOUPDATER 1
 
     runHook postInstall
   '';

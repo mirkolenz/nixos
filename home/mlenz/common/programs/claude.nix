@@ -13,17 +13,13 @@
     enable = true;
     package = pkgs.claude-code-bin;
     settings = {
-      autoUpdaterStatus = "disabled";
+      autoUpdates = false;
       cleanupPeriodDays = 30;
       includeCoAuthoredBy = false;
       model = "default";
       preferredNotifChannel = "terminal_bell";
       theme = "dark";
       verbose = false;
-      env = {
-        CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR = "1";
-        DISABLE_AUTOUPDATER = "1";
-      };
       permissions = {
         defaultMode = "acceptEdits";
         allow = [
