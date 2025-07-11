@@ -11,7 +11,7 @@
   # https://github.com/dwillitzer/claude-settings
   programs.claude-code = lib.mkIf config.custom.profile.isWorkstation {
     enable = true;
-    package = pkgs.bun-apps;
+    package = pkgs.claude-code-bin;
     settings = {
       autoUpdaterStatus = "disabled";
       cleanupPeriodDays = 30;

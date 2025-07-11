@@ -10,7 +10,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ty";
-  version = "0.0.1-alpha.10";
+  version = "0.0.1-alpha.14";
   # prefetch-attrs .#ty-bin.passthru.urls --unpack
 
   passthru = {
@@ -21,10 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
       x86_64-linux = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/ty-x86_64-unknown-linux-gnu.tar.gz";
     };
     hashes = {
-      aarch64-darwin = "sha256-hs0Y9yN4+FspV+lT5FF+7kHksLXgebxhtZihL0af4Rw=";
-      aarch64-linux = "sha256-K1FhmZz8Hr7U4QDJJqsgzUvEK7JlTof7zQyBB/mk9hA=";
-      x86_64-darwin = "sha256-Qe7B9JVEbhMGFH+cgS2dSQIuXga7YMovg+uhhDQjoGU=";
-      x86_64-linux = "sha256-adbcpYGG8UP1wCU0BUN3OVrKQHzFz+GrQhAJrc+1pso=";
+      aarch64-darwin = "sha256-DCgfBSAfJ7wL7WUcFHNkItSYPkpYtSjTGowj4QeQpCA=";
+      aarch64-linux = "sha256-lCC4M7ITv2P6ePZhzcBObYSmwlCsvVKu8lFgxFYoELw=";
+      x86_64-darwin = "sha256-RAyzjVo22nWqfoXK2/QCSTpYm35QeA1wkKTLA6cnWd8=";
+      x86_64-linux = "sha256-oL5lRGlfDl30OR3k1uQQYLkX0xqVuMqhlW80vKWuyaw=";
     };
   };
 

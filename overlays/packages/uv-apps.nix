@@ -18,6 +18,6 @@ symlinkJoin {
   name = "uv-apps";
   paths = lib.mapAttrsToList mkUvApp {
     pyrefly = "pyrefly";
-    ty = "ty";
+    # ty = "ty";
   };
 }
