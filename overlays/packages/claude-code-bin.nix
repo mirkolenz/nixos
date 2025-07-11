@@ -12,10 +12,11 @@ in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "claude-code";
   version = "1.0.48";
+  # https://claude.ai/install.sh
+  # https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/stable
   # prefetch-attrs .#claude-code-bin.passthru.urls
 
   passthru = {
-    # claude.ai/install.sh
     urls = {
       aarch64-darwin = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${finalAttrs.version}/darwin-arm64/claude";
       aarch64-linux = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${finalAttrs.version}/linux-arm64/claude";
