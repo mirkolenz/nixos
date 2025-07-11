@@ -8,17 +8,17 @@
 let
   inherit (stdenv.hostPlatform) system;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ty";
   version = "0.0.1-alpha.10";
   # prefetch-attrs .#ty-bin.passthru.urls --unpack
 
   passthru = {
     urls = {
-      aarch64-darwin = "https://github.com/astral-sh/ty/releases/download/${version}/ty-aarch64-apple-darwin.tar.gz";
-      aarch64-linux = "https://github.com/astral-sh/ty/releases/download/${version}/ty-aarch64-unknown-linux-gnu.tar.gz";
-      x86_64-darwin = "https://github.com/astral-sh/ty/releases/download/${version}/ty-x86_64-apple-darwin.tar.gz";
-      x86_64-linux = "https://github.com/astral-sh/ty/releases/download/${version}/ty-x86_64-unknown-linux-gnu.tar.gz";
+      aarch64-darwin = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/ty-aarch64-apple-darwin.tar.gz";
+      aarch64-linux = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/ty-aarch64-unknown-linux-gnu.tar.gz";
+      x86_64-darwin = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/ty-x86_64-apple-darwin.tar.gz";
+      x86_64-linux = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/ty-x86_64-unknown-linux-gnu.tar.gz";
     };
     hashes = {
       aarch64-darwin = "sha256-hs0Y9yN4+FspV+lT5FF+7kHksLXgebxhtZihL0af4Rw=";
@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
   };
 
   src = fetchzip {
-    url = passthru.urls.${system};
-    hash = passthru.hashes.${system};
+    url = finalAttrs.passthru.urls.${system};
+    hash = finalAttrs.passthru.hashes.${system};
   };
 
   buildInputs = lib.optional (!stdenv.isDarwin) (lib.getLib stdenv.cc.cc);
@@ -58,10 +58,10 @@ stdenv.mkDerivation rec {
     description = "An extremely fast Python type checker and language server, written in Rust";
     homepage = "https://github.com/astral-sh/ty";
     downloadPage = "https://github.com/astral-sh/ty/releases";
-    mainProgram = pname;
-    platforms = lib.attrNames passthru.urls;
+    mainProgram = "ty";
+    platforms = lib.attrNames finalAttrs.passthru.urls;
     maintainers = with lib.maintainers; [ mirkolenz ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.mit;
   };
-}
+})

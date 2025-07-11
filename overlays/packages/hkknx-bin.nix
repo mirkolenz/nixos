@@ -2,22 +2,23 @@
 {
   lib,
   fetchzip,
-  stdenv,
+  stdenvNoCC,
   autoPatchelfHook,
+  versionCheckHook,
 }:
 let
-  inherit (stdenv.hostPlatform) system;
+  inherit (stdenvNoCC.hostPlatform) system;
 in
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "hkknx";
   version = "3.1.2";
 
   passthru = {
     urls = {
-      aarch64-darwin = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_arm64.tar.gz";
-      aarch64-linux = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_arm64.tar.gz";
-      x86_64-darwin = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_darwin_amd64.tar.gz";
-      x86_64-linux = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_linux_amd64.tar.gz";
+      aarch64-darwin = "https://github.com/brutella/hkknx-public/releases/download/${finalAttrs.version}/hkknx-${finalAttrs.version}_darwin_arm64.tar.gz";
+      aarch64-linux = "https://github.com/brutella/hkknx-public/releases/download/${finalAttrs.version}/hkknx-${finalAttrs.version}_linux_arm64.tar.gz";
+      x86_64-darwin = "https://github.com/brutella/hkknx-public/releases/download/${finalAttrs.version}/hkknx-${finalAttrs.version}_darwin_amd64.tar.gz";
+      x86_64-linux = "https://github.com/brutella/hkknx-public/releases/download/${finalAttrs.version}/hkknx-${finalAttrs.version}_linux_amd64.tar.gz";
     };
     hashes = {
       aarch64-darwin = "sha256-DEiFoW6+MDR0+GKI8IVv+cYddk3Yvp4YsRA+WGfYeEA=";
@@ -28,12 +29,14 @@ stdenv.mkDerivation rec {
   };
 
   src = fetchzip {
-    url = passthru.urls.${system};
-    hash = passthru.hashes.${system};
+    url = finalAttrs.passthru.urls.${system};
+    hash = finalAttrs.passthru.hashes.${system};
     stripRoot = false;
   };
 
-  nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+  dontBuild = true;
+
+  nativeBuildInputs = lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook;
 
   installPhase = ''
     runHook preInstall
@@ -44,14 +47,20 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
+  versionCheckProgramArg = "--version";
+  doInstallCheck = true;
+
   meta = {
     description = "HomeKit Bridge for KNX";
     homepage = "https://hochgatterer.me/hkknx";
     downloadPage = "https://github.com/brutella/hkknx-public/releases";
-    mainProgram = pname;
-    platforms = lib.attrNames passthru.urls;
+    mainProgram = "hkknx";
+    platforms = lib.attrNames finalAttrs.passthru.urls;
     maintainers = with lib.maintainers; [ mirkolenz ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
   };
-}
+})
