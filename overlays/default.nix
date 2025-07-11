@@ -1,8 +1,8 @@
-args@{ inputs, ... }:
-[
-  inputs.nix-darwin-unstable.overlays.default
-  (import ./by-name.nix args)
-  (import ./channels.nix args)
-  (import ./imports.nix args)
-  (import ./overrides.nix args)
+args: final: prev:
+prev.lib.mergeAttrsList [
+  (args.inputs.nix-darwin-unstable.overlays.default final prev)
+  (import ./by-name.nix args final prev)
+  (import ./channels.nix args final prev)
+  (import ./imports.nix args final prev)
+  (import ./overrides.nix args final prev)
 ]

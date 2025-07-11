@@ -5,20 +5,13 @@
   ...
 }:
 {
-  _module.args = rec {
+  _module.args = {
     nixpkgsArgs = {
       config = {
         allowUnfree = true;
         nvidia.acceptLicense = true;
       };
-      overlays = import ../overlays {
-        inherit
-          self
-          inputs
-          lib'
-          ;
-        inherit (nixpkgsArgs) config;
-      };
+      overlays = [ self.overlays.default ];
     };
 
     # available during import

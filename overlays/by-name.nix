@@ -13,18 +13,19 @@ let
     callPackage = lib.callPackageWith (final // { inherit inputs; });
     directory = ./packages;
   };
+  exportedVimPlugins = prev.lib.packagesFromDirectoryRecursive {
+    inherit (prev) callPackage;
+    directory = ./vim-plugins;
+  };
 in
 {
+  exported-derivations = exportedFunctions // exportedPackages // exportedVimPlugins;
   exported-functions = exportedFunctions;
   exported-packages = lib.filterAttrs (
     name: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
   ) exportedPackages;
-  vimPlugins =
-    prev.vimPlugins
-    // prev.lib.packagesFromDirectoryRecursive {
-      inherit (prev) callPackage;
-      directory = ./vim-plugins;
-    };
+  exported-vim-plugins = exportedVimPlugins;
+  vimPlugins = prev.vimPlugins // exportedVimPlugins;
 }
 // exportedFunctions
 // exportedPackages

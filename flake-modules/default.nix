@@ -25,5 +25,13 @@
     };
   flake = {
     lib = lib'.self;
+    overlays.default = import ../overlays {
+      inherit
+        self
+        inputs
+        lib'
+        ;
+      inherit (nixpkgsArgs) config;
+    };
   };
 }
