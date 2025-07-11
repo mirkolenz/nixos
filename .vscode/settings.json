@@ -1,32 +1,32 @@
 {
-  "nix.serverSettings": {
-    "nixd": {
-      "formatting": {
-        "command": ["nixfmt"]
-      },
-      "nixpkgs": {
-        "expr": "import (builtins.getFlake (\"git:\" + builtins.toString ./.)).inputs.nixpkgs { }"
-      },
-      "options": {
-        "nixos": {
-          "expr": "(builtins.getFlake (\"git:\" + builtins.toString ./.)).nixosConfigurations.orbstack.options"
-        },
-        "home-manager": {
-          "expr": "(builtins.getFlake (\"git:\" + builtins.toString ./.)).homeConfigurations.\"lenz@gpu.wi2.uni-trier.de\".options"
-        },
-        "nix-darwin": {
-          "expr": "(builtins.getFlake (\"git:\" + builtins.toString ./.)).darwinConfigurations.mirkos-macbook.options"
-        },
-        "nixvim": {
-          "expr": "(builtins.getFlake (\"git:\" + builtins.toString ./.)).nixvimConfigurations.${builtins.currentSystem}.unstable.options"
-        },
-        "flake-parts": {
-          "expr": "(builtins.getFlake (\"git:\" + builtins.toString ./.)).debug.options"
-        },
-        "flake-parts-system": {
-          "expr": "(builtins.getFlake (\"git:\" + builtins.toString ./.)).currentSystem.options"
-        }
-      }
-    }
-  }
+	"nix.serverSettings": {
+		"nixd": {
+			"formatting": {
+				"command": ["nixfmt"]
+			},
+			"nixpkgs": {
+				"expr": "import (builtins.getFlake (\"git+file://\" + builtins.toString ./.)).inputs.nixpkgs { }"
+			},
+			"options": {
+				"nixos": {
+					"expr": "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).nixosConfigurations.orbstack.options"
+				},
+				"home-manager": {
+					"expr": "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).homeConfigurations.\"lenz@gpu.wi2.uni-trier.de\".options"
+				},
+				"nix-darwin": {
+					"expr": "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).darwinConfigurations.mirkos-macbook.options"
+				},
+				"nixvim": {
+					"expr": "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).nixvimConfigurations.${builtins.currentSystem}.unstable.options"
+				},
+				"flake-parts": {
+					"expr": "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).debug.options"
+				},
+				"flake-parts-system": {
+					"expr": "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).currentSystem.options"
+				}
+			}
+		}
+	}
 }
