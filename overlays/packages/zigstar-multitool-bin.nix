@@ -2,6 +2,7 @@
   lib,
   mkApp,
   fetchzip,
+  nix-update-script,
 }:
 mkApp rec {
   pname = "zigstar-multitool";
@@ -13,6 +14,8 @@ mkApp rec {
     hash = "sha256-8el7RqCVEHUkNY3JAHRkH9yKCCIRxDDOjR2+WW+zmKQ=";
     stripRoot = false;
   };
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "UI wrapper designed for convenient service work with TI CC1352/CC2538/CC2652 based Zigbee sticks or gateways";

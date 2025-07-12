@@ -1,0 +1,11 @@
+{
+  "version": "3.1.2",
+  "hashes": {
+    "hkknx-3.1.2_darwin_amd64.tar.gz": "sha256:ef2b6e153f284832451329aa65b12203d665f642fa85b777244e05f38688a4cd",
+    "hkknx-3.1.2_darwin_arm64.tar.gz": "sha256:5fb1f4f03ca530aefaa9c5cdfe6cc8e4d72b8a3107860ea1bf1188e6e26be814",
+    "hkknx-3.1.2_linux_386.tar.gz": "sha256:38665df719ee93d727f414d24749b4b6e5e72b954cc6acf3220a886c51361cce",
+    "hkknx-3.1.2_linux_amd64.tar.gz": "sha256:9a517c3ef5ff7cc954fff07ce0f29210622522a16394cf745e11f88fe80532af",
+    "hkknx-3.1.2_linux_arm.tar.gz": "sha256:a5dd85fc06ec8aeb4c779fc0b5293b778e725694438fd667173ece80ef6df953",
+    "hkknx-3.1.2_linux_arm64.tar.gz": "sha256:c03d54ec7ee2a39e95329b872653515f66492c2899125de8ce6a4533191f2a59"
+  }
+}

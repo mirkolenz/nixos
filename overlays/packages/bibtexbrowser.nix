@@ -2,9 +2,11 @@
   stdenv,
   fetchFromGitHub,
   lib,
+  nix-update-script,
 }:
 stdenv.mkDerivation {
-  name = "bibtexbrowser";
+  pname = "bibtexbrowser";
+  version = "latest";
   src = fetchFromGitHub {
     owner = "monperrus";
     repo = "bibtexbrowser";
@@ -19,6 +21,7 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
+  passthru.updateScript = nix-update-script { };
   meta = {
     description = "Beautiful publication lists with bibtex and PHP";
     homepage = "www.monperrus.net/martin/bibtexbrowser/";

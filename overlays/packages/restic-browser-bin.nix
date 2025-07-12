@@ -2,11 +2,13 @@
   lib,
   mkApp,
   fetchzip,
+  nix-update-script,
 }:
 mkApp rec {
   pname = "restic-browser";
   version = "0.3.2";
   appname = "Restic-Browser";
+
   src = fetchzip {
     url = "https://github.com/emuell/restic-browser/releases/download/v${version}/${appname}-v${version}-macOS.zip";
     hash = "sha256-3uPmdJZmUPfQjVCuf5h9Wa/rzezJqgfqsDz0vdcf5AM=";
@@ -16,6 +18,9 @@ mkApp rec {
       rm "$out/${appname}.app.tar"
     '';
   };
+
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "A GUI to browse and restore restic backup repositories.";
     homepage = "https://github.com/emuell/restic-browser";

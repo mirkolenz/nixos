@@ -1,4 +1,4 @@
-{ fetchFromGitHub }:
+{ fetchFromGitHub, nix-update-script }:
 fetchFromGitHub rec {
   pname = "github-theme-contrib";
   version = "1.0.2";
@@ -6,6 +6,7 @@ fetchFromGitHub rec {
   repo = "github-theme-contrib";
   tag = "v${version}";
   hash = "sha256-MKB9JtU6Gv16ma7S9J7n1QCjAiJhBrD0mUHum+blJOs=";
+  passthru.updateScript = nix-update-script { };
   meta = {
     downloadPage = "https://github.com/projekt0n/github-theme-contrib/releases";
   };

@@ -1,7 +1,11 @@
-{ vimUtils, fetchFromGitHub }:
+{
+  vimUtils,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 vimUtils.buildVimPlugin {
-  name = "multicursor.nvim";
-  # prefetch-attr .#vimPlugins.multicursor-nvim.src.url --unpack
+  pname = "multicursor.nvim";
+  version = "0-unstable-2025-05-29";
   src = fetchFromGitHub {
     owner = "jake-stewart";
     repo = "multicursor.nvim";
@@ -9,4 +13,7 @@ vimUtils.buildVimPlugin {
     hash = "sha256-NUOJlFZhB8OqBlkp+dXUQzFTHvPCMmWFMMTWmV7XdLQ=";
   };
   meta.homepage = "https://github.com/jake-stewart/multicursor.nvim";
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 }

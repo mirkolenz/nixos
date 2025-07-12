@@ -2,12 +2,12 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "uv-migrator";
   version = "2025.8.2";
   useFetchCargoVendor = true;
-  # nix-update --flake uv-migrator
 
   src = fetchFromGitHub {
     owner = "stvnksslr";
@@ -17,6 +17,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-0t18fKYOp6qF+V24tPLK9IUUYp8OTghlT4j3qxqc9kw=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Tool for migrating to the uv package manager";

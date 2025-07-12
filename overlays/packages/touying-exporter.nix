@@ -2,6 +2,7 @@
   lib,
   python3Packages,
   fetchFromGitHub,
+  nix-update-script,
 }:
 python3Packages.buildPythonApplication rec {
   pname = "touying-exporter";
@@ -34,6 +35,8 @@ python3Packages.buildPythonApplication rec {
   pythonImportsCheck = [
     "touying"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Export presentation slides in various formats for Touying";

@@ -2,6 +2,7 @@
   python3Packages,
   fetchFromGitHub,
   lib,
+  nix-update-script,
 }:
 python3Packages.buildPythonApplication rec {
   pname = "bibtex2cff";
@@ -38,6 +39,8 @@ python3Packages.buildPythonApplication rec {
     bandit
     types-pyyaml
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Convert from bibtex to CITATION.cff";

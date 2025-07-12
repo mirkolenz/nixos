@@ -1,0 +1,7 @@
+{
+  "version": "2.4.0",
+  "hashes": {
+    "infat-arm64-apple-macos.tar.gz": "sha256:e2bd126ad11c96ea6a16f1299df31dd34d6b4255f7aff153f4ae252920d8709f",
+    "infat-x86_64-apple-macos.tar.gz": "sha256:e1f03c2f85aac43be31dc3a8c92427fa9e75e25615061c83c371afa15358f601"
+  }
+}

@@ -5,11 +5,11 @@
   fetchFromGitHub,
   installShellFiles,
   buildPackages,
+  nix-update-script,
 }:
 buildGoModule rec {
   pname = "gibo";
   version = "3.0.14";
-  # nix-update --flake gibo
 
   src = fetchFromGitHub {
     owner = "simonwhitaker";
@@ -41,6 +41,8 @@ buildGoModule rec {
         --zsh <(${emulator} $out/bin/gibo completion zsh)
     ''
   );
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Easy access to gitignore boilerplates";

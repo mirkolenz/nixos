@@ -1,12 +1,19 @@
-{ vimUtils, fetchFromGitHub }:
+{
+  vimUtils,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 vimUtils.buildVimPlugin {
-  name = "copilot.lua";
-  # prefetch-attr .#vimPlugins.copilot-lua.src.url --unpack
+  pname = "copilot.lua";
+  version = "0-unstable-2025-07-08";
   src = fetchFromGitHub {
     owner = "zbirenbaum";
     repo = "copilot.lua";
-    rev = "46f4b7d026cba9497159dcd3e6aa61a185cb1c48";
-    hash = "sha256-p4kZBoa0GMV1s4gNfQ3i2ZTVN8RNxOi3EJ7pH6nw6qk=";
+    rev = "3680bebcc95dfd6c7509466367e66f6dc64a5140";
+    hash = "sha256-Ntj1KjSPfw9MuJMpXYaHklZpv5BglGS8TZcrt2B6yjg=";
   };
   meta.homepage = "https://github.com/zbirenbaum/copilot.lua/";
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 }

@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 buildGoModule rec {
   pname = "wol";
@@ -23,6 +24,8 @@ buildGoModule rec {
     "-X=github.com/trugamr/wol/cmd.commit=${src.rev}"
     "-X=github.com/trugamr/wol/cmd.date=1970-01-01T00:00:00Z"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Wake up your devices with a single command or click, a Wake-On-LAN tool that works via CLI and web interface";

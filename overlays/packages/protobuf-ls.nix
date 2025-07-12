@@ -2,8 +2,8 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "protobuf-language-server";
   version = "0.1.1";
@@ -22,6 +22,8 @@ buildGoModule rec {
     "-w"
   ];
   doCheck = false;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A language server implementation for Google Protocol Buffers";

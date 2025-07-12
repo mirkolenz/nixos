@@ -20,13 +20,11 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "claude-code";
-  inherit (manifest) version;
-  # https://claude.ai/install.sh
-  # nix-update --flake claude-code-bin
+  version = manifest.version or "unstable";
 
   src = fetchurl {
     url = "${gcsBucket}/${finalAttrs.version}/${platform}/claude";
-    sha256 = manifest.platforms.${platform}.checksum;
+    hash = "sha256:${manifest.platforms.${platform}.checksum}";
   };
 
   dontUnpack = true;
@@ -47,9 +45,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [
-    versionCheckHook
-  ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgram = "${placeholder "out"}/bin/claude";
   versionCheckProgramArg = "--version";
   doInstallCheck = false; # tries to open $HOME/.claude.json

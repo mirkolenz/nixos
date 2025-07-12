@@ -3,11 +3,11 @@
   fetchFromGitHub,
   fyne,
   lib,
+  nix-update-script,
 }:
 buildGoModule rec {
   pname = "janice";
   version = "0.9.0";
-  # nix-update --flake janice
 
   src = fetchFromGitHub {
     owner = "ErikKalkoken";
@@ -24,6 +24,8 @@ buildGoModule rec {
   ];
 
   inherit (fyne) buildInputs nativeBuildInputs;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A desktop app for viewing large JSON files";

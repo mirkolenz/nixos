@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1-alpha.14",
+  "hashes": {
+    "ty-aarch64-apple-darwin.tar.gz": "sha256:6e9ae723806bfd82398b1e33affee1f99f0086a8b10bb7554a882b24dc103868",
+    "ty-aarch64-unknown-linux-gnu.tar.gz": "sha256:9a32578eda004b04299b0c6291f1ce1083c70adbdb90ab3dee77404e67d828d5",
+    "ty-aarch64-unknown-linux-musl.tar.gz": "sha256:5ec531bbefd72617c39e9b17a588dc2e137bf96b0a0293bc9168d51738a3d8b4",
+    "ty-arm-unknown-linux-musleabihf.tar.gz": "sha256:5d41ce33247a51b450410304742da868468396eaafde0a7268c1c40d8d785db7",
+    "ty-armv7-unknown-linux-gnueabihf.tar.gz": "sha256:032636d4f778f3f3fc62db6e4fe0139895a65abc4b0054fd962c2e6a096f3b6b",
+    "ty-armv7-unknown-linux-musleabihf.tar.gz": "sha256:9b0d87c02b038f9148b24c5237466c17f1c7ff491c8c9e41fa6bb26285c1c24f",
+    "ty-i686-unknown-linux-gnu.tar.gz": "sha256:385e527444ed1bbbab345b31101d9ac1957427daa94d2131a5e90a98ffb4d903",
+    "ty-i686-unknown-linux-musl.tar.gz": "sha256:84a7c8dc2c9b919d2868cf7c94fe0bf4904e245ee97fc4885deb66815d9ddc2a",
+    "ty-powerpc64-unknown-linux-gnu.tar.gz": "sha256:6aa6fb9cf3be19fd32e4d4a21da41461f5dfc9ad73e3f8623acfb794a56f1068",
+    "ty-powerpc64le-unknown-linux-gnu.tar.gz": "sha256:451e8560656fc410e21f4f27de4795637efd24797038526066931b227063ca8a",
+    "ty-s390x-unknown-linux-gnu.tar.gz": "sha256:2fe9c1377569b8701d82a990ecef5a6890b29c1ec3b9bb0e18a34c6756cf1371",
+    "ty-x86_64-apple-darwin.tar.gz": "sha256:4abf96387b29bbf329a94422281356f815b3338c88fb31ae1c8dee6fc85451b7",
+    "ty-x86_64-unknown-linux-gnu.tar.gz": "sha256:4896de84dc9bbce00fbf7f3975023571d949ffe008edec70898886d4c976ec32",
+    "ty-x86_64-unknown-linux-musl.tar.gz": "sha256:a2a7c9d08e7db798be1ed8aed43d17fff543b4fd731b20ec0ff6181ac89171d1"
+  }
+}
