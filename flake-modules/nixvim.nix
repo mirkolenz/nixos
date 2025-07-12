@@ -2,7 +2,6 @@
   inputs,
   specialModuleArgs,
   moduleArgs,
-  nixpkgsArgs,
   lib',
   self,
   lib,
@@ -24,7 +23,8 @@ let
           _module.args = moduleArgs;
           nixpkgs = {
             hostPlatform = system;
-            inherit (nixpkgsArgs) config overlays;
+            config = self.nixpkgsConfig;
+            overlays = [ self.overlays.default ];
             source = lib'.self.systemInput {
               inherit inputs channel os;
               name = "nixpkgs";

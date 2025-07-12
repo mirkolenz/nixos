@@ -1,7 +1,7 @@
 {
   inputs,
   lib',
-  config,
+  self,
   ...
 }:
 final: prev:
@@ -9,7 +9,8 @@ let
   inherit (prev.stdenv.hostPlatform) system;
   os = lib'.self.systemOs system;
   importArgs = {
-    inherit system config;
+    inherit system;
+    config = self.nixpkgsConfig;
   };
 in
 {

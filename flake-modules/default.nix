@@ -1,7 +1,6 @@
 {
   lib',
   inputs,
-  nixpkgsArgs,
   self,
   ...
 }:
@@ -16,7 +15,8 @@
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
-        inherit (nixpkgsArgs) config overlays;
+        config = self.nixpkgsConfig;
+        overlays = [ self.overlays.default ];
       };
       legacyPackages = pkgs;
       packages = pkgs.exported-packages // {
@@ -31,7 +31,10 @@
         inputs
         lib'
         ;
-      inherit (nixpkgsArgs) config;
+    };
+    nixpkgsConfig = {
+      allowUnfree = true;
+      nvidia.acceptLicense = true;
     };
   };
 }

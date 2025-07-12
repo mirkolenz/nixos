@@ -1,7 +1,6 @@
 {
   specialModuleArgs,
   moduleArgs,
-  nixpkgsArgs,
   inputs,
   self,
   lib',
@@ -16,7 +15,10 @@
           ../common
           ../system/common
         ];
-        nixpkgs = nixpkgsArgs;
+        nixpkgs = {
+          config = self.nixpkgsConfig;
+          overlays = [ self.overlays.default ];
+        };
         _module.args = moduleArgs;
         home-manager = {
           backupFileExtension = "backup";
@@ -53,12 +55,18 @@
     homeModules.linux-standalone =
       { pkgs, ... }:
       {
-        nixpkgs = nixpkgsArgs;
+        nixpkgs = {
+          config = self.nixpkgsConfig;
+          overlays = [ self.overlays.default ];
+        };
         imports = [ self.homeModules.linux ];
         targets.genericLinux.enable = pkgs.stdenv.isLinux;
       };
     homeModules.darwin-standalone = {
-      nixpkgs = nixpkgsArgs;
+      nixpkgs = {
+        config = self.nixpkgsConfig;
+        overlays = [ self.overlays.default ];
+      };
       imports = [ self.homeModules.darwin ];
     };
     nixosModules.default =

@@ -4,9 +4,19 @@ writeShellApplication {
   text = ''
     pathArg="$1"
     shift
+    overlays="
+      let
+        flake = builtins.getFlake (\"git+file://\" + builtins.toString ./.);
+        overlay = import ./overlays {
+          inherit (flake) inputs self;
+          lib' = flake.lib;
+        };
+      in
+      [ overlay ]
+    "
     exec nix-shell \
       ${inputs.nixpkgs.outPath}/maintainers/scripts/update.nix \
-      --arg include-overlays "[ (builtins.getFlake (\"git+file://\" + builtins.toString ./.)).overlays.default ]" \
+      --arg include-overlays "$overlays" \
       --argstr path "$pathArg" \
       "$@"
   '';

@@ -6,14 +6,6 @@
 }:
 {
   _module.args = {
-    nixpkgsArgs = {
-      config = {
-        allowUnfree = true;
-        nvidia.acceptLicense = true;
-      };
-      overlays = [ self.overlays.default ];
-    };
-
     # available during import
     specialModuleArgs = {
       inherit self inputs lib';
