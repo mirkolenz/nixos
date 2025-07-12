@@ -9,7 +9,7 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   gcsBucket = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
-  manifest = import ./manifest.nix;
+  manifest = lib.importJSON ./manifest.json;
   systemToPlatform = {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "${gcsBucket}/${finalAttrs.version}/${platform}/claude";
-    sha256 = manifest.hashes.${platform};
+    sha256 = manifest.platforms.${platform}.checksum;
   };
 
   dontUnpack = true;
