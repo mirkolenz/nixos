@@ -6,9 +6,10 @@ writeShellApplication {
     shift
     overlays="
       let
-        flake = builtins.getFlake (\"git+file://\" + builtins.toString ./.);
+        flake = builtins.getFlake (\"git+file://\" + toString ./.);
         overlay = import ./overlays {
-          inherit (flake) inputs self;
+          inherit (flake) inputs;
+          self = flake;
           lib' = flake.lib;
         };
       in
