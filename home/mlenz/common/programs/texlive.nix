@@ -29,7 +29,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       # Only for system config
       $ENV{"TZ"} = "Europe/Berlin";
       $clean_ext = "";
-      $pdf_previewer = "open -a Skim %S";
+      $pdf_previewer = "open -g -a Skim %S";
     '';
   };
   home.packages = with pkgs; [
