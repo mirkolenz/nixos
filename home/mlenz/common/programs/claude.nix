@@ -13,13 +13,9 @@
     enable = true;
     package = pkgs.claude-code-bin;
     settings = {
-      autoUpdates = false;
       cleanupPeriodDays = 30;
       includeCoAuthoredBy = false;
       model = "default";
-      preferredNotifChannel = "terminal_bell";
-      theme = "dark";
-      verbose = false;
       permissions = {
         defaultMode = "acceptEdits";
         allow = [
