@@ -31,7 +31,7 @@
       };
     homeModules.default = {
       imports = [
-        inputs.nix-index-database.hmModules.nix-index
+        inputs.nix-index-database.homeModules.nix-index
         ../home/mlenz/common
         ../home/options
         ../common
