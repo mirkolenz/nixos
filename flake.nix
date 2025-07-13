@@ -152,6 +152,10 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+    nix-sweep = {
+      url = "github:jzbor/nix-sweep";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     cosmic-manager = {
       url = "github:heitoraugustoln/cosmic-manager";
       inputs = {
