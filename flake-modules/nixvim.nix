@@ -69,7 +69,7 @@ in
           inherit system;
           channel = "unstable";
           extraModule = {
-            custom.enableOptionalPlugins = false;
+            custom.enableOptionalPlugins = true;
           };
         };
         minimal = mkNixvim {
