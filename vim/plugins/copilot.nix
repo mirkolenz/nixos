@@ -4,7 +4,7 @@
   config,
   ...
 }:
-{
+lib.mkIf config.custom.enableOptionalPlugins {
   globals = lib.mkIf config.plugins.copilot-vim.enable {
     copilot_settings = {
       # selectedCompletionModel = "";

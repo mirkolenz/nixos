@@ -9,7 +9,11 @@
 }:
 let
   mkNixvim =
-    { channel, system }:
+    {
+      channel,
+      system,
+      extraModule ? { },
+    }:
     let
       os = lib'.self.systemOs system;
     in
@@ -19,6 +23,7 @@ let
       };
       modules = [
         self.nixvimModules.default
+        extraModule
         {
           _module.args = moduleArgs;
           nixpkgs = {
@@ -55,10 +60,25 @@ in
         neovide = pkgs.writeShellApplication {
           name = "neovide";
           text = ''
-            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe pkgs.nixvim} "$@"
+            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe pkgs.nixvim-full} "$@"
           '';
         };
       };
-      nixvimConfigurations = lib.genAttrs [ "unstable" ] (channel: mkNixvim { inherit channel system; });
+      nixvimConfigurations = {
+        full = mkNixvim {
+          inherit system;
+          channel = "unstable";
+          extraModule = {
+            custom.enableOptionalPlugins = false;
+          };
+        };
+        minimal = mkNixvim {
+          inherit system;
+          channel = "unstable";
+          extraModule = {
+            custom.enableOptionalPlugins = false;
+          };
+        };
+      };
     };
 }

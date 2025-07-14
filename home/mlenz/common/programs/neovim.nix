@@ -7,7 +7,7 @@
 {
   custom.neovim = {
     enable = true;
-    package = pkgs.nixvim;
+    package = if config.custom.profile.isWorkstation then pkgs.nixvim-full else pkgs.nixvim-minimal;
   };
   programs.neovide = {
     enable = config.custom.profile.isDesktop;

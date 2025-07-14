@@ -15,8 +15,8 @@ let
 in
 {
   inherit (self.packages.${system})
-    # nixvim-stable
-    nixvim-unstable
+    nixvim-full
+    nixvim-minimal
     treefmt-nix
     ;
   angrr = fromInput "angrr" "angrr";
@@ -26,6 +26,5 @@ in
   nix-converter = fromInput "nix-converter" "default";
   nix-sweep = fromInput "nix-sweep" "default";
   nixfmt = final.nixfmt-rfc-style;
-  nixvim = final.nixvim-unstable;
   uv-bin = fromInput "uv2nix" "uv-bin";
 }

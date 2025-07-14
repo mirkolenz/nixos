@@ -9,7 +9,7 @@ let
     "x86_64-linux"
   ];
   extraPackages = pkgs: {
-    inherit (pkgs) nixvim-unstable;
+    inherit (pkgs) nixvim-full;
   };
   filterPackages =
     name: value:
