@@ -2,6 +2,7 @@
   lib',
   inputs,
   self,
+  lib,
   ...
 }:
 {
@@ -20,7 +21,9 @@
       };
       legacyPackages = pkgs;
       packages = pkgs.exported-packages // {
-        default = pkgs.mkBuilder { flake = self; };
+        default = pkgs.writeShellScriptBin "default" ''
+          exec ${lib.getExe pkgs.builder} --flake ${self.outPath} "$@"
+        '';
       };
     };
   flake = {
