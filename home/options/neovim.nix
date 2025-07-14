@@ -11,7 +11,7 @@ in
   options = {
     custom.neovim = {
       enable = lib.mkEnableOption "neovim";
-      package = lib.mkPackageOption pkgs "nvim" { nullable = true; };
+      package = lib.mkPackageOption pkgs "neovim" { nullable = true; };
       defaultEditor = (lib.mkEnableOption "set vim as default editor") // {
         default = true;
       };

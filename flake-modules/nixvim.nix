@@ -53,14 +53,19 @@ in
   };
   flake.nixvimModules.default = ../vim;
   perSystem =
-    { system, pkgs, ... }:
+    {
+      system,
+      pkgs,
+      config,
+      ...
+    }:
     {
       packages = {
-        nvim = pkgs.nixvim;
+        neovim = pkgs.nixvim-full;
         neovide = pkgs.writeShellApplication {
           name = "neovide";
           text = ''
-            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe pkgs.nixvim-full} "$@"
+            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe config.packages.neovim} "$@"
           '';
         };
       };
