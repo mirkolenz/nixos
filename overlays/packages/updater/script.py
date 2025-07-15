@@ -16,74 +16,72 @@ class Order(StrEnum):
     REVERSE_TOPOLOGICAL = "reverse-topological"
 
 
+def cmd_arg(key: str, value: str | bool, raw: bool = False) -> list[str]:
+    """Convert an argument to a list of strings for Nix."""
+
+    if isinstance(value, bool):
+        value = "true" if value else "false"
+
+    return ["--arg" if raw else "--argstr", key, value]
+
+
 # https://github.com/NixOS/nixpkgs/blob/master/maintainers/scripts/update.nix#L183
 @app.command()
 def run(
     nixpkgs: Annotated[str, typer.Option()],
-    maintainer: str | None = None,
-    package: str | None = None,
-    predicate: str | None = None,
-    path: str | None = None,
-    max_workers: int | None = None,
-    keep_going: bool = True,
-    commit: bool = False,
-    skip_prompts: bool = False,
-    order: Order | None = None,
+    nix_shell: Annotated[str, typer.Option()] = "nix-shell",
+    maintainer: Annotated[str | None, typer.Option("--maintainer", "-m")] = None,
+    package: Annotated[str | None, typer.Option("--package", "-p")] = None,
+    function: Annotated[str | None, typer.Option("--function", "-f")] = None,
+    attrset: Annotated[str | None, typer.Option("--attrset", "-a")] = None,
+    max_workers: Annotated[int | None, typer.Option()] = None,
+    keep_going: Annotated[bool, typer.Option()] = True,
+    commit: Annotated[bool, typer.Option()] = False,
+    skip_prompt: Annotated[bool, typer.Option()] = True,
+    order: Annotated[Order | None, typer.Option()] = None,
 ):
-    specs = sum(x is not None for x in [maintainer, package, predicate, path])
+    specs = sum(x is not None for x in [maintainer, package, function, attrset])
 
     if specs > 1:
         typer.echo(
-            "You can only specify one of --maintainer, --package, --predicate, or --path.",
+            "You can only specify one of maintainer, package, function, or attrset.",
             err=True,
         )
         raise typer.Exit(1)
     elif specs == 0:
-        path = "exported-derivations"
-
-    overlays = """
-      let
-        flake = builtins.getFlake (\"git+file://\" + toString ./.);
-        overlay = import ./overlays {
-          inherit (flake) inputs;
-          self = flake;
-          lib' = flake.lib;
-        };
-      in
-      [ overlay ]
-    """
+        attrset = "exported-derivations"
 
     cmd: list[str] = [
-        "nix-shell",
+        nix_shell,
         f"{nixpkgs}/maintainers/scripts/update.nix",
     ]
 
-    if maintainer:
-        cmd += ["--argstr", "maintainer", maintainer]
+    if maintainer is not None:
+        cmd += cmd_arg("maintainer", maintainer)
 
-    if package:
-        cmd += ["--argstr", "package", package]
+    if package is not None:
+        cmd += cmd_arg("package", package)
 
-    if predicate:
-        cmd += ["--argstr", "predicate", predicate]
+    if function is not None:
+        cmd += cmd_arg("predicate", function, raw=True)
 
-    if path:
-        cmd += ["--argstr", "path", path]
+    if attrset is not None:
+        cmd += cmd_arg("path", attrset)
 
     if max_workers is not None:
-        cmd += ["--argstr", "max-workers", str(max_workers)]
+        cmd += cmd_arg("max-workers", str(max_workers))
 
     if keep_going:
-        cmd += ["--argstr", "keep-going", "true"]
+        cmd += cmd_arg("keep-going", keep_going)
 
     if commit:
-        cmd += ["--argstr", "commit", "true"]
+        cmd += cmd_arg("commit", commit)
 
-    if skip_prompts:
-        cmd += ["--argstr", "skip-prompts", "true"]
+    if skip_prompt:
+        cmd += cmd_arg("skip-prompt", skip_prompt)
 
-    if order:
-        cmd += ["--argstr", "order", order.value]
+    if order is not None:
+        cmd += cmd_arg("order", order.value)
 
     typer.echo(
         shlex.join(
@@ -96,12 +94,20 @@ def run(
         err=True,
     )
 
+    overlays = """
+        let
+            flake = builtins.getFlake (\"git+file://\" + toString ./.);
+            overlay = import ./overlays {
+                inherit (flake) inputs;
+                self = flake;
+                lib' = flake.lib;
+            };
+        in
+        [ overlay ]
+    """
+
     # we don't want to show this in the output
-    cmd += [
-        "--arg",
-        "include-overlays",
-        overlays,
-    ]
+    cmd += cmd_arg("include-overlays", overlays, raw=True)
 
     subprocess.run(cmd)
 

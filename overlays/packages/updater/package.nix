@@ -3,6 +3,7 @@
   writers,
   python3Packages,
   inputs,
+  nix,
 }:
 writers.writePython3Bin "updater" {
   libraries = with python3Packages; [ typer ];
@@ -16,5 +17,7 @@ writers.writePython3Bin "updater" {
       [
         "--nixpkgs"
         inputs.nixpkgs.outPath
+        "--nix-shell"
+        (lib.getExe' nix "nix-shell")
       ];
 } ./script.py
