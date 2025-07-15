@@ -24,10 +24,15 @@ in
       ${lib.optionalString pkgs.stdenv.isLinux "IdentityAgent ${config.home.homeDirectory}/.1password/agent.sock"}
     '';
     matchBlocks = {
-      "wi2gpu" = {
+      "gpu" = {
         hostname = "gpu.wi2.uni-trier.de";
         forwardAgent = true;
         user = "lenz";
+      };
+      "kitei" = {
+        hostname = "dfki-1170.dfki.uni-trier.de";
+        forwardAgent = true;
+        user = "eifelkreis";
       };
       "macpro homeserver" = {
         hostname = "macpro.lenz.casa";
