@@ -22,9 +22,9 @@ lib.mkIf pkgs.stdenv.isDarwin {
       $lualatex = "lualatex %O %S";
 
       # Inject local texmf
-      # $ENV{"TEXINPUTS"} = "./texmf//:" . $ENV{"TEXINPUTS"};
-      # $ENV{"BSTINPUTS"} = "./texmf//:" . $ENV{"BSTINPUTS"};
-      # $ENV{"BIBINPUTS"} = "./texmf//:" . $ENV{"BIBINPUTS"};
+      $ENV{"TEXINPUTS"} = "./texmf//:" . $ENV{"TEXINPUTS"};
+      $ENV{"BSTINPUTS"} = "./texmf//:" . $ENV{"BSTINPUTS"};
+      $ENV{"BIBINPUTS"} = "./texmf//:" . $ENV{"BIBINPUTS"};
 
       # Only for system config
       $ENV{"TZ"} = "Europe/Berlin";
