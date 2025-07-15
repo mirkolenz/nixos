@@ -51,26 +51,9 @@
           "Bash(git log:*)"
           "Bash(git show:*)"
           "Bash(git status:*)"
-          # tools
-          "Agent"
-          "Edit"
-          "Glob"
-          "Grep"
-          "LS"
-          "MultiEdit"
-          "NotebookEdit"
-          "NotebookRead"
-          "Read"
-          "TodoRead"
-          "TodoWrite"
-          "WebFetch"
-          "WebSearch"
-          "Write"
         ];
         deny = [
           "Bash(sudo:*)"
-          "Read(.env)"
-          "Read(//**)"
         ];
       };
     };
