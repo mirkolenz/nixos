@@ -245,6 +245,7 @@ node_modules
 _Note:_ Reconnect via SSH after installing nix.
 
 ```shell
+ssh-copy-id -i "$HOME/.ssh/id_ed25519.pub" "USER@MACHINE_NAME"
 sudo /nix/var/nix/profiles/default/bin/nix upgrade-nix
 nix run github:mirkolenz/nixos
 sudo usermod -s $(which fish) "$USER"
