@@ -1,1 +1,0 @@
-{ writeShellScriptBin }: writeShellScriptBin "dummy" ":"
