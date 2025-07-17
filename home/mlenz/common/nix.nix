@@ -24,6 +24,7 @@
       ];
       accept-flake-config = true;
       bash-prompt-prefix = "(nix:$name)\\040";
+      commit-lock-file-summary = "chore(deps): update flake.lock";
       log-lines = 1000;
       warn-dirty = false;
     };

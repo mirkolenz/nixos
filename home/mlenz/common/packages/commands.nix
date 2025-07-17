@@ -44,10 +44,7 @@
       exec sudo docker system prune --all --force
     '';
     flakeup = ''
-      exec ${lib.getExe config.nix.package} flake update \
-      --commit-lock-file \
-      --commit-lockfile-summary "chore(deps): update flake.lock" \
-      "$@"
+      exec ${lib.getExe config.nix.package} flake update --commit-lock-file "$@"
     '';
     uvup = ''
       ${lib.getExe config.programs.uv.package} sync --all-extras --upgrade

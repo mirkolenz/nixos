@@ -50,6 +50,7 @@
       always-allow-substitutes = true;
       bash-prompt-prefix = "(nix:$name)\\040";
       builders-use-substitutes = true;
+      commit-lock-file-summary = "chore(deps): update flake.lock";
       cores = 0;
       download-buffer-size = 1000000000; # 1 GB
       keep-derivations = false;

@@ -23,22 +23,21 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-      - name: nix flake update
-        run: |
-          nix flake update \
-            --commit-lock-file \
-            --commit-lock-file-summary "chore(deps): update flake.lock"
-      - name: nix run .#updater
+            commit-lock-file-summary = "chore(deps): update flake.lock"
+      - name: update flake
+        run: nix flake update --commit-lock-file
+      - name: update packages
         run: |
           nix run .#updater
           git commit -m "chore(deps): update packages" overlays || true
       - uses: peter-evans/create-pull-request@v7
         id: pr
         with:
-          pr-title: "chore(deps): auto-update"
           token: ${{ steps.generate-token.outputs.token }}
           branch: update-deps
           delete-branch: true
+          title: "chore(deps): auto-update"
+          body: "Automated changes by the update workflow."
       - name: automerge
         run: gh pr merge --auto --rebase ${{ steps.pr.outputs.pull-request-number }}
         if: steps.pr.outputs.pull-request-number != ''
