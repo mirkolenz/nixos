@@ -40,7 +40,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     janice
     harper
     protobuf-ls
-    touying-exporter
+    touying
     # typst
     typst
     typstyle
