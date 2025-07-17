@@ -71,8 +71,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     uv-apps
     # nodejs
     nodejs
-    nodePackages.prettier
-    nodePackages.dotenv-vault
+    prettier
     npm-check-updates
     biome
     bun
