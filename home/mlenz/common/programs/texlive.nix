@@ -4,6 +4,7 @@
   lib,
   ...
 }:
+# https://tug.org/texlive/scripts-sys-user.html
 lib.mkIf pkgs.stdenv.isDarwin {
   custom.texlive = {
     enable = true;
@@ -11,24 +12,29 @@ lib.mkIf pkgs.stdenv.isDarwin {
     latexmkrc = ''
       # 1: pdflatex
       # 4: lualatex
-      # 5: xelatex
       $pdf_mode = 1;
 
       @default_files = ("main.tex");
 
-      # Add -shell-escape if needed
+      # add `-shell-escape` if needed
       $pdflatex = "pdflatex %O %S";
-      $xelatex = "xelatex %O %S";
       $lualatex = "lualatex %O %S";
 
-      # Inject local texmf
-      $ENV{"TEXINPUTS"} = "./texmf//:" . $ENV{"TEXINPUTS"};
-      $ENV{"BSTINPUTS"} = "./texmf//:" . $ENV{"BSTINPUTS"};
-      $ENV{"BIBINPUTS"} = "./texmf//:" . $ENV{"BIBINPUTS"};
+      # inject local texmf if needed
+      # ensure_path("TEXINPUTS", "./texmf//");
+      # ensure_path("BSTINPUTS", "./texmf//");
+      # ensure_path("BIBINPUTS", "./texmf//");
 
-      # Only for system config
+      # set timezone
       $ENV{"TZ"} = "Europe/Berlin";
-      $clean_ext = "";
+
+      # force compilation
+      $go_mode = 3;
+
+      # force bibtex
+      $bibtex_use = 2;
+
+      # system-specific
       $pdf_previewer = "open -g -a Skim %S";
     '';
   };
