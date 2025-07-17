@@ -32,7 +32,7 @@ jobs:
         run: |
           nix run .#updater
           git commit -m "chore(deps): update packages" overlays || true
-      - uses: peter-evans/create-pull-request@7
+      - uses: peter-evans/create-pull-request@v7
         id: pr
         with:
           pr-title: "chore(deps): auto-update"
