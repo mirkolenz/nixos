@@ -2,6 +2,8 @@
 result
 result-*
 
+*.log
+
 .vscode/*
 !.vscode/settings.json
 
