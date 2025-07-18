@@ -1,10 +1,10 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq
+#!nix-shell -i bash -p gh jq
 
 set -euo pipefail
 
 file="$(dirname "$BASH_SOURCE")/release.json"
-curl -fsSL "https://api.github.com/repos/philocalyst/infat/releases/latest" \
+gh api repos/philocalyst/infat/releases/latest \
   | jq '{
     version: (.tag_name | ltrimstr("v")),
     hashes: [

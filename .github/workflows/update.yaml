@@ -30,6 +30,9 @@ jobs:
         run: |
           nix run .#updater
           git commit -m "chore(deps): update packages" overlays || true
+        env:
+          # avoid rate limits
+          GH_TOKEN: ${{ github.token }}
       - uses: peter-evans/create-pull-request@v7
         id: pr
         with:
@@ -44,4 +47,4 @@ jobs:
         env:
           # if using a personal access token, workflows are run twice
           # first in the pr and then after merging
-          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
