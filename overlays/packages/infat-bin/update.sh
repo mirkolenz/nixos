@@ -4,7 +4,7 @@
 set -euo pipefail
 
 file="$(dirname "$BASH_SOURCE")/release.json"
-gh api repos/philocalyst/infat/releases/latest \
+output="$(gh api repos/philocalyst/infat/releases/latest \
   | jq '{
     version: (.tag_name | ltrimstr("v")),
     hashes: [
@@ -12,5 +12,5 @@ gh api repos/philocalyst/infat/releases/latest \
       | select(.content_type == "application/gzip" and (.name | startswith("infat-")))
       | {(.name): (.digest)}
     ] | add
-  }' \
-  > "$file"
+  }')"
+echo "$output" > "$file"

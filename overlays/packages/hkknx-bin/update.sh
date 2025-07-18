@@ -1,10 +1,10 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq
+#!nix-shell -i bash -p gh jq
 
 set -euo pipefail
 
 file="$(dirname "$BASH_SOURCE")/release.json"
-curl -fsSL "https://api.github.com/repos/brutella/hkknx-public/releases/latest" \
+output="$(gh api repos/brutella/hkknx-public/releases/latest \
   | jq '{
     version: (.tag_name | ltrimstr("v")),
     hashes: [
@@ -12,5 +12,5 @@ curl -fsSL "https://api.github.com/repos/brutella/hkknx-public/releases/latest" 
       | select(.content_type == "application/x-gtar" and (.name | startswith("hkknx-")))
       | {(.name): (.digest)}
     ] | add
-  }' \
-  > "$file"
+  }')"
+echo "$output" > "$file"

@@ -4,7 +4,7 @@
 set -euo pipefail
 
 file="$(dirname "$BASH_SOURCE")/release.json"
-gh api repos/astral-sh/ty/releases \
+output="$(gh api repos/astral-sh/ty/releases \
   --method GET \
   --raw-field per_page=1 \
   | jq '.[0] | {
@@ -14,5 +14,5 @@ gh api repos/astral-sh/ty/releases \
       | select(.content_type == "application/x-gtar" and (.name | startswith("ty-")))
       | {(.name): (.digest)}
     ] | add
-  }' \
-  > "$file"
+  }')"
+echo "$output" > "$file"
