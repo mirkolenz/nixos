@@ -33,6 +33,8 @@ jobs:
         env:
           # avoid rate limits
           GH_TOKEN: ${{ github.token }}
+      - name: remove unstaged changes
+        run: git restore .
       - uses: peter-evans/create-pull-request@v7
         id: pr
         with:
