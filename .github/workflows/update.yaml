@@ -23,7 +23,7 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-            commit-lock-file-summary = "chore(deps): update flake.lock"
+            commit-lock-file-summary = chore(deps): update flake.lock
       - name: update flake
         run: nix flake update --commit-lock-file
       - name: update packages
