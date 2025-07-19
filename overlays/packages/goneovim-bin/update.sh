@@ -1,16 +1,18 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq
+#!nix-shell -i bash -p curl gh
 
 set -euo pipefail
 
 file="$(dirname "$BASH_SOURCE")/release.json"
-output="$(curl -fsSL "https://api.github.com/repos/akiyosi/goneovim/releases/latest" \
-  | jq '{
-    version: (.tag_name | ltrimstr("v")),
+
+output="$(gh api repos/akiyosi/goneovim/releases/latest \
+  | jq '. as $root | {
+    version: .tag_name | ltrimstr("v"),
     hashes: [
       .assets[]
-      | select(.content_type == "application/x-bzip2" and (.name | startswith("goneovim-")))
-      | {(.name): (.digest)}
-    ] | add
+      | select(.name | test("^goneovim-" + $root.tag_name + "-((linux)|(macos-(arm64|x86_64)))\\.tar\\.bz2$"))
+      | { key: .name, value: .digest }
+    ] | from_entries
   }')"
+
 echo "$output" > "$file"

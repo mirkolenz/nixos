@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "${gcsBucket}/${finalAttrs.version}/${platform}/claude";
-    hash = "sha256:${manifest.platforms.${platform}.checksum}";
+    hash = manifest.hashes.${platform};
   };
 
   dontUnpack = true;

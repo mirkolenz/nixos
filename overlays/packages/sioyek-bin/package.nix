@@ -14,6 +14,7 @@ let
     aarch64-darwin = "mac-arm";
   };
   platform = systemToPlatform.${system};
+  assetName = "sioyek-release-${platform}.zip";
 in
 mkApp rec {
   pname = "sioyek";
@@ -21,8 +22,8 @@ mkApp rec {
   appname = "sioyek";
 
   src = fetchurl {
-    url = "https://github.com/ahrm/sioyek/releases/download/sioyek${version}/sioyek-release-${platform}.zip";
-    hash = release.hashes."sioyek-release-${platform}.zip";
+    url = "https://github.com/ahrm/sioyek/releases/download/sioyek${version}/${assetName}";
+    hash = release.hashes.${assetName};
   };
   wrapperPath = "Contents/MacOS/${pname}";
 

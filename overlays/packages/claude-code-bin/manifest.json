@@ -1,26 +1,9 @@
 {
   "version": "1.0.56",
-  "buildDate": "2025-07-18T23:00:58Z",
-  "platforms": {
-    "darwin-arm64": {
-      "checksum": "f831a3079e64320ca8017e0a29a660d39b29b3d18efa319a8c87ee687e2b6424",
-      "size": 73604960
-    },
-    "darwin-x64": {
-      "checksum": "5a5a42bc0e7349786962ca83305de33b4b225169caa5342db99a1e70770bd609",
-      "size": 79244048
-    },
-    "linux-arm64": {
-      "checksum": "fd6fd7ffd0138b54b323adbf9c800c1fe47672e6b813e97b4f82a152ad148574",
-      "size": 134241451
-    },
-    "linux-x64": {
-      "checksum": "9ab201a6033c4669f4ed8c2d8381cf38d3babbcc5745c6fc87e48b977eca9f31",
-      "size": 138001341
-    },
-    "win32-x64": {
-      "checksum": "f1e44e3a31d1a3272e9d8193cf3d488836b3e392e4961d4b82794a6484f6e212",
-      "size": 165009212
-    }
+  "hashes": {
+    "darwin-arm64": "sha256:f831a3079e64320ca8017e0a29a660d39b29b3d18efa319a8c87ee687e2b6424",
+    "darwin-x64": "sha256:5a5a42bc0e7349786962ca83305de33b4b225169caa5342db99a1e70770bd609",
+    "linux-arm64": "sha256:fd6fd7ffd0138b54b323adbf9c800c1fe47672e6b813e97b4f82a152ad148574",
+    "linux-x64": "sha256:9ab201a6033c4669f4ed8c2d8381cf38d3babbcc5745c6fc87e48b977eca9f31"
   }
 }

@@ -12,14 +12,15 @@ let
     aarch64-darwin = "arm64-apple-macos";
   };
   platform = systemToPlatform.${system};
+  assetName = "infat-${platform}.tar.gz";
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "infat";
   version = release.version or "unstable";
 
   src = fetchurl {
-    url = "https://github.com/philocalyst/infat/releases/download/v${finalAttrs.version}/infat-${platform}.tar.gz";
-    hash = release.hashes."infat-${platform}.tar.gz";
+    url = "https://github.com/philocalyst/infat/releases/download/v${finalAttrs.version}/${assetName}";
+    hash = release.hashes.${assetName};
   };
 
   sourceRoot = ".";

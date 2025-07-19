@@ -4,13 +4,15 @@
 set -euo pipefail
 
 file="$(dirname "$BASH_SOURCE")/release.json"
+
 output="$(gh api repos/philocalyst/infat/releases/latest \
   | jq '{
-    version: (.tag_name | ltrimstr("v")),
+    version: .tag_name | ltrimstr("v"),
     hashes: [
       .assets[]
-      | select(.content_type == "application/gzip" and (.name | startswith("infat-")))
-      | {(.name): (.digest)}
-    ] | add
-  }')"
+      | select(.name | test("^infat-(arm64|x86_64)-apple-macos\\.tar\\.gz$"))
+      | { key: .name, value: .digest }
+    ] | from_entries
+    }')"
+
 echo "$output" > "$file"

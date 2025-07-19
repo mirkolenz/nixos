@@ -15,14 +15,15 @@ let
     aarch64-darwin = "aarch64-apple-darwin";
   };
   platform = systemToPlatform.${system};
+  assetName = "ty-${platform}.tar.gz";
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ty";
   version = release.version or "unstable";
 
   src = fetchurl {
-    url = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/ty-${platform}.tar.gz";
-    hash = release.hashes."ty-${platform}.tar.gz";
+    url = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/${assetName}";
+    hash = release.hashes.${assetName};
   };
 
   buildInputs = lib.optional (!stdenv.isDarwin) (lib.getLib stdenv.cc.cc);
