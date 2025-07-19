@@ -10,9 +10,6 @@
     enable = true;
     # depends on programs.man.generateCaches
     generateCompletions = false;
-    loginShellInit = ''
-      fish_add_path "${config.home.homeDirectory}/bin"
-    '';
     interactiveShellInit = ''
       source ${pkgs.github-theme-contrib}/share/themes/fish/github_dark_default.fish
     '';

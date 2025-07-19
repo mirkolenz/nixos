@@ -37,9 +37,12 @@ in
       '';
     })
   ];
+  programs.fish.loginShellInit = ''
+    fish_add_path "${config.home.homeDirectory}/.local/bin"
+  '';
   home.file = {
-    "bin".source = mkLinkFarm {
-      name = "home-bin";
+    ".local/bin".source = mkLinkFarm {
+      name = "home-local-bin";
       paths = {
         git = config.programs.git.package;
         nvim = config.custom.neovim.package;
