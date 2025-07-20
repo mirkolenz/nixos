@@ -15,6 +15,9 @@ let
     name: value:
     !lib.elem name [
       "bibtexbrowser2cff"
+      "bun-apps"
+      "codex"
+      "uv-apps"
     ]
     && !lib.hasSuffix "-docker" name;
 in
