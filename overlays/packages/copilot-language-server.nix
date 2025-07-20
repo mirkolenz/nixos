@@ -1,4 +1,4 @@
-# https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/co/copilot-language-server/package.nix
+# https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/co/copilot-language-server/package.nix
 { nixpkgs, fetchzip }:
 nixpkgs.copilot-language-server.overrideAttrs (prevAttrs: {
   version = "1.345.0";

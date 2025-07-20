@@ -47,6 +47,7 @@ let
     "raycast"
     "rode-central"
     "signal"
+    "silhouette-studio"
     "skim"
     "soundsource"
     "stats"
