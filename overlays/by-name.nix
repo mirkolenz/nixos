@@ -3,29 +3,30 @@ final: prev:
 let
   inherit (prev.stdenv.hostPlatform) system;
   inherit (prev) lib;
-  exportedFunctions = lib.packagesFromDirectoryRecursive {
+  functions = lib.packagesFromDirectoryRecursive {
     # inherit (prev) newScope;
     callPackage = lib.callPackageWith (final // { inherit inputs; });
     directory = ./functions;
   };
-  exportedPackages = lib.packagesFromDirectoryRecursive {
+  packages = lib.packagesFromDirectoryRecursive {
     # inherit (prev) newScope;
     callPackage = lib.callPackageWith (final // { inherit inputs; });
     directory = ./packages;
   };
-  exportedVimPlugins = prev.lib.packagesFromDirectoryRecursive {
+  vimPlugins = prev.lib.packagesFromDirectoryRecursive {
     inherit (prev) callPackage;
     directory = ./vim-plugins;
   };
+  vimPluginsPrefixed = lib.mapAttrs' (name: value: {
+    name = "vim-plugin-${name}";
+    inherit value;
+  }) vimPlugins;
 in
 {
-  exported-derivations = exportedFunctions // exportedPackages // exportedVimPlugins;
-  exported-functions = exportedFunctions;
-  exported-packages = lib.filterAttrs (
+  custom-packages = lib.filterAttrs (
     name: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
-  ) exportedPackages;
-  exported-vim-plugins = exportedVimPlugins;
-  vimPlugins = prev.vimPlugins // exportedVimPlugins;
+  ) (packages // vimPluginsPrefixed);
+  vimPlugins = prev.vimPlugins // vimPlugins;
 }
-// exportedFunctions
-// exportedPackages
+// functions
+// packages

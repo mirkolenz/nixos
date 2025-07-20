@@ -8,25 +8,36 @@ let
   systems = [
     "x86_64-linux"
   ];
-  extraPackages = pkgs: {
-    inherit (pkgs) nixvim-full;
-  };
-  filterPackages =
-    name: value:
-    !lib.elem name [
-      "bibtexbrowser2cff"
-      "bun-apps"
-      "codex"
-      "uv-apps"
-    ]
-    && !lib.hasSuffix "-docker" name;
+  packages = [
+    "bibtex2cff"
+    "bibtexbrowser"
+    "builder"
+    "caddy"
+    "claude-code-bin"
+    "gibo"
+    "hkknx-bin"
+    "infat-bin"
+    "janice"
+    "nixvim-full"
+    "protobuf-ls"
+    "ty-bin"
+    "updater"
+    "uv-migrator"
+    "wol"
+  ];
 in
 {
   flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
     checks = lib.getAttrs systems (
       lib.mapAttrs (
-        system: pkgs: (lib.filterAttrs filterPackages pkgs.exported-packages) // (extraPackages pkgs)
-      ) self.legacyPackages
+        system: pkgs:
+        lib.listToAttrs (
+          map (name: {
+            inherit name;
+            value = pkgs.${name};
+          }) packages
+        )
+      ) self.packages
     );
   };
 }

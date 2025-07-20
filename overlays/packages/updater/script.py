@@ -49,7 +49,7 @@ def run(
         )
         raise typer.Exit(1)
     elif specs == 0:
-        attrset = "exported-derivations"
+        attrset = "custom-packages"
 
     cmd: list[str] = [
         nix_shell,

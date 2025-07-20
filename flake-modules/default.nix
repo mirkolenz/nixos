@@ -20,7 +20,7 @@
         overlays = [ self.overlays.default ];
       };
       legacyPackages = pkgs;
-      packages = pkgs.exported-packages // {
+      packages = pkgs.custom-packages // {
         default = pkgs.writeShellScriptBin "default" ''
           exec ${lib.getExe pkgs.builder} --flake ${self.outPath} "$@"
         '';
