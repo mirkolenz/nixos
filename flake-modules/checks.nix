@@ -30,13 +30,7 @@ in
   flake.githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
     checks = lib.getAttrs systems (
       lib.mapAttrs (
-        system: pkgs:
-        lib.listToAttrs (
-          map (name: {
-            inherit name;
-            value = pkgs.${name};
-          }) packages
-        )
+        system: pkgs: lib.getAttrs (lib.intersectLists packages (lib.attrNames pkgs)) pkgs
       ) self.packages
     );
   };
