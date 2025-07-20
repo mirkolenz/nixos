@@ -176,7 +176,8 @@ in
             "${cfg.configFile}:/etc/caddy/Caddyfile:ro"
             "${cfg.storage.data}:/data"
             "${cfg.storage.config}:/config"
-          ] ++ (lib.optional (cfg.storage.certificates != null) "${cfg.storage.certificates}:/certificates");
+          ]
+          ++ (lib.optional (cfg.storage.certificates != null) "${cfg.storage.certificates}:/certificates");
           Network = [
             "${cfg.networks.internal.ref}:ip=${cfg.networks.internal.ip}"
             "${cfg.networks.external.ref}:ip=${cfg.networks.external.ip}"

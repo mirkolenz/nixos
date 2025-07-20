@@ -30,7 +30,8 @@ let
         extraModule
         self.nixosModules.default
         { networking.hostName = hostName; }
-      ] ++ lib'.flocken.optionalPath ../hosts/${hostName};
+      ]
+      ++ lib'.flocken.optionalPath ../hosts/${hostName};
     };
 in
 {

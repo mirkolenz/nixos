@@ -32,7 +32,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ (lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook);
+  ]
+  ++ (lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook);
 
   installPhase = ''
     runHook preInstall

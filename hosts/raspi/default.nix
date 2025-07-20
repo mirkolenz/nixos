@@ -9,7 +9,8 @@
   imports = [
     "${inputs.nixos-hardware}/raspberry-pi/4"
     ./hardware.nix
-  ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
+  ]
+  ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
 
   custom.profile.isServer = true;
   custom.impureRebuild = true;

@@ -35,7 +35,8 @@ let
             inherit hostName computerName;
           };
         }
-      ] ++ lib'.flocken.optionalPath ../hosts/${hostName};
+      ]
+      ++ lib'.flocken.optionalPath ../hosts/${hostName};
     };
 in
 {

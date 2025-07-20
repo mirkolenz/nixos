@@ -43,7 +43,8 @@ stdenvNoCC.mkDerivation (
       platforms = lib.platforms.darwin;
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       mainProgram = pname;
-    } // meta;
+    }
+    // meta;
   }
   // (lib.removeAttrs args [
     "nativeBuildInputs"

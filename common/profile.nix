@@ -21,5 +21,6 @@ in
   };
   config.custom.profile = {
     isHeadless = !cfg.isDesktop || cfg.isServer;
-  } // (osConfig.custom.profile or { });
+  }
+  // (osConfig.custom.profile or { });
 }

@@ -13,7 +13,8 @@
     "${inputs.nixos-hardware}/common/pc/ssd"
     ./hardware.nix
     ./timemachine.nix
-  ] ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
+  ]
+  ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
 
   custom.profile.isServer = true;
   custom.impureRebuild = true;
