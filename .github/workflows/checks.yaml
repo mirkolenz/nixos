@@ -35,6 +35,10 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
+      - uses: cachix/cachix-action@v16
+        with:
+          name: mirkolenz
+          authToken: ${{ secrets.CACHIX_TOKEN }}
       - name: nix flake check
         run: |
           nix flake check \

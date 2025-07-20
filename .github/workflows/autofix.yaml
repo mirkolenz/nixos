@@ -1,0 +1,26 @@
+name: autofix.ci
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  autofix:
+    if: ${{ github.repository_owner == 'mirkolenz' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v19
+        with:
+          extra-conf: |
+            accept-flake-config = true
+      - uses: cachix/cachix-action@v16
+        with:
+          name: mirkolenz
+          authToken: ${{ secrets.CACHIX_TOKEN }}
+      - run: nix fmt
+      - uses: autofix-ci/action@v1.3.2
+        with:
+          commit-message: "chore: reformat code"
