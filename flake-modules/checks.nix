@@ -16,7 +16,7 @@ let
     "claude-code-bin"
     "gibo"
     "hkknx-bin"
-    "infat-bin"
+    "infat"
     "janice"
     "nixvim-full"
     "protobuf-ls"
