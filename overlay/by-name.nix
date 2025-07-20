@@ -18,7 +18,7 @@ let
     directory = ./vim-plugins;
   };
   vimPluginsPrefixed = lib.mapAttrs' (name: value: {
-    name = "vim-plugin-${name}";
+    name = "vimplugin-${name}";
     inherit value;
   }) vimPlugins;
 in

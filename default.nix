@@ -5,14 +5,9 @@
 }:
 let
   flake = builtins.getFlake ("git+file://" + toString ./.);
-  overlay = import ./overlays {
-    inherit (flake) inputs;
-    self = flake;
-    lib' = flake.lib;
-  };
 in
 import flake.inputs.nixpkgs {
   inherit system;
-  overlays = [ overlay ];
+  overlays = [ flake.overlays.default ];
   config = flake.nixpkgsConfig;
 }

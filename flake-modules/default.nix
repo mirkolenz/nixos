@@ -28,7 +28,7 @@
     };
   flake = {
     lib = lib'.self;
-    overlays.default = import ../overlays {
+    overlays.default = import ../overlay {
       inherit
         self
         inputs
