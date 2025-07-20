@@ -25,6 +25,5 @@ in
   cosmic-manager = fromInput "cosmic-manager" "cosmic-manager";
   nix-converter = fromInput "nix-converter" "default";
   nix-sweep = fromInput "nix-sweep" "default";
-  nixfmt = final.nixfmt-rfc-style;
   uv-bin = fromInput "uv2nix" "uv-bin";
 }
