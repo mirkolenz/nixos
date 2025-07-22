@@ -189,7 +189,7 @@
         skipRewordInEditorWarning = false;
         skipStashWarning = false;
         splitDiff = "always";
-        useHunkModeInStagingView = false;
+        useHunkModeInStagingView = true;
       };
       git = {
         commit.autoWrapCommitMessage = false;
