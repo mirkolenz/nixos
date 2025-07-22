@@ -94,7 +94,13 @@ def run(
         err=True,
     )
 
-    overlays = '[ (builtins.getFlake ("git+file://" + toString ./.)).overlays.default ]'
+    overlays = """
+        let
+            flake = builtins.getFlake ("git+file://" + toString ./.);
+            overlay = import ./overlay flake.overlayArgs;
+        in
+        [ overlay ]
+    """
 
     # we don't want to show this in the output
     cmd += cmd_arg("include-overlays", overlays, raw=True)

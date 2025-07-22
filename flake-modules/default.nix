@@ -28,16 +28,17 @@
     };
   flake = {
     lib = lib'.self;
-    overlays.default = import ../overlay {
+    overlays.default = import ../overlay self.overlayArgs;
+    nixpkgsConfig = {
+      allowUnfree = true;
+      nvidia.acceptLicense = true;
+    };
+    overlayArgs = {
       inherit
         self
         inputs
         lib'
         ;
-    };
-    nixpkgsConfig = {
-      allowUnfree = true;
-      nvidia.acceptLicense = true;
     };
   };
 }
