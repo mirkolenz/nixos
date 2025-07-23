@@ -10,6 +10,8 @@
     git-annex
     gibo
     git-ignore
+    jjui
+    lazyjj
   ];
   programs.gh = {
     enable = true;
