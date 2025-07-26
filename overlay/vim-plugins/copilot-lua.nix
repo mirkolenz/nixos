@@ -9,8 +9,8 @@ vimUtils.buildVimPlugin {
   src = fetchFromGitHub {
     owner = "zbirenbaum";
     repo = "copilot.lua";
-    rev = "64422b725c4ae102838f3efe832dafb68be2246d";
-    hash = "sha256-MfJi16nvub2+Zn+YGkTbxXX+ezIipQHqIqsPc8RyTJ0=";
+    rev = "4958fb9390f624cb389be2772e3c5e718e94d8b6";
+    hash = "sha256-Xz7Pmmiw5jJik3gQQeQko15EfgY85uQtQSxbwzjZE/o=";
   };
   meta.homepage = "https://github.com/zbirenbaum/copilot.lua/";
   passthru.updateScript = nix-update-script {
