@@ -4,6 +4,7 @@
   stdenv,
   autoPatchelfHook,
   versionCheckHook,
+  binariesFromGitHub,
 }:
 let
   inherit (stdenv.hostPlatform) system;
@@ -45,7 +46,13 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = binariesFromGitHub {
+    owner = "astral-sh";
+    repo = "ty";
+    outputFile = ./release.json;
+    assetsPattern = ''^ty-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
+    allowPrereleases = true;
+  };
 
   meta = {
     description = "An extremely fast Python type checker and language server, written in Rust";

@@ -38,7 +38,14 @@ mkApp rec {
   '';
 
   # TODO: enable after next release (currently digest is missing)
-  # passthru.updateScript = ./update.sh;
+  # passthru.updateScript = binariesFromGitHub {
+  #   owner = "ahrm";
+  #   repo = "sioyek";
+  #   outputFile = ./release.json;
+  #   assetsPattern = ''^sioyek-release-mac.*?\\.zip$'';
+  #   versionPrefix = "sioyek";
+  #   allowPrereleases = true;
+  # };
 
   meta = {
     description = "PDF viewer with a focus on textbooks and research papers";

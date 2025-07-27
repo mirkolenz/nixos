@@ -45,7 +45,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   # TODO: enable after next release (currently digest is missing)
-  # passthru.updateScript = ./update.sh;
+  # passthru.updateScript = binariesFromGitHub {
+  #   owner = "brutella";
+  #   repo = "hkknx-public";
+  #   outputFile = ./release.json;
+  #   assetsPattern = ''^hkknx-\($root.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
+  # };
 
   meta = {
     description = "HomeKit Bridge for KNX";

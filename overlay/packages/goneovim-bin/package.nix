@@ -3,6 +3,7 @@
   fetchurl,
   lib,
   stdenv,
+  binariesFromGitHub,
 }:
 let
   inherit (stdenv.hostPlatform) system;
@@ -24,7 +25,12 @@ mkApp rec {
   };
   wrapperPath = "Contents/MacOS/${pname}";
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = binariesFromGitHub {
+    owner = "akiyosi";
+    repo = "goneovim";
+    outputFile = ./release.json;
+    assetsPattern = ''^goneovim-\($root.tag_name)-((linux)|(macos-(arm64|x86_64)))\\.tar\\.bz2$'';
+  };
 
   meta = {
     description = "GUI frontend for neovim";

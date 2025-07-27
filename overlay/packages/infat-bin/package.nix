@@ -40,7 +40,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   # TODO: enable after next release (currently digest is missing)
-  # passthru.updateScript = ./update.sh;
+  # passthru.updateScript = binariesFromGitHub {
+  #   owner = "philocalyst";
+  #   repo = "infat";
+  #   outputFile = ./release.json;
+  #   assetsPattern = ''^infat-(arm64|x86_64)-apple-macos\\.tar\\.gz$'';
+  # };
 
   meta = {
     description = "Command line tool to set default openers for file formats and url schemes on macos";
