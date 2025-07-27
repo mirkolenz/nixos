@@ -9,9 +9,44 @@ let
     mkEnableOption
     mkPackageOption
     mkOption
+    types
     ;
 
-  configFormat = pkgs.formats.json { };
+  jsonFormat = pkgs.formats.json { };
+  mdFormat = types.submodule (
+    { config, ... }:
+    {
+      options = {
+        metadata = mkOption {
+          type = jsonFormat.type;
+          default = { };
+          description = "Frontmatter for the markdown file, written as YAML.";
+        };
+        body = mkOption {
+          type = types.lines;
+          description = "Markdown content for the file.";
+        };
+        text = mkOption {
+          type = types.str;
+          readOnly = true;
+        };
+      };
+      config = {
+        text =
+          if config.metadata == { } then
+            config.body
+          else
+            ''
+              ---
+              ${lib.strings.toJSON config.metadata}
+              ---
+
+              ${config.body}
+            '';
+      };
+    }
+  );
+
   cfg = config.programs.claude-code;
 in
 {
@@ -23,7 +58,7 @@ in
     package = mkPackageOption pkgs "claude-code" { nullable = true; };
 
     settings = mkOption {
-      type = configFormat.type;
+      type = jsonFormat.type;
       default = { };
       description = ''
         Configuration written to
@@ -33,22 +68,33 @@ in
       '';
     };
 
-    guidance = lib.mkOption {
-      type = lib.types.lines;
+    memory = lib.mkOption {
+      type = types.lines;
       description = ''
-        Define custom guidance for the agents.
+        Define custom guidance for claude.
         Written to {file}`$HOME/.claude/CLAUDE.md`
       '';
       default = "";
     };
 
     commands = lib.mkOption {
-      type = lib.types.attrsOf lib.types.lines;
+      type = types.attrsOf mdFormat;
       default = { };
       description = ''
         Personal slash commands written to
         {file}`$HOME/.claude/commands/$name.md`.
         For nested commands, use "namespace/name"
+        as the key.
+      '';
+    };
+
+    agents = lib.mkOption {
+      type = types.attrsOf mdFormat;
+      default = { };
+      description = ''
+        Define custom agents.
+        Written to {file}`$HOME/.claude/agents/$name.md`.
+        For nested agents, use "namespace/name"
         as the key.
       '';
     };
@@ -60,16 +106,20 @@ in
     home.file = lib.mkMerge [
       {
         ".claude/settings.json" = lib.mkIf (cfg.settings != { }) {
-          source = configFormat.generate "claude-settings" cfg.settings;
+          source = jsonFormat.generate "claude-settings" cfg.settings;
         };
-        ".claude/CLAUDE.md" = lib.mkIf (cfg.guidance != "") {
-          text = cfg.guidance;
+        ".claude/CLAUDE.md" = lib.mkIf (cfg.memory != "") {
+          text = cfg.memory;
         };
       }
-      (lib.mapAttrs' (name: text: {
+      (lib.mapAttrs' (name: value: {
         name = ".claude/commands/${name}.md";
-        value = { inherit text; };
+        value = { inherit (value) text; };
       }) cfg.commands)
+      (lib.mapAttrs' (name: value: {
+        name = ".claude/agents/${name}.md";
+        value = { inherit (value) text; };
+      }) cfg.agents)
     ];
   };
 }

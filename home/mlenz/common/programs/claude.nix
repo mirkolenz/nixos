@@ -58,7 +58,7 @@
       };
     };
     # https://www.anthropic.com/engineering/claude-code-best-practices
-    guidance = ''
+    memory = ''
       ## General
 
       - Prefer all other available tools over the `Bash` tool and only use it when necessary.
