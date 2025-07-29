@@ -4,10 +4,12 @@ let
   inherit (prev.stdenv.hostPlatform) system;
   inherit (prev) lib;
 
-  fromDirectory = directory: lib.packagesFromDirectoryRecursive {
-    callPackage = lib.callPackageWith (final // { inherit inputs; });
-    inherit directory;
-  };
+  fromDirectory =
+    directory:
+    lib.packagesFromDirectoryRecursive {
+      callPackage = lib.callPackageWith (final // { inherit inputs; });
+      inherit directory;
+    };
 
   functions = fromDirectory ./functions;
   packages = fromDirectory ./packages;
