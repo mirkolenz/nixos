@@ -1,10 +1,10 @@
 # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/co/copilot-language-server/package.nix
 { nixpkgs, fetchzip }:
 nixpkgs.copilot-language-server.overrideAttrs (prevAttrs: {
-  version = "1.349.0";
+  version = "1.350.0";
   src = fetchzip {
     inherit (prevAttrs.src) url;
-    hash = "sha256-U7t7ckalYisMPS2WBS7yGn7cOxQTCALXMTHfge36XJM=";
+    hash = "sha256-JUpyzXThGivZdIUwpzd71L5zdmGJabPf2kTn0oQQxlA=";
     stripRoot = false;
   };
 })
