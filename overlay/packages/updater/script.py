@@ -16,6 +16,12 @@ class Order(StrEnum):
     REVERSE_TOPOLOGICAL = "reverse-topological"
 
 
+class Commit(StrEnum):
+    NONE = "none"
+    SINGLE = "single"
+    MULTI = "multi"
+
+
 def cmd_arg(key: str, value: str | bool, raw: bool = False) -> list[str]:
     """Convert an argument to a list of strings for Nix."""
 
@@ -36,7 +42,7 @@ def run(
     attrset: Annotated[str | None, typer.Option("--attrset", "-a")] = None,
     max_workers: Annotated[int | None, typer.Option()] = None,
     keep_going: Annotated[bool, typer.Option()] = True,
-    commit: Annotated[bool, typer.Option()] = False,
+    commit: Annotated[Commit, typer.Option()] = Commit.SINGLE,
     skip_prompt: Annotated[bool, typer.Option()] = True,
     order: Annotated[Order | None, typer.Option()] = None,
 ):
@@ -74,7 +80,7 @@ def run(
     if keep_going:
         cmd += cmd_arg("keep-going", keep_going)
 
-    if commit:
+    if commit == Commit.MULTI:
         cmd += cmd_arg("commit", commit)
 
     if skip_prompt:
@@ -106,6 +112,16 @@ def run(
     cmd += cmd_arg("include-overlays", overlays, raw=True)
 
     subprocess.run(cmd)
+
+    if commit == Commit.SINGLE:
+        git_cmd = ["git", "commit", "-m", "chore(deps): update packages", "./overlay"]
+
+        typer.echo(
+            shlex.join(git_cmd),
+            err=True,
+        )
+
+        subprocess.run(git_cmd, check=False)
 
 
 if __name__ == "__main__":
