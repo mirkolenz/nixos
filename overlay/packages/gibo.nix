@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-  buildPackages,
   nix-update-script,
 }:
 buildGoModule rec {
@@ -26,21 +25,13 @@ buildGoModule rec {
     "-X=github.com/simonwhitaker/gibo/cmd.version=${version}"
   ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
-
-  postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      installShellCompletion --cmd gibo \
-        --bash <(${emulator} $out/bin/gibo completion bash) \
-        --fish <(${emulator} $out/bin/gibo completion fish) \
-        --zsh <(${emulator} $out/bin/gibo completion zsh)
-    ''
-  );
+  nativeBuildInputs = [ installShellFiles ];
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd gibo \
+      --bash <($out/bin/gibo completion bash) \
+      --fish <($out/bin/gibo completion fish) \
+      --zsh <($out/bin/gibo completion zsh)
+  '';
 
   passthru.updateScript = nix-update-script { };
 
