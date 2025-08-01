@@ -49,7 +49,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgram = "${placeholder "out"}/bin/claude";
   versionCheckProgramArg = "--version";
-  doInstallCheck = false; # tries to open $HOME/.claude.json
+  # bun crashes in version check
+  doInstallCheck = false;
 
   passthru.updateScript = ./update.sh;
 
