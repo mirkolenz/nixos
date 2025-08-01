@@ -6,7 +6,6 @@
     btop.enable = true;
     carapace.enable = false;
     fastfetch.enable = true;
-    gradle.enable = true;
     home-manager.enable = true;
     htop.enable = true;
     jq.enable = true;

@@ -12,6 +12,10 @@ lib.mkIf config.custom.profile.isWorkstation {
     RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
     EDITOR = "zed -w";
   };
+  programs = {
+    gradle.enable = true;
+    mods.enable = true;
+  };
   home.packages = with pkgs; [
     exiftool
     fontforge
