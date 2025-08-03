@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  lib',
   ...
 }:
 let
@@ -13,39 +14,7 @@ let
     ;
 
   jsonFormat = pkgs.formats.json { };
-  mdFormat = types.submodule (
-    { config, ... }:
-    {
-      options = {
-        metadata = mkOption {
-          type = jsonFormat.type;
-          default = { };
-          description = "Frontmatter for the markdown file, written as YAML.";
-        };
-        body = mkOption {
-          type = types.lines;
-          description = "Markdown content for the file.";
-        };
-        text = mkOption {
-          type = types.str;
-          readOnly = true;
-        };
-      };
-      config = {
-        text =
-          if config.metadata == { } then
-            config.body
-          else
-            ''
-              ---
-              ${lib.strings.toJSON config.metadata}
-              ---
-
-              ${config.body}
-            '';
-      };
-    }
-  );
+  mdFormat = lib'.self.mdFormat;
 
   cfg = config.programs.claude-code;
 in
@@ -66,15 +35,6 @@ in
         See <https://docs.anthropic.com/en/docs/claude-code/settings>
         for more information.
       '';
-    };
-
-    memory = lib.mkOption {
-      type = types.lines;
-      description = ''
-        Define custom guidance for claude.
-        Written to {file}`$HOME/.claude/CLAUDE.md`
-      '';
-      default = "";
     };
 
     commands = lib.mkOption {
@@ -107,9 +67,6 @@ in
       {
         ".claude/settings.json" = lib.mkIf (cfg.settings != { }) {
           source = jsonFormat.generate "claude-settings" cfg.settings;
-        };
-        ".claude/CLAUDE.md" = lib.mkIf (cfg.memory != "") {
-          text = cfg.memory;
         };
       }
       (lib.mapAttrs' (name: value: {

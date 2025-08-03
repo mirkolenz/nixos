@@ -55,4 +55,56 @@ lib: rec {
       mode = attrs.mode or mode;
     };
   mkVimKeymaps = opts: values: map (mkVimKeymap opts) values;
+
+  mdFormat = lib.types.submodule (
+    { config, ... }:
+    {
+      options = {
+        metadata = lib.mkOption {
+          type =
+            # https://github.com/NixOS/nixpkgs/blob/130323cfcfdfe3a28da4f9ca4593f053f07c7487/pkgs/pkgs-lib/formats.nix#L125C7-L141C19
+            with lib.types;
+            let
+              valueType =
+                nullOr (oneOf [
+                  bool
+                  int
+                  float
+                  str
+                  path
+                  (attrsOf valueType)
+                  (listOf valueType)
+                ])
+                // {
+                  description = "JSON value";
+                };
+            in
+            valueType;
+          default = { };
+          description = "Frontmatter for the markdown file, written as YAML.";
+        };
+        body = lib.mkOption {
+          type = lib.types.lines;
+          description = "Markdown content for the file.";
+        };
+        text = lib.mkOption {
+          type = lib.types.str;
+          readOnly = true;
+        };
+      };
+      config = {
+        text =
+          if config.metadata == { } then
+            config.body
+          else
+            ''
+              ---
+              ${lib.strings.toJSON config.metadata}
+              ---
+
+              ${config.body}
+            '';
+      };
+    }
+  );
 }
