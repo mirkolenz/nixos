@@ -10,6 +10,7 @@
     htop.enable = true;
     jq.enable = true;
     jqp.enable = true;
+    lazydocker.enable = true;
     nix-index.enable = true;
     pandoc.enable = true;
     pay-respects.enable = true;
