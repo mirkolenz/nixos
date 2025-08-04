@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-  programs.claude-code = lib.mkIf config.custom.profile.isWorkstation {
+  programs.crush = lib.mkIf config.custom.profile.isWorkstation {
     enable = true;
   };
 }
