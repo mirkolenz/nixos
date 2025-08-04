@@ -17,12 +17,9 @@
     "sr_mod"
     "sdhci_pci"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [
-    "kvm-intel"
-    "wl"
-  ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+
   fileSystems."/" = {
     device = "/dev/disk/by-label/root";
     fsType = "ext4";
