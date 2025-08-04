@@ -15,7 +15,6 @@ lib.mkIf config.custom.profile.isWorkstation {
   programs = {
     gradle.enable = true;
     mods.enable = true;
-    opencode.enable = true;
   };
   home.packages = with pkgs; [
     exiftool
