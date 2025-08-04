@@ -14,6 +14,7 @@ let
     "builder"
     "caddy"
     "claude-code-bin"
+    "crush"
     "gibo"
     "hkknx-bin"
     "infat"
