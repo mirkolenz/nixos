@@ -1,4 +1,4 @@
-{...}:
+{ ... }:
 {
   programs.agents-md = {
     enable = true;

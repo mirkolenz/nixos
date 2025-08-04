@@ -1,4 +1,9 @@
-{lib', lib, config, ...}:
+{
+  lib',
+  lib,
+  config,
+  ...
+}:
 let
   cfg = config.programs.agents-md;
 in
@@ -10,7 +15,7 @@ in
 
     settings = lib.mkOption {
       type = lib'.self.mdFormat;
-      default = {};
+      default = { };
     };
   };
 
