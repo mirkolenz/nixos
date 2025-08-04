@@ -1,4 +1,4 @@
 { config, ... }:
 {
-  opencode.enable = config.custom.profile.isWorkstation;
+  programs.opencode.enable = config.custom.profile.isWorkstation;
 }
