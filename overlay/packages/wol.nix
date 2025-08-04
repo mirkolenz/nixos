@@ -4,14 +4,14 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "wol";
   version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "Trugamr";
     repo = "wol";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-kiV7DDGmVwJQzGMmvZHmmyz9IUfflbIrvxkIT5bY0Lw=";
   };
 
@@ -22,8 +22,8 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X=github.com/trugamr/wol/cmd.version=${version}"
-    "-X=github.com/trugamr/wol/cmd.commit=${src.rev}"
+    "-X=github.com/trugamr/wol/cmd.version=${finalAttrs.version}"
+    "-X=github.com/trugamr/wol/cmd.commit=${finalAttrs.src.rev}"
     "-X=github.com/trugamr/wol/cmd.date=1970-01-01T00:00:00Z"
   ];
 
@@ -37,4 +37,4 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "wol";
   };
-}
+})

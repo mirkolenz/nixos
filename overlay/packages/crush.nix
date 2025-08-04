@@ -9,14 +9,14 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "crush";
   version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "charmbracelet";
     repo = "crush";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-SjrkQFSjJrPNynARE92uKA53hkstIUBSvQbqcYSsnaM=";
   };
 
@@ -27,7 +27,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X=github.com/charmbracelet/crush/internal/version.Version=${version}"
+    "-X=github.com/charmbracelet/crush/internal/version.Version=${finalAttrs.version}"
   ];
 
   nativeBuildInputs = [ installShellFiles ];
@@ -50,9 +50,9 @@ buildGoModule rec {
   meta = {
     description = "The glamourous AI coding agent for your favourite terminal";
     homepage = "https://github.com/charmbracelet/crush";
-    changelog = "https://github.com/charmbracelet/crush/releases/tag/v${version}";
+    changelog = "https://github.com/charmbracelet/crush/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.fsl11Mit;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "crush";
   };
-}
+})

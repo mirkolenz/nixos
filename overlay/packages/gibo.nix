@@ -6,14 +6,14 @@
   installShellFiles,
   nix-update-script,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "gibo";
   version = "3.0.14";
 
   src = fetchFromGitHub {
     owner = "simonwhitaker";
     repo = "gibo";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-6w+qhwOHkfKt0hgKO98L6Si0RNJN+CXOOFzGlvxFjcA=";
   };
 
@@ -24,7 +24,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X=github.com/simonwhitaker/gibo/cmd.version=${version}"
+    "-X=github.com/simonwhitaker/gibo/cmd.version=${finalAttrs.version}"
   ];
 
   nativeBuildInputs = [ installShellFiles ];
@@ -45,4 +45,4 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "gibo";
   };
-}
+})

@@ -5,14 +5,14 @@
   lib,
   nix-update-script,
 }:
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "janice";
   version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "ErikKalkoken";
     repo = "janice";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-GkzxjsUkPw0hccsnxCLdr2D+AvFTdQ7+O4r9F0bUths=";
   };
 
@@ -37,4 +37,4 @@ buildGoModule rec {
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "janice";
   };
-}
+})

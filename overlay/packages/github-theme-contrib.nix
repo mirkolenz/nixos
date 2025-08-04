@@ -4,14 +4,14 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "github-theme-contrib";
   version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "projekt0n";
     repo = "github-theme-contrib";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-MKB9JtU6Gv16ma7S9J7n1QCjAiJhBrD0mUHum+blJOs=";
   };
 
@@ -35,4 +35,4 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ mirkolenz ];
   };
-}
+})
