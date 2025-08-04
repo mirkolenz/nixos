@@ -4,7 +4,7 @@
   lib,
   nix-update-script,
 }:
-python3Packages.buildPythonApplication (finalAttrs: {
+python3Packages.buildPythonApplication rec {
   pname = "bibtex2cff";
   version = "0.2.1";
   pyproject = true;
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "anselmoo";
     repo = "bibtex2cff";
-    tag = "v${finalAttrs.version}";
+    tag = "v${version}";
     hash = "sha256-Xuj2kDJzX2owIjjBRrfXNJCZeGRZ7OoD1X+ibU4b1C8=";
   };
 
@@ -51,4 +51,4 @@ python3Packages.buildPythonApplication (finalAttrs: {
     platforms = with lib.platforms; darwin ++ linux;
     maintainers = with lib.maintainers; [ mirkolenz ];
   };
-})
+}
