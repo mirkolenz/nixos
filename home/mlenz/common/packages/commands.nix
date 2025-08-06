@@ -82,7 +82,7 @@
       fi
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
       TIMESTAMP=$(${lib.getExe' pkgs.coreutils "date"} +"%Y-%m-%d-%H-%M-%S")
-      sudo ${lib.getExe pkgs.gnutar} czf "$2/$TIMESTAMP.tgz" "$1"
+      sudo ${lib.getExe pkgs.gnutar} -czf "$2/$TIMESTAMP.tgz" "$1"
     '';
     restore = ''
       if [ "$#" -ne 2 ]; then
@@ -90,7 +90,27 @@
         exit 1
       fi
       ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
-      sudo ${lib.getExe pkgs.gnutar} xf "$1" -C "$2"
+      sudo ${lib.getExe pkgs.gnutar} -xzf "$1" -C "$2"
+    '';
+    compress = ''
+      if [ "$#" -lt 1 ]; then
+        echo "Usage: $0 SOURCE_PATH [TAR_ARGS...]" >&2
+        exit 1
+      fi
+      source_path="$1"
+      shift
+
+      exec ${lib.getExe pkgs.gnutar} -czf "$source_path.tgz" "$source_path" "$@"
+    '';
+    decompress = ''
+      if [ "$#" -lt 1 ]; then
+        echo "Usage: $0 SOURCE_PATH [TAR_ARGS...]" >&2
+        exit 1
+      fi
+      source_path="$1"
+      shift
+
+      exec ${lib.getExe pkgs.gnutar} -xzf "$source_path" "$@"
     '';
     nixos-env = ''
       exec sudo ${lib.getExe' config.nix.package "nix-env"} --profile /nix/var/nix/profiles/system "$@"
