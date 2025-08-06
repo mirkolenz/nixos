@@ -12,7 +12,7 @@
         env = "Zed";
         fish = "Zed";
         gz = "Keka";
-        html = "Vivaldi";
+        html = "Orion RC";
         ini = "Zed";
         js = "Zed";
         json = "Zed";
@@ -47,13 +47,13 @@
       # https://en.wikipedia.org/wiki/List_of_URI_schemes
       schemes = {
         ftp = "ForkLift";
-        http = "Vivaldi";
-        https = "Vivaldi";
+        http = "Orion RC";
+        https = "Orion RC";
         mailto = "Mail";
         sftp = "ForkLift";
         ssh = "Ghostty";
         tel = "FaceTime";
-        web = "Vivaldi";
+        web = "Orion RC";
       };
       # https://github.com/philocalyst/infat
       types = {
