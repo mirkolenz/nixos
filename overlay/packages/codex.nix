@@ -2,13 +2,13 @@
 { nixpkgs, rustPlatform }:
 nixpkgs.codex.overrideAttrs (
   finalAttrs: prevAttrs: {
-    version = "0.12.0";
+    version = "0.13.0";
     src = prevAttrs.src.override {
-      hash = "sha256-Mo/dg1Y8BzcZ2DyIAAQTX8bXlzqp1CtNld4PRFfSejo=";
+      hash = "sha256-A9o6qsw0f3v0nSCjyHaMIsm+udz/S4TR10K48vFR7Cc=";
     };
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit (finalAttrs) src sourceRoot;
-      hash = "sha256-v893fvSWsQrhes4aAv5EZf4Mo2WE2zo9N4p2zIAmSDQ=";
+      hash = "sha256-oPWkxEMnffDZ7cmjWmmYGurYnHn4vYu64BhG7NhrxhE=";
     };
   }
 )
