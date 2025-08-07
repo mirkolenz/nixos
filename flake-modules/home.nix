@@ -42,7 +42,11 @@ in
       channel = "unstable";
       system = "x86_64-linux";
     };
-    "eifelkreis@dfki-1170.dfki.uni-trier.de" = {
+    "eifelkreis@vserv-4514" = {
+      channel = "unstable";
+      system = "x86_64-linux";
+    };
+    "compute@kitei-gpu" = {
       channel = "unstable";
       system = "x86_64-linux";
     };
