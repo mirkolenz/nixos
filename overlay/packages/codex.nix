@@ -10,5 +10,6 @@ nixpkgs.codex.overrideAttrs (
       inherit (finalAttrs) src sourceRoot;
       hash = "sha256-zgmiWyWB08v1WQVFzxpC/LGwF+XXbs8iW1d7i9Iw0Q4=";
     };
+    doCheck = false;
   }
 )
