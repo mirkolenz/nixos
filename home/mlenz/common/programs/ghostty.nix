@@ -16,8 +16,8 @@ let
   );
 in
 {
-  programs.ghostty = {
-    enable = config.custom.profile.isDesktop;
+  programs.ghostty = lib.mkIf config.custom.profile.isDesktop {
+    enable = true;
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
     settings = mkSettings {
       cursor-click-to-move = true;
@@ -40,4 +40,7 @@ in
       window-width = 120;
     };
   };
+  programs.ssh.extraConfig = ''
+    SetEnv TERM=xterm-256color
+  '';
 }
