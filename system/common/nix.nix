@@ -12,7 +12,7 @@
   nix = {
     package = pkgs.nix;
     extraOptions = ''
-      !include nix.local.conf
+      !include nix.secrets.conf
     '';
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
     settings = {
