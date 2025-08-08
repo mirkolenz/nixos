@@ -6,10 +6,12 @@
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://mirkolenz.cachix.org"
+      "https://install.determinate.systems"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
     ];
   };
 
@@ -33,6 +35,17 @@
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-src = {
+      url = "github:determinatesystems/nix-src";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    determinate = {
+      url = "github:determinatesystems/determinate";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix.follows = "nix-src";
+      };
     };
 
     # Nix Darwin
