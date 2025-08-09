@@ -1,9 +1,8 @@
-{ lib', config, ... }:
+{ lib', ... }:
 {
   imports = lib'.flocken.getModules ./.;
 
   time.timeZone = "Europe/Berlin";
-  services.lorri.enable = config.custom.profile.isWorkstation;
 
   # networking.firewall = {
   #   enable = true;
