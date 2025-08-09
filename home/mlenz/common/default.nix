@@ -3,8 +3,6 @@
   lib',
   user,
   stateVersions,
-  lib,
-  config,
   ...
 }:
 {

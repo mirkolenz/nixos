@@ -59,13 +59,19 @@
           config = self.nixpkgsConfig;
           overlays = [ self.overlays.default ];
         };
-        imports = [ self.homeModules.linux ];
+        imports = [
+          self.homeModules.linux
+          ../home/mlenz/standalone
+        ];
         targets.genericLinux.enable = pkgs.stdenv.isLinux;
       };
     homeModules.darwin-standalone = {
       nixpkgs = {
         config = self.nixpkgsConfig;
-        overlays = [ self.overlays.default ];
+        overlays = [
+          self.overlays.default
+          ../home/mlenz/darwin
+        ];
       };
       imports = [ self.homeModules.darwin ];
     };

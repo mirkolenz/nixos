@@ -1,13 +1,13 @@
 {
   lib,
-  osConfig,
   os,
   channel,
   inputs,
   lib',
+  pkgs,
   ...
 }:
-lib.mkIf (osConfig == { }) {
+{
   xdg.configFile."nix/registry.json" = lib.mkForce {
     text = lib'.self.mkRegistryText { inherit inputs os channel; };
   };
