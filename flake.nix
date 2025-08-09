@@ -32,20 +32,10 @@
     };
     systems.url = "github:nix-systems/default";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    determinate.url = "github:determinatesystems/determinate";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-src = {
-      url = "github:determinatesystems/nix-src";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    determinate = {
-      url = "github:determinatesystems/determinate";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nix.follows = "nix-src";
-      };
     };
 
     # Nix Darwin
