@@ -11,31 +11,47 @@ lib: rec {
   systemArch = system: lib.head (lib.splitString "-" system);
   # compare two lists irrespective of order
   setEqual = list1: list2: (lib.naturalSort list1) == (lib.naturalSort list2);
-  mkRegistry =
+  mkRegistryText =
     {
       channel,
       inputs,
       os,
     }:
-    {
-      stable.flake = systemInput {
-        inherit inputs os;
-        channel = "stable";
-        name = "nixpkgs";
-      };
-      unstable.flake = systemInput {
-        inherit inputs os;
-        channel = "unstable";
-        name = "nixpkgs";
-      };
-      pkgs.flake = systemInput {
-        inherit inputs os channel;
-        name = "nixpkgs";
-      };
-      stable-small.flake = inputs.nixpkgs-stable-small;
-      unstable-small.flake = inputs.nixpkgs-unstable-small;
-      nixpkgs.flake = inputs.nixpkgs;
-      self.flake = inputs.self;
+    builtins.toJSON {
+      version = 2;
+      flakes =
+        lib.mapAttrsToList
+          (name: value: {
+            exact = true;
+            from = {
+              type = "indirect";
+              id = name;
+            };
+            to = {
+              type = "path";
+              path = value.outPath;
+            };
+          })
+          {
+            stable = systemInput {
+              inherit inputs os;
+              channel = "stable";
+              name = "nixpkgs";
+            };
+            unstable = systemInput {
+              inherit inputs os;
+              channel = "unstable";
+              name = "nixpkgs";
+            };
+            pkgs = systemInput {
+              inherit inputs os channel;
+              name = "nixpkgs";
+            };
+            stable-small = inputs.nixpkgs-stable-small;
+            unstable-small = inputs.nixpkgs-unstable-small;
+            nixpkgs = inputs.nixpkgs;
+            self = inputs.self;
+          };
     };
   mkVimKeymap =
     {

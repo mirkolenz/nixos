@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   osConfig,
   os,
@@ -8,12 +7,12 @@
   lib',
   ...
 }:
-{
-  nix = lib.mkIf (osConfig == { }) {
-    package = pkgs.nix;
-    registry = lib'.self.mkRegistry { inherit inputs os channel; };
-    nixPath = [ "nixpkgs=flake:pkgs" ];
-    keepOldNixPath = false;
+lib.mkIf (osConfig == { }) {
+  xdg.configFile."nix/registry.json" = lib.mkForce {
+    text = lib'.self.mkRegistryText { inherit inputs os channel; };
+  };
+  nix = {
+    package = pkgs.determinate-nix;
     settings = {
       experimental-features = [
         "flakes"
@@ -25,7 +24,9 @@
       accept-flake-config = true;
       bash-prompt-prefix = "(nix:$name)\\040";
       commit-lock-file-summary = "chore(deps): update flake.lock";
+      flake-registry = "";
       log-lines = 1000;
+      nix-path = "nixpkgs=flake:pkgs";
       warn-dirty = false;
     };
     gc = {

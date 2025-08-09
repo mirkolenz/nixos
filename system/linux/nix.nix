@@ -1,10 +1,23 @@
+{ user, config, ... }:
 {
+  custom.nix.settings = {
+    allowed-users = [
+      user.login
+      "@wheel"
+    ];
+    trusted-users = [ "root" ];
+    sandbox = true;
+  };
   nix = {
-    settings = {
-      # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
-      auto-optimise-store = true;
-      allowed-users = [ "@wheel" ];
-      sandbox = true;
-    };
+    inherit (config.custom.nix) settings;
+    extraOptions = ''
+      !include nix.secrets.conf
+    '';
+    channel.enable = false;
+  };
+  # we do this ourselves
+  nixpkgs.flake = {
+    setFlakeRegistry = false;
+    setNixPath = false;
   };
 }

@@ -82,6 +82,7 @@
           self.systemModules.default
           homeManager.nixosModules.default
           inputs.quadlet-nix.nixosModules.default
+          inputs.determinate.nixosModules.default
           ../system/linux
           {
             home-manager.users.mlenz = self.homeModules.linux;
@@ -101,6 +102,7 @@
         imports = [
           self.systemModules.default
           homeManager.darwinModules.default
+          inputs.determinate.darwinModules.default
           ../system/darwin
           {
             home-manager.users.mlenz = self.homeModules.darwin;

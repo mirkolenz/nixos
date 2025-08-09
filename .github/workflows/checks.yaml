@@ -15,7 +15,7 @@ jobs:
       matrix: ${{ steps.generate.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v19
+      - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
             accept-flake-config = true
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v19
+      - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
             accept-flake-config = true
@@ -55,7 +55,7 @@ jobs:
       matrix: ${{fromJSON(needs.matrix.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v19
+      - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
             accept-flake-config = true
