@@ -5,6 +5,7 @@
   darwin-rebuild,
   nixos-rebuild-ng,
   home-manager,
+  determinate-nix,
 }:
 writers.writePython3Bin "builder" {
   libraries = with python3Packages; [ typer ];
@@ -22,5 +23,7 @@ writers.writePython3Bin "builder" {
         (lib.getExe nixos-rebuild-ng)
         "--home-builder"
         (lib.getExe home-manager)
+        "--nix-exe"
+        (lib.getExe determinate-nix)
       ];
 } ./script.py
