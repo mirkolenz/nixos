@@ -1,7 +1,6 @@
 { inputs, ... }:
 final: prev:
 let
-  inherit (prev.stdenv.hostPlatform) system;
   inherit (prev) lib;
 
   fromDirectory =
@@ -20,9 +19,7 @@ let
   }) vimPlugins;
 in
 {
-  customPackages = lib.filterAttrs (
-    name: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
-  ) (packages // vimPluginsPrefixed);
+  customPackages = packages // vimPluginsPrefixed;
   vimPlugins = prev.vimPlugins // vimPlugins;
 }
 // functions

@@ -13,6 +13,11 @@
       system,
       ...
     }:
+    let
+      customPackagesPerSystem = lib.filterAttrs (
+        name: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
+      ) pkgs.customPackages;
+    in
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
@@ -20,7 +25,7 @@
         overlays = [ self.overlays.default ];
       };
       legacyPackages = pkgs;
-      packages = pkgs.customPackages // {
+      packages = customPackagesPerSystem // {
         default = pkgs.writeShellScriptBin "builder" ''
           exec ${lib.getExe pkgs.builder} --flake ${self.outPath} "$@"
         '';
