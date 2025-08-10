@@ -50,10 +50,10 @@ in
           custom.profile.isDesktop = true;
         };
       };
-      mirkos-macbook-arm = {
+      mirkos-unibook = {
         channel = "unstable";
-        system = "x86_64-darwin";
-        computerName = "Mirkos MacBook Apple Silicon";
+        system = "aarch64-darwin";
+        computerName = "Mirkos UniBook";
         extraModule = {
           custom.profile.isDesktop = true;
         };
