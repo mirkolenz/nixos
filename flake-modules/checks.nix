@@ -21,6 +21,7 @@ let
     "janice"
     "nixvim-full"
     "protobuf-ls"
+    "ruff-bin"
     "ty-bin"
     "updater"
     "uv-bin"
