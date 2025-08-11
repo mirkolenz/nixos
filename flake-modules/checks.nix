@@ -23,6 +23,7 @@ let
     "protobuf-ls"
     "ty-bin"
     "updater"
+    "uv-bin"
     "uv-migrator"
     "wol"
   ];

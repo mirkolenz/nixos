@@ -17,14 +17,14 @@ let
     aarch64-darwin = "aarch64-apple-darwin";
   };
   platform = systemToPlatform.${system};
-  assetName = "ty-${platform}.tar.gz";
+  assetName = "uv-${platform}.tar.gz";
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "ty";
+  pname = "uv";
   version = release.version or "unstable";
 
   src = fetchurl {
-    url = "https://github.com/astral-sh/ty/releases/download/${finalAttrs.version}/${assetName}";
+    url = "https://github.com/astral-sh/uv/releases/download/${finalAttrs.version}/${assetName}";
     hash = release.hashes.${assetName};
   };
 
@@ -37,16 +37,16 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/bin
-    install -m755 -D ty $out/bin/ty
+    install -m755 -D uv $out/bin/uv
 
     runHook postInstall
   '';
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd ty \
-      --bash <($out/bin/ty generate-shell-completion bash) \
-      --fish <($out/bin/ty generate-shell-completion fish) \
-      --zsh <($out/bin/ty generate-shell-completion zsh)
+    installShellCompletion --cmd uv \
+      --bash <($out/bin/uv generate-shell-completion bash) \
+      --fish <($out/bin/uv generate-shell-completion fish) \
+      --zsh <($out/bin/uv generate-shell-completion zsh)
   '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
@@ -55,20 +55,23 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.updateScript = binariesFromGitHub {
     owner = "astral-sh";
-    repo = "ty";
+    repo = "uv";
     outputFile = ./release.json;
-    assetsPattern = ''^ty-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
+    assetsPattern = ''^uv-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
     allowPrereleases = true;
   };
 
   meta = {
-    description = "An extremely fast Python type checker and language server, written in Rust";
-    homepage = "https://github.com/astral-sh/ty";
-    downloadPage = "https://github.com/astral-sh/ty/releases";
-    mainProgram = "ty";
+    description = "An extremely fast Python package and project manager, written in Rust";
+    homepage = "https://github.com/astral-sh/uv";
+    downloadPage = "https://github.com/astral-sh/uv/releases";
+    mainProgram = "uv";
     platforms = lib.attrNames systemToPlatform;
     maintainers = with lib.maintainers; [ mirkolenz ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.mit;
+    license = with lib.licenses; [
+      mit
+      asl20
+    ];
   };
 })

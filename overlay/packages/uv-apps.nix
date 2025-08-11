@@ -2,7 +2,7 @@
   lib,
   symlinkJoin,
   writeShellApplication,
-  uv,
+  uv-bin,
 }:
 let
   mkUvApp =
@@ -10,14 +10,11 @@ let
     writeShellApplication {
       inherit name;
       text = ''
-        exec ${lib.getExe' uv "uvx"} ${value}@latest "$@"
+        exec ${lib.getExe uv-bin} tool run ${value}@latest "$@"
       '';
     };
 in
 symlinkJoin {
   name = "uv-apps";
-  paths = lib.mapAttrsToList mkUvApp {
-    pyrefly = "pyrefly";
-    # ty = "ty";
-  };
+  paths = lib.mapAttrsToList mkUvApp { };
 }

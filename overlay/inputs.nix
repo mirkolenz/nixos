@@ -24,6 +24,5 @@ in
   cosmic-manager = fromInput "cosmic-manager" "cosmic-manager";
   nix-converter = fromInput "nix-converter" "default";
   nix-sweep = fromInput "nix-sweep" "default";
-  uv-bin = fromInput "uv2nix" "uv-bin";
   determinate-nix = inputs.determinate.inputs.nix.packages."${system}".default;
 }
