@@ -42,12 +42,15 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-  #   installShellCompletion --cmd ty \
-  #     --bash <($out/bin/ty generate-shell-completion bash) \
-  #     --fish <($out/bin/ty generate-shell-completion fish) \
-  #     --zsh <($out/bin/ty generate-shell-completion zsh)
-  # '';
+  # patchelf needs to run first, so we add a custom phase
+  postPhases = [ "finalPhase" ];
+
+  finalPhase = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd ty \
+      --bash <($out/bin/ty generate-shell-completion bash) \
+      --fish <($out/bin/ty generate-shell-completion fish) \
+      --zsh <($out/bin/ty generate-shell-completion zsh)
+  '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";

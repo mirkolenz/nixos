@@ -42,12 +42,15 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-  #   installShellCompletion --cmd ruff \
-  #     --bash <($out/bin/ruff generate-shell-completion bash) \
-  #     --fish <($out/bin/ruff generate-shell-completion fish) \
-  #     --zsh <($out/bin/ruff generate-shell-completion zsh)
-  # '';
+  # patchelf needs to run first, so we add a custom phase
+  postPhases = [ "finalPhase" ];
+
+  finalPhase = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd ruff \
+      --bash <($out/bin/ruff generate-shell-completion bash) \
+      --fish <($out/bin/ruff generate-shell-completion fish) \
+      --zsh <($out/bin/ruff generate-shell-completion zsh)
+  '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
