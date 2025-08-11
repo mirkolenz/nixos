@@ -28,26 +28,26 @@ stdenv.mkDerivation (finalAttrs: {
     hash = release.hashes.${assetName};
   };
 
-  buildInputs = lib.optional (!stdenv.isDarwin) (lib.getLib stdenv.cc.cc);
+  buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
   nativeBuildInputs = [ installShellFiles ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
 
+  dontConfigure = true;
   dontBuild = true;
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    install -m755 -D uv $out/bin/uv
+    installBin uv uvx
 
     runHook postInstall
   '';
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd uv \
-      --bash <($out/bin/uv generate-shell-completion bash) \
-      --fish <($out/bin/uv generate-shell-completion fish) \
-      --zsh <($out/bin/uv generate-shell-completion zsh)
-  '';
+  # postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+  #   installShellCompletion --cmd uv \
+  #     --bash <($out/bin/uv generate-shell-completion bash) \
+  #     --fish <($out/bin/uv generate-shell-completion fish) \
+  #     --zsh <($out/bin/uv generate-shell-completion zsh)
+  # '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
