@@ -13,6 +13,7 @@
       default_layout = "default";
       default_mode = "normal";
       on_force_close = "detach";
+      session_serialization = false;
       show_release_notes = false;
       show_startup_tips = false;
       theme = "default";
