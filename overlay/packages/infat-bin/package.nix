@@ -3,6 +3,7 @@
   lib,
   stdenvNoCC,
   versionCheckHook,
+  installShellFiles,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
@@ -26,11 +27,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   sourceRoot = ".";
   dontBuild = true;
 
+  nativeBuildInputs = [ installShellFiles ];
+
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    install -m755 -D infat $out/bin/infat
+    installBin infat
 
     runHook postInstall
   '';

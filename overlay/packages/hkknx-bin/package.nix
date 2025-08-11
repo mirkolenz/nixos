@@ -1,10 +1,10 @@
-# https://nixos.wiki/wiki/Packaging/Binaries
 {
   lib,
   fetchurl,
   stdenvNoCC,
   autoPatchelfHook,
   versionCheckHook,
+  installShellFiles,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
@@ -29,13 +29,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   sourceRoot = ".";
   dontBuild = true;
 
-  nativeBuildInputs = lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook;
+  nativeBuildInputs = [ installShellFiles ] ++ (lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook);
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    install -m755 -D hkknx $out/bin/hkknx
+    installBin hkknx
 
     runHook postInstall
   '';

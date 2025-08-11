@@ -5,6 +5,7 @@
   autoPatchelfHook,
   versionCheckHook,
   makeWrapper,
+  installShellFiles,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
@@ -31,6 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontBuild = true;
 
   nativeBuildInputs = [
+    installShellFiles
     makeWrapper
   ]
   ++ (lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook);
@@ -38,8 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    install -m755 -D $src $out/bin/claude
+    installBin $src
     wrapProgram $out/bin/claude \
       --set DISABLE_AUTOUPDATER 1
 
