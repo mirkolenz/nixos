@@ -29,7 +29,7 @@ mkApp rec {
     owner = "akiyosi";
     repo = "goneovim";
     outputFile = ./release.json;
-    assetsPattern = ''^goneovim-\($root.tag_name)-((linux)|(macos-(arm64|x86_64)))\\.tar\\.bz2$'';
+    assetsPattern = ''^goneovim-\($release.tag_name)-((linux)|(macos-(arm64|x86_64)))\\.tar\\.bz2$'';
   };
 
   meta = {

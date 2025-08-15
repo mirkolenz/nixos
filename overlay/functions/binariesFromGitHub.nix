@@ -23,7 +23,7 @@ writeShellScript "github-binaries-${owner}-${repo}" ''
 
   output="$(
     ${ghCall} \
-    | jq '${jqSelector} | . as $root | {
+    | jq '${jqSelector} | . as $release | {
       version: .tag_name | ltrimstr("${versionPrefix}"),
       hashes: [
         .assets[]

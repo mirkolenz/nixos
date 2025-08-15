@@ -48,7 +48,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   #   owner = "brutella";
   #   repo = "hkknx-public";
   #   outputFile = ./release.json;
-  #   assetsPattern = ''^hkknx-\($root.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
+  #   assetsPattern = ''^hkknx-\($release.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
   # };
 
   meta = {
