@@ -54,7 +54,7 @@
         "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
-        "/Applications/Orion RC.app"
+        "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
         "/Applications/1Password.app"
         "/Applications/Raindrop.io.app"
         "/System/Applications/Messages.app"
