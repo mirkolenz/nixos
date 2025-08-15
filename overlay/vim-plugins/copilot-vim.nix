@@ -5,12 +5,12 @@
 }:
 vimUtils.buildVimPlugin rec {
   pname = "copilot.vim";
-  version = "1.52.0";
+  version = "1.53.0";
   src = fetchFromGitHub {
     owner = "github";
     repo = "copilot.vim";
     tag = "v${version}";
-    hash = "sha256-c7t/U8oFKVryK2+ypy3dgiYTYvYnxmhtve1h6tLg/qM=";
+    hash = "sha256-kUdnpTYTBk5jo/a6Rg7AqIOYVHT5lAcGggRZPf3oCmc=";
   };
   meta.homepage = "https://github.com/github/copilot.vim/";
   passthru.updateScript = nix-update-script { };
