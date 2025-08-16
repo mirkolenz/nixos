@@ -5,7 +5,6 @@
       user.login
       "@wheel"
     ];
-    trusted-users = [ "root" ];
     sandbox = true;
   };
   nix = {

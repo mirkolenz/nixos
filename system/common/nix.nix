@@ -11,26 +11,14 @@
     text = lib'.self.mkRegistryText { inherit inputs os channel; };
   };
   # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
-  custom.nix.settings = rec {
-    substituters = [
-      "https://nix-community.cachix.org"
-    ];
+  custom.nix.settings = {
     trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
-      "wi2trier.cachix.org-1:8wJvKtRD8XUqYZMdjECTsN1zWxHy9kvp5aoPQiAm1fY="
-      "recap.cachix.org-1:KElwRDtaJbbQxmmS2SyxWHqs9bdJbaZHzb2iINTfQws="
-      "pyproject-nix.cachix.org-1:UNzugsOlQIu2iOz0VyZNBQm2JSrL/kwxeCcFGw+jMe0="
-      "nixbuild.net/BMAQHF-1:Q4LUtdLL0mXTO1Cs5jhcOKDZQUVlNA0u3QItwZ6uyq0="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
-    trusted-substituters = substituters ++ [
-      "https://mirkolenz.cachix.org"
-      "https://wi2trier.cachix.org"
-      "https://recap.cachix.org"
-      "https://pyproject-nix.cachix.org"
-      "ssh://eu.nixbuild.net"
-      "https://cache.garnix.io"
+    trusted-substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
     ];
     # https://nix.dev/manual/nix/latest/development/experimental-features
     experimental-features = [
