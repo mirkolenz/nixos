@@ -17,7 +17,7 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_KEY }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: fregante/setup-git-user@v2
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
