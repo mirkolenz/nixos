@@ -24,6 +24,5 @@
       "root"
     ];
     sandbox = false;
-    extra-substituters = [ "https://cache.nixos.org" ];
   };
 }
