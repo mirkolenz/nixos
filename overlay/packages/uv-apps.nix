@@ -16,5 +16,7 @@ let
 in
 symlinkJoin {
   name = "uv-apps";
-  paths = lib.mapAttrsToList mkUvApp { };
+  paths = lib.mapAttrsToList mkUvApp {
+    arguebuf = "arguebuf";
+  };
 }

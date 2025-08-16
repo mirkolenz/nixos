@@ -93,6 +93,5 @@ lib.mkIf config.custom.profile.isWorkstation {
     taplo
     # my own packages
     makejinja
-    arguebuf
   ];
 }

@@ -93,40 +93,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    arguebuf = {
-      url = "github:recap-utr/arguebuf-python/v2";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        flocken.follows = "flocken";
-        pyproject-nix.follows = "pyproject-nix";
-        uv2nix.follows = "uv2nix";
-        pyproject-build-systems.follows = "pyproject-build-systems";
-        treefmt-nix.follows = "treefmt-nix";
-        systems.follows = "systems";
-      };
-    };
-
-    # Python/uv
-    pyproject-nix = {
-      url = "github:pyproject-nix/pyproject.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    uv2nix = {
-      url = "github:pyproject-nix/uv2nix";
-      inputs = {
-        pyproject-nix.follows = "pyproject-nix";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    pyproject-build-systems = {
-      url = "github:pyproject-nix/build-system-pkgs";
-      inputs = {
-        pyproject-nix.follows = "pyproject-nix";
-        uv2nix.follows = "uv2nix";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
 
     # Utils
     vscode-server = {

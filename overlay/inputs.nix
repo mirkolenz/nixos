@@ -20,7 +20,6 @@ in
     treefmt-nix
     ;
   angrr = fromInput "angrr" "angrr";
-  arguebuf = fromInput "arguebuf" "default";
   cosmic-manager = fromInput "cosmic-manager" "cosmic-manager";
   nix-converter = fromInput "nix-converter" "default";
   nix-sweep = fromInput "nix-sweep" "default";
