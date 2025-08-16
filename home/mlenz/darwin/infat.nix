@@ -12,7 +12,7 @@
         env = "Zed";
         fish = "Zed";
         gz = "Keka";
-        html = "Safari";
+        html = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";
         ini = "Zed";
         js = "Zed";
         json = "Zed";
