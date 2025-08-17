@@ -53,6 +53,7 @@
     gdu
     dua
     ncdu
+    duf
     # required packages: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/system-path.nix
     # acl # not available on darwin
     # attr # not available on darwin
