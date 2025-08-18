@@ -5,6 +5,7 @@
   autoPatchelfHook,
   versionCheckHook,
   installShellFiles,
+  binariesFromGitHub,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
@@ -43,13 +44,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  # TODO: enable after next release (currently digest is missing)
-  # passthru.updateScript = binariesFromGitHub {
-  #   owner = "brutella";
-  #   repo = "hkknx-public";
-  #   outputFile = ./release.json;
-  #   assetsPattern = ''^hkknx-\($release.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
-  # };
+  passthru.updateScript = binariesFromGitHub {
+    owner = "brutella";
+    repo = "hkknx-public";
+    outputFile = ./release.json;
+    assetsPattern = ''^hkknx-\($release.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
+  };
 
   meta = {
     description = "HomeKit Bridge for KNX";
