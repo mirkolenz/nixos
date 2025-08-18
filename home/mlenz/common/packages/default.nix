@@ -34,8 +34,6 @@
     autorestic
     sqlite
     icloudpd
-    nixpkgs-review
-    nix-output-monitor
     rlwrap
     wol
     # json parsing
@@ -54,6 +52,10 @@
     dua
     ncdu
     duf
+    # nix
+    nixpkgs-review
+    nix-output-monitor
+    fh
     # required packages: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/system-path.nix
     # acl # not available on darwin
     # attr # not available on darwin
