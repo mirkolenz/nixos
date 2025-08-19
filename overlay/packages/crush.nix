@@ -20,7 +20,7 @@ buildGo125Module (finalAttrs: {
     hash = "sha256-lMp/qWSV+2+S8uH3TDPnldaBD5KhUdwyhvtn5j9TO1g=";
   };
 
-  vendorHash = "sha256-vdzAVVGr7uTW/A/I8TcYW189E3960SCIqatu7Kb60hg=";
+  vendorHash = "sha256-TEBZeeC35mdAT1uGTyBzq52i84K1Bb0AOCov8cN4efk=";
 
   subPackages = [ "." ];
 
