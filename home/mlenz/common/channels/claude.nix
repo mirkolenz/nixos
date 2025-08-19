@@ -15,7 +15,6 @@
     settings = {
       cleanupPeriodDays = 30;
       includeCoAuthoredBy = false;
-      model = "default";
       permissions = {
         defaultMode = "acceptEdits";
         allow = [
