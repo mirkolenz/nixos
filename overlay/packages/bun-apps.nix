@@ -18,5 +18,6 @@ symlinkJoin {
   name = "bun-apps";
   paths = lib.mapAttrsToList mkBunApp {
     ccusage = "ccusage";
+    mcp-inspector = "@modelcontextprotocol/inspector";
   };
 }
