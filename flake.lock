@@ -905,6 +905,7 @@
         "nixvim": "nixvim",
         "quadlet-nix": "quadlet-nix",
         "systems": "systems_4",
+        "t2-iso": "t2-iso",
         "treefmt-nix": "treefmt-nix_2",
         "vscode-server": "vscode-server"
       }
@@ -981,6 +982,29 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "t2-iso": {
+      "inputs": {
+        "nixos-hardware": [
+          "nixos-hardware"
+        ],
+        "nixpkgs": [
+          "nixpkgs-linux-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1751439567,
+        "narHash": "sha256-3viDHTtnuqUDsQXsrkR7gwxR3uXcz/rCmmIC7Y2BNXY=",
+        "owner": "t2linux",
+        "repo": "nixos-t2-iso",
+        "rev": "96e434df738b8c71f75d3d726c38fc138247af97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "t2linux",
+        "repo": "nixos-t2-iso",
         "type": "github"
       }
     },
