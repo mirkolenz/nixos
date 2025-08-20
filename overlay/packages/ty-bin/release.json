@@ -1,9 +1,9 @@
 {
-  "version": "0.0.1-alpha.18",
+  "version": "0.0.1-alpha.19",
   "hashes": {
-    "ty-aarch64-apple-darwin.tar.gz": "sha256:ff1fd79eaa7bf89741e6bfb88e6cee7f4906294e1f4104973ee4e9628b02566e",
-    "ty-aarch64-unknown-linux-gnu.tar.gz": "sha256:37213d6e5d17eb693c89588ef78d72522dbb5193eb8a781417ac4452b57c3a81",
-    "ty-x86_64-apple-darwin.tar.gz": "sha256:e4f93a6f0b53e66a8763badf226dd7895b12fa78e7da19efc4777ba93585406e",
-    "ty-x86_64-unknown-linux-gnu.tar.gz": "sha256:149050e6410b29950ec65a6811bb0c38621a9c6abc33f57c0668767654e24a0c"
+    "ty-aarch64-apple-darwin.tar.gz": "sha256:a2e63cf532b0312edf67c7af658ca6a2089f0e72b0ac2aa84ff6cf7c3a967c63",
+    "ty-aarch64-unknown-linux-gnu.tar.gz": "sha256:fd3c5e3b2236df9d0f1339afb01e93d88673a1e39eb485c6eae600283b9a1236",
+    "ty-x86_64-apple-darwin.tar.gz": "sha256:6517f86ddbe3fbf00984402a1184d6b69dcc3079323f5177077d6b4875f1b4d6",
+    "ty-x86_64-unknown-linux-gnu.tar.gz": "sha256:d2a2d40590e62bfaacb33664c9dc5b004af3fc7214e7f2ad8cdc78e5e1cd1f89"
   }
 }
