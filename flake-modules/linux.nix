@@ -56,5 +56,9 @@ in
       channel = "unstable";
       system = "x86_64-linux";
     };
+    macbook-16-1 = {
+      channel = "unstable";
+      system = "x86_64-linux";
+    };
   };
 }

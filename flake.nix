@@ -131,7 +131,7 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    t2-iso = {
+    apple-t2-iso = {
       url = "github:t2linux/nixos-t2-iso";
       inputs = {
         nixpkgs.follows = "nixpkgs-linux-unstable";

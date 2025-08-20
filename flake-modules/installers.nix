@@ -50,7 +50,7 @@ in
 {
   flake.legacyPackages = {
     aarch64-linux.installers.raspi = installer-raspi.config.system.build.images.sd-card;
-    x86_64-linux.installers.t2-iso = inputs.t2-iso.packages.x86_64-linux.installers.t2-iso-minimal;
+    x86_64-linux.installers.apple-t2 = inputs.apple-t2-iso.packages.x86_64-linux.installers.t2-iso-minimal;
   };
   perSystem =
     { system, ... }:
