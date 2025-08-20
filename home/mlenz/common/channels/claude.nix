@@ -15,6 +15,7 @@
     settings = {
       cleanupPeriodDays = 30;
       includeCoAuthoredBy = false;
+      enableAllProjectMcpServers = true;
       permissions = {
         defaultMode = "acceptEdits";
         allow = [
@@ -54,6 +55,7 @@
         deny = [
           "Bash(sudo:*)"
         ];
+        ask = [ ];
       };
     };
   };
