@@ -2,6 +2,7 @@
   lib,
   fetchurl,
   stdenv,
+  openssl,
   autoPatchelfHook,
   versionCheckHook,
   binariesFromGitHub,
@@ -30,7 +31,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
+  buildInputs = lib.optionals (!stdenv.isDarwin) [
+    stdenv.cc.cc
+    openssl
+  ];
   nativeBuildInputs = [ installShellFiles ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
 
   dontConfigure = true;
