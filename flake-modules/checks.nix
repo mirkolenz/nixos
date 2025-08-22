@@ -15,6 +15,7 @@ let
     "caddy"
     "claude-code-bin"
     "codex-bin"
+    "copilot-language-server"
     "crush"
     "gibo"
     "hkknx-bin"
