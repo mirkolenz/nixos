@@ -7,7 +7,6 @@
 }:
 {
   home.packages = with pkgs; [
-    git-annex
     gibo
     git-ignore
     jjui
