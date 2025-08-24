@@ -112,6 +112,41 @@
 
       exec ${lib.getExe pkgs.gnutar} -xzf "$source_path" "$@"
     '';
+    # https://github.com/typst/typst/discussions/404#discussioncomment-9456308
+    # https://stackoverflow.com/a/61677298
+    pdfcompress = ''
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: $0 SOURCE_PATH TARGET_PATH [GHOSTSCRIPT_ARGS...]" >&2
+        exit 1
+      fi
+
+      source_path="$1"
+      shift
+      target_path="$1"
+      shift
+
+      exec ${lib.getExe pkgs.ghostscript} \
+        -dNOPAUSE -dQUIET -dBATCH -dSAFER \
+        -sDEVICE=pdfwrite \
+        -dPDFSETTINGS=/ebook \
+        -dAutoRotatePages=/None \
+        -dCompatibilityLevel=1.7 \
+        -dCompressFonts=true \
+        -dConvertCMYKImagesToRGB=true \
+        -dDetectDuplicateImages \
+        -dEmbedAllFonts=true \
+        -dOverPrint=/simulate \
+        -dSubsetFonts=true \
+        -dColorImageDownsampleType=/Bicubic \
+        -dColorImageResolution=150 \
+        -dGrayImageDownsampleType=/Bicubic \
+        -dGrayImageResolution=150 \
+        -dMonoImageDownsampleType=/Bicubic \
+        -dMonoImageResolution=150 \
+        "$@" \
+        -sOutputFile="$target_path" \
+        -f "$source_path"
+    '';
     nixos-env = ''
       exec sudo nix-env --profile /nix/var/nix/profiles/system "$@"
     '';
