@@ -142,7 +142,7 @@ let
     "lugrasimo"
     "manrope"
     "monaspace"
-    "monaspace-nerd-font"
+    "monaspice-nerd-font"
     "overlock"
     "overlock-sc"
     "roboto"
