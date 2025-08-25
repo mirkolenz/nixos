@@ -49,6 +49,9 @@ lib.mkIf config.custom.profile.isWorkstation {
     typst
     typstyle
     tinymist
+    # presentation
+    # pdfpc # broken on darwin
+    pympress
     # nix
     nixd
     nixfmt

@@ -147,6 +147,24 @@
         -sOutputFile="$target_path" \
         -f "$source_path"
     '';
+    # https://polylux.dev/book/external/pdfpc.html
+    # https://touying-typ.github.io/docs/external/pdfpc
+    touying2pdfpc = ''
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: $0 FILENAME [TYPST_ARGS...]" >&2
+        exit 1
+      fi
+
+      filename="$1"
+      shift
+
+      ${lib.getExe pkgs.typst} query \
+        --root . \
+        "./$filename.typ" \
+        --field value \
+        --one "<pdfpc-file>" \
+        > "./$filename.pdfpc"
+    '';
     nixos-env = ''
       exec sudo nix-env --profile /nix/var/nix/profiles/system "$@"
     '';
