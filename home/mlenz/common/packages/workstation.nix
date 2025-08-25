@@ -50,7 +50,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     typstyle
     tinymist
     # presentation
-    # pdfpc # broken on darwin
+    pdfpc
     pympress
     # nix
     nixd
