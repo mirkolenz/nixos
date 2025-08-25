@@ -35,7 +35,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       $bibtex_use = 2;
 
       # system-specific
-      $pdf_previewer = "open -g -a Skim %S";
+      $pdf_previewer = "skim %S";
     '';
   };
   home.packages = with pkgs; [

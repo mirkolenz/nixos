@@ -168,6 +168,9 @@
     nixos-env = ''
       exec sudo nix-env --profile /nix/var/nix/profiles/system "$@"
     '';
+    skim = ''
+      exec open -g -a Skim "$@"
+    '';
     prefetch-attr = ''
       if [ "$#" -lt 1 ]; then
         echo "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
