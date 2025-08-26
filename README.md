@@ -228,12 +228,13 @@ sudo /nix/nix-installer uninstall
 Additional wildcard exclude rules:
 
 ```txt
-.venv
-.direnv
+.cache
 .devenv
+.direnv
+.orbstack
+.venv
 node_modules
 */OrbStack
-*/.orbstack
 */Library/CloudStorage
 */Library/Application Support/
 ```
