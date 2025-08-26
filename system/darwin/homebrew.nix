@@ -67,6 +67,7 @@ let
     _1password-safari = 1569813296;
     aiko = 1672085276;
     ausweisapp = 948660805;
+    base = 6744867438;
     bitwarden = 1352778147;
     daisydisk = 411643860;
     dropover = 1355679052;
