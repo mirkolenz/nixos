@@ -46,6 +46,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   #   owner = "philocalyst";
   #   repo = "infat";
   #   outputFile = ./release.json;
+  #   versionPrefix = "v";
   #   assetsPattern = ''^infat-(arm64|x86_64)-apple-macos\\.tar\\.gz$'';
   # };
 

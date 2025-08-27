@@ -21,7 +21,7 @@ mkApp rec {
 
   src = fetchurl {
     url = "https://github.com/akiyosi/goneovim/releases/download/v${version}/goneovim-v${version}-${platform}.tar.bz2";
-    hash = release.hashes."goneovim-v${version}-${platform}.tar.bz2";
+    hash = release.hashes.${platform};
   };
   wrapperPath = "Contents/MacOS/${pname}";
 
@@ -29,7 +29,9 @@ mkApp rec {
     owner = "akiyosi";
     repo = "goneovim";
     outputFile = ./release.json;
-    assetsPattern = ''^goneovim-\($release.tag_name)-((linux)|(macos-(arm64|x86_64)))\\.tar\\.bz2$'';
+    versionPrefix = "v";
+    assetsPattern = ''^goneovim-\($release.tag_name)-(?<platform>macos-(arm64|x86_64))\\.tar\\.bz2$'';
+    assetsReplace = "\\(.platform)";
   };
 
   meta = {

@@ -1,8 +1,7 @@
 {
   "version": "0.6.16",
   "hashes": {
-    "goneovim-v0.6.16-linux.tar.bz2": "sha256:44c421eb75d42e35643caa11a8aa05c2c460b56bf8572b15488a801362418ba8",
-    "goneovim-v0.6.16-macos-arm64.tar.bz2": "sha256:c53ead8e262d7b4c50d24e83b32bdd1d41d000c1da8925ffd734e43abecf394d",
-    "goneovim-v0.6.16-macos-x86_64.tar.bz2": "sha256:84bdd271b7a9166082294a062a79132025c9a5bf556c5b2beb4395727e715536"
+    "macos-arm64": "sha256:c53ead8e262d7b4c50d24e83b32bdd1d41d000c1da8925ffd734e43abecf394d",
+    "macos-x86_64": "sha256:84bdd271b7a9166082294a062a79132025c9a5bf556c5b2beb4395727e715536"
   }
 }

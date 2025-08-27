@@ -1,10 +1,12 @@
-{ writeShellScript }:
+{ writeShellScript, lib }:
 {
   owner,
   repo,
   outputFile,
   assetsPattern ? ".*",
-  versionPrefix ? "v",
+  assetsReplace ? "",
+  versionPrefix ? "",
+  versionSuffix ? "",
   allowPrereleases ? false,
 }:
 let
@@ -14,6 +16,15 @@ let
       "gh api repos/${owner}/${repo}/releases --method GET --raw-field per_page=1"
     else
       "gh api repos/${owner}/${repo}/releases/latest";
+
+  versionFilter = toString [
+    (lib.optionalString (versionPrefix != "") "| ltrimstr(\"${versionPrefix}\")")
+    (lib.optionalString (versionSuffix != "") "| rtrimstr(\"${versionSuffix}\")")
+  ];
+
+  assetsFilter = lib.optionalString (
+    assetsReplace != ""
+  ) "| sub(\"${assetsPattern}\"; \"${assetsReplace}\")";
 in
 writeShellScript "github-binaries-${owner}-${repo}" ''
   #!/usr/bin/env nix-shell
@@ -24,11 +35,11 @@ writeShellScript "github-binaries-${owner}-${repo}" ''
   output="$(
     ${ghCall} \
     | jq '${jqSelector} | . as $release | {
-      version: .tag_name | ltrimstr("${versionPrefix}"),
+      version: .tag_name ${versionFilter},
       hashes: [
         .assets[]
         | select(.name | test("${assetsPattern}"))
-        | { key: .name, value: .digest }
+        | { key: .name ${assetsFilter}, value: .digest }
       ] | from_entries
     }'
   )"
