@@ -45,6 +45,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     harper
     protobuf-ls
     touying
+    mcp-proxy
     # typst
     typst
     typstyle
