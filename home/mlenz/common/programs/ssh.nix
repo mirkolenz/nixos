@@ -14,16 +14,28 @@ in
   ];
   programs.ssh = {
     enable = config.custom.profile.isDesktop;
-    addKeysToAgent = if pkgs.stdenv.isDarwin then "yes" else "no";
     includes = lib.mkIf pkgs.stdenv.isDarwin [
       "${config.home.homeDirectory}/.orbstack/ssh/config"
     ];
-    extraConfig = ''
-      IdentityFile ${config.home.homeDirectory}/.ssh/id_ed25519
-      ${lib.optionalString pkgs.stdenv.isDarwin "UseKeychain yes"}
-      ${lib.optionalString pkgs.stdenv.isLinux "IdentityAgent ${config.home.homeDirectory}/.1password/agent.sock"}
-    '';
     matchBlocks = {
+      "*" = {
+        addKeysToAgent = if pkgs.stdenv.isDarwin then "yes" else "no";
+        identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
+        identityAgent = lib.mkIf pkgs.stdenv.isLinux "${config.home.homeDirectory}/.1password/agent.sock";
+        extraOptions = lib.optionalAttrs pkgs.stdenv.isDarwin {
+          UseKeychain = "yes";
+        };
+        # default config from home manager module
+        forwardAgent = false;
+        compression = false;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        hashKnownHosts = false;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+        controlMaster = "no";
+        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPersist = "no";
+      };
       "gpu" = {
         hostname = "gpu.wi2.uni-trier.de";
         forwardAgent = true;
