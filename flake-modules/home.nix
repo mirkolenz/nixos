@@ -37,6 +37,7 @@ let
     };
 in
 {
+  imports = [ inputs.home-manager-linux-unstable.flakeModules.default ];
   flake.homeConfigurations = lib.mapAttrs mkHomeConfig {
     "lenz@gpu.wi2.uni-trier.de" = {
       channel = "unstable";
