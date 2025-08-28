@@ -39,5 +39,11 @@ in
         system: pkgs: lib.getAttrs (lib.intersectLists packages (lib.attrNames pkgs)) pkgs
       ) self.packages
     );
+    # https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/choose-the-runner-for-a-job#standard-github-hosted-runners-for-public-repositories
+    platforms = {
+      "aarch64-darwin" = "macos-15";
+      "aarch64-linux" = "ubuntu-24.04-arm";
+      "x86_64-linux" = "ubuntu-24.04";
+    };
   };
 }
