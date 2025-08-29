@@ -94,7 +94,8 @@ lib.mkIf config.custom.profile.isWorkstation {
     clippy
     rust-analyzer
     # language servers
-    taplo
+    tombi
+    copilot-language-server
     # my own packages
     makejinja
   ];
