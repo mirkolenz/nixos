@@ -27,7 +27,7 @@ jobs:
       - name: update flake
         run: nix flake update --commit-lock-file
       - name: update packages
-        run: nix run .#updater
+        run: nix run .#updater -- --commit single
         env:
           # avoid rate limits
           GH_TOKEN: ${{ github.token }}

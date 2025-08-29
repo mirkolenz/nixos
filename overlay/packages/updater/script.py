@@ -42,7 +42,7 @@ def run(
     attrset: Annotated[str | None, typer.Option("--attrset", "-a")] = None,
     max_workers: Annotated[int | None, typer.Option()] = None,
     keep_going: Annotated[bool, typer.Option()] = True,
-    commit: Annotated[Commit, typer.Option()] = Commit.SINGLE,
+    commit: Annotated[Commit, typer.Option()] = Commit.NONE,
     skip_prompt: Annotated[bool, typer.Option()] = True,
     order: Annotated[Order | None, typer.Option()] = None,
 ):
