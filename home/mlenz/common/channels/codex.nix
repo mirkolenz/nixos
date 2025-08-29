@@ -8,11 +8,17 @@
   programs.codex = lib.mkIf config.custom.profile.isWorkstation {
     enable = true;
     package = pkgs.codex-bin;
+    # https://github.com/openai/codex/blob/main/docs/config.md#config-reference
     settings = {
       # approval_policy = "never"; # User is never prompted
       approval_policy = "on-request"; # The model decides when to escalate
+      file_opener = "none";
+      preferred_auth_method = "chatgpt";
       sandbox_mode = "workspace-write";
       sandbox_workspace_write.network_access = true;
+      tools = {
+        web_search = true;
+      };
     };
   };
 }
