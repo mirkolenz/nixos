@@ -46,17 +46,11 @@ in
         channel = "unstable";
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook";
-        extraModule = {
-          custom.profile.isDesktop = true;
-        };
       };
       mirkos-unibook = {
         channel = "unstable";
         system = "aarch64-darwin";
         computerName = "Mirkos UniBook";
-        extraModule = {
-          custom.profile.isDesktop = true;
-        };
       };
     };
   };

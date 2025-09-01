@@ -2,7 +2,6 @@
 let
   caskApps = [
     "1password"
-    "adobe-creative-cloud"
     "alt-tab"
     "anydesk"
     "arq"
@@ -10,53 +9,35 @@ let
     "betterdisplay"
     "cameracontroller"
     "claude"
-    "cleanshot"
     "default-folder-x"
     "devonthink"
-    "discord"
-    "drawio"
-    "element"
-    "figma"
     "firefox"
     "fission"
     "forklift"
     "ghostty"
     "godspeed"
     "google-chrome"
-    "google-drive"
     "handbrake-app"
-    "ia-presenter"
     "jordanbaird-ice"
     "lookaway"
-    "mediathekview"
     "microsoft-auto-update"
-    "microsoft-edge"
     "microsoft-teams"
     "neohtop"
-    "notion"
     "obsidian"
     "omnigraffle"
     "orbstack"
-    "orion"
-    "parallels"
-    "pixelsnap"
-    "postman"
     "presentation"
     "raindropio"
     "raycast"
     "rode-central"
-    "signal"
-    "silhouette-studio"
     "skim"
     "soundsource"
     "stats"
     "steermouse"
     "tailscale-app"
     "tiptoi-manager"
-    "vimr"
     "viscosity"
     "visual-studio-code"
-    "vivaldi"
     "wifiman"
     "zed"
     "zoom"
@@ -73,12 +54,9 @@ let
     dropover = 1355679052;
     easyletter = 1495179755;
     gapplin = 768053424;
-    goodnotes = 1444383602;
     home-assistant = 1099568401;
     kagi = 1622835804;
     keka = 470158793;
-    kindle = 302584613;
-    meeting-owl = 1219076447;
     mela = 1568924476;
     microsoft-excel = 462058435;
     microsoft-outlook = 985367838;
@@ -94,10 +72,8 @@ let
     shellfish = 1336634154;
     step-two = 1448916662;
     stopthemadness-pro = 6471380298;
-    tabback = 1660506599;
     testflight = 899247664;
     texstage = 6737460352;
-    todoist = 585829637;
     vinegar = 1591303229;
     whatsapp = 310633997;
   };
@@ -173,10 +149,8 @@ let
     "ubuntu-sans"
     "ubuntu-sans-mono"
     "ubuntu-sans-nerd-font"
+    "varela"
     "varela-round"
-    "zed-mono"
-    "zed-mono-nerd-font"
-    "zed-sans"
   ];
 in
 {
