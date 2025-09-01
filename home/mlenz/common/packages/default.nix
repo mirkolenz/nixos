@@ -42,6 +42,9 @@
     jql
     yq
     dasel
+    # http requests
+    httpie
+    xh
     # bulk renaming
     massren
     mmv-go
