@@ -7,8 +7,6 @@ let
     "arq"
     "balenaetcher"
     "betterdisplay"
-    "cameracontroller"
-    "claude"
     "default-folder-x"
     "devonthink"
     "firefox"
