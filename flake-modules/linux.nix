@@ -48,15 +48,15 @@ in
       channel = "stable";
       system = "aarch64-linux";
     };
-    macbook-9-1 = {
+    macbook-91 = {
       channel = "unstable";
       system = "x86_64-linux";
     };
-    macbook-11-3 = {
+    macbook-113 = {
       channel = "unstable";
       system = "x86_64-linux";
     };
-    macbook-16-1 = {
+    macbook-161 = {
       channel = "unstable";
       system = "x86_64-linux";
     };
