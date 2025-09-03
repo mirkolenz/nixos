@@ -32,6 +32,7 @@ let
     "soundsource"
     "stats"
     "steermouse"
+    "sublime-merge"
     "tailscale-app"
     "tiptoi-manager"
     "viscosity"

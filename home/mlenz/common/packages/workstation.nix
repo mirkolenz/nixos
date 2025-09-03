@@ -10,7 +10,7 @@ in
 lib.mkIf config.custom.profile.isWorkstation {
   home.sessionVariables = {
     RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
-    EDITOR = "zed -w";
+    EDITOR = "zed --wait";
   };
   programs = {
     gradle.enable = true;
