@@ -25,7 +25,7 @@ jobs:
           set -Eeu
           echo "matrix=$(nix eval --json '.#githubActions.matrix')" >> "$GITHUB_OUTPUT"
 
-  check-eval:
+  eval:
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -46,8 +46,8 @@ jobs:
             --print-build-logs \
             --show-trace
 
-  check-build-matrix:
-    name: check-build-${{ matrix.name }}.${{ matrix.system }}
+  build-matrix:
+    name: ${{ matrix.name }}.${{ matrix.system }}
     needs: matrix
     runs-on: ${{ matrix.os }}
     strategy:
@@ -72,13 +72,13 @@ jobs:
             --no-link \
             '.#${{ matrix.attr }}'
 
-  check-build:
-    needs: check-build-matrix
+  build:
+    needs: build-matrix
     runs-on: ubuntu-latest
     if: always()
     steps:
       - run: |
-          result="${{ needs.check-build-matrix.result }}"
+          result="${{ needs.build-matrix.result }}"
           if [[ $result == "success" ]]; then
             exit 0
           else
