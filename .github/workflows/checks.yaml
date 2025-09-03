@@ -47,7 +47,7 @@ jobs:
             --show-trace
 
   check-build-matrix:
-    name: ${{ matrix.name }}.${{ matrix.system }}
+    name: check-build-${{ matrix.name }}.${{ matrix.system }}
     needs: matrix
     runs-on: ${{ matrix.os }}
     strategy:
