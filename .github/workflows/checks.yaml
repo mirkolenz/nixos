@@ -35,10 +35,6 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-      - uses: cachix/cachix-action@v16
-        with:
-          name: mirkolenz
-          authToken: ${{ secrets.CACHIX_TOKEN }}
       - name: nix flake check
         run: |
           nix flake check \
@@ -47,12 +43,17 @@ jobs:
             --show-trace
 
   build-matrix:
-    name: ${{ matrix.name }}.${{ matrix.system }}
+    name: ${{ matrix.system }}
     needs: matrix
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix: ${{fromJSON(needs.matrix.outputs.matrix)}}
+      matrix:
+        include:
+          - system: x86_64-linux
+            os: ubuntu-24.04
+          - system: aarch64-darwin
+            os: macos-15
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/determinate-nix-action@v3
@@ -64,13 +65,14 @@ jobs:
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_TOKEN }}
+          pushFilter: (-source$ | -github-actions-checks$)
       - name: nix build
         run: |
           nix build \
             --print-build-logs \
             --show-trace \
             --no-link \
-            '.#${{ matrix.attr }}'
+            '.#$githubActionsChecks.{{ matrix.system }}.default'
 
   build:
     needs: build-matrix

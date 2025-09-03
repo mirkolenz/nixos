@@ -103,10 +103,6 @@
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-github-actions = {
-      url = "github:nix-community/nix-github-actions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-converter = {
       url = "github:theobori/nix-converter";
       inputs.nixpkgs.follows = "nixpkgs";
