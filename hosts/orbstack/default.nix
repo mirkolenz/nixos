@@ -23,6 +23,7 @@ in
 
   home-manager.users.${user.login} = {
     programs.claude-code.enable = true;
+    programs.codex.enable = true;
     services.vscode-server.enable = true;
     xdg.configFile."zed/settings.json" = lib.mkIf (lib.pathExists zedSettings) {
       source = zedSettings;
