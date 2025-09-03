@@ -15,7 +15,12 @@
       file_opener = "none";
       preferred_auth_method = "chatgpt";
       sandbox_mode = "workspace-write";
-      sandbox_workspace_write.network_access = true;
+      sandbox_workspace_write = {
+        network_access = true;
+        writable_roots = [
+          config.xdg.cacheHome
+        ];
+      };
       tools = {
         web_search = true;
       };
