@@ -32,5 +32,6 @@ mkGitHubBinary {
     mainProgram = "hkknx";
     platforms = lib.attrNames platforms;
     license = lib.licenses.unfree;
+    githubActionsCheck = true;
   };
 }

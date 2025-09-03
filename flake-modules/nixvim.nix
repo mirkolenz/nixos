@@ -61,7 +61,11 @@ in
     }:
     {
       packages = {
-        neovim = pkgs.nixvim-full;
+        neovim = pkgs.nixvim-full.overrideAttrs (oldAttrs: {
+          meta = oldAttrs.meta // {
+            githubActionsCheck = true;
+          };
+        });
         neovide = pkgs.writeShellApplication {
           name = "neovide";
           text = ''

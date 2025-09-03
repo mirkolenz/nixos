@@ -59,6 +59,7 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
+            keep-going = true
       - uses: cachix/cachix-action@v16
         with:
           name: mirkolenz

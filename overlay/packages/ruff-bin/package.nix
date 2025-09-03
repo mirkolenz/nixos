@@ -43,5 +43,6 @@ mkGitHubBinary {
     mainProgram = "ruff";
     platforms = lib.attrNames platforms;
     license = lib.licenses.mit;
+    githubActionsCheck = true;
   };
 }

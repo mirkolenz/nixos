@@ -53,5 +53,6 @@ mkGitHubBinary {
     downloadPage = "https://github.com/openai/codex/releases";
     platforms = lib.attrNames platforms;
     license = lib.licenses.asl20;
+    githubActionsCheck = true;
   };
 }

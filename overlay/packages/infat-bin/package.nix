@@ -58,5 +58,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ mirkolenz ];
     platforms = lib.attrNames platforms;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    githubActionsCheck = true;
   };
 })

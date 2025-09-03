@@ -53,5 +53,6 @@ mkApp rec {
     downloadPage = "https://github.com/ahrm/sioyek/releases";
     license = lib.licenses.gpl3;
     platforms = lib.attrNames platforms;
+    githubActionsCheck = true;
   };
 }

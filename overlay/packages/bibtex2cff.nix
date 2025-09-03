@@ -50,5 +50,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "bibtex2cff";
     platforms = with lib.platforms; darwin ++ linux;
     maintainers = with lib.maintainers; [ mirkolenz ];
+    githubActionsCheck = true;
   };
 }

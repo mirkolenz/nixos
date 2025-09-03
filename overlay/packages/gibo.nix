@@ -44,5 +44,6 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.unlicense;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "gibo";
+    githubActionsCheck = true;
   };
 })
