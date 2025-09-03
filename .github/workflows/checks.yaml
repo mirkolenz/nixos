@@ -53,7 +53,7 @@ jobs:
             --print-build-logs \
             --show-trace \
             --no-link \
-            '.#$githubActionsChecks.{{ matrix.system }}.default'
+            '.#githubActionsChecks.{{ matrix.system }}.default'
 
   build:
     needs: build-matrix
