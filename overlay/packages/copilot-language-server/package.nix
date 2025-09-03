@@ -1,33 +1,31 @@
 {
   lib,
-  fetchurl,
   stdenvNoCC,
   unzip,
   versionCheckHook,
-  binariesFromGitHub,
+  mkGitHubBinary,
   installShellFiles,
   buildFHSEnv,
 }:
 let
-  inherit (stdenvNoCC.hostPlatform) system;
-  release = lib.importJSON ./release.json;
-  systemToPlatform = {
+  platforms = {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
     x86_64-darwin = "darwin-x64";
     aarch64-darwin = "darwin-arm64";
   };
-  platform = systemToPlatform.${system};
-  assetName = "copilot-language-server-${platform}-${release.version}.zip";
+  ghBin = mkGitHubBinary {
+    pname = "copilot-language-server";
+    owner = "github";
+    repo = "copilot-language-server-release";
+    file = ./release.json;
+    getAsset =
+      { version, system, ... }: "copilot-language-server-${platforms.${system}}-${version}.zip";
+    assetsPattern = ''^copilot-language-server-(linux|darwin)-(arm64|x64)-\($release.tag_name)\\.zip$'';
+  };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "copilot-language-server";
-  version = release.version or "unstable";
-
-  src = fetchurl {
-    url = "https://github.com/github/copilot-language-server-release/releases/download/${finalAttrs.version}/${assetName}";
-    hash = release.hashes.${assetName};
-  };
+  inherit (ghBin) pname version src;
 
   sourceRoot = ".";
 
@@ -56,28 +54,23 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = false;
 
-  passthru.updateScript = binariesFromGitHub {
-    owner = "github";
-    repo = "copilot-language-server-release";
-    outputFile = ./release.json;
-    assetsPattern = ''^copilot-language-server-(linux|darwin)-(arm64|x64)-\($release.tag_name)\\.zip$'';
-  };
-
-  passthru.fhs = buildFHSEnv {
-    inherit (finalAttrs) pname version;
-    targetPkgs = pkgs: [ pkgs.stdenv.cc.cc.lib ];
-    runScript = lib.getExe finalAttrs.finalPackage;
-    meta = finalAttrs.meta // {
-      description = "${finalAttrs.meta.description} (Use this version if you encounter an error like `Could not start dynamically linked executable` or `SyntaxError: Invalid or unexpected token`)";
+  passthru = ghBin.passthru // {
+    fhs = buildFHSEnv {
+      inherit (finalAttrs) pname version;
+      targetPkgs = pkgs: [ pkgs.stdenv.cc.cc.lib ];
+      runScript = lib.getExe finalAttrs.finalPackage;
+      meta = finalAttrs.meta // {
+        description = "${finalAttrs.meta.description} (Use this version if you encounter an error like `Could not start dynamically linked executable` or `SyntaxError: Invalid or unexpected token`)";
+      };
     };
   };
 
-  meta = {
+  meta = ghBin.meta // {
     description = "Use GitHub Copilot with any editor or IDE via the Language Server Protocol";
     homepage = "https://github.com/github/copilot-language-server-release";
     downloadPage = "https://github.com/github/copilot-language-server-release/releases";
     mainProgram = "copilot-language-server";
-    platforms = lib.attrNames systemToPlatform;
+    platforms = lib.attrNames platforms;
     maintainers = with lib.maintainers; [ mirkolenz ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;

@@ -8,11 +8,11 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   release = lib.importJSON ./release.json;
-  systemToPlatform = {
+  platforms = {
     x86_64-darwin = "x86_64-apple-macos";
     aarch64-darwin = "arm64-apple-macos";
   };
-  platform = systemToPlatform.${system};
+  platform = platforms.${system};
   assetName = "infat-${platform}.tar.gz";
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -45,7 +45,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   # passthru.updateScript = binariesFromGitHub {
   #   owner = "philocalyst";
   #   repo = "infat";
-  #   outputFile = ./release.json;
+  #   file = ./release.json;
   #   versionPrefix = "v";
   #   assetsPattern = ''^infat-(arm64|x86_64)-apple-macos\\.tar\\.gz$'';
   # };
@@ -56,7 +56,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "infat";
     maintainers = with lib.maintainers; [ mirkolenz ];
-    platforms = lib.attrNames systemToPlatform;
+    platforms = lib.attrNames platforms;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 })

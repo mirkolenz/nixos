@@ -11,13 +11,13 @@ let
   inherit (stdenvNoCC.hostPlatform) system;
   gcsBucket = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
   manifest = lib.importJSON ./manifest.json;
-  systemToPlatform = {
+  platforms = {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
     x86_64-darwin = "darwin-x64";
     aarch64-darwin = "darwin-arm64";
   };
-  platform = systemToPlatform.${system};
+  platform = platforms.${system};
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "claude-code";
@@ -64,6 +64,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = [ lib.maintainers.mirkolenz ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "claude";
-    platforms = lib.attrNames systemToPlatform;
+    platforms = lib.attrNames platforms;
   };
 })

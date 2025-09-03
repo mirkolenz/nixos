@@ -1,46 +1,26 @@
 {
   lib,
-  fetchurl,
   stdenv,
-  autoPatchelfHook,
   versionCheckHook,
-  binariesFromGitHub,
-  installShellFiles,
+  mkGitHubBinary,
 }:
 let
-  inherit (stdenv.hostPlatform) system;
-  release = lib.importJSON ./release.json;
-  systemToPlatform = {
+  platforms = {
     x86_64-linux = "x86_64-unknown-linux-gnu";
     aarch64-linux = "aarch64-unknown-linux-gnu";
     x86_64-darwin = "x86_64-apple-darwin";
     aarch64-darwin = "aarch64-apple-darwin";
   };
-  platform = systemToPlatform.${system};
-  assetName = "ruff-${platform}.tar.gz";
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "ruff";
-  version = release.version or "unstable";
-
-  src = fetchurl {
-    url = "https://github.com/astral-sh/ruff/releases/download/${finalAttrs.version}/${assetName}";
-    hash = release.hashes.${assetName};
-  };
+mkGitHubBinary {
+  owner = "astral-sh";
+  repo = "ruff";
+  file = ./release.json;
+  getAsset = { system, ... }: "ruff-${platforms.${system}}.tar.gz";
+  assetsPattern = ''^ruff-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
+  allowPrereleases = true;
 
   buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
-  nativeBuildInputs = [ installShellFiles ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
-
-  dontConfigure = true;
-  dontBuild = true;
-
-  installPhase = ''
-    runHook preInstall
-
-    installBin ruff
-
-    runHook postInstall
-  '';
 
   # patchelf needs to run first, so we add a custom phase
   postPhases = [ "finalPhase" ];
@@ -56,22 +36,12 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = binariesFromGitHub {
-    owner = "astral-sh";
-    repo = "ruff";
-    outputFile = ./release.json;
-    assetsPattern = ''^ruff-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
-    allowPrereleases = true;
-  };
-
   meta = {
     description = "An extremely fast Python linter and code formatter, written in Rust";
     homepage = "https://github.com/astral-sh/ruff";
     downloadPage = "https://github.com/astral-sh/ruff/releases";
     mainProgram = "ruff";
-    platforms = lib.attrNames systemToPlatform;
-    maintainers = with lib.maintainers; [ mirkolenz ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    platforms = lib.attrNames platforms;
     license = lib.licenses.mit;
   };
-})
+}

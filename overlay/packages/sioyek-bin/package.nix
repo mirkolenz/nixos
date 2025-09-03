@@ -9,11 +9,11 @@
 let
   inherit (stdenv.hostPlatform) system;
   release = lib.importJSON ./release.json;
-  systemToPlatform = {
+  platforms = {
     x86_64-darwin = "mac";
     aarch64-darwin = "mac-arm";
   };
-  platform = systemToPlatform.${system};
+  platform = platforms.${system};
   assetName = "sioyek-release-${platform}.zip";
 in
 mkApp rec {
@@ -41,7 +41,7 @@ mkApp rec {
   # passthru.updateScript = binariesFromGitHub {
   #   owner = "ahrm";
   #   repo = "sioyek";
-  #   outputFile = ./release.json;
+  #   file = ./release.json;
   #   assetsPattern = ''^sioyek-release-mac.*?\\.zip$'';
   #   versionPrefix = "sioyek";
   #   allowPrereleases = true;
@@ -52,6 +52,6 @@ mkApp rec {
     homepage = "https://sioyek.info";
     downloadPage = "https://github.com/ahrm/sioyek/releases";
     license = lib.licenses.gpl3;
-    platforms = lib.attrNames systemToPlatform;
+    platforms = lib.attrNames platforms;
   };
 }
