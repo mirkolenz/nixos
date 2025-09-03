@@ -5,7 +5,6 @@
     settings.body = ''
       ## General
 
-      - Prefer all other available tools over the `Bash` tool and only use it when necessary.
       - Use conventional commit messages to describe changes so that semantic versioning can be applied.
       - In plain text files, write exactly one sentence per line: txt, md, tex, typ, rst, ...
 
@@ -36,7 +35,6 @@
 
       - Use `latexmk` to compile documents.
       - Use `cref` for cross-referencing, not `ref`.
-
     '';
   };
 }
