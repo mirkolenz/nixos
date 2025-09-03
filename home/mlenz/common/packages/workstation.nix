@@ -76,7 +76,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     pylyzer
     basedpyright
     ty-bin
-    pyrefly
     uv-apps
     # nodejs
     nodejs

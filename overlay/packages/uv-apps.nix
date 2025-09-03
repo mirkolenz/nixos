@@ -10,7 +10,7 @@ let
     writeShellApplication {
       inherit name;
       text = ''
-        exec ${lib.getExe uv-bin} tool run ${value}@latest "$@"
+        exec ${lib.getExe' uv-bin "uvx"} ${value} "$@"
       '';
     };
 in
@@ -18,5 +18,6 @@ symlinkJoin {
   name = "uv-apps";
   paths = lib.mapAttrsToList mkUvApp {
     arguebuf = "arguebuf";
+    pyrefly = "pyrefly";
   };
 }
