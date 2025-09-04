@@ -36,6 +36,7 @@
     icloudpd
     rlwrap
     wol
+    ast-grep
     # json parsing
     jq
     jaq
