@@ -7,7 +7,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  eval:
+  check-eval:
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
             --print-build-logs \
             --show-trace
 
-  build-matrix:
+  check-build-matrix:
     name: ${{ matrix.system }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -55,7 +55,7 @@ jobs:
             --no-link \
             '.#githubActionsChecks.${{ matrix.system }}.default'
 
-  build:
+  check-build:
     needs: build-matrix
     runs-on: ubuntu-latest
     if: always()
