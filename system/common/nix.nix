@@ -35,7 +35,6 @@
     keep-going = true;
     keep-outputs = true;
     log-lines = 1000;
-    nix-path = "nixpkgs=flake:pkgs";
     warn-dirty = false;
   };
 }

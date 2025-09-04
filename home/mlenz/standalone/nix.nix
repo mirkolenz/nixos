@@ -26,7 +26,6 @@
       commit-lock-file-summary = "chore(deps): update flake.lock";
       flake-registry = "";
       # log-lines = 1000; # https://github.com/nixos/nix/issues/13399
-      nix-path = "nixpkgs=flake:pkgs";
       warn-dirty = false;
     };
     gc = {
