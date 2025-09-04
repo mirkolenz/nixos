@@ -56,12 +56,12 @@ jobs:
             '.#githubActionsChecks.${{ matrix.system }}.default'
 
   check-build:
-    needs: build-matrix
+    needs: check-build-matrix
     runs-on: ubuntu-latest
     if: always()
     steps:
       - run: |
-          result="${{ needs.build-matrix.result }}"
+          result="${{ needs.check-build-matrix.result }}"
           if [[ $result == "success" ]]; then
             exit 0
           else
