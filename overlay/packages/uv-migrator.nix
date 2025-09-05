@@ -6,17 +6,17 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uv-migrator";
-  version = "2025.8.2";
+  version = "2025.8.3";
   useFetchCargoVendor = true;
 
   src = fetchFromGitHub {
     owner = "stvnksslr";
     repo = "uv-migrator";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ZrHMCfkNz+Ufae1Ylze4poPtYSb8PvW56juR3iLYIOk=";
+    hash = "sha256-m/0bNzTSyO2ZgjUAGDjAy6VuSP+czTAa/wqiBOqTOhU=";
   };
 
-  cargoHash = "sha256-0t18fKYOp6qF+V24tPLK9IUUYp8OTghlT4j3qxqc9kw=";
+  cargoHash = "sha256-kmCzI1LB9MFrZjXnU70QBm83sKcFdWkYR0vFmbiTYAE=";
 
   passthru.updateScript = nix-update-script { };
 
