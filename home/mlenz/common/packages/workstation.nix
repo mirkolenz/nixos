@@ -46,10 +46,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     protobuf-ls
     touying
     mcp-proxy
-    # typst
-    typst
-    typstyle
-    tinymist
     # presentation
     pdfpc
     pympress
