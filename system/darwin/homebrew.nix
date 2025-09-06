@@ -16,7 +16,6 @@ let
     "godspeed"
     "google-chrome"
     "handbrake-app"
-    "jordanbaird-ice"
     "lookaway"
     "microsoft-auto-update"
     "microsoft-teams"
