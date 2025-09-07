@@ -26,7 +26,7 @@ jobs:
             --show-trace
 
   check-build-matrix:
-    name: ${{ matrix.system }}
+    name: check-build.${{ matrix.system }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
