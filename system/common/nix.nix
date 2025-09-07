@@ -36,5 +36,8 @@
     keep-outputs = true;
     log-lines = 1000;
     warn-dirty = false;
+    # determinate nix features
+    eval-cores = 0;
+    lazy-trees = true;
   };
 }
