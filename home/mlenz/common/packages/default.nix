@@ -61,6 +61,7 @@
     nix-output-monitor
     nix-fast-build
     fh
+    nh
     # required packages: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/system-path.nix
     # acl # not available on darwin
     # attr # not available on darwin
