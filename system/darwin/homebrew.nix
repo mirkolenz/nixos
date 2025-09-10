@@ -152,9 +152,6 @@ let
   ];
 in
 {
-  environment.variables = {
-    HOMEBREW_NO_ENV_HINTS = "1";
-  };
   homebrew = {
     enable = true;
     global = {
