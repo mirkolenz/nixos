@@ -1,9 +1,9 @@
 {
-  "version": "0.31.0",
+  "version": "0.34.0",
   "hashes": {
-    "codex-aarch64-apple-darwin.tar.gz": "sha256:a489b5b87ed774f4eaf483fbd122c59d4fbecbb79520cf1f273b699d815bfa46",
-    "codex-aarch64-unknown-linux-gnu.tar.gz": "sha256:3e0a1ad97b0a1252801fbecee1c7ec87404ccf44d503c97d7a8f5a590078a873",
-    "codex-x86_64-apple-darwin.tar.gz": "sha256:0d359177ee1e13d62ee0b694655246bfa475a54d98e6794c64d2b74aa5842742",
-    "codex-x86_64-unknown-linux-gnu.tar.gz": "sha256:369d0645db25a5521f1a9838553a36bbdb26205675c5259fe290c21c02030381"
+    "codex-aarch64-apple-darwin.tar.gz": "sha256:215eb4f74a7aa4aff6125506f766c0aeefd0a5716cefec951c980c7af70e558b",
+    "codex-aarch64-unknown-linux-gnu.tar.gz": "sha256:c2b98919c00ebcd29cbc1381eeba2699ee2c6fcac70aa438ae3e6a33f472f77e",
+    "codex-x86_64-apple-darwin.tar.gz": "sha256:2b2c111ef42c50d52c3c184cb27c4528542d9965a0cd5b4daa7754b79239b6c3",
+    "codex-x86_64-unknown-linux-gnu.tar.gz": "sha256:70b7485cfcf3d6108c425699067d6f6946ac3d85a1299da94e8b70eb5a07028b"
   }
 }
