@@ -7,7 +7,6 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uv-migrator";
   version = "2025.8.3";
-  useFetchCargoVendor = true;
 
   src = fetchFromGitHub {
     owner = "stvnksslr";
