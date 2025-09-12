@@ -1,9 +1,9 @@
 {
-  "version": "1.368.0",
+  "version": "1.371.0",
   "hashes": {
-    "copilot-language-server-darwin-arm64-1.368.0.zip": "sha256:996dd1f74c1a5552f6f7e6476160ec15d48d30617aa8916ff790fa44a4a2356f",
-    "copilot-language-server-darwin-x64-1.368.0.zip": "sha256:2d4522396e7e0f3f805828a3e004dfdab94b756b49b813c2f646d4a549dd8c25",
-    "copilot-language-server-linux-arm64-1.368.0.zip": "sha256:1c6963f078c1b9a67cc77e0a4942639916f5cce6b24a2f43361ae1cc18b3b042",
-    "copilot-language-server-linux-x64-1.368.0.zip": "sha256:d7873454a433c962b99d598850a31b03dc6374eed71b6d7f33fa6af56e269890"
+    "copilot-language-server-darwin-arm64-1.371.0.zip": "sha256:288673c778e58e0f41ff7b6e1a8fee2659672903dea6e8e5b987edd076a92f0b",
+    "copilot-language-server-darwin-x64-1.371.0.zip": "sha256:4a9797fbc552dab4bda6afae928974602b875bbedf789e06a270d1e1d246f520",
+    "copilot-language-server-linux-arm64-1.371.0.zip": "sha256:28fd0aa682fec1a93989e1c36cc9236d534da2186a527d10504b0a7c5dd77e00",
+    "copilot-language-server-linux-x64-1.371.0.zip": "sha256:ef2d5d0879c5d2a203f4cb0ace44c5246f0b2b4de7a38db8ffc91db9aad82d97"
   }
 }
