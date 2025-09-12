@@ -107,6 +107,10 @@
       url = "github:theobori/nix-converter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     angrr = {
       url = "github:linyinfeng/angrr";
       inputs = {

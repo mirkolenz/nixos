@@ -7,6 +7,8 @@
   ...
 }:
 {
+  # todo: enable after next disko release
+  # imports = [ inputs.disko.flakeModules.default ];
   flake = {
     systemModules.default =
       { channel, os, ... }:
@@ -89,6 +91,7 @@
           homeManager.nixosModules.default
           inputs.quadlet-nix.nixosModules.default
           inputs.determinate.nixosModules.default
+          inputs.disko.nixosModules.default
           ../system/linux
           {
             home-manager.users.mlenz = self.homeModules.linux;
