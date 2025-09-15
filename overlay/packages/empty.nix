@@ -1,4 +1,4 @@
-{ runCommandNoCCLocal }:
-runCommandNoCCLocal "empty" { } ''
+{ runCommandLocal }:
+runCommandLocal "empty" { } ''
   mkdir -p $out
 ''
