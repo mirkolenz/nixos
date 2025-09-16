@@ -137,28 +137,27 @@
         followTags = true;
         autoSetupRemote = true;
       };
+      remote = {
+        # overwrite version tags
+        origin.fetch = "+refs/tags/v*:refs/tags/v*";
+      };
       difftool = {
+        guiDefault = "auto";
         prompt = false;
-        vscode.cmd = "code -dnw --diff --new-window --wait $LOCAL $REMOTE";
-        kaleidoscope.cmd = "ksdiff --partial-changeset --relative-path $MERGED -- $LOCAL $REMOTE";
-        nvim.cmd = "nvim -c \"DiffviewOpen\"";
       };
       diff = {
         algorithm = "histogram";
         colorMoved = "plain";
         mnemonicPrefix = true;
         renames = true;
-        tool = lib.mkIf config.custom.profile.isDesktop "vscode";
+        guitool = "vscode";
       };
       mergetool = {
+        guiDefault = "auto";
         prompt = false;
-        vscode.cmd = "code --merge --new-window --wait $REMOTE $LOCAL $BASE $MERGED";
-        kaleidoscope.cmd = "ksdiff --merge --output $MERGED --base $BASE -- $LOCAL --snapshot $REMOTE --snapshot";
-        nvim.cmd = "nvim -c \"DiffviewOpen\"";
       };
       merge = {
-        tool = lib.mkIf config.custom.profile.isDesktop "vscode";
-        trustExitCode = true;
+        guitool = "vscode";
         conflictstyle = "zdiff3";
       };
     };
