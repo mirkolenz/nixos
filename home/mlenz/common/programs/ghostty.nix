@@ -29,6 +29,8 @@ in
       keybind = [
         "global:alt+backquote=toggle_quick_terminal"
       ];
+      quick-terminal-position = "center";
+      quick-terminal-size = "50%,50%";
       shell-integration = "none";
       shell-integration-features = [
         "no-cursor"
