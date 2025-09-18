@@ -21,7 +21,6 @@ in
     ;
   determinate-nix = inputs.determinate.inputs.nix.packages."${system}".default;
 
-  angrr = fromInput "angrr" "angrr";
   cosmic-manager = fromInput "cosmic-manager" "cosmic-manager";
   disko = fromInput "disko" "disko";
   disko-install = fromInput "disko" "disko-install";

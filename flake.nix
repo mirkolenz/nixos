@@ -88,14 +88,6 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    angrr = {
-      url = "github:linyinfeng/angrr";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
     nix-sweep = {
       url = "github:jzbor/nix-sweep";
       inputs.nixpkgs.follows = "nixpkgs";
