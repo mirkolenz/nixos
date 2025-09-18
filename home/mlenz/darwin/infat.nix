@@ -12,7 +12,6 @@
         env = "Zed";
         fish = "Zed";
         gz = "Keka";
-        html = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";
         ini = "Zed";
         js = "Zed";
         json = "Zed";
@@ -47,6 +46,7 @@
       # https://en.wikipedia.org/wiki/List_of_URI_schemes
       schemes = {
         ftp = "ForkLift";
+        http = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";
         mailto = "Mail";
         sftp = "ForkLift";
         ssh = "Ghostty";
