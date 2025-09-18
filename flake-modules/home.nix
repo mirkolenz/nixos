@@ -11,22 +11,22 @@ let
   mkHomeConfig =
     name:
     {
-      channel,
       system,
       extraModule ? { },
     }:
     let
       login = lib.head (lib.splitString "@" name);
       os = lib'.self.systemOs system;
-      homeManager = lib'.self.systemInput {
-        inherit inputs channel os;
-        name = "home-manager";
+      nixpkgs = lib'.self.systemInput {
+        inherit inputs os;
+        channel = "unstable";
+        name = "nixpkgs";
       };
     in
-    homeManager.lib.homeManagerConfiguration {
-      pkgs = import homeManager.inputs.nixpkgs { inherit system; };
+    inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs { inherit system; };
       extraSpecialArgs = specialModuleArgs // {
-        inherit channel os;
+        inherit os;
         osConfig = { };
       };
       modules = [
@@ -37,18 +37,15 @@ let
     };
 in
 {
-  imports = [ inputs.home-manager-linux-unstable.flakeModules.default ];
+  imports = [ inputs.home-manager.flakeModules.default ];
   flake.homeConfigurations = lib.mapAttrs mkHomeConfig {
     "lenz@gpu.wi2.uni-trier.de" = {
-      channel = "unstable";
       system = "x86_64-linux";
     };
     "eifelkreis@vserv-4514" = {
-      channel = "unstable";
       system = "x86_64-linux";
     };
     "compute@kitei-gpu" = {
-      channel = "unstable";
       system = "x86_64-linux";
     };
   };

@@ -22,10 +22,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-darwin-unstable.follows = "nixpkgs";
     nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
-    nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-stable-small.url = "github:nixos/nixpkgs/nixos-25.05-small";
 
     # Small helpers
     flake-parts = {
@@ -40,35 +37,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix Darwin
-    nix-darwin-unstable = {
+    # Third-party modules
+    nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin-stable = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
-    };
-
-    # Home Manager
-    home-manager-linux-unstable = {
+    home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-linux-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager-linux-stable = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-linux-stable";
-    };
-    home-manager-darwin-unstable = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
-    };
-    home-manager-darwin-stable = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
-    };
-
-    # NixVim
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
@@ -126,20 +103,20 @@
     cosmic-manager = {
       url = "github:heitoraugustoln/cosmic-manager";
       inputs = {
-        nixpkgs.follows = "nixpkgs-linux-unstable";
-        home-manager.follows = "home-manager-linux-unstable";
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
         flake-parts.follows = "flake-parts";
       };
     };
     apple-t2-iso = {
       url = "github:t2linux/nixos-t2-iso";
       inputs = {
-        nixpkgs.follows = "nixpkgs-linux-unstable";
+        nixpkgs.follows = "nixpkgs";
         nixos-hardware.follows = "nixos-hardware";
       };
     };
     nixvirt = {
-      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+      url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

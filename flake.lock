@@ -33,7 +33,7 @@
           "nixos-hardware"
         ],
         "nixpkgs": [
-          "nixpkgs-linux-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -74,10 +74,10 @@
           "flake-parts"
         ],
         "home-manager": [
-          "home-manager-linux-unstable"
+          "home-manager"
         ],
         "nixpkgs": [
-          "nixpkgs-linux-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -372,72 +372,10 @@
         "url": "https://flakehub.com/f/cachix/git-hooks.nix/0.1.941"
       }
     },
-    "home-manager-darwin-stable": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-darwin-stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1758313341,
-        "narHash": "sha256-SsI6INUzWwPcRKRaxvi50RttnD9rcC4EjV+67TOEfrQ=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "6f656618ebc71ca82d93d306a8aecb2c5f6f2ab2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-25.05",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager-darwin-unstable": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-darwin-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1758296614,
-        "narHash": "sha256-l60D1i0aaSqemy9dL7wP0ePMfcv/oZbeKpvUMY+q0kQ=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "55b1f5b7b191572257545413b98e37abab2fdb00",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager-linux-stable": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-linux-stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1758313341,
-        "narHash": "sha256-SsI6INUzWwPcRKRaxvi50RttnD9rcC4EjV+67TOEfrQ=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "6f656618ebc71ca82d93d306a8aecb2c5f6f2ab2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-25.05",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager-linux-unstable": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-linux-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -525,31 +463,10 @@
         "type": "github"
       }
     },
-    "nix-darwin-stable": {
+    "nix-darwin": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-darwin-stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1757432263,
-        "narHash": "sha256-qHn+/0+IOz5cG68BZUwL9BV3EO/e9eNKCjH3+N7wMdI=",
-        "owner": "nix-darwin",
-        "repo": "nix-darwin",
-        "rev": "1fef4404de4d1596aa5ab2bd68078370e1b9dcdb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-darwin",
-        "ref": "nix-darwin-25.05",
-        "repo": "nix-darwin",
-        "type": "github"
-      }
-    },
-    "nix-darwin-unstable": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-darwin-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -717,38 +634,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-stable-small": {
-      "locked": {
-        "lastModified": 1758251931,
-        "narHash": "sha256-m2v94CWDmvezPO6xKB7M9IQbaY+SQMsACD8T5rspotE=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5bb6983cc938bb40aa829d2ccf420ca7faacbd41",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-25.05-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-unstable-small": {
-      "locked": {
-        "lastModified": 1758306499,
-        "narHash": "sha256-950jirEChdH3BfoXVwJLYlI7CaWw6U9kVRfmh1hfqsI=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5c1bfea7b062514efcfce86d2a2aecf9e9d135b9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1757034884,
@@ -848,11 +733,11 @@
         "rev": "5dfe108fd859b122f9a96981cb6bc12297653d6c",
         "revCount": 407,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/AshleyYakeley/NixVirt/0.6.0/0197059a-e45f-7446-86b5-411ccc894ab0/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/ashleyyakeley/nixvirt/0.6.0/0197059a-e45f-7446-86b5-411ccc894ab0/source.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://flakehub.com/f/AshleyYakeley/NixVirt/%2A.tar.gz"
+        "url": "https://flakehub.com/f/ashleyyakeley/nixvirt/%2A.tar.gz"
       }
     },
     "nuschtosSearch": {
@@ -911,25 +796,16 @@
         "disko": "disko",
         "flake-parts": "flake-parts_2",
         "flocken": "flocken",
-        "home-manager-darwin-stable": "home-manager-darwin-stable",
-        "home-manager-darwin-unstable": "home-manager-darwin-unstable",
-        "home-manager-linux-stable": "home-manager-linux-stable",
-        "home-manager-linux-unstable": "home-manager-linux-unstable",
+        "home-manager": "home-manager",
         "nix-converter": "nix-converter",
-        "nix-darwin-stable": "nix-darwin-stable",
-        "nix-darwin-unstable": "nix-darwin-unstable",
+        "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
         "nix-sweep": "nix-sweep",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-darwin-stable": "nixpkgs-darwin-stable",
-        "nixpkgs-darwin-unstable": [
-          "nixpkgs"
-        ],
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
-        "nixpkgs-stable-small": "nixpkgs-stable-small",
-        "nixpkgs-unstable-small": "nixpkgs-unstable-small",
         "nixvim": "nixvim",
         "nixvirt": "nixvirt",
         "quadlet-nix": "quadlet-nix",

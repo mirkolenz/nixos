@@ -26,6 +26,4 @@ in
     name = "nixpkgs";
     channel = "unstable";
   }) importArgs;
-  unstable-small = import inputs.nixpkgs-unstable-small importArgs;
-  stable-small = import inputs.nixpkgs-stable-small importArgs;
 }

@@ -2,13 +2,12 @@
   inputs,
   lib',
   os,
-  channel,
   lib,
   ...
 }:
 {
   environment.etc."nix/registry.json" = lib.mkForce {
-    text = lib'.self.mkRegistryText { inherit inputs os channel; };
+    text = lib'.self.mkRegistryText { inherit inputs os; };
   };
   # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
   custom.nix.settings = {

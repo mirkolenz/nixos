@@ -14,6 +14,7 @@ in
   ];
   programs.ssh = {
     enable = config.custom.profile.isDesktop;
+    enableDefaultConfig = false;
     includes = lib.mkIf pkgs.stdenv.isDarwin [
       "${config.home.homeDirectory}/.orbstack/ssh/config"
     ];

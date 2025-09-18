@@ -6,14 +6,13 @@ lib: rec {
       channel,
       os,
     }:
-    inputs."${name}-${os}-${channel}" or inputs."${name}-${channel}" or inputs.${name};
+    inputs."${name}-${os}-${channel}" or inputs.${name};
   systemOs = system: lib.last (lib.splitString "-" system);
   systemArch = system: lib.head (lib.splitString "-" system);
   # compare two lists irrespective of order
   setEqual = list1: list2: (lib.naturalSort list1) == (lib.naturalSort list2);
   mkRegistryText =
     {
-      channel,
       inputs,
       os,
     }:
@@ -33,6 +32,8 @@ lib: rec {
             };
           })
           {
+            self = inputs.self;
+            nixpkgs = inputs.nixpkgs;
             stable = systemInput {
               inherit inputs os;
               channel = "stable";
@@ -44,13 +45,10 @@ lib: rec {
               name = "nixpkgs";
             };
             pkgs = systemInput {
-              inherit inputs os channel;
+              inherit inputs os;
+              channel = "unstable";
               name = "nixpkgs";
             };
-            stable-small = inputs.nixpkgs-stable-small;
-            unstable-small = inputs.nixpkgs-unstable-small;
-            nixpkgs = inputs.nixpkgs;
-            self = inputs.self;
           };
     };
   mkVimKeymap =

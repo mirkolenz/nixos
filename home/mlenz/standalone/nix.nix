@@ -1,7 +1,6 @@
 {
   lib,
   os,
-  channel,
   inputs,
   lib',
   pkgs,
@@ -9,7 +8,7 @@
 }:
 {
   xdg.configFile."nix/registry.json" = lib.mkForce {
-    text = lib'.self.mkRegistryText { inherit inputs os channel; };
+    text = lib'.self.mkRegistryText { inherit inputs os; };
   };
   nix = {
     package = pkgs.determinate-nix;

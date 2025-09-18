@@ -1,6 +1,6 @@
 args: final: prev:
 prev.lib.mergeAttrsList [
-  (args.inputs.nix-darwin-unstable.overlays.default final prev)
+  (args.inputs.nix-darwin.overlays.default final prev)
   (import ./by-name.nix args final prev)
   (import ./channels.nix args final prev)
   (import ./hotfixes.nix args final prev)

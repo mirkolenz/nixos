@@ -10,7 +10,6 @@
 let
   mkNixvim =
     {
-      channel,
       system,
       extraModule ? { },
     }:
@@ -19,7 +18,7 @@ let
     in
     inputs.nixvim.lib.evalNixvim {
       extraSpecialArgs = specialModuleArgs // {
-        inherit channel os;
+        inherit os;
       };
       modules = [
         self.nixvimModules.default
@@ -31,7 +30,8 @@ let
             config = self.nixpkgsConfig;
             overlays = [ self.overlays.default ];
             source = lib'.self.systemInput {
-              inherit inputs channel os;
+              inherit inputs os;
+              channel = "unstable";
               name = "nixpkgs";
             };
           };
@@ -76,14 +76,12 @@ in
       nixvimConfigurations = {
         full = mkNixvim {
           inherit system;
-          channel = "unstable";
           extraModule = {
             custom.enableOptionalPlugins = true;
           };
         };
         minimal = mkNixvim {
           inherit system;
-          channel = "unstable";
           extraModule = {
             custom.enableOptionalPlugins = false;
           };

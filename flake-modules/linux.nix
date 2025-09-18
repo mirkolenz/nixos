@@ -10,21 +10,13 @@ let
   mkLinuxSystem =
     hostName:
     {
-      channel,
       system,
       extraModule ? { },
     }:
-    let
-      os = "linux";
-      nixpkgs = lib'.self.systemInput {
-        inherit inputs channel os;
-        name = "nixpkgs";
-      };
-    in
-    nixpkgs.lib.nixosSystem {
+    inputs.nixos-linux-unstable.lib.nixosSystem {
       inherit system;
       specialArgs = specialModuleArgs // {
-        inherit channel os;
+        os = "linux";
       };
       modules = [
         extraModule
@@ -37,27 +29,21 @@ in
 {
   flake.nixosConfigurations = lib.mapAttrs mkLinuxSystem {
     orbstack = {
-      channel = "unstable";
       system = "x86_64-linux";
     };
     macpro = {
-      channel = "stable";
       system = "x86_64-linux";
     };
     raspi = {
-      channel = "stable";
       system = "aarch64-linux";
     };
     macbook-91 = {
-      channel = "unstable";
       system = "x86_64-linux";
     };
     macbook-113 = {
-      channel = "unstable";
       system = "x86_64-linux";
     };
     macbook-161 = {
-      channel = "unstable";
       system = "x86_64-linux";
     };
   };

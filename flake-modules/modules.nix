@@ -3,7 +3,6 @@
   moduleArgs,
   inputs,
   self,
-  lib',
   ...
 }:
 {
@@ -11,7 +10,7 @@
   # imports = [ inputs.disko.flakeModules.default ];
   flake = {
     systemModules.default =
-      { channel, os, ... }:
+      { os, ... }:
       {
         imports = [
           ../common
@@ -27,7 +26,7 @@
           useGlobalPkgs = true;
           useUserPackages = true;
           extraSpecialArgs = specialModuleArgs // {
-            inherit channel os;
+            inherit os;
           };
         };
       };
@@ -77,47 +76,31 @@
       };
       imports = [ self.homeModules.darwin ];
     };
-    nixosModules.default =
-      { channel, os, ... }:
-      let
-        homeManager = lib'.self.systemInput {
-          inherit inputs channel os;
-          name = "home-manager";
-        };
-      in
-      {
-        imports = [
-          self.systemModules.default
-          homeManager.nixosModules.default
-          inputs.quadlet-nix.nixosModules.default
-          inputs.determinate.nixosModules.default
-          inputs.disko.nixosModules.default
-          inputs.nixvirt.nixosModules.default
-          ../system/linux
-          {
-            home-manager.users.mlenz = self.homeModules.linux;
-          }
-        ];
-      };
+    nixosModules.default = {
+      imports = [
+        self.systemModules.default
+        inputs.home-manager.nixosModules.default
+        inputs.quadlet-nix.nixosModules.default
+        inputs.determinate.nixosModules.default
+        inputs.disko.nixosModules.default
+        inputs.nixvirt.nixosModules.default
+        ../system/linux
+        {
+          home-manager.users.mlenz = self.homeModules.linux;
+        }
+      ];
+    };
     nixosModules.installer = ../system/installer.nix;
-    darwinModules.default =
-      { channel, os, ... }:
-      let
-        homeManager = lib'.self.systemInput {
-          inherit inputs channel os;
-          name = "home-manager";
-        };
-      in
-      {
-        imports = [
-          self.systemModules.default
-          homeManager.darwinModules.default
-          inputs.determinate.darwinModules.default
-          ../system/darwin
-          {
-            home-manager.users.mlenz = self.homeModules.darwin;
-          }
-        ];
-      };
+    darwinModules.default = {
+      imports = [
+        self.systemModules.default
+        inputs.home-manager.darwinModules.default
+        inputs.determinate.darwinModules.default
+        ../system/darwin
+        {
+          home-manager.users.mlenz = self.homeModules.darwin;
+        }
+      ];
+    };
   };
 }

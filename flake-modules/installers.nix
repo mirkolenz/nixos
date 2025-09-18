@@ -2,7 +2,6 @@
   inputs,
   specialModuleArgs,
   moduleArgs,
-  lib',
   lib,
   self,
   ...
@@ -11,20 +10,12 @@ let
   mkInstaller =
     {
       system,
-      channel,
       extraModule ? { },
     }:
-    let
-      os = "linux";
-      nixpkgs = lib'.self.systemInput {
-        inherit inputs channel os;
-        name = "nixpkgs";
-      };
-    in
-    nixpkgs.lib.nixosSystem {
+    inputs.nixos-linux-unstable.lib.nixosSystem {
       inherit system;
       specialArgs = specialModuleArgs // {
-        inherit channel os;
+        os = "linux";
       };
       modules = [
         extraModule
@@ -35,7 +26,6 @@ let
 
   installer-raspi = mkInstaller {
     system = "aarch64-linux";
-    channel = "unstable"; # todo: change to "stable" for nixos 25.05
     extraModule = {
       imports = [
         "${inputs.nixos-hardware}/raspberry-pi/4"
@@ -56,12 +46,9 @@ in
   perSystem =
     { system, ... }:
     lib.optionalAttrs (lib.hasSuffix "-linux" system) {
-      # TODO: add stable variant for nixos 25.05
-      legacyPackages.installers = lib.genAttrs [ "unstable" ] (
-        channel:
+      legacyPackages.installers.default =
         (mkInstaller {
-          inherit system channel;
-        }).config.system.build.images
-      );
+          inherit system;
+        }).config.system.build.images;
     };
 }

@@ -10,22 +10,14 @@ let
   mkDarwinSystem =
     hostName:
     {
-      channel,
       system,
       computerName,
       extraModule ? { },
     }:
-    let
-      os = "darwin";
-      nixDarwin = lib'.self.systemInput {
-        inherit inputs channel os;
-        name = "nix";
-      };
-    in
-    nixDarwin.lib.darwinSystem {
+    inputs.nix-darwin.lib.darwinSystem {
       inherit system;
       specialArgs = specialModuleArgs // {
-        inherit channel os;
+        os = "darwin";
       };
       modules = [
         extraModule
@@ -43,12 +35,10 @@ in
   flake = {
     darwinConfigurations = lib.mapAttrs mkDarwinSystem {
       mirkos-macbook = {
-        channel = "unstable";
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook";
       };
       mirkos-unibook = {
-        channel = "unstable";
         system = "aarch64-darwin";
         computerName = "Mirkos UniBook";
       };
