@@ -1,9 +1,9 @@
 {
-  "version": "0.8.17",
+  "version": "0.8.18",
   "hashes": {
-    "uv-aarch64-apple-darwin.tar.gz": "sha256:e4d4859d7726298daa4c12e114f269ff282b2cfc2b415dc0b2ca44ae2dbd358e",
-    "uv-aarch64-unknown-linux-gnu.tar.gz": "sha256:9a20d65b110770bbaa2ee89ed76eb963d8c6a480b9ebef584ea9df2ae85b4f0f",
-    "uv-x86_64-apple-darwin.tar.gz": "sha256:31ed353cfd8e6c962e7c60617bd8a9d6b97b704c1ecb5b5eceaff8c6121b54ac",
-    "uv-x86_64-unknown-linux-gnu.tar.gz": "sha256:920cbcaad514cc185634f6f0dcd71df5e8f4ee4456d440a22e0f8c0f142a8203"
+    "uv-aarch64-apple-darwin.tar.gz": "sha256:ce660d5cdf0ed83d1a045bbe9792b93d06725b8c9e9b88960a503d42192be445",
+    "uv-aarch64-unknown-linux-gnu.tar.gz": "sha256:164363f88618f4e8e175faf9fcf5172321c221fce93d64cec8e9ab3339511dad",
+    "uv-x86_64-apple-darwin.tar.gz": "sha256:a08c3a6c50f49e68216ac133bd0aaae952db2cd8d19a3cd5be782f8f4becf135",
+    "uv-x86_64-unknown-linux-gnu.tar.gz": "sha256:59ad1a1809fa47019b86cf339fff161cb7b00ad3d8d42354eea57d0d91aeb44c"
   }
 }
