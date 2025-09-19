@@ -6,12 +6,7 @@
 final: prev:
 let
   inherit (prev.stdenv.hostPlatform) system;
-  fromInput =
-    input: package:
-    if (inputs.${input}.packages ? ${system}) then
-      inputs.${input}.packages.${system}.${package}
-    else
-      null;
+  fromInput = input: package: inputs.${input}.packages.${system}.${package} or final.empty;
 in
 {
   inherit (self.packages.${system})
