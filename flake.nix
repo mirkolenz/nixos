@@ -111,14 +111,6 @@
       url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    typst = {
-      url = "github:typst/typst";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        systems.follows = "systems";
-      };
-    };
   };
 
   outputs =

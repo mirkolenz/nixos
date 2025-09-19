@@ -82,21 +82,6 @@
         "type": "github"
       }
     },
-    "crane_2": {
-      "locked": {
-        "lastModified": 1755993354,
-        "narHash": "sha256-FCRRAzSaL/+umLIm3RU3O/+fJ2ssaPHseI2SSFL8yZU=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "25bd41b24426c7734278c2ff02e53258851db914",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
     "determinate": {
       "inputs": {
         "determinate-nixd-aarch64-darwin": "determinate-nixd-aarch64-darwin",
@@ -177,28 +162,6 @@
         "owner": "nix-community",
         "ref": "latest",
         "repo": "disko",
-        "type": "github"
-      }
-    },
-    "fenix": {
-      "inputs": {
-        "nixpkgs": [
-          "typst",
-          "nixpkgs"
-        ],
-        "rust-analyzer-src": "rust-analyzer-src"
-      },
-      "locked": {
-        "lastModified": 1755585599,
-        "narHash": "sha256-tl/0cnsqB/Yt7DbaGMel2RLa7QG5elA8lkaOXli6VdY=",
-        "owner": "nix-community",
-        "repo": "fenix",
-        "rev": "6ed03ef4c8ec36d193c18e06b9ecddde78fb7e42",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "fenix",
         "type": "github"
       }
     },
@@ -804,37 +767,7 @@
         "quadlet-nix": "quadlet-nix",
         "systems": "systems_4",
         "treefmt-nix": "treefmt-nix_2",
-        "typst": "typst",
         "vscode-server": "vscode-server"
-      }
-    },
-    "rust-analyzer-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1755504847,
-        "narHash": "sha256-VX0B9hwhJypCGqncVVLC+SmeMVd/GAYbJZ0MiiUn2Pk=",
-        "owner": "rust-lang",
-        "repo": "rust-analyzer",
-        "rev": "a905e3b21b144d77e1b304e49f3264f6f8d4db75",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rust-lang",
-        "ref": "nightly",
-        "repo": "rust-analyzer",
-        "type": "github"
-      }
-    },
-    "rust-manifest": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-nzhgCEnR/ggzYuS1CGIrvJyTElA5hPY12NGkSgIfl6A=",
-        "type": "file",
-        "url": "https://static.rust-lang.org/dist/channel-rust-1.89.0.toml"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://static.rust-lang.org/dist/channel-rust-1.89.0.toml"
       }
     },
     "systems": {
@@ -947,35 +880,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "typst": {
-      "inputs": {
-        "crane": "crane_2",
-        "fenix": "fenix",
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-manifest": "rust-manifest",
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1758100160,
-        "narHash": "sha256-xCcFZ9Z0uRo10ct+vW+synzfQ4AGfpImkJ+bt09GU80=",
-        "owner": "typst",
-        "repo": "typst",
-        "rev": "338decdc4536e72995c84ccb54c0c7e887bd0eca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "typst",
-        "repo": "typst",
         "type": "github"
       }
     },
