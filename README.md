@@ -2,17 +2,10 @@
 
 # NixOS Setup
 
-All configurations select the correct device name through their hostname.
-When setting up a new host, please run the following first:
+This repo contains a custom wrapper to build NixOS/nix-darwin/home-manager:
 
 ```shell
-hostname MACHINE_NAME
-```
-
-You may also change the hostname as follows:
-
-```shell
-nix run github:mirkolenz/nixos -- --hostname MACHINE_NAME
+nix run github:mirkolenz/nixos -- --help
 ```
 
 ## NixOS
@@ -143,13 +136,13 @@ nix-store --verify --check-contents --repair
 ### Installation
 
 1. Install Apple Developer Tools: `xcode-select --install`
-2. [Install Homebrew](https://brew.sh)
+2. [Install Homebrew](https://github.com/Homebrew/brew/releases/latest)
 3. [Install Nix](https://docs.determinate.systems)
-4. Sign in to the App Store
+4. Sign into the App Store
 5. Enable Full Disk Access for terminal application
 
 ```shell
-sudo nix --extra-experimental-features "nix-command flakes" run github:mirkolenz/nixos
+sudo nix run github:mirkolenz/nixos
 sudo reboot
 # Add ssh key to keychain
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
