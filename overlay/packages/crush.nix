@@ -54,6 +54,6 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.fsl11Mit;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "crush";
-    githubActionsCheck = true;
+    githubActionsCheck = false;
   };
 })
