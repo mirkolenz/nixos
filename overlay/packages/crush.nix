@@ -1,6 +1,6 @@
 {
   lib,
-  buildGo125Module,
+  buildGoModule,
   fetchFromGitHub,
   versionCheckHook,
   nix-update-script,
@@ -9,7 +9,7 @@
   installShellFiles,
 }:
 
-buildGo125Module (finalAttrs: {
+buildGoModule (finalAttrs: {
   pname = "crush";
   version = "0.9.2";
 
