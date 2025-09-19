@@ -12,7 +12,7 @@
         echo "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY" >&2
         exit 1
       fi
-      exec ${lib.getExe' pkgs.imagemagick "mogrify"} -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
+      exec mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
     '';
     # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
     mogrify-resize = ''
@@ -20,7 +20,7 @@
         echo "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY FINAL_SIZE" >&2
         exit 1
       fi
-      exec ${lib.getExe' pkgs.imagemagick "mogrify"} -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
+      exec mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
     '';
     gc = ''
       set -x #echo on
@@ -30,8 +30,8 @@
     '';
     # https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/tasks/auto-upgrade.nix#L243
     needs-reboot = ''
-      booted="$(${lib.getExe' pkgs.coreutils "readlink"} /run/booted-system/{initrd,kernel,kernel-modules})"
-      built="$(${lib.getExe' pkgs.coreutils "readlink"} /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+      booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+      built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
       if [ "$booted" != "$built" ]; then
         echo "REBOOT NEEDED"
@@ -80,17 +80,17 @@
         echo "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
       fi
-      ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
-      TIMESTAMP=$(${lib.getExe' pkgs.coreutils "date"} +"%Y-%m-%d-%H-%M-%S")
-      sudo ${lib.getExe pkgs.gnutar} -czf "$2/$TIMESTAMP.tgz" "$1"
+      mkdir -p "$2"
+      TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
+      sudo tar -czf "$2/$TIMESTAMP.tgz" "$1"
     '';
     restore = ''
       if [ "$#" -ne 2 ]; then
         echo "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
       fi
-      ${lib.getExe' pkgs.coreutils "mkdir"} -p "$2"
-      sudo ${lib.getExe pkgs.gnutar} -xzf "$1" -C "$2"
+      mkdir -p "$2"
+      sudo tar -xzf "$1" -C "$2"
     '';
     compress = ''
       if [ "$#" -lt 1 ]; then
@@ -100,7 +100,7 @@
       source_path="$1"
       shift
 
-      exec ${lib.getExe pkgs.gnutar} -czf "$source_path.tgz" "$source_path" "$@"
+      exec tar -czf "$source_path.tgz" "$source_path" "$@"
     '';
     decompress = ''
       if [ "$#" -lt 1 ]; then
@@ -110,7 +110,7 @@
       source_path="$1"
       shift
 
-      exec ${lib.getExe pkgs.gnutar} -xzf "$source_path" "$@"
+      exec tar -xzf "$source_path" "$@"
     '';
     # https://github.com/typst/typst/discussions/404#discussioncomment-9456308
     # https://stackoverflow.com/a/61677298
@@ -158,7 +158,7 @@
       filename="$1"
       shift
 
-      ${lib.getExe pkgs.typst} query \
+      typst query \
         --root . \
         "./$filename.typ" \
         --field value \
@@ -178,7 +178,7 @@
       fi
       value="$(nix eval --raw "$1")"
       shift
-      hash="$(nix store prefetch-file --json "$@" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
+      hash="$(nix store prefetch-file --json "$@" "$value" | jq -r .hash)"
       echo "hash = \"$hash\";"
     '';
     prefetch-attrs = ''
@@ -191,10 +191,10 @@
       shift
       echo "hashes = {" >> "$TMPFILE"
       nix eval --json "$attrs" \
-        | ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key) \(.value)"' \
+        | jq -r 'to_entries[] | "\(.key) \(.value)"' \
         | while read -r key value; do
           echo "Evaluating $key" >&2
-          hash="$(nix store prefetch-file --json "$@" "$value" | ${lib.getExe pkgs.jq} -r .hash)"
+          hash="$(nix store prefetch-file --json "$@" "$value" | jq -r .hash)"
           echo "  $key = \"$hash\";" >> "$TMPFILE"
         done
       echo "};" >> "$TMPFILE"
@@ -205,7 +205,7 @@
       exec rlwrap ssh eu.nixbuild.net shell
     '';
     noeol = ''
-      exec ${lib.getExe' pkgs.coreutils "tr"} -d '\n'
+      exec tr -d '\n'
     '';
     json-tool = ''
       exec ${lib.getExe pkgs.python3} -m json.tool "$@"
@@ -219,7 +219,7 @@
       shift
       target="$1"
       shift
-      exec ${lib.getExe' pkgs.fontforge "fontforge"} -c "Open(\"$source\"); Generate(\"$target\");" "$@"
+      exec fontforge -c "Open(\"$source\"); Generate(\"$target\");" "$@"
     '';
   };
 }
