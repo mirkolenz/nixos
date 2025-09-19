@@ -1,9 +1,9 @@
 {
-  "version": "0.13.0",
+  "version": "0.13.1",
   "hashes": {
-    "ruff-aarch64-apple-darwin.tar.gz": "sha256:0d706798534537b6655b79fd95c2955c0a0013d4c54d36679d3306825a6bd6aa",
-    "ruff-aarch64-unknown-linux-gnu.tar.gz": "sha256:7aae1ff1a049bca087aabacf05dc7a13fcca4616efe1b7f031c3397d52f25e82",
-    "ruff-x86_64-apple-darwin.tar.gz": "sha256:ac47ad1ac90f3070c064d2f5fceef4fe609fec7c073fd29d0814ed126c492e6d",
-    "ruff-x86_64-unknown-linux-gnu.tar.gz": "sha256:19152c46d147cf0d3bf8486628fa1de4a8a33cdc5a1b263c4ed31c949de992d7"
+    "ruff-aarch64-apple-darwin.tar.gz": "sha256:1cfb3a7455a83602d474044243b618989edf58c2edda45eb4d3331ab550d52c1",
+    "ruff-aarch64-unknown-linux-gnu.tar.gz": "sha256:a2c2063a82428abe654cc8cdd7427db0b5790ccdd6b8ab505af17e328b0e7d32",
+    "ruff-x86_64-apple-darwin.tar.gz": "sha256:9c4d53f20f5bae4d4e664cc91c26d57c1d0a67fb5fd16af6cffdac0db88474c2",
+    "ruff-x86_64-unknown-linux-gnu.tar.gz": "sha256:ed653acecf38654fb2e0e45c760a2a12fabf84b390230efa0529896576fcb84a"
   }
 }
