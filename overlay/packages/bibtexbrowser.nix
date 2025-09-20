@@ -3,8 +3,10 @@
   fetchFromGitHub,
   lib,
   nix-update-script,
+  php,
+  writeShellApplication,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bibtexbrowser";
   version = "latest";
   src = fetchFromGitHub {
@@ -21,7 +23,20 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
-  passthru.updateScript = nix-update-script { };
+
+  passthru = {
+    updateScript = nix-update-script { };
+    bibtex2cff = writeShellApplication {
+      name = "bibtex2cff";
+      text = ''
+        exec ${lib.getExe php} ${finalAttrs.finalPackage}/bibtex-to-cff.php "$@"
+      '';
+      meta = finalAttrs.meta // {
+        platforms = php.meta.platforms;
+      };
+    };
+  };
+
   meta = {
     description = "Beautiful publication lists with bibtex and PHP";
     homepage = "www.monperrus.net/martin/bibtexbrowser/";
@@ -29,4 +44,4 @@ stdenv.mkDerivation {
     maintainers = with lib.maintainers; [ mirkolenz ];
     githubActionsCheck = true;
   };
-}
+})
