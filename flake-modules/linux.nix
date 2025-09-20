@@ -13,7 +13,7 @@ let
       system,
       extraModule ? { },
     }:
-    inputs.nixos-linux-unstable.lib.nixosSystem {
+    inputs.nixpkgs-linux-unstable.lib.nixosSystem {
       inherit system;
       specialArgs = specialModuleArgs // {
         os = "linux";
