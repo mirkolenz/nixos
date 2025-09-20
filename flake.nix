@@ -70,6 +70,14 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    texmf = {
+      url = "github:mirkolenz/texmf";
+      flake = false;
+    };
+    bibliography = {
+      url = "github:mirkolenz/bibliography";
+      flake = false;
+    };
 
     # Utils
     vscode-server = {

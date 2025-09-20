@@ -23,6 +23,22 @@
         "type": "github"
       }
     },
+    "bibliography": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757582965,
+        "narHash": "sha256-sfGwxaBRIUKGVpdzMXkowgDQyVz5cqHgotAQ9HVsSKs=",
+        "owner": "mirkolenz",
+        "repo": "bibliography",
+        "rev": "36625d53ee202606bf7c4ce4b2b86a81cfeb793c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mirkolenz",
+        "repo": "bibliography",
+        "type": "github"
+      }
+    },
     "cf": {
       "inputs": {
         "nixpkgs": "nixpkgs_4"
@@ -747,6 +763,7 @@
     "root": {
       "inputs": {
         "apple-t2-iso": "apple-t2-iso",
+        "bibliography": "bibliography",
         "cosmic-manager": "cosmic-manager",
         "determinate": "determinate",
         "disko": "disko",
@@ -766,6 +783,7 @@
         "nixvirt": "nixvirt",
         "quadlet-nix": "quadlet-nix",
         "systems": "systems_4",
+        "texmf": "texmf",
         "treefmt-nix": "treefmt-nix_2",
         "vscode-server": "vscode-server"
       }
@@ -842,6 +860,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "texmf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730111031,
+        "narHash": "sha256-MW10akfcVNq5USnsxI89XiqvaAUNoLMNOoBRTGkS/IY=",
+        "owner": "mirkolenz",
+        "repo": "texmf",
+        "rev": "73e251fd04d9d0db3aaf5c7b970ec08b3b653d9b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mirkolenz",
+        "repo": "texmf",
         "type": "github"
       }
     },

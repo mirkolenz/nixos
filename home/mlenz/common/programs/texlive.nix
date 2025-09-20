@@ -8,7 +8,8 @@
 lib.mkIf pkgs.stdenv.isDarwin {
   custom.texlive = {
     enable = true;
-    bibDir = "${config.home.homeDirectory}/Developer/mirkolenz/bibliography";
+    bibliographyPath = "${config.home.homeDirectory}/developer/mirkolenz/bibliography";
+    texmfPath = "${config.home.homeDirectory}/texmf";
     latexmkrc = ''
       # 1: pdflatex
       # 4: lualatex
@@ -37,6 +38,13 @@ lib.mkIf pkgs.stdenv.isDarwin {
       # system-specific
       $pdf_previewer = "skim %S";
     '';
+    acronymPresets = {
+      short = {
+        first-style = "short";
+        long = "{}";
+        class = "short";
+      };
+    };
   };
   home.packages = with pkgs; [
     arxiv-latex-cleaner

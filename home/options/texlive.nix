@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -14,13 +15,13 @@ let
 
   cmdTexts = {
     texmfup = ''
-      rm -rf ./texmf
-      mkdir ./texmf
-      ${lib.getExe pkgs.curl} --location https://github.com/mirkolenz/texmf/archive/refs/heads/main.tar.gz \
-        | ${lib.getExe pkgs.gnutar} xz --strip-components=1 --directory="./texmf"
+      targetDir="''${1:-texmf}"
+      rm -rf "$targetDir"
+      cp -r --no-preserve=all ${cfg.texmfPath} "$targetDir"
     '';
     latexmkrc = ''
-      exec cp --force --no-preserve=all ${config.home.file.".latexmkrc".source} "''${1:-.latexmkrc}"
+      targetFile="''${1:-.latexmkrc}"
+      exec cp --force --no-preserve=all ${config.home.file.".latexmkrc".source} "$targetFile"
     '';
     bibtidy = ''
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
@@ -31,42 +32,36 @@ let
     '';
     bibcat = ''
       format="''${1:-bibtex}"
-      sourceDir="''${2:-${cfg.bibDir}}"
-      ${lib.getExe cmds.bibtidy} "$sourceDir/$format.bib"
+      ${lib.getExe cmds.bibtidy} "${cfg.bibliographyPath}/$format.bib"
     '';
     bibcat-full = ''
       format="''${1:-bibtex}"
-      sourceDir="''${2:-${cfg.bibDir}}"
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
         --no-align --no-wrap --blank-lines --no-escape \
         --omit="abstract" \
-        "$sourceDir/$format.bib"
+        "${cfg.bibliographyPath}/$format.bib"
     '';
     bibcopy = ''
       format="''${1:-bibtex}"
-      sourceDir="''${2:-${cfg.bibDir}}"
-      targetDir="''${3:-.}"
-      ${lib.getExe cmds.bibtidy} --output="$targetDir/references.bib" "$sourceDir/$format.bib"
+      targetDir="''${2:-.}"
+      ${lib.getExe cmds.bibtidy} --output="$targetDir/references.bib" "${cfg.bibliographyPath}/$format.bib"
     '';
     bibcopy-full = ''
       format="''${1:-bibtex}"
-      sourceDir="''${2:-${cfg.bibDir}}"
-      targetDir="''${3:-.}"
+      targetDir="''${2:-.}"
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
         --no-align --no-wrap --blank-lines --no-escape \
         --omit="abstract" \
         --output="$targetDir/references.bib" \
-        "$sourceDir/$format.bib"
+        "${cfg.bibliographyPath}/$format.bib"
     '';
     acrocat = ''
-      sourceDir="''${1:-${cfg.bibDir}}"
       # shellcheck disable=SC2002 # the sd commands are generated via nix, so cat is more elegant than piping
-      cat "$sourceDir/acronyms.tex" | ${lib.concatStringsSep " | " acronymReplacements}
+      cat "${cfg.bibliographyPath}/acronyms.tex" | ${lib.concatStringsSep " | " acronymReplacements}
     '';
     acrocopy = ''
-      sourceDir="''${1:-${cfg.bibDir}}"
-      targetDir="''${2:-.}"
-      ${lib.getExe cmds.acrocat} "$sourceDir" > "$targetDir/acronyms.tex"
+      targetDir="''${1:-.}"
+      ${lib.getExe cmds.acrocat} "${cfg.bibliographyPath}" > "$targetDir/acronyms.tex"
     '';
   };
 
@@ -83,10 +78,16 @@ in
         example = "pkgs.texliveSmall";
       };
 
-      bibDir = lib.mkOption {
+      bibliographyPath = lib.mkOption {
         type = lib.types.str;
-        default = "";
+        default = inputs.bibliography.outPath;
         description = "Location of the bibliography files.";
+      };
+
+      texmfPath = lib.mkOption {
+        type = lib.types.str;
+        default = inputs.texmf.outPath;
+        description = "Location of the texmf files.";
       };
 
       latexmkrc = lib.mkOption {
@@ -95,15 +96,9 @@ in
       };
 
       acronymPresets = lib.mkOption {
-        type = with lib.types; attrsOf anything;
+        type = with lib.types; attrsOf (attrsOf str);
         description = "Acronym presets to use.";
-        default = {
-          short = {
-            first-style = "short";
-            long = "{}";
-            class = "short";
-          };
-        };
+        default = { };
       };
 
       bibtidyMaxAuthors = lib.mkOption {
@@ -151,7 +146,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = [ cfg.package ] ++ (lib.optionals (cfg.bibDir != "") (lib.attrValues cmds));
+      packages = [ cfg.package ] ++ (lib.optionals (cfg.bibliographyPath != "") (lib.attrValues cmds));
       file = {
         ".latexmkrc".source = pkgs.writeText "latexmkrc" cfg.latexmkrc;
       };
