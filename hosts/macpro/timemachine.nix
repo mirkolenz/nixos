@@ -16,7 +16,9 @@
   };
   services.samba = {
     enable = true;
-    package = pkgs.samba;
+    package = pkgs.samba.override {
+      enableMDNS = true;
+    };
     openFirewall = true;
     settings = {
       global = {
