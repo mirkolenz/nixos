@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   programs.uv = {
     enable = true;
@@ -8,5 +13,10 @@
       python-downloads = "manual";
       python-preference = "system";
     };
+  };
+  home.activation = {
+    uv-cache-prune = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run ${lib.getExe config.programs.uv.package} cache prune $VERBOSE_ARG
+    '';
   };
 }
