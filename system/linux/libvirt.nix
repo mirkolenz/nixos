@@ -8,7 +8,6 @@
 
   # https://github.com/AshleyYakeley/NixVirt
   virtualisation.libvirt = {
-    # enable = true;
     swtpm.enable = true;
   };
 
