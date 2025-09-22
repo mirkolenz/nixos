@@ -15,6 +15,7 @@ lib.mkIf config.services.xserver.enable {
     systemPackages = with pkgs; [
       anydesk
       google-chrome
+      firefox
       obsidian
       zoom-us
       zotero
