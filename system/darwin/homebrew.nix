@@ -62,7 +62,6 @@ let
     microsoft-word = 462054704;
     onedrive = 823766827;
     pdf-expert = 1055273043;
-    pure-paste = 1611378436;
     qr-factory = 1609285899;
     qr-pop = 1587360435;
     raindrop-io-safari = 1549370672;
