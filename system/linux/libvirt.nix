@@ -18,7 +18,7 @@
   };
 
   users.users.${user.login}.extraGroups = lib.mkIf config.virtualisation.libvirtd.enable [
-    "libvirt"
+    "libvirtd"
   ];
 
   # graphical interfaces
