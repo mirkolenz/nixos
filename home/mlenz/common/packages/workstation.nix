@@ -47,7 +47,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     touying
     mcp-proxy
     icloud-photos-sync
-    virt-viewer
     # presentation
     pdfpc
     pympress

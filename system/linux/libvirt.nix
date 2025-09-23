@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  user,
+  ...
+}:
 {
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/virtualisation/libvirtd.nix
   virtualisation.libvirtd = {
@@ -11,6 +17,13 @@
     swtpm.enable = true;
   };
 
-  programs.virt-manager.enable =
-    config.custom.profile.isDesktop && config.virtualisation.libvirtd.enable;
+  users.users.${user.login}.extraGroups = lib.mkIf config.virtualisation.libvirtd.enable [
+    "libvirt"
+  ];
+
+  # graphical interfaces
+  programs.virt-manager.enable = lib.mkDefault config.custom.profile.isDesktop;
+  environment.systemPackages = lib.mkIf config.custom.profile.isDesktop [
+    pkgs.virt-viewer
+  ];
 }
