@@ -18,7 +18,7 @@
     };
   };
 
-  virtualisation.libvirt.enable = true;
+  virtualisation.libvirtd.enable = true;
   services.openssh.enable = true;
 
   services.xserver.videoDrivers = [ "nvidiaLegacy470" ];

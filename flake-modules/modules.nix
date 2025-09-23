@@ -83,7 +83,6 @@
         inputs.quadlet-nix.nixosModules.default
         inputs.determinate.nixosModules.default
         inputs.disko.nixosModules.default
-        inputs.nixvirt.nixosModules.default
         ../system/linux
         {
           home-manager.users.mlenz = self.homeModules.linux;

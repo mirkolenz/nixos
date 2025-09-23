@@ -115,10 +115,6 @@
         nixos-hardware.follows = "nixos-hardware";
       };
     };
-    nixvirt = {
-      url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

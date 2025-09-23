@@ -8,22 +8,36 @@
 {
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/virtualisation/libvirtd.nix
   virtualisation.libvirtd = {
-    qemu.package = pkgs.qemu_kvm;
-    qemu.runAsRoot = false;
-  };
-
-  # https://github.com/AshleyYakeley/NixVirt
-  virtualisation.libvirt = {
-    swtpm.enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = false;
+      vhostUserPackages = [ pkgs.virtiofsd ];
+      ovmf = {
+        enable = true;
+        packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    swtpm = {
+      enable = true;
+      package = pkgs.swtpm;
+    };
   };
 
   users.users.${user.login}.extraGroups = lib.mkIf config.virtualisation.libvirtd.enable [
     "libvirtd"
   ];
 
-  # graphical interfaces
   programs.virt-manager.enable = lib.mkDefault config.custom.profile.isDesktop;
-  environment.systemPackages = lib.mkIf config.custom.profile.isDesktop [
-    pkgs.virt-viewer
-  ];
+
+  environment.systemPackages =
+    (lib.optionals config.virtualisation.libvirtd.enable [
+      pkgs.dnsmasq
+    ])
+    ++ (lib.optionals config.custom.profile.isDesktop [
+      pkgs.virt-viewer
+    ]);
+
+  environment.etc = lib.mkIf config.virtualisation.libvirtd.enable {
+    "virtio-win.iso".source = pkgs.virtio_win.iso;
+  };
 }
