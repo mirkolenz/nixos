@@ -16,10 +16,10 @@
         enable = true;
         packages = [ pkgs.OVMFFull.fd ];
       };
-    };
-    swtpm = {
-      enable = true;
-      package = pkgs.swtpm;
+      swtpm = {
+        enable = true;
+        package = pkgs.swtpm;
+      };
     };
   };
 
