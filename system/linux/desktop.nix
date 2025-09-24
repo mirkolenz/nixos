@@ -18,8 +18,9 @@ lib.mkIf config.custom.profile.isDesktop {
 
   hardware.graphics.enable = true;
 
+  systemd.network.wait-online.anyInterface = true;
+  boot.initrd.systemd.network.wait-online.anyInterface = true;
   networking.networkmanager.enable = true;
-  systemd.network.wait-online.enable = false;
   users.users.${user.login}.extraGroups = [ "networkmanager" ];
 
   programs = {
