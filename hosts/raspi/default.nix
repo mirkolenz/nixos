@@ -22,12 +22,6 @@
     poe-plus-hat.enable = true;
   };
 
-  systemd.network.links."20-ethernet0" = {
-    # matchConfig.OriginalName = "end0";
-    matchConfig.PermanentMACAddress = "e4:5f:01:98:a7:60";
-    linkConfig.Name = "ethernet0";
-  };
-
   services.tailscale = {
     extraSetFlags = [
       "--advertise-exit-node"

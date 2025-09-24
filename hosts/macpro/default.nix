@@ -39,16 +39,6 @@
     after = [ "multi-user.target" ];
   };
 
-  # systemd.network.links."20-ethernet0" = {
-  #   # matchConfig.OriginalName = "enp9s0";
-  #   matchConfig.PermanentMACAddress = "40:6c:8f:b8:58:95";
-  #   linkConfig.Name = "ethernet0";
-  # };
-  # systemd.network.links."20-ethernet1" = {
-  #   # matchConfig.OriginalName = "enp10s0";
-  #   matchConfig.PermanentMACAddress = "40:6c:8f:b8:78:b3";
-  #   linkConfig.Name = "ethernet1";
-  # };
   networking.useDHCP = false;
   systemd.network = {
     netdevs = {
