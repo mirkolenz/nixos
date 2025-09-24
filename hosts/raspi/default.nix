@@ -1,4 +1,4 @@
-# https://nixos.wiki/wiki/NixOS_on_ARM#Installation
+# https://wiki.nixos.org/wiki/NixOS_on_ARM#Installation
 {
   inputs,
   lib',

@@ -27,7 +27,7 @@ sudo nix run github:mirkolenz/nixos
 ### Terminal Setup
 
 - <https://www.adaltas.com/en/2022/02/08/nixos-installation/>
-- <https://nixos.wiki/wiki/NixOS_Installation_Guide>
+- <https://wiki.nixos.org/wiki/NixOS_Installation_Guide>
 - <https://gist.github.com/Vincibean/baf1b76ca5147449a1a479b5fcc9a222>
 
 #### Partitioning using `parted`

@@ -31,7 +31,7 @@
 
   virtualisation.libvirtd.enable = true;
 
-  # https://nixos.wiki/wiki/Hardware/Apple
+  # https://wiki.nixos.org/wiki/Hardware/Apple
   # https://superuser.com/a/1051137
   systemd.services.autorestart-powerloss = {
     script = "${lib.getExe' pkgs.pciutils "setpci"} -s 00:1f.0 0xa4.b=0";
