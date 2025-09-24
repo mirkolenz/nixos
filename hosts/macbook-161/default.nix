@@ -13,6 +13,9 @@
     efi.efiSysMountPoint = "/boot";
   };
 
+  virtualisation.libvirtd.enable = true;
+  services.openssh.enable = true;
+
   hardware.facetimehd = {
     enable = true;
     withCalibration = true;
