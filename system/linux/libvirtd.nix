@@ -36,8 +36,4 @@
     ++ (lib.optionals config.custom.profile.isDesktop [
       pkgs.virt-viewer
     ]);
-
-  environment.etc = lib.mkIf config.virtualisation.libvirtd.enable {
-    "virtio-win.iso".source = pkgs.virtio-win.src;
-  };
 }
