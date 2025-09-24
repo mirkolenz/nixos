@@ -40,41 +40,17 @@
   };
 
   networking.useDHCP = false;
-  systemd.network = {
-    netdevs = {
-      "20-br0" = {
-        netdevConfig = {
-          Kind = "bridge";
-          Name = "br0";
-          MACAddress = "none";
-        };
-        bridgeConfig.STP = true;
-      };
+  # must match the rule names in homeserver config
+  systemd.network.networks = {
+    "50-enp9s0" = {
+      name = "enp9s0";
+      DHCP = "yes";
+      linkConfig.RequiredForOnline = true;
     };
-    links = {
-      "20-br0" = {
-        matchConfig.OriginalName = "br0";
-        linkConfig.MACAddressPolicy = "none";
-      };
-    };
-    networks = {
-      "20-enp9s0" = {
-        name = "enp9s0";
-        bridge = [ "br0" ];
-        DHCP = "no";
-        linkConfig.RequiredForOnline = true;
-      };
-      "20-enp10s0" = {
-        name = "enp10s0";
-        DHCP = "yes";
-        linkConfig.RequiredForOnline = false;
-      };
-      "20-br0" = {
-        name = "br0";
-        DHCP = "yes";
-        linkConfig.RequiredForOnline = "routable";
-        networkConfig.IPv6AcceptRA = true;
-      };
+    "50-enp10s0" = {
+      name = "enp10s0";
+      DHCP = "yes";
+      linkConfig.RequiredForOnline = false;
     };
   };
 
