@@ -57,10 +57,11 @@ let
     keka = 470158793;
     mela = 1568924476;
     microsoft-excel = 462058435;
+    microsoft-onedrive = 823766827;
     microsoft-outlook = 985367838;
     microsoft-powerpoint = 462062816;
+    microsoft-windows = 1295203466;
     microsoft-word = 462054704;
-    onedrive = 823766827;
     pdf-expert = 1055273043;
     qr-factory = 1609285899;
     qr-pop = 1587360435;
