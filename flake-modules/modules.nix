@@ -3,7 +3,6 @@
   moduleArgs,
   inputs,
   self,
-  user,
   ...
 }:
 {
@@ -86,7 +85,7 @@
         inputs.disko.nixosModules.default
         ../system/linux
         {
-          home-manager.users.${user.login} = self.homeModules.linux;
+          home-manager.users.${moduleArgs.user.login} = self.homeModules.linux;
         }
       ];
     };
@@ -98,7 +97,7 @@
         inputs.determinate.darwinModules.default
         ../system/darwin
         {
-          home-manager.users.${user.login} = self.homeModules.darwin;
+          home-manager.users.${moduleArgs.user.login} = self.homeModules.darwin;
         }
       ];
     };
