@@ -27,6 +27,9 @@
       tools = {
         web_search = true;
       };
+      tui = {
+        notifications = true;
+      };
     };
   };
 }
