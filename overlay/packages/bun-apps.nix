@@ -17,6 +17,8 @@ in
 symlinkJoin {
   name = "bun-apps";
   paths = lib.mapAttrsToList mkBunApp {
+    copilot = "@github/copilot";
+    gemini = "@google/gemini-cli";
     mcp-inspector = "@modelcontextprotocol/inspector";
   };
 }
