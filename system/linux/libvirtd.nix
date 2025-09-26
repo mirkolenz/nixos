@@ -38,7 +38,10 @@
     ]);
 
   environment.etc = lib.mkIf config.virtualisation.libvirtd.enable {
-    "nix-libvirtd/qemu".source = "${config.virtualisation.libvirtd.qemu.package}/share/qemu";
+    "nix-libvirtd/qemu/edk2-i386-vars.fd".source =
+      "${config.virtualisation.libvirtd.qemu.package}/share/qemu/edk2-i386-vars.fd";
+    "nix-libvirtd/qemu/edk2-x86_64-secure-code.fd".source =
+      "${config.virtualisation.libvirtd.qemu.package}/share/qemu/edk2-x86_64-secure-code.fd";
     "nix-libvirtd/images/virtio-win.iso".source = pkgs.virtio-win.src;
   };
 }
