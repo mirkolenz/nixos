@@ -28,7 +28,6 @@ in
     restic-browser-bin
     undmg
     rcodesign
-    infat-bin
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''
