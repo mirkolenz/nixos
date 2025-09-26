@@ -36,4 +36,9 @@
     ++ (lib.optionals config.custom.profile.isDesktop [
       pkgs.virt-viewer
     ]);
+
+  environment.etc = lib.mkIf config.virtualisation.libvirtd.enable {
+    "nix-libvirtd/qemu".source = "${config.virtualisation.libvirtd.qemu.package}/share/qemu";
+    "nix-libvirtd/images/virtio-win.iso".source = pkgs.virtio-win.src;
+  };
 }
