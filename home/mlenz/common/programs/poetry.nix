@@ -1,7 +1,7 @@
 { ... }:
 {
   programs.poetry = {
-    enable = true;
+    enable = false;
     settings = {
       virtualenvs = {
         in-project = true;
