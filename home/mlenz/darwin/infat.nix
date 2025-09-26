@@ -52,33 +52,18 @@
         ssh = "Ghostty";
         tel = "FaceTime";
       };
-      # https://github.com/philocalyst/infat
+      # https://github.com/philocalyst/infat/blob/70db7979d8247b33d9c0f75f550e029089ffb6a2/infat-lib/src/uti.rs#L385
       types = {
-        plain-text = "Zed";
         text = "Zed";
-        csv = "Zed";
         image = "Preview";
-        raw-image = "Preview";
         audio = "QuickTime Player";
         video = "QuickTime Player";
         movie = "QuickTime Player";
-        mp4-audio = "QuickTime Player";
-        quicktime = "QuickTime Player";
-        mp4-movie = "QuickTime Player";
         archive = "Keka";
         sourcecode = "Zed";
-        c-source = "Zed";
-        cpp-source = "Zed";
-        objc-source = "Zed";
         shell = "Zed";
         makefile = "Zed";
-        data = "Zed";
-        directory = "/System/Library/CoreServices/Finder.app";
-        folder = "/System/Library/CoreServices/Finder.app";
-        symlink = "/System/Library/CoreServices/Finder.app";
         executable = "Ghostty";
-        unix-executable = "Ghostty";
-        app-bundle = "/System/Library/CoreServices/Finder.app";
       };
     };
   };
