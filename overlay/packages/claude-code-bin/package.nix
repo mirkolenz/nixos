@@ -6,11 +6,13 @@
   versionCheckHook,
   makeWrapper,
   installShellFiles,
+  writeShellScript,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
   gcsBucket = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
-  manifest = lib.importJSON ./manifest.json;
+  manifestFile = ./manifest.json;
+  manifest = lib.importJSON manifestFile;
   platforms = {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
@@ -53,7 +55,26 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   # bun crashes in version check
   doInstallCheck = false;
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = writeShellScript "update-claude-code" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p curl jq
+
+    set -euo pipefail
+
+    # https://claude.ai/install.sh
+    version="$(curl -fsSL "${gcsBucket}/stable")"
+    output="$(
+      curl -fsSL "${gcsBucket}/$version/manifest.json" \
+      | jq '{
+        version: .version,
+        hashes: .platforms | with_entries(
+          select(.key | test("^(darwin|linux)-(x64|arm64)$"))
+          | .value = "sha256:\(.value.checksum)"
+        )
+      }'
+    )"
+    echo "$output" > "${toString manifestFile}"
+  '';
 
   meta = {
     description = "An agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster";
