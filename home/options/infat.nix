@@ -63,7 +63,7 @@ in
     };
     home.activation = lib.mkIf (cfg.settings != { } && cfg.package != null && cfg.autoActivate) {
       infat = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run ${lib.getExe cfg.package} --quiet --config ${infatSettings} $VERBOSE_ARG
+        run ${lib.getExe cfg.package} --config ${infatSettings} $VERBOSE_ARG
       '';
     };
   };
