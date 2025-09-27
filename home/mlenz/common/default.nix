@@ -8,6 +8,8 @@
 {
   imports = lib'.flocken.getModules ./.;
 
+  xdg.enable = true;
+
   home = {
     stateVersion = stateVersions.home;
     username = user.login;
