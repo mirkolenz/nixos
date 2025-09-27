@@ -7,7 +7,6 @@
 let
   cfg = config.programs.infat;
   tomlFormat = pkgs.formats.toml { };
-  infatSettings = tomlFormat.generate "infat-settings" cfg.settings;
 in
 {
   meta.maintainers = with lib.maintainers; [ mirkolenz ];
@@ -59,11 +58,11 @@ in
     ];
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
     xdg.configFile."infat/config.toml" = lib.mkIf (cfg.settings != { }) {
-      source = infatSettings;
+      source = tomlFormat.generate "infat-settings" cfg.settings;
     };
     home.activation = lib.mkIf (cfg.settings != { } && cfg.package != null && cfg.autoActivate) {
       infat = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run ${lib.getExe cfg.package} --config ${infatSettings} $VERBOSE_ARG
+        run ${lib.getExe cfg.package} --config "${config.xdg.configHome}/infat/config.toml" $VERBOSE_ARG
       '';
     };
   };
