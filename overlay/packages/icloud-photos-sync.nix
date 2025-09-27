@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildNpmPackage,
+  nix-update-script,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "icloud-photos-sync";
@@ -17,6 +18,14 @@ buildNpmPackage (finalAttrs: {
   sourceRoot = "${finalAttrs.src.name}/app";
 
   npmDepsHash = "sha256-HQ9AnPS+LzU1lzW8SNJif3uVm8W0ClH1zWZDSR/CH94=";
+
+  # https://github.com/steilerDev/icloud-photos-sync/blob/main/app/package.json
+  # generate bin directory
+  postBuild = ''
+    npm run dist
+  '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "One-way sync engine for the iCloud Photos Library into the native file system";
