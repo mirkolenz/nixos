@@ -7,16 +7,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "infat";
-  version = "3.0.0";
+  version = "3.0.1";
 
   src = fetchFromGitHub {
     owner = "philocalyst";
     repo = "infat";
-    tag = version;
-    hash = "sha256-kE1veSGqRMCXo57X6q9yy/U214Onjx9AQ2B+ibuMhmw=";
+    tag = "v${version}";
+    hash = "sha256-o8Ga9Wd5wIIjtA/dse7aUCHw2cYgwvUKVzi0PaDNQGw=";
   };
 
-  cargoHash = "sha256-jUanpi7LmBxGlcCB9aHtDfQ0jnJAIRYGjDwf5K3144w=";
+  cargoHash = "sha256-NhW69VXP6UCRXnDd1DA4lJjPwykVzRzeV38MnLbuimo=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
