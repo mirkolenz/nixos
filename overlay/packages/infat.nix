@@ -29,6 +29,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/philocalyst/infat";
     changelog = "https://github.com/philocalyst/infat/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
+    platforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "infat";
     githubActionsCheck = true;
