@@ -57,12 +57,12 @@ in
       (lib.hm.assertions.assertPlatform "programs.infat" pkgs lib.platforms.darwin)
     ];
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
-    xdg.configFile."infat/config.toml" = lib.mkIf (cfg.settings != { }) {
+    home.file."Library/Application Support/infat/config.toml" = lib.mkIf (cfg.settings != { }) {
       source = tomlFormat.generate "infat-settings" cfg.settings;
     };
     home.activation = lib.mkIf (cfg.settings != { } && cfg.package != null && cfg.autoActivate) {
       infat = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run ${lib.getExe cfg.package} --config "${config.xdg.configHome}/infat/config.toml" $VERBOSE_ARG
+        run ${lib.getExe cfg.package} --config "${config.home.homeDirectory}/Library/Application Support/infat/config.toml" $VERBOSE_ARG
       '';
     };
   };
