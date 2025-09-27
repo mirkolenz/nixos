@@ -5,6 +5,8 @@
   fetchFromGitHub,
   installShellFiles,
   nix-update-script,
+  versionCheckHook,
+  writableTmpDirAsHomeHook,
 }:
 buildGoModule (finalAttrs: {
   pname = "gibo";
@@ -36,6 +38,11 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script { };
+
+  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "version";
+  doInstallCheck = true;
 
   meta = {
     description = "Easy access to gitignore boilerplates";

@@ -38,9 +38,7 @@ buildGoModule (finalAttrs: {
       --zsh <($out/bin/crush completion zsh)
   '';
 
-  # writes to home during check phase
   nativeCheckInputs = [ writableTmpDirAsHomeHook ];
-
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
