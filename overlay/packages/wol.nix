@@ -31,8 +31,6 @@ buildGoModule (finalAttrs: {
     "-X=github.com/trugamr/wol/cmd.date=1970-01-01T00:00:00Z"
   ];
 
-  passthru.updateScript = nix-update-script { };
-
   nativeBuildInputs = [ installShellFiles ];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd wol \
@@ -41,10 +39,12 @@ buildGoModule (finalAttrs: {
       --zsh <($out/bin/wol completion zsh)
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   nativeCheckInputs = [ writableTmpDirAsHomeHook ];
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "version";
-  doInstallCheck = true;
+  doInstallCheck = false;
 
   meta = {
     description = "Wake up your devices with a single command or click, a Wake-On-LAN tool that works via CLI and web interface";

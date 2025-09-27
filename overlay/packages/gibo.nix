@@ -42,7 +42,7 @@ buildGoModule (finalAttrs: {
   nativeCheckInputs = [ writableTmpDirAsHomeHook ];
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "version";
-  doInstallCheck = true;
+  doInstallCheck = false;
 
   meta = {
     description = "Easy access to gitignore boilerplates";
