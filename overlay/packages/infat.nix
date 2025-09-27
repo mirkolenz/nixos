@@ -7,7 +7,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "infat";
-  version = "3.0.0";
+  version = "3.0.1";
 
   src = fetchFromGitHub {
     owner = "philocalyst";
