@@ -1,11 +1,6 @@
 .env
 result
 result-*
-
 *.log
-
-.vscode/*
-!.vscode/settings.json
-
-.zed/*
-!.zed/settings.json
+.vscode/
+.zed/
