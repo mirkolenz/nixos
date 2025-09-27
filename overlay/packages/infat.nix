@@ -7,7 +7,7 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "infat";
-  version = "3.0.1";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "philocalyst";
@@ -31,5 +31,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "infat";
+    githubActionsCheck = true;
   };
 }
