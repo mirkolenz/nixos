@@ -3,7 +3,10 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  writableTmpDirAsHomeHook,
   versionCheckHook,
+  installShellFiles,
+  stdenv,
 }:
 buildGoModule (finalAttrs: {
   pname = "wol";
@@ -30,10 +33,16 @@ buildGoModule (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  nativeInstallCheckInputs = [
-    writableTmpDirAsHomeHook
-    versionCheckHook
-  ];
+  nativeBuildInputs = [ installShellFiles ];
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd wol \
+      --bash <($out/bin/wol completion bash) \
+      --fish <($out/bin/wol completion fish) \
+      --zsh <($out/bin/wol completion zsh)
+  '';
+
+  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "version";
   doInstallCheck = true;
 
