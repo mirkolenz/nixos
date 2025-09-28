@@ -1,7 +1,6 @@
 { lib, ... }:
 lib.nixvim.plugins.mkNeovimPlugin {
   name = "multicursor-nvim";
-  packPathName = "multicursor.nvim";
 
   extraOptions = {
     keymapsLayer = lib.mkOption {
