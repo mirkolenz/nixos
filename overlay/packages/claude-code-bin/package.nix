@@ -67,7 +67,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # https://claude.ai/install.sh
     version="$(curl -fsSL "${gcsBucket}/stable")"
     output="$(
-      curl -fsSL "${gcsBucket}/$version/manifestContents.json" \
+      curl -fsSL "${gcsBucket}/$version/manifest.json" \
       | jq '{
         version: .version,
         hashes: .platforms | with_entries(
