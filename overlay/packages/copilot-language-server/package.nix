@@ -72,7 +72,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mainProgram = "copilot-language-server";
     platforms = lib.attrNames platforms;
     maintainers = with lib.maintainers; [ mirkolenz ];
-    sourceProvenance = lib.sourceTypes.binaryNativeCode;
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     license = lib.licenses.unfree;
     githubActionsCheck = true;
   };
