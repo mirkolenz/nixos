@@ -39,10 +39,13 @@ buildGoModule (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [
+    versionCheckHook
+    writableTmpDirAsHomeHook
+  ];
+  versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "version";
-  doInstallCheck = false;
+  doInstallCheck = true;
 
   meta = {
     description = "Easy access to gitignore boilerplates";

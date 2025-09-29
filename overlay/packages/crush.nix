@@ -38,8 +38,11 @@ buildGoModule (finalAttrs: {
       --zsh <($out/bin/crush completion zsh)
   '';
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [
+    versionCheckHook
+    writableTmpDirAsHomeHook
+  ];
+  versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 

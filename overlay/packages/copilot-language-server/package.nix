@@ -52,7 +52,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
-  doInstallCheck = false;
+  doInstallCheck = true;
 
   passthru = ghBin.passthru // {
     fhs = buildFHSEnv {
@@ -72,7 +72,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mainProgram = "copilot-language-server";
     platforms = lib.attrNames platforms;
     maintainers = with lib.maintainers; [ mirkolenz ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = lib.sourceTypes.binaryNativeCode;
     license = lib.licenses.unfree;
     githubActionsCheck = true;
   };

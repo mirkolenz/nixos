@@ -4,6 +4,7 @@
   fetchurl,
   autoPatchelfHook,
   versionCheckHook,
+  writableTmpDirAsHomeHook,
   makeWrapper,
   installShellFiles,
   writeShellScript,
@@ -49,11 +50,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgram = "${placeholder "out"}/bin/claude";
+  nativeInstallCheckInputs = [
+    versionCheckHook
+    writableTmpDirAsHomeHook
+  ];
+  versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "--version";
-  # bun crashes in version check
-  doInstallCheck = false;
+  doInstallCheck = true;
 
   passthru.updateScript = writeShellScript "update-claude-code" ''
     #!/usr/bin/env nix-shell
@@ -77,7 +80,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "An agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster";
+    description = "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster";
     homepage = "https://github.com/anthropics/claude-code";
     downloadPage = "https://www.npmjs.com/package/@anthropic-ai/claude-code";
     changelog = "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md";
