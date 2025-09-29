@@ -82,8 +82,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     downloadPage = "https://www.npmjs.com/package/@anthropic-ai/claude-code";
     changelog = "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.mirkolenz ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [ mirkolenz ];
+    sourceProvenance = lib.sourceTypes.binaryNativeCode;
     mainProgram = "claude";
     platforms = lib.attrNames platforms;
     githubActionsCheck = true;

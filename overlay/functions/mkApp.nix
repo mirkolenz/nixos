@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation (
     meta = meta // {
       maintainers = with lib.maintainers; [ mirkolenz ];
       platforms = lib.platforms.darwin;
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = lib.sourceTypes.binaryNativeCode;
       mainProgram = pname;
     };
   }
