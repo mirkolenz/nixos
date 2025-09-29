@@ -43,7 +43,7 @@ let
     assetsReplace != ""
   ) "| sub(\"${assetsPattern}\"; \"${assetsReplace}\")";
 
-  fileContents = lib.importJSON file;
+  fileContents = if lib.pathExists file then lib.importJSON file else { };
   version = fileContents.version or "unstable";
   inherit (stdenv.hostPlatform) system;
 in

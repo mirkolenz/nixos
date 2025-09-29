@@ -8,7 +8,8 @@
 }:
 let
   inherit (stdenv.hostPlatform) system;
-  release = lib.importJSON ./release.json;
+  releaseFile = ./release.json;
+  releaseContents = if lib.pathExists releaseFile then lib.importJSON releaseFile else { };
   platforms = {
     x86_64-darwin = "mac";
     aarch64-darwin = "mac-arm";
@@ -18,12 +19,12 @@ let
 in
 mkApp rec {
   pname = "sioyek";
-  version = release.version or "unstable";
+  version = releaseContents.version or "unstable";
   appname = "sioyek";
 
   src = fetchurl {
     url = "https://github.com/ahrm/sioyek/releases/download/sioyek${version}/${assetName}";
-    hash = release.hashes.${assetName};
+    hash = releaseContents.hashes.${assetName} or lib.fakeHash;
   };
   wrapperPath = "Contents/MacOS/${pname}";
 
