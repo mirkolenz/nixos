@@ -26,7 +26,7 @@ in
   # https://github.com/NixOS/nixpkgs/issues/294640
   virt-manager = prev.virt-manager.overrideAttrs (oldAttrs: {
     nativeBuildInputs =
-      (oldAttrs.nativeBuildInputs or [ ]) ++ (lib.optional prev.stdenv.isDarwin final.makeWrapper);
+      (oldAttrs.nativeBuildInputs or [ ]) ++ (lib.optional prev.stdenv.isDarwin final.makeBinaryWrapper);
     postInstall =
       (oldAttrs.postInstall or "")
       + (lib.optionalString prev.stdenv.isDarwin ''

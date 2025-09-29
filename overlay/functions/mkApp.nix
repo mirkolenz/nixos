@@ -1,7 +1,7 @@
 {
   stdenvNoCC,
   undmg,
-  makeWrapper,
+  makeBinaryWrapper,
   lib,
 }:
 args@{
@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation (
 
       ${lib.optionalString (wrapperPath != "") ''
         mkdir -p "$out/bin"
-        makeWrapper "$out/Applications/${appname}.app/${wrapperPath}" "$out/bin/${pname}"
+        makeBinaryWrapper "$out/Applications/${appname}.app/${wrapperPath}" "$out/bin/${pname}"
       ''}
 
       runHook postInstall
@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation (
       ++ [
         undmg
       ]
-      ++ (lib.optional (wrapperPath != "") makeWrapper);
+      ++ (lib.optional (wrapperPath != "") makeBinaryWrapper);
 
     meta = meta // {
       maintainers = with lib.maintainers; [ mirkolenz ];

@@ -5,7 +5,7 @@
   autoPatchelfHook,
   versionCheckHook,
   writableTmpDirAsHomeHook,
-  makeWrapper,
+  makeBinaryWrapper,
   installShellFiles,
   writeShellScript,
 }:
@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     installShellFiles
-    makeWrapper
+    makeBinaryWrapper
   ]
   ++ (lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook);
 
