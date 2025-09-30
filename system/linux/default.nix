@@ -28,6 +28,7 @@
       vimAlias = true;
     };
     _1password.enable = true;
+    nix-ld.enable = true;
   };
 
   environment.defaultPackages = with pkgs; [
