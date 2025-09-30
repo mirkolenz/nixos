@@ -9,7 +9,7 @@
 let
   inherit (stdenv.hostPlatform) system;
   releaseFile = ./release.json;
-  releaseContents = if lib.pathExists releaseFile then lib.importJSON releaseFile else { };
+  releaseContents = lib.importJSON releaseFile;
   platforms = {
     x86_64-darwin = "mac";
     aarch64-darwin = "mac-arm";

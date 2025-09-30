@@ -13,7 +13,7 @@ let
   inherit (stdenvNoCC.hostPlatform) system;
   gcsBucket = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
   manifestFile = ./manifest.json;
-  manifestContents = if lib.pathExists manifestFile then lib.importJSON manifestFile else { };
+  manifestContents = lib.importJSON manifestFile;
   platforms = {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
