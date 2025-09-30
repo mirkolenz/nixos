@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     installShellFiles
     makeBinaryWrapper
   ]
-  ++ (lib.optional (!stdenvNoCC.isDarwin) autoPatchelfHook);
+  ++ lib.optionals (!stdenvNoCC.isDarwin) [ autoPatchelfHook ];
 
   installPhase = ''
     runHook preInstall
