@@ -7,7 +7,7 @@
   writableTmpDirAsHomeHook,
   makeBinaryWrapper,
   installShellFiles,
-  writeShellScript,
+  writeScript,
 }:
 let
   inherit (stdenvNoCC.hostPlatform) system;
@@ -61,9 +61,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = writeShellScript "update-claude-code" ''
+  passthru.updateScript = writeScript "update-claude-code" ''
     #!/usr/bin/env nix-shell
-    #!nix-shell --pure -i bash -p curl jq
+    #!nix-shell --pure -i bash -p curl jq cacert
 
     set -euo pipefail
 

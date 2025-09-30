@@ -1,5 +1,5 @@
 {
-  writeShellScript,
+  writeScript,
   lib,
   fetchurl,
   stdenv,
@@ -86,7 +86,7 @@ stdenv.mkDerivation (
     '';
 
     passthru = passthru // {
-      updateScript = writeShellScript "github-binaries-${owner}-${repo}" ''
+      updateScript = writeScript "github-binaries-${owner}-${repo}" ''
         #!/usr/bin/env nix-shell
         #!nix-shell --pure -i bash -p gh jq
 
