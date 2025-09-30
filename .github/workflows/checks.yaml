@@ -10,7 +10,7 @@ jobs:
   check-eval:
     permissions:
       contents: read
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/determinate-nix-action@v3
@@ -27,15 +27,15 @@ jobs:
 
   check-build-matrix:
     name: check-build.${{ matrix.system }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - system: x86_64-linux
-            os: ubuntu-24.04
+            runner: ubuntu-24.04
           - system: aarch64-darwin
-            os: macos-26
+            runner: macos-26
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/determinate-nix-action@v3
@@ -59,7 +59,7 @@ jobs:
 
   check-build:
     needs: check-build-matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: always()
     steps:
       - run: |
