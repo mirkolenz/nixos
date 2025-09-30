@@ -196,6 +196,10 @@
       git = {
         commit.autoWrapCommitMessage = false;
         parseEmoji = true;
+        log = {
+          order = "default";
+          showGraph = "never";
+        };
       };
       os.editPreset = "zed";
       update.method = "never";
