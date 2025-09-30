@@ -12,8 +12,7 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   gcsBucket = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
-  manifestFile = ./manifest.json;
-  manifestContents = lib.importJSON manifestFile;
+  manifest = lib.importJSON ./manifest.json;
   platforms = {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
@@ -24,11 +23,11 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "claude-code";
-  version = manifestContents.version or "unstable";
+  version = manifest.version or "unstable";
 
   src = fetchurl {
     url = "${gcsBucket}/${finalAttrs.version}/${platform}/claude";
-    hash = manifestContents.hashes.${platform} or lib.fakeHash;
+    hash = manifest.hashes.${platform} or lib.fakeHash;
   };
 
   dontUnpack = true;
@@ -79,7 +78,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         )
       }'
     )"
-    echo "$output" > "${toString manifestFile}"
+    echo "$output" > "${toString ./manifest.json}"
   '';
 
   meta = {

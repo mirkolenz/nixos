@@ -43,8 +43,8 @@ let
     assetsReplace != ""
   ) "| sub(\"${assetsPattern}\"; \"${assetsReplace}\")";
 
-  fileContents = lib.importJSON file;
-  version = fileContents.version or "unstable";
+  release = lib.importJSON file;
+  version = release.version or "unstable";
   inherit (stdenv.hostPlatform) system;
 in
 stdenv.mkDerivation (
@@ -68,7 +68,7 @@ stdenv.mkDerivation (
       url = "https://github.com/${owner}/${repo}/releases/download/${versionPrefix}${version}${versionSuffix}/${
         getAsset { inherit version system; }
       }";
-      hash = fileContents.hashes.${getHash { inherit version system; }} or lib.fakeHash;
+      hash = release.hashes.${getHash { inherit version system; }} or lib.fakeHash;
     };
 
     dontConfigure = true;
