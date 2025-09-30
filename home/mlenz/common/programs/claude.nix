@@ -4,12 +4,12 @@
   lib,
   ...
 }:
-{
+lib.mkIf config.custom.profile.isWorkstation {
   # https://docs.anthropic.com/en/docs/claude-code/tutorials
   # https://docs.anthropic.com/en/docs/claude-code/settings
   # https://docs.anthropic.com/en/docs/claude-code/iam
   # https://github.com/dwillitzer/claude-settings
-  programs.claude-code = lib.mkIf config.custom.profile.isWorkstation {
+  programs.claude-code = {
     enable = true;
     package = pkgs.claude-code-bin;
     settings = {
