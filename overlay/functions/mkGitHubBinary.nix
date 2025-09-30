@@ -88,7 +88,7 @@ stdenv.mkDerivation (
     passthru = passthru // {
       updateScript = writeShellScript "github-binaries-${owner}-${repo}" ''
         #!/usr/bin/env nix-shell
-        #!nix-shell -i bash -p gh jq
+        #!nix-shell --pure -i bash -p gh jq
 
         set -euo pipefail
 

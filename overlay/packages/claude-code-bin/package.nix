@@ -63,7 +63,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = writeShellScript "update-claude-code" ''
     #!/usr/bin/env nix-shell
-    #!nix-shell -i bash -p curl jq
+    #!nix-shell --pure -i bash -p curl jq
 
     set -euo pipefail
 
