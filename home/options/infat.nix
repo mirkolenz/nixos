@@ -7,6 +7,14 @@
 let
   cfg = config.programs.infat;
   tomlFormat = pkgs.formats.toml { };
+
+  configDir =
+    if config.xdg.enable then
+      config.xdg.configHome
+    else
+      "${config.home.homeDirectory}/Library/Application Support";
+
+  configFile = "${configDir}/infat/config.toml";
 in
 {
   meta.maintainers = with lib.maintainers; [ mirkolenz ];
@@ -57,12 +65,12 @@ in
       (lib.hm.assertions.assertPlatform "programs.infat" pkgs lib.platforms.darwin)
     ];
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
-    home.file."Library/Application Support/infat/config.toml" = lib.mkIf (cfg.settings != { }) {
+    home.file.${configFile} = lib.mkIf (cfg.settings != { }) {
       source = tomlFormat.generate "infat-settings" cfg.settings;
     };
     home.activation = lib.mkIf (cfg.settings != { } && cfg.package != null && cfg.autoActivate) {
       infat = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run ${lib.getExe cfg.package} --config "${config.home.homeDirectory}/Library/Application Support/infat/config.toml" $VERBOSE_ARG
+        run ${lib.getExe cfg.package} --config "${configFile}" $VERBOSE_ARG
       '';
     };
   };
