@@ -8,6 +8,9 @@ in
       nix = final.determinate-nix;
     }).overrideAttrs
       (oldAttrs: {
+        passthru = (oldAttrs.passthru or { }) // {
+          updateScript = null;
+        };
         meta = (oldAttrs.meta or { }) // {
           githubActionsCheck = true;
         };
@@ -18,6 +21,9 @@ in
       enableMDNS = true;
     }).overrideAttrs
       (oldAttrs: {
+        passthru = (oldAttrs.passthru or { }) // {
+          updateScript = null;
+        };
         meta = (oldAttrs.meta or { }) // {
           githubActionsCheck = prev.stdenv.hostPlatform.system == "x86_64-linux";
         };
@@ -25,6 +31,9 @@ in
 
   # https://github.com/NixOS/nixpkgs/issues/294640
   virt-manager = prev.virt-manager.overrideAttrs (oldAttrs: {
+    passthru = (oldAttrs.passthru or { }) // {
+      updateScript = null;
+    };
     nativeBuildInputs =
       (oldAttrs.nativeBuildInputs or [ ]) ++ (lib.optional prev.stdenv.isDarwin final.makeBinaryWrapper);
     postInstall =
