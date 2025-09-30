@@ -38,15 +38,15 @@ jobs:
             runner: namespace-profile-aarch64-darwin
     steps:
       - uses: actions/checkout@v5
+      - uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: /nix/store
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
             accept-flake-config = true
             keep-going = true
             eval-cores = 0
-      - uses: namespacelabs/nscloud-cache-action@v1
-        with:
-          path: /nix/store
       - uses: cachix/cachix-action@v16
         with:
           name: mirkolenz

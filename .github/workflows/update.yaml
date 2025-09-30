@@ -19,15 +19,15 @@ jobs:
           private-key: ${{ secrets.APP_KEY }}
       - uses: actions/checkout@v5
       - uses: fregante/setup-git-user@v2
+      - uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: /nix/store
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
             accept-flake-config = true
             eval-cores = 0
             commit-lock-file-summary = chore(deps): update flake.lock
-      - uses: namespacelabs/nscloud-cache-action@v1
-        with:
-          path: /nix/store
       - name: update flake
         run: nix flake update --commit-lock-file
       - name: update packages
