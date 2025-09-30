@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: namespace-profile-x64-linux
     permissions:
       contents: write
       pull-requests: write
@@ -25,6 +25,9 @@ jobs:
             accept-flake-config = true
             eval-cores = 0
             commit-lock-file-summary = chore(deps): update flake.lock
+      - uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: /nix/store
       - name: update flake
         run: nix flake update --commit-lock-file
       - name: update packages
@@ -34,6 +37,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: remove unstaged changes
         run: git restore .
+      - run: nix store gc
       - uses: peter-evans/create-pull-request@v7
         id: pr
         with:
