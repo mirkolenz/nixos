@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   update:
-    runs-on: namespace-profile-x64-linux
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
@@ -19,9 +19,6 @@ jobs:
           private-key: ${{ secrets.APP_KEY }}
       - uses: actions/checkout@v5
       - uses: fregante/setup-git-user@v2
-      - uses: namespacelabs/nscloud-cache-action@v1
-        with:
-          path: /nix
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
@@ -37,7 +34,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: remove unstaged changes
         run: git restore .
-      - run: nix store gc
       - uses: peter-evans/create-pull-request@v7
         id: pr
         with:

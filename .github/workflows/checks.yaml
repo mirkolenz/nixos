@@ -10,7 +10,7 @@ jobs:
   check-eval:
     permissions:
       contents: read
-    runs-on: namespace-profile-x64-linux
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/determinate-nix-action@v3
@@ -27,20 +27,17 @@ jobs:
 
   check-build-matrix:
     name: check-build.${{ matrix.system }}
-    runs-on: ${{ matrix.runner }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - system: x86_64-linux
-            runner: namespace-profile-x64-linux
+            os: ubuntu-24.04
           - system: aarch64-darwin
-            runner: namespace-profile-aarch64-darwin
+            os: macos-26
     steps:
       - uses: actions/checkout@v5
-      - uses: namespacelabs/nscloud-cache-action@v1
-        with:
-          path: /nix
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
@@ -59,7 +56,6 @@ jobs:
             --show-trace \
             --no-link \
             '.#githubActionsChecks.${{ matrix.system }}.default'
-      - run: nix store gc
 
   check-build:
     needs: check-build-matrix
