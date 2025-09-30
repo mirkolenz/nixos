@@ -5,20 +5,6 @@
   lib',
   ...
 }:
-let
-  mkLinkFarm =
-    {
-      name,
-      paths,
-      transform ? x: x,
-    }:
-    pkgs.linkFarm name (
-      lib.mapAttrsToList (name: value: {
-        inherit name;
-        path = transform value;
-      }) paths
-    );
-in
 {
   imports = lib'.flocken.getModules ./.;
 
@@ -40,15 +26,9 @@ in
     fish_add_path "${config.home.homeDirectory}/.local/bin"
   '';
   home.file = {
-    ".local/bin".source = mkLinkFarm {
-      name = "home-local-bin";
-      paths = {
-        git = config.programs.git.package;
-        nvim = config.custom.neovim.package;
-        restic = pkgs.restic;
-      };
-      transform = lib.getExe;
-    };
+    ".local/bin/git".source = lib.getExe config.programs.git.package;
+    ".local/bin/nvim".source = lib.getExe config.custom.neovim.package;
+    ".local/bin/restic".source = lib.getExe pkgs.restic;
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary" = {
       source = ../dictionary.txt;
     };
