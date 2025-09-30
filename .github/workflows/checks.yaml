@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: namespacelabs/nscloud-cache-action@v1
         with:
-          path: /nix/store
+          path: /nix
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |

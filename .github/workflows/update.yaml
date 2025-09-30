@@ -21,7 +21,7 @@ jobs:
       - uses: fregante/setup-git-user@v2
       - uses: namespacelabs/nscloud-cache-action@v1
         with:
-          path: /nix/store
+          path: /nix
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
