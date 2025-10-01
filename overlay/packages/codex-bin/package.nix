@@ -19,7 +19,7 @@ mkGitHubBinary {
   repo = "codex";
   file = ./release.json;
   getAsset = { system, ... }: "codex-${platforms.${system}}.tar.gz";
-  assetsPattern = ''^codex-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
+  pattern = ''^codex-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
   versionPrefix = "rust-v";
 
   sourceRoot = ".";

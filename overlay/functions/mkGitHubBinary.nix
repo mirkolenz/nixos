@@ -12,10 +12,8 @@ args@{
   repo,
   file,
   getAsset,
-  getHash ? getAsset,
-  binaryNames ? [ pname ],
-  assetsPattern ? ".*",
-  assetsReplace ? "",
+  binaries ? [ pname ],
+  pattern ? ".*",
   versionPrefix ? "",
   versionSuffix ? "",
   allowPrereleases ? false,
@@ -26,92 +24,90 @@ args@{
   meta ? { },
   ...
 }:
-let
-  jqSelector = if allowPrereleases then ".[0]" else ".";
-  ghCall =
-    if allowPrereleases then
-      "gh api repos/${owner}/${repo}/releases --method GET --raw-field per_page=1"
-    else
-      "gh api repos/${owner}/${repo}/releases/latest";
-
-  versionFilter = toString [
-    (lib.optionalString (versionPrefix != "") "| ltrimstr(\"${versionPrefix}\")")
-    (lib.optionalString (versionSuffix != "") "| rtrimstr(\"${versionSuffix}\")")
-  ];
-
-  assetsFilter = lib.optionalString (
-    assetsReplace != ""
-  ) "| sub(\"${assetsPattern}\"; \"${assetsReplace}\")";
-
-  release = lib.importJSON file;
-  version = release.version or "unstable";
-  inherit (stdenv.hostPlatform) system;
-in
 stdenv.mkDerivation (
-  (lib.removeAttrs args [
-    "owner"
-    "repo"
-    "file"
-    "getAsset"
-    "getHash"
-    "binaryNames"
-    "assetsPattern"
-    "assetsReplace"
-    "versionPrefix"
-    "versionSuffix"
-    "allowPrereleases"
-  ])
-  // {
-    inherit pname version;
+  finalAttrs:
+  let
+    jqSelector = if allowPrereleases then ".[0]" else ".";
+    ghCall =
+      if allowPrereleases then
+        "gh api repos/${owner}/${repo}/releases --method GET --raw-field per_page=1"
+      else
+        "gh api repos/${owner}/${repo}/releases/latest";
 
-    src = fetchurl {
-      url = "https://github.com/${owner}/${repo}/releases/download/${versionPrefix}${version}${versionSuffix}/${
-        getAsset { inherit version system; }
-      }";
-      hash = release.hashes.${getHash { inherit version system; }} or lib.fakeHash;
+    inherit (stdenv.hostPlatform) system;
+
+    release = lib.importJSON file;
+    assetName = getAsset {
+      inherit system;
+      inherit (finalAttrs) version;
     };
+  in
+  (
+    (lib.removeAttrs args [
+      "owner"
+      "repo"
+      "file"
+      "getAsset"
+      "binaries"
+      "pattern"
+      "versionPrefix"
+      "versionSuffix"
+      "allowPrereleases"
+    ])
+    // {
+      inherit pname;
+      version = lib.pipe (release.tag_name or "unstable") [
+        (lib.removePrefix versionPrefix)
+        (lib.removeSuffix versionSuffix)
+      ];
 
-    dontConfigure = true;
-    dontBuild = true;
+      src = fetchurl {
+        url = "https://github.com/${owner}/${repo}/releases/download/${versionPrefix}${finalAttrs.version}${versionSuffix}/${assetName}";
+        hash = release.assets.${assetName}.digest;
+      };
 
-    nativeBuildInputs =
-      nativeBuildInputs ++ [ installShellFiles ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
+      dontConfigure = true;
+      dontBuild = true;
 
-    installPhase = ''
-      runHook preInstall
+      nativeBuildInputs =
+        nativeBuildInputs ++ [ installShellFiles ] ++ lib.optionals (!stdenv.isDarwin) [ autoPatchelfHook ];
 
-      ${lib.optionalString (binaryNames != [ ]) "installBin ${toString binaryNames}"}
+      installPhase = ''
+        runHook preInstall
 
-      runHook postInstall
-    '';
+        ${lib.optionalString (binaries != [ ]) "installBin ${toString binaries}"}
 
-    passthru = passthru // {
-      updateScript = writeScript "github-binaries-${owner}-${repo}" ''
-        #!/usr/bin/env nix-shell
-        #!nix-shell --pure -i bash -p gh jq
-
-        set -euo pipefail
-
-        output="$(
-          ${ghCall} \
-          | jq '${jqSelector} | . as $release | {
-            version: .tag_name ${versionFilter},
-            hashes: [
-              .assets[]
-              | select(.name | test("${assetsPattern}"))
-              | { key: .name ${assetsFilter}, value: .digest }
-            ] | from_entries
-          }'
-        )"
-
-        echo "$output" > "${toString file}"
+        runHook postInstall
       '';
-    };
 
-    meta = meta // {
-      maintainers = with lib.maintainers; [ mirkolenz ];
-      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-      mainProgram = pname;
-    };
-  }
+      passthru = passthru // {
+        updateScript = writeScript "github-binaries-${owner}-${repo}" ''
+          #!/usr/bin/env nix-shell
+          #!nix-shell --pure -i bash -p gh jq
+
+          set -euo pipefail
+
+          output="$(
+            ${ghCall} \
+            | jq '${jqSelector} | . as $release | {
+              tag_name,
+              assets: [
+                .assets[]
+                | select(.name | test("${pattern}"))
+                | { key: .name, value: { digest } }
+              ] | from_entries
+            }'
+          )"
+
+          echo "$output" > "${toString file}"
+        '';
+      };
+
+      meta = meta // {
+        maintainers = with lib.maintainers; [ mirkolenz ];
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        mainProgram = pname;
+      };
+    }
+  )
 )

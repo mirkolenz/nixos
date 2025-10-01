@@ -15,9 +15,9 @@ mkGitHubBinary {
   owner = "brutella";
   repo = "hkknx-public";
   pname = "hkknx";
-  getAsset = { system, version, ... }: "hkknx-${version}_${platforms.${system}}.tar.gz";
+  getAsset = { system, version }: "hkknx-${version}_${platforms.${system}}.tar.gz";
   file = ./release.json;
-  assetsPattern = ''^hkknx-\($release.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
+  pattern = ''^hkknx-\($release.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
 
   sourceRoot = ".";
 

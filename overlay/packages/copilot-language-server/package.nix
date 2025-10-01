@@ -19,9 +19,8 @@ let
     owner = "github";
     repo = "copilot-language-server-release";
     file = ./release.json;
-    getAsset =
-      { version, system, ... }: "copilot-language-server-${platforms.${system}}-${version}.zip";
-    assetsPattern = ''^copilot-language-server-(linux|darwin)-(arm64|x64)-\($release.tag_name)\\.zip$'';
+    getAsset = { version, system }: "copilot-language-server-${platforms.${system}}-${version}.zip";
+    pattern = ''^copilot-language-server-(linux|darwin)-(arm64|x64)-\($release.tag_name)\\.zip$'';
   };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {

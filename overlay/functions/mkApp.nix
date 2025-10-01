@@ -37,11 +37,7 @@ stdenvNoCC.mkDerivation (
     '';
 
     nativeBuildInputs =
-      nativeBuildInputs
-      ++ [
-        undmg
-      ]
-      ++ (lib.optional (wrapperPath != "") makeBinaryWrapper);
+      nativeBuildInputs ++ [ undmg ] ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 
     meta = meta // {
       maintainers = with lib.maintainers; [ mirkolenz ];

@@ -12,19 +12,22 @@ let
     owner = "akiyosi";
     repo = "goneovim";
     file = ./release.json;
-    getAsset = { system, version, ... }: "goneovim-v${version}-${platforms.${system}}.tar.bz2";
-    getHash = { system, ... }: platforms.${system};
+    getAsset = { system, version }: "goneovim-v${version}-${platforms.${system}}.tar.bz2";
     versionPrefix = "v";
-    assetsPattern = ''^goneovim-\($release.tag_name)-(?<platform>macos-(arm64|x86_64))\\.tar\\.bz2$'';
-    assetsReplace = "\\(.platform)";
+    pattern = ''^goneovim-\($release.tag_name)-(?<platform>macos-(arm64|x86_64))\\.tar\\.bz2$'';
   };
 in
 mkApp rec {
-  inherit (ghBin) pname version src;
+  inherit (ghBin)
+    pname
+    version
+    src
+    passthru
+    ;
   appname = pname;
   wrapperPath = "Contents/MacOS/${pname}";
 
-  meta = {
+  meta = ghBin.meta // {
     description = "GUI frontend for neovim";
     homepage = "https://github.com/akiyosi/goneovim";
     downloadPage = "https://github.com/akiyosi/goneovim/releases";

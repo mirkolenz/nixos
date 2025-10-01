@@ -17,11 +17,11 @@ mkGitHubBinary {
   repo = "uv";
   file = ./release.json;
   getAsset = { system, ... }: "uv-${platforms.${system}}.tar.gz";
-  binaryNames = [
+  binaries = [
     "uv"
     "uvx"
   ];
-  assetsPattern = ''^uv-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
+  pattern = ''^uv-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
   allowPrereleases = true;
 
   buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;

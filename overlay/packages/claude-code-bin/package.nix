@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "${gcsBucket}/${finalAttrs.version}/${platform}/claude";
-    hash = manifest.hashes.${platform} or lib.fakeHash;
+    sha256 = manifest.platforms.${platform}.checksum;
   };
 
   dontUnpack = true;
@@ -68,17 +68,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # https://claude.ai/install.sh
     version="$(curl -fsSL "${gcsBucket}/stable")"
-    output="$(
+    manifest="$(
       curl -fsSL "${gcsBucket}/$version/manifest.json" \
       | jq '{
-        version: .version,
-        hashes: .platforms | with_entries(
+        version,
+        platforms: .platforms | with_entries(
           select(.key | test("^(darwin|linux)-(x64|arm64)$"))
-          | .value = "sha256:\(.value.checksum)"
+          | {
+            key,
+            value: { checksum: .value.checksum }
+          }
         )
       }'
     )"
-    echo "$output" > "${toString ./manifest.json}"
+    echo "$manifest" > "${toString ./manifest.json}"
   '';
 
   meta = {
