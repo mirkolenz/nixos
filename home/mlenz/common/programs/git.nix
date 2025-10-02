@@ -10,8 +10,7 @@
     gibo
     git-ignore
     jjui
-    # todo: https://hydra.nixos.org/job/nixpkgs/trunk/lazyjj.aarch64-darwin
-    # lazyjj
+    lazyjj
   ];
   programs.gh = {
     enable = true;
