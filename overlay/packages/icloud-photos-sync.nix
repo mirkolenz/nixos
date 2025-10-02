@@ -6,18 +6,18 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "icloud-photos-sync";
-  version = "2.1.0";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "steilerDev";
     repo = "icloud-photos-sync";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JnmFO6Qj8/3Sws73kzvAvGQOBsQWQWb2w93tBvEKODY=";
+    hash = "sha256-435K6YJMIlVou3p+d5ynyUNg1Wmo/+auXveFiGbWL4c=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/app";
 
-  npmDepsHash = "sha256-HQ9AnPS+LzU1lzW8SNJif3uVm8W0ClH1zWZDSR/CH94=";
+  npmDepsHash = "sha256-1dxmiONBahaN7mzFBVToO395QoFiFqLMBJKzu++JtPs=";
 
   # https://github.com/steilerDev/icloud-photos-sync/blob/main/app/package.json
   # generate bin directory
@@ -33,6 +33,5 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "icloud-photos-sync";
-    platforms = with lib.platforms; linux ++ darwin;
   };
 })
