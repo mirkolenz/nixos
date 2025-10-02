@@ -19,7 +19,6 @@ let
     "lookaway"
     "microsoft-auto-update"
     "microsoft-teams"
-    "neohtop"
     "obsidian"
     "omnigraffle"
     "orbstack"

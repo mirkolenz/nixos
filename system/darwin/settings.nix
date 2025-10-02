@@ -50,10 +50,10 @@
       wvous-tl-corner = 1;
       wvous-tr-corner = 1;
       persistent-apps = [
-        "/Applications/DEVONthink.app"
-        "/Applications/Obsidian.app"
         "/System/Applications/App Store.app"
         "/System/Applications/Music.app"
+        "/Applications/DEVONthink.app"
+        "/Applications/Obsidian.app"
         "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
         "/Applications/Firefox.app"
         "/Applications/Google Chrome.app"
@@ -76,7 +76,7 @@
         "/Applications/Microsoft Word.app"
         "/Applications/Microsoft Excel.app"
         "/Applications/Microsoft PowerPoint.app"
-        "/Applications/NeoHtop.app"
+        "/System/Applications/Utilities/Activity Monitor.app"
         "/System/Applications/System Settings.app"
       ];
       # persistent-others = [ "${userHome}/Downloads/" ];
