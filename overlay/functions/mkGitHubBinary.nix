@@ -105,7 +105,7 @@ stdenv.mkDerivation (
 
       meta = meta // {
         maintainers = with lib.maintainers; [ mirkolenz ];
-        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
         mainProgram = pname;
       };
     }

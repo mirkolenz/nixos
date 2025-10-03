@@ -18,10 +18,6 @@ stdenvNoCC.mkDerivation (
     "wrapperPath"
   ])
   // {
-    phases = [
-      "unpackPhase"
-      "installPhase"
-    ];
     installPhase = ''
       runHook preInstall
 
@@ -36,13 +32,16 @@ stdenvNoCC.mkDerivation (
       runHook postInstall
     '';
 
+    dontConfigure = true;
+    dontBuild = true;
+
     nativeBuildInputs =
       nativeBuildInputs ++ [ undmg ] ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 
     meta = meta // {
       maintainers = with lib.maintainers; [ mirkolenz ];
       platforms = lib.platforms.darwin;
-      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       mainProgram = pname;
     };
   }

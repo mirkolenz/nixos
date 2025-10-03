@@ -91,7 +91,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ mirkolenz ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "claude";
     platforms = lib.attrNames platforms;
     githubActionsCheck = true;

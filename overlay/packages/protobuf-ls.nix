@@ -23,7 +23,6 @@ buildGoModule (finalAttrs: {
     "-s"
     "-w"
   ];
-  doCheck = false;
 
   passthru.updateScript = nix-update-script { };
 
