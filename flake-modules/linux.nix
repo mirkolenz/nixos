@@ -14,14 +14,17 @@ let
       extraModule ? { },
     }:
     inputs.nixpkgs-linux-unstable.lib.nixosSystem {
-      inherit system;
+      system = null;
       specialArgs = specialModuleArgs // {
         os = "linux";
       };
       modules = [
         extraModule
         self.nixosModules.default
-        { networking.hostName = hostName; }
+        {
+          networking = { inherit hostName; };
+          nixpkgs.hostPlatform = system;
+        }
       ]
       ++ lib'.flocken.optionalPath ../hosts/${hostName};
     };

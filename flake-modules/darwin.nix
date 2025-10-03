@@ -15,7 +15,7 @@ let
       extraModule ? { },
     }:
     inputs.nix-darwin.lib.darwinSystem {
-      inherit system;
+      system = null;
       specialArgs = specialModuleArgs // {
         os = "darwin";
       };
@@ -26,6 +26,7 @@ let
           networking = {
             inherit hostName computerName;
           };
+          nixpkgs.hostPlatform = system;
         }
       ]
       ++ lib'.flocken.optionalPath ../hosts/${hostName};
