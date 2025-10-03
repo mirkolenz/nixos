@@ -5,7 +5,7 @@
   inputs,
   determinate-nix,
 }:
-(writers.writePython3Bin "updater" {
+writers.writePython3Bin "updater" {
   libraries = with python3Packages; [ typer ];
   doCheck = false;
   makeWrapperArgs =
@@ -20,9 +20,4 @@
         "--nix-shell"
         (lib.getExe' determinate-nix "nix-shell")
       ];
-} ./script.py).overrideAttrs
-  (oldAttrs: {
-    meta = (oldAttrs.meta or { }) // {
-      githubActionsCheck = true;
-    };
-  })
+} ./script.py

@@ -43,6 +43,5 @@ mkGitHubBinary {
     mainProgram = "ty";
     platforms = lib.attrNames platforms;
     license = lib.licenses.mit;
-    githubActionsCheck = true;
   };
 }

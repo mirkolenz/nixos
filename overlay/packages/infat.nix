@@ -32,6 +32,5 @@ rustPlatform.buildRustPackage (finalAttrs: {
     platforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "infat";
-    githubActionsCheck = true;
   };
 })

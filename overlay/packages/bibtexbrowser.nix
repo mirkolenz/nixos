@@ -42,6 +42,5 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "www.monperrus.net/martin/bibtexbrowser/";
     downloadPage = "https://github.com/monperrus/bibtexbrowser/releases/tag/latest";
     maintainers = with lib.maintainers; [ mirkolenz ];
-    githubActionsCheck = true;
   };
 })

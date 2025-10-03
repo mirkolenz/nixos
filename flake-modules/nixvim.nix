@@ -47,7 +47,7 @@ in
       nameFunction = name: "nixvim-${name}";
     };
     checks = {
-      enable = false; # they are manually added to the github actions matrix
+      enable = false;
       nameFunction = name: "nixvim-${name}";
     };
   };
@@ -61,11 +61,7 @@ in
     }:
     {
       packages = {
-        neovim = pkgs.nixvim-full.overrideAttrs (oldAttrs: {
-          meta = oldAttrs.meta // {
-            githubActionsCheck = true;
-          };
-        });
+        neovim = pkgs.nixvim-full;
         neovide = pkgs.writeShellApplication {
           name = "neovide";
           text = ''

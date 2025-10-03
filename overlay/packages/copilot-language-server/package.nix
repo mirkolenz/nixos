@@ -71,6 +71,5 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mainProgram = "copilot-language-server";
     platforms = lib.attrNames platforms;
     license = lib.licenses.unfree;
-    githubActionsCheck = true;
   };
 })

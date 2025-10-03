@@ -7,7 +7,7 @@
   home-manager,
   determinate-nix,
 }:
-(writers.writePython3Bin "builder" {
+writers.writePython3Bin "builder" {
   libraries = with python3Packages; [ typer ];
   doCheck = false;
   makeWrapperArgs =
@@ -26,9 +26,4 @@
         "--nix-exe"
         (lib.getExe determinate-nix)
       ];
-} ./script.py).overrideAttrs
-  (oldAttrs: {
-    meta = (oldAttrs.meta or { }) // {
-      githubActionsCheck = true;
-    };
-  })
+} ./script.py

@@ -33,6 +33,6 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "icloud-photos-sync";
-    githubActionsCheck = false;
+    broken = true;
   };
 })

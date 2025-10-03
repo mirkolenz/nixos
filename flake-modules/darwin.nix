@@ -46,11 +46,14 @@ in
     };
   };
   perSystem =
-    { ... }:
+    { system, ... }:
+    let
+      mkDarwinJob = name: module: module.config.system.build.toplevel;
+      filterDarwinJob = name: module: module.config.nixpkgs.hostPlatform.system == system;
+    in
     {
-      packages = lib.mapAttrs' (name: module: {
-        name = "darwin-config-${name}";
-        value = module.config.system.build.toplevel;
-      }) self.darwinConfigurations;
+      hydraJobs.darwinConfigurations = lib.mapAttrs mkDarwinJob (
+        lib.filterAttrs filterDarwinJob self.darwinConfigurations
+      );
     };
 }

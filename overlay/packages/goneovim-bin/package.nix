@@ -33,6 +33,5 @@ mkApp rec {
     downloadPage = "https://github.com/akiyosi/goneovim/releases";
     license = lib.licenses.mit;
     platforms = lib.attrNames platforms;
-    githubActionsCheck = true;
   };
 }

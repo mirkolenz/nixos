@@ -11,11 +11,15 @@
     {
       pkgs,
       system,
+      config,
       ...
     }:
     let
       customPackagesPerSystem = lib.filterAttrs (
-        name: value: lib.meta.availableOn { inherit system; } value && lib.isDerivation value
+        name: value:
+        lib.meta.availableOn { inherit system; } value
+        && lib.isDerivation value
+        && !(value.meta.broken or false)
       ) pkgs.customPackages;
     in
     {
@@ -24,7 +28,14 @@
         config = self.nixpkgsConfig;
         overlays = [ self.overlays.default ];
       };
-      legacyPackages = pkgs;
+      legacyPackages = pkgs // {
+        ci = pkgs.releaseTools.aggregate {
+          name = "ci";
+          constituents = lib.attrValues (
+            lib.filterAttrs (name: pkg: lib.elem system (pkg.meta.hydraPlatforms or [ system ])) config.packages
+          );
+        };
+      };
       packages = customPackagesPerSystem // {
         default = pkgs.writeShellScriptBin "builder" ''
           exec ${lib.getExe pkgs.builder} --flake ${self.outPath} "$@"

@@ -56,6 +56,5 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "wol";
-    githubActionsCheck = true;
   };
 })

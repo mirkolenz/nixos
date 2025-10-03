@@ -26,6 +26,5 @@ mkApp rec {
     homepage = "https://github.com/emuell/restic-browser";
     downloadPage = "https://github.com/emuell/restic-browser/releases";
     license = lib.licenses.mit;
-    githubActionsCheck = true;
   };
 }

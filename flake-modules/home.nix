@@ -50,11 +50,14 @@ in
     };
   };
   perSystem =
-    { ... }:
+    { system, ... }:
+    let
+      mkHomeJob = name: module: module.activationPackage;
+      filterHomeJob = name: module: module.config.nixpkgs.system == system;
+    in
     {
-      packages = lib.mapAttrs' (name: module: {
-        name = "home-config-${name}";
-        value = module.activationPackage;
-      }) self.homeConfigurations;
+      hydraJobs.homeConfigurations = lib.mapAttrs mkHomeJob (
+        lib.filterAttrs filterHomeJob self.homeConfigurations
+      );
     };
 }

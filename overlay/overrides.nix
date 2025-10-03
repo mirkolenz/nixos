@@ -11,9 +11,6 @@ in
         passthru = (oldAttrs.passthru or { }) // {
           updateScript = null;
         };
-        meta = (oldAttrs.meta or { }) // {
-          githubActionsCheck = true;
-        };
       });
 
   sambaTimeMachine =
@@ -23,9 +20,6 @@ in
       (oldAttrs: {
         passthru = (oldAttrs.passthru or { }) // {
           updateScript = null;
-        };
-        meta = (oldAttrs.meta or { }) // {
-          githubActionsCheck = prev.stdenv.hostPlatform.system == "x86_64-linux";
         };
       });
 

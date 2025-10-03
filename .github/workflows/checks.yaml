@@ -21,7 +21,6 @@ jobs:
       - name: nix flake check
         run: |
           nix flake check \
-            --impure \
             --print-build-logs \
             --show-trace
 
@@ -48,14 +47,14 @@ jobs:
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_TOKEN }}
-          # pushFilter: "(-source$ | -github-actions-checks$)"
+          # pushFilter: "(-source$ | -ci$)"
       - name: nix build
         run: |
           nix build \
             --print-build-logs \
             --show-trace \
             --no-link \
-            '.#githubActionsChecks.${{ matrix.system }}.default'
+            '.#ci'
 
   check-build:
     needs: check-build-matrix

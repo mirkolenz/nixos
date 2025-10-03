@@ -31,6 +31,5 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ mirkolenz ];
     mainProgram = "uv-migrator";
-    githubActionsCheck = true;
   };
 })
