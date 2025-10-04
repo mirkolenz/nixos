@@ -83,7 +83,8 @@ stdenv.mkDerivation (
       passthru = passthru // {
         updateScript = writeScript "github-binaries-${owner}-${repo}" ''
           #!/usr/bin/env nix-shell
-          #!nix-shell --pure -i bash -p gh jq
+          #!nix-shell -i bash -p gh jq
+          # do not add --pure, otherwise gh won't see GH_TOKEN in CI
 
           set -euo pipefail
 
