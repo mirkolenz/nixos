@@ -30,7 +30,6 @@ jobs:
       - name: update packages
         run: nix run '.#updater' -- --commit single
         env:
-          # avoid rate limits
           GH_TOKEN: ${{ github.token }}
       - name: remove unstaged changes
         run: git restore .

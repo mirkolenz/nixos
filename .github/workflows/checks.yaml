@@ -47,7 +47,6 @@ jobs:
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_TOKEN }}
-          # pushFilter: "(-source$ | -ci$)"
       - name: nix build
         run: |
           nix build \

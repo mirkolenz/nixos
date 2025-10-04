@@ -59,7 +59,6 @@ def run(
 
     cmd: list[str] = [
         nix_shell,
-        "--pure",
         f"{nixpkgs}/maintainers/scripts/update.nix",
     ]
 
