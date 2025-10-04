@@ -91,7 +91,7 @@
         # not supported on linux
         # breaks nix flake operations with path references
         # https://github.com/NixOS/nix/issues/11567
-        fsmonitor = lib.mkIf pkgs.stdenv.isDarwin false;
+        fsmonitor = lib.mkIf pkgs.stdenv.isDarwin true;
       };
       feature = {
         manyFiles = true;
