@@ -48,16 +48,8 @@ in
     "compute@kitei-gpu" = {
       system = "x86_64-linux";
     };
+    hydraJobs.homeConfigurations = lib.mapAttrs (
+      name: module: module.activationPackage
+    ) self.homeConfigurations;
   };
-  perSystem =
-    { system, ... }:
-    let
-      mkHomeJob = name: module: module.activationPackage;
-      filterHomeJob = name: module: module.config.nixpkgs.system == system;
-    in
-    {
-      hydraJobs.homeConfigurations = lib.mapAttrs mkHomeJob (
-        lib.filterAttrs filterHomeJob self.homeConfigurations
-      );
-    };
 }

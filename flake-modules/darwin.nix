@@ -44,16 +44,8 @@ in
         computerName = "Mirkos UniBook";
       };
     };
+    hydraJobs.darwinConfigurations = lib.mapAttrs (
+      name: module: module.config.system.build.toplevel
+    ) self.darwinConfigurations;
   };
-  perSystem =
-    { system, ... }:
-    let
-      mkDarwinJob = name: module: module.config.system.build.toplevel;
-      filterDarwinJob = name: module: module.config.nixpkgs.hostPlatform.system == system;
-    in
-    {
-      hydraJobs.darwinConfigurations = lib.mapAttrs mkDarwinJob (
-        lib.filterAttrs filterDarwinJob self.darwinConfigurations
-      );
-    };
 }
