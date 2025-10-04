@@ -19,6 +19,7 @@ symlinkJoin {
   paths = lib.mapAttrsToList mkBunApp {
     copilot = "@github/copilot";
     gemini = "@google/gemini-cli";
+    icloud-photos-sync = "icloud-photos-sync";
     mcp-inspector = "@modelcontextprotocol/inspector";
   };
 }

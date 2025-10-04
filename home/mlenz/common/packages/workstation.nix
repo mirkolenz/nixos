@@ -46,8 +46,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     protobuf-ls
     touying
     mcp-proxy
-    # icloud-photos-sync # todo: currently broken
-    # presentation
     pdfpc
     pympress
     # nix
