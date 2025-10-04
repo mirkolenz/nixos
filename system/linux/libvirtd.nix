@@ -12,10 +12,6 @@
       package = pkgs.qemu_kvm;
       runAsRoot = false;
       vhostUserPackages = [ pkgs.virtiofsd ];
-      ovmf = {
-        enable = true;
-        packages = [ pkgs.OVMFFull.fd ];
-      };
       swtpm = {
         enable = true;
         package = pkgs.swtpm;
@@ -37,31 +33,7 @@
       pkgs.virt-viewer
     ]);
 
-  environment.etc = lib.mkIf config.virtualisation.libvirtd.enable (
-    (lib.genAttrs'
-      [
-        "edk2-aarch64-code.fd"
-        "edk2-arm-code.fd"
-        "edk2-arm-vars.fd"
-        "edk2-i386-code.fd"
-        "edk2-i386-secure-code.fd"
-        "edk2-i386-vars.fd"
-        "edk2-loongarch64-code.fd"
-        "edk2-loongarch64-vars.fd"
-        "edk2-riscv-code.fd"
-        "edk2-riscv-vars.fd"
-        "edk2-x86_64-code.fd"
-        "edk2-x86_64-secure-code.fd"
-      ]
-      (name: {
-        name = "nix-libvirtd/qemu/${name}";
-        value = {
-          source = "${config.virtualisation.libvirtd.qemu.package}/share/qemu/${name}";
-        };
-      })
-    )
-    // {
-      "nix-libvirtd/images/virtio-win.iso".source = pkgs.virtio-win.src;
-    }
-  );
+  environment.etc = lib.mkIf config.virtualisation.libvirtd.enable {
+    "nix-libvirtd/images/virtio-win.iso".source = pkgs.virtio-win.src;
+  };
 }
