@@ -43,7 +43,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     ghostscript
     janice
     harper
-    protobuf-ls
+    protobuf-language-server
     touying
     mcp-proxy
     pdfpc
