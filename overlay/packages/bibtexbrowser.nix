@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
         exec ${lib.getExe php} ${finalAttrs.finalPackage}/bibtex-to-cff.php "$@"
       '';
       meta = finalAttrs.meta // {
-        platforms = php.meta.platforms;
+        inherit (php.meta) platforms;
       };
     };
   };
