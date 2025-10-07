@@ -56,7 +56,8 @@
     };
   };
 
-  systemd.enableStrictShellChecks = true;
+  # todo: broken as of 2025-10-07
+  # systemd.enableStrictShellChecks = true;
   documentation.man.generateCaches = false;
 
   boot.loader = {
