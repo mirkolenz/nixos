@@ -16,5 +16,5 @@
 
   system.stateVersion = stateVersions.darwin;
 
-  custom.podman.enable = true;
+  virtualisation.podman.enable = true;
 }

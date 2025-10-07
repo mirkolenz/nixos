@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.custom.podman;
+  cfg = config.virtualisation.podman;
   tomlFormat = pkgs.formats.toml { };
   jsonFormat = pkgs.formats.json { };
 in
 {
-  options.custom.podman = {
+  options.virtualisation.podman = {
     enable = lib.mkEnableOption "Podman";
 
     # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/virtualisation/containers.nix
@@ -69,7 +69,7 @@ in
       podman-compose
     ];
 
-    custom.podman.storageConf.storage = {
+    virtualisation.podman.storageConf.storage = {
       driver = lib.mkDefault "overlay";
       graphroot = lib.mkDefault "/var/lib/containers/storage";
       runroot = lib.mkDefault "/run/containers/storage";

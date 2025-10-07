@@ -8,8 +8,6 @@
 {
   imports = lib'.flocken.getModules ./.;
 
-  custom.podman.enable = true;
-
   i18n.defaultLocale = "en_US.UTF-8";
 
   users = {
