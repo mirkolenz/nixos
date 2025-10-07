@@ -1,5 +1,4 @@
 {
-  inputs,
   lib',
   os,
   lib,
@@ -7,7 +6,7 @@
 }:
 {
   environment.etc."nix/registry.json" = lib.mkForce {
-    text = lib'.mkRegistryText { inherit inputs os; };
+    text = lib'.mkRegistryText os;
   };
   # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
   custom.nix.settings = {
