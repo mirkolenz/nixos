@@ -13,6 +13,7 @@ let
       system,
       computerName,
       extraModule ? { },
+      isDesktop ? true,
     }:
     inputs.nix-darwin.lib.darwinSystem {
       system = null;
@@ -27,6 +28,7 @@ let
             inherit hostName computerName;
           };
           nixpkgs.hostPlatform = system;
+          custom.profile.isDesktop = isDesktop;
         }
       ]
       ++ lib'.flocken.optionalPath ../hosts/${hostName};
@@ -39,9 +41,9 @@ in
         system = "x86_64-darwin";
         computerName = "Mirkos MacBook";
       };
-      mirkos-unibook = {
+      mirkos-dfkibook = {
         system = "aarch64-darwin";
-        computerName = "Mirkos UniBook";
+        computerName = "Mirkos DFKIbook";
       };
     };
     hydraJobs.darwinConfigurations = lib.mapAttrs (

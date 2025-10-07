@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, ... }:
 let
   caskApps = [
     "1password"
@@ -39,6 +39,11 @@ let
     "zed"
     "zoom"
     "zotero@beta"
+  ]
+  ++ lib.optionals pkgs.stdenv.isAarch64 [
+    "chatgpt"
+    "lm-studio"
+    "ollama"
   ];
 
   masApps = {
