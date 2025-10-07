@@ -17,7 +17,7 @@ rec {
   setEqual = list1: list2: (lib.naturalSort list1) == (lib.naturalSort list2);
   mkRegistryText =
     os:
-    lib.toJSON {
+    lib.strings.toJSON {
       version = 2;
       flakes =
         lib.mapAttrsToList
