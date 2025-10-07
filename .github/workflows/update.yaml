@@ -27,7 +27,7 @@ jobs:
             commit-lock-file-summary = chore(deps): update flake.lock
       - name: update flake
         run: nix flake update --commit-lock-file
-      - name: update packages
+      - name: update pkgs
         run: nix run '.#updater' -- --commit single
         env:
           GH_TOKEN: ${{ github.token }}

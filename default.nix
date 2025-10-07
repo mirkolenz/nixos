@@ -5,7 +5,7 @@
 }:
 let
   flake = builtins.getFlake ("git+file://" + toString ./.);
-  overlay = import ./overlay flake.overlayArgs;
+  overlay = import ./pkgs flake.overlayArgs;
 in
 import flake.inputs.nixpkgs {
   inherit system;

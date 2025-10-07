@@ -55,7 +55,7 @@ def run(
         )
         raise typer.Exit(1)
     elif specs == 0:
-        attrset = "customPackages"
+        attrset = "drvs"
 
     cmd: list[str] = [
         nix_shell,
@@ -103,7 +103,7 @@ def run(
     overlays = """
         let
             flake = builtins.getFlake ("git+file://" + toString ./.);
-            overlay = import ./overlay flake.overlayArgs;
+            overlay = import ./pkgs flake.overlayArgs;
         in
         [ overlay ]
     """
@@ -114,7 +114,7 @@ def run(
     subprocess.run(cmd)
 
     if commit == Commit.SINGLE:
-        git_cmd = ["git", "commit", "-m", "chore(deps): update packages", "./overlay"]
+        git_cmd = ["git", "commit", "-m", "chore(deps): update pkgs", "./pkgs"]
 
         typer.echo(
             shlex.join(git_cmd),

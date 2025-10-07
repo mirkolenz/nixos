@@ -14,14 +14,6 @@
       config,
       ...
     }:
-    let
-      customPackagesPerSystem = lib.filterAttrs (
-        name: value:
-        lib.meta.availableOn { inherit system; } value
-        && lib.isDerivation value
-        && !(value.meta.broken or false)
-      ) pkgs.customPackages;
-    in
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
@@ -36,15 +28,19 @@
           );
         };
       };
-      packages = customPackagesPerSystem // {
-        default = pkgs.writeShellScriptBin "builder" ''
-          exec ${lib.getExe pkgs.builder} --flake ${self.outPath} "$@"
-        '';
-      };
+      packages =
+        (lib.filterAttrs (
+          name: value: lib.meta.availableOn { inherit system; } value && !(value.meta.broken or false)
+        ) pkgs.drvs)
+        // {
+          default = pkgs.writeShellScriptBin "builder" ''
+            exec ${lib.getExe pkgs.builder} --flake ${self.outPath} "$@"
+          '';
+        };
     };
   flake = {
     lib = lib';
-    overlays.default = import ../overlay self.overlayArgs;
+    overlays.default = import ../pkgs self.overlayArgs;
     nixpkgsConfig = {
       allowUnfree = true;
       nvidia.acceptLicense = true;
