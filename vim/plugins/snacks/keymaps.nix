@@ -6,7 +6,7 @@
 }:
 {
   keymaps = lib.mkIf config.plugins.snacks.enable (
-    lib'.self.mkVimKeymaps
+    lib'.mkVimKeymaps
       {
         prefix = "Snacks.";
         raw = true;

@@ -1,7 +1,11 @@
-lib: rec {
+inputs:
+let
+  inherit (inputs.nixpkgs) lib;
+in
+rec {
+  flocken = inputs.flocken.lib;
   systemInput =
     {
-      inputs,
       name,
       channel,
       os,
@@ -12,11 +16,8 @@ lib: rec {
   # compare two lists irrespective of order
   setEqual = list1: list2: (lib.naturalSort list1) == (lib.naturalSort list2);
   mkRegistryText =
-    {
-      inputs,
-      os,
-    }:
-    builtins.toJSON {
+    os:
+    lib.toJSON {
       version = 2;
       flakes =
         lib.mapAttrsToList
@@ -35,17 +36,17 @@ lib: rec {
             self = inputs.self;
             nixpkgs = inputs.nixpkgs;
             stable = systemInput {
-              inherit inputs os;
+              inherit os;
               channel = "stable";
               name = "nixpkgs";
             };
             unstable = systemInput {
-              inherit inputs os;
+              inherit os;
               channel = "unstable";
               name = "nixpkgs";
             };
             pkgs = systemInput {
-              inherit inputs os;
+              inherit os;
               channel = "unstable";
               name = "nixpkgs";
             };

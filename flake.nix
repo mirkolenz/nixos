@@ -123,10 +123,7 @@
       {
         inherit inputs;
         specialArgs = {
-          lib' = {
-            self = import ./lib inputs.nixpkgs.lib;
-            flocken = inputs.flocken.lib;
-          };
+          lib' = import ./lib inputs;
         };
       }
       {

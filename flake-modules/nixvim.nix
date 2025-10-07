@@ -14,7 +14,7 @@ let
       extraModule ? { },
     }:
     let
-      os = lib'.self.systemOs system;
+      os = lib'.systemOs system;
     in
     inputs.nixvim.lib.evalNixvim {
       extraSpecialArgs = specialModuleArgs // {
@@ -29,8 +29,8 @@ let
             hostPlatform = system;
             config = self.nixpkgsConfig;
             overlays = [ self.overlays.default ];
-            source = lib'.self.systemInput {
-              inherit inputs os;
+            source = lib'.systemInput {
+              inherit os;
               channel = "unstable";
               name = "nixpkgs";
             };

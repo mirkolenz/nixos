@@ -12,7 +12,7 @@
     };
   };
   keymaps = lib.mkIf config.plugins.yazi.enable (
-    lib'.self.mkVimKeymaps
+    lib'.mkVimKeymaps
       {
         prefix = "Yazi ";
         raw = false;

@@ -9,7 +9,7 @@
     enable = false;
   };
   keymaps = lib.mkIf config.plugins.multiple-cursors.enable (
-    lib'.self.mkVimKeymaps
+    lib'.mkVimKeymaps
       {
         prefix = "MultipleCursors";
         raw = false;

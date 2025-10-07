@@ -1,14 +1,13 @@
 {
   lib,
   os,
-  inputs,
   lib',
   pkgs,
   ...
 }:
 {
   xdg.configFile."nix/registry.json" = lib.mkForce {
-    text = lib'.self.mkRegistryText { inherit inputs os; };
+    text = lib'.mkRegistryText os;
   };
   nix = {
     package = pkgs.determinate-nix;

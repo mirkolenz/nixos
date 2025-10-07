@@ -12,7 +12,7 @@
     };
   };
   keymaps = lib.mkIf config.plugins.which-key.enable (
-    lib'.self.mkVimKeymaps
+    lib'.mkVimKeymaps
       {
         prefix = "require('which-key').";
         raw = true;

@@ -43,7 +43,7 @@
       };
     };
   flake = {
-    lib = lib'.self;
+    lib = lib';
     overlays.default = import ../overlay self.overlayArgs;
     nixpkgsConfig = {
       allowUnfree = true;

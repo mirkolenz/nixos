@@ -16,9 +16,9 @@ let
     }:
     let
       login = lib.head (lib.splitString "@" name);
-      os = lib'.self.systemOs system;
-      nixpkgs = lib'.self.systemInput {
-        inherit inputs os;
+      os = lib'.systemOs system;
+      nixpkgs = lib'.systemInput {
+        inherit os;
         channel = "unstable";
         name = "nixpkgs";
       };

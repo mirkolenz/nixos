@@ -12,7 +12,7 @@
     enable = true;
   };
   keymaps = lib.mkIf config.plugins.trouble.enable (
-    lib'.self.mkVimKeymaps
+    lib'.mkVimKeymaps
       {
         prefix = "Trouble ";
         raw = false;

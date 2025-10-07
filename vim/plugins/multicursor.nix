@@ -50,7 +50,7 @@
     ];
   };
   keymaps = lib.mkIf config.plugins.multicursor-nvim.enable (
-    lib'.self.mkVimKeymaps
+    lib'.mkVimKeymaps
       {
         prefix = "require('multicursor-nvim').";
         raw = true;

@@ -14,7 +14,7 @@ in
     enable = lib.mkEnableOption "AGENTS.md";
 
     settings = lib.mkOption {
-      type = lib'.self.mdFormat;
+      type = lib'.mdFormat;
       default = { };
     };
   };

@@ -8,7 +8,7 @@ final: prev:
 let
   inherit (prev.stdenv.hostPlatform) system;
   fromInput = input: package: inputs.${input}.packages.${system}.${package} or final.empty;
-  os = lib'.self.systemOs system;
+  os = lib'.systemOs system;
   nixpkgsArgs = {
     inherit system;
     config = self.nixpkgsConfig;
@@ -17,13 +17,13 @@ in
 {
   inherit prev;
   nixpkgs = import inputs.nixpkgs nixpkgsArgs;
-  stable = import (lib'.self.systemInput {
-    inherit inputs os;
+  stable = import (lib'.systemInput {
+    inherit os;
     name = "nixpkgs";
     channel = "stable";
   }) nixpkgsArgs;
-  unstable = import (lib'.self.systemInput {
-    inherit inputs os;
+  unstable = import (lib'.systemInput {
+    inherit os;
     name = "nixpkgs";
     channel = "unstable";
   }) nixpkgsArgs;
