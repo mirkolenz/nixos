@@ -13,33 +13,29 @@ let
     directory = ./by-name;
   };
 
+  scopes = [ "vimPlugins" ];
+
   drvs = lib.filterAttrs (name: value: lib.isDerivation value) current;
 
-  scopes = lib.filterAttrs (
-    name: value:
-    !lib.isDerivation value
-    && lib.isAttrs value
-    && lib.all (n: lib.isDerivation n) (lib.attrValues value)
-  ) current;
+  scopeDrvs = lib.getAttrs scopes current;
 
-  scopedDrvs = lib.concatMapAttrs (
+  flatScopeDrvs = lib.concatMapAttrs (
     scopeName: scopeValue:
     lib.mapAttrs' (drvName: drvValue: {
       name = "${scopeName}-${drvName}";
       value = drvValue;
     }) scopeValue
-  ) scopes;
+  ) scopeDrvs;
 
-  # scopedPkgs = lib.mapAttrs (name: value: prev.${name} // value) scopes;
+  pkgs = current // (lib.mapAttrs (name: value: prev.${name} // value) scopeDrvs);
 
 in
 lib.mergeAttrsList [
   (args.inputs.nix-darwin.overlays.default final prev)
   (import ./inputs.nix args final prev)
   (import ./overrides.nix final prev)
-  current
+  pkgs
   {
-    drvs = drvs // scopedDrvs;
-    vimPlugins = prev.vimPlugins // current.vimPlugins;
+    drvs = drvs // flatScopeDrvs;
   }
 ]
