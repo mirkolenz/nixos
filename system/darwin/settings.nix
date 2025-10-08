@@ -76,6 +76,7 @@
         "/Applications/Microsoft Word.app"
         "/Applications/Microsoft Excel.app"
         "/Applications/Microsoft PowerPoint.app"
+        "/Applications/Home Assistant.app"
         "/System/Applications/Utilities/Activity Monitor.app"
         "/System/Applications/System Settings.app"
       ];
