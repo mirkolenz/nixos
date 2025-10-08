@@ -1,11 +1,17 @@
-{ lib, pkgs, ... }:
+{ lib, config, ... }:
 {
   programs.starship = {
     enable = true;
     enableTransience = false;
-    settings = lib.mkMerge [
-      (lib.importTOML "${pkgs.starship.src}/docs/public/presets/toml/nerd-font-symbols.toml")
-      {
+    settings = lib.mkMerge (
+      (lib.map
+        (name: lib.importTOML "${config.programs.starship.package}/share/starship/presets/${name}.toml")
+        [
+          "nerd-font-symbols"
+          "bracketed-segments"
+        ]
+      )
+      ++ lib.singleton {
         add_newline = true;
         character = {
           success_symbol = "[](bold green)";
@@ -20,12 +26,12 @@
           disabled = false;
         };
         nix_shell = {
-          format = "via [$symbol$state]($style) ";
+          format = lib.mkForce "\\[[$symbol$state]($style)\\]";
           impure_msg = "nix-shell";
           pure_msg = "nix-shell";
           unknown_msg = "nix-shell";
         };
       }
-    ];
+    );
   };
 }
