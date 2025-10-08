@@ -8,7 +8,6 @@
         (name: lib.importTOML "${config.programs.starship.package}/share/starship/presets/${name}.toml")
         [
           "nerd-font-symbols"
-          "bracketed-segments"
         ]
       )
       ++ lib.singleton {
@@ -26,7 +25,7 @@
           disabled = false;
         };
         nix_shell = {
-          format = lib.mkForce "\\[[$symbol$state]($style)\\]";
+          format = "[$symbol$state]($style) ";
           impure_msg = "nix-shell";
           pure_msg = "nix-shell";
           unknown_msg = "nix-shell";
