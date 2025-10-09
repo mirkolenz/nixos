@@ -23,7 +23,7 @@
       bash-prompt-prefix = "(nix:$name)\\040";
       commit-lock-file-summary = "chore(deps): update flake.lock";
       flake-registry = "";
-      # log-lines = 1000; # https://github.com/nixos/nix/issues/13399
+      # log-lines = 200; # https://github.com/nixos/nix/issues/13399
       warn-dirty = false;
     };
     gc = {

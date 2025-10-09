@@ -32,7 +32,7 @@
     keep-failed = false;
     keep-going = true;
     keep-outputs = true;
-    log-lines = 1000;
+    log-lines = 200;
     warn-dirty = false;
     # determinate nix features
     eval-cores = 0;

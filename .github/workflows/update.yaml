@@ -24,6 +24,7 @@ jobs:
           extra-conf: |
             accept-flake-config = true
             eval-cores = 0
+            log-lines = 200
             commit-lock-file-summary = chore(deps): update flake.lock
       - name: update flake
         run: nix flake update --commit-lock-file
