@@ -10,12 +10,6 @@
   };
   # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
   custom.nix.settings = {
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-    extra-trusted-substituters = [
-      "https://nix-community.cachix.org"
-    ];
     # https://nix.dev/manual/nix/latest/development/experimental-features
     experimental-features = [
       "flakes"
