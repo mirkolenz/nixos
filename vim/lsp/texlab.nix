@@ -2,7 +2,7 @@
 {
   lsp.servers.texlab = {
     enable = true;
-    settings.settings.texlab = {
+    config.settings.texlab = {
       bibtexFormatter = "tex-fmt";
       latexFormatter = "tex-fmt";
       inlayHints = {

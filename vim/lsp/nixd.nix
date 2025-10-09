@@ -2,7 +2,7 @@
 {
   lsp.servers.nixd = {
     enable = true;
-    settings.settings = {
+    config.settings = {
       formatting.command = [ "nixfmt" ];
       nixpkgs.expr = "import (builtins.getFlake \"nixpkgs\") { }";
     };

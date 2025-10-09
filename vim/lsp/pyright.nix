@@ -2,7 +2,7 @@
 {
   lsp.servers.basedpyright = {
     enable = true;
-    settings.settings.basedpyright = {
+    config.settings.basedpyright = {
       typeCheckingMode = "standard";
       analysis = {
         diagnosticMode = "workspace";
