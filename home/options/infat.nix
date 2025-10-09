@@ -66,7 +66,7 @@ in
     ];
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
     home.file.${configFile} = lib.mkIf (cfg.settings != { }) {
-      source = tomlFormat.generate "infat-settings" cfg.settings;
+      source = tomlFormat.generate "infat-settings.toml" cfg.settings;
     };
     home.activation = lib.mkIf (cfg.settings != { } && cfg.package != null && cfg.autoActivate) {
       infat = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

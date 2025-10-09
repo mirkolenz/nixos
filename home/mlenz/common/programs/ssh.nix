@@ -66,7 +66,7 @@ in
   xdg.configFile."1Password/ssh/agent.toml" =
     lib.mkIf (osConfig.programs._1password-gui.enable or false)
       {
-        source = tomlFormat.generate "1password-ssh-agent" {
+        source = tomlFormat.generate "1password-ssh-agent.toml" {
           ssh-keys = [
             {
               vault = "Mirko";

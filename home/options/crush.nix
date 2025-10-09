@@ -37,7 +37,7 @@ in
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
 
     xdg.configFile."crush/crush.json" = lib.mkIf (cfg.settings != { }) {
-      source = jsonFormat.generate "crush-settings" cfg.settings;
+      source = jsonFormat.generate "crush-settings.json" cfg.settings;
     };
   };
 }

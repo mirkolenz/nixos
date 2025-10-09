@@ -72,22 +72,14 @@ in
     xdg.configFile = lib.mkMerge [
       {
         "macchina/macchina.toml" = lib.mkIf (cfg.settings != { }) {
-          source = tomlFormat.generate "macchina-config" cfg.settings;
+          source = tomlFormat.generate "macchina-config.toml" cfg.settings;
         };
-        # "macchina/themes" = lib.mkIf (cfg.themes != { }) {
-        #   source = pkgs.linkFarm "macchina-themes" (
-        #     lib.mapAttrsToList (name: value: {
-        #       name = "${name}.toml";
-        #       path = if lib.isAttrs value then tomlFormat.generate "macchina-theme-${name}" value else value;
-        #     }) cfg.themes
-        #   );
-        # };
       }
       (lib.mkIf (cfg.themes != { }) (
         lib.mapAttrs' (name: value: {
           name = "macchina/themes/${name}.toml";
           value.source =
-            if lib.isAttrs value then tomlFormat.generate "macchina-theme-${name}" value else value;
+            if lib.isAttrs value then tomlFormat.generate "macchina-theme-${name}.toml" value else value;
         }) cfg.themes
       ))
     ];

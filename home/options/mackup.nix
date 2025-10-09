@@ -38,14 +38,14 @@ in
   };
   config = lib.mkIf cfg.enable {
     home.file = {
-      ".mackup.cfg".source = iniFormat.generate "mackup-config" (
+      ".mackup.cfg".source = iniFormat.generate "mackup-config.cfg" (
         cfg.settings // { applications_to_sync = mkList allAppNames; }
       );
     }
     // (lib.mapAttrs' (name: value: {
       name = ".mackup/${name}.cfg";
       value = {
-        source = iniFormat.generate "mackup-config-${name}" value;
+        source = iniFormat.generate "mackup-config-${name}.cfg" value;
       };
     }) cfg.customApps);
     home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
