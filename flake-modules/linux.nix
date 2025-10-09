@@ -12,6 +12,7 @@ let
     {
       system,
       extraModule ? { },
+      nixosModule ? "default",
     }:
     inputs.nixpkgs-linux-unstable.lib.nixosSystem {
       system = null;
@@ -20,7 +21,7 @@ let
       };
       modules = [
         extraModule
-        self.nixosModules.default
+        self.nixosModules.${nixosModule}
         {
           networking = { inherit hostName; };
           nixpkgs.hostPlatform = system;

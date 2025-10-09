@@ -13,6 +13,7 @@ let
       system,
       computerName,
       extraModule ? { },
+      darwinModule ? "default",
       isDesktop ? true,
     }:
     inputs.nix-darwin.lib.darwinSystem {
@@ -22,7 +23,7 @@ let
       };
       modules = [
         extraModule
-        self.darwinModules.default
+        self.darwinModules.${darwinModule}
         {
           networking = {
             inherit hostName computerName;
