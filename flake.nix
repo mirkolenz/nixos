@@ -3,15 +3,11 @@
 
   # state dir: ~/.local/share/nix/trusted-settings.json
   nixConfig = {
-    substituters = [
-      "https://cache.nixos.org"
+    extra-substituters = [
       "https://mirkolenz.cachix.org"
-      "https://install.determinate.systems"
     ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    extra-trusted-public-keys = [
       "mirkolenz.cachix.org-1:R0dgCJ93t33K/gncNbKgUdJzwgsYVXeExRsZNz5jpho="
-      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
     ];
   };
 
