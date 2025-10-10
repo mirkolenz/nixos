@@ -12,10 +12,8 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {
     systemd-boot.enable = true;
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
-    };
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot/efi";
   };
 
   virtualisation.libvirtd.enable = true;

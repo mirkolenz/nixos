@@ -20,13 +20,10 @@
   custom.impureRebuild = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
   boot.loader = {
     systemd-boot.enable = true;
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
-    };
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot";
   };
 
   virtualisation.libvirtd.enable = true;

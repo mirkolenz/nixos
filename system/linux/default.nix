@@ -61,9 +61,9 @@
   documentation.man.generateCaches = false;
 
   boot.loader = {
-    systemd-boot.configurationLimit = 10;
     generic-extlinux-compatible.configurationLimit = 10;
     grub.configurationLimit = 10;
+    systemd-boot.configurationLimit = 10;
   };
 
   hardware.enableAllFirmware = true;
