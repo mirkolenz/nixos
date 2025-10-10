@@ -65,6 +65,7 @@
     grub.configurationLimit = 10;
     systemd-boot.configurationLimit = 10;
   };
+  boot.initrd.systemd.enable = true;
 
   hardware.enableAllFirmware = true;
 
