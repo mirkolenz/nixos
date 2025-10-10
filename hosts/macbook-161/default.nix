@@ -3,6 +3,7 @@
   imports = [
     "${inputs.nixos-hardware}/apple/t2"
     "${inputs.nixos-hardware}/common/pc/ssd"
+    ./disko.nix
     ./hardware.nix
   ];
   custom.profile.isDesktop = true;
@@ -13,6 +14,13 @@
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
   };
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 4 * 1024;
+    }
+  ];
 
   virtualisation.libvirtd.enable = true;
   services.openssh.enable = true;
