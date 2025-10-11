@@ -132,11 +132,14 @@ rec {
       dirContents = builtins.readDir dir;
       filteredContents = lib.filterAttrs filterPath dirContents;
       filteredPaths = builtins.attrNames filteredContents;
+      importedOverlays = lib.listToAttrs (
+        map (name: {
+          name = lib.removeSuffix ".nix" name;
+          value = import (dir + "/${name}") final prev;
+        }) filteredPaths
+      );
+      importedDefaultOverlay =
+        if lib.pathExists (dir + "/default.nix") then import (dir + "/default.nix") final prev else { };
     in
-    lib.listToAttrs (
-      map (name: {
-        name = lib.removeSuffix ".nix" name;
-        value = import (dir + "/${name}") final prev;
-      }) filteredPaths
-    );
+    importedDefaultOverlay // importedOverlays;
 }
