@@ -30,7 +30,7 @@ in
 lib.mergeAttrsList [
   (args.inputs.nix-darwin.overlays.default final prev)
   (import ./inputs.nix args final prev)
-  (import ./patches.nix final prev)
+  (import ./hotfixes.nix final prev)
   pkgs
   overrides
   {
