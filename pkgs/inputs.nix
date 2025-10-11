@@ -15,7 +15,6 @@ let
   };
 in
 {
-  inherit prev;
   nixpkgs = import inputs.nixpkgs nixpkgsArgs;
   stable = import (lib'.systemInput {
     inherit os;

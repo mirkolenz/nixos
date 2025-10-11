@@ -1,5 +1,5 @@
-{ nixpkgs }:
-nixpkgs.caddy.withPlugins {
+final: prev:
+final.nixpkgs.caddy.withPlugins {
   plugins = [
     # https://github.com/caddy-dns/cloudflare/tags
     "github.com/caddy-dns/cloudflare@v0.2.1"

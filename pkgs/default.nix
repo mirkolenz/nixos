@@ -1,16 +1,11 @@
-args: final: prev:
+args@{ lib', ... }:
+final: prev:
 let
   inherit (prev) lib;
 
   current = lib.packagesFromDirectoryRecursive {
-    callPackage = lib.callPackageWith (
-      final
-      // {
-        inherit (args) inputs;
-        inherit prev;
-      }
-    );
-    directory = ./by-name;
+    inherit (final) callPackage;
+    directory = ./derivations;
   };
 
   scopes = [ "vimPlugins" ];
@@ -29,13 +24,16 @@ let
 
   pkgs = current // (lib.mapAttrs (name: value: prev.${name} // value) scopeDrvs);
 
+  overrides = lib'.importOverlays ./overrides final prev;
+
 in
 lib.mergeAttrsList [
   (args.inputs.nix-darwin.overlays.default final prev)
   (import ./inputs.nix args final prev)
-  (import ./overrides.nix final prev)
+  (import ./patches.nix final prev)
   pkgs
+  overrides
   {
-    drvs = drvs // flatScopeDrvs;
+    drvs = drvs // flatScopeDrvs // overrides;
   }
 ]

@@ -122,4 +122,21 @@ rec {
       };
     }
   );
+
+  importOverlays =
+    dir: final: prev:
+    let
+      filterPath =
+        name: type:
+        !lib.hasPrefix "_" name && type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix";
+      dirContents = builtins.readDir dir;
+      filteredContents = lib.filterAttrs filterPath dirContents;
+      filteredPaths = builtins.attrNames filteredContents;
+    in
+    lib.listToAttrs (
+      map (name: {
+        name = lib.removeSuffix ".nix" name;
+        value = import (dir + "/${name}") final prev;
+      }) filteredPaths
+    );
 }

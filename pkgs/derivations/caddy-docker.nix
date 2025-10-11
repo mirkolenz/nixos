@@ -1,7 +1,7 @@
 # https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl
 {
   lib,
-  caddy,
+  caddyWithPlugins,
   cacert,
   tzdata,
   mkDocker,
@@ -18,7 +18,7 @@ mkDocker {
     mkdir -m 1777 tmp
   '';
   config = {
-    Entrypoint = [ (lib.getExe caddy) ];
+    Entrypoint = [ (lib.getExe caddyWithPlugins) ];
     Cmd = [
       "run"
       "--config"
