@@ -3,7 +3,7 @@
   writers,
   python3Packages,
   determinate-nix,
-  nixpkgs,
+  inputs,
 }:
 writers.writePython3Bin "updater" {
   libraries = with python3Packages; [ typer ];
@@ -16,7 +16,7 @@ writers.writePython3Bin "updater" {
       ])
       [
         "--nixpkgs"
-        nixpkgs.path
+        inputs.nixpkgs.outPath
         "--nix-shell"
         (lib.getExe' determinate-nix "nix-shell")
       ];
