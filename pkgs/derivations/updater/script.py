@@ -55,7 +55,7 @@ def run(
         )
         raise typer.Exit(1)
     elif specs == 0:
-        attrset = "drvs"
+        attrset = "drvsUpdate"
 
     cmd: list[str] = [
         nix_shell,

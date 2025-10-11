@@ -13,7 +13,4 @@ final: prev:
       # needs webkitgtk
       (prev.lib.cmakeBool "MDVIEW" false)
     ];
-    passthru = prevAttrs.passthru // {
-      updateScript = null;
-    };
   })

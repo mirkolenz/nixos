@@ -31,7 +31,7 @@
       packages =
         (lib.filterAttrs (
           name: value: lib.meta.availableOn { inherit system; } value && !(value.meta.broken or false)
-        ) pkgs.drvs)
+        ) pkgs.drvsExport)
         // {
           default = pkgs.writeShellScriptBin "builder" ''
             exec ${lib.getExe pkgs.builder} --flake ${self.outPath} "$@"

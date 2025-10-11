@@ -34,6 +34,7 @@ lib.mergeAttrsList [
   pkgs
   overrides
   {
-    drvs = drvs // flatScopeDrvs // overrides;
+    drvsExport = drvs // flatScopeDrvs // overrides;
+    drvsUpdate = drvs // flatScopeDrvs;
   }
 ]
