@@ -6,12 +6,12 @@
 }:
 mkApp rec {
   pname = "restic-browser";
-  version = "0.3.2";
+  version = "0.3.3";
   appname = "Restic-Browser";
 
   src = fetchzip {
     url = "https://github.com/emuell/restic-browser/releases/download/v${version}/${appname}-v${version}-macOS.zip";
-    hash = "sha256-3uPmdJZmUPfQjVCuf5h9Wa/rzezJqgfqsDz0vdcf5AM=";
+    hash = "sha256-aLrZ/doMwd5xZ6ITtzTlrS4oPtGzgzqyryjRAdRBqZM=";
     # the downloaded zip contains a tar archive instead of the app
     postFetch = ''
       tar -xf "$out/${appname}.app.tar" -C "$out"
