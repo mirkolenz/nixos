@@ -25,6 +25,7 @@ let
   pkgs = current // (lib.mapAttrs (name: value: prev.${name} // value) scopeDrvs);
 
   overrides = lib'.importOverlays ./overrides final prev;
+  overridesUpdate = [ "zuban" ];
 
 in
 lib.mergeAttrsList [
@@ -35,6 +36,6 @@ lib.mergeAttrsList [
   overrides
   {
     drvsExport = drvs // flatScopeDrvs // overrides;
-    drvsUpdate = drvs // flatScopeDrvs;
+    drvsUpdate = drvs // flatScopeDrvs // (lib.getAttrs overridesUpdate overrides);
   }
 ]
