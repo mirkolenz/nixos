@@ -3,12 +3,13 @@ final: prev:
 let
   inherit (prev) lib;
 
+  scopes = [ "vimPlugins" ];
+  overridesUpdate = [ ];
+
   current = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
     directory = ./derivations;
   };
-
-  scopes = [ "vimPlugins" ];
 
   drvs = lib.filterAttrs (name: value: lib.isDerivation value) current;
 
@@ -25,7 +26,6 @@ let
   pkgs = current // (lib.mapAttrs (name: value: prev.${name} // value) scopeDrvs);
 
   overrides = lib'.importOverlays ./overrides final prev;
-  overridesUpdate = [ "zuban" ];
 
 in
 lib.mergeAttrsList [
