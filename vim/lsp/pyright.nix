@@ -1,7 +1,7 @@
 { ... }:
 {
   lsp.servers.basedpyright = {
-    enable = true;
+    enable = false;
     config.settings.basedpyright = {
       typeCheckingMode = "standard";
       analysis = {
