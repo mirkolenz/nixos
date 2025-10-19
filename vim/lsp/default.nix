@@ -19,7 +19,7 @@
       ts_ls.enable = true;
       tinymist.enable = true;
       yamlls.enable = true;
-      zuban.enable = true;
+      zuban.enable = false;
     };
   };
 }
