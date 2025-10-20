@@ -37,10 +37,7 @@ mkGitHubBinary {
   doInstallCheck = true;
 
   meta = {
-    description = "An extremely fast Python type checker and language server, written in Rust";
-    homepage = "https://github.com/astral-sh/ty";
-    downloadPage = "https://github.com/astral-sh/ty/releases";
-    mainProgram = "ty";
+    description = "Extremely fast Python type checker and language server, written in Rust";
     platforms = lib.attrNames platforms;
     license = lib.licenses.mit;
   };

@@ -104,6 +104,8 @@ stdenv.mkDerivation (
       };
 
       meta = meta // {
+        homepage = "https://github.com/${owner}/${repo}";
+        downloadPage = "https://github.com/${owner}/${repo}/releases";
         maintainers = with lib.maintainers; [ mirkolenz ];
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
         mainProgram = pname;

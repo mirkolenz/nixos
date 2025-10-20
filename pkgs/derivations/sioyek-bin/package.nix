@@ -43,8 +43,6 @@ mkApp rec {
 
   meta = {
     description = "PDF viewer with a focus on textbooks and research papers";
-    homepage = "https://sioyek.info";
-    downloadPage = "https://github.com/ahrm/sioyek/releases";
     license = lib.licenses.gpl3;
     platforms = lib.attrNames platforms;
   };

@@ -37,10 +37,7 @@ mkGitHubBinary {
   doInstallCheck = true;
 
   meta = {
-    description = "An extremely fast Python linter and code formatter, written in Rust";
-    homepage = "https://github.com/astral-sh/ruff";
-    downloadPage = "https://github.com/astral-sh/ruff/releases";
-    mainProgram = "ruff";
+    description = "Extremely fast Python linter and code formatter, written in Rust";
     platforms = lib.attrNames platforms;
     license = lib.licenses.mit;
   };

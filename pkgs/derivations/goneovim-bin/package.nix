@@ -29,8 +29,6 @@ mkApp rec {
 
   meta = ghBin.meta // {
     description = "GUI frontend for neovim";
-    homepage = "https://github.com/akiyosi/goneovim";
-    downloadPage = "https://github.com/akiyosi/goneovim/releases";
     license = lib.licenses.mit;
     platforms = lib.attrNames platforms;
   };

@@ -49,8 +49,6 @@ mkGitHubBinary {
 
   meta = {
     description = "Lightweight coding agent that runs in your terminal";
-    homepage = "https://github.com/openai/codex";
-    downloadPage = "https://github.com/openai/codex/releases";
     platforms = lib.attrNames platforms;
     license = lib.licenses.asl20;
   };

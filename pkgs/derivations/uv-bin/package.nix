@@ -41,9 +41,7 @@ mkGitHubBinary {
   doInstallCheck = true;
 
   meta = {
-    description = "An extremely fast Python package and project manager, written in Rust";
-    homepage = "https://github.com/astral-sh/uv";
-    downloadPage = "https://github.com/astral-sh/uv/releases";
+    description = "Extremely fast Python package and project manager, written in Rust";
     platforms = lib.attrNames platforms;
     license = with lib.licenses; [
       mit

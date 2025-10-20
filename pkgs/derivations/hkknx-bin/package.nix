@@ -27,9 +27,6 @@ mkGitHubBinary {
 
   meta = {
     description = "HomeKit Bridge for KNX";
-    homepage = "https://hochgatterer.me/hkknx";
-    downloadPage = "https://github.com/brutella/hkknx-public/releases";
-    mainProgram = "hkknx";
     platforms = lib.attrNames platforms;
     license = lib.licenses.unfree;
   };

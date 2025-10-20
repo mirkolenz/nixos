@@ -66,9 +66,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = ghBin.meta // {
     description = "Use GitHub Copilot with any editor or IDE via the Language Server Protocol";
-    homepage = "https://github.com/github/copilot-language-server-release";
-    downloadPage = "https://github.com/github/copilot-language-server-release/releases";
-    mainProgram = "copilot-language-server";
     platforms = lib.attrNames platforms;
     license = lib.licenses.unfree;
   };
