@@ -6,7 +6,7 @@
 }:
 lib.mkIf config.custom.profile.isWorkstation {
   home.packages = with pkgs; [
-    typst
+    typst-bin
     typstyle
     tinymist
   ];
