@@ -18,21 +18,18 @@
       git_protocol = "ssh";
     };
   };
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    options = {
+      background = "dark";
+      color = "always";
+      display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
+    };
+  };
   programs.git = {
     enable = true;
-    userName = user.name;
-    userEmail = user.mail;
-    lfs = {
-      enable = true;
-    };
-    difftastic = {
-      enable = true;
-      options = {
-        background = "dark";
-        color = "always";
-        display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
-      };
-    };
+    lfs.enable = true;
     ignores = [
       # nix
       ".devenv"
@@ -85,7 +82,11 @@
       "*.msp"
       "*.lnk"
     ];
-    extraConfig = {
+    settings = {
+      user = {
+        name = user.name;
+        mail = user.mail;
+      };
       core = {
         autocrlf = "input";
         editor = config.home.sessionVariables.EDITOR;
