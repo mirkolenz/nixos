@@ -92,7 +92,7 @@ let
     "cascadia-mono"
     "caskaydia-cove-nerd-font"
     "eagle-lake"
-    "eb-garamond"
+    # "eb-garamond" # todo: enable after aws outage is resolved
     "expletus-sans"
     "fira-code"
     "fira-code-nerd-font"
