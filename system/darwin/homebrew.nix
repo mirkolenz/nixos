@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   caskApps = [
     "1password"
@@ -170,4 +175,7 @@ in
     casks = caskApps ++ caskFonts;
     inherit masApps;
   };
+  programs.fish.loginShellInit = ''
+    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
+  '';
 }
