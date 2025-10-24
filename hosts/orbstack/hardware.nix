@@ -3,6 +3,7 @@
   lib',
   config,
   user,
+  pkgs,
   ...
 }:
 {
@@ -103,9 +104,10 @@
 
   # indicate builder support for emulated architectures
   nix.settings.extra-platforms = [
-    "x86_64-linux"
     "i686-linux"
-  ];
+  ]
+  ++ (lib.optionals pkgs.stdenv.isx86_64 [ "aarch64-linux" ])
+  ++ (lib.optionals pkgs.stdenv.isAarch64 [ "x86_64-linux" ]);
 
   users.groups.orbstack.gid = 67278;
 }

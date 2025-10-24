@@ -16,7 +16,6 @@ in
 
   custom.impureRebuild = true;
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.settings.trusted-users = [ user.login ];
 
   home-manager.users.${user.login} = {
