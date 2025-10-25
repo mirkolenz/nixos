@@ -1,17 +1,17 @@
 {
-  "tag_name": "v0.14.0-rc.2",
+  "tag_name": "v0.14.0",
   "assets": {
     "typst-aarch64-apple-darwin.tar.xz": {
-      "digest": "sha256:fd9a08bd507b9489f729bbc986a2d06163a0c4079ea87beac6ed691daceaf1b4"
+      "digest": "sha256:a957bfbb657b9f272c2a99dc07fe4f28cceaf6d866db5dcd53cdbcc9ee168db9"
     },
     "typst-aarch64-unknown-linux-musl.tar.xz": {
-      "digest": "sha256:29bcaad267931f752b1e5b2cb08892eb80a6d3d172033e230f539e750baa1d3f"
+      "digest": "sha256:3ad461772773256021ff38a0db3acf85f3ecdb00b93606a32f8c5ae043f6c62b"
     },
     "typst-x86_64-apple-darwin.tar.xz": {
-      "digest": "sha256:8f207b6f7ef49bbae4fef4d238ee96f749dd0a6868e624f183e2b7a0e55e4f10"
+      "digest": "sha256:97f1015fb786634b4c6f86f5947fab125253d4cc14089afa0d6d2e7eb2681f83"
     },
     "typst-x86_64-unknown-linux-musl.tar.xz": {
-      "digest": "sha256:922f32857130eb315beee57d6a35f3df244d4edaefc7b54fa3f700a3e4391f7f"
+      "digest": "sha256:99816d2982de08d2b091bac56b59b2faa523a10e1378ad3cdd68e35b8eb74b3d"
     }
   }
 }
