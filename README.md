@@ -160,6 +160,21 @@ sudo /nix/nix-installer uninstall
 ### Applications and Settings
 
 <details>
+<summary>Shell</summary>
+
+- Copy `$HOME/.local/share/fish/fish_history`
+- Copy `$HOME/.ssh/id_ed25519`
+
+</details>
+<details>
+
+<summary>Zed</summary>
+
+- Copy keymap/settings/tasks from `$HOME/.config/zed`
+
+</details>
+
+<details>
 <summary>System Preferences</summary>
 
 - `General > About`: Set name
@@ -191,7 +206,8 @@ sudo /nix/nix-installer uninstall
 <details>
 <summary>Zotero</summary>
 
-- [Install Better BibTeX](https://github.com/retorquere/zotero-better-bibtex)
+- Install [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex/releases)
+- Install [Open PDF](https://github.com/retorquere/zotero-open-pdf/releases)
 - `Settings > General > Customize Filename Format > {{ creators max="1" case="hyphen" }}-{{ year }}-{{ title truncate="50" case="hyphen" }}`
 - `Settings General > Reader > Tabs > Creator - Title - Year`
 - `Settings > Export > Item Format > Better BibTeX Citation Key Quick Copy`
