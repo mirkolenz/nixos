@@ -20,10 +20,12 @@
   };
   plugins.treesitter-textobjects = {
     enable = true;
-    lspInterop.enable = true;
-    move.enable = true;
-    select.enable = true;
-    swap.enable = true;
+    settings = {
+      lsp_interop.enable = true;
+      move.enable = true;
+      select.enable = true;
+      swap.enable = true;
+    };
   };
   plugins.treesitter-context = {
     enable = true;
