@@ -1,10 +1,5 @@
 final: prev:
-{
-  inherit (final.stable)
-    # https://hydra.nixos.org/job/nixpkgs/trunk/libraspberrypi.aarch64-linux
-    libraspberrypi
-    ;
-}
+{ }
 // (prev.lib.optionalAttrs prev.stdenv.isDarwin {
   inherit (final.stable)
     # https://hydra.nixos.org/job/nixpkgs/trunk/gitui.aarch64-darwin
