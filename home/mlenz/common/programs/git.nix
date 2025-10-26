@@ -85,7 +85,7 @@
     settings = {
       user = {
         name = user.name;
-        mail = user.mail;
+        email = user.mail;
       };
       core = {
         autocrlf = "input";
