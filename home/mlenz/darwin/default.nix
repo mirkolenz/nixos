@@ -37,4 +37,7 @@
   home.shellAliases = {
     copy = ''${lib.getExe' pkgs.coreutils "tr"} -d '\n' | pbcopy'';
   };
+  # todo: remove after 25.11
+  targets.darwin.linkApps.enable = false;
+  targets.darwin.copyApps.enable = true;
 }
