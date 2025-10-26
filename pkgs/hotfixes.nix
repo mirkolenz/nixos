@@ -1,5 +1,7 @@
 final: prev:
 { }
+// (prev.lib.optionalAttrs prev.stdenv.isLinux {
+})
 // (prev.lib.optionalAttrs prev.stdenv.isDarwin {
   inherit (final.stable)
     # https://hydra.nixos.org/job/nixpkgs/trunk/gitui.aarch64-darwin
