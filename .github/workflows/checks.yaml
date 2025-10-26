@@ -31,6 +31,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+          - system: aarch64-linux
+            runner: ubuntu-24.04-arm
           - system: x86_64-linux
             runner: ubuntu-24.04
           - system: aarch64-darwin
