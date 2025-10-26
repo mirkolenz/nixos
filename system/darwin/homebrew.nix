@@ -48,7 +48,7 @@ let
   ++ lib.optionals pkgs.stdenv.isAarch64 [
     "chatgpt"
     "lm-studio"
-    "ollama"
+    "ollama-app"
   ];
 
   masApps = {
