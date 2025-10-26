@@ -14,6 +14,7 @@
     restic-browser-bin
     undmg
     rcodesign
+    container
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''
