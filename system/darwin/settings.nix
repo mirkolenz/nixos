@@ -128,11 +128,11 @@
       spans-displays = false;
     };
     trackpad = {
-      ActuationStrength = 1;
+      ActuationStrength = 0;
       Clicking = true;
       Dragging = true;
-      FirstClickThreshold = 1;
-      SecondClickThreshold = 2;
+      FirstClickThreshold = 0;
+      SecondClickThreshold = 0;
       TrackpadRightClick = true;
       TrackpadThreeFingerDrag = true;
       TrackpadThreeFingerTapGesture = 0;
