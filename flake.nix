@@ -96,6 +96,10 @@
       url = "github:jzbor/nix-sweep";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plist-manager = {
+      url = "github:sushydev/nix-plist-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     cosmic-manager = {
       url = "github:heitoraugustoln/cosmic-manager";
       inputs = {

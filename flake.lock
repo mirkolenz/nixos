@@ -365,6 +365,23 @@
         "type": "github"
       }
     },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1760295538,
+        "narHash": "sha256-SgnrSgyWj2ezIftKRpf+C6AdYqTkXN4iJA+JRQtdjrk=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "904fa32d77609f281ef32d5209926d81848b687a",
+        "type": "github"
+      },
+      "original": {
+        "id": "home-manager",
+        "type": "indirect"
+      }
+    },
     "ixx": {
       "inputs": {
         "flake-utils": [
@@ -669,6 +686,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1759831965,
+        "narHash": "sha256-vgPm2xjOmKdZ0xKA6yLXPJpjOtQPHfaZDRtH+47XEBo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c9b6fb798541223bbb396d287d16f43520250518",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": [
@@ -717,6 +750,27 @@
         "type": "github"
       }
     },
+    "plist-manager": {
+      "inputs": {
+        "home-manager": "home-manager_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1761409019,
+        "narHash": "sha256-SMKm7eh2H1o1KeJhIc4O+QSwR+KBjKgrW+jqL7lY9hI=",
+        "owner": "sushydev",
+        "repo": "nix-plist-manager",
+        "rev": "ca7defcbc98c2b4fd0ebd166cc3e14cae40cbe73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sushydev",
+        "repo": "nix-plist-manager",
+        "type": "github"
+      }
+    },
     "quadlet-nix": {
       "inputs": {
         "flake-parts": [
@@ -761,6 +815,7 @@
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
         "nixvim": "nixvim",
+        "plist-manager": "plist-manager",
         "quadlet-nix": "quadlet-nix",
         "systems": "systems_4",
         "texmf": "texmf",
