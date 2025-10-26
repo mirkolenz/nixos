@@ -33,7 +33,7 @@ in
 {
   flake.nixosConfigurations = lib.mapAttrs mkLinuxSystem {
     orbstack = {
-      system = "x86_64-linux";
+      system = "aarch64-linux";
     };
     macpro = {
       system = "x86_64-linux";
