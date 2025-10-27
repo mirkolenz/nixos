@@ -1,0 +1,17 @@
+{
+  "tag_name": "v0.27.0",
+  "assets": {
+    "gitui-linux-aarch64.tar.gz": {
+      "digest": null
+    },
+    "gitui-linux-x86_64.tar.gz": {
+      "digest": null
+    },
+    "gitui-mac-x86.tar.gz": {
+      "digest": null
+    },
+    "gitui-mac.tar.gz": {
+      "digest": null
+    }
+  }
+}

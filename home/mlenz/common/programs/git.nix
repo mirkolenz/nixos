@@ -175,6 +175,7 @@
   };
   programs.gitui = {
     enable = true;
+    package = pkgs.gitui-bin;
     keyConfig = "${pkgs.gitui.src}/vim_style_key_config.ron";
   };
   programs.lazygit = {
