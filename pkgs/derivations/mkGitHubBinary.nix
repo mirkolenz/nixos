@@ -80,7 +80,7 @@ stdenv.mkDerivation (
         runHook postInstall
       '';
 
-      passthru = passthru // {
+      passthru = {
         updateScript = writeScript "github-binaries-${owner}-${repo}" ''
           #!/usr/bin/env nix-shell
           #!nix-shell --pure --keep GH_TOKEN -i bash -p gh jq
@@ -101,15 +101,17 @@ stdenv.mkDerivation (
 
           echo "$output" > "${toString file}"
         '';
-      };
+      }
+      // passthru;
 
-      meta = meta // {
+      meta = {
         homepage = "https://github.com/${owner}/${repo}";
         downloadPage = "https://github.com/${owner}/${repo}/releases";
         maintainers = with lib.maintainers; [ mirkolenz ];
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
         mainProgram = pname;
-      };
+      }
+      // meta;
     }
   )
 )

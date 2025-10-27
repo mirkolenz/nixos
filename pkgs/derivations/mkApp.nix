@@ -38,11 +38,12 @@ stdenvNoCC.mkDerivation (
     nativeBuildInputs =
       nativeBuildInputs ++ [ undmg ] ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 
-    meta = meta // {
+    meta = {
       maintainers = with lib.maintainers; [ mirkolenz ];
       platforms = lib.platforms.darwin;
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       mainProgram = pname;
-    };
+    }
+    // meta;
   }
 )
