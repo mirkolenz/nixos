@@ -1,5 +1,16 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  environment.systemPackages = lib.mkIf config.virtualisation.podman.enable (
+    with pkgs;
+    [
+      podman-compose
+    ]
+  );
   virtualisation.podman = {
     enable = true;
     # logDriver = "json-file";
