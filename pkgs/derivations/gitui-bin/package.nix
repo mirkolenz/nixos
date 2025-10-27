@@ -1,6 +1,6 @@
 {
   lib,
-  # stdenv,
+  stdenv,
   versionCheckHook,
   mkGitHubBinary,
 }:
@@ -22,7 +22,10 @@ mkGitHubBinary {
 
   sourceRoot = ".";
 
-  # buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
+  buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
+
+  # TODO: enable after next release (currently digest is missing)
+  passthru.updateScript = null;
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";

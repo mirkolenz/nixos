@@ -2,16 +2,16 @@
   "tag_name": "v0.27.0",
   "assets": {
     "gitui-linux-aarch64.tar.gz": {
-      "digest": null
+      "digest": "sha256-VhFuJ4xhjAVOdXWt87NXUEx1+htaPsuTFFBNUhwHoAg="
     },
     "gitui-linux-x86_64.tar.gz": {
-      "digest": null
+      "digest": "sha256-5YvXdhcKxx5OV2xg66p8z7dw8HnnjrSy0/TA1P6v3Z8="
     },
     "gitui-mac-x86.tar.gz": {
-      "digest": null
+      "digest": "sha256-NxP80OIvKINsPptvWem563F/c7Fbn6NuL05wtbOEw6c="
     },
     "gitui-mac.tar.gz": {
-      "digest": null
+      "digest": "sha256-Fn+SJnQt1q3o9gudJfcOAtP16kDG4HUiFkMuL5htZgg="
     }
   }
 }
