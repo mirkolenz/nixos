@@ -214,6 +214,7 @@ sudo /nix/nix-installer uninstall
 - `Settings > Export > Note Format > Markdown + Rich Text`
 - `Settings > Better BibTeX > Citation Key Format > auth.capitalize + year + shorttitle(3,3)`
 - `Settings > Better BibTeX > Citation Key Format > Automatic Export > Delay > 10 seconds`
+- `Settings > Better BibTeX > Fields > Omit > file, keywords`
 
 </details>
 
