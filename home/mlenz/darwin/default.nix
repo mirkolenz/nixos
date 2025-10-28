@@ -15,6 +15,7 @@
     undmg
     rcodesign
     container
+    ollama-copilot
     (writeShellApplication {
       name = "scansnap-reset";
       text = ''
