@@ -40,4 +40,5 @@
   # todo: remove after 25.11
   targets.darwin.linkApps.enable = false;
   targets.darwin.copyApps.enable = true;
+  targets.darwin.copyApps.enableChecks = false; # requires sudo during activation
 }
