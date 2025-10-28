@@ -17,6 +17,7 @@ let
     "firefox"
     "fission"
     "forklift"
+    "fujitsu-scansnap-home"
     "ghostty"
     "godspeed"
     "google-chrome"
