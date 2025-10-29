@@ -6,7 +6,7 @@
 }:
 let
   caskApps = [
-    "1password@beta"
+    "1password"
     "alt-tab"
     "anydesk"
     "arq"
