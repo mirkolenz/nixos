@@ -52,9 +52,9 @@ let
     "ollama-app"
   ];
 
+  # microsoft-outlook = 985367838;
   masApps = {
     _1password-safari = 1569813296;
-    aiko = 1672085276;
     ausweisapp = 948660805;
     base = 6744867438;
     bitwarden = 1352778147;
@@ -68,7 +68,6 @@ let
     mela = 1568924476;
     microsoft-excel = 462058435;
     microsoft-onedrive = 823766827;
-    microsoft-outlook = 985367838;
     microsoft-powerpoint = 462062816;
     microsoft-windows = 1295203466;
     microsoft-word = 462054704;
@@ -83,6 +82,7 @@ let
     texstage = 6737460352;
     vinegar = 1591303229;
     whatsapp = 310633997;
+    whisper-transcription = 1668083311;
   };
 
   caskFonts = map (name: "font-${name}") [
