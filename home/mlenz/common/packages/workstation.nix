@@ -31,7 +31,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     cc2538-bsl
     imagemagick
     pngquant
-    poppler_utils
+    poppler-utils
     ffmpeg
     ffmpeg-normalize
     qpdf
