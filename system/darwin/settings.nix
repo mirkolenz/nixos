@@ -61,7 +61,7 @@
         "/Applications/1Password.app"
         "/Applications/ChatGPT.app"
         "/Applications/LM Studio.app"
-        "/Applications/Whisper Transcription.app"
+        "/Applications/MacWhisper.app"
         "/Applications/Raindrop.io.app"
         "/System/Applications/Messages.app"
         "/Applications/WhatsApp.app"

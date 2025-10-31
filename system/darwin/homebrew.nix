@@ -7,6 +7,7 @@
 let
   caskApps = [
     "1password"
+    "affinity"
     "alt-tab"
     "anydesk"
     "arq"
@@ -82,7 +83,6 @@ let
     texstage = 6737460352;
     vinegar = 1591303229;
     whatsapp = 310633997;
-    whisper-transcription = 1668083311;
   };
 
   caskFonts = map (name: "font-${name}") [
@@ -122,6 +122,7 @@ let
     "jetbrains-mono-nerd-font"
     "jost"
     "lugrasimo"
+    "macwhisper"
     "manrope"
     "monaspace"
     "monaspice-nerd-font"
