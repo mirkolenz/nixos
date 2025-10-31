@@ -9,19 +9,19 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zuban";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "zubanls";
     repo = "zuban";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-FVWWhcq0joRXsWBH/3NECzwmJGX7P7bXi5zfG113KBY=";
+    hash = "sha256-cyTEFkGqBX0u8S8BlXNYDUBVjEkp1MqJnbY+64DHksk=";
     fetchSubmodules = true;
   };
 
   buildAndTestSubdir = "crates/zuban";
 
-  cargoHash = "sha256-aDpzC39im+iWkOR8aq/CVDEZBDs3tR4KjwGQ7Bf7RrU=";
+  cargoHash = "sha256-gdHFI/HFQKoWixPeVX4xG5V1NaKPUJ9d6BX/dZWYOYg=";
 
   postInstall = ''
     mkdir -p $out/${python3.sitePackages}/zuban
