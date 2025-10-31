@@ -7,16 +7,16 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "mcp-inspector";
-  version = "0.11.0";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-26GShdU1wO8k8sOeOYoGWHRkh1DUyT2dbTXxSpIYg4Y=";
+    hash = "sha256-9UiBNYieI7ne56qEbERcQGgzGmuLuW5MWOFI3mIwkW8=";
   };
 
-  npmDepsHash = "sha256-HpYvgOEJh/aRxsPgOPC3TQZkbggCfoduLtP792ocNQU=";
+  npmDepsHash = "sha256-JuIYVXbyCNPUdaPJkmuCs7C682ibiGurJ+bxjTqp5dY=";
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
