@@ -32,4 +32,8 @@
     eval-cores = 0;
     lazy-trees = true;
   };
+  # https://docs.determinate.systems/determinate-nix/#determinate-nixd-configuration
+  environment.etc."determinate/config.json".text = lib.strings.toJSON {
+    builder.state = "disabled";
+  };
 }
