@@ -16,10 +16,10 @@ let
       command="$1"
       shift
       if [ "$command" = "exec" ]; then
-        exec sudo ${lib.getExe pkgs.podman} exec "$@"
+        exec sudo ${lib.getExe pkgs.podman} exec "systemd-$1" "''${@:2}"
       fi
       if [ "$command" = "update" ]; then
-        exec sudo ${lib.getExe pkgs.podman} auto-update "$@"
+        exec sudo ${lib.getExe pkgs.podman} auto-update "systemd-$1" "''${@:2}"
       fi
       if [ "$command" = "service" ]; then
         exec systemctl "''${2:-status}" "$1.service" "''${@:3}"
@@ -34,11 +34,11 @@ let
         echo "Usage: ${name} <command>
 
         Available commands:
-        exec <container> <cmd>: Run a command in an existing container
-        update <args>: Run podman auto-update
+        exec <container> <args>: Run a command in an existing container
+        update <container> <args>: Run podman auto-update
         service <container> <action> <args>: Control the systemd service
         journal <container> <args>: Show the logs of the podman service
-        unshare <id> <cmd>: Run a command in a new user namespace
+        unshare <id> <args>: Run a command in a new user namespace
         "
         exit 0
       fi
