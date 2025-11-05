@@ -164,18 +164,16 @@ in
 {
   homebrew = {
     enable = true;
-    global = {
-      autoUpdate = true;
-    };
+    global.autoUpdate = true;
     onActivation = {
       autoUpdate = true;
-      upgrade = true;
       cleanup = "uninstall";
+      upgrade = true;
     };
     taps = [ ];
     brews = [ ];
     casks = caskApps ++ caskFonts;
-    inherit masApps;
+    # inherit masApps;
   };
   programs.fish.loginShellInit = ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
