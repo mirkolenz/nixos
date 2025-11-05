@@ -54,7 +54,6 @@ let
     "ollama-app"
   ];
 
-  # microsoft-outlook = 985367838;
   masApps = {
     _1password-safari = 1569813296;
     ausweisapp = 948660805;
