@@ -1,17 +1,17 @@
 {
-  "tag_name": "1.391.0",
+  "tag_name": "1.392.0",
   "assets": {
-    "copilot-language-server-darwin-arm64-1.391.0.zip": {
-      "digest": "sha256:9525111b5ecfa4b1ca3935b1b949e0032ea597c414ddc5296f994ebfd5f4345b"
+    "copilot-language-server-darwin-arm64-1.392.0.zip": {
+      "digest": "sha256:12473af92d189d042c212d02c14d8b46cf4c779363ba64a9014d7a9a4ecc06f7"
     },
-    "copilot-language-server-darwin-x64-1.391.0.zip": {
-      "digest": "sha256:067e379ac6cdb74bf6a957f15af1b77c01f2276c7fbc3030b90a945ec77d31b4"
+    "copilot-language-server-darwin-x64-1.392.0.zip": {
+      "digest": "sha256:2f6eeaaa5c2d15eafc5b12569d889dac8c9393e89bac0498291b6031525d1dcd"
     },
-    "copilot-language-server-linux-arm64-1.391.0.zip": {
-      "digest": "sha256:c83f625c84f9921bb084e1abe157116bf89cdef251db266b3478c2d0f6f64116"
+    "copilot-language-server-linux-arm64-1.392.0.zip": {
+      "digest": "sha256:75b87d50cc146c65d4fa10711f6681720c0a7e9e02937b8ff22b5a30d511ecea"
     },
-    "copilot-language-server-linux-x64-1.391.0.zip": {
-      "digest": "sha256:e364d4a158855550677f92cdc8f64d4c225970d9cb5d8f14b6b6a814af4c323a"
+    "copilot-language-server-linux-x64-1.392.0.zip": {
+      "digest": "sha256:1e2016e1918179965610c28fe0f196fc62f75b4e8e2f620d964c901c13250c89"
     }
   }
 }
