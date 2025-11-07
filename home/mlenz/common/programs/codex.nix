@@ -31,10 +31,10 @@
         };
       };
       features = {
-        unified_exec = true;
-        streamable_shell = true;
-        rmcp_client = true;
         apply_patch_freeform = true;
+        rmcp_client = true;
+        streamable_shell = true;
+        unified_exec = true;
         view_image_tool = true;
         web_search_request = true;
       };
