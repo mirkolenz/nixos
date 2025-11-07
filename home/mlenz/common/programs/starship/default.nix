@@ -1,16 +1,12 @@
-{ lib, config, ... }:
+{ lib, ... }:
 {
   programs.starship = {
     enable = true;
     enableTransience = false;
-    settings = lib.mkMerge (
-      (lib.map
-        (name: lib.importTOML "${config.programs.starship.package}/share/starship/presets/${name}.toml")
-        [
-          "nerd-font-symbols"
-        ]
-      )
-      ++ lib.singleton {
+    settings = [
+      # https://github.com/starship/starship/blob/master/docs/public/presets/toml/nerd-font-symbols.toml
+      (lib.importTOML ./nerd-font-symbols.toml)
+      {
         add_newline = true;
         character = {
           success_symbol = "[](bold green)";
@@ -31,6 +27,6 @@
           unknown_msg = "nix-shell";
         };
       }
-    );
+    ];
   };
 }
