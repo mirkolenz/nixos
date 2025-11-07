@@ -61,11 +61,10 @@ in
     }:
     {
       packages = {
-        neovim = pkgs.nixvim-full;
         neovide = pkgs.writeShellApplication {
           name = "neovide";
           text = ''
-            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe config.packages.neovim} "$@"
+            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe config.packages.nixvim-full} "$@"
           '';
         };
       };
