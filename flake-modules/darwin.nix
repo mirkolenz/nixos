@@ -36,19 +36,14 @@ let
     };
 in
 {
-  flake = {
-    darwinConfigurations = lib.mapAttrs mkDarwinSystem {
-      mirkos-macbook = {
-        system = "x86_64-darwin";
-        computerName = "Mirkos MacBook";
-      };
-      mirkos-dfkibook = {
-        system = "aarch64-darwin";
-        computerName = "Mirkos DFKIbook";
-      };
+  flake.darwinConfigurations = lib.mapAttrs mkDarwinSystem {
+    mirkos-macbook = {
+      system = "x86_64-darwin";
+      computerName = "Mirkos MacBook";
     };
-    hydraJobs.darwinConfigurations = lib.mapAttrs (
-      name: module: module.config.system.build.toplevel
-    ) self.darwinConfigurations;
+    mirkos-dfkibook = {
+      system = "aarch64-darwin";
+      computerName = "Mirkos DFKIbook";
+    };
   };
 }
