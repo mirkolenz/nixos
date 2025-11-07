@@ -8,7 +8,7 @@
   programs.codex = lib.mkIf config.custom.profile.isWorkstation {
     enable = true;
     package = pkgs.codex-bin;
-    # https://github.com/openai/codex/blob/main/docs/config.md#config-reference
+    # https://github.com/openai/codex/blob/main/docs/config.md
     settings = {
       model = "gpt-5-codex";
       # model_reasoning_effort = "high";
@@ -24,16 +24,19 @@
           config.xdg.cacheHome
         ];
       };
-      tools = {
-        web_search = true;
-      };
-      tui = {
-        notifications = true;
-      };
+      tui.notifications = true;
       shell_environment_policy = {
         set = {
           UV_NO_SYNC = "1";
         };
+      };
+      features = {
+        unified_exec = true;
+        streamable_shell = true;
+        rmcp_client = true;
+        apply_patch_freeform = true;
+        view_image_tool = true;
+        web_search_request = true;
       };
     };
   };
