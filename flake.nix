@@ -3,6 +3,7 @@
 
   # state dir: ~/.local/share/nix/trusted-settings.json
   nixConfig = {
+    allow-import-from-derivation = false;
     extra-substituters = [
       "https://mirkolenz.cachix.org"
       "https://install.determinate.systems"
