@@ -3,7 +3,7 @@
   programs.starship = {
     enable = true;
     enableTransience = false;
-    settings = [
+    settings = lib.mkMerge [
       # https://github.com/starship/starship/blob/master/docs/public/presets/toml/nerd-font-symbols.toml
       (lib.importTOML ./nerd-font-symbols.toml)
       {
