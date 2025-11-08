@@ -20,7 +20,6 @@ let
     "forklift"
     "fujitsu-scansnap-home"
     "ghostty"
-    "godspeed"
     "google-chrome"
     "handbrake-app"
     "lookaway"
