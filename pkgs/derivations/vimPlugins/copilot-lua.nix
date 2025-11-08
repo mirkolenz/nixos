@@ -5,12 +5,12 @@
 }:
 vimUtils.buildVimPlugin {
   pname = "copilot.lua";
-  version = "0-unstable-2025-11-05";
+  version = "0-unstable-2025-11-07";
   src = fetchFromGitHub {
     owner = "zbirenbaum";
     repo = "copilot.lua";
-    rev = "927053b34f6d0286599370427aad3b9628e4cf12";
-    hash = "sha256-L0Dq2ekGSoplbsc/zOi3O9ZpeqLfCx2S8KCcu05cHSI=";
+    rev = "5bde2cfe01f049f522eeb8b52c5c723407db8bdf";
+    hash = "sha256-/8baBZIhZdQ4B0hoTmh68I2p08rJJ7INil77qIu9vCU=";
   };
   meta.homepage = "https://github.com/zbirenbaum/copilot.lua/";
   passthru.updateScript = nix-update-script {
