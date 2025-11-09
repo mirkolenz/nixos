@@ -7,7 +7,7 @@
   home-manager,
   determinate-nix,
 }:
-writers.writePython3Bin "builder" {
+writers.writePython3Bin "config-builder" {
   libraries = with python3Packages; [ typer ];
   doCheck = false;
   makeWrapperArgs =

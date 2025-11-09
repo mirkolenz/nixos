@@ -5,7 +5,7 @@
   determinate-nix,
   inputs,
 }:
-writers.writePython3Bin "updater" {
+writers.writePython3Bin "pkgs-updater" {
   libraries = with python3Packages; [ typer ];
   doCheck = false;
   makeWrapperArgs =

@@ -30,7 +30,7 @@ jobs:
       - name: update flake
         run: nix flake update --commit-lock-file
       - name: update pkgs
-        run: nix run '.#updater' -- --commit single
+        run: nix run '.#pkgs-updater' -- --commit single
         env:
           GH_TOKEN: ${{ github.token }}
       - name: remove unstaged changes
