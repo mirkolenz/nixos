@@ -8,18 +8,19 @@
   makeBinaryWrapper,
   installShellFiles,
   writeScript,
+  updateChannel ? "stable",
+  manifestFile ? ./manifest.json,
 }:
 let
-  inherit (stdenvNoCC.hostPlatform) system;
   gcsBucket = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
-  manifest = lib.importJSON ./manifest.json;
+  manifest = lib.importJSON manifestFile;
   platforms = {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
     x86_64-darwin = "darwin-x64";
     aarch64-darwin = "darwin-arm64";
   };
-  platform = platforms.${system};
+  platform = platforms.${stdenvNoCC.hostPlatform.system};
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "claude-code";
@@ -67,7 +68,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     set -euo pipefail
 
     # https://claude.ai/install.sh
-    version="$(curl -fsSL "${gcsBucket}/stable")"
+    version="$(curl -fsSL "${gcsBucket}/${updateChannel}")"
     manifest="$(
       curl -fsSL "${gcsBucket}/$version/manifest.json" \
       | jq '{
@@ -81,7 +82,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         )
       }'
     )"
-    echo "$manifest" > "${toString ./manifest.json}"
+    echo "$manifest" > "${toString manifestFile}"
   '';
 
   meta = {
