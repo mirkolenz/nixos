@@ -5,6 +5,8 @@ from typing import Annotated
 
 import typer
 
+EXPERIMENTAL_FLAGS = ["--extra-experimental-features", "nix-command flakes"]
+
 app = typer.Typer(
     add_completion=False,
     pretty_exceptions_enable=False,
@@ -32,14 +34,14 @@ def subprocess_stdout(cmd: list[str]) -> str:
 )
 def run(
     ctx: typer.Context,
-    nix_exe: Annotated[str, typer.Option()] = "nix",
+    nix_exe: Annotated[str, typer.Option()],
+    flake: Annotated[str, typer.Option()],
     darwin_builder: Annotated[str, typer.Option()] = "darwin-rebuild",
     linux_builder: Annotated[str, typer.Option()] = "nixos-rebuild",
     home_builder: Annotated[str, typer.Option()] = "home-manager",
     operation: Annotated[
         str, typer.Option("--operation", "-o", "--mode", "-m")
     ] = "switch",
-    flake: str = "github:mirkolenz/nixos",
     name: Annotated[str | None, typer.Option("--name", "-n")] = None,
 ):
     node = subprocess_stdout(["uname", "-n"]).lower()
@@ -68,8 +70,7 @@ def run(
         subprocess_stdout(
             [
                 nix_exe,
-                "--extra-experimental-features",
-                "nix-command flakes",
+                *EXPERIMENTAL_FLAGS,
                 "eval",
                 "--json",
                 f'{flake}#{flake_attribute}."{name}".config.custom.impureRebuild',

@@ -21,12 +21,11 @@
         overlays = [ self.overlays.default ];
       };
       legacyPackages = pkgs // {
-        ci = pkgs.releaseTools.aggregate {
-          name = "ci";
-          constituents = lib.attrValues (
-            lib.filterAttrs (name: pkg: lib.elem system (pkg.meta.hydraPlatforms or [ system ])) config.packages
-          );
-        };
+        ci = lib.mapAttrs (name: value: value.outPath) (
+          lib.filterAttrs (
+            name: value: lib.elem system (value.meta.hydraPlatforms or [ system ]) && name != "default"
+          ) config.packages
+        );
       };
       packages =
         (lib.filterAttrs (

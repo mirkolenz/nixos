@@ -55,10 +55,10 @@ jobs:
           authToken: ${{ secrets.CACHIX_TOKEN }}
       - name: nix build
         run: |
-          nix build \
+          nix run .#pkgs-builder -- \
             --show-trace \
             --no-link \
-            '.#ci'
+            --flake .
 
   check-build:
     needs: check-build-matrix
