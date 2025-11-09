@@ -1,8 +1,8 @@
 {
   lib,
-  mkDocker,
   cacert,
   tzdata,
+  dockerTools,
   hkknx-bin,
 }:
 let
@@ -20,7 +20,7 @@ let
     port = 80;
   };
 in
-mkDocker {
+dockerTools.streamLayeredImage {
   name = "hkknx";
   tag = "latest";
   created = "now";
@@ -32,5 +32,9 @@ mkDocker {
   extraCommands = ''
     mkdir -m 1777 tmp
   '';
-  config.entrypoint = [ (lib.getExe hkknx-bin) ] ++ defaultOptions;
+  config.Entrypoint = [ (lib.getExe hkknx-bin) ] ++ defaultOptions;
+  meta = {
+    maintainers = with lib.maintainers; [ mirkolenz ];
+    platforms = lib.platforms.linux;
+  };
 }

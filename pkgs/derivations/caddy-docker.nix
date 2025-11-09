@@ -4,9 +4,9 @@
   caddyWithPlugins,
   cacert,
   tzdata,
-  mkDocker,
+  dockerTools,
 }:
-mkDocker {
+dockerTools.streamLayeredImage {
   name = "caddy";
   tag = "latest";
   created = "now";
@@ -39,5 +39,9 @@ mkDocker {
       "HOME=/root"
     ];
     WorkingDir = "/srv";
+  };
+  meta = {
+    maintainers = with lib.maintainers; [ mirkolenz ];
+    platforms = lib.platforms.linux;
   };
 }
