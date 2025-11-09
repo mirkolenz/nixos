@@ -84,7 +84,7 @@ def run(
     nix_exe: Annotated[str, typer.Option()],
     flake: Annotated[str, typer.Option()],
     cache: str = "https://mirkolenz.cachix.org",
-    attribute: str = "ci",
+    attribute: str = "drvsCi",
 ):
     """Build packages that cannot be substituted from *cache*."""
 

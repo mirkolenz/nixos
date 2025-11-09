@@ -21,7 +21,7 @@
         overlays = [ self.overlays.default ];
       };
       legacyPackages = pkgs // {
-        ci = lib.mapAttrs (name: value: value.outPath) (
+        drvsCi = lib.mapAttrs (name: value: value.outPath) (
           lib.filterAttrs (
             name: value: lib.elem system (value.meta.hydraPlatforms or [ system ]) && name != "default"
           ) config.packages
