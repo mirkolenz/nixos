@@ -1,7 +1,8 @@
 import json
 import shlex
 import subprocess
-from typing import Annotated
+from collections.abc import Iterable
+from typing import Annotated, Any
 
 import typer
 
@@ -25,31 +26,19 @@ def subprocess_stdout(cmd: list[str]) -> str:
     return result.stdout.strip()
 
 
-def subprocess_returncode(cmd: list[str]) -> int:
-    result = subprocess.run(
-        cmd,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-        check=False,
-    )
-
-    return result.returncode
-
-
-def discover_packages(nix_exe: str, flake: str, attribute: str) -> dict[str, str]:
-    """Return a mapping of package names to store paths exported by *flake* for *attribute*."""
-
+def nix_eval_attr(nix_exe: str, flake: str, attribute: str) -> dict[str, str]:
     expr = f"{flake}#{attribute}"
-    raw = subprocess_stdout(
-        [
-            nix_exe,
-            *EXPERIMENTAL_FLAGS,
-            "eval",
-            "--json",
-            expr,
-        ]
+    entries = json.loads(
+        subprocess_stdout(
+            [
+                nix_exe,
+                *EXPERIMENTAL_FLAGS,
+                "eval",
+                "--json",
+                expr,
+            ]
+        )
     )
-    entries = json.loads(raw or "{}")
 
     if not isinstance(entries, dict) and not all(
         isinstance(key, str)
@@ -65,12 +54,26 @@ def discover_packages(nix_exe: str, flake: str, attribute: str) -> dict[str, str
     return entries
 
 
-def is_cached(nix_exe: str, cache: str, store_path: str) -> bool:
-    """Return True when *store_path* exists in the remote cache."""
+def nix_path_info(nix_exe: str, cache: str, paths: Iterable[str]) -> dict[str, Any]:
+    entries = json.loads(
+        subprocess_stdout(
+            [
+                nix_exe,
+                *EXPERIMENTAL_FLAGS,
+                "path-info",
+                "--json",
+                "--store",
+                cache,
+                *paths,
+            ]
+        )
+    )
 
-    status = subprocess_returncode([nix_exe, "path-info", "--store", cache, store_path])
+    if not isinstance(entries, dict):
+        typer.echo(f"Failed to query cache {cache}", err=True)
+        raise typer.Exit(1)
 
-    return status == 0
+    return entries
 
 
 @app.command(
@@ -86,29 +89,38 @@ def run(
     cache: str = "https://mirkolenz.cachix.org",
     attribute: str = "drvsCi",
 ):
-    """Build packages that cannot be substituted from *cache*."""
+    pkgs2path = nix_eval_attr(nix_exe, flake, attribute)
+    paths2pkg = {value: key for key, value in pkgs2path.items()}
 
-    packages = discover_packages(nix_exe, flake, attribute)
-
-    if not packages:
-        typer.echo("No packages exported by the flake.")
+    if pkgs2path:
+        typer.echo(
+            f"Found {len(pkgs2path)} packages in {flake}#{attribute}: {', '.join(pkgs2path.keys())}."
+        )
+    else:
+        typer.echo(f"Found no packages in {flake}#{attribute}.")
         raise typer.Exit(0)
 
-    missing: list[str] = []
+    pkgs_info = nix_path_info(nix_exe, cache, pkgs2path.values())
 
-    for name, store_path in packages.items():
-        if not is_cached(nix_exe, cache, store_path):
-            missing.append(f"{flake}#{name}")
+    pkgs_uncached = [
+        paths2pkg[key] for key, value in pkgs_info.items() if value is None
+    ]
 
-    if not missing:
-        typer.echo("All packages are already cached.")
+    if pkgs_uncached:
+        typer.echo(
+            f"Found {len(pkgs_uncached)} uncached packages: {', '.join(pkgs_uncached)}."
+        )
+    else:
+        typer.echo("Found no uncached packages.")
         raise typer.Exit(0)
+
+    refs_uncached = [f"{flake}#{key}" for key in pkgs_uncached]
 
     cmd: list[str] = [
         nix_exe,
         *EXPERIMENTAL_FLAGS,
         "build",
-        *missing,
+        *refs_uncached,
         *ctx.args,
     ]
 
