@@ -7,7 +7,7 @@
 let
   cfg = config.virtualisation.quadlet.shellWrapper;
 
-  wrapper = pkgs.writeShellApplication rec {
+  wrapper = pkgs.writeShellApplication {
     name = "quadletctl";
     text = ''
       if [ "$#" -eq 0 ]; then
@@ -31,7 +31,7 @@ let
         exec unshare --user --map-auto --setuid "$1" --setgid "$1" -- "''${@:2}"
       fi
       if [ "$command" = "help" ]; then
-        echo "Usage: ${name} <command>
+        echo "Usage: $0 <command> <args>
 
         Available commands:
         exec <container> <args>: Run a command in an existing container
@@ -39,7 +39,7 @@ let
         service <container> <action> <args>: Control the systemd service
         journal <container> <args>: Show the logs of the podman service
         unshare <id> <args>: Run a command in a new user namespace
-        "
+        " >&2
         exit 0
       fi
     '';
