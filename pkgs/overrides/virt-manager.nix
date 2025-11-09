@@ -9,4 +9,7 @@ prev.virt-manager.overrideAttrs (oldAttrs: {
       wrapProgram $out/bin/virt-manager \
         --set GSETTINGS_BACKEND keyfile
     '');
+  meta = oldAttrs.meta // {
+    hydraPlatforms = prev.lib.platforms.darwin;
+  };
 })
