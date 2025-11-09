@@ -4,46 +4,48 @@
   makeBinaryWrapper,
   lib,
 }:
-args@{
-  pname,
-  appname ? pname,
-  wrapperPath ? "",
-  meta ? { },
-  nativeBuildInputs ? [ ],
-  ...
-}:
-stdenvNoCC.mkDerivation (
-  (lib.removeAttrs args [
+lib.extendMkDerivation {
+  constructDrv = stdenvNoCC.mkDerivation;
+  excludeDrvArgNames = [
     "appname"
     "wrapperPath"
-  ])
-  // {
-    installPhase = ''
-      runHook preInstall
+  ];
+  extendDrvArgs =
+    finalAttrs:
+    args@{
+      appname ? finalAttrs.pname,
+      wrapperPath ? "",
+      ...
+    }:
+    {
+      installPhase = ''
+        runHook preInstall
 
-      mkdir -p "$out/Applications"
-      cp -R "${appname}.app" "$out/Applications"
+        mkdir -p "$out/Applications"
+        cp -R "${appname}.app" "$out/Applications"
 
-      ${lib.optionalString (wrapperPath != "") ''
-        mkdir -p "$out/bin"
-        makeBinaryWrapper "$out/Applications/${appname}.app/${wrapperPath}" "$out/bin/${pname}"
-      ''}
+        ${lib.optionalString (wrapperPath != "") ''
+          mkdir -p "$out/bin"
+          makeBinaryWrapper "$out/Applications/${appname}.app/${wrapperPath}" "$out/bin/${finalAttrs.pname}"
+        ''}
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
 
-    dontConfigure = true;
-    dontBuild = true;
+      dontConfigure = true;
+      dontBuild = true;
 
-    nativeBuildInputs =
-      nativeBuildInputs ++ [ undmg ] ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
+      nativeBuildInputs =
+        (args.nativeBuildInputs or [ ])
+        ++ [ undmg ]
+        ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 
-    meta = {
-      maintainers = with lib.maintainers; [ mirkolenz ];
-      platforms = lib.platforms.darwin;
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      mainProgram = pname;
-    }
-    // meta;
-  }
-)
+      meta = {
+        maintainers = with lib.maintainers; [ mirkolenz ];
+        platforms = lib.platforms.darwin;
+        sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+        mainProgram = finalAttrs.pname;
+      }
+      // args.meta or { };
+    };
+}

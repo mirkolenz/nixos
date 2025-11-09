@@ -1,12 +1,12 @@
 {
-  stdenv,
+  stdenvNoCC,
   fetchFromGitHub,
   lib,
   nix-update-script,
   php,
   writeShellApplication,
 }:
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bibtexbrowser";
   version = "latest";
   src = fetchFromGitHub {

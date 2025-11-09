@@ -17,19 +17,18 @@ let
     pattern = ''^goneovim-\($release.tag_name)-(?<platform>macos-(arm64|x86_64))\\.tar\\.bz2$'';
   };
 in
-mkApp rec {
+mkApp (finalAttrs: {
   inherit (ghBin)
     pname
     version
     src
     passthru
     ;
-  appname = pname;
-  wrapperPath = "Contents/MacOS/${pname}";
+  wrapperPath = "Contents/MacOS/${finalAttrs.pname}";
 
   meta = ghBin.meta // {
     description = "GUI frontend for neovim";
     license = lib.licenses.mit;
     platforms = lib.attrNames platforms;
   };
-}
+})

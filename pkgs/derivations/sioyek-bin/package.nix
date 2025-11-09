@@ -20,16 +20,15 @@ let
     allowPrereleases = true;
   };
 in
-mkApp rec {
+mkApp (finalAttrs: {
   inherit (ghBin)
     pname
     version
     src
     # passthru # TODO: enable after next release (currently digest is missing)
     ;
-  appname = "sioyek";
 
-  wrapperPath = "Contents/MacOS/${pname}";
+  wrapperPath = "Contents/MacOS/${finalAttrs.pname}";
 
   nativeBuildInputs = [
     rcodesign
@@ -37,8 +36,8 @@ mkApp rec {
   ];
 
   preInstall = ''
-    undmg ${appname}.dmg
-    rcodesign sign ${appname}.app
+    undmg ${finalAttrs.pname}.dmg
+    rcodesign sign ${finalAttrs.pname}.app
   '';
 
   meta = {
@@ -46,4 +45,4 @@ mkApp rec {
     license = lib.licenses.gpl3;
     platforms = lib.attrNames platforms;
   };
-}
+})
