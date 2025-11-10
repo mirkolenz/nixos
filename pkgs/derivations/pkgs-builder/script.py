@@ -89,15 +89,18 @@ def run(
     cache: str = "https://mirkolenz.cachix.org",
     attribute: str = "drvsCi",
 ):
+    typer.echo("Discovering packages...", err=True)
+
     pkgs2path = nix_eval_attr(nix_exe, flake, attribute)
     paths2pkg = {value: key for key, value in pkgs2path.items()}
 
     if pkgs2path:
         typer.echo(
-            f"Found {len(pkgs2path)} packages in {flake}#{attribute}: {', '.join(pkgs2path.keys())}."
+            f"Found {len(pkgs2path)} packages in {flake}#{attribute}: {', '.join(pkgs2path.keys())}.",
+            err=True,
         )
     else:
-        typer.echo(f"Found no packages in {flake}#{attribute}.")
+        typer.echo(f"Found no packages in {flake}#{attribute}.", err=True)
         raise typer.Exit(0)
 
     pkgs_info = nix_path_info(nix_exe, cache, pkgs2path.values())
@@ -108,10 +111,11 @@ def run(
 
     if pkgs_uncached:
         typer.echo(
-            f"Found {len(pkgs_uncached)} uncached packages: {', '.join(pkgs_uncached)}."
+            f"Found {len(pkgs_uncached)} uncached packages: {', '.join(pkgs_uncached)}.",
+            err=True,
         )
     else:
-        typer.echo("Found no uncached packages.")
+        typer.echo("Found no uncached packages.", err=True)
         raise typer.Exit(0)
 
     refs_uncached = [f"{flake}#{key}" for key in pkgs_uncached]
