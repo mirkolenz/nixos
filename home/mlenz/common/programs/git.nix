@@ -9,7 +9,6 @@
   home.packages = with pkgs; [
     gibo
     git-ignore
-    jjui
     lazyjj
   ];
   programs.gh = {
@@ -172,6 +171,9 @@
         email = user.mail;
       };
     };
+  };
+  programs.jjui = {
+    enable = true;
   };
   programs.gitui = {
     enable = true;
