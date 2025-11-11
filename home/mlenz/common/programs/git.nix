@@ -9,8 +9,8 @@
   home.packages = with pkgs; [
     gibo
     git-ignore
-    # jjui
-    # lazyjj
+    jjui
+    lazyjj
   ];
   programs.gh = {
     enable = true;
@@ -165,7 +165,7 @@
     };
   };
   programs.jujutsu = {
-    enable = false; # todo: https://hydra.nixos.org/job/nixpkgs/trunk/jujutsu.aarch64-darwin
+    enable = true;
     settings = {
       user = {
         name = user.name;
