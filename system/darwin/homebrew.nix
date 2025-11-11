@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ config, ... }:
 let
   caskApps = [
     "1password"
@@ -13,8 +8,10 @@ let
     "arq"
     "balenaetcher"
     "betterdisplay"
+    "chatgpt"
     "default-folder-x"
     "devonthink"
+    "element"
     "firefox"
     "fission"
     "forklift"
@@ -22,11 +19,13 @@ let
     "ghostty"
     "google-chrome"
     "handbrake-app"
+    "lm-studio"
     "lookaway"
     "macwhisper"
     "microsoft-auto-update"
     "microsoft-teams"
     "obsidian"
+    "ollama-app"
     "omnigraffle"
     "orbstack"
     "presentation"
@@ -46,11 +45,6 @@ let
     "zed"
     "zoom"
     "zotero@beta"
-  ]
-  ++ lib.optionals pkgs.stdenv.isAarch64 [
-    "chatgpt"
-    "lm-studio"
-    "ollama-app"
   ];
 
   masApps = {
