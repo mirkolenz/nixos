@@ -17,6 +17,9 @@
       git_protocol = "ssh";
     };
   };
+  programs.gh-dash = {
+    enable = true;
+  };
   programs.difftastic = {
     enable = true;
     git.enable = true;
