@@ -9,6 +9,7 @@ let
     "balenaetcher"
     "betterdisplay"
     "chatgpt"
+    "daisydisk"
     "default-folder-x"
     "devonthink"
     "element"
@@ -51,7 +52,6 @@ let
     ausweisapp = 948660805;
     base = 6744867438;
     bitwarden = 1352778147;
-    daisydisk = 411643860;
     dropover = 1355679052;
     easyletter = 1495179755;
     gapplin = 768053424;
