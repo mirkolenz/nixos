@@ -48,7 +48,6 @@ let
   ];
 
   masApps = {
-    _1password-safari = 1569813296;
     ausweisapp = 948660805;
     base = 6744867438;
     bitwarden = 1352778147;
@@ -57,7 +56,6 @@ let
     easyletter = 1495179755;
     gapplin = 768053424;
     home-assistant = 1099568401;
-    kagi = 1622835804;
     keka = 470158793;
     mela = 1568924476;
     microsoft-excel = 462058435;
@@ -67,14 +65,14 @@ let
     microsoft-word = 462054704;
     pdf-expert = 1055273043;
     qr-factory = 1609285899;
-    raindrop-io-safari = 1549370672;
     reeder = 6475002485;
+    safari-1password = 1569813296;
+    safari-kagi = 1622835804;
+    safari-raindropio = 1549370672;
     shellfish = 1336634154;
     step-two = 1448916662;
     stopthemadness-pro = 6471380298;
     testflight = 899247664;
-    texstage = 6737460352;
-    vinegar = 1591303229;
     whatsapp = 310633997;
   };
 
