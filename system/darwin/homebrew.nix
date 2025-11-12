@@ -21,7 +21,6 @@ let
     "google-chrome"
     "handbrake-app"
     "lm-studio"
-    "lookaway"
     "macwhisper"
     "microsoft-auto-update"
     "microsoft-teams"
