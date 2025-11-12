@@ -37,10 +37,6 @@ let
 in
 {
   flake.darwinConfigurations = lib.mapAttrs mkDarwinSystem {
-    mirkos-macbook = {
-      system = "x86_64-darwin";
-      computerName = "Mirkos MacBook";
-    };
     mirkos-dfkibook = {
       system = "aarch64-darwin";
       computerName = "Mirkos DFKIbook";
