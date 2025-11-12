@@ -167,4 +167,8 @@ in
   environment.loginShellInit = ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
   '';
+  # https://docs.brew.sh/Manpage#environment
+  environment.variables = {
+    HOMEBREW_USE_INTERNAL_API = "1";
+  };
 }
