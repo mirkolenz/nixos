@@ -165,7 +165,7 @@ in
     casks = caskApps ++ caskFonts;
     # inherit masApps;
   };
-  programs.fish.loginShellInit = ''
+  environment.loginShellInit = ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
   '';
 }
