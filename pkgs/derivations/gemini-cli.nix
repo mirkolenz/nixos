@@ -6,7 +6,7 @@
   nix-update-script,
 }:
 buildNpmPackage (finalAttrs: {
-  pname = "mcp-inspector";
+  pname = "gemini-cli";
   version = "0.13.0";
 
   src = fetchFromGitHub {
