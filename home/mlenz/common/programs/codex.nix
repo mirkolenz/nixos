@@ -22,6 +22,7 @@
         network_access = true;
         writable_roots = [
           config.xdg.cacheHome
+          "${config.home.homeDirectory}/.npm"
         ];
       };
       tui.notifications = true;
