@@ -9,12 +9,12 @@
     enable = true;
     package = pkgs.codex-bin;
     # https://github.com/openai/codex/blob/main/docs/config.md
+    # https://github.com/openai/codex/blob/main/codex-rs/core/src/config/mod.rs
     settings = {
-      model = "gpt-5-codex";
+      model = "gpt-5.1-codex";
       # model_reasoning_effort = "high";
       # model_reasoning_summary = "auto";
-      # approval_policy = "never"; # User is never prompted
-      approval_policy = "on-request"; # The model decides when to escalate
+      approval_policy = "on-request";
       file_opener = "none";
       preferred_auth_method = "chatgpt";
       sandbox_mode = "workspace-write";
@@ -31,8 +31,12 @@
           UV_NO_SYNC = "1";
         };
       };
+      # codex features list
       features = {
+        apply_patch_freeform = true;
         rmcp_client = true;
+        shell_command_tool = true;
+        unified_exec = true;
         view_image_tool = true;
         web_search_request = true;
       };
