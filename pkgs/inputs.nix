@@ -17,11 +17,6 @@ in
 {
   inherit inputs;
   nixpkgs = import inputs.nixpkgs nixpkgsArgs;
-  patched = import (prev.applyPatches {
-    name = "nixpkgs-patched";
-    src = inputs.nixpkgs.outPath;
-    patches = map prev.fetchpatch (import ./patches.nix);
-  }) nixpkgsArgs;
   stable = import (lib'.systemInput {
     inherit os;
     name = "nixpkgs";
