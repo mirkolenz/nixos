@@ -33,7 +33,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     pngquant
     poppler-utils
     ffmpeg
-    ffmpeg-normalize
+    # ffmpeg-normalize # todo: https://hydra.nixos.org/job/nixpkgs/trunk/ffmpeg-normalize.aarch64-darwin
     qpdf
     comrak
     mdbook
