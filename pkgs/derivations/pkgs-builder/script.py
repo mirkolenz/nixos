@@ -119,7 +119,7 @@ def run(
         typer.echo("Found no uncached packages.", err=True)
         raise typer.Exit(0)
 
-    refs_uncached = [f"{flake}#{key}" for key in pkgs_uncached]
+    refs_uncached = [f'{flake}#"{key}"' for key in pkgs_uncached]
 
     cmd: list[str] = [
         nix_exe,
