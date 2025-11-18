@@ -55,6 +55,8 @@ jobs:
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_TOKEN }}
+      # todo: automatically update hashes for failed builds
+      # https://docs.determinate.systems/guides/automatically-fix-hashes-in-github-actions/
       - name: nix build
         run: |
           nix run .#pkgs-builder -- \

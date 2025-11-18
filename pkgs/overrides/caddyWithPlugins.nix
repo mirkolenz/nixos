@@ -4,5 +4,5 @@ final.nixpkgs.caddy.withPlugins {
     # https://github.com/caddy-dns/cloudflare/tags
     "github.com/caddy-dns/cloudflare@v0.2.1"
   ];
-  hash = "sha256-AcWko5513hO8I0lvbCLqVbM1eWegAhoM0J0qXoWL/vI=";
+  hash = "sha256-aRMg7R0dBAy+LJeGCMPg6HKppM6NPX2NPwtc0CeSQLg=";
 }
