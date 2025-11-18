@@ -28,10 +28,10 @@
 
     in
     {
-      packages = lib.mkMerge [
-        nixosConfigs
-        darwinConfigs
-        homeConfigs
-      ];
+      # packages = lib.mkMerge [
+      #   nixosConfigs
+      #   darwinConfigs
+      #   homeConfigs
+      # ];
     };
 }
