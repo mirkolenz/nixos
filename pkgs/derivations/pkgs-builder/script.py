@@ -88,6 +88,7 @@ def run(
     flake: Annotated[str, typer.Option()],
     cache: str = "https://mirkolenz.cachix.org",
     attribute: str = "drvsCi",
+    dry_run: bool = False,
 ):
     typer.echo("Discovering packages...", err=True)
 
@@ -133,7 +134,8 @@ def run(
         err=True,
     )
 
-    subprocess.run(cmd)
+    if not dry_run:
+        subprocess.run(cmd)
 
 
 if __name__ == "__main__":
