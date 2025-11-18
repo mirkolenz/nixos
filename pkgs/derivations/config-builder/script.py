@@ -90,7 +90,7 @@ def run(
         err=True,
     )
 
-    subprocess.run(cmd)
+    subprocess.run(cmd, check=True)
 
 
 if __name__ == "__main__":

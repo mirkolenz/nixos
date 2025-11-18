@@ -111,7 +111,7 @@ def run(
     # we don't want to show this in the output
     cmd += cmd_arg("include-overlays", overlays, raw=True)
 
-    subprocess.run(cmd)
+    subprocess.run(cmd, check=True)
 
     if commit == Commit.SINGLE:
         git_cmd = ["git", "commit", "-m", "chore(deps): update pkgs", "./pkgs"]

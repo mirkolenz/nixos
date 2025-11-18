@@ -135,7 +135,7 @@ def run(
     )
 
     if not dry_run:
-        subprocess.run(cmd)
+        subprocess.run(cmd, check=True)
 
 
 if __name__ == "__main__":
