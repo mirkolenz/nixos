@@ -12,7 +12,6 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-24.04
-    if: false
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/determinate-nix-action@v3
