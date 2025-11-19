@@ -29,7 +29,7 @@
       appswitcher-all-displays = true;
       autohide = true;
       autohide-delay = 0.0;
-      autohide-time-modifier = 0.15;
+      autohide-time-modifier = 0.2;
       dashboard-in-overlay = false;
       enable-spring-load-actions-on-all-items = false;
       expose-animation-duration = 0.2;
