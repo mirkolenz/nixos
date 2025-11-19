@@ -111,9 +111,9 @@ def run(
     # we don't want to show this in the output
     cmd += cmd_arg("include-overlays", overlays, raw=True)
 
-    subprocess.run(cmd, check=True)
+    cmd_res = subprocess.run(cmd)
 
-    if commit == Commit.SINGLE:
+    if cmd_res.returncode == 0 and commit == Commit.SINGLE:
         git_cmd = ["git", "commit", "-m", "chore(deps): update pkgs", "./pkgs"]
 
         typer.echo(
@@ -121,7 +121,9 @@ def run(
             err=True,
         )
 
-        subprocess.run(git_cmd, check=False)
+        subprocess.run(git_cmd)
+
+    raise typer.Exit(cmd_res.returncode)
 
 
 if __name__ == "__main__":

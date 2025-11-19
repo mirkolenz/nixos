@@ -90,7 +90,8 @@ def run(
         err=True,
     )
 
-    subprocess.run(cmd, check=True)
+    cmd_res = subprocess.run(cmd)
+    raise typer.Exit(cmd_res.returncode)
 
 
 if __name__ == "__main__":
