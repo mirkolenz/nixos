@@ -4,8 +4,6 @@ final: prev:
 })
 // (prev.lib.optionalAttrs prev.stdenv.isDarwin {
   inherit (final.stable)
-    # https://hydra.nixos.org/job/nixpkgs/trunk/fish.aarch64-darwin
-    fish
     # https://hydra.nixos.org/job/nixpkgs/trunk/tealdeer.aarch64-darwin
     tealdeer
     ;
