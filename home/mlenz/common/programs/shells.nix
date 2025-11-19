@@ -8,8 +8,7 @@
   home.shell.enableShellIntegration = true;
   programs.fish = {
     enable = true;
-    # depends on programs.man.generateCaches
-    generateCompletions = false;
+    generateCompletions = true;
     interactiveShellInit = ''
       source ${pkgs.github-theme-contrib}/share/themes/fish/github_dark_default.fish
     '';
