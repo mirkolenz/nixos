@@ -17,7 +17,7 @@
       font-size = if pkgs.stdenv.isDarwin then 13 else 11;
       font-thicken = true;
       quick-terminal-position = "center";
-      quick-terminal-size = "1000px,600px";
+      quick-terminal-size = "1600px,800px";
       shell-integration = "none";
       shell-integration-features = "no-cursor,sudo,title,ssh-env";
       theme = "light:GitHub Light Default,dark:GitHub Dark Default";
