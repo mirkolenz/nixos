@@ -31,11 +31,15 @@
           UV_NO_SYNC = "1";
         };
       };
+      # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
       # codex features list
       features = {
         apply_patch_freeform = true;
+        parallel = true;
+        remote_compaction = true;
         rmcp_client = true;
         shell_command_tool = true;
+        undo = true;
         view_image_tool = true;
         web_search_request = true;
       };
