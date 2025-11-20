@@ -11,7 +11,7 @@
     # https://github.com/openai/codex/blob/main/docs/config.md
     # https://github.com/openai/codex/blob/main/codex-rs/core/src/config/mod.rs
     settings = {
-      model = "gpt-5.1-codex";
+      model = "gpt-5.1-codex-max";
       # model_reasoning_effort = "high";
       # model_reasoning_summary = "auto";
       approval_policy = "on-request";
