@@ -67,11 +67,12 @@
       built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
       if [ "$booted" != "$built" ]; then
-        echo "REBOOT NEEDED"
+        echo "Reboot needed"
         exit 1
+      else
+        echo "No reboot needed"
+        exit 0
       fi
-
-      exit 0
     '';
     docker-reset = ''
       exec sudo docker system prune --all --force
