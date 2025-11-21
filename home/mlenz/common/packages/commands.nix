@@ -23,9 +23,42 @@
       exec mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
     '';
     gc = ''
-      set -x #echo on
-      sudo nix-collect-garbage --delete-older-than 7d
-      nix-collect-garbage --delete-older-than 7d
+      systemProfiles="$(find "/nix/var/nix/profiles" -type l -lname '*link*')"
+      userProfiles="$(find "${config.xdg.stateHome}/nix/profiles" -type l -lname '*link*')"
+
+      if [ -z "$systemProfiles" ]; then
+        systemProfilesAnswer="n"
+      else
+        echo "Do you want to clean the following system profiles? (y/n)"
+        echo "$systemProfiles"
+        read -r systemProfilesAnswer
+      fi
+
+      if [ -z "$userProfiles" ]; then
+        userProfilesAnswer="n"
+      else
+        echo "Do you want to clean the following user profiles? (y/n)"
+        echo "$userProfiles"
+        read -r userProfilesAnswer
+      fi
+
+      if [ "$systemProfilesAnswer" = "y" ]; then
+        for profile in $systemProfiles; do
+          echo "Processing profile $profile..."
+          sudo nix profile wipe-history --older-than 7d --profile "$profile"
+        done
+      fi
+
+      if [ "$userProfilesAnswer" = "y" ]; then
+        for profile in $userProfiles; do
+          echo "Processing profile $profile..."
+          nix profile wipe-history --older-than 7d --profile "$profile"
+        done
+      fi
+
+      echo "Collecting garbage..."
+      nix store gc
+      echo "Optimising store..."
       nix store optimise
     '';
     # https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/tasks/auto-upgrade.nix#L243
