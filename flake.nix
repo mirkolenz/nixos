@@ -109,6 +109,10 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    nixos-wsl = {
+      url = "github:nix-community/nixos-wsl/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     apple-t2-iso = {
       url = "github:t2linux/nixos-t2-iso";
       inputs = {

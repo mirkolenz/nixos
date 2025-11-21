@@ -35,6 +35,9 @@ in
     orbstack = {
       system = "aarch64-linux";
     };
+    wsl = {
+      system = "x86_64-linux";
+    };
     macpro = {
       system = "x86_64-linux";
     };
