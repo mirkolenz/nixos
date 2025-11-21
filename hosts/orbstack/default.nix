@@ -1,7 +1,6 @@
 {
   modulesPath,
   user,
-  lib,
   ...
 }:
 {
@@ -12,10 +11,6 @@
   ];
 
   nix.settings.trusted-users = [ user.login ];
-
-  # todo: https://nixpkgs-tracker.ocfox.me/?pr=460219
-  documentation.enable = lib.mkForce true;
-  documentation.nixos.enable = lib.mkForce true;
 
   home-manager.users.${user.login} = {
     programs.claude-code.enable = true;
