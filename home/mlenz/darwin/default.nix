@@ -23,6 +23,12 @@
         open --hide /Applications/ScanSnapHomeMain.app
       '';
     })
+    (writeShellApplication {
+      name = "nixos";
+      text = ''
+        exec orbctl run --machine nixos "$@"
+      '';
+    })
   ];
   programs.fish.loginShellInit = ''
     fish_add_path "${config.home.homeDirectory}/.local/bin"
