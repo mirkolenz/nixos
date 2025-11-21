@@ -101,7 +101,7 @@
     sudo =
       let
         customPaths = [
-          "${config.home.homeDirectory}/.nix-profile/bin"
+          "${config.home.profileDirectory}/bin"
           "/nix/var/nix/profiles/default/bin"
           "/nix/var/nix/profiles/default/sbin"
         ];
