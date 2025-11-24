@@ -13,7 +13,10 @@ lib.mkIf config.custom.profile.isWorkstation {
     EDITOR = "zed --wait";
   };
   programs = {
+    bun.enable = true;
+    go.enable = true;
     gradle.enable = true;
+    java.enable = true;
     mods.enable = true;
   };
   home.packages = with pkgs; [
@@ -61,7 +64,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     nix-converter
     nix-sweep
     # go
-    go
     gopls
     delve
     go-outline
@@ -78,10 +80,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     prettier
     npm-check-updates
     biome
-    bun
     bun-apps
-    # java
-    jdk
     # rust
     rustc
     cargo
@@ -89,8 +88,9 @@ lib.mkIf config.custom.profile.isWorkstation {
     clippy
     rust-analyzer
     # language servers
-    tombi
     copilot-language-server
+    jdt-language-server
+    tombi
     # my own packages
     makejinja
   ];
