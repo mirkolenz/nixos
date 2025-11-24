@@ -1,3 +1,4 @@
+# https://hub.docker.com/r/brutella/hkknx
 {
   lib,
   cacert,
@@ -5,21 +6,6 @@
   dockerTools,
   hkknx-bin,
 }:
-let
-  mkCliOptions = lib.cli.toGNUCommandLine rec {
-    mkOptionName = k: "--${k}";
-    mkBool = k: v: [
-      (mkOptionName k)
-      (lib.boolToString v)
-    ];
-  };
-  defaultOptions = mkCliOptions {
-    autoupdate = false;
-    verbose = false;
-    db = "/db";
-    port = 80;
-  };
-in
 dockerTools.streamLayeredImage {
   name = "hkknx";
   tag = "latest";
@@ -32,7 +18,22 @@ dockerTools.streamLayeredImage {
   extraCommands = ''
     mkdir -m 1777 tmp
   '';
-  config.Entrypoint = [ (lib.getExe hkknx-bin) ] ++ defaultOptions;
+  config = {
+    Entrypoint = [
+      (lib.getExe hkknx-bin)
+      "--autoupdate"
+      "false"
+      "--db"
+      "/db"
+      "--port"
+      "80"
+    ];
+    ExposedPorts = {
+      "80/tcp" = { };
+      "3671/udp" = { };
+      "5353/udp" = { };
+    };
+  };
   meta = {
     maintainers = with lib.maintainers; [ mirkolenz ];
     platforms = lib.platforms.linux;
