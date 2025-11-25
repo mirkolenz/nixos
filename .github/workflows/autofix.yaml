@@ -7,7 +7,7 @@ on:
 jobs:
   autofix:
     if: ${{ github.repository_owner == 'mirkolenz' }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     permissions:
       contents: read
     steps:

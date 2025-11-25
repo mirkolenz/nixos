@@ -11,7 +11,7 @@ jobs:
   check:
     permissions:
       contents: read
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
       - uses: DeterminateSystems/determinate-nix-action@v3
@@ -65,7 +65,7 @@ jobs:
 
   build:
     needs: build-matrix
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
     if: always()
     steps:
       - run: |
