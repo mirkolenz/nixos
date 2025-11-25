@@ -5,62 +5,45 @@
   ...
 }:
 lib.mkIf config.custom.profile.isWorkstation {
-  # https://docs.anthropic.com/en/docs/claude-code/tutorials
-  # https://docs.anthropic.com/en/docs/claude-code/settings
-  # https://docs.anthropic.com/en/docs/claude-code/iam
-  # https://github.com/dwillitzer/claude-settings
+  # https://code.claude.com/docs/en/iam
+  # https://code.claude.com/docs/en/sandboxing
+  # https://code.claude.com/docs/en/settings
   programs.claude-code = {
     enable = true;
     package = pkgs.claude-code-bin;
     settings = {
+      model = "default";
       cleanupPeriodDays = 30;
-      includeCoAuthoredBy = false;
       enableAllProjectMcpServers = true;
+      forceLoginMethod = "claudeai";
+      includeCoAuthoredBy = false;
+      sandbox = {
+        enabled = true;
+        autoAllowBashIfSandboxed = true;
+      };
       permissions = {
         defaultMode = "acceptEdits";
+        disableBypassPermissionsMode = "disable";
         allow = [
-          # basics
-          "Bash(cat:*)"
-          "Bash(echo:*)"
-          "Bash(fd:*)"
-          "Bash(find:*)"
-          "Bash(grep:*)"
-          "Bash(head:*)"
-          "Bash(ls:*)"
-          "Bash(mkdir:*)"
-          "Bash(rg:*)"
-          "Bash(tail:*)"
-          "Bash(touch:*)"
-          # development
-          "Bash(go build:*)"
-          "Bash(go run:*)"
-          "Bash(latexmk:*)"
-          "Bash(nix build:*)"
-          "Bash(node:*)"
-          "Bash(npm run:*)"
-          "Bash(python3:*)"
-          "Bash(python:*)"
-          "Bash(typst:*)"
-          "Bash(uv run:*)"
-          # git
-          "Bash(git add:*)"
-          "Bash(git blame:*)"
-          "Bash(git commit:*)"
-          "Bash(git diff:*)"
-          "Bash(git fetch:*)"
-          "Bash(git log:*)"
-          "Bash(git show:*)"
-          "Bash(git status:*)"
+          "WebFetch"
+          "WebSearch"
+          "Edit(${config.xdg.cacheHome})"
+          "Edit(${config.home.homeDirectory}/.npm)"
         ];
         deny = [
           "Bash(sudo:*)"
+          "Read(.env*)"
+          "Read(*secret*)"
         ];
         ask = [ ];
       };
     };
   };
+  # https://code.claude.com/docs/en/model-config
   home.shellAliases = {
     opus = "claude --model opus";
     sonnet = "claude --model sonnet";
+    haiku = "claude --model haiku";
+    opusplan = "claude --model opusplan";
   };
 }
