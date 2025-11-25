@@ -1,0 +1,24 @@
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+lib.mkIf config.custom.profile.isWorkstation {
+  programs.bun.enable = true;
+  programs.npm = {
+    enable = true;
+    package = null;
+    # https://blog.npmjs.org/post/141702881055/package-install-scripts-vulnerability
+    npmrc = ''
+      prefix = ''${HOME}/.npm
+      ignore-scripts = true
+    '';
+  };
+  home.packages = with pkgs; [
+    nodejs
+    prettier
+    npm-check-updates
+    biome
+  ];
+}

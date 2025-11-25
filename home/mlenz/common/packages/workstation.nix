@@ -13,7 +13,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     EDITOR = "zed --wait";
   };
   programs = {
-    bun.enable = true;
     go.enable = true;
     gradle.enable = true;
     java.enable = true;
@@ -74,12 +73,8 @@ lib.mkIf config.custom.profile.isWorkstation {
     basedpyright
     ty-bin
     zuban
+    # other apps
     uv-apps
-    # nodejs
-    nodejs
-    prettier
-    npm-check-updates
-    biome
     bun-apps
     # rust
     rustc
