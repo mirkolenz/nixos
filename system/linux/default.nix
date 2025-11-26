@@ -56,9 +56,7 @@
     };
   };
 
-  # todo: broken as of 2025-10-07
-  # https://github.com/NixOS/nixpkgs/pull/451252
-  # systemd.enableStrictShellChecks = true;
+  systemd.enableStrictShellChecks = true;
   documentation.man.generateCaches = false;
 
   boot.loader = {

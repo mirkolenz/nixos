@@ -1,8 +1,6 @@
 { ... }:
 {
-  # todo: https://hydra.nixos.org/job/nixpkgs/trunk/vimPlugins.lualine-nvim.aarch64-darwin
   plugins.lualine = {
-    enable = false;
     settings = {
       sections = {
         lualine_a = [ "mode" ];
