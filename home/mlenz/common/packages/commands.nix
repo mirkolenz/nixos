@@ -238,6 +238,9 @@
     nixbuild-shell = ''
       exec rlwrap ssh eu.nixbuild.net shell
     '';
+    nix-repl = ''
+      exec nix repl --expr "rec { pkgs = import <pkgs> {}; lib = pkgs.lib; }" "$@"
+    '';
     noeol = ''
       exec tr -d '\n'
     '';
