@@ -13,10 +13,10 @@ buildNpmPackage (finalAttrs: {
     owner = "modelcontextprotocol";
     repo = "inspector";
     tag = finalAttrs.version;
-    hash = "sha256-6cTzouQyMfcN6qTGSkPVw9SVMRCNgr248Mmb39h2o1I=";
+    hash = "sha256-7sYkLmN33v7WiWA6zAkdpeJ+RKzUKaisNjizO9hcGpY=";
   };
 
-  npmDepsHash = "sha256-xVS6IgS4tH2HAA1BM+CqZM8P91kmX667olw+TRigCsc=";
+  npmDepsHash = "sha256-bupfS/UC8CemOLUk9NfW0Z8LuZq3oKFLss+EnJS4T8E=";
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
