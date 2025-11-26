@@ -26,7 +26,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    systems.url = "github:nix-systems/default";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     determinate.url = "github:determinatesystems/determinate";
     treefmt-nix = {
@@ -57,7 +56,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        systems.follows = "systems";
       };
     };
     quadlet-nix = {
@@ -123,7 +121,7 @@
   };
 
   outputs =
-    inputs@{ flake-parts, systems, ... }:
+    inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake
       {
         inherit inputs;
@@ -132,7 +130,11 @@
         };
       }
       {
-        systems = import systems;
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+        ];
         imports = [ ./flake-modules ];
       };
 }

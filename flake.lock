@@ -249,7 +249,7 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -267,7 +267,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -309,9 +309,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": [
-          "systems"
-        ]
+        "systems": "systems"
       },
       "locked": {
         "lastModified": 1737581094,
@@ -726,7 +724,7 @@
           "nixpkgs"
         ],
         "nuschtosSearch": "nuschtosSearch",
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1764148348,
@@ -833,7 +831,6 @@
         "nixvim": "nixvim",
         "plist-manager": "plist-manager",
         "quadlet-nix": "quadlet-nix",
-        "systems": "systems_4",
         "texmf": "texmf",
         "treefmt-nix": "treefmt-nix_2",
         "vscode-server": "vscode-server"

@@ -7,7 +7,6 @@
 }:
 let
   platforms = {
-    x86_64-darwin = "mac";
     aarch64-darwin = "mac-arm";
   };
   ghBin = mkGitHubBinary {
@@ -16,7 +15,7 @@ let
     file = ./release.json;
     getAsset = { system, ... }: "sioyek-release-${platforms.${system}}.zip";
     versionPrefix = "sioyek";
-    pattern = ''^sioyek-release-mac.*?\\.zip$'';
+    pattern = ''^sioyek-release-mac-arm\\.zip$'';
     allowPrereleases = true;
   };
 in
