@@ -56,7 +56,8 @@
     };
   };
 
-  systemd.enableStrictShellChecks = true;
+  # todo: fails on raspi (mkswap-swapfile-start)
+  systemd.enableStrictShellChecks = false;
   documentation.man.generateCaches = false;
 
   boot.loader = {
