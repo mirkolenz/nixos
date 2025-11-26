@@ -61,7 +61,7 @@
       echo "Optimising store..."
       nix store optimise
     '';
-    # https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/tasks/auto-upgrade.nix#L243
+    # https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/modules/tasks/auto-upgrade.nix#L268
     needs-reboot = ''
       booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
       built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"

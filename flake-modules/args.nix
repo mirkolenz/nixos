@@ -14,9 +14,9 @@
     # can be overriden in module
     moduleArgs = {
       stateVersions = {
-        linux = "25.05";
+        linux = "25.11";
         darwin = 6;
-        home = "25.05";
+        home = "25.11";
       };
       user = {
         name = "Mirko Lenz";

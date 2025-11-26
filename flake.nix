@@ -18,8 +18,8 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-linux-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs-linux-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
 
     # Small helpers
     flake-parts = {
