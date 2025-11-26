@@ -19,6 +19,9 @@
         "no-url-literals"
         "pipe-operators"
       ];
+      nix-path = [
+        "pkgs=flake:pkgs"
+      ];
       accept-flake-config = true;
       bash-prompt-prefix = "(nix:$name)\\040";
       commit-lock-file-summary = "chore(deps): update flake.lock";

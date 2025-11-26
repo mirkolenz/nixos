@@ -18,6 +18,9 @@
       "no-url-literals"
       "pipe-operators"
     ];
+    nix-path = [
+      "pkgs=flake:pkgs"
+    ];
     accept-flake-config = true;
     commit-lock-file-summary = "chore(deps): update flake.lock";
     download-buffer-size = 1000000000; # 1 GB
