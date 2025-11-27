@@ -7,7 +7,7 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "mcp-inspector";
-  version = "0.17.3";
+  version = "0.17.4";
 
   src = fetchFromGitHub {
     owner = "modelcontextprotocol";
