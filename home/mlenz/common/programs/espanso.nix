@@ -4,7 +4,7 @@
   ...
 }:
 lib.mkIf config.custom.profile.isWorkstation {
-  programs.espanso = {
+  services.espanso = {
     enable = false;
     configs.default = { };
     matches.base = {
