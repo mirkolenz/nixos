@@ -239,7 +239,15 @@
       exec rlwrap ssh eu.nixbuild.net shell
     '';
     nix-repl = ''
-      exec nix repl --expr "rec { pkgs = import <pkgs> {}; lib = pkgs.lib; }" "$@"
+      exec nix repl --expr 'rec {
+        self = builtins.getFlake ("git+file://" + toString ./.);
+        cfg = builtins.getFlake "cfg";
+        pkgs = import <pkgs> {
+          overlays = [ cfg.overlays.default ];
+          config = cfg.nixpkgsConfig;
+        };
+        lib = pkgs.lib;
+      }' "$@"
     '';
     noeol = ''
       exec tr -d '\n'

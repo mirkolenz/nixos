@@ -33,7 +33,7 @@ rec {
             };
           })
           {
-            self = inputs.self;
+            cfg = inputs.self;
             nixpkgs = inputs.nixpkgs;
             stable = systemInput {
               inherit os;
