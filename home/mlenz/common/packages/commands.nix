@@ -238,7 +238,7 @@
     nixbuild-shell = ''
       exec rlwrap ssh eu.nixbuild.net shell
     '';
-    nix-repl = ''
+    nixrepl = ''
       exec nix repl --expr 'rec {
         self = builtins.getFlake ("git+file://" + toString ./.);
         cfg = builtins.getFlake "cfg";
