@@ -3,9 +3,6 @@
   "assets": {
     "goneovim-v0.6.16-macos-arm64.tar.bz2": {
       "digest": "sha256:c53ead8e262d7b4c50d24e83b32bdd1d41d000c1da8925ffd734e43abecf394d"
-    },
-    "goneovim-v0.6.16-macos-x86_64.tar.bz2": {
-      "digest": "sha256:84bdd271b7a9166082294a062a79132025c9a5bf556c5b2beb4395727e715536"
     }
   }
 }
