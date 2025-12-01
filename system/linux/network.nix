@@ -2,7 +2,7 @@
 {
   networking = {
     useNetworkd = true;
-    firewall.enable = true;
+    firewall.enable = false;
     # this is overridden by NetworkManager on workstations
     useDHCP = lib.mkDefault true;
     # this is not compatible with networkd
