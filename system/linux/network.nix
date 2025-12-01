@@ -1,13 +1,15 @@
-# https://github.com/mirkolenz/nixos/commit/fb5a0a77b8157809c1b610f1931d4f94f5e6be42
-{ lib, ... }:
+{ lib, config, ... }:
 {
   networking = {
     useNetworkd = true;
+    firewall.enable = true;
     # this is overridden by NetworkManager on workstations
     useDHCP = lib.mkDefault true;
     # this is not compatible with networkd
     useHostResolvConf = false;
   };
+
+  services.firewalld.enable = config.networking.firewall.enable;
 
   systemd.network.wait-online = {
     timeout = 30;
