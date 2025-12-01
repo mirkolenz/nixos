@@ -4,8 +4,8 @@
   config,
   ...
 }:
-{
-  programs.ghostty = lib.mkIf config.custom.profile.isDesktop {
+lib.mkIf config.custom.profile.isDesktop {
+  programs.ghostty = {
     enable = true;
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
     # https://ghostty.org/docs/config/reference

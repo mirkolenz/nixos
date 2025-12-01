@@ -4,8 +4,8 @@
   pkgs,
   ...
 }:
-{
-  programs.codex = lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.profile.isWorkstation {
+  programs.codex = {
     enable = true;
     package = pkgs.codex-bin;
     # https://github.com/openai/codex/blob/main/docs/config.md
