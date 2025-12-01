@@ -71,7 +71,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     pythonWithPackages
     pylyzer
     basedpyright
-    ty-bin
     zuban
     # other apps
     uv-apps
