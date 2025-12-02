@@ -301,7 +301,7 @@ sudo reboot
 # otherwise the optical drive is not found: https://discourse.nixos.org/t/makemkv-cant-find-my-usb-blu-ray-drive/23714
 sudo modprobe sg
 # if that does not work, try again with sudo
-NIXPKGS_ALLOW_UNFREE=1 nix run pkgs#makemkv --impure
+nix run github:mirkolenz/nixos#makemkv
 ```
 
 ### Investigate ID Mappings
@@ -313,5 +313,8 @@ sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
 ### Password Hashing
 
 ```shell
-mkpasswd -m yescrypt > FILENAME.txt
+sudo mkdir -p /etc/nixos/secrets
+sudo chmod 700 /etc/nixos/secrets
+sudo mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd
+sudo chmod 600 /etc/nixos/secrets/USER.passwd
 ```
