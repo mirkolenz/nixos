@@ -11,9 +11,4 @@
   ];
 
   nix.settings.trusted-users = [ user.login ];
-
-  home-manager.users.${user.login} = {
-    programs.claude-code.enable = true;
-    programs.codex.enable = true;
-  };
 }

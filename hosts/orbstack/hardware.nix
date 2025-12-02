@@ -105,7 +105,6 @@
   nix.settings.extra-platforms = [
     "i686-linux"
     "x86_64-linux"
-    "aarch64-linux"
   ];
 
   users.groups.orbstack.gid = 67278;
