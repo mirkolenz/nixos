@@ -1,7 +1,6 @@
 # https://wiki.nixos.org/wiki/NixOS_on_ARM#Installation
 {
   inputs,
-  lib',
   pkgs,
   ...
 }:
@@ -9,11 +8,9 @@
   imports = [
     "${inputs.nixos-hardware}/raspberry-pi/4"
     ./hardware.nix
-  ]
-  ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
+  ];
 
   custom.profile.isServer = true;
-  custom.impureRebuild = true;
 
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
