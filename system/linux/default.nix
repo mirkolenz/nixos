@@ -10,11 +10,6 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  users = {
-    mutableUsers = true;
-    defaultUserShell = pkgs.fish;
-  };
-
   programs = {
     git = {
       enable = true;

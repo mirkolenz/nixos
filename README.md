@@ -309,3 +309,9 @@ NIXPKGS_ALLOW_UNFREE=1 nix run pkgs#makemkv --impure
 ```shell
 sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
 ```
+
+### Password Hashing
+
+```shell
+mkpasswd -m yescrypt > FILENAME.txt
+```
