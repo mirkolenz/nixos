@@ -1,3 +1,4 @@
+# https://github.com/NixOS/nixpkgs/blob/master/ci/default.nix
 { inputs, ... }:
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
@@ -10,6 +11,7 @@
           buf.enable = true;
           gofmt.enable = true;
           google-java-format.enable = true;
+          nixf-diagnose.enable = true;
           nixfmt.enable = true;
           prettier.enable = true;
           ruff-check.enable = true;
@@ -18,6 +20,14 @@
           texfmt.enable = true;
           typstyle.enable = true;
           yamlfmt.enable = true;
+        };
+        settings.formatter.nixf-diagnose = {
+          # Ensure nixfmt cleans up after nixf-diagnose.
+          priority = -1;
+          options = [
+            "--auto-fix"
+            "--ignore=sema-unused-def-let"
+          ];
         };
       };
       packages.treefmt-nix = config.treefmt.build.wrapper;

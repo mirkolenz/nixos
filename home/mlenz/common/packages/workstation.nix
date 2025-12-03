@@ -54,6 +54,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     nixd
     nixf
     nixt
+    nixf-diagnose
     nixfmt
     alejandra
     nix-update
