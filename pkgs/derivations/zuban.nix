@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postInstall = ''
     mkdir -p $out/${python3.sitePackages}/zuban
-    cp -r typeshed $out/${python3.sitePackages}/zuban/typeshed
+    cp -r third_party $out/${python3.sitePackages}/zuban/
   '';
 
   passthru.updateScript = nix-update-script { };
