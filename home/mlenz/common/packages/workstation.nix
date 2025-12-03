@@ -52,6 +52,8 @@ lib.mkIf config.custom.profile.isWorkstation {
     pympress
     # nix
     nixd
+    nixf
+    nixt
     nixfmt
     alejandra
     nix-update
