@@ -25,7 +25,6 @@ jobs:
         run: |
           nix flake check \
             --show-trace
-
   build-matrix:
     name: build.${{ matrix.system }}
     runs-on: ${{ matrix.runner }}
@@ -62,7 +61,6 @@ jobs:
             --show-trace \
             --no-link \
             --flake .
-
   build:
     needs: build-matrix
     runs-on: ubuntu-slim

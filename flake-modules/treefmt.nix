@@ -17,6 +17,7 @@
           rustfmt.enable = true;
           texfmt.enable = true;
           typstyle.enable = true;
+          yamlfmt.enable = true;
         };
       };
       packages.treefmt-nix = config.treefmt.build.wrapper;
