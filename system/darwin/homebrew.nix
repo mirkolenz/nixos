@@ -9,6 +9,7 @@ let
     "balenaetcher"
     "betterdisplay"
     "chatgpt"
+    "claude"
     "daisydisk"
     "default-folder-x"
     "devonthink"
