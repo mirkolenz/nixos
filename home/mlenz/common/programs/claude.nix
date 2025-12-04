@@ -12,7 +12,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     enable = true;
     package = pkgs.claude-code-bin;
     settings = {
-      model = "default";
       cleanupPeriodDays = 30;
       enableAllProjectMcpServers = true;
       forceLoginMethod = "claudeai";
