@@ -20,6 +20,9 @@ lib.mkIf config.custom.profile.isWorkstation {
         enabled = true;
         autoAllowBashIfSandboxed = true;
       };
+      env = {
+        UV_NO_SYNC = "1";
+      };
       permissions = {
         defaultMode = "acceptEdits";
         disableBypassPermissionsMode = "disable";
