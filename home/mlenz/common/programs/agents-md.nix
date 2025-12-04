@@ -10,9 +10,9 @@
 
       ## Python
 
-      - Use `uv run` to execute Python scripts and modules, not `python` or `python3`.
-      - Use `ruff` for linting and formatting Python code, not `black` or `flake8`.
-      - Use `basedpyright` for type checking Python code, not `mypy` or `pyright`.
+      - Use `uv run` to execute Python scripts and files, not `python` or `python3`.
+      - Use `ruff` without uv for linting and formatting Python code, not `black` or `flake8`.
+      - Use `basedpyright --level error` without uv for type checking Python code, not `mypy` or `pyright`.
       - Use a src-based layout for Python projects.
       - Add type annotations to Python functions and classes.
       - Add `__all__` to modules to control what is exported.
