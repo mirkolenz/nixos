@@ -29,8 +29,8 @@ lib.mkIf config.custom.profile.isWorkstation {
         allow = [
           "WebFetch"
           "WebSearch"
-          "Edit(${config.xdg.cacheHome})"
-          "Edit(${config.home.homeDirectory}/.npm)"
+          "Edit(${config.xdg.cacheHome}/**)"
+          "Edit(${config.home.homeDirectory}/.npm/**)"
         ];
         deny = [
           "Bash(sudo:*)"
