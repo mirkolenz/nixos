@@ -10,9 +10,6 @@
   # /etc/nixos/configuration.nix
   security.sudo.wheelNeedsPassword = false;
 
-  # This being `true` leads to a few nasty bugs, change at your own risk!
-  users.mutableUsers = lib.mkForce false;
-
   networking = {
     dhcpcd.enable = false;
     useDHCP = false;
