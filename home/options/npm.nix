@@ -13,7 +13,7 @@ in
 
   options = {
     programs.npm = {
-      enable = lib.mkEnableOption "{command}`npm` global config";
+      enable = lib.mkEnableOption "{command}`npm` user config";
 
       package = lib.mkPackageOption pkgs [ "nodePackages" "npm" ] {
         example = "nodePackages_13_x.npm";
@@ -40,14 +40,14 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
-
-    home.file.".npmrc" = lib.mkIf (cfg.npmrc != "") {
-      text = cfg.npmrc;
-    };
-
-    home.sessionVariables = lib.mkIf (cfg.npmrc != "") {
-      NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/.npmrc";
+    home = {
+      packages = lib.mkIf (cfg.package != null) [ cfg.package ];
+      file.".npmrc" = lib.mkIf (cfg.npmrc != "") {
+        text = cfg.npmrc;
+      };
+      sessionVariables = lib.mkIf (cfg.npmrc != "") {
+        NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/.npmrc";
+      };
     };
   };
 }
