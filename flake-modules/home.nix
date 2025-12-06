@@ -41,12 +41,21 @@ in
   flake.homeConfigurations = lib.mapAttrs mkHomeConfig {
     "lenz@gpu.wi2.uni-trier.de" = {
       system = "x86_64-linux";
+      extraModule = {
+        home.uid = 1002;
+      };
     };
     "eifelkreis@vserv-4514" = {
       system = "x86_64-linux";
+      extraModule = {
+        home.uid = 1001;
+      };
     };
     "compute@kitei-gpu" = {
       system = "x86_64-linux";
+      extraModule = {
+        home.uid = 1001;
+      };
     };
   };
 }
