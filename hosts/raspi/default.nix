@@ -29,4 +29,6 @@
   environment.systemPackages = with pkgs; [
     raspberrypi-eeprom
   ];
+
+  users.users.root.hashedPasswordFile = null;
 }

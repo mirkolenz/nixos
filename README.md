@@ -313,8 +313,8 @@ sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
 ### Password Hashing
 
 ```shell
-sudo mkdir -p /etc/nixos/secrets
-sudo chmod 700 /etc/nixos/secrets
-sudo mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd
-sudo chmod 600 /etc/nixos/secrets/USER.passwd
+mkdir -p /etc/nixos/secrets
+chmod 700 /etc/nixos/secrets
+mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd
+chmod 600 /etc/nixos/secrets/USER.passwd
 ```

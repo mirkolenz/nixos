@@ -12,4 +12,9 @@
     enable = true;
     defaultUser = user.login;
   };
+
+  users.users = {
+    root.hashedPasswordFile = null;
+    "${user.login}".hashedPasswordFile = null;
+  };
 }

@@ -6,10 +6,10 @@
 }:
 {
   users = {
-    mutableUsers = true;
+    mutableUsers = false;
     defaultUserShell = pkgs.fish;
     users.root = {
-      initialHashedPassword = lib.mkDefault "!";
+      hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/root.passwd";
     };
     users.${user.login} = {
       description = user.name;
@@ -25,7 +25,7 @@
         "audio"
       ];
       isNormalUser = true;
-      initialHashedPassword = "$y$j9T$PNrr2mfD3mtxoSfR26fYh/$qNvFLgYOJFAms5MwZ42vM0F0aUP.ceHpD0j4LAr7IP5";
+      hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/${user.login}.passwd";
       openssh.authorizedKeys.keys = user.sshKeys;
       subUidRanges = [
         {
