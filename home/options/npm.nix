@@ -7,6 +7,8 @@
 }:
 let
   cfg = config.programs.npm;
+  xdgConfigHome = lib.removePrefix config.home.homeDirectory config.xdg.configHome;
+  configFile = if config.home.preferXdgDirectories then "${xdgConfigHome}/npm/npmrc" else ".npmrc";
 in
 {
   meta.maintainers = with lib.maintainers; [ mirkolenz ];
@@ -42,11 +44,11 @@ in
   config = lib.mkIf cfg.enable {
     home = {
       packages = lib.mkIf (cfg.package != null) [ cfg.package ];
-      file.".npmrc" = lib.mkIf (cfg.npmrc != "") {
+      file.${configFile} = lib.mkIf (cfg.npmrc != "") {
         text = cfg.npmrc;
       };
       sessionVariables = lib.mkIf (cfg.npmrc != "") {
-        NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/.npmrc";
+        NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${configFile}";
       };
     };
   };
