@@ -1,10 +1,7 @@
-{ config, user, ... }:
+{ config, ... }:
 {
   security.pam = {
-    rssh = {
-      inherit (config.services.openssh) enable;
-      settings.auth_key_file = "/etc/ssh/authorized_keys.d/${user.login}";
-    };
+    rssh.enable = config.services.openssh.enable;
     services.sudo.rssh = config.services.openssh.enable && config.security.pam.rssh.enable;
   };
   services.openssh = {
