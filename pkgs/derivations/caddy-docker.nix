@@ -13,6 +13,7 @@ dockerTools.streamLayeredImage {
   contents = [
     cacert
     tzdata
+    caddyWithPlugins
   ];
   extraCommands = ''
     mkdir -m 1777 tmp

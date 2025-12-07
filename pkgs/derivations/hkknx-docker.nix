@@ -13,6 +13,7 @@ dockerTools.streamLayeredImage {
   contents = [
     cacert
     tzdata
+    hkknx-bin
   ];
   # create /tmp for backup feature to work
   extraCommands = ''
