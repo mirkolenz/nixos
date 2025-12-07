@@ -50,6 +50,8 @@ lib.mkIf config.custom.profile.isWorkstation {
     mcp-proxy
     pdfpc
     pympress
+    keep-sorted
+    jsonfmt
     # nix
     nixd
     nixf
