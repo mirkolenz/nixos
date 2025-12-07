@@ -8,6 +8,7 @@
     services.sudo.rssh = config.services.openssh.enable && config.security.pam.rssh.enable;
   };
   services.openssh = {
+    authorizedKeysInHomedir = false;
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
