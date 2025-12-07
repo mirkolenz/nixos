@@ -8,6 +8,7 @@
       treefmt = {
         projectRootFile = "flake.nix";
         programs = {
+          # keep-sorted start
           actionlint.enable = true;
           buf.enable = true;
           gofmt.enable = true;
@@ -22,6 +23,7 @@
           texfmt.enable = true;
           typstyle.enable = true;
           yamlfmt.enable = true;
+          # keep-sorted end
         };
         settings.formatter.nixf-diagnose = {
           # Ensure nixfmt cleans up after nixf-diagnose.

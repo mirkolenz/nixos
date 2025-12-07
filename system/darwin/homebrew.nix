@@ -1,6 +1,7 @@
 { config, ... }:
 let
   caskApps = [
+    # keep-sorted start
     "1password"
     "affinity"
     "alt-tab"
@@ -46,9 +47,11 @@ let
     "zed"
     "zoom"
     "zotero@beta"
+    # keep-sorted end
   ];
 
   masApps = {
+    # keep-sorted start
     ausweisapp = 948660805;
     base = 6744867438;
     bitwarden = 1352778147;
@@ -74,9 +77,11 @@ let
     stopthemadness-pro = 6471380298;
     testflight = 899247664;
     whatsapp = 310633997;
+    # keep-sorted end
   };
 
   caskFonts = map (name: "font-${name}") [
+    # keep-sorted start
     "big-shoulders-display"
     "big-shoulders-inline-display"
     "big-shoulders-inline-text"
@@ -149,6 +154,7 @@ let
     "ubuntu-sans-nerd-font"
     "varela"
     "varela-round"
+    # keep-sorted end
   ];
 in
 {
