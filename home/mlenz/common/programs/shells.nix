@@ -17,7 +17,7 @@
         body =
           if pkgs.stdenv.isLinux then
             ''
-              if set -q SSH_TTY; and status is-login
+              if set -q SSH_TTY; and status is-interactive
                 ${lib.getExe config.programs.macchina.package}
               end
             ''
