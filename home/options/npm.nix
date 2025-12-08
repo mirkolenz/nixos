@@ -7,8 +7,13 @@
 }:
 let
   cfg = config.programs.npm;
+
   xdgConfigHome = lib.removePrefix config.home.homeDirectory config.xdg.configHome;
   configFile = if config.home.preferXdgDirectories then "${xdgConfigHome}/npm/npmrc" else ".npmrc";
+
+  iniFormat = pkgs.formats.iniWithGlobalSection {
+    listsAsDuplicateKeys = true;
+  };
 in
 {
   meta.maintainers = with lib.maintainers; [ mirkolenz ];
@@ -22,32 +27,46 @@ in
         nullable = true;
       };
 
-      npmrc = lib.mkOption {
-        type = lib.types.lines;
+      settings = lib.mkOption {
+        type = iniFormat.type;
         description = ''
           The user-specific npm configuration.
-          See <https://docs.npmjs.com/misc/config>.
+          See <https://docs.npmjs.com/cli/using-npm/config> and
+          <https://docs.npmjs.com/cli/configuring-npm/npmrc>
+          for more information.
+
+          **Notes:**
+          - Top-level settings must be placed under the
+            `globalSection` attribute.
+          - Keys of list-valued settings must be suffixed
+            with `[]` to be recognized as arrays by the npm parser.
         '';
-        default = ''
-          prefix = ''${HOME}/.npm
-        '';
-        example = ''
-          prefix = ''${HOME}/.npm
-          https-proxy=proxy.example.com
-          init-license=MIT
-          init-author-url=https://www.npmjs.com/
-          color=true
+        default = {
+          globalSection = {
+            prefix = "\${HOME}/.npm";
+          };
+        };
+        example = lib.literalExpression ''
+          {
+            globalSection = {
+              prefix = "''${HOME}/.npm";
+              init-license = "MIT";
+              color = true;
+              "include[]" = [ "prod" "dev" ];
+            };
+          }
         '';
       };
     };
   };
+
   config = lib.mkIf cfg.enable {
     home = {
       packages = lib.mkIf (cfg.package != null) [ cfg.package ];
-      file.${configFile} = lib.mkIf (cfg.npmrc != "") {
-        text = cfg.npmrc;
+      file.${configFile} = lib.mkIf (cfg.settings != { }) {
+        source = iniFormat.generate "npmrc" cfg.settings;
       };
-      sessionVariables = lib.mkIf (cfg.npmrc != "") {
+      sessionVariables = lib.mkIf (cfg.settings != { }) {
         NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${configFile}";
       };
     };

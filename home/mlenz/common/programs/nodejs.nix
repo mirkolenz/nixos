@@ -10,10 +10,12 @@ lib.mkIf config.custom.profile.isWorkstation {
     enable = true;
     package = null;
     # https://blog.npmjs.org/post/141702881055/package-install-scripts-vulnerability
-    npmrc = ''
-      prefix = ''${HOME}/.npm
-      ignore-scripts = true
-    '';
+    settings = {
+      globalSection = {
+        prefix = "\${HOME}/.npm";
+        ignore-scripts = true;
+      };
+    };
   };
   home.packages = with pkgs; [
     nodejs
