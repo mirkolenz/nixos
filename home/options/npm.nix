@@ -22,8 +22,8 @@ in
     programs.npm = {
       enable = lib.mkEnableOption "{command}`npm` user config";
 
-      package = lib.mkPackageOption pkgs [ "nodePackages" "npm" ] {
-        example = "nodePackages_13_x.npm";
+      package = lib.mkPackageOption pkgs [ "nodejs" ] {
+        example = "nodejs_24";
         nullable = true;
       };
 
