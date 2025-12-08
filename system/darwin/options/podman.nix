@@ -66,7 +66,6 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       podman
-      podman-compose
     ];
 
     virtualisation.podman.storageConf.storage = {

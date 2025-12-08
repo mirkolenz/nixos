@@ -15,6 +15,4 @@
   ];
 
   system.stateVersion = stateVersions.darwin;
-
-  virtualisation.podman.enable = true;
 }
