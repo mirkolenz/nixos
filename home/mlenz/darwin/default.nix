@@ -12,6 +12,7 @@
     mas
     goneovim-bin
     restic-browser-bin
+    codexbar-bin
     undmg
     rcodesign
     container
