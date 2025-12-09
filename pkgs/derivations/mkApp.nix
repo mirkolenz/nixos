@@ -1,6 +1,5 @@
 {
   stdenvNoCC,
-  undmg,
   makeBinaryWrapper,
   lib,
 }:
@@ -36,16 +35,14 @@ lib.extendMkDerivation {
       dontBuild = true;
 
       nativeBuildInputs =
-        (args.nativeBuildInputs or [ ])
-        ++ [ undmg ]
-        ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
+        (args.nativeBuildInputs or [ ]) ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 
       meta = {
         maintainers = with lib.maintainers; [ mirkolenz ];
         platforms = lib.platforms.darwin;
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-        mainProgram = finalAttrs.pname;
       }
+      // (lib.optionalAttrs (wrapperPath != "") { mainProgram = finalAttrs.pname; })
       // args.meta or { };
     };
 }

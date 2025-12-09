@@ -4,6 +4,7 @@
   mkGitHubBinary,
   rcodesign,
   unzip,
+  undmg,
 }:
 let
   platforms = {
@@ -32,6 +33,7 @@ mkApp (finalAttrs: {
   nativeBuildInputs = [
     rcodesign
     unzip
+    undmg
   ];
 
   preInstall = ''
