@@ -48,4 +48,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     haiku = "claude --model haiku";
     opusplan = "claude --model opusplan";
   };
+  # the native installer expects the binary to be at this location
+  # otherwise an error is shown in the interface
+  xdg.binFile.claude.source = lib.getExe pkgs.claude-code-bin;
 }
