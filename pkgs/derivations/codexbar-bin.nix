@@ -18,7 +18,9 @@ mkApp (finalAttrs: {
   nativeBuildInputs = [ unzip ];
   sourceRoot = ".";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--url=${finalAttrs.meta.homepage}" ];
+  };
 
   meta = {
     description = "Show usage stats for OpenAI Codex and Claude Code";
