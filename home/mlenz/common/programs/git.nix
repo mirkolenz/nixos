@@ -26,8 +26,14 @@
     options = {
       background = "dark";
       color = "always";
-      display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
+      display = "inline"; # "side-by-side", "side-by-side-show-both", "inline"
     };
+  };
+  programs.delta = {
+    enable = true;
+  };
+  programs.diff-so-fancy = {
+    enable = true;
   };
   programs.git = {
     enable = true;
@@ -208,6 +214,15 @@
           order = "default";
           showGraph = "never";
         };
+        # https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
+        pagers = [
+          {
+            externalDiffCommand = "difft --color=always --display=inline --background=dark";
+          }
+          {
+            pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+          }
+        ];
       };
       os.editPreset = "zed";
       update.method = "never";
