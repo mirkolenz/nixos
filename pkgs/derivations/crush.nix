@@ -3,7 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   versionCheckHook,
-  nix-update-script,
+  # nix-update-script,
   writableTmpDirAsHomeHook,
   stdenv,
   installShellFiles,
@@ -46,7 +46,8 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  # todo: 0.22.2 requires a newer go version
+  # passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "The glamourous AI coding agent for your favourite terminal";
