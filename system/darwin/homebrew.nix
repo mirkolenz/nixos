@@ -171,7 +171,7 @@ in
     casks = caskApps ++ caskFonts;
     # inherit masApps;
   };
-  environment.loginShellInit = ''
+  environment.loginShellInit = /* bash */ ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
   '';
   # https://docs.brew.sh/Manpage#environment

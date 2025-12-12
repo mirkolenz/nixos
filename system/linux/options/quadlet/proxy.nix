@@ -16,7 +16,7 @@ let
       allNames = [ vhost.name ] ++ vhost.extraNames;
       allHostNames = map (name: "${name}.${domain}") allNames;
     in
-    ''
+    /* caddyfile */ ''
       @${vhost.name} host ${lib.concatStringsSep " " allHostNames}
       handle @${vhost.name} {
         ${lib.optionalString (vhost.reverseProxy.upstreams != [ ]) ''
@@ -28,7 +28,7 @@ let
       }
     '';
 
-  mkDomainConfig = domain: ''
+  mkDomainConfig = domain: /* caddyfile */ ''
     *.${domain.name} {
       ${domain.extraConfig}
 
@@ -56,7 +56,7 @@ let
     }
   '';
 
-  Caddyfile-raw = pkgs.writeTextDir "Caddyfile" ''
+  Caddyfile-raw = pkgs.writeTextDir "Caddyfile" /* caddyfile */ ''
     {
       email ${cfg.email}
       ${lib.optionalString cfg.acmeStaging "acme_ca https://acme-staging-v02.api.letsencrypt.org/directory"}
@@ -75,7 +75,7 @@ let
 
   Caddyfile-formatted =
     pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ pkgs.caddy ]; }
-      ''
+      /* bash */ ''
         mkdir -p $out
         cp --no-preserve=mode ${Caddyfile-raw}/Caddyfile $out/Caddyfile
         caddy fmt --overwrite $out/Caddyfile

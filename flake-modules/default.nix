@@ -32,7 +32,7 @@
           name: value: lib.meta.availableOn { inherit system; } value && !(value.meta.broken or false)
         ) pkgs.drvsExport)
         // {
-          default = pkgs.writeShellScriptBin "config-builder" ''
+          default = pkgs.writeShellScriptBin "config-builder" /* bash */ ''
             exec ${lib.getExe pkgs.config-builder} --flake ${self.outPath} "$@"
           '';
         };

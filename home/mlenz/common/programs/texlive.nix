@@ -10,7 +10,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
     enable = true;
     bibliographyPath = "${config.home.homeDirectory}/developer/mirkolenz/bibliography";
     texmfPath = "${config.home.homeDirectory}/texmf";
-    latexmkrc = ''
+    latexmkrc = /* perl */ ''
       # 1: pdflatex
       # 4: lualatex
       $pdf_mode = 1;

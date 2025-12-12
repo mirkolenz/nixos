@@ -27,7 +27,7 @@ in
     settings = mkOption {
       type = tomlFormat.type;
       default = { };
-      example = literalExpression ''
+      example = literalExpression /* nix */ ''
         {
           interface = "wlan0";
           long_uptime = true;
@@ -54,7 +54,7 @@ in
         ]
       );
       default = { };
-      example = literalExpression ''
+      example = literalExpression /* nix */ ''
         {
           Lithium = "''${config.programs.macchina.package.src}/contrib/themes/Lithium.toml";
         }

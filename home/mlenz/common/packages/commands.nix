@@ -7,7 +7,7 @@
 {
   home.packages = lib.mapAttrsToList (name: text: pkgs.writeShellApplication { inherit name text; }) {
     # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
-    mogrify-convert = ''
+    mogrify-convert = /* bash */ ''
       if [ "$#" -ne 3 ]; then
         echo "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY" >&2
         exit 1
@@ -15,14 +15,14 @@
       exec mogrify -path "$2" -strip -interlace none -sampling-factor 4:2:0 -define jpeg:dct-method=float -quality "$3" "$1"
     '';
     # https://masdilor.github.io/use-imagemagick-to-resize-and-compress-images/
-    mogrify-resize = ''
+    mogrify-resize = /* bash */ ''
       if [ "$#" -ne 4 ]; then
         echo "Usage: $0 INPUT_FILE OUTPUT_DIR QUALITY FINAL_SIZE" >&2
         exit 1
       fi
       exec mogrify -path "$2" -filter Triangle -define filter:support=2 -thumbnail "$4" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality "$3" -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
     '';
-    gc = ''
+    gc = /* bash */ ''
       systemProfiles="$(find "/nix/var/nix/profiles" -type l -lname '*link*')"
       userProfiles="$(find "${config.xdg.stateHome}/nix/profiles" -type l -lname '*link*')"
 
@@ -62,7 +62,7 @@
       nix store optimise
     '';
     # https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/modules/tasks/auto-upgrade.nix#L268
-    needs-reboot = ''
+    needs-reboot = /* bash */ ''
       booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
       built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
 
@@ -74,26 +74,26 @@
         exit 0
       fi
     '';
-    docker-reset = ''
+    docker-reset = /* bash */ ''
       exec sudo docker system prune --all --force
     '';
-    flakeup = ''
+    flakeup = /* bash */ ''
       exec nix flake update --commit-lock-file "$@"
     '';
-    uvup = ''
+    uvup = /* bash */ ''
       ${lib.getExe config.programs.uv.package} sync --all-extras --upgrade
       ${lib.getExe config.programs.git.package} commit -m "chore(deps): update uv.lock" uv.lock
     '';
-    npmup = ''
+    npmup = /* bash */ ''
       ${lib.getExe pkgs.npm-check-updates} --interactive --format group --install never
       ${lib.getExe config.programs.git.package} commit -m "chore(deps): update package.json" package.json
       ${lib.getExe' pkgs.nodejs "npm"} update
       ${lib.getExe config.programs.git.package} commit -m "chore(deps): update package-lock.json" package-lock.json
     '';
-    dev = ''
+    dev = /* bash */ ''
       exec nix develop "$@"
     '';
-    encrypt = ''
+    encrypt = /* bash */ ''
       if [ "$#" -ne 3 ]; then
         echo "Usage: $0 SOURCE TARGET RECIPIENT" >&2
         exit 1
@@ -101,7 +101,7 @@
 
       exec ${lib.getExe pkgs.gnupg} --output "$2" --encrypt --recipient "$3" "$1"
     '';
-    decrypt = ''
+    decrypt = /* bash */ ''
       if [ "$#" -ne 2 ]; then
         echo "Usage: $0 SOURCE TARGET" >&2
         exit 1
@@ -109,7 +109,7 @@
 
       exec ${lib.getExe pkgs.gnupg} --output "$2" --decrypt "$1"
     '';
-    backup = ''
+    backup = /* bash */ ''
       if [ "$#" -ne 2 ]; then
         echo "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
@@ -118,7 +118,7 @@
       TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
       sudo tar -czf "$2/$TIMESTAMP.tgz" "$1"
     '';
-    restore = ''
+    restore = /* bash */ ''
       if [ "$#" -ne 2 ]; then
         echo "Usage: $0 SOURCE_PATH TARGET_DIR" >&2
         exit 1
@@ -126,7 +126,7 @@
       mkdir -p "$2"
       sudo tar -xzf "$1" -C "$2"
     '';
-    compress = ''
+    compress = /* bash */ ''
       if [ "$#" -lt 1 ]; then
         echo "Usage: $0 SOURCE_PATH [TAR_ARGS...]" >&2
         exit 1
@@ -136,7 +136,7 @@
 
       exec tar -czf "$source_path.tgz" "$source_path" "$@"
     '';
-    decompress = ''
+    decompress = /* bash */ ''
       if [ "$#" -lt 1 ]; then
         echo "Usage: $0 SOURCE_PATH [TAR_ARGS...]" >&2
         exit 1
@@ -148,7 +148,7 @@
     '';
     # https://github.com/typst/typst/discussions/404#discussioncomment-9456308
     # https://stackoverflow.com/a/61677298
-    pdfcompress = ''
+    pdfcompress = /* bash */ ''
       if [ "$#" -lt 2 ]; then
         echo "Usage: $0 SOURCE_PATH TARGET_PATH [GHOSTSCRIPT_ARGS...]" >&2
         exit 1
@@ -183,7 +183,7 @@
     '';
     # https://polylux.dev/book/external/pdfpc.html
     # https://touying-typ.github.io/docs/external/pdfpc
-    touying2pdfpc = ''
+    touying2pdfpc = /* bash */ ''
       if [ "$#" -lt 2 ]; then
         echo "Usage: $0 FILENAME [TYPST_ARGS...]" >&2
         exit 1
@@ -199,13 +199,13 @@
         --one "<pdfpc-file>" \
         > "./$filename.pdfpc"
     '';
-    nixos-env = ''
+    nixos-env = /* bash */ ''
       exec sudo nix-env --profile /nix/var/nix/profiles/system "$@"
     '';
-    skim = ''
+    skim = /* bash */ ''
       exec open -g -a Skim "$@"
     '';
-    prefetch-attr = ''
+    prefetch-attr = /* bash */ ''
       if [ "$#" -lt 1 ]; then
         echo "Usage: $0 NIX_FLAKE_ATTR [NIX_PREFETCH_ARGS...]" >&2
         exit 1
@@ -215,7 +215,7 @@
       hash="$(nix store prefetch-file --json "$@" "$value" | jq -r .hash)"
       echo "hash = \"$hash\";"
     '';
-    prefetch-attrs = ''
+    prefetch-attrs = /* bash */ ''
       if [ "$#" -lt 1 ]; then
         echo "Usage: $0 NIX_FLAKE_ATTRS [NIX_PREFETCH_ARGS...]" >&2
         exit 1
@@ -235,10 +235,10 @@
       cat "$TMPFILE"
       rm "$TMPFILE"
     '';
-    nixbuild-shell = ''
+    nixbuild-shell = /* bash */ ''
       exec rlwrap ssh eu.nixbuild.net shell
     '';
-    nixrepl = ''
+    nixrepl = /* bash */ ''
       exec nix repl --expr 'rec {
         self = builtins.getFlake ("git+file://" + toString ./.);
         cfg = builtins.getFlake "cfg";
@@ -249,13 +249,13 @@
         lib = pkgs.lib;
       }' "$@"
     '';
-    noeol = ''
+    noeol = /* bash */ ''
       exec tr -d '\n'
     '';
-    json-tool = ''
+    json-tool = /* bash */ ''
       exec ${lib.getExe pkgs.python3} -m json.tool "$@"
     '';
-    fontconvert = ''
+    fontconvert = /* bash */ ''
       if [ "$#" -lt 2 ]; then
         echo "Usage: $0 SOURCE TARGET [FONTFORGE_ARGS...]" >&2
         exit 1

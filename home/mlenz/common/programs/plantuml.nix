@@ -1,6 +1,6 @@
 { ... }:
 {
-  home.file.".plantuml/init.puml".text = ''
+  home.file.".plantuml/init.puml".text = /* plantuml */ ''
     skinparam Monochrome true
     skinparam Shadowing false
     skinparam ComponentStyle uml2

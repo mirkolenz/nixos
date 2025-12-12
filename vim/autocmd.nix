@@ -6,7 +6,7 @@
   };
   autoCmd = [
     {
-      callback = lib.nixvim.mkRaw ''
+      callback = lib.nixvim.mkRaw /* lua */ ''
         function(args)
           vim.lsp.buf.format({
             async = false,
@@ -21,7 +21,7 @@
       desc = "Format buffer using LSP";
     }
     {
-      callback = lib.nixvim.mkRaw ''
+      callback = lib.nixvim.mkRaw /* lua */ ''
         function()
           local args = vim.fn.argv()
 

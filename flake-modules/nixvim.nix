@@ -63,7 +63,7 @@ in
       packages = {
         neovide = pkgs.writeShellApplication {
           name = "neovide";
-          text = ''
+          text = /* bash */ ''
             ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe config.packages.nixvim-full} "$@"
           '';
         };

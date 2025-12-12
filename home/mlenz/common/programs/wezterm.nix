@@ -2,7 +2,7 @@
 {
   programs.wezterm = {
     enable = config.custom.profile.isDesktop;
-    extraConfig = ''
+    extraConfig = /* lua */ ''
       return {
         color_scheme = "Github Dark (Gogh)",
         font = wezterm.font("JetBrainsMono Nerd Font"),

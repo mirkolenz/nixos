@@ -14,39 +14,39 @@ let
   ) cfg.acronymPresets;
 
   cmdTexts = {
-    texmfup = ''
+    texmfup = /* bash */ ''
       targetDir="''${1:-texmf}"
       rm -rf "$targetDir"
       cp -r --no-preserve=all ${cfg.texmfPath} "$targetDir"
     '';
-    latexmkrc = ''
+    latexmkrc = /* bash */ ''
       targetFile="''${1:-.latexmkrc}"
       exec cp --force --no-preserve=all ${config.home.file.".latexmkrc".source} "$targetFile"
     '';
-    bibtidy = ''
+    bibtidy = /* bash */ ''
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
         --no-align --no-wrap --blank-lines --no-escape \
         --omit="${lib.concatStringsSep "," cfg.bibtidyOmit}" \
         --max-authors="${toString cfg.bibtidyMaxAuthors}" \
         "$@"
     '';
-    bibcat = ''
+    bibcat = /* bash */ ''
       format="''${1:-bibtex}"
       ${lib.getExe cmds.bibtidy} "${cfg.bibliographyPath}/$format.bib"
     '';
-    bibcat-full = ''
+    bibcat-full = /* bash */ ''
       format="''${1:-bibtex}"
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
         --no-align --no-wrap --blank-lines --no-escape \
         --omit="abstract" \
         "${cfg.bibliographyPath}/$format.bib"
     '';
-    bibcopy = ''
+    bibcopy = /* bash */ ''
       format="''${1:-bibtex}"
       targetDir="''${2:-.}"
       ${lib.getExe cmds.bibtidy} --output="$targetDir/references.bib" "${cfg.bibliographyPath}/$format.bib"
     '';
-    bibcopy-full = ''
+    bibcopy-full = /* bash */ ''
       format="''${1:-bibtex}"
       targetDir="''${2:-.}"
       ${lib.getExe pkgs.bibtex-tidy} --v2 \
@@ -55,11 +55,11 @@ let
         --output="$targetDir/references.bib" \
         "${cfg.bibliographyPath}/$format.bib"
     '';
-    acrocat = ''
+    acrocat = /* bash */ ''
       # shellcheck disable=SC2002 # the sd commands are generated via nix, so cat is more elegant than piping
       cat "${cfg.bibliographyPath}/acronyms.tex" | ${lib.concatStringsSep " | " acronymReplacements}
     '';
-    acrocopy = ''
+    acrocopy = /* bash */ ''
       targetDir="''${1:-.}"
       ${lib.getExe cmds.acrocat} "${cfg.bibliographyPath}" > "$targetDir/acronyms.tex"
     '';

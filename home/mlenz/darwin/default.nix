@@ -19,14 +19,14 @@
     ollama-copilot
     (writeShellApplication {
       name = "scansnap-reset";
-      text = ''
+      text = /* bash */ ''
         pkill -f ScanSnap
         open --hide /Applications/ScanSnapHomeMain.app
       '';
     })
     (writeShellApplication {
       name = "nixos";
-      text = ''
+      text = /* bash */ ''
         exec orbctl run --machine nixos "$@"
       '';
     })
@@ -41,7 +41,7 @@
       ../dictionary.txt;
   };
   home.shellAliases = {
-    copy = ''${lib.getExe' pkgs.coreutils "tr"} -d '\n' | pbcopy'';
+    copy = /* bash */ ''${lib.getExe' pkgs.coreutils "tr"} -d '\n' | pbcopy'';
   };
   targets.darwin.copyApps.enableChecks = false; # requires sudo during activation
 }

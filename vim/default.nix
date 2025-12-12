@@ -9,7 +9,7 @@
 
   # load ~/.config/nvim/init.lua for faster development iteration
   impureRtp = true;
-  extraConfigLua = ''
+  extraConfigLua = /* lua */ ''
     local init_lua_path = vim.fn.stdpath('config') .. '/init.lua'
 
     if vim.fn.filereadable(init_lua_path) == 1 then

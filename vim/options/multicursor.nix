@@ -22,7 +22,7 @@ lib.nixvim.plugins.mkNeovimPlugin {
   };
 
   extraConfig = cfg: {
-    plugins.multicursor-nvim.luaConfig.content = ''
+    plugins.multicursor-nvim.luaConfig.content = /* lua */ ''
       require("multicursor-nvim").addKeymapLayer(function(layerSet)
         ${lib.concatMapStringsSep "\n" (
           {
@@ -31,13 +31,13 @@ lib.nixvim.plugins.mkNeovimPlugin {
             action,
           }:
           if lib.isAttrs action then
-            ''
+            /* lua */ ''
               layerSet(${lib.nixvim.toLuaObject mode}, "${key}", function()
                 ${action.__raw}
               end)
             ''
           else
-            ''
+            /* lua */ ''
               layerSet(${lib.nixvim.toLuaObject mode}, "${key}", require("multicursor-nvim").${action})
             ''
         ) cfg.keymapsLayer}

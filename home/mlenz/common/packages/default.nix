@@ -107,6 +107,6 @@
         ];
       in
       lib.mkIf (osConfig == { })
-        ''/usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"'';
+        /* bash */ ''/usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"'';
   };
 }

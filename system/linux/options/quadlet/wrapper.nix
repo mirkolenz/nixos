@@ -9,7 +9,7 @@ let
 
   wrapper = pkgs.writeShellApplication {
     name = "quadletctl";
-    text = ''
+    text = /* bash */ ''
       if [ "$#" -eq 0 ]; then
         set -- "help"
       fi

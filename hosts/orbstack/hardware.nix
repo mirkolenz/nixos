@@ -51,7 +51,7 @@
   # /etc/nixos/orbstack.nix
 
   # Add OrbStack CLI tools to PATH
-  environment.shellInit = ''
+  environment.shellInit = /* bash */ ''
     . /opt/orbstack-guest/etc/profile-early
 
     # add your customizations here

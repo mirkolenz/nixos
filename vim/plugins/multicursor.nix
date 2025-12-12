@@ -38,7 +38,7 @@
         # Enable and clear cursors using escape
         key = "<esc>";
         mode = "n";
-        action = lib.nixvim.mkRaw ''
+        action = lib.nixvim.mkRaw /* lua */ ''
           mc = require('multicursor-nvim')
           if not mc.cursorsEnabled() then
             mc.enableCursors()
