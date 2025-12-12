@@ -34,7 +34,18 @@
     enableGitIntegration = true;
     enableJujutsuIntegration = true;
     options = {
-      diff-so-fancy = true;
+      decorations = {
+        commit-decoration-style = "bold yellow box ul";
+        file-decoration-style = "none";
+        file-style = "bold yellow ul";
+        hunk-header-decoration-style = "cyan box ul";
+      };
+      features = "decorations";
+      hyperlinks = true;
+      line-numbers = true;
+      navigate = true;
+      syntax-theme = "Monokai Extended";
+      whitespace-error-style = "22 reverse";
     };
   };
   programs.git = {
@@ -219,10 +230,10 @@
         # https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
         pagers = [
           {
-            pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+            pager = "delta --paging=never --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
           }
           {
-            externalDiffCommand = "difft --color=always --display=inline --background=dark";
+            externalDiffCommand = "difft --color=always --display=inline";
           }
         ];
       };
