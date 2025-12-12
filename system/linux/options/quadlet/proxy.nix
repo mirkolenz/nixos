@@ -43,7 +43,7 @@ let
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Services</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+        <link rel="stylesheet" href="${pkgs.picocss}/css/pico.min.css" />
         <style>
           .grid {
             grid-template-columns: repeat(3, 1fr);
