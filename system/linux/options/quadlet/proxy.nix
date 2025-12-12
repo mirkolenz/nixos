@@ -61,7 +61,7 @@ let
 
   dashboardFiles = pkgs.runCommandLocal "dashboard-files" { } /* bash */ ''
     mkdir -p $out
-    cp ${pkgs.picocss}/css/pico.min.css $out/
+    cp ${pkgs.picocss}/share/css/pico.min.css $out/
     cp ${dashboardHtml} $out/index.html
   '';
 

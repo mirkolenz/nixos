@@ -15,13 +15,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-MKB9JtU6Gv16ma7S9J7n1QCjAiJhBrD0mUHum+blJOs=";
   };
 
+  dontConfigure = true;
   dontBuild = true;
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/themes
-    cp -r themes/. $out/share/themes/
+    mkdir -p $out/share
+    cp -r themes $out/share/
 
     runHook postInstall
   '';
