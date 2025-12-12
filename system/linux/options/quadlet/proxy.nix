@@ -15,6 +15,8 @@ let
     in
     lib.filter hasConfig (containerVhosts ++ extraVhosts);
 
+  dashboardVhosts = lib.filter (vhost: vhost.name != cfg.dashboard.name) allVhosts;
+
   mkServiceCard = domain: vhost: /* html */ ''
     <article>
       <h3><a href="https://${vhost.name}.${domain}">${vhost.name}</a></h3>
@@ -32,7 +34,7 @@ let
     <section>
       <h2>${domain}</h2>
       <div class="grid">
-        ${lib.concatStrings (map (mkServiceCard domain) allVhosts)}
+        ${lib.concatStrings (map (mkServiceCard domain) dashboardVhosts)}
       </div>
     </section>
   '';
