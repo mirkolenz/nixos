@@ -7,6 +7,49 @@
 let
   cfg = config.virtualisation.quadlet.proxy;
 
+  allVhosts =
+    let
+      containerVhosts = lib.mapAttrsToList (_: c: c.virtualHost) config.virtualisation.quadlet.containers;
+      extraVhosts = lib.attrValues cfg.virtualHosts;
+    in
+    containerVhosts ++ extraVhosts;
+
+  mkServiceCard = domain: vhost: /* html */ ''
+    <article>
+      <h3><a href="https://${vhost.name}.${domain}">${vhost.name}</a></h3>
+      ${lib.optionalString (vhost.extraNames != [ ]) ''
+        <small>${lib.concatStringsSep ", " vhost.extraNames}</small>
+      ''}
+    </article>
+  '';
+
+  mkDomainSection = domain: /* html */ ''
+    <section>
+      <h2>${domain}</h2>
+      <div class="grid">
+        ${lib.concatStrings (map (mkServiceCard domain) allVhosts)}
+      </div>
+    </section>
+  '';
+
+  dashboardHtml = pkgs.writeTextDir "index.html" /* html */ ''
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Services</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+      </head>
+      <body>
+        <main class="container">
+          <h1>Services</h1>
+          ${lib.concatStrings (lib.mapAttrsToList (name: _: mkDomainSection name) cfg.domains)}
+        </main>
+      </body>
+    </html>
+  '';
+
   mkVirtualHost =
     {
       domain,
@@ -120,6 +163,15 @@ in
 
     acmeStaging = lib.mkEnableOption "use Let's Encrypt staging server";
 
+    dashboard = {
+      enable = lib.mkEnableOption "dashboard showing all services";
+      name = lib.mkOption {
+        type = lib.types.str;
+        default = "dashboard";
+        description = "Subdomain name for the dashboard.";
+      };
+    };
+
     domains = lib.mkOption {
       default = { };
       type = lib.types.attrsOf (
@@ -168,6 +220,14 @@ in
     };
   };
   config = lib.mkIf (config.virtualisation.quadlet.enable && cfg.enable) {
+    virtualisation.quadlet.proxy.virtualHosts.dashboard = lib.mkIf cfg.dashboard.enable {
+      name = cfg.dashboard.name;
+      extraConfig = /* caddyfile */ ''
+        root * ${dashboardHtml}
+        file_server
+      '';
+    };
+
     virtualisation.quadlet.containers.proxy = lib.mkMerge [
       {
         imageStream = pkgs.caddy-docker;
