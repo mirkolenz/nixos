@@ -215,7 +215,7 @@ in
     virtualisation.quadlet.proxy.virtualHosts.dashboard = lib.mkIf cfg.dashboard.enable {
       name = cfg.dashboard.name;
       extraConfig = /* caddyfile */ ''
-        root * ${dashboardHtml}
+        root * /srv/dashboard
         file_server
       '';
     };
@@ -229,7 +229,8 @@ in
             "${cfg.storage.data}:/data"
             "${cfg.storage.config}:/config"
           ]
-          ++ (lib.optional (cfg.storage.certificates != null) "${cfg.storage.certificates}:/certificates");
+          ++ (lib.optional (cfg.storage.certificates != null) "${cfg.storage.certificates}:/certificates")
+          ++ (lib.optional cfg.dashboard.enable "${dashboardHtml}:/srv/dashboard:ro");
           Network = [
             "${cfg.networks.internal.ref}:ip=${cfg.networks.internal.ip}"
             "${cfg.networks.external.ref}:ip=${cfg.networks.external.ip}"
