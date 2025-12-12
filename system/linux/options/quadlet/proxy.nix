@@ -36,14 +36,14 @@ let
     </section>
   '';
 
-  dashboardHtml = pkgs.writeTextDir "index.html" /* html */ ''
+  dashboardHtml = pkgs.writeText "index.html" /* html */ ''
     <!doctype html>
     <html lang="en">
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Services</title>
-        <link rel="stylesheet" href="${pkgs.picocss}/css/pico.min.css" />
+        <link rel="stylesheet" href="pico.min.css" />
         <style>
           .grid {
             grid-template-columns: repeat(3, 1fr);
@@ -57,6 +57,12 @@ let
         </main>
       </body>
     </html>
+  '';
+
+  dashboardFiles = pkgs.runCommand "dashboard" { } ''
+    mkdir -p $out
+    cp ${pkgs.picocss}/css/pico.min.css $out/
+    cp ${dashboardHtml} $out/index.html
   '';
 
   mkVirtualHost =
@@ -239,7 +245,7 @@ in
             "${cfg.storage.config}:/config"
           ]
           ++ (lib.optional (cfg.storage.certificates != null) "${cfg.storage.certificates}:/certificates")
-          ++ (lib.optional cfg.dashboard.enable "${dashboardHtml}:/srv/dashboard:ro");
+          ++ (lib.optional cfg.dashboard.enable "${dashboardFiles}:/srv/dashboard:ro");
           Network = [
             "${cfg.networks.internal.ref}:ip=${cfg.networks.internal.ip}"
             "${cfg.networks.external.ref}:ip=${cfg.networks.external.ip}"
