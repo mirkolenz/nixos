@@ -11,8 +11,9 @@ let
     let
       containerVhosts = lib.mapAttrsToList (_: c: c.virtualHost) config.virtualisation.quadlet.containers;
       extraVhosts = lib.attrValues cfg.virtualHosts;
+      hasConfig = vhost: vhost.reverseProxy.upstreams != [ ] || vhost.extraConfig != "";
     in
-    containerVhosts ++ extraVhosts;
+    lib.filter hasConfig (containerVhosts ++ extraVhosts);
 
   mkServiceCard = domain: vhost: /* html */ ''
     <article>
