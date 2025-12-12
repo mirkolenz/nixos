@@ -18,7 +18,11 @@ let
     <article>
       <h3><a href="https://${vhost.name}.${domain}">${vhost.name}</a></h3>
       ${lib.optionalString (vhost.extraNames != [ ]) ''
-        <small>${lib.concatStringsSep ", " vhost.extraNames}</small>
+        <small>${
+          lib.concatMapStringsSep ", " (
+            name: ''<a href="https://${name}.${domain}">${name}</a>''
+          ) vhost.extraNames
+        }</small>
       ''}
     </article>
   '';
