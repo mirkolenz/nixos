@@ -22,7 +22,7 @@
   };
   programs.difftastic = {
     enable = true;
-    git.enable = true;
+    git.enable = false;
     options = {
       background = "dark";
       color = "always";
@@ -31,9 +31,11 @@
   };
   programs.delta = {
     enable = true;
-  };
-  programs.diff-so-fancy = {
-    enable = true;
+    enableGitIntegration = true;
+    enableJujutsuIntegration = true;
+    options = {
+      diff-so-fancy = true;
+    };
   };
   programs.git = {
     enable = true;
@@ -217,10 +219,10 @@
         # https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
         pagers = [
           {
-            externalDiffCommand = "difft --color=always --display=inline --background=dark";
+            pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
           }
           {
-            pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";
+            externalDiffCommand = "difft --color=always --display=inline --background=dark";
           }
         ];
       };
