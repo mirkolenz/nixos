@@ -76,21 +76,13 @@ let
       ${domain.extraConfig}
 
       ${lib.concatLines (
-        map mkVirtualHost (
-          lib.mapAttrsToList (_: value: {
+        map (
+          vhost:
+          mkVirtualHost {
             domain = domain.name;
-            vhost = value.virtualHost;
-          }) config.virtualisation.quadlet.containers
-        )
-      )}
-
-      ${lib.concatLines (
-        map mkVirtualHost (
-          lib.mapAttrsToList (_: value: {
-            domain = domain.name;
-            vhost = value;
-          }) cfg.virtualHosts
-        )
+            inherit vhost;
+          }
+        ) allVhosts
       )}
 
       handle {
