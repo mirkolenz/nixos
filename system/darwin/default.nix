@@ -12,7 +12,13 @@
     libvirt
     virt-viewer
     virt-manager
+    less
   ];
+
+  environment.variables = {
+    EDITOR = "zed";
+    VISUAL = "zed";
+  };
 
   system.stateVersion = stateVersions.darwin;
 }

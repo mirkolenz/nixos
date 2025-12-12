@@ -22,6 +22,7 @@
     };
     _1password.enable = true;
     nix-ld.enable = true;
+    less.enable = true;
   };
 
   environment.defaultPackages = with pkgs; [
