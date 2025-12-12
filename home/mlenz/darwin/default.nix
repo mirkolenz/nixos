@@ -33,7 +33,7 @@
   ];
   xdg.binFile = {
     git.source = lib.getExe config.programs.git.package;
-    nvim.source = lib.getExe config.custom.neovim.package;
+    nvim.source = lib.getExe config.programs.nixvim.package;
     restic.source = lib.getExe pkgs.restic;
   };
   home.file = {
