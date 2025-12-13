@@ -17,26 +17,17 @@ let
 
   dashboardVhosts = lib.filter (vhost: vhost.name != cfg.dashboard.name) allVhosts;
 
-  mkServiceCard = domain: vhost: /* html */ ''
+  mkServiceCard = vhost: /* html */ ''
     <article>
-      <h3><a href="https://${vhost.name}.${domain}">${vhost.name}</a></h3>
+      <h3><a href="https://${vhost.name}.${cfg.primaryDomain}">${vhost.name}</a></h3>
       ${lib.optionalString (vhost.extraNames != [ ]) ''
         <small>${
           lib.concatMapStringsSep ", " (
-            name: ''<a href="https://${name}.${domain}">${name}</a>''
+            name: ''<a href="https://${name}.${cfg.primaryDomain}">${name}</a>''
           ) vhost.extraNames
         }</small>
       ''}
     </article>
-  '';
-
-  mkDomainSection = domain: /* html */ ''
-    <section>
-      <h2>${domain}</h2>
-      <div class="grid">
-        ${lib.concatStrings (map (mkServiceCard domain) dashboardVhosts)}
-      </div>
-    </section>
   '';
 
   dashboardHtml = pkgs.writeText "index.html" /* html */ ''
@@ -56,7 +47,9 @@ let
       <body>
         <main class="container">
           <h1>Services</h1>
-          ${lib.concatStrings (lib.mapAttrsToList (name: _: mkDomainSection name) cfg.domains)}
+          <div class="grid">
+            ${lib.concatStrings (map mkServiceCard dashboardVhosts)}
+          </div>
         </main>
       </body>
     </html>
@@ -182,6 +175,11 @@ in
       };
     };
 
+    primaryDomain = lib.mkOption {
+      type = lib.types.str;
+      description = "Primary domain used for the dashboard.";
+    };
+
     domains = lib.mkOption {
       default = { };
       type = lib.types.attrsOf (
@@ -230,6 +228,13 @@ in
     };
   };
   config = lib.mkIf (config.virtualisation.quadlet.enable && cfg.enable) {
+    assertions = [
+      {
+        assertion = cfg.domains ? ${cfg.primaryDomain};
+        message = "virtualisation.quadlet.proxy.primaryDomain must be a key in virtualisation.quadlet.proxy.domains";
+      }
+    ];
+
     virtualisation.quadlet.proxy.virtualHosts.dashboard = lib.mkIf cfg.dashboard.enable {
       name = cfg.dashboard.name;
       extraConfig = /* caddyfile */ ''
