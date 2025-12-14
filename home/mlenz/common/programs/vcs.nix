@@ -187,25 +187,28 @@
   };
   programs.jujutsu = {
     enable = true;
+    # https://docs.jj-vcs.dev/latest/config/
     settings = {
-      user = {
-        name = user.name;
-        email = user.mail;
-      };
-      ui = {
-        default-command = "log";
-      };
-      git = {
-        fetch = [
-          "upstream"
-          "origin"
-        ];
-        push = "origin";
-      };
+      # keep-sorted start block=yes
       aliases = {
+        # keep-sorted start block=yes
+        c = [
+          "commit"
+        ];
+        ci = [
+          "commit"
+          "--interactive"
+        ];
         clone = [
           "git"
           "clone"
+        ];
+        e = [
+          "edit"
+        ];
+        f = [
+          "git"
+          "fetch"
         ];
         fetch = [
           "git"
@@ -215,9 +218,33 @@
           "git"
           "init"
         ];
+        nb = [
+          "bookmark"
+          "create"
+          "--revision"
+          "@-"
+        ];
+        p = [
+          "git"
+          "push"
+        ];
+        pull = [
+          "git"
+          "fetch"
+        ];
         push = [
           "git"
           "push"
+        ];
+        r = [
+          "rebase"
+        ];
+        s = [
+          "squash"
+        ];
+        si = [
+          "squash"
+          "--interactive"
         ];
         remote = [
           "git"
@@ -231,11 +258,41 @@
           "--to"
           "closest_nonempty(@)"
         ];
+        # keep-sorted end
+      };
+      # https://github.com/jj-vcs/jj/discussions/3549
+      experimental-advance-branches = {
+        enabled-branches = [
+          "glob:*"
+        ];
+        disabled-branches = [
+          "main"
+          "glob:push-*"
+        ];
+      };
+      git = {
+        fetch = [
+          "upstream"
+          "origin"
+        ];
+        push = "origin";
+      };
+      remotes = {
+        origin.auto-track-branches = "glob:*";
+        upstream.auto-track-branches = "main";
       };
       revset-aliases = {
         "closest_bookmark(to)" = "heads(::to & bookmarks())";
         "closest_nonempty(to)" = "heads(::to ~ empty())";
       };
+      ui = {
+        default-command = "log";
+      };
+      user = {
+        name = user.name;
+        email = user.mail;
+      };
+      # keep-sorted end
     };
   };
   programs.jjui = {
