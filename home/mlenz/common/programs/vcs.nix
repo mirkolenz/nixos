@@ -239,16 +239,16 @@
         r = [
           "rebase"
         ];
+        remote = [
+          "git"
+          "remote"
+        ];
         s = [
           "squash"
         ];
         si = [
           "squash"
           "--interactive"
-        ];
-        remote = [
-          "git"
-          "remote"
         ];
         tug = [
           "bookmark"
