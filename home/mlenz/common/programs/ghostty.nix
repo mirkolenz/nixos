@@ -16,6 +16,7 @@ lib.mkIf config.custom.profile.isDesktop {
       font-family = "JetBrainsMono Nerd Font";
       font-size = if pkgs.stdenv.isDarwin then 13 else 11;
       font-thicken = true;
+      macos-titlebar-style = "tabs";
       quick-terminal-position = "center";
       quick-terminal-size = "1600px,800px";
       shell-integration = "none";
