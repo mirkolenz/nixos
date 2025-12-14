@@ -223,6 +223,18 @@
           "git"
           "remote"
         ];
+        tug = [
+          "bookmark"
+          "move"
+          "--from"
+          "closest_bookmark(@)"
+          "--to"
+          "closest_nonempty(@)"
+        ];
+      };
+      revset-aliases = {
+        "closest_bookmark(to)" = "heads(::to & bookmarks())";
+        "closest_nonempty(to)" = "heads(::to ~ empty())";
       };
     };
   };
