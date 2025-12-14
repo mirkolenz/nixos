@@ -192,6 +192,38 @@
         name = user.name;
         email = user.mail;
       };
+      ui = {
+        default-command = "log";
+      };
+      git = {
+        fetch = [
+          "upstream"
+          "origin"
+        ];
+        push = "origin";
+      };
+      aliases = {
+        clone = [
+          "git"
+          "clone"
+        ];
+        fetch = [
+          "git"
+          "fetch"
+        ];
+        init = [
+          "git"
+          "init"
+        ];
+        push = [
+          "git"
+          "push"
+        ];
+        remote = [
+          "git"
+          "remote"
+        ];
+      };
     };
   };
   programs.jjui = {
