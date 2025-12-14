@@ -2,7 +2,6 @@
   lib,
   pkgs,
   user,
-  config,
   ...
 }:
 {
@@ -110,7 +109,7 @@
       };
       core = {
         autocrlf = "input";
-        editor = config.home.sessionVariables.EDITOR;
+        editor = "nvim";
         eol = "lf";
         # not supported on linux
         # breaks nix flake operations with path references
@@ -203,6 +202,9 @@
           "git"
           "clone"
         ];
+        d = [
+          "describe"
+        ];
         e = [
           "edit"
         ];
@@ -217,6 +219,9 @@
         init = [
           "git"
           "init"
+        ];
+        n = [
+          "new"
         ];
         nb = [
           "bookmark"
@@ -287,6 +292,8 @@
       };
       ui = {
         default-command = "log";
+        diff-editor = ":builtin";
+        editor = "nvim";
       };
       user = {
         name = user.name;
