@@ -7,12 +7,12 @@
 }:
 mkApp (finalAttrs: {
   pname = "codexbar";
-  version = "0.7.1";
+  version = "0.7.2";
   appname = "CodexBar";
 
   src = fetchurl {
     url = "https://github.com/steipete/CodexBar/releases/download/v${finalAttrs.version}/CodexBar-${finalAttrs.version}.zip";
-    hash = "sha256-R7ZVXznmKwlzA0hiuijQh+Fan4+t/ZGzfFY7XpNHUIE=";
+    hash = "sha256-L4iZzcMRiB7KscAtgvwk6v7Ep74+vdyISOAlwKJIGCs=";
   };
 
   nativeBuildInputs = [ unzip ];
