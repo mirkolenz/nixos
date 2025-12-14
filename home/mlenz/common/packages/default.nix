@@ -15,6 +15,7 @@
     moreutils
     gnupg
     gnumake
+    recutils
     inetutils
     gcc
     zip
