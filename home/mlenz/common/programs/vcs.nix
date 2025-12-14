@@ -278,8 +278,8 @@
         push = "origin";
       };
       remotes = {
-        origin.auto-track-branches = "glob:*";
-        upstream.auto-track-branches = "main";
+        origin.auto-track-bookmarks = "glob:*";
+        upstream.auto-track-bookmarks = "main";
       };
       revset-aliases = {
         "closest_bookmark(to)" = "heads(::to & bookmarks())";
