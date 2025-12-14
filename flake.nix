@@ -121,21 +121,11 @@
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake
-      {
-        inherit inputs;
-        specialArgs = {
-          lib' = import ./lib inputs;
-        };
-      }
-      {
-        debug = true;
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-          "aarch64-darwin"
-        ];
-        imports = [ ./flake-modules ];
+    inputs:
+    inputs.flake-parts.lib.mkFlake {
+      inherit inputs;
+      specialArgs = {
+        lib' = import ./lib inputs;
       };
+    } ./flake;
 }
