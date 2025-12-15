@@ -1,17 +1,14 @@
 {
-  "tag_name": "v0.27.0",
+  "tag_name": "v0.28.0",
   "assets": {
     "gitui-linux-aarch64.tar.gz": {
-      "digest": "sha256-VhFuJ4xhjAVOdXWt87NXUEx1+htaPsuTFFBNUhwHoAg="
+      "digest": "sha256:4ce1f32528f79dfe118130e753900f6ea7ffc17eb72df3abcf22313ec771c131"
     },
     "gitui-linux-x86_64.tar.gz": {
-      "digest": "sha256-5YvXdhcKxx5OV2xg66p8z7dw8HnnjrSy0/TA1P6v3Z8="
-    },
-    "gitui-mac-x86.tar.gz": {
-      "digest": "sha256-NxP80OIvKINsPptvWem563F/c7Fbn6NuL05wtbOEw6c="
+      "digest": "sha256:4972695d5690001f5eaaecf709be52aa9dab424067bac539fd668c14afdd22c4"
     },
     "gitui-mac.tar.gz": {
-      "digest": "sha256-Fn+SJnQt1q3o9gudJfcOAtP16kDG4HUiFkMuL5htZgg="
+      "digest": "sha256:5366926b6d355dda413146c670e0207c056a325985f37a628fd2b06803cfa8ac"
     }
   }
 }
