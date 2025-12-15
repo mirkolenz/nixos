@@ -110,8 +110,8 @@
       };
       core = {
         autocrlf = "input";
-        editor = "micro";
         eol = "lf";
+        # editor = "micro";
         # not supported on linux
         # breaks nix flake operations with path references
         # https://github.com/NixOS/nix/issues/11567
@@ -294,7 +294,7 @@
       ui = {
         default-command = "log";
         diff-editor = ":builtin";
-        editor = "micro";
+        # editor = "micro";
       };
       user = {
         name = user.name;
