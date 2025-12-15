@@ -9,6 +9,7 @@
     gibo
     git-ignore
     lazyjj
+    diffedit3
   ];
   programs.gh = {
     enable = true;
