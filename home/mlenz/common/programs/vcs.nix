@@ -109,7 +109,7 @@
       };
       core = {
         autocrlf = "input";
-        editor = "nvim";
+        # editor = "nvim";
         eol = "lf";
         # not supported on linux
         # breaks nix flake operations with path references
@@ -293,7 +293,7 @@
       ui = {
         default-command = "log";
         diff-editor = ":builtin";
-        editor = "nvim";
+        # editor = "nvim";
       };
       user = {
         name = user.name;
