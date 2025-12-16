@@ -8,7 +8,7 @@
   makeBinaryWrapper,
   installShellFiles,
   writeScript,
-  updateChannel ? "stable",
+  updateChannel ? "latest",
   manifestFile ? ./manifest.json,
 }:
 let
