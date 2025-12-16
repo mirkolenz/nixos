@@ -11,12 +11,13 @@ lib.mkIf config.custom.profile.isWorkstation {
     # https://github.com/openai/codex/blob/main/docs/config.md
     # https://github.com/openai/codex/blob/main/codex-rs/core/src/config/mod.rs
     settings = {
-      model = "gpt-5.1-codex-max";
+      model = "gpt-5.2";
       # model_reasoning_effort = "high";
       # model_reasoning_summary = "auto";
       approval_policy = "on-request";
       file_opener = "none";
       preferred_auth_method = "chatgpt";
+      check_for_update_on_startup = false;
       sandbox_mode = "workspace-write";
       sandbox_workspace_write = {
         network_access = true;
@@ -35,11 +36,9 @@ lib.mkIf config.custom.profile.isWorkstation {
       # codex features list
       features = {
         apply_patch_freeform = true;
-        parallel = true;
-        remote_compaction = true;
         rmcp_client = true;
-        shell_command_tool = true;
-        undo = true;
+        skills = true;
+        tui2 = true;
         view_image_tool = true;
         web_search_request = true;
       };
