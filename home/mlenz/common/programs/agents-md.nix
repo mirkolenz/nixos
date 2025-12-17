@@ -7,15 +7,16 @@
 
       - Use conventional commit messages to describe changes so that semantic versioning can be applied.
       - In plain text files, write exactly one sentence per line: txt, md, tex, typ, rst, ...
+      - Use `nix fmt` to format all files in a repository, it runs treefmt with appropriate settings.
 
       ## Python
 
       - Use `uv run` to execute Python scripts and files, not `python` or `python3`.
-      - Use `ruff` without uv for linting and formatting Python code, not `black` or `flake8`.
-      - Use `basedpyright --level error` without uv for type checking Python code, not `mypy` or `pyright`.
+      - Use `ruff check --fix --unsafe-fixes --output-format=concise` without uv for linting Python code, not `flake8` or `pylint`.
+      - Use `ty --output-format=concise` without uv for type checking Python code, not `mypy` or `pyright`.
       - Use a src-based layout for Python projects.
       - Add type annotations to Python functions and classes.
-      - Add `__all__` to modules to control what is exported.
+      - Add `__all__` to public modules to control what is exported.
       - Create tests using `pytest` and place them in a `tests/` directory.
       - Add docstrings to all public functions and classes.
       - Add doctests to functions and classes where appropriate.
