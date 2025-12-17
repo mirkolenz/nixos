@@ -21,7 +21,6 @@ mkGitHubBinary {
     "uvx"
   ];
   pattern = ''^uv-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
-  allowPrereleases = true;
 
   buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
 
