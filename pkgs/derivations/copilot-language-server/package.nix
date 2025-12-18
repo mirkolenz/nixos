@@ -1,11 +1,10 @@
 {
   lib,
-  stdenvNoCC,
+  stdenv,
   unzip,
   versionCheckHook,
   mkGitHubBinary,
   installShellFiles,
-  buildFHSEnv,
 }:
 let
   platforms = {
@@ -13,26 +12,24 @@ let
     aarch64-linux = "linux-arm64";
     aarch64-darwin = "darwin-arm64";
   };
-  ghBin = mkGitHubBinary {
-    pname = "copilot-language-server";
-    owner = "github";
-    repo = "copilot-language-server-release";
-    file = ./release.json;
-    getAsset = { version, system }: "copilot-language-server-${platforms.${system}}-${version}.zip";
-    pattern = ''^copilot-language-server-(linux|darwin)-(arm64|x64)-\($release.tag_name)\\.zip$'';
-  };
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  inherit (ghBin) pname version src;
+mkGitHubBinary (finalAttrs: {
+  pname = "copilot-language-server";
+  owner = "github";
+  repo = "copilot-language-server-release";
+  file = ./release.json;
+  getAsset = { version, system }: "copilot-language-server-${platforms.${system}}-${version}.zip";
+  pattern = ''^copilot-language-server-(linux|darwin)-(arm64|x64)-\($release.tag_name)\\.zip$'';
 
   sourceRoot = ".";
 
   nativeBuildInputs = [
     unzip
     installShellFiles
+  ]
+  ++ lib.optionals (!stdenv.isDarwin) [
+    stdenv.cc.cc
   ];
-
-  # autoPatchElfHook causes Node.js SyntaxError: Invalid or unexpected token
 
   dontConfigure = true;
   dontBuild = true;
@@ -50,20 +47,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
-  doInstallCheck = false; # not working du to missing autoPatchelfHook
+  doInstallCheck = true;
 
-  passthru = ghBin.passthru // {
-    fhs = buildFHSEnv {
-      inherit (finalAttrs) pname version;
-      targetPkgs = pkgs: [ pkgs.stdenv.cc.cc.lib ];
-      runScript = lib.getExe finalAttrs.finalPackage;
-      meta = finalAttrs.meta // {
-        description = "${finalAttrs.meta.description} (Use this version if you encounter an error like `Could not start dynamically linked executable` or `SyntaxError: Invalid or unexpected token`)";
-      };
-    };
-  };
-
-  meta = ghBin.meta // {
+  meta = {
     description = "Use GitHub Copilot with any editor or IDE via the Language Server Protocol";
     platforms = lib.attrNames platforms;
     license = lib.licenses.unfree;
