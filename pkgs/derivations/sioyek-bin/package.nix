@@ -1,7 +1,6 @@
 {
-  mkApp,
   lib,
-  mkGitHubBinary,
+  mkGitHubBinaryApp,
   rcodesign,
   unzip,
   undmg,
@@ -10,7 +9,9 @@ let
   platforms = {
     aarch64-darwin = "mac-arm";
   };
-  ghBin = mkGitHubBinary {
+in
+mkGitHubBinaryApp (finalAttrs: {
+  ghBin = {
     owner = "ahrm";
     repo = "sioyek";
     file = ./release.json;
@@ -19,16 +20,11 @@ let
     pattern = ''^sioyek-release-mac-arm\\.zip$'';
     allowPrereleases = true;
   };
-in
-mkApp (finalAttrs: {
-  inherit (ghBin)
-    pname
-    version
-    src
-    # passthru # TODO: enable after next release (currently digest is missing)
-    ;
 
   wrapperPath = "Contents/MacOS/${finalAttrs.pname}";
+
+  # TODO: enable after next release (currently digest is missing)
+  passthru.updateScript = null;
 
   nativeBuildInputs = [
     rcodesign
