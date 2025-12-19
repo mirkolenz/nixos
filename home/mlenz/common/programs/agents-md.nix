@@ -7,7 +7,7 @@
 
       - Use conventional commit messages to describe changes so that semantic versioning can be applied.
       - In plain text files, write exactly one sentence per line: txt, md, tex, typ, rst, ...
-      - Use `nix fmt` to format all files in a repository, it runs treefmt with appropriate settings.
+      - Do not run formatters or linters automatically, only when explicitly needed.
       - Favor simple and readable solutions over complex ones and optimize for maintainability.
 
       ## Python
