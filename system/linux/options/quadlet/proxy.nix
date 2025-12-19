@@ -36,9 +36,9 @@ let
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Services</title>
         <link rel="stylesheet" href="pico.min.css" />
-        <link rel="stylesheet" href="font-awesome/fontawesome.min.css" />
-        <link rel="stylesheet" href="font-awesome/solid.min.css" />
-        <link rel="stylesheet" href="font-awesome/brands.min.css" />
+        <link rel="stylesheet" href="fontawesome.min.css" />
+        <link rel="stylesheet" href="solid.min.css" />
+        <link rel="stylesheet" href="brands.min.css" />
         <style>
           .grid {
             grid-template-columns: repeat(3, 1fr);
@@ -57,14 +57,14 @@ let
   '';
 
   dashboardFiles = pkgs.runCommandLocal "dashboard-files" { } /* bash */ ''
-    mkdir -p $out $out/font-awesome
+    mkdir -p $out
 
     cp ${pkgs.picocss}/share/css/pico.min.css $out/
 
-    cp ${pkgs.font-awesome-web}/share/css/fontawesome.min.css $out/font-awesome/
-    cp ${pkgs.font-awesome-web}/share/css/solid.min.css $out/font-awesome/
-    cp ${pkgs.font-awesome-web}/share/css/brands.min.css $out/font-awesome/
-    cp -r ${pkgs.font-awesome-web}/share/webfonts $out/font-awesome/
+    cp ${pkgs.font-awesome-web}/share/css/fontawesome.min.css $out
+    cp ${pkgs.font-awesome-web}/share/css/solid.min.css $out
+    cp ${pkgs.font-awesome-web}/share/css/brands.min.css $out
+    cp -r ${pkgs.font-awesome-web}/share/webfonts $out
 
     cp ${dashboardHtml} $out/index.html
   '';
