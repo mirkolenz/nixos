@@ -39,7 +39,25 @@ let
         <link rel="stylesheet" href="brands.min.css" />
         <style>
           .grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr;
+          }
+
+          @media (min-width: 576px) {
+            .grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .grid {
+              grid-template-columns: repeat(3, 1fr);
+            }
+          }
+
+          @media (min-width: 1280px) {
+            .grid {
+              grid-template-columns: repeat(4, 1fr);
+            }
           }
 
           article a {
