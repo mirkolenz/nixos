@@ -49,7 +49,7 @@ let
         <main class="container">
           <h1>Services</h1>
           <div class="grid">
-            ${lib.concatStrings (map mkServiceCard dashboardVhosts)}
+            ${lib.concatMapStrings mkServiceCard dashboardVhosts}
           </div>
         </main>
       </body>
