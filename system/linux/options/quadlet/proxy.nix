@@ -19,14 +19,12 @@ let
 
   mkServiceCard = vhost: /* html */ ''
     <article>
-      <h3><a href="https://${vhost.name}.${cfg.primaryDomain}">${vhost.name}</a></h3>
-      ${lib.optionalString (vhost.extraNames != [ ]) ''
-        <small>${
-          lib.concatMapStringsSep ", " (
-            name: ''<a href="https://${name}.${cfg.primaryDomain}">${name}</a>''
-          ) vhost.extraNames
-        }</small>
-      ''}
+      <h3>
+        <a href="https://${vhost.name}.${cfg.primaryDomain}">
+          <i class="fa-${vhost.icon.style} fa-${vhost.icon.name}"></i>
+          ${vhost.name}
+        </a>
+      </h3>
     </article>
   '';
 
@@ -38,6 +36,9 @@ let
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Services</title>
         <link rel="stylesheet" href="pico.min.css" />
+        <link rel="stylesheet" href="font-awesome/fontawesome.min.css" />
+        <link rel="stylesheet" href="font-awesome/solid.min.css" />
+        <link rel="stylesheet" href="font-awesome/brands.min.css" />
         <style>
           .grid {
             grid-template-columns: repeat(3, 1fr);
@@ -56,8 +57,15 @@ let
   '';
 
   dashboardFiles = pkgs.runCommandLocal "dashboard-files" { } /* bash */ ''
-    mkdir -p $out
+    mkdir -p $out $out/font-awesome
+
     cp ${pkgs.picocss}/share/css/pico.min.css $out/
+
+    cp ${pkgs.font-awesome-web}/share/css/fontawesome.min.css $out/font-awesome/
+    cp ${pkgs.font-awesome-web}/share/css/solid.min.css $out/font-awesome/
+    cp ${pkgs.font-awesome-web}/share/css/brands.min.css $out/font-awesome/
+    cp -r ${pkgs.font-awesome-web}/share/webfonts $out/font-awesome/
+
     cp ${dashboardHtml} $out/index.html
   '';
 

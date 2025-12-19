@@ -13,6 +13,26 @@
       type = with lib.types; listOf str;
       default = [ ];
     };
+    icon = lib.mkOption {
+      default = { };
+      type = lib.types.submodule {
+        options = {
+          name = lib.mkOption {
+            type = lib.types.str;
+            default = "globe";
+            description = "Font Awesome icon name.";
+          };
+          style = lib.mkOption {
+            type = lib.types.enum [
+              "solid"
+              "brands"
+            ];
+            default = "solid";
+            description = "Font Awesome icon style.";
+          };
+        };
+      };
+    };
     reverseProxy = lib.mkOption {
       default = { };
       type = lib.types.submodule {
