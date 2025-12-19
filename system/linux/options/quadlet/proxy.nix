@@ -19,12 +19,10 @@ let
 
   mkServiceCard = vhost: /* html */ ''
     <article>
-      <h3>
-        <a href="https://${vhost.name}.${cfg.primaryDomain}">
-          <i class="fa-${vhost.icon.style} fa-${vhost.icon.name}"></i>
-          ${vhost.name}
-        </a>
-      </h3>
+      <a href="https://${vhost.name}.${cfg.primaryDomain}">
+        <i class="fa-${vhost.icon.style} fa-${vhost.icon.name}"></i>
+        ${vhost.name}
+      </a>
     </article>
   '';
 
@@ -42,6 +40,12 @@ let
         <style>
           .grid {
             grid-template-columns: repeat(3, 1fr);
+          }
+
+          article a {
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
           }
         </style>
       </head>
