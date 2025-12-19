@@ -32,6 +32,7 @@ lib.mkIf config.custom.profile.isWorkstation {
           "WebSearch"
           "Edit(${config.xdg.cacheHome}/**)"
           "Edit(${config.home.homeDirectory}/.npm/**)"
+          "Bash(nix fmt)"
         ];
         deny = [
           "Bash(sudo:*)"
