@@ -41,25 +41,33 @@ let
           .grid {
             grid-template-columns: 1fr;
           }
-
           @media (min-width: 576px) {
             .grid {
               grid-template-columns: repeat(2, 1fr);
             }
           }
-
           @media (min-width: 1024px) {
             .grid {
               grid-template-columns: repeat(3, 1fr);
             }
           }
-
           @media (min-width: 1280px) {
             .grid {
               grid-template-columns: repeat(4, 1fr);
             }
           }
 
+          :root {
+            --pico-border-radius: 0.5rem;
+            --pico-block-spacing-horizontal: 0.5rem;
+            --pico-block-spacing-vertical: 0.5rem;
+          }
+          h1 {
+            margin-bottom: 2rem;
+          }
+          article {
+            margin-bottom: 0rem;
+          }
           article a {
             text-decoration: none;
             font-size: 1.5rem;
