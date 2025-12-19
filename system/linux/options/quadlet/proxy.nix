@@ -32,8 +32,7 @@ let
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>${cfg.dashboard.title}</title>
-        <link rel="icon" href="favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="favicon.png" />
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
         <link rel="stylesheet" href="pico.min.css" />
         <link rel="stylesheet" href="fontawesome.min.css" />
         <link rel="stylesheet" href="solid.min.css" />
@@ -88,26 +87,20 @@ let
     </html>
   '';
 
-  dashboardFiles =
-    pkgs.runCommandLocal "dashboard-files"
-      {
-        nativeBuildInputs = [ pkgs.librsvg ];
-      }
-      /* bash */ ''
-        mkdir -p $out
+  dashboardFiles = pkgs.runCommandLocal "dashboard-files" { } /* bash */ ''
+    mkdir -p $out
 
-        cp ${pkgs.picocss}/share/css/pico.min.css $out/
+    cp ${pkgs.picocss}/share/css/pico.min.css $out/
 
-        cp ${pkgs.font-awesome-web}/share/css/fontawesome.min.css $out
-        cp ${pkgs.font-awesome-web}/share/css/solid.min.css $out
-        cp ${pkgs.font-awesome-web}/share/css/brands.min.css $out
-        cp -r ${pkgs.font-awesome-web}/share/webfonts $out
+    cp ${pkgs.font-awesome-web}/share/css/fontawesome.min.css $out
+    cp ${pkgs.font-awesome-web}/share/css/solid.min.css $out
+    cp ${pkgs.font-awesome-web}/share/css/brands.min.css $out
+    cp -r ${pkgs.font-awesome-web}/share/webfonts $out
 
-        rsvg-convert -w 256 -h 256 -o $out/favicon.png \
-          "${pkgs.font-awesome-web}/share/svgs/${cfg.dashboard.favicon.style}/${cfg.dashboard.favicon.name}.svg"
+    cp "${pkgs.font-awesome-web}/share/svgs/${cfg.dashboard.favicon.style}/${cfg.dashboard.favicon.name}.svg" $out/favicon.svg
 
-        cp ${dashboardHtml} $out/index.html
-      '';
+    cp ${dashboardHtml} $out/index.html
+  '';
 
   mkVirtualHost =
     {
