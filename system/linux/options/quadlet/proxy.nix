@@ -19,7 +19,7 @@ let
 
   mkServiceCard = vhost: /* html */ ''
     <article>
-      <a href="https://${vhost.name}.${cfg.primaryDomain}">
+      <a href="https://${vhost.name}.${cfg.primaryDomain}" target="_blank">
         <i class="fa-${vhost.icon.style} fa-${vhost.icon.name}"></i>&nbsp;${vhost.name}
       </a>
     </article>
