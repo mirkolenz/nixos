@@ -63,10 +63,11 @@ let
             --pico-block-spacing-vertical: 0.5rem;
           }
           h1 {
+            margin-top: 1rem;
             margin-bottom: 2rem;
           }
           article {
-            margin-bottom: 0rem;
+            margin: 0rem;
           }
           article a {
             text-decoration: none;
@@ -215,7 +216,7 @@ in
       };
       title = lib.mkOption {
         type = lib.types.str;
-        default = "Quadlet Services";
+        default = "Services Dashboard";
         description = "Title displayed on the dashboard page.";
       };
       favicon = lib.mkOption {
@@ -224,7 +225,7 @@ in
           options = {
             name = lib.mkOption {
               type = lib.types.str;
-              default = "house";
+              default = "server";
               description = "Font Awesome icon name for the favicon.";
             };
             style = lib.mkOption {
