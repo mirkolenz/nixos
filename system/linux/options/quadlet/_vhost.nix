@@ -5,6 +5,9 @@
 }:
 {
   options = {
+    enable = lib.mkEnableOption "this virtual host" // {
+      default = true;
+    };
     name = lib.mkOption {
       type = with lib.types; str;
       default = name;

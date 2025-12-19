@@ -11,7 +11,7 @@ let
     let
       containerVhosts = lib.mapAttrsToList (_: c: c.virtualHost) config.virtualisation.quadlet.containers;
       extraVhosts = lib.attrValues cfg.virtualHosts;
-      hasConfig = vhost: vhost.reverseProxy.upstreams != [ ] || vhost.extraConfig != "";
+      hasConfig = vhost: vhost.enable && (vhost.reverseProxy.upstreams != [ ] || vhost.extraConfig != "");
     in
     lib.filter hasConfig (containerVhosts ++ extraVhosts);
 
