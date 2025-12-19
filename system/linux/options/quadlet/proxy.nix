@@ -20,8 +20,7 @@ let
   mkServiceCard = vhost: /* html */ ''
     <article>
       <a href="https://${vhost.name}.${cfg.primaryDomain}">
-        <i class="fa-${vhost.icon.style} fa-${vhost.icon.name}"></i>
-        ${vhost.name}
+        <i class="fa-${vhost.icon.style} fa-${vhost.icon.name}"></i>&nbsp;${vhost.name}
       </a>
     </article>
   '';
@@ -32,7 +31,8 @@ let
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Services</title>
+        <title>${cfg.dashboard.title}</title>
+        <link rel="icon" href="favicon.svg" type="image/svg+xml" />
         <link rel="stylesheet" href="pico.min.css" />
         <link rel="stylesheet" href="fontawesome.min.css" />
         <link rel="stylesheet" href="solid.min.css" />
@@ -69,7 +69,7 @@ let
       </head>
       <body>
         <main class="container">
-          <h1>Services</h1>
+          <h1><i class="fa-${cfg.dashboard.favicon.style} fa-${cfg.dashboard.favicon.name}"></i>&nbsp;${cfg.dashboard.title}</h1>
           <div class="grid">
             ${lib.concatMapStrings mkServiceCard dashboardVhosts}
           </div>
@@ -87,6 +87,8 @@ let
     cp ${pkgs.font-awesome-web}/share/css/solid.min.css $out
     cp ${pkgs.font-awesome-web}/share/css/brands.min.css $out
     cp -r ${pkgs.font-awesome-web}/share/webfonts $out
+
+    cp "${pkgs.font-awesome-web}/share/svgs/${cfg.dashboard.favicon.style}/${cfg.dashboard.favicon.name}.svg" $out/favicon.svg
 
     cp ${dashboardHtml} $out/index.html
   '';
@@ -202,6 +204,31 @@ in
         type = lib.types.str;
         default = "dashboard";
         description = "Subdomain name for the dashboard.";
+      };
+      title = lib.mkOption {
+        type = lib.types.str;
+        default = "Quadlet Services";
+        description = "Title displayed on the dashboard page.";
+      };
+      favicon = lib.mkOption {
+        default = { };
+        type = lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+              default = "house";
+              description = "Font Awesome icon name for the favicon.";
+            };
+            style = lib.mkOption {
+              type = lib.types.enum [
+                "solid"
+                "brands"
+              ];
+              default = "solid";
+              description = "Font Awesome icon style for the favicon.";
+            };
+          };
+        };
       };
     };
 

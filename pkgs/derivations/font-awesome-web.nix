@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/share
-    cp -r css webfonts $out/share/
+    cp -r css webfonts js svgs $out/share/
 
     runHook postInstall
   '';
