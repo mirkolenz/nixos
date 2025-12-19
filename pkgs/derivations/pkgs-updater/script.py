@@ -42,9 +42,9 @@ def run(
     attrset: Annotated[str | None, typer.Option("--attrset", "-a")] = None,
     max_workers: Annotated[int | None, typer.Option()] = None,
     keep_going: Annotated[bool, typer.Option()] = True,
-    commit: Annotated[Commit, typer.Option()] = Commit.NONE,
-    skip_prompt: Annotated[bool, typer.Option()] = True,
-    order: Annotated[Order | None, typer.Option()] = None,
+    commit: Annotated[Commit, typer.Option("--commit", "-c")] = Commit.NONE,
+    prompt: Annotated[bool, typer.Option()] = False,
+    order: Annotated[Order | None, typer.Option("--order", "-o")] = None,
 ):
     specs = sum(x is not None for x in [maintainer, package, function, attrset])
 
@@ -78,13 +78,13 @@ def run(
         cmd += cmd_arg("max-workers", str(max_workers))
 
     if keep_going:
-        cmd += cmd_arg("keep-going", keep_going)
+        cmd += cmd_arg("keep-going", True)
 
     if commit == Commit.MULTI:
         cmd += cmd_arg("commit", commit)
 
-    if skip_prompt:
-        cmd += cmd_arg("skip-prompt", skip_prompt)
+    if not prompt:
+        cmd += cmd_arg("skip-prompt", True)
 
     if order is not None:
         cmd += cmd_arg("order", order.value)
