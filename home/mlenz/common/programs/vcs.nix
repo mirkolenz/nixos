@@ -162,7 +162,8 @@
       };
       remote = {
         # overwrite version tags
-        origin.fetch = "+refs/tags/v*:refs/tags/v*";
+        # not compatible with jujutsu
+        # origin.fetch = "+refs/tags/v*:refs/tags/v*";
       };
       difftool = {
         guiDefault = "auto";
@@ -275,17 +276,6 @@
           "main"
           "glob:push-*"
         ];
-      };
-      git = {
-        fetch = [
-          "upstream"
-          "origin"
-        ];
-        push = "origin";
-      };
-      remotes = {
-        origin.auto-track-bookmarks = "glob:*";
-        upstream.auto-track-bookmarks = "main";
       };
       revset-aliases = {
         "closest_bookmark(to)" = "heads(::to & bookmarks())";
