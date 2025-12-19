@@ -10,17 +10,15 @@ lib.extendMkDerivation {
   ];
   extendDrvArgs =
     finalAttrs:
-    { ghBin, ... }:
+    args@{ ghBin, ... }:
     let
-      ghBinary = mkGitHubBinary ghBin;
+      ghDrv = mkGitHubBinary ghBin;
     in
     {
-      inherit (ghBinary)
-        pname
-        version
-        src
-        passthru
-        meta
-        ;
+      pname = args.pname or ghDrv.pname;
+      version = args.version or ghDrv.version;
+      src = args.src or ghDrv.src;
+      passthru = (ghDrv.passthru or { }) // (args.passthru or { });
+      meta = (ghDrv.meta or { }) // (args.meta or { });
     };
 }
