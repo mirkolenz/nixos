@@ -15,7 +15,9 @@ let
     in
     lib.filter hasConfig (containerVhosts ++ extraVhosts);
 
-  dashboardVhosts = lib.filter (vhost: vhost.name != cfg.dashboard.name) allVhosts;
+  dashboardVhosts = lib.sort (a: b: a.name < b.name) (
+    lib.filter (vhost: vhost.name != cfg.dashboard.name) allVhosts
+  );
 
   mkServiceCard = vhost: /* html */ ''
     <article>
