@@ -2,7 +2,7 @@
 {
   plugins.treesitter = {
     enable = true;
-    folding = true;
+    folding.enable = true;
     settings = {
       highlight.enable = true;
       incremental_selection.enable = true;
