@@ -44,6 +44,10 @@ lib.mkIf pkgs.stdenv.isDarwin {
         long = "{}";
         class = "short";
       };
+      long = {
+        first-style = "long";
+        class = "long";
+      };
     };
   };
   home.packages = with pkgs; [
