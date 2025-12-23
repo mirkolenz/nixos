@@ -8,10 +8,10 @@
       expected_version="${pkgs.determinate-nix.version}"
       current_version=$(/usr/local/bin/determinate-nixd version | ${lib.getExe pkgs.gawk} '/daemon version:/ {print $NF; exit}')
       if [ "$current_version" != "$expected_version" ]; then
-        echo "determinate-nixd: upgrading from $current_version to $expected_version"
+        echo "Determinate Nixd: Upgrading from $current_version to $expected_version"
         /usr/local/bin/determinate-nixd upgrade --version "v$expected_version"
       else
-        echo "determinate-nixd: already at version $expected_version"
+        echo "Determinate Nixd: Already at version $expected_version"
       fi
     '';
   };
