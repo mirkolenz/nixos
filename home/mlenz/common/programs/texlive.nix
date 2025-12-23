@@ -53,7 +53,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
   home.packages = with pkgs; [
     arxiv-latex-cleaner
     bibtex-tidy
-    bibtexbrowser.passthru.bibtex2cff
+    bibtexbrowser.bibtex2cff
     ltex-ls-plus
     sioyek-bin
     tectonic
