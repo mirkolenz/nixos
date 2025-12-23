@@ -36,9 +36,9 @@ lib.mkIf config.custom.profile.isWorkstation {
       # codex features list
       features = {
         apply_patch_freeform = true;
-        rmcp_client = true;
-        skills = true;
+        shell_snapshot = true;
         tui2 = true;
+        unified_exec = true;
         view_image_tool = true;
         web_search_request = true;
       };
