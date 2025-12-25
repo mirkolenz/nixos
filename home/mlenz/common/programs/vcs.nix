@@ -20,6 +20,7 @@
   programs.gh-dash = {
     enable = true;
   };
+  programs.mergiraf.enable = true;
   programs.difftastic = {
     enable = true;
     git.enable = false;
@@ -182,7 +183,9 @@
       };
       merge = {
         guitool = "vscode";
-        conflictstyle = "zdiff3";
+        conflictstyle = "diff3";
+        # not compatible with mergiraf
+        # conflictstyle = "zdiff3";
       };
     };
   };
@@ -284,6 +287,7 @@
       ui = {
         default-command = "log";
         diff-editor = ":builtin";
+        merge-editor = "mergiraf";
         # editor = "micro";
       };
       user = {
