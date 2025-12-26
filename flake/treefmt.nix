@@ -14,7 +14,7 @@
           gofmt.enable = true;
           google-java-format.enable = true;
           keep-sorted.enable = true;
-          nixf-diagnose.enable = true;
+          nixf-diagnose.enable = false; # todo: broken as of 2025-12-26
           nixfmt.enable = true;
           prettier.enable = true;
           ruff-check.enable = true;
@@ -25,14 +25,19 @@
           yamlfmt.enable = true;
           # keep-sorted end
         };
-        settings.formatter.nixf-diagnose = {
-          # Ensure nixfmt cleans up after nixf-diagnose.
-          priority = -1;
-          options = [
-            "--auto-fix"
-            "--ignore=sema-unused-def-let"
-          ];
-        };
+        # settings.formatter.nixf-diagnose = {
+        #   # Ensure nixfmt cleans up after nixf-diagnose.
+        #   priority = -1;
+        #   options = [
+        #     "--auto-fix"
+        #     # some code is commented
+        #     "--ignore=sema-unused-def-let"
+        #     # builtins.getFlake unknown
+        #     "--ignore=sema-primop-unknown"
+        #     # fetchurl in callPackage derivations
+        #     "--ignore=sema-primop-overridden"
+        #   ];
+        # };
       };
       packages.treefmt-nix = config.treefmt.build.wrapper;
     };
