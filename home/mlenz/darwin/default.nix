@@ -17,6 +17,7 @@
     rcodesign
     container
     ollama-copilot
+    mole-mac
     (writeShellApplication {
       name = "scansnap-reset";
       text = /* bash */ ''
