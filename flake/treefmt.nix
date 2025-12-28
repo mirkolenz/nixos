@@ -14,7 +14,7 @@
           gofmt.enable = true;
           google-java-format.enable = true;
           keep-sorted.enable = true;
-          nixf-diagnose.enable = false; # todo: broken as of 2025-12-26
+          nixf-diagnose.enable = true;
           nixfmt.enable = true;
           prettier.enable = true;
           ruff-check.enable = true;
@@ -25,19 +25,19 @@
           yamlfmt.enable = true;
           # keep-sorted end
         };
-        # settings.formatter.nixf-diagnose = {
-        #   # Ensure nixfmt cleans up after nixf-diagnose.
-        #   priority = -1;
-        #   options = [
-        #     "--auto-fix"
-        #     # some code is commented
-        #     "--ignore=sema-unused-def-let"
-        #     # builtins.getFlake unknown
-        #     "--ignore=sema-primop-unknown"
-        #     # fetchurl in callPackage derivations
-        #     "--ignore=sema-primop-overridden"
-        #   ];
-        # };
+        settings.formatter.nixf-diagnose = {
+          # Ensure nixfmt cleans up after nixf-diagnose.
+          priority = -1;
+          options = [
+            "--auto-fix"
+            # some code is commented out
+            "--ignore=sema-unused-def-let"
+            # unknown builtin `getFlake`
+            "--ignore=sema-primop-unknown"
+            # overriding a builtin name `fetchurl` is discouraged, rename it to avoid confusion
+            "--ignore=sema-primop-overridden"
+          ];
+        };
       };
       packages.treefmt-nix = config.treefmt.build.wrapper;
     };
