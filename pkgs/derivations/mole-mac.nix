@@ -7,7 +7,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mole";
-  version = "V1.14.7";
+  version = "V1.15.5";
 
   src = fetchFromGitHub {
     owner = "tw93";
