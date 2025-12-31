@@ -38,6 +38,7 @@
     rlwrap
     wol
     ast-grep
+    stress-ng
     # json parsing
     jq
     jaq
