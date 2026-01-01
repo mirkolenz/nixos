@@ -10,7 +10,7 @@
     };
   };
   plugins.treesitter-refactor = {
-    enable = true;
+    enable = false; # todo: broken as of 2026-01-01
     settings = {
       highlight_current_scope.enable = false;
       highlight_definitions.enable = true;
@@ -19,7 +19,7 @@
     };
   };
   plugins.treesitter-textobjects = {
-    enable = true;
+    enable = false; # todo: broken as of 2026-01-01
     settings = {
       lsp_interop.enable = true;
       move.enable = true;
