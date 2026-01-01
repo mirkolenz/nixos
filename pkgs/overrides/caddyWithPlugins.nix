@@ -2,7 +2,7 @@ final: prev:
 final.nixpkgs.caddy.withPlugins {
   plugins = [
     # https://github.com/caddy-dns/cloudflare/tags
-    "github.com/caddy-dns/cloudflare@v0.2.1"
+    "github.com/caddy-dns/cloudflare@v0.2.2"
   ];
-  hash = "sha256-aRMg7R0dBAy+LJeGCMPg6HKppM6NPX2NPwtc0CeSQLg=";
+  hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
 }
