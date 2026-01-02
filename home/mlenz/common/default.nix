@@ -18,5 +18,8 @@
       PAGER = "less";
       MANPAGER = "bat -plman";
     };
+    file = {
+      ".hushlogin".text = "";
+    };
   };
 }
