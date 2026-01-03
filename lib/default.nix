@@ -142,4 +142,10 @@ rec {
         if lib.pathExists (dir + "/default.nix") then import (dir + "/default.nix") final prev else { };
     in
     importedDefaultOverlay // importedOverlays;
+  # https://github.com/ncfavier/config/blob/bfc59fe3febc7a389105d05141215ca725bf7a9f/modules/nix.nix#L64-L68
+  mkMutableSymlink =
+    { config, value }:
+    config.hm.lib.file.mkOutOfStoreSymlink (
+      config.custom.configPath + lib.removePrefix (toString ./..) (toString value)
+    );
 }
