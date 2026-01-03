@@ -6,7 +6,7 @@
   ...
 }:
 {
-  # todo: enable after next disko release
+  # todo: enable after next disko release: https://github.com/nix-community/disko/releases
   # imports = [ inputs.disko.flakeModules.default ];
   flake = {
     systemModules.base =
