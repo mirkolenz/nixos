@@ -30,7 +30,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     plantuml
     pre-commit
     mu-repo
-    yt-dlp
     cc2538-bsl
     imagemagick
     pngquant
