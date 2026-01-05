@@ -104,6 +104,7 @@
       "*.msp"
       "*.lnk"
     ];
+    # https://git-scm.com/docs/git-config
     settings = {
       user = {
         name = user.name;
