@@ -46,8 +46,8 @@
       # https://en.wikipedia.org/wiki/List_of_URI_schemes
       schemes = {
         ftp = "ForkLift";
-        http = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";
-        # http = "Orion RC";
+        # http = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";
+        http = "Orion RC";
         mailto = "Mail";
         sftp = "ForkLift";
         ssh = "Ghostty";
