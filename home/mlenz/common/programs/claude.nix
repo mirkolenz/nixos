@@ -19,7 +19,8 @@ lib.mkIf config.custom.profile.isWorkstation {
       includeCoAuthoredBy = false;
       sandbox = {
         enabled = true;
-        autoAllowBashIfSandboxed = true;
+        excludedCommands = [ "nix" ];
+        network.allowUnixSockets = [ "/nix/var/nix/daemon-socket/socket" ];
       };
       env = {
         UV_NO_SYNC = "1";
@@ -32,7 +33,8 @@ lib.mkIf config.custom.profile.isWorkstation {
           "WebSearch"
           "Edit(${config.xdg.cacheHome}/**)"
           "Edit(${config.home.homeDirectory}/.npm/**)"
-          "Bash(nix fmt)"
+          # "Bash(nix fmt)"
+          # "Bash(nix build:*)"
         ];
         deny = [
           "Bash(sudo:*)"

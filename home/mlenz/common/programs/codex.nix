@@ -8,8 +8,7 @@ lib.mkIf config.custom.profile.isWorkstation {
   programs.codex = {
     enable = true;
     package = pkgs.codex-bin;
-    # https://github.com/openai/codex/blob/main/docs/config.md
-    # https://github.com/openai/codex/blob/main/codex-rs/core/src/config/mod.rs
+    # https://developers.openai.com/codex/config-reference
     settings = {
       model = "gpt-5.2-codex";
       # model_reasoning_effort = "high";
@@ -32,7 +31,6 @@ lib.mkIf config.custom.profile.isWorkstation {
           UV_NO_SYNC = "1";
         };
       };
-      # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
       # codex features list
       features = {
         apply_patch_freeform = true;
