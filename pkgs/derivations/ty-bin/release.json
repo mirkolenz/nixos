@@ -1,17 +1,17 @@
 {
-  "tag_name": "0.0.9",
+  "tag_name": "0.0.10",
   "assets": {
     "ty-aarch64-apple-darwin.tar.gz": {
-      "digest": "sha256:5f9d6dd74716c7ba74328cdd2b3b8acd401f8d58e8bf68006207260608815df6"
+      "digest": "sha256:5c256844da0401534908535d3c744ffb28db823e2e21ebc2aa45fa4b0599f6f5"
     },
     "ty-aarch64-unknown-linux-gnu.tar.gz": {
-      "digest": "sha256:9a7779c553edbef93f9bee8ba022dfdb1bc1e7922474ca83d1ebbf1d0d6e92f3"
+      "digest": "sha256:c1d6d9f28969d9cb3931db16d3ad0ea554e3cefcc07bef440c35a57a5ceb4474"
     },
     "ty-x86_64-apple-darwin.tar.gz": {
-      "digest": "sha256:ee4323e25b06ca87b274460676ae7d15b1e47dc33e5337ea9a0c29a3729d2e3b"
+      "digest": "sha256:eb839e72d317e381ad7c5804d61a6098b041b0b7bd0a207f429b8bfe9f445be0"
     },
     "ty-x86_64-unknown-linux-gnu.tar.gz": {
-      "digest": "sha256:7c7e23b5767f4cfeb9e6e32fbcea7642b020803ab13ca715385a265e3d0afc0c"
+      "digest": "sha256:d98b461f7910ea88c62b177b445234b292ae9f2f9cf99ce31f938ceb91961214"
     }
   }
 }
