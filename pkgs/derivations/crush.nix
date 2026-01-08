@@ -11,16 +11,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "crush";
-  version = "0.30.3";
+  version = "0.31.0";
 
   src = fetchFromGitHub {
     owner = "charmbracelet";
     repo = "crush";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EXHyYpIUGew2AwRqN7CU/A3YXF3HLGkkCgK2jYhSNnA=";
+    hash = "sha256-OhZIUKddDCpztl/hqrdzQNZC1327VofdN8CttwAdTrc=";
   };
 
-  vendorHash = "sha256-HauqqSrdpJFKV60BA2/2ZFaMz/wFwRf0+Te4zX34NsU=";
+  vendorHash = "sha256-/A7XsZRlK3pCPmXYm6dbyE8QFKXs9Yorks2x+cIbLwM=";
 
   subPackages = [ "." ];
 
