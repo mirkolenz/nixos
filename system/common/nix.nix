@@ -1,13 +1,5 @@
+{ ... }:
 {
-  lib',
-  os,
-  lib,
-  ...
-}:
-{
-  environment.etc."nix/registry.json" = lib.mkForce {
-    text = lib'.mkRegistryText os;
-  };
   # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#available-settings
   custom.nix.settings = {
     # https://nix.dev/manual/nix/latest/development/experimental-features
@@ -24,7 +16,6 @@
     accept-flake-config = true;
     commit-lock-file-summary = "chore(deps): update flake.lock";
     download-buffer-size = 1000000000; # 1 GB
-    flake-registry = "";
     keep-derivations = false;
     keep-failed = false;
     keep-going = true;

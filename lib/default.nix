@@ -15,43 +15,25 @@ rec {
   systemArch = system: lib.head (lib.splitString "-" system);
   # compare two lists irrespective of order
   setEqual = list1: list2: (lib.naturalSort list1) == (lib.naturalSort list2);
-  mkRegistryText =
-    os:
-    lib.strings.toJSON {
-      version = 2;
-      flakes =
-        lib.mapAttrsToList
-          (name: value: {
-            exact = true;
-            from = {
-              type = "indirect";
-              id = name;
-            };
-            to = {
-              type = "path";
-              path = value.outPath;
-            };
-          })
-          {
-            cfg = inputs.self;
-            nixpkgs = inputs.nixpkgs;
-            stable = systemInput {
-              inherit os;
-              channel = "stable";
-              name = "nixpkgs";
-            };
-            unstable = systemInput {
-              inherit os;
-              channel = "unstable";
-              name = "nixpkgs";
-            };
-            pkgs = systemInput {
-              inherit os;
-              channel = "unstable";
-              name = "nixpkgs";
-            };
-          };
+  mkRegistry = os: {
+    cfg.flake = inputs.self;
+    nixpkgs.flake = inputs.nixpkgs;
+    stable.flake = systemInput {
+      inherit os;
+      channel = "stable";
+      name = "nixpkgs";
     };
+    unstable.flake = systemInput {
+      inherit os;
+      channel = "unstable";
+      name = "nixpkgs";
+    };
+    pkgs.flake = systemInput {
+      inherit os;
+      channel = "unstable";
+      name = "nixpkgs";
+    };
+  };
   mkVimKeymap =
     {
       raw,

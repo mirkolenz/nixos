@@ -1,4 +1,10 @@
-{ user, config, ... }:
+{
+  user,
+  config,
+  lib',
+  os,
+  ...
+}:
 {
   custom.nix.settings = {
     allowed-users = [
@@ -13,6 +19,7 @@
       !include nix.secrets.conf
     '';
     channel.enable = false;
+    registry = lib'.mkRegistry os;
   };
   # we do this ourselves
   nixpkgs.flake = {

@@ -1,12 +1,15 @@
 {
   user,
   config,
+  lib',
+  os,
   ...
 }:
 {
   # https://github.com/DeterminateSystems/determinate/blob/main/modules/nix-darwin/default.nix
   determinateNix = {
     customSettings = config.custom.nix.settings;
+    registry = lib'.mkRegistry os;
     # https://docs.determinate.systems/determinate-nix#determinate-nixd-configuration
     determinateNixd = {
       builder.state = "disabled";
