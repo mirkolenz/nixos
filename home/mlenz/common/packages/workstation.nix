@@ -77,9 +77,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     pylyzer
     basedpyright
     zuban
-    # other apps
-    uv-apps
-    bun-apps
     # rust
     rustc
     cargo
