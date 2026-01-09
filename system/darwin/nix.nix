@@ -1,15 +1,18 @@
 {
   user,
   config,
-  lib,
   ...
 }:
 {
-  determinate-nix.customSettings = lib.mapAttrs (
-    # workaround: upstream serializes as json which is wrong
-    # https://github.com/DeterminateSystems/determinate/blob/main/modules/nix-darwin/config/config.nix
-    name: value: if builtins.isList value then toString value else value
-  ) config.custom.nix.settings;
+  # https://github.com/DeterminateSystems/determinate/blob/main/modules/nix-darwin/default.nix
+  determinateNix = {
+    customSettings = config.custom.nix.settings;
+    # https://docs.determinate.systems/determinate-nix#determinate-nixd-configuration
+    determinateNixd = {
+      builder.state = "disabled";
+      garbageCollector.strategy = "automatic";
+    };
+  };
   environment.etc."nix/nix.custom.conf".text = ''
     !include nix.secrets.conf
   '';
