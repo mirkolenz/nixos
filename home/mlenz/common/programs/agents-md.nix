@@ -14,7 +14,7 @@
 
       - Use `uv run` to execute Python scripts and files, not `python` or `python3`.
       - Use `ruff check --fix --unsafe-fixes --output-format=concise` without uv for linting Python code, not `flake8` or `pylint`.
-      - Use `ty --output-format=concise` without uv for type checking Python code, not `mypy` or `pyright`.
+      - Use `ty check --output-format=concise` without uv for type checking Python code, not `mypy` or `pyright`.
       - Use a src-based layout for Python projects.
       - Add type annotations to Python functions and classes.
       - Add `__all__` to public modules to control what is exported.
