@@ -16,7 +16,7 @@
   };
   home.activation = {
     pruneUvCache = lib.hm.dag.entryAfter [ "writeBoundary" ] /* bash */ ''
-      run ${lib.getExe config.programs.uv.package} cache prune $VERBOSE_ARG
+      run ${lib.getExe config.programs.uv.package} cache prune --force $VERBOSE_ARG
     '';
   };
 }
