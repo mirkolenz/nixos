@@ -5,6 +5,7 @@ let
 
   scopes = [ "vimPlugins" ];
   overridesUpdate = [ ];
+  inputsExport = [ "opencode" ];
 
   current = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
@@ -26,16 +27,18 @@ let
   pkgs = current // (lib.mapAttrs (name: value: prev.${name} // value) scopeDrvs);
 
   overrides = lib'.importOverlays ./overrides final prev;
+  inputs = import ./inputs.nix args final prev;
+  hotfixes = import ./hotfixes.nix final prev;
 
 in
 lib.mergeAttrsList [
   (args.inputs.nix-darwin.overlays.default final prev)
-  (import ./inputs.nix args final prev)
-  (import ./hotfixes.nix final prev)
+  inputs
+  hotfixes
   pkgs
   overrides
   {
-    drvsExport = drvs // flatScopeDrvs // overrides;
+    drvsExport = drvs // flatScopeDrvs // overrides // (lib.getAttrs inputsExport inputs);
     drvsUpdate = drvs // flatScopeDrvs // (lib.getAttrs overridesUpdate overrides);
   }
 ]
