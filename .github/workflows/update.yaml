@@ -28,12 +28,10 @@ jobs:
             download-buffer-size = 1000000000
             log-lines = 200
             commit-lock-file-summary = chore(deps): update flake.lock
-      - name: update flake refs
+      - name: update flake
         run: nix run '.#flake-updater' -- --commit
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: update flake
-        run: nix flake update --commit-lock-file
       - name: update pkgs
         run: nix run '.#pkgs-updater' -- --commit single
         env:

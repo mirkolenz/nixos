@@ -74,6 +74,7 @@ def run(
     ] = Path("flake.nix"),
     dry_run: Annotated[bool, typer.Option("--dry-run", "-n")] = False,
     commit: Annotated[bool, typer.Option("--commit", "-c")] = False,
+    update: Annotated[bool, typer.Option("--update", "-u")] = True,
 ):
     """Update flake.nix inputs marked with # autoupdate comment."""
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
@@ -95,9 +96,24 @@ def run(
     flake_file.write_text(new_content)
 
     if commit:
-        git_cmd = ["git", "commit", "-m", "chore(deps): update flake inputs", str(flake_file)]
+        git_cmd = [
+            "git",
+            "commit",
+            "-m",
+            "chore(deps): update flake.nix",
+            str(flake_file),
+        ]
         typer.echo(shlex.join(git_cmd), err=True)
         subprocess.run(git_cmd)
+
+    nix_cmd = [
+        "nix",
+        "flake",
+        "update" if update else "lock",
+        "--commit-lock-file",
+    ]
+    typer.echo(shlex.join(nix_cmd), err=True)
+    subprocess.run(nix_cmd)
 
 
 if __name__ == "__main__":
