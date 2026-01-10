@@ -45,6 +45,7 @@ def run(
     commit: Annotated[Commit, typer.Option("--commit", "-c")] = Commit.NONE,
     prompt: Annotated[bool, typer.Option()] = False,
     order: Annotated[Order | None, typer.Option("--order", "-o")] = None,
+    dry_run: Annotated[bool, typer.Option("--dry-run", "-n")] = False,
 ):
     specs = sum(x is not None for x in [maintainer, package, function, attrset])
 
@@ -110,6 +111,10 @@ def run(
 
     # we don't want to show this in the output
     cmd += cmd_arg("include-overlays", overlays, raw=True)
+
+    if dry_run:
+        typer.echo("Dry run, no changes written", err=True)
+        raise typer.Exit(0)
 
     cmd_res = subprocess.run(cmd)
 
