@@ -85,26 +85,25 @@ def run(
     updated_lines = [update_line(gh, line, dry_run) for line in lines]
     new_content = "".join(updated_lines)
 
-    if new_content == content:
-        typer.echo("No changes needed", err=True)
-        return
-
     if dry_run:
         typer.echo("Dry run, no changes written", err=True)
-        return
+        raise typer.Exit(0)
 
-    flake_file.write_text(new_content)
+    if new_content == content:
+        typer.echo("No changes needed", err=True)
+    else:
+        flake_file.write_text(new_content)
 
-    if commit:
-        git_cmd = [
-            "git",
-            "commit",
-            "-m",
-            "chore(deps): update flake.nix",
-            str(flake_file),
-        ]
-        typer.echo(shlex.join(git_cmd), err=True)
-        subprocess.run(git_cmd)
+        if commit:
+            git_cmd = [
+                "git",
+                "commit",
+                "-m",
+                "chore(deps): update flake.nix",
+                str(flake_file),
+            ]
+            typer.echo(shlex.join(git_cmd), err=True)
+            subprocess.run(git_cmd)
 
     nix_cmd = [
         "nix",
