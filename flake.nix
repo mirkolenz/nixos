@@ -112,7 +112,7 @@
       };
     };
     nixos-wsl = {
-      url = "github:nix-community/nixos-wsl/main";
+      url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     apple-t2-iso = {
