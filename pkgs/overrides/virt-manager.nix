@@ -1,11 +1,15 @@
 final: prev:
-prev.virt-manager.overrideAttrs (oldAttrs: {
+let
+  pkgs = final.stable;
+in
+# todo: https://hydra.nixos.org/job/nixpkgs/trunk/virt-manager.aarch64-darwin
+pkgs.virt-manager.overrideAttrs (oldAttrs: {
   nativeBuildInputs =
     (oldAttrs.nativeBuildInputs or [ ])
-    ++ (prev.lib.optional prev.stdenv.isDarwin prev.makeBinaryWrapper);
+    ++ (prev.lib.optional pkgs.stdenv.isDarwin pkgs.makeBinaryWrapper);
   postInstall =
     (oldAttrs.postInstall or "")
-    + (prev.lib.optionalString prev.stdenv.isDarwin ''
+    + (prev.lib.optionalString pkgs.stdenv.isDarwin ''
       wrapProgram $out/bin/virt-manager \
         --set GSETTINGS_BACKEND keyfile
     '');
