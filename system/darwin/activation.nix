@@ -2,8 +2,8 @@
 {
   # https://github.com/nix-darwin/nix-darwin/blob/master/modules/system/activation-scripts.nix
   system.activationScripts = {
-    preActivation.text = /* bash */ '''';
-    extraActivation.text = /* bash */ '''';
+    preActivation.text = /* bash */ "";
+    extraActivation.text = /* bash */ "";
     postActivation.text = /* bash */ ''
       expected_version="${pkgs.determinate-nix.version}"
       current_version=$(/usr/local/bin/determinate-nixd version | ${lib.getExe pkgs.gawk} '/daemon version:/ {print $NF; exit}')
