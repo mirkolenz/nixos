@@ -84,15 +84,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-converter = {
-      url = "github:theobori/nix-converter";
+      url = "github:theobori/nix-converter/1.0.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
-      url = "github:nix-community/disko/latest";
+      url = "github:nix-community/disko/v1.11.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-sweep = {
-      url = "github:jzbor/nix-sweep";
+      url = "github:jzbor/nix-sweep/v0.8.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plist-manager = {

@@ -160,16 +160,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1746728054,
-        "narHash": "sha256-eDoSOhxGEm2PykZFa/x9QG5eTH0MJdiJ9aR00VAofXE=",
+        "lastModified": 1736864502,
+        "narHash": "sha256-ItkIZyebGvNH2dK9jVGzJHGPtb6BSWLN8Gmef16NeY0=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "ff442f5d1425feb86344c028298548024f21256d",
+        "rev": "0141aabed359f063de7413f80d906e1d98c0c123",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "latest",
+        "ref": "v1.11.0",
         "repo": "disko",
         "type": "github"
       }
@@ -410,6 +410,7 @@
       },
       "original": {
         "owner": "theobori",
+        "ref": "1.0.0",
         "repo": "nix-converter",
         "type": "github"
       }
@@ -463,15 +464,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1765575848,
-        "narHash": "sha256-6+LnI6H0FoJ6QbEGJX1bpFqc7fW3j8lLhziWLM7yExg=",
+        "lastModified": 1762812396,
+        "narHash": "sha256-C83AtqexEzx+8cNZXZyYUtg4gAUyam00IM0eXO8xOgA=",
         "owner": "jzbor",
         "repo": "nix-sweep",
-        "rev": "19fe6298a5d4c309fe34f3780393a9116d319d6b",
+        "rev": "f65882cfd53b6ee1285647435262ec191bc8e1f2",
         "type": "github"
       },
       "original": {
         "owner": "jzbor",
+        "ref": "v0.8.0",
         "repo": "nix-sweep",
         "type": "github"
       }
