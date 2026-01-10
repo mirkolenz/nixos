@@ -25,17 +25,15 @@
           yamlfmt.enable = true;
           # keep-sorted end
         };
-        settings.formatter.nixf-diagnose = {
-          # Ensure nixfmt cleans up after nixf-diagnose.
-          priority = -1;
-          options = [
-            "--auto-fix"
+        programs.nixf-diagnose = {
+          variableLookup = true;
+          ignore = [
             # some code is commented out
-            "--ignore=sema-unused-def-let"
+            "sema-unused-def-let"
             # unknown builtin `getFlake`
-            "--ignore=sema-primop-unknown"
+            "sema-primop-unknown"
             # overriding a builtin name `fetchurl` is discouraged, rename it to avoid confusion
-            "--ignore=sema-primop-overridden"
+            "sema-primop-overridden"
           ];
         };
       };
