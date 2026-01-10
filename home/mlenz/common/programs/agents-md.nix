@@ -13,8 +13,8 @@
       ## Python
 
       - Use `uv run` to execute Python scripts and files, not `python` or `python3`.
-      - Use `ruff check --fix --unsafe-fixes --output-format=concise` without uv for linting Python code, not `flake8` or `pylint`.
-      - Use `ty check --output-format=concise` without uv for type checking Python code, not `mypy` or `pyright`.
+      - Use `ruff check --fix --unsafe-fixes --output-format=concise` without uv for linting Python, not `flake8` or `pylint`.
+      - Use `ty check --output-format=concise` without uv for type checking Python, not `mypy` or `pyright`.
       - Use a src-based layout for Python projects.
       - Add type annotations to Python functions and classes.
       - Add `__all__` to public modules to control what is exported.
@@ -22,6 +22,7 @@
       - Add docstrings to all public functions and classes.
       - Add doctests to functions and classes where appropriate.
       - Use the Google style for docstrings.
+      - Never use globals in Python.
 
       ## Node.js
 
