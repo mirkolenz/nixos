@@ -1,7 +1,6 @@
 {
   inputs,
   specialModuleArgs,
-  lib,
   self,
   ...
 }:
@@ -50,15 +49,15 @@ let
 in
 {
   flake.legacyPackages = {
-    aarch64-linux.installers.raspi = installer-raspi.config.system.build.images.sd-card;
-    x86_64-linux.installers.apple-t2 = installer-apple-t2.config.system.build.images.isoImage;
+    x86_64-linux.installer-default =
+      (mkInstaller {
+        system = "x86_64-linux";
+      }).config.system.build.images;
+    aarch64-linux.installer-default =
+      (mkInstaller {
+        system = "aarch64-linux";
+      }).config.system.build.images;
+    aarch64-linux.installer-raspi = installer-raspi.config.system.build.images;
+    x86_64-linux.installer-apple-t2 = installer-apple-t2.config.system.build.images;
   };
-  perSystem =
-    { system, ... }:
-    lib.optionalAttrs (lib.hasSuffix "-linux" system) {
-      legacyPackages.installers.default =
-        (mkInstaller {
-          inherit system;
-        }).config.system.build.images;
-    };
 }

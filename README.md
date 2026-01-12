@@ -280,9 +280,11 @@ If building for another architecture on NixOS:
 
 ```shell
 # for iso installer disc
-nix build --system x86_64-linux github:mirkolenz/nixos#installers.unstable.iso-installer
+nix build --system x86_64-linux github:mirkolenz/nixos#installer-default.iso-installer
 # for raspberry pi sd card
-nix build --system aarch64-linux github:mirkolenz/nixos#installers.raspi
+nix build --system aarch64-linux github:mirkolenz/nixos#installer-raspi.sd-card
+# for apple t2
+nix build --system x86_64-linux github:mirkolenz/nixos#installer-apple-t2.iso-installer
 ```
 
 ### Update Raspberry Pi
