@@ -31,7 +31,12 @@
       legacyPackages = pkgs // {
         drvsCi = lib.mapAttrs (name: value: value.outPath) (
           lib.filterAttrs (
-            name: value: lib.elem system (value.meta.hydraPlatforms or [ system ]) && name != "default"
+            name: value:
+            lib.elem system (value.meta.hydraPlatforms or [ system ])
+            && !(lib.elem name [
+              "default"
+              "updater"
+            ])
           ) config.packages
         );
       };
@@ -40,8 +45,12 @@
           name: value: lib.meta.availableOn { inherit system; } value && !(value.meta.broken or false)
         ) pkgs.drvsExport)
         // {
-          default = pkgs.writeShellScriptBin "config-builder" /* bash */ ''
+          default = pkgs.writeShellScriptBin "builder" /* bash */ ''
             exec ${lib.getExe pkgs.config-builder} --flake ${self.outPath} "$@"
+          '';
+          updater = pkgs.writeShellScriptBin "updater" /* bash */ ''
+            ${lib.getExe pkgs.flake-updater} --commit
+            ${lib.getExe pkgs.pkgs-updater} --commit single
           '';
         };
     };
