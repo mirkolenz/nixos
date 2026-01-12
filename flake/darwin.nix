@@ -36,6 +36,7 @@ let
     };
 in
 {
+  imports = [ inputs.nix-darwin.flakeModules.default ];
   flake.darwinConfigurations = lib.mapAttrs mkDarwinSystem {
     mirkos-dfkibook = {
       system = "aarch64-darwin";
