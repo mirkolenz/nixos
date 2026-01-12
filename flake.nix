@@ -96,7 +96,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opencode = {
-      url = "github:anomalyco/opencode/v1.1.12"; # autoupdate
+      url = "github:anomalyco/opencode/v1.1.13"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plist-manager = {
