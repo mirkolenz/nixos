@@ -75,7 +75,14 @@
         ../home/mlenz/standalone
       ];
     };
-    nixosModules.installer = ../system/installer.nix;
+    nixosModules.installer = {
+      imports = [ ../system/installer.nix ];
+      nixpkgs = {
+        config = self.nixpkgsConfig;
+        overlays = [ self.overlays.default ];
+      };
+      _module.args = moduleArgs;
+    };
     nixosModules.base = {
       imports = [
         self.systemModules.base

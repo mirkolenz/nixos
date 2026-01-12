@@ -115,13 +115,6 @@
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-t2-iso = {
-      url = "github:t2linux/nixos-t2-iso";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixos-hardware.follows = "nixos-hardware";
-      };
-    };
   };
 
   outputs =

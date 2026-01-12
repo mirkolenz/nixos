@@ -1,7 +1,6 @@
 {
   inputs,
   specialModuleArgs,
-  moduleArgs,
   lib,
   self,
   ...
@@ -13,14 +12,16 @@ let
       extraModule ? { },
     }:
     inputs.nixpkgs-linux-unstable.lib.nixosSystem {
-      inherit system;
+      system = null;
       specialArgs = specialModuleArgs // {
         os = "linux";
       };
       modules = [
         extraModule
         self.nixosModules.installer
-        { _module.args = moduleArgs; }
+        {
+          nixpkgs.hostPlatform = system;
+        }
       ];
     };
 
@@ -36,12 +37,21 @@ let
       };
     };
   };
+
+  # https://github.com/t2linux/nixos-t2-iso/blob/main/nix/t2-iso-minimal.nix
+  installer-apple-t2 = mkInstaller {
+    system = "x86_64-linux";
+    extraModule = {
+      imports = [
+        "${inputs.nixos-hardware}/apple/t2"
+      ];
+    };
+  };
 in
 {
   flake.legacyPackages = {
     aarch64-linux.installers.raspi = installer-raspi.config.system.build.images.sd-card;
-    x86_64-linux.installers.apple-t2 =
-      inputs.apple-t2-iso.packages.x86_64-linux.installers.t2-iso-minimal;
+    x86_64-linux.installers.apple-t2 = installer-apple-t2.config.system.build.images.isoImage;
   };
   perSystem =
     { system, ... }:

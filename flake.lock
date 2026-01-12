@@ -1,28 +1,5 @@
 {
   "nodes": {
-    "apple-t2-iso": {
-      "inputs": {
-        "nixos-hardware": [
-          "nixos-hardware"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1759644936,
-        "narHash": "sha256-O4g2S2U1v1Y7bygALkOaGaLcBwC73Ibpwdy3H8WA9bY=",
-        "owner": "t2linux",
-        "repo": "nixos-t2-iso",
-        "rev": "6ca881013c7adbca51a8704f986378239a5f65ed",
-        "type": "github"
-      },
-      "original": {
-        "owner": "t2linux",
-        "repo": "nixos-t2-iso",
-        "type": "github"
-      }
-    },
     "bibliography": {
       "flake": false,
       "locked": {
@@ -762,7 +739,6 @@
     },
     "root": {
       "inputs": {
-        "apple-t2-iso": "apple-t2-iso",
         "bibliography": "bibliography",
         "cosmic-manager": "cosmic-manager",
         "determinate": "determinate",
