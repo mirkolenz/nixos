@@ -39,6 +39,7 @@
     wol
     ast-grep
     stress-ng
+    fuc
     # json parsing
     jq
     jaq
