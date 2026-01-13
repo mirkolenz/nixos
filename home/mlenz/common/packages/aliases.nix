@@ -34,6 +34,7 @@ lib.mkIf config.custom.profile.isWorkstation {
       gemini = [ "@google/gemini-cli" ];
       icloud-photos-sync = [ "icloud-photos-sync" ];
       mcp-inspector = [ "@modelcontextprotocol/inspector" ];
+      shadcn = [ "shadcn" ];
     })
     ++ (lib.mapAttrsToList mkPythonApp {
       arguebuf = [ "arguebuf[cli]" ];

@@ -28,6 +28,8 @@
 
       - Use TypeScript, not JavaScript.
       - Use ES modules (import/export) syntax, not CommonJS (require).
+      - Use `npm run` to execute scripts, not `npx`.
+      - Use the command `shadcn` for shadcn/ui, not `npx shadcn`.
 
       ## Nix
 
