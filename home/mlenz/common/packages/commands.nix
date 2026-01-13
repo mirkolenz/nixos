@@ -255,6 +255,9 @@
     json-tool = /* bash */ ''
       exec ${lib.getExe pkgs.python3} -m json.tool "$@"
     '';
+    http-server = /* bash */ ''
+      exec ${lib.getExe pkgs.python3} -m http.server "$@"
+    '';
     fontconvert = /* bash */ ''
       if [ "$#" -lt 2 ]; then
         echo "Usage: $0 SOURCE TARGET [FONTFORGE_ARGS...]" >&2
