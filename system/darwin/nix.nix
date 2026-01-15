@@ -12,7 +12,6 @@
     registry = lib'.mkRegistry os;
     # https://docs.determinate.systems/determinate-nix#determinate-nixd-configuration
     determinateNixd = {
-      builder.state = "disabled";
       garbageCollector.strategy = "automatic";
     };
   };
