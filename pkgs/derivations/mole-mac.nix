@@ -7,13 +7,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mole";
-  version = "V1.21.0";
+  version = "1.21.0";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Mole";
     tag = "V${finalAttrs.version}";
-    hash = "sha256-zmc3o9Rt5yAIjz7aSbEPsuoOVkOEoHWcOhbeOzpbchY=";
+    hash = "sha256-HAKlivpOIpQ6vtEmyiFT33j4LzXahAqQGA3DwrU2bis=";
   };
 
   nativeBuildInputs = [ makeBinaryWrapper ];
@@ -37,7 +37,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {
+      extraArgs = [ "--version-regex=V(.*)" ];
+    };
     # goHelpers = buildGoModule {
     #   pname = "mole-helpers";
     #   inherit (finalAttrs) version src;
