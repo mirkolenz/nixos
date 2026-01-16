@@ -52,6 +52,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     pympress
     keep-sorted
     jsonfmt
+    caddy
     # nix
     nixd
     nixf
