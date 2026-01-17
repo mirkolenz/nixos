@@ -53,6 +53,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     keep-sorted
     jsonfmt
     caddy
+    authelia
     # nix
     nixd
     nixf
