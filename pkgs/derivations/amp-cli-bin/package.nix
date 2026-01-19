@@ -32,6 +32,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontUnpack = true;
   dontBuild = true;
 
+  # otherwise the bun runtime is executed instead of the binary (on linux)
+  dontStrip = true;
+
   nativeBuildInputs = [
     installShellFiles
     makeBinaryWrapper
