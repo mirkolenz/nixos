@@ -9,9 +9,7 @@ let
   tomlFormat = pkgs.formats.toml { };
 in
 {
-  home.packages = lib.mkIf (pkgs.stdenv.isLinux && (osConfig.services.openssh.enable or true)) [
-    pkgs.shpool
-  ];
+  services.ssh-agent.enable = true;
   programs.ssh = {
     enable = config.custom.profile.isDesktop;
     enableDefaultConfig = false;
@@ -20,7 +18,7 @@ in
     ];
     matchBlocks = {
       "*" = {
-        addKeysToAgent = if pkgs.stdenv.isDarwin then "yes" else "no";
+        addKeysToAgent = if pkgs.stdenv.isDarwin then "confirm" else "no";
         identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
         identityAgent = lib.mkIf pkgs.stdenv.isLinux "${config.home.homeDirectory}/.1password/agent.sock";
         extraOptions = lib.optionalAttrs pkgs.stdenv.isDarwin {
@@ -33,9 +31,6 @@ in
         serverAliveCountMax = 3;
         hashKnownHosts = false;
         userKnownHostsFile = "~/.ssh/known_hosts";
-        controlMaster = "no";
-        controlPath = "~/.ssh/master-%r@%n:%p";
-        controlPersist = "no";
       };
       "gpu" = {
         hostname = "gpu.wi2.uni-trier.de";
