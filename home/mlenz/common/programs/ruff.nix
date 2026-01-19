@@ -3,6 +3,11 @@
   programs.ruff = {
     enable = true;
     package = pkgs.ruff-bin;
-    settings = { };
+    # https://docs.astral.sh/ruff/settings/
+    settings = {
+      fix = true;
+      output-format = "concise";
+      unsafe-fixes = true;
+    };
   };
 }
