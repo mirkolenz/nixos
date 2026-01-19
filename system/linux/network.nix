@@ -6,11 +6,8 @@
     useDHCP = lib.mkDefault true;
     # this is not compatible with networkd
     useHostResolvConf = false;
-    # firewall currently disabled as not completely configured
-    firewall = {
-      enable = false;
-    };
     nftables.enable = true;
+    firewall.enable = true;
   };
 
   services.firewalld.enable = config.networking.firewall.enable;

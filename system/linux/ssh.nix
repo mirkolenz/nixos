@@ -6,6 +6,7 @@
   };
   services.openssh = {
     authorizedKeysInHomedir = false;
+    openFirewall = true;
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
