@@ -37,17 +37,34 @@
   };
 
   networking.useDHCP = false;
-  # must match the rule names in homeserver config
-  systemd.network.networks = {
-    "50-enp9s0" = {
+  systemd.network = {
+    # physical
+    networks."50-enp9s0" = {
       name = "enp9s0";
+      macvlan = [ "mv0" ];
+      linkConfig.RequiredForOnline = false;
+      networkConfig = {
+        LinkLocalAddressing = false;
+        IPv6AcceptRA = false;
+      };
+    };
+    networks."50-enp10s0" = {
+      name = "enp10s0";
+      linkConfig.RequiredForOnline = false;
+      networkConfig.ConfigureWithoutCarrier = false;
+    };
+    # virtual
+    netdevs."50-mv0" = {
+      netdevConfig = {
+        Name = "mv0";
+        Kind = "macvlan";
+      };
+      macvlanConfig.Mode = "bridge";
+    };
+    networks."50-mv0" = {
+      name = "mv0";
       DHCP = "yes";
       linkConfig.RequiredForOnline = true;
-    };
-    "50-enp10s0" = {
-      name = "enp10s0";
-      DHCP = "yes";
-      linkConfig.RequiredForOnline = false;
     };
   };
 
