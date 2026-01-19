@@ -9,10 +9,6 @@
     # firewall currently disabled as not completely configured
     firewall = {
       enable = false;
-      trustedInterfaces = [
-        # libvirt uses iptables directly
-        "virbr0"
-      ];
     };
   };
 
