@@ -3,14 +3,12 @@
   plugins.treesitter = {
     enable = true;
     folding.enable = true;
-    settings = {
-      highlight.enable = true;
-      incremental_selection.enable = true;
-      indent.enable = true;
-    };
+    highlight.enable = true;
+    indent.enable = true;
   };
+  # todo: replace with https://github.com/nvim-treesitter/nvim-treesitter-locals
   plugins.treesitter-refactor = {
-    enable = false; # todo: broken as of 2026-01-01
+    enable = false;
     settings = {
       highlight_current_scope.enable = false;
       highlight_definitions.enable = true;
@@ -19,7 +17,7 @@
     };
   };
   plugins.treesitter-textobjects = {
-    enable = false; # todo: broken as of 2026-01-01
+    enable = true;
     settings = {
       lsp_interop.enable = true;
       move.enable = true;
