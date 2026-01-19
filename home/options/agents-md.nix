@@ -21,6 +21,7 @@ in
 
   config = lib.mkIf cfg.enable {
     xdg.configFile = {
+      "amp/AGENTS.md".text = cfg.settings.text;
       "crush/CRUSH.md".text = cfg.settings.text;
       "opencode/AGENTS.md".text = cfg.settings.text;
     };
