@@ -40,7 +40,8 @@ in
   disko-install = fromInput "disko" "disko-install";
   nix-converter = fromInput "nix-converter" "default";
   nix-sweep = fromInput "nix-sweep" "default";
-  opencode = fromInput "opencode" "default";
-  opencode-desktop = fromInput "opencode" "desktop";
+  # todo: hash mismatch
+  # opencode = fromInput "opencode" "default";
+  # opencode-desktop = fromInput "opencode" "desktop";
 
 }

@@ -3,9 +3,14 @@ final: prev:
 let
   inherit (prev) lib;
 
-  scopes = [ "vimPlugins" ];
+  scopes = [
+    "vimPlugins"
+  ];
   overridesUpdate = [ ];
-  inputsExport = [ "opencode" ];
+  inputsExport = [
+    # todo: hash mismatch
+    # "opencode"
+  ];
 
   current = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
