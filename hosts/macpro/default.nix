@@ -50,8 +50,8 @@
     };
     networks."50-enp10s0" = {
       name = "enp10s0";
+      DHCP = "yes";
       linkConfig.RequiredForOnline = false;
-      networkConfig.ConfigureWithoutCarrier = false;
     };
     # virtual
     netdevs."50-mv0" = {
