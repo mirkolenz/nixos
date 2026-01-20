@@ -77,6 +77,7 @@ let
     step-two = 1448916662;
     stopthemadness-pro = 6471380298;
     testflight = 899247664;
+    todoist = 585829637;
     whatsapp = 310633997;
     # keep-sorted end
   };

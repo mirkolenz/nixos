@@ -68,7 +68,7 @@
         "/System/Applications/Mail.app"
         "/Applications/zoom.us.app"
         "/Applications/Microsoft Teams.app"
-        "/System/Applications/Reminders.app"
+        "/Applications/Todoist.app"
         "/System/Applications/Calendar.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Zed.app"
