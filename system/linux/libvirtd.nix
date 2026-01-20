@@ -22,9 +22,8 @@
   networking.firewall.interfaces."virbr*" = lib.mkIf config.virtualisation.libvirtd.enable {
     allowedTCPPorts = [ 53 ];
     allowedUDPPorts = [
-      53
-      67
-      547
+      53 # dns
+      67 # dhcp
     ];
   };
   networking.nat.internalInterfaces = lib.mkIf config.virtualisation.libvirtd.enable [ "virbr0" ];
