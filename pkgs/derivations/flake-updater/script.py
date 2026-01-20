@@ -109,8 +109,11 @@ def run(
         "nix",
         "flake",
         "update" if update else "lock",
-        "--commit-lock-file",
     ]
+
+    if commit:
+        nix_cmd.append("--commit-lock-file")
+
     typer.echo(shlex.join(nix_cmd), err=True)
     subprocess.run(nix_cmd)
 
