@@ -5,7 +5,7 @@ let
 
   scopes = [ "vimPlugins" ];
   overridesUpdate = [ ];
-  inputsExport = [ ];
+  inputsExport = [ "opencode" ];
 
   current = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;

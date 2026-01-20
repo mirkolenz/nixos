@@ -671,6 +671,27 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768284077,
+        "narHash": "sha256-QOblj/GCMMPnE18SPKVfHZsQveJEHkKCXG+ez/llOdM=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "afb8a0d28a28795dd51128729250d57e8285106b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "ref": "v1.1.16",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "plist-manager": {
       "inputs": {
         "home-manager": "home-manager_2",
@@ -736,6 +757,7 @@
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
         "nixvim": "nixvim",
+        "opencode": "opencode",
         "plist-manager": "plist-manager",
         "quadlet-nix": "quadlet-nix",
         "texmf": "texmf",
