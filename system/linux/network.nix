@@ -7,7 +7,7 @@
     # this is not compatible with networkd
     useHostResolvConf = false;
     nftables.enable = true;
-    firewall.enable = true;
+    firewall.enable = false;
   };
 
   services.firewalld.enable = config.networking.firewall.enable;
