@@ -16,12 +16,6 @@ class Order(StrEnum):
     REVERSE_TOPOLOGICAL = "reverse-topological"
 
 
-class Commit(StrEnum):
-    NONE = "none"
-    SINGLE = "single"
-    MULTI = "multi"
-
-
 def cmd_arg(key: str, value: str | bool, raw: bool = False) -> list[str]:
     """Convert an argument to a list of strings for Nix."""
 
@@ -42,7 +36,7 @@ def run(
     attrset: Annotated[str | None, typer.Option("--attrset", "-a")] = None,
     max_workers: Annotated[int | None, typer.Option()] = None,
     keep_going: Annotated[bool, typer.Option()] = True,
-    commit: Annotated[Commit, typer.Option("--commit", "-c")] = Commit.NONE,
+    commit: Annotated[bool, typer.Option()] = False,
     prompt: Annotated[bool, typer.Option()] = False,
     order: Annotated[Order | None, typer.Option("--order", "-o")] = None,
     dry_run: Annotated[bool, typer.Option("--dry-run", "-n")] = False,
@@ -81,8 +75,9 @@ def run(
     if keep_going:
         cmd += cmd_arg("keep-going", True)
 
-    if commit == Commit.MULTI:
-        cmd += cmd_arg("commit", commit)
+    # this would commit each package update separately, we use a global commit
+    # if commit:
+    #     cmd += cmd_arg("commit", True)
 
     if not prompt:
         cmd += cmd_arg("skip-prompt", True)
@@ -118,7 +113,7 @@ def run(
 
     cmd_res = subprocess.run(cmd)
 
-    if cmd_res.returncode == 0 and commit == Commit.SINGLE:
+    if cmd_res.returncode == 0 and commit:
         git_cmd = ["git", "commit", "-m", "chore(deps): update pkgs", "./pkgs"]
 
         typer.echo(

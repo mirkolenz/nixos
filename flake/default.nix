@@ -50,7 +50,7 @@
           '';
           updater = pkgs.writeShellScriptBin "updater" /* bash */ ''
             ${lib.getExe pkgs.flake-updater} --commit
-            ${lib.getExe pkgs.pkgs-updater} --commit single
+            ${lib.getExe pkgs.pkgs-updater} --commit
           '';
         };
     };
