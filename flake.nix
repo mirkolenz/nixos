@@ -88,7 +88,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
-      url = "github:nix-community/disko/v1.11.0"; # autoupdate
+      url = "github:nix-community/disko/v1.13.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-sweep = {
@@ -96,7 +96,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opencode = {
-      url = "github:anomalyco/opencode/v1.1.26"; # autoupdate
+      url = "github:anomalyco/opencode/v1.1.28"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plist-manager = {
