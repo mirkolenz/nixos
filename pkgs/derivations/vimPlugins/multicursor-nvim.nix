@@ -5,12 +5,12 @@
 }:
 vimUtils.buildVimPlugin {
   pname = "multicursor.nvim";
-  version = "0-unstable-2025-12-22";
+  version = "0-unstable-2026-01-21";
   src = fetchFromGitHub {
     owner = "jake-stewart";
     repo = "multicursor.nvim";
-    rev = "c982cc8375f062e9f98e96a408e0f7ad0c80d4db";
-    hash = "sha256-0/IVK3USgfF+k6+G+iTaTksYvJYrPnsob4e1xhLnvHM=";
+    rev = "3b5c79c4eec52ff18ce69923156422c298b9ae5d";
+    hash = "sha256-MILaaZDmCSnZl84FA0MSnq+/Uz3CAvqN9wpTVr6m1ps=";
   };
   meta.homepage = "https://github.com/jake-stewart/multicursor.nvim";
   passthru.updateScript = nix-update-script {
