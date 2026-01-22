@@ -43,24 +43,28 @@ in
       system = "x86_64-linux";
       extraModule = {
         home.uid = 1002;
+        targets.genericLinux.enable = true;
       };
     };
     "eifelkreis@vserv-4514" = {
       system = "x86_64-linux";
       extraModule = {
         home.uid = 1001;
+        targets.genericLinux.enable = true;
       };
     };
     "compute@kitei-gpu" = {
       system = "x86_64-linux";
       extraModule = {
         home.uid = 1001;
+        targets.genericLinux.enable = true;
       };
     };
     "mlenz@raise" = {
       system = "x86_64-linux";
       extraModule = {
         home.uid = 1000;
+        targets.genericLinux.enable = false;
       };
     };
   };

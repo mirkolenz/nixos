@@ -51,14 +51,14 @@
       ];
     };
     homeModules.base-standalone =
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
       {
         nixpkgs = {
           config = self.nixpkgsConfig;
           overlays = [ self.overlays.default ];
         };
         imports = [ self.homeModules.base ];
-        targets.genericLinux.enable = pkgs.stdenv.isLinux;
+        targets.genericLinux.enable = lib.mkDefault pkgs.stdenv.isLinux;
       };
     homeModules.linux-standalone = {
       imports = [
