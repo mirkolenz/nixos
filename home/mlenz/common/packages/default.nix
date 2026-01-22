@@ -2,7 +2,6 @@
   pkgs,
   lib,
   lib',
-  osConfig,
   config,
   ...
 }:
@@ -101,15 +100,5 @@
     l = "ll";
     dc = "docker compose";
     py = "${lib.getExe' config.programs.uv.package "uv"} run";
-    sudo =
-      let
-        customPaths = [
-          "${config.home.profileDirectory}/bin"
-          "/nix/var/nix/profiles/default/bin"
-          "/nix/var/nix/profiles/default/sbin"
-        ];
-      in
-      lib.mkIf (osConfig == { })
-        /* bash */ ''/usr/bin/sudo env "PATH=${lib.concatStringsSep ":" customPaths}:$(/usr/bin/sudo printenv PATH)"'';
   };
 }
