@@ -57,5 +57,11 @@ in
         home.uid = 1001;
       };
     };
+    "mlenz@raise" = {
+      system = "x86_64-linux";
+      extraModule = {
+        home.uid = 1000;
+      };
+    };
   };
 }

@@ -45,6 +45,11 @@ in
         hostname = "kitei-gpu.wi2.uni-trier.de";
         user = "compute";
       };
+      "raise" = {
+        hostname = "raise.dfki.de";
+        forwardAgent = true;
+        user = "mlenz";
+      };
       "macpro homeserver" = {
         hostname = "macpro.lenz.casa";
         forwardAgent = true;
