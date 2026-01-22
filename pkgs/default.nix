@@ -7,10 +7,7 @@ let
     "vimPlugins"
   ];
   overridesUpdate = [ ];
-  inputsExport = [
-    # todo: hash mismatch
-    # "opencode"
-  ];
+  inputsExport = [ ];
 
   current = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
