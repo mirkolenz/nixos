@@ -22,8 +22,9 @@
       accept-flake-config = true;
       bash-prompt-prefix = "(nix:$name)\\040";
       commit-lock-file-summary = "chore(deps): update flake.lock";
-      # log-lines = 200; # https://github.com/nixos/nix/issues/13399
+      use-xdg-base-directories = true;
       warn-dirty = false;
+      # log-lines = 200; # https://github.com/nixos/nix/issues/13399
     };
     gc = {
       automatic = true;

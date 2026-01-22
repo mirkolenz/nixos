@@ -21,6 +21,7 @@
     keep-going = true;
     keep-outputs = true;
     log-lines = 200;
+    use-xdg-base-directories = true;
     warn-dirty = false;
     # determinate nix features
     eval-cores = 0;
