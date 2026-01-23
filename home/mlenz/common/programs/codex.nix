@@ -32,10 +32,14 @@ lib.mkIf config.custom.profile.isWorkstation {
         };
       };
       # codex features list
+      # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
       features = {
         apply_patch_freeform = true;
+        collab = true;
+        collaboration_modes = true;
+        connectors = true;
         shell_snapshot = true;
-        tui2 = true;
+        steer = true;
         unified_exec = true;
         view_image_tool = true;
         web_search_request = true;
