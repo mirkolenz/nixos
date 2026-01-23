@@ -46,7 +46,7 @@ let
     "wifiman"
     "zed"
     "zoom"
-    "zotero@beta"
+    "zotero"
     # keep-sorted end
   ];
 
