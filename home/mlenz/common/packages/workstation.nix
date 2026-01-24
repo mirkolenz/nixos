@@ -54,6 +54,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     jsonfmt
     caddy
     authelia
+    mailpit
     # nix
     nixd
     nixf
