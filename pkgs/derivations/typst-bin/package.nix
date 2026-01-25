@@ -19,8 +19,6 @@ mkGitHubBinary {
   getAsset = { system, ... }: "typst-${platforms.${system}}.tar.xz";
   pattern = ''^typst-(aarch64|x86_64)-(unknown-linux-musl|apple-darwin)\\.tar\\.xz$'';
 
-  # buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
-
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;

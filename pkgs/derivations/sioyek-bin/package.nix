@@ -1,9 +1,9 @@
 {
   lib,
   mkGitHubBinaryApp,
-  rcodesign,
   unzip,
   undmg,
+  darwin,
 }:
 let
   platforms = {
@@ -27,14 +27,13 @@ mkGitHubBinaryApp (finalAttrs: {
   passthru.updateScript = null;
 
   nativeBuildInputs = [
-    rcodesign
     unzip
     undmg
+    darwin.autoSignDarwinBinariesHook
   ];
 
   preInstall = ''
     undmg ${finalAttrs.pname}.dmg
-    rcodesign sign ${finalAttrs.pname}.app
   '';
 
   meta = {

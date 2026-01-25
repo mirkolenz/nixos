@@ -68,7 +68,7 @@ lib.extendMkDerivation {
       nativeBuildInputs =
         (args.nativeBuildInputs or [ ])
         ++ [ installShellFiles ]
-        ++ lib.optionals (!stdenv.isDarwin) [ autoPatchelfHook ];
+        ++ lib.optionals stdenv.hostPlatform.isElf [ autoPatchelfHook ];
 
       installPhase = ''
         runHook preInstall

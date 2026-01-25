@@ -48,6 +48,6 @@ in
       sessionPath = [ cfg.binHome ];
       file = lib.mapAttrs' (name: file: lib.nameValuePair "${cfg.binHome}/${name}" file) cfg.binFile;
     };
-    systemd.user.sessionVariables = lib.mkIf pkgs.stdenv.hostPlatform.isLinux sessionVariables;
+    systemd.user.sessionVariables = lib.mkIf pkgs.stdenv.isLinux sessionVariables;
   };
 }
