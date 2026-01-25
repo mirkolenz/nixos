@@ -38,9 +38,9 @@ in
 {
   imports = [ inputs.nix-darwin.flakeModules.default ];
   flake.darwinConfigurations = lib.mapAttrs mkDarwinSystem {
-    mirkos-dfkibook = {
+    mirkos-macbook = {
       system = "aarch64-darwin";
-      computerName = "Mirkos DFKIbook";
+      computerName = "Mirkos MacBook";
     };
   };
 }
