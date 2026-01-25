@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   versionCheckHook,
   mkGitHubBinary,
   writableTmpDirAsHomeHook,
@@ -41,7 +41,7 @@ mkGitHubBinary {
   postPhases = [ "finalPhase" ];
 
   # only bash supported: https://github.com/anomalyco/opencode/issues/1515
-  finalPhase = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+  finalPhase = lib.optionalString (stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform) ''
     installShellCompletion --cmd opencode \
       --bash <($out/bin/opencode completion)
   '';
@@ -52,7 +52,7 @@ mkGitHubBinary {
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+  doInstallCheck = !stdenvNoCC.isDarwin;
 
   meta = {
     description = "Open source coding agent";

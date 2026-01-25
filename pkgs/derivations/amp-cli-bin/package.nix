@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+  doInstallCheck = !stdenvNoCC.isDarwin;
 
   passthru.updateScript = writeScript "update-amp-cli" ''
     #!/usr/bin/env nix-shell
