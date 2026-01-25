@@ -21,7 +21,6 @@
     keep-going = true;
     keep-outputs = true;
     log-lines = 200;
-    sandbox = true;
     use-xdg-base-directories = true;
     warn-dirty = false;
     # determinate nix features

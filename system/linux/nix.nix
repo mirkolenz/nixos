@@ -11,6 +11,7 @@
       user.login
       "@wheel"
     ];
+    sandbox = true;
   };
   nix = {
     inherit (config.custom.nix) settings;

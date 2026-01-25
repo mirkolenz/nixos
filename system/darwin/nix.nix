@@ -28,5 +28,6 @@
       user.login
       "root"
     ];
+    sandbox = false;
   };
 }
