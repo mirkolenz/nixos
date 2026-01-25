@@ -32,6 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
   dontBuild = true;
+  __noChroot = true;
 
   # otherwise the bun runtime is executed instead of the binary (on linux)
   dontStrip = true;
@@ -58,7 +59,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "--version";
-  doInstallCheck = !stdenvNoCC.isDarwin;
+  doInstallCheck = true;
 
   passthru.updateScript = writeScript "update-claude-code" ''
     #!/usr/bin/env nix-shell

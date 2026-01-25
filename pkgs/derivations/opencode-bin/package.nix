@@ -27,7 +27,10 @@ mkGitHubBinary {
   nativeBuildInputs = [
     unzip
     makeBinaryWrapper
+    writableTmpDirAsHomeHook
   ];
+
+  __noChroot = true;
 
   # otherwise the bun runtime is executed instead of the binary (on linux)
   dontStrip = true;
@@ -48,11 +51,10 @@ mkGitHubBinary {
 
   nativeInstallCheckInputs = [
     versionCheckHook
-    writableTmpDirAsHomeHook
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "--version";
-  doInstallCheck = !stdenvNoCC.isDarwin;
+  doInstallCheck = true;
 
   meta = {
     description = "Open source coding agent";
