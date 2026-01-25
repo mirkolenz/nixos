@@ -38,6 +38,7 @@ lib.mkIf config.custom.profile.isWorkstation {
         collab = true;
         collaboration_modes = true;
         connectors = true;
+        responses_websockets = true;
         shell_snapshot = true;
         steer = true;
         unified_exec = true;
