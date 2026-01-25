@@ -43,6 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: wimpysworld/nothing-but-nix@v9
+        if: runner.os == 'Linux'
       - uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: |
