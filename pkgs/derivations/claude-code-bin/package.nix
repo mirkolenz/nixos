@@ -8,6 +8,9 @@
   makeBinaryWrapper,
   installShellFiles,
   writeScript,
+  bubblewrap,
+  socat,
+  ripgrep,
   updateChannel ? "latest",
   manifestFile ? ./manifest.json,
 }:
@@ -32,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
   dontBuild = true;
-  __noChroot = stdenvNoCC.isDarwin;
+  __noChroot = stdenvNoCC.hostPlatform.isDarwin;
 
   # otherwise the bun runtime is executed instead of the binary (on linux)
   dontStrip = true;
@@ -48,7 +51,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     installBin $src
     wrapProgram $out/bin/claude \
-      --set DISABLE_AUTOUPDATER 1
+      --set DISABLE_AUTOUPDATER 1 \
+      --set USE_BUILTIN_RIPGREP 0 \
+      --prefix PATH : ${
+        lib.makeBinPath (
+          [
+            # https://code.claude.com/docs/en/troubleshooting#search-and-discovery-issues
+            ripgrep
+          ]
+          # https://code.claude.com/docs/en/sandboxing#prerequisites
+          ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
+            bubblewrap
+            socat
+          ]
+        )
+      }
 
     runHook postInstall
   '';
