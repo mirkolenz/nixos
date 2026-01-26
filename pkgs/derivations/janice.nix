@@ -29,6 +29,8 @@ buildGoModule (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
+  strictDeps = true;
+
   meta = {
     description = "A desktop app for viewing large JSON files";
     homepage = "https://github.com/ErikKalkoken/janice";

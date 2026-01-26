@@ -26,6 +26,8 @@ buildGoModule (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
+  strictDeps = true;
+
   meta = {
     description = "Proxy that allows you to use ollama as a copilot like Github copilot";
     homepage = "https://github.com/bernardo-bruning/ollama-copilot";

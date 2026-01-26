@@ -37,6 +37,8 @@ lib.extendMkDerivation {
       nativeBuildInputs =
         (args.nativeBuildInputs or [ ]) ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 
+      strictDeps = args.strictDeps or true;
+
       meta = {
         maintainers = with lib.maintainers; [ mirkolenz ];
         platforms = lib.platforms.darwin;

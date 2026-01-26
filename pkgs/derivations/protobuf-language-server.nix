@@ -26,6 +26,8 @@ buildGoModule (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
+  strictDeps = true;
+
   meta = {
     description = "A language server implementation for Google Protocol Buffers";
     homepage = "https://github.com/lasorda/protobuf-language-server";

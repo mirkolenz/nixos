@@ -41,6 +41,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     };
   };
 
+  strictDeps = true;
+
   meta = {
     description = "Beautiful publication lists with bibtex and PHP";
     homepage = "https://www.monperrus.net/martin/bibtexbrowser/";

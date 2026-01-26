@@ -8,7 +8,6 @@
   stdenv,
   installShellFiles,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "crush";
   version = "0.35.0";
@@ -47,6 +46,8 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   passthru.updateScript = nix-update-script { };
+
+  strictDeps = true;
 
   meta = {
     description = "The glamourous AI coding agent for your favourite terminal";

@@ -49,6 +49,8 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "version";
   doInstallCheck = true;
 
+  strictDeps = true;
+
   meta = {
     description = "Wake up your devices with a single command or click, a Wake-On-LAN tool that works via CLI and web interface";
     homepage = "https://github.com/Trugamr/wol";

@@ -24,6 +24,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
+  strictDeps = true;
+
   meta = {
     description = "Tool for migrating to the uv package manager";
     homepage = "https://github.com/stvnksslr/uv-migrator";

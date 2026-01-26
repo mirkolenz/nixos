@@ -34,6 +34,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
+  strictDeps = true;
+
   meta = {
     description = "Python Type Checker / Language Server";
     homepage = "https://github.com/zubanls/zuban";

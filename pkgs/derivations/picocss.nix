@@ -29,6 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
+  strictDeps = true;
+
   meta = {
     description = "Minimal CSS Framework for semantic HTML";
     homepage = "https://github.com/picocss/pico";

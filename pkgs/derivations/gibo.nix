@@ -47,6 +47,8 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "version";
   doInstallCheck = true;
 
+  strictDeps = true;
+
   meta = {
     description = "Easy access to gitignore boilerplates";
     homepage = "https://github.com/simonwhitaker/gibo";

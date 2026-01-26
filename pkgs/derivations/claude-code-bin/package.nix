@@ -61,6 +61,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
+  strictDeps = true;
+
   passthru.updateScript = writeScript "update-claude-code" ''
     #!/usr/bin/env nix-shell
     #!nix-shell --pure -i bash -p curl jq cacert

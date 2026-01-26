@@ -51,6 +51,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # };
   };
 
+  strictDeps = true;
+
   meta = {
     description = "Deep clean and optimize your Mac";
     homepage = "https://github.com/tw93/Mole";

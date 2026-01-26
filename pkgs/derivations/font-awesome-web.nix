@@ -29,6 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
+  strictDeps = true;
+
   meta = {
     description = "Font Awesome web assets (CSS and webfonts)";
     homepage = "https://github.com/FortAwesome/Font-Awesome";

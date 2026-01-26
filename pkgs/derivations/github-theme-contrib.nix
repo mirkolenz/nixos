@@ -29,6 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
+  strictDeps = true;
+
   meta = {
     description = "GitHub's themes ports and extras";
     homepage = "https://github.com/projekt0n/github-theme-contrib";

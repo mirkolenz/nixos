@@ -102,6 +102,8 @@ lib.extendMkDerivation {
       }
       // args.passthru or { };
 
+      strictDeps = args.strictDeps or true;
+
       meta = {
         homepage = "https://github.com/${owner}/${repo}";
         downloadPage = "https://github.com/${owner}/${repo}/releases";

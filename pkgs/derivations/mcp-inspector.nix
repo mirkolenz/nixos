@@ -24,6 +24,8 @@ buildNpmPackage (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
+  strictDeps = true;
+
   meta = {
     description = "Visual testing tool for MCP servers";
     homepage = "https://github.com/modelcontextprotocol/inspector";
