@@ -18,7 +18,6 @@
     pay-respects.enable = true;
     ripgrep.enable = true;
     yazi.enable = true;
-    zoxide.enable = true;
     # keep-sorted end
   };
 }
