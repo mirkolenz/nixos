@@ -10,6 +10,7 @@
   writeScript,
   bubblewrap,
   socat,
+  procps,
   ripgrep,
   updateChannel ? "latest",
   manifestFile ? ./manifest.json,
@@ -56,6 +57,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --prefix PATH : ${
         lib.makeBinPath (
           [
+            # https://github.com/pkrumins/node-tree-kill requires procps
+            procps
             # https://code.claude.com/docs/en/troubleshooting#search-and-discovery-issues
             ripgrep
           ]
@@ -107,7 +110,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster";
     homepage = "https://github.com/anthropics/claude-code";
-    downloadPage = "https://www.npmjs.com/package/@anthropic-ai/claude-code";
+    downloadPage = "https://claude.com/product/claude-code";
     changelog = "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ mirkolenz ];
