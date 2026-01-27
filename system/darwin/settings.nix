@@ -70,7 +70,6 @@
         "/Applications/Microsoft Teams.app"
         "/Applications/Todoist.app"
         "/System/Applications/Calendar.app"
-        "/Applications/Visual Studio Code.app"
         "/Applications/Zed.app"
         "/Applications/Ghostty.app"
         "/Applications/OrbStack.app"
