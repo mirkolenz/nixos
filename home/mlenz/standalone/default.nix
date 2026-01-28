@@ -18,6 +18,12 @@ in
 {
   imports = lib'.flocken.getModules ./.;
 
+  custom.autoUpgrade = {
+    enable = true;
+    flake = "github:mirkolenz/nixos";
+    flags = lib.optional config.custom.impureRebuild "--impure";
+  };
+
   home.shellAliases = {
     sudo = lib.mkIf config.targets.genericLinux.enable ''/usr/bin/sudo env "PATH=${sudoPath}"'';
   };
