@@ -81,6 +81,7 @@ in
           ExecStart = pkgs.writeShellScript "custom-home-manager-auto-upgrade" ''
             ${lib.getExe config.programs.home-manager.package} switch \
               --flake ${lib.escapeShellArg cfg.flake} \
+              --refresh \
               ${lib.escapeShellArgs cfg.flags}
           '';
         };
