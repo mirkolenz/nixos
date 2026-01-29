@@ -73,6 +73,9 @@ in
 
     systemd.user = {
       services.custom-home-manager-auto-upgrade = {
+        path = [
+          config.nix.package
+        ];
         Unit = {
           Description = "Custom Home Manager auto upgrade";
         };
