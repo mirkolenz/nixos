@@ -73,20 +73,21 @@ in
 
     systemd.user = {
       services.custom-home-manager-auto-upgrade = {
-        path = [
-          config.nix.package
-        ];
         Unit = {
           Description = "Custom Home Manager auto upgrade";
         };
         Service = {
           Type = "oneshot";
           ExecStart = pkgs.writeShellScript "custom-home-manager-auto-upgrade" ''
-            ${lib.getExe config.programs.home-manager.package} switch \
+            home-manager switch \
               --flake ${lib.escapeShellArg cfg.flake} \
               --refresh \
               ${lib.escapeShellArgs cfg.flags}
           '';
+          ExecSearchPath = lib.makeBinPath [
+            config.programs.home-manager.package
+            config.nix.package
+          ];
         };
       };
 
