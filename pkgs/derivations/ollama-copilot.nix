@@ -6,13 +6,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "ollama-copilot";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "bernardo-bruning";
     repo = "ollama-copilot";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0qNTQHT0aAPd4F6eAAcw1/HWA9BkpmVNIbvzVbehqsc=";
+    hash = "sha256-EVQbYXXBKxcWAHxJgZdgMvBEMlUksZIZ2UG3r31zGaM=";
   };
 
   vendorHash = "sha256-g27MqS3qk67sve/jexd07zZVLR+aZOslXrXKjk9BWtk=";
