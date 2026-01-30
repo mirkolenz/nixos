@@ -17,6 +17,7 @@
       "$HOME/.*"
       "$HOME/Downloads/**"
       "$HOME/Library/**"
+      "/"
       "/nix/**"
       "/tmp/**"
     ];
