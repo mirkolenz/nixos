@@ -53,7 +53,12 @@
 
   # todo: fails on raspi (mkswap-swapfile-start)
   systemd.enableStrictShellChecks = false;
-  documentation.man.generateCaches = false;
+
+  documentation = {
+    nixos.enable = false;
+    # this is slow
+    man.generateCaches = false;
+  };
 
   boot.loader = {
     generic-extlinux-compatible.configurationLimit = 10;
