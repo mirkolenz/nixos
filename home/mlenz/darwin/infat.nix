@@ -93,7 +93,7 @@
       schemes = {
         ftp = "ForkLift";
         # http = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";
-        http = "Orion RC";
+        http = "Orion";
         mailto = "Mail";
         sftp = "ForkLift";
         ssh = "Ghostty";

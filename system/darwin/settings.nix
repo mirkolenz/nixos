@@ -55,7 +55,7 @@
         "/Applications/DEVONthink.app"
         "/Applications/Obsidian.app"
         # "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
-        "/Applications/Orion RC.app"
+        "/Applications/Orion.app"
         "/Applications/Firefox.app"
         "/Applications/Google Chrome.app"
         "/Applications/1Password.app"

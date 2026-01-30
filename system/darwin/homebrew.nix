@@ -30,6 +30,7 @@ let
     "ollama-app"
     "omnigraffle"
     "orbstack"
+    "orion"
     "presentation"
     "raindropio"
     "raycast"
