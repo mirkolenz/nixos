@@ -1,4 +1,10 @@
 final: prev:
-prev.samba4.override {
-  enableMDNS = true;
-}
+prev.lib.addMetaAttrs
+  {
+    hydraPlatforms = prev.lib.platforms.linux;
+  }
+  (
+    prev.samba4.override {
+      enableMDNS = true;
+    }
+  )
