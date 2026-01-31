@@ -16,7 +16,7 @@ let
   manifest = lib.importJSON manifestFile;
   versionParts = lib.splitString "-" manifest.version;
   version = lib.head versionParts;
-  # build = lib.last versionParts;
+  build = lib.last versionParts;
   platforms = {
     aarch64-darwin = "darwin-arm64";
     aarch64-linux = "linux-arm64";
@@ -26,10 +26,10 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "llmster";
-  inherit version;
+  version = "${version}+${build}";
 
   src = fetchurl {
-    url = "https://llmster.lmstudio.ai/download/${manifest.version}-${platform}.${appVariant}.tar.gz";
+    url = "https://llmster.lmstudio.ai/download/${version}-${build}-${platform}.${appVariant}.tar.gz";
     sha512 = manifest.checksums.${platform};
   };
 
