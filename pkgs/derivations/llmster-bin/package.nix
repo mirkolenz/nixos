@@ -35,6 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
+  dontConfigure = true;
   dontBuild = true;
   dontStrip = true;
 
@@ -42,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     "libcuda.so.1"
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isElf [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc
     libxcrypt-legacy
   ];
@@ -50,11 +51,9 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     makeBinaryWrapper
   ]
-  ++ lib.optionals stdenv.hostPlatform.isElf [
-    autoPatchelfHook
-  ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     addDriverRunpath
+    autoPatchelfHook
   ];
 
   installPhase = ''
@@ -63,14 +62,13 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/libexec
     mv llmster .bundle $out/libexec/
     makeWrapper $out/libexec/llmster $out/bin/llmster
-    makeWrapper $out/libexec/.bundle/lms $out/bin/lms
 
     runHook postInstall
   '';
 
   # autoAddDriverRunpath uses patchelf on all ELF files
   # but llmster/lms use bun which get corrupted by this.
-  postFixup = lib.optionalString stdenv.hostPlatform.isElf ''
+  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     find $out/libexec/.bundle -type f \( -name '*.so' -o -name '*.so.*' -o -name '*.node' \) | while read -r lib; do
       addDriverRunpath "$lib"
     done
@@ -81,7 +79,6 @@ stdenv.mkDerivation (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
-  versionCheckProgram = "${placeholder "out"}/bin/llmster";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -110,7 +107,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ mirkolenz ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    mainProgram = "lms";
+    mainProgram = "llmster";
     platforms = lib.attrNames platforms;
     hydraPlatforms = [ ];
   };
