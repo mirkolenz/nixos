@@ -9,6 +9,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     enable = true;
     package = pkgs.codex-bin;
     # https://developers.openai.com/codex/config-reference
+    # https://developers.openai.com/codex/config-schema.json
     settings = {
       model = "gpt-5.2-codex";
       model_reasoning_effort = "high";
@@ -17,8 +18,10 @@ lib.mkIf config.custom.profile.isWorkstation {
       file_opener = "none";
       preferred_auth_method = "chatgpt";
       check_for_update_on_startup = false;
+      personality = "pragmatic";
       suppress_unstable_features_warning = true;
       sandbox_mode = "workspace-write";
+      web_search = "live";
       sandbox_workspace_write = {
         network_access = true;
         writable_roots = [
@@ -36,11 +39,10 @@ lib.mkIf config.custom.profile.isWorkstation {
       # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
       features = {
         apply_patch_freeform = true;
-        collaboration_modes = true;
+        collab = true;
         shell_snapshot = true;
         steer = true;
         unified_exec = true;
-        web_search_request = true;
       };
     };
   };
