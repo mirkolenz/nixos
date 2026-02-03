@@ -1,8 +1,8 @@
 { ... }:
 {
-  programs.agents-md = {
+  programs.agents = {
     enable = true;
-    settings.body = /* markdown */ ''
+    instructions = /* markdown */ ''
       ## General
 
       - Use conventional commit messages to describe changes so that semantic versioning can be applied.
