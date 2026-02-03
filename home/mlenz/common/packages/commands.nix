@@ -74,9 +74,6 @@
         exit 0
       fi
     '';
-    docker-reset = /* bash */ ''
-      exec sudo docker system prune --all --force
-    '';
     flakeup = /* bash */ ''
       exec nix flake update --commit-lock-file "$@"
     '';
