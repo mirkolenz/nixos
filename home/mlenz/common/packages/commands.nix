@@ -197,7 +197,7 @@
         > "./$filename.pdfpc"
     '';
     nixos-env = /* bash */ ''
-      exec sudo nix-env --profile /nix/var/nix/profiles/system "$@"
+      exec nix-env --profile /nix/var/nix/profiles/system "$@"
     '';
     skim = /* bash */ ''
       exec open -g -a Skim "$@"

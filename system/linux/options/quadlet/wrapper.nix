@@ -16,10 +16,10 @@ let
       command="$1"
       shift
       if [ "$command" = "exec" ]; then
-        exec sudo ${lib.getExe pkgs.podman} exec "systemd-$1" "''${@:2}"
+        exec ${lib.getExe pkgs.podman} exec "systemd-$1" "''${@:2}"
       fi
       if [ "$command" = "update" ]; then
-        exec sudo ${lib.getExe pkgs.podman} auto-update "systemd-$1" "''${@:2}"
+        exec ${lib.getExe pkgs.podman} auto-update "systemd-$1" "''${@:2}"
       fi
       if [ "$command" = "service" ]; then
         exec systemctl "''${2:-status}" "$1.service" "''${@:3}"
