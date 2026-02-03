@@ -24,6 +24,12 @@ lib.mkIf config.custom.profile.isWorkstation {
       };
       env = {
         UV_NO_SYNC = "1";
+        # todo
+        # https://github.com/anthropics/claude-code/issues/17989
+        # https://github.com/anthropics/claude-code/issues/22667
+        # https://github.com/anthropics/claude-code/issues/22667
+        TMPDIR = "/tmp/claude";
+        TMPPREFIX = "/tmp/claude/zsh";
       };
       permissions = {
         defaultMode = "acceptEdits";
