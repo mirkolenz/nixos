@@ -25,14 +25,9 @@
     less.enable = true;
   };
 
-  environment.defaultPackages = with pkgs; [
-    rsync
-    python3
-    strace
-  ];
-
   environment.systemPackages = with pkgs; [
     pciutils
+    strace # from defaultPackages
   ];
 
   services = {
