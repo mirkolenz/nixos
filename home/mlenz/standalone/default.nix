@@ -2,6 +2,7 @@
   lib',
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -27,4 +28,8 @@ in
   home.shellAliases = {
     sudo = lib.mkIf config.targets.genericLinux.enable ''/usr/bin/sudo env "PATH=${sudoPath}"'';
   };
+
+  home.packages = with pkgs; [
+    llmster-bin
+  ];
 }
