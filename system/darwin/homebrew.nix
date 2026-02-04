@@ -51,14 +51,13 @@ let
     # keep-sorted end
   ];
 
+  # mas list
   masApps = {
     # keep-sorted start
     ausweisapp = 948660805;
     base = 6744867438;
     bitwarden = 1352778147;
-    draw-things = 6444050820;
     dropover = 1355679052;
-    easyletter = 1495179755;
     gapplin = 768053424;
     home-assistant = 1099568401;
     keka = 470158793;
@@ -66,8 +65,8 @@ let
     microsoft-excel = 462058435;
     microsoft-onedrive = 823766827;
     microsoft-powerpoint = 462062816;
-    microsoft-windows = 1295203466;
     microsoft-word = 462054704;
+    parallels = 1085114709;
     pdf-expert = 1055273043;
     qr-factory = 1609285899;
     reeder = 6475002485;
@@ -76,7 +75,6 @@ let
     safari-raindropio = 1549370672;
     shellfish = 1336634154;
     step-two = 1448916662;
-    stopthemadness-pro = 6471380298;
     testflight = 899247664;
     todoist = 585829637;
     whatsapp = 310633997;
@@ -172,7 +170,7 @@ in
     taps = [ ];
     brews = [ ];
     casks = caskApps ++ caskFonts;
-    # inherit masApps;
+    inherit masApps;
   };
   environment.loginShellInit = /* bash */ ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
