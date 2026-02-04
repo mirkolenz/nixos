@@ -1,17 +1,17 @@
 {
-  "tag_name": "0.9.28",
+  "tag_name": "0.9.29",
   "assets": {
     "uv-aarch64-apple-darwin.tar.gz": {
-      "digest": "sha256:12163fe09eb292d3ad1ea0f132a84485c902e2ff360d57562bf676e6615fcba0"
+      "digest": "sha256:0729ddd5c02df33669b03627aa5d9ac7cde4421657f808d54585e3cda944bb55"
     },
     "uv-aarch64-unknown-linux-gnu.tar.gz": {
-      "digest": "sha256:382c342735ff29f8ba4574d88e39bca798bcbac50bff6742710ca9cd8143e7d2"
+      "digest": "sha256:935b35542b7e25493a551dcb3487af23b72ad284ee8ac6a488a97d02ce2d84ec"
     },
     "uv-x86_64-apple-darwin.tar.gz": {
-      "digest": "sha256:3a8030881d13b824e5168f5e4d060e715e40753249766bda3d52d6771d93b169"
+      "digest": "sha256:d251e48db2a962272a2efeb2771c82c02e40f473193a255e8e5c05eb61112139"
     },
     "uv-x86_64-unknown-linux-gnu.tar.gz": {
-      "digest": "sha256:66ad1822dd9cf96694b95c24f25bc05cff417a65351464da01682a91796d1f2b"
+      "digest": "sha256:1ce5212f8f42dc7427a1bd3db4168d6d1abcf81b38d8c82a5b9d0ddc54ceebfc"
     }
   }
 }
