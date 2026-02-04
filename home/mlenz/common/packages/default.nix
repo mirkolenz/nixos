@@ -9,8 +9,7 @@
   imports = lib'.flocken.getModules ./.;
 
   home.packages = with pkgs; [
-    zsh
-    fish
+    tree
     moreutils
     gnupg
     gnumake
