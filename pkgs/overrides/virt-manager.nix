@@ -6,10 +6,10 @@ in
 pkgs.virt-manager.overrideAttrs (oldAttrs: {
   nativeBuildInputs =
     (oldAttrs.nativeBuildInputs or [ ])
-    ++ (prev.lib.optional pkgs.stdenv.isDarwin pkgs.makeBinaryWrapper);
+    ++ (prev.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.makeBinaryWrapper);
   postInstall =
     (oldAttrs.postInstall or "")
-    + (prev.lib.optionalString pkgs.stdenv.isDarwin ''
+    + (prev.lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       wrapProgram $out/bin/virt-manager \
         --set GSETTINGS_BACKEND keyfile
     '');

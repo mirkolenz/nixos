@@ -22,7 +22,7 @@ mkGitHubBinary {
   ];
   pattern = ''^uv-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
 
-  buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
+  buildInputs = lib.optionals stdenv.hostPlatform.isElf [ stdenv.cc.cc ];
 
   # patchelf needs to run first, so we add a custom phase
   postPhases = [ "finalPhase" ];

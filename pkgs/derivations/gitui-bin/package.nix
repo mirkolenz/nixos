@@ -21,7 +21,7 @@ mkGitHubBinary {
 
   sourceRoot = ".";
 
-  buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
+  buildInputs = lib.optionals stdenv.hostPlatform.isElf [ stdenv.cc.cc ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

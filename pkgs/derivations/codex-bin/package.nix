@@ -24,7 +24,7 @@ mkGitHubBinary {
 
   sourceRoot = ".";
 
-  buildInputs = lib.optionals (!stdenv.isDarwin) [
+  buildInputs = lib.optionals stdenv.hostPlatform.isElf [
     stdenv.cc.cc
     openssl
     libcap
