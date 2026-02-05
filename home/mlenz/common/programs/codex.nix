@@ -11,7 +11,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     # https://developers.openai.com/codex/config-reference
     # https://developers.openai.com/codex/config-schema.json
     settings = {
-      model = "gpt-5.2-codex";
+      model = "gpt-5.3-codex";
       model_reasoning_effort = "high";
       model_reasoning_summary = "auto";
       approval_policy = "on-request";
@@ -19,7 +19,6 @@ lib.mkIf config.custom.profile.isWorkstation {
       preferred_auth_method = "chatgpt";
       check_for_update_on_startup = false;
       personality = "pragmatic";
-      suppress_unstable_features_warning = true;
       sandbox_mode = "workspace-write";
       web_search = "live";
       sandbox_workspace_write = {
@@ -38,11 +37,8 @@ lib.mkIf config.custom.profile.isWorkstation {
       # codex features list
       # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
       features = {
-        apply_patch_freeform = true;
         collab = true;
         shell_snapshot = true;
-        steer = true;
-        unified_exec = true;
       };
     };
   };
