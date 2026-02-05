@@ -20,7 +20,6 @@ mkGitHubBinary {
   pattern = ''^typst-(aarch64|x86_64)-(unknown-linux-musl|apple-darwin)\\.tar\\.xz$'';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   meta = {

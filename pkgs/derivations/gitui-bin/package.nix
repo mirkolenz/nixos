@@ -24,7 +24,6 @@ mkGitHubBinary {
   buildInputs = lib.optional (!stdenv.isDarwin) stdenv.cc.cc;
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   meta = {

@@ -53,7 +53,6 @@ mkGitHubBinary {
     versionCheckHook
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   meta = {

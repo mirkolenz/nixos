@@ -21,7 +21,6 @@ mkGitHubBinary {
   sourceRoot = ".";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   meta = {

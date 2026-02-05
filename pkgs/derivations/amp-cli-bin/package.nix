@@ -58,7 +58,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   strictDeps = true;

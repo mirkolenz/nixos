@@ -43,7 +43,6 @@ mkGitHubBinary {
   '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   meta = {

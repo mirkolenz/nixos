@@ -21,7 +21,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   strictDeps = true;
