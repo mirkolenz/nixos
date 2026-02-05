@@ -2,6 +2,7 @@
   lib,
   stdenv,
   openssl,
+  libcap,
   versionCheckHook,
   mkGitHubBinary,
 }:
@@ -26,6 +27,7 @@ mkGitHubBinary {
   buildInputs = lib.optionals (!stdenv.isDarwin) [
     stdenv.cc.cc
     openssl
+    libcap
   ];
 
   preInstall = ''
