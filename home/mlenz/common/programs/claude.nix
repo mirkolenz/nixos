@@ -13,6 +13,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     package = pkgs.claude-code-bin;
     settings = {
       model = "opus";
+      effort = "high";
       cleanupPeriodDays = 30;
       enableAllProjectMcpServers = true;
       forceLoginMethod = "claudeai";
