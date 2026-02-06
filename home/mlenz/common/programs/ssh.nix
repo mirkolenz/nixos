@@ -38,10 +38,6 @@ in
         user = "lenz";
       };
       "kitei" = {
-        hostname = "dfki-1170.dfki.uni-trier.de";
-        user = "eifelkreis";
-      };
-      "kitei-gpu" = {
         hostname = "kitei-gpu.wi2.uni-trier.de";
         user = "compute";
       };
