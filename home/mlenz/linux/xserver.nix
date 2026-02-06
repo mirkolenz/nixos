@@ -18,7 +18,7 @@ lib.mkIf config.custom.profile.isDesktop {
       enable_drag_source = true;
       favorites = [
         "com.system76.CosmicFiles"
-        "google-chrome"
+        "vivaldi"
         "1password"
         "obsidian"
         "code"

@@ -44,6 +44,7 @@ let
     "tiptoi-manager"
     "viscosity"
     "visual-studio-code"
+    "vivaldi"
     "wifiman"
     "zed"
     "zoom"

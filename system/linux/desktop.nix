@@ -27,7 +27,7 @@ lib.mkIf config.custom.profile.isDesktop {
     sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
       anydesk
-      google-chrome
+      vivaldi
       firefox
       obsidian
       zoom-us
