@@ -7,16 +7,16 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "mcp-inspector";
-  version = "0.19.0";
+  version = "0.20.0";
 
   src = fetchFromGitHub {
     owner = "modelcontextprotocol";
     repo = "inspector";
     tag = finalAttrs.version;
-    hash = "sha256-okTRrJoC2lKpsvvwavsY7402EVw0PFCB+0GldrLWSAY=";
+    hash = "sha256-J9L8Ug3Qcgzw2XpYQfEKrEf2CTQCIKB/F9Tcls59BdY=";
   };
 
-  npmDepsHash = "sha256-2ig7Bbn6vPuqqO+6IOzvDEhxFUjyT1P8GNGEtQDEfDQ=";
+  npmDepsHash = "sha256-jWIRD6CkP5YPrK9umMOHdVpm0bv6qyUTxJ0oUffYp1Q=";
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
