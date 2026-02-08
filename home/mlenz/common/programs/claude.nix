@@ -32,6 +32,8 @@ lib.mkIf config.custom.profile.isWorkstation {
         # https://github.com/anthropics/claude-code/issues/22667
         TMPDIR = "/tmp/claude";
         TMPPREFIX = "/tmp/claude/zsh";
+        # https://astro.build/telemetry/
+        ASTRO_TELEMETRY_DISABLED = "1";
       };
       permissions = {
         defaultMode = "acceptEdits";

@@ -30,6 +30,7 @@
       - Use ES modules (import/export) syntax, not CommonJS (require).
       - Use `npm run` to execute scripts, not `npx`.
       - Use the command `shadcn` for shadcn/ui, not `npx shadcn`.
+      - Use `npm run build` to build projects, not `npm run dev` or `npm run start`.
 
       ## Nix
 
