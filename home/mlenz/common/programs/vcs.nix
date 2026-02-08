@@ -311,12 +311,16 @@
     # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
     settings = {
       gui = {
-        border = "single";
+        expandedSidePanelWeight = 2;
+        expandFocusedSidePanel = true;
+        filterMode = "fuzzy";
         nerdFontsVersion = "3";
         showCommandLog = false;
         showFileTree = true;
         showNumstatInFilesView = true;
         showRandomTip = false;
+        sidePanelWidth = 0.25;
+        skipAmendWarning = true;
         skipDiscardChangeWarning = false;
         skipNoStagedFilesWarning = true;
         skipRewordInEditorWarning = false;
