@@ -20,10 +20,7 @@ buildGoModule (finalAttrs: {
 
   subPackages = [ "." ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   inherit (fyne) buildInputs nativeBuildInputs;
 

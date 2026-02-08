@@ -25,7 +25,6 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
-    "-w"
     "-X=github.com/simonwhitaker/gibo/cmd.version=${finalAttrs.version}"
   ];
 

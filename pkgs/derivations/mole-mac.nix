@@ -44,10 +44,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     #   pname = "mole-helpers";
     #   inherit (finalAttrs) version src;
     #   vendorHash = "";
-    #   ldflags = [
-    #     "-s"
-    #     "-w"
-    #   ];
+    #   ldflags = [ "-s" ];
     # };
   };
 

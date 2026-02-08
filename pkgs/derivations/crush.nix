@@ -25,7 +25,6 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
-    "-w"
     "-X=github.com/charmbracelet/crush/internal/version.Version=${finalAttrs.version}"
   ];
 

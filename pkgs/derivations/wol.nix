@@ -25,7 +25,6 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
-    "-w"
     "-X=github.com/trugamr/wol/cmd.version=${finalAttrs.version}"
     "-X=github.com/trugamr/wol/cmd.commit=${finalAttrs.src.rev}"
     "-X=github.com/trugamr/wol/cmd.date=1970-01-01T00:00:00Z"

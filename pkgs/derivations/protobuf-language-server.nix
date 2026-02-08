@@ -19,10 +19,7 @@ buildGoModule (finalAttrs: {
 
   subPackages = [ "." ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   passthru.updateScript = nix-update-script { };
 
