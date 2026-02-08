@@ -19,5 +19,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     prettier
     npm-check-updates
     biome
+    typescript-go
   ];
 }
