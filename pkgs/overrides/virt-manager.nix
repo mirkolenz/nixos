@@ -1,6 +1,6 @@
 final: prev:
 let
-  pkgs = prev.stable;
+  pkgs = final.stable;
   inherit (pkgs) lib;
 in
 # todo: https://hydra.nixos.org/job/nixpkgs/trunk/virt-manager.aarch64-darwin
