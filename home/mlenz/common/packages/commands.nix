@@ -31,7 +31,8 @@
       else
         echo "Do you want to clean the following system profiles? (y/n)"
         echo "$systemProfiles"
-        read -r systemProfilesAnswer
+        read -r -n 1 systemProfilesAnswer
+        echo
       fi
 
       if [ -z "$userProfiles" ]; then
@@ -39,7 +40,8 @@
       else
         echo "Do you want to clean the following user profiles? (y/n)"
         echo "$userProfiles"
-        read -r userProfilesAnswer
+        read -r -n 1 userProfilesAnswer
+        echo
       fi
 
       if [ "$systemProfilesAnswer" = "y" ]; then
