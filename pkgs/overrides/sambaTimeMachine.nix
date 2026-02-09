@@ -1,10 +1,14 @@
 final: prev:
-prev.lib.addMetaAttrs
+let
+  pkgs = prev;
+  inherit (pkgs) lib;
+in
+lib.addMetaAttrs
   {
-    hydraPlatforms = prev.lib.platforms.linux;
+    hydraPlatforms = lib.platforms.linux;
   }
   (
-    prev.samba4.override {
+    pkgs.samba4.override {
       enableMDNS = true;
     }
   )

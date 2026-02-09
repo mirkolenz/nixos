@@ -1,19 +1,20 @@
 final: prev:
 let
-  pkgs = final.stable;
+  pkgs = prev.stable;
+  inherit (pkgs) lib;
 in
 # todo: https://hydra.nixos.org/job/nixpkgs/trunk/virt-manager.aarch64-darwin
 pkgs.virt-manager.overrideAttrs (oldAttrs: {
   nativeBuildInputs =
     (oldAttrs.nativeBuildInputs or [ ])
-    ++ (prev.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.makeBinaryWrapper);
+    ++ (lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.makeBinaryWrapper);
   postInstall =
     (oldAttrs.postInstall or "")
-    + (prev.lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+    + (lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       wrapProgram $out/bin/virt-manager \
         --set GSETTINGS_BACKEND keyfile
     '');
   meta = oldAttrs.meta // {
-    hydraPlatforms = prev.lib.platforms.darwin;
+    hydraPlatforms = lib.platforms.darwin;
   };
 })
