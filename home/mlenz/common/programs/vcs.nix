@@ -350,4 +350,26 @@
       disableStartupPopups = true;
     };
   };
+  programs.lazyworktree = {
+    enable = true;
+    settings = {
+      editor = "zed";
+      icon_set = "nerd-font-v3";
+      fuzzy_finder_input = true;
+      theme = "monokai";
+      custom_commands = {
+        c = {
+          command = "claude";
+          description = "Claude Code";
+          show_help = true;
+          new_tab = true;
+        };
+        e = {
+          command = "zed";
+          description = "Editor";
+          show_help = true;
+        };
+      };
+    };
+  };
 }
