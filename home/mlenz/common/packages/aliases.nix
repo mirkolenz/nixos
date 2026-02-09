@@ -20,7 +20,7 @@ let
     pkgs.writeShellApplication {
       inherit name;
       text = ''
-        exec ${lib.getExe' pkgs.uv-bin "uvx"} \
+        exec ${lib.getExe' config.programs.uv.package "uvx"} \
           --python ${lib.getExe pkgs.python3} \
           ${toString (map (v: "--from ${v}") values)} \
           ${name} "$@"

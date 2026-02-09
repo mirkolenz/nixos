@@ -96,8 +96,7 @@
   home.shellAliases = {
     cat = lib.getExe config.programs.bat.package;
     lg = lib.getExe config.programs.lazygit.package;
-    l = "ll";
-    dc = "docker compose";
-    py = "${lib.getExe' config.programs.uv.package "uv"} run";
+    lw = lib.getExe config.programs.lazyworktree.package;
+    py = "${lib.getExe config.programs.uv.package} run";
   };
 }
