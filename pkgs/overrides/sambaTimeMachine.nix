@@ -1,7 +1,7 @@
 final: prev:
 let
   pkgs = prev;
-  inherit (pkgs) lib;
+  inherit (prev) lib;
 in
 lib.addMetaAttrs
   {

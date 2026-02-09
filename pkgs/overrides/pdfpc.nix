@@ -3,7 +3,7 @@
 final: prev:
 let
   pkgs = prev;
-  inherit (pkgs) lib;
+  inherit (prev) lib;
 in
 (pkgs.pdfpc.override {
   # broken on darwin
