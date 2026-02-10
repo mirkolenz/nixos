@@ -25,7 +25,8 @@ lib.mkIf config.custom.profile.isWorkstation {
         network.allowUnixSockets = [ "/nix/var/nix/daemon-socket/socket" ];
       };
       env = {
-        CLAUDE_CODE_SUBAGENT_MODEL = "sonnet";
+        # better results, but too many tokens
+        # CLAUDE_CODE_SUBAGENT_MODEL = "sonnet";
         UV_NO_SYNC = "1";
         # todo
         # https://github.com/anthropics/claude-code/issues/17989
