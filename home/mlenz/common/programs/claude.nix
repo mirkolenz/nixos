@@ -24,6 +24,10 @@ lib.mkIf config.custom.profile.isWorkstation {
         # todo: does not work as of 2026-02-08
         network.allowUnixSockets = [ "/nix/var/nix/daemon-socket/socket" ];
       };
+      enabledPlugins = {
+        "feature-dev@claude-plugins-official" = true;
+        "frontend-design@claude-plugins-official" = true;
+      };
       env = {
         # better results, but too many tokens
         # CLAUDE_CODE_SUBAGENT_MODEL = "sonnet";
