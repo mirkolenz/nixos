@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   addDriverRunpath,
-  autoPatchelfHook,
+  patchelf,
   makeBinaryWrapper,
   versionCheckHook,
   writableTmpDirAsHomeHook,
@@ -39,10 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontStrip = true;
 
-  autoPatchelfIgnoreMissingDeps = [
-    "libcuda.so.1"
-  ];
-
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc
     libxcrypt-legacy
@@ -53,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     addDriverRunpath
-    autoPatchelfHook
+    patchelf
   ];
 
   installPhase = ''
@@ -66,11 +62,20 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # autoAddDriverRunpath uses patchelf on all ELF files
-  # but llmster/lms use bun which get corrupted by this.
+  # Avoid autoPatchelfHook: its use of patchelf --set-rpath corrupts
+  # bun-based binaries (llmster, node, lms) and replaces $ORIGIN in
+  # .so/.node files which breaks companion library resolution.
+  # Instead, use --set-interpreter and --add-rpath selectively.
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    find $out/libexec/.bundle -type f \( -name '*.so' -o -name '*.so.*' -o -name '*.node' \) | while read -r lib; do
-      addDriverRunpath "$lib"
+    local interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
+    local rpath="${lib.makeLibraryPath finalAttrs.buildInputs}"
+    find $out/libexec -type f \( -executable -o -name '*.so' -o -name '*.so.*' -o -name '*.node' \) | while read -r file; do
+      if patchelf --print-interpreter "$file" &>/dev/null; then
+        patchelf --set-interpreter "$interpreter" --add-rpath "$rpath" "$file"
+      elif patchelf --print-rpath "$file" &>/dev/null; then
+        patchelf --add-rpath "$rpath" "$file"
+        addDriverRunpath "$file"
+      fi
     done
   '';
 
