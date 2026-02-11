@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "font-awesome-web";
-  version = "7.1.0";
+  version = "7.2.0";
 
   src = fetchFromGitHub {
     owner = "FortAwesome";
     repo = "Font-Awesome";
     tag = finalAttrs.version;
-    hash = "sha256-1hHjqPXz/+otqgRsfXQG4D3uAmKOzXo2eBqOUzSU8IM=";
+    hash = "sha256-BTm78NCZXksCuzoXm2B39/UIB/Sb/wwL1vvaGRVUaio=";
   };
 
   dontConfigure = true;

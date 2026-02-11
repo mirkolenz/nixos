@@ -1,17 +1,17 @@
 {
-  "tag_name": "3.1.4",
+  "tag_name": "3.2.0",
   "assets": {
-    "hkknx-3.1.4_darwin_amd64.tar.gz": {
-      "digest": "sha256:90a95d8e80aecc4abe0f942fb3c62cbe410a6a254c17d1e356482391bfc7c48b"
+    "hkknx-3.2.0_darwin_amd64.tar.gz": {
+      "digest": "sha256:91435ecf0d99e6c54b5ab927de909dc6c564903e5161aa303babf641dae2bd7c"
     },
-    "hkknx-3.1.4_darwin_arm64.tar.gz": {
-      "digest": "sha256:81677f1c5343e91d255e525360eb7cd6597844141c19a637b89ccb068cd755fc"
+    "hkknx-3.2.0_darwin_arm64.tar.gz": {
+      "digest": "sha256:9eae484355c147473b2b2fee3b32358e8ef549fa76884ef9b48d3f5611bc1006"
     },
-    "hkknx-3.1.4_linux_amd64.tar.gz": {
-      "digest": "sha256:2138b57d55e2c29b67b44c1a07d08c3637c243db3c5fa1488842ce3e657a0a0a"
+    "hkknx-3.2.0_linux_amd64.tar.gz": {
+      "digest": "sha256:9451001135b980790aeb5625db3edf25221504d3e21fef61cd96ea4c5ae48520"
     },
-    "hkknx-3.1.4_linux_arm64.tar.gz": {
-      "digest": "sha256:d1ad2beb2ec4376c3e2b663a503a77049056643ac598c1a164463b622e800d8c"
+    "hkknx-3.2.0_linux_arm64.tar.gz": {
+      "digest": "sha256:3a48a08a6a7390b8cea432e6076a8ebcb8ac8fc07ca690e03b8bbe43774b763a"
     }
   }
 }
