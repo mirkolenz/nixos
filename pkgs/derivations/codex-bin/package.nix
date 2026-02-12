@@ -3,6 +3,7 @@
   stdenv,
   openssl,
   libcap,
+  zlib,
   versionCheckHook,
   mkGitHubBinary,
 }:
@@ -28,6 +29,7 @@ mkGitHubBinary {
     stdenv.cc.cc
     openssl
     libcap
+    zlib
   ];
 
   preInstall = ''
