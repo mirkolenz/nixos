@@ -41,6 +41,31 @@ lib.mkIf config.custom.profile.isWorkstation {
         # https://astro.build/telemetry/
         ASTRO_TELEMETRY_DISABLED = "1";
       };
+      # https://code.claude.com/docs/en/hooks
+      # https://code.claude.com/docs/en/hooks-guide#auto-format-code-after-edits
+      hooks = {
+        # PostToolUse = [
+        #   {
+        #     matcher = "Edit|Write";
+        #     hooks = [
+        #       {
+        #         type = "command";
+        #         command = "treefmt";
+        #         async = true;
+        #       }
+        #     ];
+        #   }
+        # ];
+      };
+      # https://code.claude.com/docs/en/statusline#available-data
+      statusLine = {
+        # type = "command";
+        # command = pkgs.writeShellScript "claude-statusline" ''
+        #   jq -r '
+        #     "\(.context_window.used_percentage // 0)% | +\(.cost.total_lines_added // 0) -\(.cost.total_lines_removed // 0)"
+        #   '
+        # '';
+      };
       permissions = {
         defaultMode = "acceptEdits";
         disableBypassPermissionsMode = "disable";
