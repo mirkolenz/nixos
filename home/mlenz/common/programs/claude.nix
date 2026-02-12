@@ -58,14 +58,14 @@ lib.mkIf config.custom.profile.isWorkstation {
         # ];
       };
       # https://code.claude.com/docs/en/statusline#available-data
-      statusLine = {
-        # type = "command";
-        # command = pkgs.writeShellScript "claude-statusline" ''
-        #   jq -r '
-        #     "\(.context_window.used_percentage // 0)% | +\(.cost.total_lines_added // 0) -\(.cost.total_lines_removed // 0)"
-        #   '
-        # '';
-      };
+      # statusLine = {
+      #   type = "command";
+      #   command = pkgs.writeShellScript "claude-statusline" ''
+      #     jq -r '
+      #       "\(.context_window.used_percentage // 0)% | +\(.cost.total_lines_added // 0) -\(.cost.total_lines_removed // 0)"
+      #     '
+      #   '';
+      # };
       permissions = {
         defaultMode = "acceptEdits";
         disableBypassPermissionsMode = "disable";
