@@ -174,7 +174,7 @@ in
     inherit masApps;
   };
   environment.loginShellInit = /* bash */ ''
-    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
+    eval "$(${config.homebrew.prefix}/bin/brew shellenv)"
   '';
   # https://docs.brew.sh/Manpage#environment
   environment.variables = {
