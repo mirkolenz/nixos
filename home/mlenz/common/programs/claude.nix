@@ -77,6 +77,7 @@ lib.mkIf config.custom.profile.isWorkstation {
           "Edit(/${config.home.homeDirectory}/.npm/**)"
           "Bash(nix *)"
           "Bash(uv run pytest *)" # calls stat() which conflicts with .env deny
+          "Bash(npm run build *)"
         ];
         deny = [
           "Bash(sudo *)"
