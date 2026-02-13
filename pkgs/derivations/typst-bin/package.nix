@@ -1,6 +1,5 @@
 {
   lib,
-  # stdenv,
   versionCheckHook,
   mkGitHubBinary,
 }:

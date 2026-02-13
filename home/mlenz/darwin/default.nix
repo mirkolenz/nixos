@@ -18,6 +18,7 @@
     container
     ollama-copilot
     mole-mac
+    pyrefly-bin
     (writeShellApplication {
       name = "scansnap-reset";
       text = /* bash */ ''

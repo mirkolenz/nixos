@@ -38,7 +38,6 @@ lib.mkIf config.custom.profile.isWorkstation {
     })
     ++ (lib.mapAttrsToList mkPythonApp {
       arguebuf = [ "arguebuf[cli]" ];
-      pyrefly = [ "pyrefly" ];
       ast-grep-server = [ "git+https://github.com/ast-grep/ast-grep-mcp" ];
     });
 }
