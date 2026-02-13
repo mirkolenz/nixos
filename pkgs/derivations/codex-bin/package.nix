@@ -19,8 +19,8 @@ mkGitHubBinary {
   owner = "openai";
   repo = "codex";
   file = ./release.json;
-  getAsset = { system, ... }: "codex-${platforms.${system}}.tar.gz";
-  pattern = ''^codex-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
+  inherit platforms;
+  getAsset = { platform, ... }: "codex-${platform}.tar.gz";
   versionPrefix = "rust-v";
 
   sourceRoot = ".";
@@ -51,7 +51,6 @@ mkGitHubBinary {
 
   meta = {
     description = "Lightweight coding agent that runs in your terminal";
-    platforms = lib.attrNames platforms;
     license = lib.licenses.asl20;
   };
 }

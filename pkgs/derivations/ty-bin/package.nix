@@ -4,19 +4,16 @@
   versionCheckHook,
   mkGitHubBinary,
 }:
-let
+mkGitHubBinary {
+  owner = "astral-sh";
+  repo = "ty";
+  file = ./release.json;
   platforms = {
     x86_64-linux = "x86_64-unknown-linux-gnu";
     aarch64-linux = "aarch64-unknown-linux-gnu";
     aarch64-darwin = "aarch64-apple-darwin";
   };
-in
-mkGitHubBinary {
-  owner = "astral-sh";
-  repo = "ty";
-  file = ./release.json;
-  getAsset = { system, ... }: "ty-${platforms.${system}}.tar.gz";
-  pattern = ''^ty-(aarch64|x86_64)-(unknown-linux-gnu|apple-darwin)\\.tar\\.gz$'';
+  getAsset = { platform, ... }: "ty-${platform}.tar.gz";
   allowPrereleases = true;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isElf [ stdenv.cc.cc ];
@@ -36,7 +33,6 @@ mkGitHubBinary {
 
   meta = {
     description = "Extremely fast Python type checker and language server, written in Rust";
-    platforms = lib.attrNames platforms;
     license = lib.licenses.mit;
   };
 }

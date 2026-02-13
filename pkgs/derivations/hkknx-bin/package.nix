@@ -3,20 +3,17 @@
   versionCheckHook,
   mkGitHubBinary,
 }:
-let
+mkGitHubBinary {
+  owner = "brutella";
+  repo = "hkknx-public";
+  pname = "hkknx";
+  file = ./release.json;
   platforms = {
     x86_64-linux = "linux_amd64";
     aarch64-linux = "linux_arm64";
     aarch64-darwin = "darwin_arm64";
   };
-in
-mkGitHubBinary {
-  owner = "brutella";
-  repo = "hkknx-public";
-  pname = "hkknx";
-  getAsset = { system, version }: "hkknx-${version}_${platforms.${system}}.tar.gz";
-  file = ./release.json;
-  pattern = ''^hkknx-\($release.tag_name)_(darwin|linux)_(amd64|arm64)\\.tar\\.gz$'';
+  getAsset = { platform, version, ... }: "hkknx-${version}_${platform}.tar.gz";
 
   sourceRoot = ".";
 
@@ -25,7 +22,6 @@ mkGitHubBinary {
 
   meta = {
     description = "HomeKit Bridge for KNX";
-    platforms = lib.attrNames platforms;
     license = lib.licenses.unfree;
   };
 }

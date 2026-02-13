@@ -12,9 +12,9 @@ lib.extendMkDerivation {
     "owner"
     "repo"
     "file"
+    "platforms"
     "getAsset"
     "binaries"
-    "pattern"
     "versionPrefix"
     "versionSuffix"
     "allowPrereleases"
@@ -25,10 +25,10 @@ lib.extendMkDerivation {
       owner,
       repo,
       file,
+      platforms,
       getAsset,
       pname ? repo,
       binaries ? [ finalAttrs.pname ],
-      pattern ? ".*",
       versionPrefix ? "",
       versionSuffix ? "",
       allowPrereleases ? false,
@@ -42,13 +42,42 @@ lib.extendMkDerivation {
         else
           "gh api repos/${owner}/${repo}/releases/latest";
 
-      inherit (stdenv.hostPlatform) system;
-
       release = lib.importJSON file;
       assetName = getAsset {
-        inherit system;
+        platform = platforms.${stdenv.hostPlatform.system};
         inherit (finalAttrs) version;
       };
+
+      # jq binding that strips versionPrefix/Suffix from tag_name
+      versionJqPipeline = lib.concatStringsSep " | " (
+        [ ".tag_name" ]
+        ++ lib.optional (versionPrefix != "") "ltrimstr(\"${versionPrefix}\")"
+        ++ lib.optional (versionSuffix != "") "rtrimstr(\"${versionSuffix}\")"
+      );
+
+      # Generates a jq regex pattern matching all asset names across platforms.
+      # Concrete asset names for each platform (e.g., "uv-aarch64-apple-darwin.tar.gz")
+      allAssetNames = lib.mapAttrsToList (
+        _: plat:
+        getAsset {
+          platform = plat;
+          inherit (finalAttrs) version;
+        }
+      ) platforms;
+      # Replaces the version with jq interpolation \($version) so the pattern matches future releases,
+      # and escapes dots so that e.g. .tar.gz only matches literal dots in the regex.
+      assetToRegex =
+        builtins.replaceStrings
+          [
+            finalAttrs.version
+            "."
+          ]
+          [
+            "\\($version)"
+            "\\\\."
+          ];
+      # Joins all regex alternatives into ^(alt1|alt2|...)$
+      pattern = "^(${lib.concatStringsSep "|" (map assetToRegex allAssetNames)})$";
     in
     {
       inherit pname;
@@ -87,7 +116,7 @@ lib.extendMkDerivation {
 
           output="$(
             ${ghCall} \
-            | jq '${jqSelector} | . as $release | {
+            | jq '${jqSelector} | (${versionJqPipeline}) as $version | {
               tag_name,
               assets: [
                 .assets[]
@@ -110,6 +139,7 @@ lib.extendMkDerivation {
         maintainers = with lib.maintainers; [ mirkolenz ];
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
         mainProgram = finalAttrs.pname;
+        platforms = lib.attrNames platforms;
       }
       // args.meta or { };
     };

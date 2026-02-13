@@ -18,9 +18,9 @@ mkGitHubBinary {
   owner = "anomalyco";
   repo = "opencode";
   file = ./release.json;
+  inherit platforms;
+  getAsset = { platform, ... }: "opencode-${platform}";
   versionPrefix = "v";
-  getAsset = { system, ... }: "opencode-${platforms.${system}}";
-  pattern = ''^opencode-(linux|darwin)-(arm64|x64)\\.(tar\\.gz|zip)$'';
 
   sourceRoot = ".";
 
@@ -57,7 +57,6 @@ mkGitHubBinary {
 
   meta = {
     description = "Open source coding agent";
-    platforms = lib.attrNames platforms;
     license = lib.licenses.mit;
   };
 }

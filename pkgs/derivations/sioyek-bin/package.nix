@@ -5,19 +5,16 @@
   undmg,
   darwin,
 }:
-let
-  platforms = {
-    aarch64-darwin = "mac-arm";
-  };
-in
 mkGitHubBinaryApp (finalAttrs: {
   ghBin = {
     owner = "ahrm";
     repo = "sioyek";
     file = ./release.json;
-    getAsset = { system, ... }: "sioyek-release-${platforms.${system}}.zip";
+    platforms = {
+      aarch64-darwin = "mac-arm";
+    };
+    getAsset = { platform, ... }: "sioyek-release-${platform}.zip";
     versionPrefix = "sioyek";
-    pattern = ''^sioyek-release-mac-arm\\.zip$'';
     allowPrereleases = true;
   };
 
@@ -39,6 +36,5 @@ mkGitHubBinaryApp (finalAttrs: {
   meta = {
     description = "PDF viewer with a focus on textbooks and research papers";
     license = lib.licenses.gpl3;
-    platforms = lib.attrNames platforms;
   };
 })
