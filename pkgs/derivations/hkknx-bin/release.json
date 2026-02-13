@@ -1,9 +1,6 @@
 {
   "tag_name": "3.2.0",
   "assets": {
-    "hkknx-3.2.0_darwin_amd64.tar.gz": {
-      "digest": "sha256:91435ecf0d99e6c54b5ab927de909dc6c564903e5161aa303babf641dae2bd7c"
-    },
     "hkknx-3.2.0_darwin_arm64.tar.gz": {
       "digest": "sha256:9eae484355c147473b2b2fee3b32358e8ef549fa76884ef9b48d3f5611bc1006"
     },

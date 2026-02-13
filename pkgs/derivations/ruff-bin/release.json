@@ -7,9 +7,6 @@
     "ruff-aarch64-unknown-linux-gnu.tar.gz": {
       "digest": "sha256:003848ac89a6d2ca1a2ce4e663daec4f90212fc9fd6f338d7cd692c7c8ae9480"
     },
-    "ruff-x86_64-apple-darwin.tar.gz": {
-      "digest": "sha256:55fd4437b4b6b0c75793525c980bb1d49d9723044edbdd7dcc962cb595d26d51"
-    },
     "ruff-x86_64-unknown-linux-gnu.tar.gz": {
       "digest": "sha256:f63d467b81ef1a7a8552fef001784215bb2fc4d7a7e32216c48aaa3bad066779"
     }

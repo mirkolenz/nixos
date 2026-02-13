@@ -7,9 +7,6 @@
     "uv-aarch64-unknown-linux-gnu.tar.gz": {
       "digest": "sha256:4998f545234d52fc6f1280827d392f00a9278295050d59c53a776546dbf0124d"
     },
-    "uv-x86_64-apple-darwin.tar.gz": {
-      "digest": "sha256:3cdbd038333cfe861ce04f3d91678547bf2e726224acf5f42d3f0affa6740e19"
-    },
     "uv-x86_64-unknown-linux-gnu.tar.gz": {
       "digest": "sha256:6aa4576c31f791c0b9d4739e256d07358d45e7535695287fec03cf6839e25512"
     }

@@ -4,9 +4,6 @@
     "opencode-darwin-arm64.zip": {
       "digest": "sha256:d208b471440e1125606eafaffd5047c565f7f5aaf32b76eb33d9a0369e9ddae4"
     },
-    "opencode-darwin-x64.zip": {
-      "digest": "sha256:1f96b5b975b842353d54243b84583736839adaabfb223272720d2ff4315ff012"
-    },
     "opencode-linux-arm64.tar.gz": {
       "digest": "sha256:7048deddf4caccf456d1adce8d84b23bb92ca7e53018f83a308f64bc17f41c5d"
     },
