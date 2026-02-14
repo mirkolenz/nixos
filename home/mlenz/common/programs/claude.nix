@@ -18,6 +18,7 @@ lib.mkIf config.custom.profile.isWorkstation {
       enableAllProjectMcpServers = true;
       forceLoginMethod = "claudeai";
       includeCoAuthoredBy = false;
+      spinnerTipsEnabled = false;
       sandbox = {
         enabled = true;
         excludedCommands = [ "nix" ];
@@ -30,14 +31,8 @@ lib.mkIf config.custom.profile.isWorkstation {
       };
       env = {
         # better results, but too many tokens
-        # CLAUDE_CODE_SUBAGENT_MODEL = "sonnet";
+        # ANTHROPIC_DEFAULT_HAIKU_MODEL = "sonnet";
         UV_NO_SYNC = "1";
-        # todo
-        # https://github.com/anthropics/claude-code/issues/17989
-        # https://github.com/anthropics/claude-code/issues/22667
-        # https://github.com/anthropics/claude-code/issues/22667
-        TMPDIR = "/tmp/claude";
-        TMPPREFIX = "/tmp/claude/zsh";
         # https://astro.build/telemetry/
         ASTRO_TELEMETRY_DISABLED = "1";
       };
@@ -76,8 +71,8 @@ lib.mkIf config.custom.profile.isWorkstation {
           "Edit(/${config.xdg.cacheHome}/**)"
           "Edit(/${config.home.homeDirectory}/.npm/**)"
           "Bash(nix *)"
-          "Bash(uv run pytest *)" # calls stat() which conflicts with .env deny
-          "Bash(npm run build *)"
+          "Bash(uv run *)"
+          "Bash(npm run *)"
         ];
         deny = [
           "Bash(sudo *)"

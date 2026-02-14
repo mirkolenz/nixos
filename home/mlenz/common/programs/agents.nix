@@ -14,7 +14,7 @@
 
       - Use `uv run` to execute Python scripts and files, not `python` or `python3`.
       - Use `uv run ruff check` for linting Python, not `flake8` or `pylint`.
-      - Use `uv run ty check` for type checking Python, not `mypy` or `pyright`.
+      - Use `uv run ty check` AND `uv run basedpyright --level error` for type checking Python, not `mypy` or `pyright`.
       - Use a src-based layout for Python projects.
       - Add type annotations to Python functions and classes.
       - Add `__all__` to public modules to control what is exported.
@@ -23,6 +23,7 @@
       - Add doctests to functions and classes where appropriate.
       - Use the Google style for docstrings.
       - Never use globals in Python.
+      - Prefer dataclasses over regular classes for data structures.
       - Always use `slots=True` for dataclasses and set `frozen=True` when possible.
       - Prefer `__post_init__` over `__init__` to customize dataclass initialization.
       - Always use types from `collections.abc` for annotating function parameters.
