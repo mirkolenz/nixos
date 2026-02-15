@@ -42,7 +42,7 @@
         sql = "Zed";
         sty = "Zed";
         svelte = "Zed";
-        svg = "Zed";
+        svg = "Gapplin";
         tex = "Zed";
         toml = "Zed";
         ts = "Zed";
