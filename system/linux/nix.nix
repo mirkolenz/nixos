@@ -1,13 +1,9 @@
 {
-  user,
   lib',
   os,
   ...
 }:
 {
-  custom.nix.settings = {
-    allowed-users = [ user.login ];
-  };
   nix = {
     extraOptions = ''
       !include nix.secrets.conf

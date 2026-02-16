@@ -20,10 +20,6 @@
   '';
   nix.enable = false;
   custom.nix.settings = {
-    allowed-users = [
-      user.login
-      "@staff"
-    ];
     trusted-users = [
       user.login
       "root"
