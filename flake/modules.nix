@@ -11,7 +11,10 @@
     systemModules.base =
       { os, ... }:
       {
-        imports = [ ../common ];
+        imports = [
+          ../common
+          ../system/common-base
+        ];
         nixpkgs = {
           config = self.nixpkgsConfig;
           overlays = [ self.overlays.default ];
@@ -88,7 +91,6 @@
     nixosModules.base = {
       imports = [
         self.systemModules.base
-        ../system/common
         ../system/linux-base
         inputs.home-manager.nixosModules.default
         inputs.quadlet-nix.nixosModules.default
@@ -112,7 +114,6 @@
     darwinModules.base = {
       imports = [
         self.systemModules.base
-        ../system/common
         inputs.home-manager.darwinModules.default
         inputs.determinate.darwinModules.default
         # inputs.plist-manager.darwinModules.default
