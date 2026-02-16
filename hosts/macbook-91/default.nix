@@ -6,18 +6,13 @@
     "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/ssd"
     ./hardware.nix
+    ./disko.nix
   ];
-  custom.profile.isDesktop = true;
-
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
   };
-
-  virtualisation.libvirtd.enable = true;
-  services.openssh.enable = true;
 
   services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
   hardware.nvidia = {
