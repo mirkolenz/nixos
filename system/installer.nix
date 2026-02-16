@@ -1,7 +1,14 @@
 { user, pkgs, ... }:
 {
-  users.users.root.openssh.authorizedKeys.keys = user.sshKeys;
   services.openssh.enable = true;
+
+  users = {
+    defaultUserShell = pkgs.fish;
+
+    users.root = {
+      openssh.authorizedKeys.keys = user.sshKeys;
+    };
+  };
 
   programs = {
     git.enable = true;
@@ -13,6 +20,4 @@
       vimAlias = true;
     };
   };
-
-  users.defaultUserShell = pkgs.fish;
 }
