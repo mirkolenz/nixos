@@ -2,6 +2,7 @@
 let
   allowedSites = [
     "https://scratch.mit.edu/*"
+    "https://*.scratch.mit.edu/*"
   ];
 in
 {
@@ -9,12 +10,6 @@ in
     WebsiteFilter = {
       Block = [ "<all_urls>" ];
       Exceptions = allowedSites;
-    };
-
-    Homepage = {
-      URL = "https://scratch.mit.edu";
-      Locked = true;
-      StartPage = "homepage";
     };
 
     BlockAboutConfig = true;

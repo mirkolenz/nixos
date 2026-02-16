@@ -1,6 +1,7 @@
 {
   user,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -19,6 +20,7 @@
       uid = lib.mkDefault 1001;
       isNormalUser = true;
       password = "";
+      shell = pkgs.shadow;
     };
     levi = {
       description = "Levi Lenz";
@@ -26,6 +28,7 @@
       uid = lib.mkDefault 1002;
       isNormalUser = true;
       password = "";
+      shell = pkgs.shadow;
     };
   };
 }
