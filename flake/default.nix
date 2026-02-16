@@ -49,20 +49,26 @@
         ) pkgs.drvsExport)
         // {
           default = pkgs.writeShellScriptBin "builder" /* bash */ ''
-            exec ${lib.getExe pkgs.config-builder} --flake ${self.outPath} "$@"
+            exec ${lib.getExe pkgs.config-builder} --flake "${self.outPath}" "$@"
           '';
           updater = pkgs.writeShellScriptBin "updater" /* bash */ ''
             ${lib.getExe pkgs.flake-updater} --commit
             ${lib.getExe pkgs.pkgs-updater} --commit
           '';
           disko = pkgs.writeShellScriptBin "disko" /* bash */ ''
-            exec ${lib.getExe pkgs.disko} --flake ${self.outPath} "$@"
+            name="$1"
+            shift
+            exec ${lib.getExe pkgs.disko} --flake "${self.outPath}#$name" "$@"
           '';
           disko-install = pkgs.writeShellScriptBin "disko-install" /* bash */ ''
-            exec ${lib.getExe pkgs.disko-install} --flake ${self.outPath} "$@"
+            name="$1"
+            shift
+            exec ${lib.getExe pkgs.disko-install} --flake "${self.outPath}#$name" "$@"
           '';
           nixos-install = pkgs.writeShellScriptBin "nixos-install" /* bash */ ''
-            exec ${lib.getExe pkgs.nixos-install} --flake ${self.outPath} "$@"
+            name="$1"
+            shift
+            exec ${lib.getExe pkgs.nixos-install} --flake "${self.outPath}#$name" "$@"
           '';
         };
     };
