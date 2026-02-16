@@ -24,13 +24,13 @@ sudo nix run github:mirkolenz/nixos -- -o boot
 sudo nix run github:mirkolenz/nixos
 ```
 
-### Terminal Setup
+### Manual Terminal Setup
 
 - <https://www.adaltas.com/en/2022/02/08/nixos-installation/>
 - <https://wiki.nixos.org/wiki/NixOS_Installation_Guide>
 - <https://gist.github.com/Vincibean/baf1b76ca5147449a1a479b5fcc9a222>
 
-#### Partitioning using `parted`
+#### Partitioning
 
 ```shell
 parted -l # find device name, most likely /dev/sda
@@ -44,38 +44,6 @@ unit GiB print free
 # for instance, free size here is 238GiB and the ram of the system is 8GiB
 mkpart root ext4 512MiB 230GiB
 mkpart swap linux-swap 230GiB 100%
-```
-
-#### Partitioning using `fdisk`
-
-One can also use the ncurses-based program `cfdisk`.
-
-```shell
-# Find out the device name, most likely /dev/sda
-fdisk -l # or lsblk
-wipefs -a /dev/sda
-fdisk /dev/sda
-g # empty gpt partition table
-n # new partition
-1 # partition number
-2048 # first sector, default
-+512M # last sector
-t # change partition type
-1 # partition number (if not already selected)
-1 # efi partition type
-n # new partition
-2 # partition number
-# first sector, default
--16G # last sector, size of swap (about the size of your ram)
-n # new partition
-3 # partition number
-# first sector, default
-# last sector, default
-t # change partition type
-3 # partition number
-19 # linux swap
-v # verify
-w # write
 ```
 
 #### Formatting
@@ -107,11 +75,22 @@ nixos-generate-config --root /mnt
 cd /mnt/etc/nixos/
 # Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
 # The machine name is required for the nixos-install command, even if hostname is updated
-nixos-install --flake github:mirkolenz/nixos#MACHINE_NAME
-# One could append --no-root-passwd to the command, but that may affect the ability to enter emergency mode
+nix run github:mirkolenz/nixos#nixos-install -- MACHINE_NAME
 ```
 
 A warning about `/boot` being world-readable is not an issue, [the permissions are correctly set after a reboot](https://discourse.nixos.org/t/nixos-install-with-custom-flake-results-in-boot-being-world-accessible/34555).
+
+### Disko Terminal Setup
+
+- <https://github.com/nix-community/disko/blob/master/docs/quickstart.md>
+- <https://github.com/nix-community/disko/blob/master/docs/reference.md>
+
+```shell
+nix run github:mirkolenz/nixos#disko -- MACHINE_NAME --mode destroy,format,mount
+nixos-generate-config --no-filesystems --root /mnt
+# verify config as above
+nix run github:mirkolenz/nixos#nixos-install -- MACHINE_NAME
+```
 
 ### Troubleshooting
 
@@ -153,7 +132,7 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ```shell
 chsh -s /bin/zsh
 # if nix is not in PATH, use this: /nix/var/nix/profiles/default/bin/nix
-sudo nix --extra-experimental-features "nix-command flakes" run github:mirkolenz/nixos#darwin-uninstaller
+sudo nix run github:mirkolenz/nixos#darwin-uninstaller
 sudo /nix/nix-installer uninstall
 ```
 
