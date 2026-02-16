@@ -83,7 +83,7 @@
     xz
     less
     # libcap # not available on darwin
-    ncurses
+    # ncurses # conflict with ghostty terminfo
     netcat
     mkpasswd
     procps
