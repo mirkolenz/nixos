@@ -19,5 +19,6 @@
     ripgrep.enable = true;
     yazi.enable = true;
     # keep-sorted end
+    yazi.shellWrapperName = "y"; # todo: remove with stateVersion 26.05
   };
 }
