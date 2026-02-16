@@ -36,6 +36,9 @@
             && !(lib.elem name [
               "default"
               "updater"
+              "disko"
+              "disko-install"
+              "nixos-install"
             ])
           ) config.packages
         );
@@ -51,6 +54,15 @@
           updater = pkgs.writeShellScriptBin "updater" /* bash */ ''
             ${lib.getExe pkgs.flake-updater} --commit
             ${lib.getExe pkgs.pkgs-updater} --commit
+          '';
+          disko = pkgs.writeShellScriptBin "disko" /* bash */ ''
+            exec ${lib.getExe pkgs.disko} --flake ${self.outPath} "$@"
+          '';
+          disko-install = pkgs.writeShellScriptBin "disko-install" /* bash */ ''
+            exec ${lib.getExe pkgs.disko-install} --flake ${self.outPath} "$@"
+          '';
+          nixos-install = pkgs.writeShellScriptBin "nixos-install" /* bash */ ''
+            exec ${lib.getExe pkgs.nixos-install} --flake ${self.outPath} "$@"
           '';
         };
     };
