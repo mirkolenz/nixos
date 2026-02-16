@@ -46,6 +46,7 @@ in
     };
     macbook-91 = {
       system = "x86_64-linux";
+      nixosModule = "children";
     };
     macbook-113 = {
       system = "x86_64-linux";

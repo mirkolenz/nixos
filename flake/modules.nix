@@ -102,6 +102,12 @@
       ];
       home-manager.users.${moduleArgs.user.login} = self.homeModules.linux;
     };
+    nixosModules.children = {
+      imports = [
+        self.nixosModules.base
+        ../system/children
+      ];
+    };
     darwinModules.base = {
       imports = [
         self.systemModules.base
