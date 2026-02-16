@@ -1,5 +1,7 @@
 { config, inputs, ... }:
 {
+  custom.profile.isDesktop = true;
+
   imports = [
     "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"

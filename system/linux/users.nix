@@ -6,11 +6,6 @@
 }:
 {
   users = {
-    mutableUsers = false;
-    defaultUserShell = pkgs.fish;
-    users.root = {
-      hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/root.passwd";
-    };
     users.${user.login} = {
       description = user.name;
       home = "/home/${user.login}";

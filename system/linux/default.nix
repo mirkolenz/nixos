@@ -1,8 +1,6 @@
 {
-  config,
   lib',
   pkgs,
-  stateVersions,
   ...
 }:
 {
@@ -11,62 +9,12 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   programs = {
-    git = {
-      enable = true;
-    };
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-    };
     _1password.enable = true;
     nix-ld.enable = true;
-    less.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
     pciutils
-    strace # from defaultPackages
+    strace
   ];
-
-  services = {
-    printing.enable = false;
-  };
-
-  system.stateVersion = stateVersions.linux;
-
-  security = {
-    sudo = {
-      execWheelOnly = true;
-    };
-    sudo-rs = {
-      enable = true;
-      inherit (config.security.sudo) execWheelOnly wheelNeedsPassword;
-    };
-  };
-
-  # todo: fails on raspi (mkswap-swapfile-start)
-  systemd.enableStrictShellChecks = false;
-
-  documentation = {
-    nixos.enable = false;
-    # this is slow
-    man.generateCaches = false;
-  };
-
-  boot.loader = {
-    generic-extlinux-compatible.configurationLimit = 10;
-    grub.configurationLimit = 10;
-    systemd-boot.configurationLimit = 10;
-  };
-  boot.initrd.systemd.enable = true;
-
-  hardware.enableAllFirmware = true;
-
-  zramSwap = {
-    enable = true;
-    memoryPercent = 100;
-    memoryMax = 8 * 1024 * 1024 * 1024;
-  };
 }

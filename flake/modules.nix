@@ -77,7 +77,7 @@
     nixosModules.installer = {
       imports = [
         inputs.determinate.nixosModules.default
-        ../system/installer.nix
+        ../system/linux-installer
       ];
       nixpkgs = {
         config = self.nixpkgsConfig;
@@ -88,6 +88,8 @@
     nixosModules.base = {
       imports = [
         self.systemModules.base
+        ../system/common
+        ../system/linux-base
         inputs.home-manager.nixosModules.default
         inputs.quadlet-nix.nixosModules.default
         inputs.determinate.nixosModules.default
@@ -97,7 +99,6 @@
     nixosModules.default = {
       imports = [
         self.nixosModules.base
-        ../system/common
         ../system/linux
       ];
       home-manager.users.${moduleArgs.user.login} = self.homeModules.linux;
@@ -105,12 +106,13 @@
     nixosModules.children = {
       imports = [
         self.nixosModules.base
-        ../system/children
+        ../system/linux-children
       ];
     };
     darwinModules.base = {
       imports = [
         self.systemModules.base
+        ../system/common
         inputs.home-manager.darwinModules.default
         inputs.determinate.darwinModules.default
         # inputs.plist-manager.darwinModules.default
@@ -119,7 +121,6 @@
     darwinModules.default = {
       imports = [
         self.darwinModules.base
-        ../system/common
         ../system/darwin
       ];
       home-manager.users.${moduleArgs.user.login} = self.homeModules.darwin;
