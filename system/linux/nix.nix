@@ -1,6 +1,5 @@
 {
   user,
-  config,
   lib',
   os,
   ...
@@ -10,10 +9,14 @@
     allowed-users = [ user.login ];
   };
   nix = {
-    inherit (config.custom.nix) settings;
     extraOptions = ''
       !include nix.secrets.conf
     '';
     registry = lib'.mkRegistry os;
+  };
+  # we do this ourselves
+  nixpkgs.flake = {
+    setFlakeRegistry = false;
+    setNixPath = false;
   };
 }

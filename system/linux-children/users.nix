@@ -18,14 +18,14 @@
       home = "/home/mila";
       uid = lib.mkDefault 1001;
       isNormalUser = true;
-      hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/mila.passwd";
+      password = "";
     };
     levi = {
       description = "Levi Lenz";
       home = "/home/levi";
       uid = lib.mkDefault 1002;
       isNormalUser = true;
-      hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/levi.passwd";
+      password = "";
     };
   };
 }

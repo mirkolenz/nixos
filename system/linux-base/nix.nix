@@ -1,4 +1,5 @@
 {
+  config,
   ...
 }:
 {
@@ -6,10 +7,8 @@
     allowed-users = [ "@wheel" ];
     sandbox = true;
   };
-  nix.channel.enable = false;
-  # we do this ourselves
-  nixpkgs.flake = {
-    setFlakeRegistry = false;
-    setNixPath = false;
+  nix = {
+    inherit (config.custom.nix) settings;
+    channel.enable = false;
   };
 }
