@@ -55,6 +55,8 @@
             ${lib.getExe pkgs.flake-updater} --commit
             ${lib.getExe pkgs.pkgs-updater} --commit
           '';
+        }
+        // lib.optionalAttrs pkgs.stdenv.isLinux {
           disko = pkgs.writeShellScriptBin "disko" /* bash */ ''
             name="$1"
             shift
