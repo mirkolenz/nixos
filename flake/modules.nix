@@ -75,7 +75,10 @@
       ];
     };
     nixosModules.installer = {
-      imports = [ ../system/installer.nix ];
+      imports = [
+        inputs.determinate.nixosModules.default
+        ../system/installer.nix
+      ];
       nixpkgs = {
         config = self.nixpkgsConfig;
         overlays = [ self.overlays.default ];
