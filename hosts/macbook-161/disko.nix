@@ -10,8 +10,7 @@
     content = {
       type = "luks";
       name = "cryptroot";
-      passwordFile = "/tmp/secret.key"; # Interactive
-      # settings.keyFile = "/tmp/secret.key"; # Non-interactive
+      # settings.keyFile = "/tmp/secret.key";
       settings.allowDiscards = true;
       content = {
         type = "btrfs";
