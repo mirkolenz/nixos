@@ -1,4 +1,4 @@
-{ lib', pkgs, ... }:
+{ lib', lib, ... }:
 {
   imports = lib'.flocken.getModules ./.;
 
@@ -7,14 +7,7 @@
   environment = {
     variables = {
       PAGER = "less";
-      LANG = "en_US.UTF-8";
-      LC_ALL = "en_US.UTF-8";
     };
-    defaultPackages = [ ];
-    systemPackages = with pkgs; [
-      perl
-      python3
-      rsync
-    ];
+    defaultPackages = lib.mkForce [ ];
   };
 }

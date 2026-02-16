@@ -1,7 +1,9 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   networking = {
     useNetworkd = true;
+    # this is overridden by NetworkManager on workstations
+    useDHCP = lib.mkDefault true;
     # this is not compatible with networkd
     useHostResolvConf = false;
     nftables.enable = true;

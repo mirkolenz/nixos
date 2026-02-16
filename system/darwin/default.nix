@@ -13,11 +13,16 @@
     virt-viewer
     virt-manager
     less
+    perl
+    python3
+    rsync
   ];
 
   environment.variables = {
     EDITOR = "zed";
     VISUAL = "zed";
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
   };
 
   system.stateVersion = stateVersions.darwin;

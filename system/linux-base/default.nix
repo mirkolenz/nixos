@@ -20,8 +20,6 @@
     less.enable = true;
   };
 
-  environment.defaultPackages = [ ];
-
   services.printing.enable = false;
 
   security = {

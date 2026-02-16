@@ -13,8 +13,16 @@
     nix-ld.enable = true;
   };
 
+  environment.variables = {
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+  };
+
   environment.systemPackages = with pkgs; [
     pciutils
     strace
+    perl
+    python3
+    rsync
   ];
 }
