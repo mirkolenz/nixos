@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  cosmicLib,
   ...
 }:
 lib.mkIf config.custom.profile.isDesktop {
@@ -14,6 +15,22 @@ lib.mkIf config.custom.profile.isDesktop {
   wayland.desktopManager.cosmic = {
     enable = true;
     appearance.theme.mode = "dark";
+    wallpapers = [
+      {
+        output = "all";
+        source = cosmicLib.cosmic.mkRON "enum" {
+          variant = "Color";
+          value = [
+            (cosmicLib.cosmic.mkRON "enum" {
+              variant = "Single";
+              value = [
+                (cosmicLib.cosmic.mkRON "tuple" [ 0.0 0.0 0.0 ])
+              ];
+            })
+          ];
+        };
+      }
+    ];
     applets.app-list.settings = {
       enable_drag_source = true;
       favorites = [
