@@ -42,8 +42,18 @@
   };
 
   services.logind.settings.Login = {
-    HandleLidSwitch = "sleep";
-    HandleLidSwitchExternalPower = "sleep";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
+
+  # https://github.com/basecamp/omarchy/issues/1840
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=no
+    SuspendState=freeze
+    MemorySleepMode=s2idle
+  '';
 }
