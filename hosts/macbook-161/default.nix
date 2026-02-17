@@ -38,4 +38,9 @@
       version = "ventura";
     };
   };
+
+  # Enable the iGPU by default if present
+  boot.extraModprobeConfig = ''
+    options apple-gmux force_igd=y
+  '';
 }
