@@ -1,12 +1,11 @@
 {
-  osConfig,
   pkgs,
   lib,
   ...
 }:
 {
   programs.tmux = {
-    enable = pkgs.stdenv.isLinux && (osConfig.services.openssh.enable or true);
+    enable = false;
     clock24 = true;
     keyMode = "vi";
     mouse = true;

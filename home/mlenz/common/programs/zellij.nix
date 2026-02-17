@@ -1,6 +1,5 @@
 {
-  pkgs,
-  osConfig,
+  config,
   lib,
   ...
 }:
@@ -19,7 +18,7 @@
         theme = "default";
       };
     }
-    (lib.mkIf (pkgs.stdenv.isLinux && (osConfig.services.openssh.enable or true)) {
+    (lib.mkIf config.custom.profile.isHeadless {
       enableBashIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
