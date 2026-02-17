@@ -1,0 +1,376 @@
+{
+  // keep-sorted start block=yes
+  "agent": {
+    "use_modifier_to_send": false,
+    "play_sound_when_agent_done": true,
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5.2"
+    },
+    "default_width": 320,
+    "default_height": 480
+  },
+  // ls -l "$HOME/Library/Application Support/Zed/extensions/installed/"
+  "auto_install_extensions": {
+    // keep-sorted start
+    "astro": true,
+    "biome": true,
+    "comment": true,
+    "csv": true,
+    "docker-compose": true,
+    "dockerfile": true,
+    "env": true,
+    "git-firefly": true,
+    "github-actions": true,
+    "github-theme": true,
+    "harper": true,
+    "html": true,
+    "ini": true,
+    "java": true,
+    "jinja2": true,
+    "latex": true,
+    "log": true,
+    "lua": true,
+    "material-icon-theme": true,
+    "mdx": true,
+    "nix": true,
+    "php": true,
+    "proto": true,
+    "pyrefly": true,
+    "ruby": true,
+    "sql": true,
+    "tombi": true,
+    "tsgo": true,
+    "typst": true,
+    "xml": true,
+    "zuban": true
+    // keep-sorted end
+  },
+  "base_keymap": "VSCode",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_size": 13,
+  "collaboration_panel": {
+    "default_width": 320
+  },
+  "colorize_brackets": true,
+  "completions": {
+    "words": "disabled"
+  },
+  "cursor_blink": false,
+  "edit_predictions": {
+    "provider": "copilot",
+    "disabled_globs": ["*.env", "*secret*"],
+    "mode": "eager",
+    "enabled_in_text_threads": true,
+    "ollama": {
+      "max_output_tokens": 16,
+      "model": "qwen2.5-coder:7b"
+    },
+    "copilot": {
+      "enable_next_edit_suggestions": false
+    }
+  },
+  "excerpt_context_lines": 5,
+  "expand_excerpt_lines": 5,
+  "extend_comment_on_newline": false,
+  "file_types": {
+    "Jinja2": ["j2", "jinja2", "jinja"],
+    "Plain Text": ["jjdescription"]
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": false
+    },
+    "blame": {
+      "show_avatar": true
+    }
+  },
+  "git_panel": {
+    "default_width": 320
+  },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Material Icon Theme"
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_background": true,
+    "edit_debounce_ms": 300
+  },
+  "languages": {
+    // keep-sorted start block=yes
+    "Astro": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "BibTeX": {
+      "soft_wrap": "editor_width",
+      "formatter": { "language_server": { "name": "texlab" } }
+    },
+    "CSS": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "JavaScript": {
+      "language_servers": ["tsgo", "biome"],
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "LaTeX": {
+      "soft_wrap": "editor_width",
+      "formatter": { "language_server": { "name": "texlab" } }
+    },
+    "MDX": {
+      "soft_wrap": "editor_width"
+    },
+    "Markdown": {
+      "soft_wrap": "editor_width"
+    },
+    "Nix": {
+      "language_servers": ["nixd"]
+    },
+    "Plain Text": {
+      "soft_wrap": "editor_width"
+    },
+    "Python": {
+      "tab_size": 4,
+      "language_servers": ["ruff", "ty"],
+      "formatter": [
+        { "code_action": "source.fixAll.ruff" },
+        { "code_action": "source.organizeImports.ruff" },
+        { "language_server": { "name": "ruff" } }
+      ]
+    },
+    "TOML": {
+      "tab_size": 4
+    },
+    "TSX": {
+      "language_servers": ["tsgo", "biome"],
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TypeScript": {
+      "language_servers": ["tsgo", "biome"],
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    // "JSON": {
+    // 	"formatter": { "language_server": { "name": "biome" } }
+    // },
+    // "JSONC": {
+    // 	"formatter": { "language_server": { "name": "biome" } }
+    // },
+    "Typst": {
+      "soft_wrap": "editor_width",
+      "formatter": { "external": { "command": "typstyle" } }
+    }
+    // keep-sorted end
+  },
+  "lsp": {
+    // keep-sorted start block=yes
+    "basedpyright": {
+      "settings": {
+        "basedpyright": {
+          "analysis": {
+            "typeCheckingMode": "strict",
+            "diagnosticMode": "workspace",
+            "useLibraryCodeForTypes": false
+          }
+        }
+      }
+    },
+    "biome": {
+      "binary": {
+        "path": "/etc/profiles/per-user/mlenz/bin/biome",
+        "arguments": ["lsp-proxy"]
+      },
+      "settings": {
+        "require_config_file": true
+      }
+    },
+    "ltex": {
+      "settings": {
+        "ltex": {
+          "checkFrequency": "save",
+          "language": "en-US",
+          "additionalRules": {
+            "motherTongue": "de-DE"
+          }
+        }
+      }
+    },
+    "mdx-analyzer": {
+      "initialization_options": {
+        "typescript": {
+          "enabled": true
+        }
+      }
+    },
+    "nixd": {
+      "binary": {
+        "path": "/etc/profiles/per-user/mlenz/bin/nixd",
+        "arguments": []
+      },
+      "settings": {
+        "formatting": {
+          "command": ["nixfmt"]
+        },
+        "nixpkgs": {
+          "expr": "import (builtins.getFlake \"pkgs\") { }"
+        }
+      }
+    },
+    "texlab": {
+      "settings": {
+        "texlab": {
+          "bibtexFormatter": "tex-fmt",
+          "latexFormatter": "tex-fmt",
+          "inlayHints": {
+            "labelDefinitions": false,
+            "labelReferences": false,
+            "maxLength": 32
+          },
+          // https://github.com/latex-lsp/texlab/wiki/Previewing
+          // https://github.com/rzukic/zed-latex/blob/main/src/preview_presets.rs
+          // displayline -h
+          "forwardSearch": {
+            "executable": "displayline",
+            "args": ["-r", "-g", "%l", "%p", "%f"]
+          },
+          // "forwardSearch": {
+          //   "executable": "sioyek",
+          //   "args": [
+          //     "--reuse-window",
+          //     "--nofocus",
+          //     "--execute-command",
+          //     "turn_on_synctex",
+          //     // "--inverse-search",
+          //     // "zed \"%%1\":%%2",
+          //     "--forward-search-file",
+          //     "%f",
+          //     "--forward-search-line",
+          //     "%l",
+          //     "%p"
+          //   ]
+          // },
+          // "forwardSearch": {
+          //   "executable": "zathura",
+          //   "args": ["--synctex-forward", "%l:1:%f", "-x", "zed %%{input}:%%{line}", "%p"]
+          // },
+          "build": {
+            "onSave": false,
+            "forwardSearchAfter": true
+          }
+        }
+      }
+    },
+    "tinymist": {
+      "binary": {
+        "path": "/etc/profiles/per-user/mlenz/bin/tinymist",
+        "arguments": ["lsp"]
+      },
+      "settings": {
+        "exportPdf": "never",
+        "outputPath": "$root/$name"
+      }
+    },
+    "tombi": {
+      "binary": {
+        "path": "/etc/profiles/per-user/mlenz/bin/tombi",
+        "arguments": ["lsp"]
+      }
+    },
+    "ty": {
+      "binary": {
+        "path": "/etc/profiles/per-user/mlenz/bin/ty",
+        "arguments": ["server"]
+      },
+      "settings": {
+        "diagnosticMode": "workspace"
+      }
+    }
+    // keep-sorted end
+  },
+  "node": {
+    "path": "/etc/profiles/per-user/mlenz/bin/node",
+    "npm_path": "/etc/profiles/per-user/mlenz/bin/npm"
+  },
+  "notification_panel": {
+    "default_width": 320
+  },
+  "outline_panel": {
+    "default_width": 320
+  },
+  "preferred_line_length": 120,
+  "project_panel": {
+    "default_width": 320,
+    "entry_spacing": "standard",
+    "indent_size": 16,
+    "scrollbar": {
+      "show": "system"
+    }
+  },
+  "relative_line_numbers": "disabled",
+  "scrollbar": {
+    "show": "always"
+  },
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "sticky_scroll": {
+    "enabled": false
+  },
+  "tab_size": 2,
+  "tabs": {
+    "file_icons": true,
+    "git_status": true,
+    "show_diagnostics": "all"
+  },
+  "terminal": {
+    "detect_venv": "off",
+    "line_height": "standard",
+    "scrollbar": {
+      "show": "system"
+    },
+    "option_as_meta": true,
+    "default_width": 640,
+    "default_height": 480,
+    "env": {
+      // "LC_ALL": "en_US.UTF-8",
+      // "LANG": "en_US.UTF-8",
+    }
+  },
+  "theme": {
+    "mode": "system",
+    "light": "GitHub Light",
+    "dark": "GitHub Dark"
+  },
+  // "ui_font_family": "JetBrainsMono Nerd Font",
+  "ui_font_size": 15,
+  "use_smartcase_search": true,
+  "use_system_path_prompts": false,
+  "use_system_prompts": false,
+  "vim": {
+    "use_system_clipboard": "on_yank",
+    "toggle_relative_line_numbers": true,
+    "use_smartcase_find": true
+  },
+  "vim_mode": false
+  // keep-sorted end
+}

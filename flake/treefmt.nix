@@ -10,6 +10,7 @@
         programs = {
           # keep-sorted start
           actionlint.enable = true;
+          biome.enable = false;
           buf.enable = true;
           gofmt.enable = true;
           google-java-format.enable = true;
@@ -24,6 +25,11 @@
           typstyle.enable = true;
           yamlfmt.enable = true;
           # keep-sorted end
+        };
+        programs.biome.settings = {
+          formatter = {
+            indentStyle = "space";
+          };
         };
         programs.nixf-diagnose = {
           variableLookup = true;

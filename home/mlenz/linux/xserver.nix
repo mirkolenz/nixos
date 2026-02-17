@@ -47,7 +47,7 @@ lib.mkIf config.custom.profile.isDesktop {
         "vivaldi"
         "1password"
         "obsidian"
-        "code"
+        "zed"
         "com.system76.CosmicEdit"
         "com.mitchellh.ghostty"
         "zotero"
