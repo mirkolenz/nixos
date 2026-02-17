@@ -1,30 +1,16 @@
 <!-- markdownlint-disable MD033 -->
 
-# NixOS Setup
+# Nix Setup
 
 This repo contains a custom wrapper to build NixOS/nix-darwin/home-manager:
 
 ```shell
-nix run github:mirkolenz/nixos -- --help
+nix run github:mirkolenz/nixos -- --wrapper-help
 ```
 
-## NixOS
+## NixOS Computers
 
-### Graphical Setup
-
-1. Install NixOS with provided ISO
-2. Create config: `nixos-generate-config`
-3. Migrate generated `/etc/nixos/configuration.nix` and `/etc/nixos/hardware-configuration.nix` to this flake manually
-4. Eventually install git in a temporary shell: `nix shell nixpkgs#git`
-
-```shell
-# Large changes (like first time)
-sudo nix run github:mirkolenz/nixos -- -o boot
-# Small changes
-sudo nix run github:mirkolenz/nixos
-```
-
-### Manual Terminal Setup
+### Initial Setup
 
 - <https://www.adaltas.com/en/2022/02/08/nixos-installation/>
 - <https://wiki.nixos.org/wiki/NixOS_Installation_Guide>
