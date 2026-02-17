@@ -40,4 +40,10 @@
       version = "ventura";
     };
   };
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "sleep";
+    HandleLidSwitchExternalPower = "sleep";
+    HandleLidSwitchDocked = "ignore";
+  };
 }
