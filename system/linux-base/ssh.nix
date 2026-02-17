@@ -1,8 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
-  security.pam = {
-    rssh.enable = config.services.openssh.enable;
-    services.sudo.rssh = config.services.openssh.enable && config.security.pam.rssh.enable;
+  security.pam = lib.mkIf config.services.openssh.enable {
+    rssh.enable = true;
+    services.sudo.rssh = true;
   };
   services.openssh = {
     authorizedKeysInHomedir = false;

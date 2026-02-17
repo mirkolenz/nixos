@@ -8,10 +8,10 @@
 let
   tomlFormat = pkgs.formats.toml { };
 in
-{
+lib.mkIf config.custom.profile.isDesktop {
   services.ssh-agent.enable = true;
   programs.ssh = {
-    enable = config.custom.profile.isDesktop;
+    enable = true;
     enableDefaultConfig = false;
     includes = lib.mkIf pkgs.stdenv.isDarwin [
       "${config.home.homeDirectory}/.orbstack/ssh/config"

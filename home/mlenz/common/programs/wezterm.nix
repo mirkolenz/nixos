@@ -1,7 +1,7 @@
-{ config, ... }:
+{ ... }:
 {
   programs.wezterm = {
-    enable = config.custom.profile.isDesktop;
+    enable = false;
     extraConfig = /* lua */ ''
       return {
         color_scheme = "Github Dark (Gogh)",

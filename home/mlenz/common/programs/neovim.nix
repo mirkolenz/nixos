@@ -10,8 +10,8 @@
     package = if config.custom.profile.isWorkstation then pkgs.nixvim-full else pkgs.nixvim-minimal;
     defaultEditor = true;
   };
-  programs.neovide = {
-    enable = config.custom.profile.isDesktop;
+  programs.neovide = lib.mkIf config.custom.profile.isDesktop {
+    enable = true;
     settings = {
       fork = true;
       neovim-bin = lib.getExe config.programs.nixvim.package;
