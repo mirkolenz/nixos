@@ -41,6 +41,6 @@
 
   # https://wiki.t2linux.org/guides/hybrid-graphics/
   boot.kernelParams = [
-    "i915.enable_guc=3"
+    "i915.enable_guc=2"
   ];
 }
