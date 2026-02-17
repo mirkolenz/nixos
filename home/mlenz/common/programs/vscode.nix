@@ -1,11 +1,12 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
-{
+lib.mkIf (pkgs.stdenv.isLinux && config.custom.profile.isDesktop) {
   programs.vscode = {
-    enable = pkgs.stdenv.isLinux && config.custom.profile.isDesktop;
+    enable = true;
     package = pkgs.vscode;
   };
 }
