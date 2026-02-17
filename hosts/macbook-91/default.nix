@@ -16,6 +16,13 @@
     efi.efiSysMountPoint = "/boot";
   };
 
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 4 * 1024;
+    }
+  ];
+
   services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
