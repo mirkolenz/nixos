@@ -75,10 +75,6 @@
     };
 
     # Utils
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-index-database = {
       url = "github:mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -42,7 +42,6 @@
       imports = [
         ../home/mlenz/common
         ../home/mlenz/linux
-        inputs.vscode-server.homeModules.default
         inputs.cosmic-manager.homeManagerModules.default
       ];
     };
