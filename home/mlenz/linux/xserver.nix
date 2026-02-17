@@ -17,7 +17,12 @@ lib.mkIf config.custom.profile.isDesktop {
     appearance.theme.mode = "dark";
     wallpapers = [
       {
+        filter_by_theme = true;
+        filter_method = cosmicLib.cosmic.mkRON "enum" "Lanczos";
         output = "all";
+        rotation_frequency = 0;
+        sampling_method = cosmicLib.cosmic.mkRON "enum" "Alphanumeric";
+        scaling_mode = cosmicLib.cosmic.mkRON "enum" "Stretch";
         source = cosmicLib.cosmic.mkRON "enum" {
           variant = "Color";
           value = [
