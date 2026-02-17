@@ -41,6 +41,14 @@
     };
   };
 
+  # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
+  hardware.apple.touchBar = {
+    enable = true;
+    settings = {
+      MediaLayerDefault = true;
+    };
+  };
+
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "suspend";
