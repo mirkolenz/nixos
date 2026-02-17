@@ -24,7 +24,11 @@ lib.mkIf config.custom.profile.isDesktop {
             (cosmicLib.cosmic.mkRON "enum" {
               variant = "Single";
               value = [
-                (cosmicLib.cosmic.mkRON "tuple" [ 0.0 0.0 0.0 ])
+                (cosmicLib.cosmic.mkRON "tuple" [
+                  0.0
+                  0.0
+                  0.0
+                ])
               ];
             })
           ];
