@@ -39,8 +39,12 @@
     };
   };
 
-  # Enable the iGPU by default if present
+  # https://wiki.t2linux.org/guides/hybrid-graphics/
   boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
   '';
+
+  boot.kernelParams = [
+    "i915.enable_guc=3"
+  ];
 }
