@@ -48,21 +48,15 @@
 
   # https://github.com/basecamp/omarchy/issues/1840
   services.logind.settings.Login = {
-    HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitch = "lock";
+    HandleLidSwitchExternalPower = "lock";
     HandleLidSwitchDocked = "ignore";
   };
 
   systemd.sleep.extraConfig = ''
-    AllowSuspend=yes
+    AllowSuspend=no
     AllowHibernation=no
     AllowSuspendThenHibernate=no
     AllowHybridSleep=no
-    SuspendState=freeze
-    MemorySleepMode=s2idle
   '';
-
-  boot.kernelParams = [
-    "mem_sleep_default=s2idle" # systemd-sleep alone doesn't work
-  ];
 }
