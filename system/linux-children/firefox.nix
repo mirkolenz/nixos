@@ -24,9 +24,11 @@ in
     DisableTelemetry = true;
     DontCheckDefaultBrowser = true;
     DownloadRestrictions = 3;
+    HttpsOnlyMode = "enabled";
     NoDefaultBookmarks = true;
     OfferToSaveLogins = false;
     PasswordManagerEnabled = false;
+    SearchSuggestEnabled = false;
 
     DisableSecurityBypass = {
       InvalidCertificate = true;
@@ -36,7 +38,5 @@ in
     ExtensionSettings."*" = {
       installation_mode = "blocked";
     };
-
-    HttpsOnlyMode = "enabled";
   };
 }
