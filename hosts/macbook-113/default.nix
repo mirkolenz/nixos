@@ -3,7 +3,7 @@
   imports = [
     "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/haswell"
-    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/ssd"
     ./hardware.nix
   ];
@@ -19,7 +19,7 @@
   virtualisation.libvirtd.enable = true;
   services.openssh.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     prime = {

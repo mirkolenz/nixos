@@ -5,7 +5,7 @@
   imports = [
     "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"
-    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/ssd"
     ./hardware.nix
     ./disko.nix
@@ -23,7 +23,7 @@
     }
   ];
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     prime = {
