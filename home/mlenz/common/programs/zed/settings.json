@@ -119,10 +119,10 @@
       }
     },
     "JSON": {
-    	"formatter": { "language_server": { "name": "prettier" } }
+      "formatter": { "language_server": { "name": "prettier" } }
     },
     "JSONC": {
-    	"formatter": { "language_server": { "name": "prettier" } }
+      "formatter": { "language_server": { "name": "prettier" } }
     },
     "JavaScript": {
       "language_servers": ["tsgo", "biome"],
