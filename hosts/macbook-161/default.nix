@@ -67,4 +67,8 @@
     SuspendState=freeze
     MemorySleepMode=s2idle
   '';
+
+  boot.kernelParams = [
+    "mem_sleep_default=s2idle" # systemd-sleep alone doesn't work
+  ];
 }

@@ -38,6 +38,7 @@
   # https://www.reddit.com/r/mac/comments/9pyort/apple_macbook_pro_sudden_crash_fix_for_models/
   # https://www.thomas-krenn.com/en/wiki/Processor_P-states_and_C-states
   boot.kernelParams = [
+    "mem_sleep_default=s2idle" # systemd-sleep alone doesn't work
     "intel_idle.max_cstate=3" # allow intel_idle states C0-C3 (sleep)
     # "processor.max_cstate=3" # allow acpi_idle states C0-C3 (sleep)
   ];
