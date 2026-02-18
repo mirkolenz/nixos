@@ -118,6 +118,12 @@
         "source.organizeImports.biome": true
       }
     },
+    "JSON": {
+    	"formatter": { "language_server": { "name": "prettier" } }
+    },
+    "JSONC": {
+    	"formatter": { "language_server": { "name": "prettier" } }
+    },
     "JavaScript": {
       "language_servers": ["tsgo", "biome"],
       "formatter": { "language_server": { "name": "biome" } },
@@ -170,12 +176,6 @@
         "source.organizeImports.biome": true
       }
     },
-    // "JSON": {
-    // 	"formatter": { "language_server": { "name": "biome" } }
-    // },
-    // "JSONC": {
-    // 	"formatter": { "language_server": { "name": "biome" } }
-    // },
     "Typst": {
       "soft_wrap": "editor_width",
       "formatter": { "external": { "command": "typstyle" } }
@@ -201,7 +201,12 @@
         "arguments": ["lsp-proxy"]
       },
       "settings": {
-        "require_config_file": true
+        "require_config_file": true,
+        "inline_config": {
+          "formatter": {
+            "indentStyle": "space"
+          }
+        }
       }
     },
     "ltex": {
