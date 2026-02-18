@@ -12,6 +12,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     settings = {
       prefix = "\${HOME}/.npm";
       ignore-scripts = true;
+      min-release-age = 3; # days
     };
   };
   home.packages = with pkgs; [
