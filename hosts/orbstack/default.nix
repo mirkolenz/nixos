@@ -10,7 +10,7 @@
     "${modulesPath}/virtualisation/lxc-container.nix"
   ];
 
-  nix.settings.trusted-users = [ user.login ];
+  custom.nix.settings.trusted-users = [ user.login ];
 
   users.users = {
     root.hashedPasswordFile = null;

@@ -15,6 +15,4 @@ lib.mkIf config.custom.profile.isDesktop {
       polkitPolicyOwners = [ user.login ];
     };
   };
-
-  nix.settings.trusted-users = [ user.login ];
 }

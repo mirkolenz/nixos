@@ -5,6 +5,8 @@
   ...
 }:
 lib.mkIf config.custom.profile.isDesktop {
+  custom.nix.settings.trusted-users = [ "@wheel" ];
+
   services = {
     desktopManager.cosmic.enable = true;
     displayManager.cosmic-greeter.enable = true;
