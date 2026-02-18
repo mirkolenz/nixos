@@ -17,19 +17,7 @@
     "sr_mod"
     "sdhci_pci"
   ];
-  boot.initrd.kernelModules = [
-    "wl"
-  ];
-  boot.kernelModules = [
-    "kvm-intel"
-    "wl"
-  ];
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.broadcom_sta
-  ];
-  nixpkgs.config.permittedInsecurePackages = [
-    config.boot.kernelPackages.broadcom_sta.name
-  ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
