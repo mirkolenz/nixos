@@ -8,6 +8,7 @@ lib.mkIf config.custom.profile.isDesktop {
   services = {
     desktopManager.cosmic.enable = true;
     displayManager.cosmic-greeter.enable = true;
+    system76-scheduler.enable = true;
     xserver = {
       enable = true;
       excludePackages = with pkgs; [ xterm ];
