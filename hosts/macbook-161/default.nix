@@ -33,7 +33,7 @@
     enableIGPU = true;
     kernelChannel = "stable";
     firmware = {
-      enable = true;
+      enable = false;
       version = "ventura";
     };
   };
@@ -48,13 +48,13 @@
 
   # https://github.com/basecamp/omarchy/issues/1840
   services.logind.settings.Login = {
-    HandleLidSwitch = "lock";
-    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
 
   systemd.sleep.extraConfig = ''
-    AllowSuspend=no
+    AllowSuspend=yes
     AllowHibernation=no
     AllowSuspendThenHibernate=no
     AllowHybridSleep=no
