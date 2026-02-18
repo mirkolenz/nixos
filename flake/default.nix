@@ -70,7 +70,7 @@
           nixos-install = pkgs.writeShellScriptBin "nixos-install" /* bash */ ''
             name="$1"
             shift
-            exec ${lib.getExe pkgs.nixos-install} --flake "${self.outPath}#$name" --no-channel-copy "$@"
+            exec ${lib.getExe pkgs.nixos-install} --flake "${self.outPath}#$name" --no-channel-copy --no-root-password "$@"
           '';
         };
     };
