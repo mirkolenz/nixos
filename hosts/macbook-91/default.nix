@@ -23,7 +23,7 @@
     }
   ];
 
-  services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     prime = {

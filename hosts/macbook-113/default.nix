@@ -19,7 +19,7 @@
   virtualisation.libvirtd.enable = true;
   services.openssh.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     prime = {
@@ -28,7 +28,7 @@
     };
   };
 
-  # Enable the iGPU by default if present
+  # enable iGPU
   boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
   '';
