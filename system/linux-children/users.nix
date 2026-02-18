@@ -13,6 +13,7 @@
       isNormalUser = true;
       hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/mirko.passwd";
       openssh.authorizedKeys.keys = user.sshKeys;
+      extraGroups = [ "wheel" ];
     };
     mila = {
       description = "Mila Lenz";
