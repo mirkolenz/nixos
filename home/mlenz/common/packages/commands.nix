@@ -257,6 +257,9 @@
     http-server = /* bash */ ''
       exec ${lib.getExe pkgs.python3} -m http.server "$@"
     '';
+    ssh-once = /* bash */ ''
+      exec ${lib.getExe pkgs.openssh} -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" "$@"
+    '';
     fontconvert = /* bash */ ''
       if [ "$#" -lt 2 ]; then
         echo "Usage: $0 SOURCE TARGET [FONTFORGE_ARGS...]" >&2
