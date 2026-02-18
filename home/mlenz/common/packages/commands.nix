@@ -258,7 +258,7 @@
       exec ${lib.getExe pkgs.python3} -m http.server "$@"
     '';
     ssh-once = /* bash */ ''
-      exec ${lib.getExe pkgs.openssh} -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" "$@"
+      exec ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" "$@"
     '';
     fontconvert = /* bash */ ''
       if [ "$#" -lt 2 ]; then
