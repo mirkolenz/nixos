@@ -1,7 +1,10 @@
 { inputs, ... }:
 {
   imports = [
+    "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/apple/t2"
+    "${inputs.nixos-hardware}/common/cpu/intel/coffee-lake"
+    "${inputs.nixos-hardware}/common/gpu/amd"
     "${inputs.nixos-hardware}/common/pc/ssd"
     ./disko.nix
     ./hardware.nix
@@ -25,11 +28,6 @@
   virtualisation.libvirtd.enable = true;
   services.openssh.enable = true;
 
-  hardware.facetimehd = {
-    enable = true;
-    withCalibration = true;
-  };
-
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
   hardware.apple-t2 = {
@@ -49,13 +47,13 @@
     };
   };
 
+  # https://github.com/basecamp/omarchy/issues/1840
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
 
-  # https://github.com/basecamp/omarchy/issues/1840
   systemd.sleep.extraConfig = ''
     AllowSuspend=yes
     AllowHibernation=no

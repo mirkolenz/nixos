@@ -32,8 +32,16 @@
     };
   };
 
-  hardware.facetimehd = {
-    enable = true;
-    withCalibration = true;
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitchDocked = "ignore";
   };
+
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=no
+  '';
 }

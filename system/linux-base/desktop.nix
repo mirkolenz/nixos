@@ -25,7 +25,10 @@ lib.mkIf config.custom.profile.isDesktop {
 
   security.rtkit.enable = config.services.pipewire.enable;
 
-  hardware.graphics.enable = true;
+  hardware = {
+    graphics.enable = true;
+    facetimehd.withCalibration = true;
+  };
 
   # there is an issue with wpa_supplicant and broadcom-wl (used in Macs)
   networking.networkmanager = {

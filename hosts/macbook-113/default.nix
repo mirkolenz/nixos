@@ -28,11 +28,6 @@
     };
   };
 
-  hardware.facetimehd = {
-    enable = true;
-    withCalibration = true;
-  };
-
   # Enable the iGPU by default if present
   boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
@@ -43,8 +38,23 @@
   # https://www.reddit.com/r/mac/comments/9pyort/apple_macbook_pro_sudden_crash_fix_for_models/
   # https://www.thomas-krenn.com/en/wiki/Processor_P-states_and_C-states
   boot.kernelParams = [
-    "intel_idle.max_cstate=0" # disable intel_idle
+    "intel_idle.max_cstate=3" # allow intel_idle states C0-C3 (sleep)
     # "processor.max_cstate=3" # allow acpi_idle states C0-C3 (sleep)
-    "mem_sleep_default=s2idle" # use s2idle instead of deep S3 sleep
   ];
+
+  # https://github.com/basecamp/omarchy/issues/1840
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitchDocked = "ignore";
+  };
+
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=no
+    SuspendState=freeze
+    MemorySleepMode=s2idle
+  '';
 }
