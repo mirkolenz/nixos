@@ -9,6 +9,10 @@ lib.mkIf config.custom.profile.isDesktop {
 
   programs.firefox.enable = true;
 
+  environment.cosmic.excludePackages = with pkgs; [
+    cosmic-term
+  ];
+
   environment.systemPackages = with pkgs; [
     focuswriter
     (makeDesktopItem {

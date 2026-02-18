@@ -1,9 +1,14 @@
 {
   user,
   lib,
-  pkgs,
   ...
 }:
+let
+  extraGroups = [
+    "video"
+    "audio"
+  ];
+in
 {
   users.users = {
     mirko = {
@@ -13,7 +18,10 @@
       isNormalUser = true;
       hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/mirko.passwd";
       openssh.authorizedKeys.keys = user.sshKeys;
-      extraGroups = [ "wheel" ];
+      extraGroups = extraGroups ++ [
+        "wheel"
+        "networkmanager"
+      ];
     };
     mila = {
       description = "Mila Lenz";
@@ -21,7 +29,7 @@
       uid = lib.mkDefault 1001;
       isNormalUser = true;
       password = "";
-      shell = pkgs.shadow;
+      inherit extraGroups;
     };
     levi = {
       description = "Levi Lenz";
@@ -29,7 +37,7 @@
       uid = lib.mkDefault 1002;
       isNormalUser = true;
       password = "";
-      shell = pkgs.shadow;
+      inherit extraGroups;
     };
   };
 }
