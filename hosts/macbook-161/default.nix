@@ -31,13 +31,18 @@
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
   hardware.apple-t2 = {
-    enableIGPU = true;
+    enableIGPU = false;
     kernelChannel = "stable";
     firmware = {
       enable = true;
       version = "ventura";
     };
   };
+
+  # https://wiki.t2linux.org/guides/hybrid-graphics/
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
+  '';
 
   # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
   hardware.apple.touchBar = {
