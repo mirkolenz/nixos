@@ -61,6 +61,7 @@ nixos-generate-config --root /mnt
 cd /mnt/etc/nixos/
 # Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
 # The machine name is required for the nixos-install command, even if hostname is updated
+# Set up user passwords before installing (see Password Hashing section)
 nix run github:mirkolenz/nixos#nixos-install -- MACHINE_NAME
 ```
 
@@ -75,6 +76,7 @@ A warning about `/boot` being world-readable is not an issue, [the permissions a
 nix run github:mirkolenz/nixos#disko -- MACHINE_NAME --mode destroy,format,mount
 nixos-generate-config --no-filesystems --root /mnt
 # verify config as above
+# Set up user passwords before installing (see Password Hashing section)
 nix run github:mirkolenz/nixos#nixos-install -- MACHINE_NAME
 ```
 
@@ -280,8 +282,6 @@ sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
 ### Password Hashing
 
 ```shell
-mkdir -p /etc/nixos/secrets
-chmod 700 /etc/nixos/secrets
-mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd
-chmod 600 /etc/nixos/secrets/USER.passwd
+(umask 077 && mkdir -p /etc/nixos/secrets)
+(umask 077 && mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd)
 ```
