@@ -3,7 +3,7 @@
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/disk/by-diskseq/1";
+    device = "TODO";
     content = {
       type = "gpt";
       partitions = {

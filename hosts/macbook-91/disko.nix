@@ -3,7 +3,7 @@
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/disk/by-diskseq/1";
+    device = "/dev/disk/by-id/ata-SAMSUNG_SSD_830_Series_S0VZNEAC602106";
     content = {
       type = "gpt";
       partitions = {
