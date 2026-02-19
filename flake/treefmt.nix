@@ -38,8 +38,6 @@
             "sema-unused-def-let"
             # unknown builtin `getFlake`
             "sema-primop-unknown"
-            # overriding a builtin name `fetchurl` is discouraged, rename it to avoid confusion
-            "sema-primop-overridden"
           ];
         };
       };
