@@ -24,6 +24,11 @@ lib.mkIf config.custom.profile.isDesktop {
     };
   };
 
+  programs = {
+    _1password.enable = true;
+    nix-ld.enable = true;
+  };
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   security.rtkit.enable = config.services.pipewire.enable;
