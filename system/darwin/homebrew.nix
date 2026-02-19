@@ -162,7 +162,11 @@ in
 {
   homebrew = {
     enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
     global.autoUpdate = true;
+    caskArgs.ignore_dependencies = true;
     onActivation = {
       autoUpdate = true;
       cleanup = "uninstall";
@@ -173,9 +177,6 @@ in
     casks = caskApps ++ caskFonts;
     inherit masApps;
   };
-  environment.loginShellInit = /* bash */ ''
-    eval "$(${config.homebrew.prefix}/bin/brew shellenv)"
-  '';
   # https://docs.brew.sh/Manpage#environment
   environment.variables = {
     HOMEBREW_USE_INTERNAL_API = "1";
