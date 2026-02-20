@@ -13,6 +13,7 @@ lib.mkIf config.custom.profile.isWorkstation {
       prefix = "\${HOME}/.npm";
       ignore-scripts = true;
       min-release-age = 3; # days
+      allow-git = "none";
     };
   };
   home.packages = with pkgs; [
