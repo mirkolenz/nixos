@@ -26,6 +26,7 @@ lib.mkIf config.custom.profile.isWorkstation {
         network.allowUnixSockets = [ "/nix/var/nix/daemon-socket/socket" ];
       };
       enabledPlugins = {
+        "code-simplifier@claude-plugins-official" = true;
         "feature-dev@claude-plugins-official" = true;
         "frontend-design@claude-plugins-official" = true;
       };
