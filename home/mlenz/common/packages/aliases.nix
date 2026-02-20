@@ -35,6 +35,7 @@ lib.mkIf config.custom.profile.isWorkstation {
       icloud-photos-sync = [ "icloud-photos-sync" ];
       mcp-inspector = [ "@modelcontextprotocol/inspector" ];
       shadcn = [ "shadcn" ];
+      ccusage = [ "ccusage" ];
     })
     ++ (lib.mapAttrsToList mkPythonApp {
       arguebuf = [ "arguebuf[cli]" ];
