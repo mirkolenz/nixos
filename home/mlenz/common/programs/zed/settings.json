@@ -86,6 +86,7 @@
     }
   },
   "git_panel": {
+    "tree_view": true,
     "default_width": 320
   },
   "icon_theme": {
