@@ -40,22 +40,18 @@ lib.extendMkDerivation {
 
       release = lib.importJSON file;
       assetName = assets.${stdenv.hostPlatform.system};
+      versionMatches = lib.match versionRegex (release.tag_name or "unstable");
 
       # Generates a jq regex pattern matching all asset names across platforms.
       # Escapes dots first, then replaces the escaped version with .+ so the pattern matches future releases.
-      escapeRegex = builtins.replaceStrings [ "." ] [ "\\\\." ];
+      escapeRegex = lib.replaceStrings [ "." ] [ "\\\\." ];
       assetToRegex =
-        name:
-        builtins.replaceStrings [ (escapeRegex finalAttrs.version) ] [ ".+" ] (escapeRegex name);
-      pattern = "^(${lib.concatStringsSep "|" (map assetToRegex (lib.attrValues assets))})$";
+        name: lib.replaceStrings [ (escapeRegex finalAttrs.version) ] [ ".+" ] (escapeRegex name);
+      updatePattern = "^(${lib.concatStringsSep "|" (map assetToRegex (lib.attrValues assets))})$";
     in
     {
       inherit pname;
-      version =
-        let
-          m = builtins.match versionRegex (release.tag_name or "unstable");
-        in
-        if m == null then "unstable" else builtins.head m;
+      version = if versionMatches == null then "unstable" else lib.head versionMatches;
 
       src = fetchurl {
         url = "https://github.com/${owner}/${repo}/releases/download/${release.tag_name}/${assetName}";
@@ -91,7 +87,7 @@ lib.extendMkDerivation {
               tag_name,
               assets: [
                 .assets[]
-                | select(.name | test("${pattern}"))
+                | select(.name | test("${updatePattern}"))
                 | { key: .name, value: { digest } }
               ] | from_entries
             }'
