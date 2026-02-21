@@ -14,7 +14,7 @@ mkGitHubBinary {
     aarch64-darwin = "mac";
   };
   getAsset = { platform, ... }: "gitui-${platform}.tar.gz";
-  versionPrefix = "v";
+  versionRegex = "v(.+)";
 
   sourceRoot = ".";
 

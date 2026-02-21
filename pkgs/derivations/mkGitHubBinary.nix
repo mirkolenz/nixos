@@ -15,8 +15,7 @@ lib.extendMkDerivation {
     "platforms"
     "getAsset"
     "binaries"
-    "versionPrefix"
-    "versionSuffix"
+    "versionRegex"
     "allowPrereleases"
   ];
   extendDrvArgs =
@@ -29,8 +28,7 @@ lib.extendMkDerivation {
       getAsset,
       pname ? repo,
       binaries ? [ finalAttrs.pname ],
-      versionPrefix ? "",
-      versionSuffix ? "",
+      versionRegex ? "(.+)",
       allowPrereleases ? false,
       ...
     }:
@@ -47,13 +45,7 @@ lib.extendMkDerivation {
         platform = platforms.${stdenv.hostPlatform.system};
         inherit (finalAttrs) version;
       };
-
-      # jq binding that strips versionPrefix/Suffix from tag_name
-      versionJqPipeline = lib.concatStringsSep " | " (
-        [ ".tag_name" ]
-        ++ lib.optional (versionPrefix != "") "ltrimstr(\"${versionPrefix}\")"
-        ++ lib.optional (versionSuffix != "") "rtrimstr(\"${versionSuffix}\")"
-      );
+      versionMatches = builtins.match versionRegex (release.tag_name or "unstable");
 
       # Generates a jq regex pattern matching all asset names across platforms.
       # Concrete asset names for each platform (e.g., "uv-aarch64-apple-darwin.tar.gz")
@@ -64,7 +56,7 @@ lib.extendMkDerivation {
           inherit (finalAttrs) version;
         }
       ) platforms;
-      # Replaces the version with jq interpolation \($version) so the pattern matches future releases,
+      # Replaces the version with a generic pattern so the regex matches future releases,
       # and escapes dots so that e.g. .tar.gz only matches literal dots in the regex.
       assetToRegex =
         builtins.replaceStrings
@@ -73,7 +65,7 @@ lib.extendMkDerivation {
             "."
           ]
           [
-            "\\($version)"
+            ".+"
             "\\\\."
           ];
       # Joins all regex alternatives into ^(alt1|alt2|...)$
@@ -81,13 +73,10 @@ lib.extendMkDerivation {
     in
     {
       inherit pname;
-      version = lib.pipe (release.tag_name or "unstable") [
-        (lib.removePrefix versionPrefix)
-        (lib.removeSuffix versionSuffix)
-      ];
+      version = if versionMatches == null then "unstable" else builtins.head versionMatches;
 
       src = fetchurl {
-        url = "https://github.com/${owner}/${repo}/releases/download/${versionPrefix}${finalAttrs.version}${versionSuffix}/${assetName}";
+        url = "https://github.com/${owner}/${repo}/releases/download/${release.tag_name}/${assetName}";
         hash = release.assets.${assetName}.digest;
       };
 
@@ -116,7 +105,7 @@ lib.extendMkDerivation {
 
           output="$(
             ${ghCall} \
-            | jq '${jqSelector} | (${versionJqPipeline}) as $version | {
+            | jq '${jqSelector} | {
               tag_name,
               assets: [
                 .assets[]

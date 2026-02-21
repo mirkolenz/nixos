@@ -13,7 +13,7 @@ mkGitHubBinary {
     aarch64-darwin = "aarch64-apple-darwin";
   };
   getAsset = { platform, ... }: "typst-${platform}.tar.xz";
-  versionPrefix = "v";
+  versionRegex = "v(.+)";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

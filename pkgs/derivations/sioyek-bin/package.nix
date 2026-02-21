@@ -14,7 +14,7 @@ mkGitHubBinaryApp (finalAttrs: {
       aarch64-darwin = "mac-arm";
     };
     getAsset = { platform, ... }: "sioyek-release-${platform}.zip";
-    versionPrefix = "sioyek";
+    versionRegex = "sioyek(.+)";
     allowPrereleases = true;
   };
 

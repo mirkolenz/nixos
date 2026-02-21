@@ -21,7 +21,7 @@ mkGitHubBinary {
   file = ./release.json;
   inherit platforms;
   getAsset = { platform, ... }: "codex-${platform}.tar.gz";
-  versionPrefix = "rust-v";
+  versionRegex = "rust-v(.+)";
 
   sourceRoot = ".";
 

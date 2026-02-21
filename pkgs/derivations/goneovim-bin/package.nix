@@ -11,7 +11,7 @@ mkGitHubBinaryApp (finalAttrs: {
       aarch64-darwin = "macos-arm64";
     };
     getAsset = { platform, version, ... }: "goneovim-v${version}-${platform}.tar.bz2";
-    versionPrefix = "v";
+    versionRegex = "v(.+)";
   };
   wrapperPath = "Contents/MacOS/${finalAttrs.pname}";
 

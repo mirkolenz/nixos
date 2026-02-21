@@ -20,7 +20,7 @@ mkGitHubBinary {
   file = ./release.json;
   inherit platforms;
   getAsset = { platform, ... }: "opencode-${platform}";
-  versionPrefix = "v";
+  versionRegex = "v(.+)";
 
   sourceRoot = ".";
 
