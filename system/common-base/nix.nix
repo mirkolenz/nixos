@@ -11,7 +11,7 @@
       "pipe-operators"
     ];
     nix-path = [
-      "pkgs=flake:pkgs"
+      "nixpkgs=flake:pkgs"
     ];
     accept-flake-config = true;
     commit-lock-file-summary = "chore(deps): update flake.lock";

@@ -17,7 +17,7 @@
         "pipe-operators"
       ];
       nix-path = [
-        "pkgs=flake:pkgs"
+        "nixpkgs=flake:pkgs"
       ];
       accept-flake-config = true;
       bash-prompt-prefix = "(nix:$name)\\040";
