@@ -69,6 +69,7 @@ lib.mkIf config.custom.profile.isWorkstation {
         allow = [
           "WebFetch"
           "WebSearch"
+          "Read(//nix/store/**)"
           "Edit(/${config.xdg.cacheHome}/**)"
           "Edit(/${config.home.homeDirectory}/.npm/**)"
           "Bash(nix *)"
