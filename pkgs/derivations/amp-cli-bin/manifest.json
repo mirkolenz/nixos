@@ -1,8 +1,8 @@
 {
-  "version": "0.0.1771660958-g9d88e0",
+  "version": "0.0.1771704097-g728b20",
   "checksums": {
-    "darwin-arm64": "a5ef0ff7ce4e2a789b02f398429439b6a45cfbe860b3e5200f2e4d991fd9accb",
-    "linux-arm64": "41ce427562cec5666716ec2083efa87735d564c6bf087a8a7406fa33ac92360d",
-    "linux-x64": "755bea0da4f6f8a222b1ad12e4cedce133a283630d7761fb7442ec96589bfb38"
+    "darwin-arm64": "a759cb1d61cada505c5045d7944e3ce9df46dcae372597d2f3d02801f7e1f200",
+    "linux-arm64": "7e5bc5f0cf1077884e4d5e916bb4cbcad324c169e93ae584f0d88d07ef606327",
+    "linux-x64": "b89cfeac3d61e689dd1272e225e368999b69174be78bc242a7c125eccf7ce150"
   }
 }

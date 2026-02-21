@@ -1,14 +1,14 @@
 {
   "tag_name": "v0.28.0",
   "assets": {
+    "gitui-mac.tar.gz": {
+      "digest": "sha256:5366926b6d355dda413146c670e0207c056a325985f37a628fd2b06803cfa8ac"
+    },
     "gitui-linux-aarch64.tar.gz": {
       "digest": "sha256:4ce1f32528f79dfe118130e753900f6ea7ffc17eb72df3abcf22313ec771c131"
     },
     "gitui-linux-x86_64.tar.gz": {
       "digest": "sha256:4972695d5690001f5eaaecf709be52aa9dab424067bac539fd668c14afdd22c4"
-    },
-    "gitui-mac.tar.gz": {
-      "digest": "sha256:5366926b6d355dda413146c670e0207c056a325985f37a628fd2b06803cfa8ac"
     }
   }
 }
