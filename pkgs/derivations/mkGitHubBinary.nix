@@ -52,11 +52,16 @@ lib.extendMkDerivation {
       sentinel = "__NIXPKGS_VERSION__";
       sentinelAssets = if lib.isFunction assets then assets sentinel else assets;
       assetFilters = lib.toJSON (
-        map (name: rec {
-          parts = lib.splitString sentinel name;
-          prefix = lib.head parts;
-          suffix = lib.last parts;
-        }) (lib.attrValues sentinelAssets)
+        map (
+          name:
+          let
+            parts = lib.splitString sentinel name;
+          in
+          {
+            prefix = lib.head parts;
+            suffix = lib.last parts;
+          }
+        ) (lib.attrValues sentinelAssets)
       );
 
       assetName = resolvedAssets.${stdenv.hostPlatform.system};
