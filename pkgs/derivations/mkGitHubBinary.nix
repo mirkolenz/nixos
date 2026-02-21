@@ -107,11 +107,8 @@ lib.extendMkDerivation {
               ${jqSelector} | {
                 tag_name,
                 assets: [
-                  .assets[]
-                  | select(.name as $n | any(
-                      $filters[];
-                      $n | startswith(.prefix) and endswith(.suffix)
-                    ))
+                  $filters[] as $f | .assets[]
+                  | select(.name | startswith($f.prefix) and endswith($f.suffix))
                   | { key: .name, value: { digest } }
                 ] | from_entries
               }
