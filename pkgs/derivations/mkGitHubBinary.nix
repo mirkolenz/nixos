@@ -12,8 +12,7 @@ lib.extendMkDerivation {
     "owner"
     "repo"
     "file"
-    "platforms"
-    "getAsset"
+    "assets"
     "binaries"
     "versionRegex"
     "allowPrereleases"
@@ -24,8 +23,7 @@ lib.extendMkDerivation {
       owner,
       repo,
       file,
-      platforms,
-      getAsset,
+      assets,
       pname ? repo,
       binaries ? [ finalAttrs.pname ],
       versionRegex ? "(.+)",
@@ -41,21 +39,9 @@ lib.extendMkDerivation {
           "gh api repos/${owner}/${repo}/releases/latest";
 
       release = lib.importJSON file;
-      assetName = getAsset {
-        platform = platforms.${stdenv.hostPlatform.system};
-        inherit (finalAttrs) version;
-      };
-      versionMatches = builtins.match versionRegex (release.tag_name or "unstable");
+      assetName = assets.${stdenv.hostPlatform.system};
 
       # Generates a jq regex pattern matching all asset names across platforms.
-      # Concrete asset names for each platform (e.g., "uv-aarch64-apple-darwin.tar.gz")
-      allAssetNames = lib.mapAttrsToList (
-        _: plat:
-        getAsset {
-          platform = plat;
-          inherit (finalAttrs) version;
-        }
-      ) platforms;
       # Replaces the version with a generic pattern so the regex matches future releases,
       # and escapes dots so that e.g. .tar.gz only matches literal dots in the regex.
       assetToRegex =
@@ -69,11 +55,15 @@ lib.extendMkDerivation {
             "\\\\."
           ];
       # Joins all regex alternatives into ^(alt1|alt2|...)$
-      pattern = "^(${lib.concatStringsSep "|" (map assetToRegex allAssetNames)})$";
+      pattern = "^(${lib.concatStringsSep "|" (map assetToRegex (lib.attrValues assets))})$";
     in
     {
       inherit pname;
-      version = if versionMatches == null then "unstable" else builtins.head versionMatches;
+      version =
+        let
+          m = builtins.match versionRegex (release.tag_name or "unstable");
+        in
+        if m == null then "unstable" else builtins.head m;
 
       src = fetchurl {
         url = "https://github.com/${owner}/${repo}/releases/download/${release.tag_name}/${assetName}";
@@ -128,7 +118,7 @@ lib.extendMkDerivation {
         maintainers = with lib.maintainers; [ mirkolenz ];
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
         mainProgram = finalAttrs.pname;
-        platforms = lib.attrNames platforms;
+        platforms = lib.attrNames assets;
       }
       // args.meta or { };
     };

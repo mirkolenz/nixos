@@ -10,10 +10,9 @@ mkGitHubBinaryApp (finalAttrs: {
     owner = "ahrm";
     repo = "sioyek";
     file = ./release.json;
-    platforms = {
-      aarch64-darwin = "mac-arm";
+    assets = {
+      aarch64-darwin = "sioyek-release-mac-arm.zip";
     };
-    getAsset = { platform, ... }: "sioyek-release-${platform}.zip";
     versionRegex = "sioyek(.+)";
     allowPrereleases = true;
   };

@@ -8,12 +8,11 @@ mkGitHubBinary {
   owner = "gitui-org";
   repo = "gitui";
   file = ./release.json;
-  platforms = {
-    x86_64-linux = "linux-x86_64";
-    aarch64-linux = "linux-aarch64";
-    aarch64-darwin = "mac";
+  assets = {
+    x86_64-linux = "gitui-linux-x86_64.tar.gz";
+    aarch64-linux = "gitui-linux-aarch64.tar.gz";
+    aarch64-darwin = "gitui-mac.tar.gz";
   };
-  getAsset = { platform, ... }: "gitui-${platform}.tar.gz";
   versionRegex = "v(.+)";
 
   sourceRoot = ".";

@@ -19,8 +19,7 @@ mkGitHubBinary {
   owner = "openai";
   repo = "codex";
   file = ./release.json;
-  inherit platforms;
-  getAsset = { platform, ... }: "codex-${platform}.tar.gz";
+  assets = lib.mapAttrs (_: plat: "codex-${plat}.tar.gz") platforms;
   versionRegex = "rust-v(.+)";
 
   sourceRoot = ".";

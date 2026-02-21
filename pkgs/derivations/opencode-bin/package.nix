@@ -7,19 +7,15 @@
   unzip,
   makeBinaryWrapper,
 }:
-let
-  platforms = {
-    x86_64-linux = "linux-x64.tar.gz";
-    aarch64-linux = "linux-arm64.tar.gz";
-    aarch64-darwin = "darwin-arm64.zip";
-  };
-in
 mkGitHubBinary {
   owner = "anomalyco";
   repo = "opencode";
   file = ./release.json;
-  inherit platforms;
-  getAsset = { platform, ... }: "opencode-${platform}";
+  assets = {
+    x86_64-linux = "opencode-linux-x64.tar.gz";
+    aarch64-linux = "opencode-linux-arm64.tar.gz";
+    aarch64-darwin = "opencode-darwin-arm64.zip";
+  };
   versionRegex = "v(.+)";
 
   sourceRoot = ".";

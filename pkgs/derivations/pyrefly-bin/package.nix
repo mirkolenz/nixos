@@ -8,11 +8,10 @@ mkGitHubBinary {
   owner = "facebook";
   repo = "pyrefly";
   file = ./release.json;
-  platforms = {
-    x86_64-linux = "linux-x86_64";
-    aarch64-darwin = "macos-arm64";
+  assets = {
+    x86_64-linux = "pyrefly-linux-x86_64.tar.gz";
+    aarch64-darwin = "pyrefly-macos-arm64.tar.gz";
   };
-  getAsset = { platform, ... }: "pyrefly-${platform}.tar.gz";
 
   buildInputs = [ stdenv.cc.cc ];
 

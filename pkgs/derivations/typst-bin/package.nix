@@ -7,12 +7,11 @@ mkGitHubBinary {
   owner = "typst";
   repo = "typst";
   file = ./release.json;
-  platforms = {
-    x86_64-linux = "x86_64-unknown-linux-musl";
-    aarch64-linux = "aarch64-unknown-linux-musl";
-    aarch64-darwin = "aarch64-apple-darwin";
+  assets = {
+    x86_64-linux = "typst-x86_64-unknown-linux-musl.tar.xz";
+    aarch64-linux = "typst-aarch64-unknown-linux-musl.tar.xz";
+    aarch64-darwin = "typst-aarch64-apple-darwin.tar.xz";
   };
-  getAsset = { platform, ... }: "typst-${platform}.tar.xz";
   versionRegex = "v(.+)";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
