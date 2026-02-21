@@ -13,7 +13,7 @@ mkGitHubBinaryApp (finalAttrs: {
     assets = {
       aarch64-darwin = "sioyek-release-mac-arm.zip";
     };
-    tagTemplate = "sioyek{version}";
+    versionPrefix = "sioyek";
     allowPrereleases = true;
   };
 

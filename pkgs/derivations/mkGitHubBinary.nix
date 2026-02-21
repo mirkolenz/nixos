@@ -14,7 +14,8 @@ lib.extendMkDerivation {
     "file"
     "assets"
     "binaries"
-    "tagTemplate"
+    "versionPrefix"
+    "versionSuffix"
     "allowPrereleases"
   ];
   extendDrvArgs =
@@ -26,7 +27,8 @@ lib.extendMkDerivation {
       assets,
       pname ? repo,
       binaries ? [ finalAttrs.pname ],
-      tagTemplate ? "{version}",
+      versionPrefix ? "",
+      versionSuffix ? "",
       allowPrereleases ? false,
       ...
     }:
@@ -40,27 +42,30 @@ lib.extendMkDerivation {
 
       release = lib.importJSON file;
 
-      # Split a template on {version} to get its static prefix and suffix.
-      splitVersion = template: rec {
-        parts = lib.splitString "{version}" template;
-        prefix = lib.head parts;
-        suffix = lib.last parts;
-      };
+      # Assets can be an attrset or a function of version.
+      resolvedAssets = if lib.isFunction assets then assets finalAttrs.version else assets;
 
-      # Resolve {version} placeholders in a string.
-      resolveVersion = lib.replaceStrings [ "{version}" ] [ finalAttrs.version ];
+      # Derive prefix/suffix pairs for the update script's jq asset filter.
+      # When assets is a function, evaluate it with a sentinel to find where the
+      # version appears; when it is a plain attrset, the sentinel won't appear
+      # so each name becomes both prefix and suffix (exact match).
+      sentinel = "__NIXPKGS_VERSION__";
+      sentinelAssets = if lib.isFunction assets then assets sentinel else assets;
+      assetFilters = lib.toJSON (
+        map (name: rec {
+          parts = lib.splitString sentinel name;
+          prefix = lib.head parts;
+          suffix = lib.last parts;
+        }) (lib.attrValues sentinelAssets)
+      );
 
-      tagParts = splitVersion tagTemplate;
-      assetName = resolveVersion assets.${stdenv.hostPlatform.system};
-
-      # For the update script: prefix/suffix pairs for matching assets across versions.
-      assetFilters = lib.toJSON (map splitVersion (lib.attrValues assets));
+      assetName = resolvedAssets.${stdenv.hostPlatform.system};
     in
     {
       inherit pname;
       version = lib.pipe (release.tag_name or "unstable") [
-        (lib.removePrefix tagParts.prefix)
-        (lib.removeSuffix tagParts.suffix)
+        (lib.removePrefix versionPrefix)
+        (lib.removeSuffix versionSuffix)
       ];
 
       src = fetchurl {
@@ -121,7 +126,7 @@ lib.extendMkDerivation {
         maintainers = with lib.maintainers; [ mirkolenz ];
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
         mainProgram = finalAttrs.pname;
-        platforms = lib.attrNames assets;
+        platforms = lib.attrNames resolvedAssets;
       }
       // args.meta or { };
     };

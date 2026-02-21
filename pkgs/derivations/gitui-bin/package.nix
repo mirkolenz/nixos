@@ -13,7 +13,7 @@ mkGitHubBinary {
     aarch64-linux = "gitui-linux-aarch64.tar.gz";
     aarch64-darwin = "gitui-mac.tar.gz";
   };
-  tagTemplate = "v{version}";
+  versionPrefix = "v";
 
   sourceRoot = ".";
 
