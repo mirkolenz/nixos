@@ -11,9 +11,13 @@ lib.extendMkDerivation {
   ];
   extendDrvArgs =
     finalAttrs:
-    args@{
+    {
+      # custom
       appname ? finalAttrs.pname,
       wrapperPath ? "",
+      # upstream
+      nativeBuildInputs ? [ ],
+      meta ? { },
       ...
     }:
     {
@@ -33,11 +37,9 @@ lib.extendMkDerivation {
 
       dontConfigure = true;
       dontBuild = true;
+      strictDeps = true;
 
-      nativeBuildInputs =
-        (args.nativeBuildInputs or [ ]) ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
-
-      strictDeps = args.strictDeps or true;
+      nativeBuildInputs = nativeBuildInputs ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 
       meta = {
         maintainers = with lib.maintainers; [ mirkolenz ];
@@ -45,6 +47,6 @@ lib.extendMkDerivation {
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       }
       // (lib.optionalAttrs (wrapperPath != "") { mainProgram = finalAttrs.pname; })
-      // args.meta or { };
+      // meta;
     };
 }

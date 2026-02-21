@@ -20,16 +20,21 @@ lib.extendMkDerivation {
   ];
   extendDrvArgs =
     finalAttrs:
-    args@{
+    {
+      # custom
       owner,
       repo,
       file,
       assets,
-      pname ? repo,
       binaries ? [ finalAttrs.pname ],
       versionPrefix ? "",
       versionSuffix ? "",
       allowPrereleases ? false,
+      # upstream
+      pname ? repo,
+      nativeBuildInputs ? [ ],
+      passthru ? { },
+      meta ? { },
       ...
     }:
     let
@@ -80,9 +85,10 @@ lib.extendMkDerivation {
 
       dontConfigure = true;
       dontBuild = true;
+      strictDeps = true;
 
       nativeBuildInputs =
-        (args.nativeBuildInputs or [ ])
+        nativeBuildInputs
         ++ [ installShellFiles ]
         ++ lib.optionals stdenv.hostPlatform.isElf [ autoPatchelfHook ];
 
@@ -118,9 +124,7 @@ lib.extendMkDerivation {
           echo "$output" > "${toString file}"
         '';
       }
-      // args.passthru or { };
-
-      strictDeps = args.strictDeps or true;
+      // passthru;
 
       meta = {
         homepage = "https://github.com/${owner}/${repo}";
@@ -130,6 +134,6 @@ lib.extendMkDerivation {
         mainProgram = finalAttrs.pname;
         platforms = lib.attrNames resolvedAssets;
       }
-      // args.meta or { };
+      // meta;
     };
 }
