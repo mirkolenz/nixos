@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 let
   caskApps = [
     # keep-sorted start
