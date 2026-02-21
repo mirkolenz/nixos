@@ -42,19 +42,11 @@ lib.extendMkDerivation {
       assetName = assets.${stdenv.hostPlatform.system};
 
       # Generates a jq regex pattern matching all asset names across platforms.
-      # Replaces the version with a generic pattern so the regex matches future releases,
-      # and escapes dots so that e.g. .tar.gz only matches literal dots in the regex.
+      # Escapes dots first, then replaces the escaped version with .+ so the pattern matches future releases.
+      escapeRegex = builtins.replaceStrings [ "." ] [ "\\\\." ];
       assetToRegex =
-        builtins.replaceStrings
-          [
-            finalAttrs.version
-            "."
-          ]
-          [
-            ".+"
-            "\\\\."
-          ];
-      # Joins all regex alternatives into ^(alt1|alt2|...)$
+        name:
+        builtins.replaceStrings [ (escapeRegex finalAttrs.version) ] [ ".+" ] (escapeRegex name);
       pattern = "^(${lib.concatStringsSep "|" (map assetToRegex (lib.attrValues assets))})$";
     in
     {
