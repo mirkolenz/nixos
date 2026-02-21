@@ -14,7 +14,7 @@ lib.extendMkDerivation {
     "file"
     "assets"
     "binaries"
-    "versionRegex"
+    "tagTemplate"
     "allowPrereleases"
   ];
   extendDrvArgs =
@@ -26,7 +26,7 @@ lib.extendMkDerivation {
       assets,
       pname ? repo,
       binaries ? [ finalAttrs.pname ],
-      versionRegex ? "(.+)",
+      tagTemplate ? "{version}",
       allowPrereleases ? false,
       ...
     }:
@@ -39,19 +39,29 @@ lib.extendMkDerivation {
           "gh api repos/${owner}/${repo}/releases/latest";
 
       release = lib.importJSON file;
-      assetName = assets.${stdenv.hostPlatform.system};
-      versionMatches = lib.match versionRegex (release.tag_name or "unstable");
 
-      # Generates a jq regex pattern matching all asset names across platforms.
-      # Escapes dots first, then replaces the escaped version with .+ so the pattern matches future releases.
-      escapeRegex = lib.replaceStrings [ "." ] [ "\\\\." ];
-      assetToRegex =
-        name: lib.replaceStrings [ (escapeRegex finalAttrs.version) ] [ ".+" ] (escapeRegex name);
-      updatePattern = "^(${lib.concatStringsSep "|" (map assetToRegex (lib.attrValues assets))})$";
+      # Split a template on {version} to get its static prefix and suffix.
+      splitVersion = template: rec {
+        parts = lib.splitString "{version}" template;
+        prefix = lib.head parts;
+        suffix = lib.last parts;
+      };
+
+      # Resolve {version} placeholders in a string.
+      resolveVersion = lib.replaceStrings [ "{version}" ] [ finalAttrs.version ];
+
+      tagParts = splitVersion tagTemplate;
+      assetName = resolveVersion assets.${stdenv.hostPlatform.system};
+
+      # For the update script: prefix/suffix pairs for matching assets across versions.
+      assetFilters = lib.toJSON (map splitVersion (lib.attrValues assets));
     in
     {
       inherit pname;
-      version = if versionMatches == null then "unstable" else lib.head versionMatches;
+      version = lib.pipe (release.tag_name or "unstable") [
+        (lib.removePrefix tagParts.prefix)
+        (lib.removeSuffix tagParts.suffix)
+      ];
 
       src = fetchurl {
         url = "https://github.com/${owner}/${repo}/releases/download/${release.tag_name}/${assetName}";
@@ -83,14 +93,19 @@ lib.extendMkDerivation {
 
           output="$(
             ${ghCall} \
-            | jq '${jqSelector} | {
-              tag_name,
-              assets: [
-                .assets[]
-                | select(.name | test("${updatePattern}"))
-                | { key: .name, value: { digest } }
-              ] | from_entries
-            }'
+            | jq --argjson filters '${assetFilters}' '
+              ${jqSelector} | {
+                tag_name,
+                assets: [
+                  .assets[]
+                  | select(.name as $n | any(
+                      $filters[];
+                      $n | startswith(.prefix) and endswith(.suffix)
+                    ))
+                  | { key: .name, value: { digest } }
+                ] | from_entries
+              }
+            '
           )"
 
           echo "$output" > "${toString file}"

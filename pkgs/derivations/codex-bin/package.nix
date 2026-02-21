@@ -20,7 +20,7 @@ mkGitHubBinary {
   repo = "codex";
   file = ./release.json;
   assets = lib.mapAttrs (_: plat: "codex-${plat}.tar.gz") platforms;
-  versionRegex = "rust-v(.+)";
+  tagTemplate = "rust-v{version}";
 
   sourceRoot = ".";
 

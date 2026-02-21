@@ -16,7 +16,7 @@ mkGitHubBinary {
     aarch64-linux = "opencode-linux-arm64.tar.gz";
     aarch64-darwin = "opencode-darwin-arm64.zip";
   };
-  versionRegex = "v(.+)";
+  tagTemplate = "v{version}";
 
   sourceRoot = ".";
 

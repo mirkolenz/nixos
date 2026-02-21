@@ -12,7 +12,7 @@ mkGitHubBinary {
     aarch64-linux = "typst-aarch64-unknown-linux-musl.tar.xz";
     aarch64-darwin = "typst-aarch64-apple-darwin.tar.xz";
   };
-  versionRegex = "v(.+)";
+  tagTemplate = "v{version}";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

@@ -8,9 +8,9 @@ mkGitHubBinaryApp (finalAttrs: {
     repo = "goneovim";
     file = ./release.json;
     assets = {
-      aarch64-darwin = "goneovim-v${finalAttrs.version}-macos-arm64.tar.bz2";
+      aarch64-darwin = "goneovim-v{version}-macos-arm64.tar.bz2";
     };
-    versionRegex = "v(.+)";
+    tagTemplate = "v{version}";
   };
   wrapperPath = "Contents/MacOS/${finalAttrs.pname}";
 
