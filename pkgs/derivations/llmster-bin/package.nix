@@ -62,16 +62,16 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # Bun-compiled executables (llmster, node, lms) append their bundled
-  # runtime data after the ELF sections. patchelf --add-rpath (and
-  # autoPatchelfHook's --set-rpath) can rearrange sections to grow
-  # .dynamic/.dynstr, which shifts the appended data and causes SIGSEGV.
-  # We only set the interpreter (minimal change) and provide library
-  # paths via LD_LIBRARY_PATH instead of rpath to avoid corruption.
-  # Shared libraries (.so/.node) are not bun-compiled and can safely
-  # be patched with --add-rpath.
+  # Bun-compiled executables (llmster, node, lms) embed runtime data after the ELF sections.
+  # patchelf --add-rpath and autoPatchelfHook's --set-rpath rearrange ELF sections to grow
+  # .dynamic/.dynstr, which shifts the appended data and causes SIGSEGV at runtime.
+  #
+  # For executables: only patch the interpreter (minimal, less likely to corrupt) and provide
+  # library paths via LD_LIBRARY_PATH through a binary wrapper instead of modifying the rpath.
+  # For shared libraries (.so/.node): these are standard ELF without appended data, so patching
+  # the rpath with --add-rpath is safe.
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    local interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
+    local interpreter="$(cat $NIX_CC/nix-support/dynamic-linker)"
     local rpath="${lib.makeLibraryPath (finalAttrs.buildInputs ++ [ addDriverRunpath.driverLink ])}"
     find $out/libexec -type f \( -executable -o -name '*.so' -o -name '*.so.*' -o -name '*.node' \) | while read -r file; do
       if patchelf --print-interpreter "$file" &>/dev/null; then
