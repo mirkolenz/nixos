@@ -62,16 +62,25 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # Avoid autoPatchelfHook: its use of patchelf --set-rpath corrupts
-  # bun-based binaries (llmster, node, lms) and replaces $ORIGIN in
-  # .so/.node files which breaks companion library resolution.
-  # Instead, use --set-interpreter and --add-rpath selectively.
+  # Bun-compiled executables (llmster, node, lms) append their bundled
+  # runtime data after the ELF sections. Both autoPatchelfHook
+  # (--set-rpath) and manual patchelf (--set-interpreter) need to grow
+  # ELF sections to fit Nix store paths, which rearranges the section
+  # layout and invalidates the offsets to the appended data, causing
+  # SIGSEGV at runtime. Instead, we rename each executable to *.ld-wrap
+  # and create a binary wrapper at the original path that invokes it
+  # through the Nix dynamic linker with LD_LIBRARY_PATH set.
+  # Shared libraries (.so/.node) are not bun-compiled and can safely
+  # be patched with --add-rpath.
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     local interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
     local rpath="${lib.makeLibraryPath finalAttrs.buildInputs}"
     find $out/libexec -type f \( -executable -o -name '*.so' -o -name '*.so.*' -o -name '*.node' \) | while read -r file; do
       if patchelf --print-interpreter "$file" &>/dev/null; then
-        patchelf --set-interpreter "$interpreter" --add-rpath "$rpath" "$file"
+        mv "$file" "$file".ld-wrap
+        makeWrapper "$interpreter" "$file" \
+          --add-flags "$file.ld-wrap" \
+          --prefix LD_LIBRARY_PATH : "$rpath"
       elif patchelf --print-rpath "$file" &>/dev/null; then
         patchelf --add-rpath "$rpath" "$file"
         addDriverRunpath "$file"
