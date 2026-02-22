@@ -77,10 +77,9 @@ stdenv.mkDerivation (finalAttrs: {
       if patchelf --print-interpreter "$file" &>/dev/null; then
         patchelf --set-interpreter "$interpreter" "$file"
         wrapProgram "$file" \
-          --prefix LD_LIBRARY_PATH : "$rpath"
+          --prefix LD_LIBRARY_PATH : "${addDriverRunpath.driverLink}:$rpath"
       elif patchelf --print-rpath "$file" &>/dev/null; then
-        patchelf --add-rpath "$rpath" "$file"
-        addDriverRunpath "$file"
+        patchelf --add-rpath "${addDriverRunpath.driverLink}:$rpath" "$file"
       fi
     done
   '';
