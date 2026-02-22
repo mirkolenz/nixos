@@ -12,7 +12,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     # https://developers.openai.com/codex/config-schema.json
     settings = {
       model = "gpt-5.3-codex";
-      model_reasoning_effort = "high";
+      model_reasoning_effort = "xhigh";
       model_reasoning_summary = "auto";
       approval_policy = "on-request";
       file_opener = "none";
