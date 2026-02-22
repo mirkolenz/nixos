@@ -13,19 +13,7 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [
-    "wl"
-  ];
-  boot.kernelModules = [
-    "kvm-intel"
-    "wl"
-  ];
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.broadcom_sta
-  ];
-  nixpkgs.config.permittedInsecurePackages = [
-    config.boot.kernelPackages.broadcom_sta.name
-  ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/root";
