@@ -39,7 +39,7 @@ lib.mkIf config.custom.profile.isWorkstation {
       # codex features list
       # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
       features = {
-        collab = true;
+        multi_agent = true;
         shell_snapshot = true;
       };
     };
