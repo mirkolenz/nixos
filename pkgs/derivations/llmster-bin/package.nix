@@ -72,14 +72,14 @@ stdenv.mkDerivation (finalAttrs: {
   # be patched with --add-rpath.
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     local interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
-    local rpath="${lib.makeLibraryPath finalAttrs.buildInputs}"
+    local rpath="${lib.makeLibraryPath (finalAttrs.buildInputs ++ [ addDriverRunpath.driverLink ])}"
     find $out/libexec -type f \( -executable -o -name '*.so' -o -name '*.so.*' -o -name '*.node' \) | while read -r file; do
       if patchelf --print-interpreter "$file" &>/dev/null; then
         patchelf --set-interpreter "$interpreter" "$file"
         wrapProgram "$file" \
-          --prefix LD_LIBRARY_PATH : "${addDriverRunpath.driverLink}:$rpath"
+          --prefix LD_LIBRARY_PATH : "$rpath"
       elif patchelf --print-rpath "$file" &>/dev/null; then
-        patchelf --add-rpath "${addDriverRunpath.driverLink}:$rpath" "$file"
+        patchelf --add-rpath "$rpath" "$file"
       fi
     done
   '';
