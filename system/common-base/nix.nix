@@ -16,10 +16,10 @@
     accept-flake-config = true;
     commit-lock-file-summary = "chore(deps): update flake.lock";
     download-buffer-size = 1000000000; # 1 GB
-    keep-derivations = false;
+    keep-derivations = true;
     keep-failed = false;
     keep-going = true;
-    keep-outputs = true;
+    keep-outputs = false;
     log-lines = 200;
     use-xdg-base-directories = true;
     warn-dirty = false;
