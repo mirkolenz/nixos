@@ -29,6 +29,7 @@ lib.mkIf config.custom.profile.isWorkstation {
         "code-simplifier@claude-plugins-official" = true;
         "feature-dev@claude-plugins-official" = true;
         "frontend-design@claude-plugins-official" = true;
+        "ralph-loop@claude-plugins-official" = true;
       };
       env = {
         # better results, but too many tokens
