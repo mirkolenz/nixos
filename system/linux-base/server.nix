@@ -11,7 +11,7 @@ lib.mkMerge [
       flags = lib.optional config.custom.impureRebuild "--impure";
       dates = "04:00";
       allowReboot = true;
-      runGarbageCollection = true;
+      runGarbageCollection = false; # makes quick iterations impossible
       rebootWindow = {
         lower = "03:30";
         upper = "05:00";
