@@ -38,7 +38,7 @@
   documentation = {
     nixos.enable = false;
     # this is slow
-    man.generateCaches = false;
+    man.cache.enable = false;
   };
 
   boot.loader = {
