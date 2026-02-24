@@ -12,7 +12,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     settings = {
       share = "disabled";
       autoupdate = false;
-      model = "lmstudio/openai/gpt-oss-20b";
+      model = "lmstudio/zai-org/glm-4.7-flash";
       provider = {
         lmstudio = {
           npm = "@ai-sdk/openai-compatible";
@@ -20,18 +20,15 @@ lib.mkIf config.custom.profile.isWorkstation {
           options.baseURL = "http://127.0.0.1:1234/v1";
           models = {
             "openai/gpt-oss-20b" = {
-              name = "GPT-OSS";
+              name = "OpenAI GPT OSS";
             };
-            "qwen/qwen3-32b" = {
-              name = "Qwen3";
+            "zai-org/glm-4.7-flash" = {
+              name = "GLM 4.7 Flash";
+            };
+            "mistralai/devstral-small-2-2512" = {
+              name = "Mistral Devstral";
             };
           };
-        };
-        ollama = {
-          npm = "@ai-sdk/openai-compatible";
-          name = "Ollama";
-          options.baseURL = "http://127.0.0.1:11434/v1";
-          models = { };
         };
       };
     };
