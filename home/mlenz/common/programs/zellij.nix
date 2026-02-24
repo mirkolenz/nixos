@@ -18,7 +18,7 @@
         theme = "default";
       };
     }
-    (lib.mkIf config.custom.profile.isHeadless {
+    (lib.mkIf config.custom.profile.isServer {
       enableBashIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
