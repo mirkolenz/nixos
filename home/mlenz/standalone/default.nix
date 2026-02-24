@@ -19,6 +19,8 @@ in
 {
   imports = lib'.flocken.getModules ./.;
 
+  custom.profile.isServer = true;
+
   custom.autoUpgrade = {
     enable = true;
     flake = "github:mirkolenz/nixos";
