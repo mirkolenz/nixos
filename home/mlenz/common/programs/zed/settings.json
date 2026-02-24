@@ -253,28 +253,12 @@
             "maxLength": 32
           },
           // https://github.com/latex-lsp/texlab/wiki/Previewing
-          // https://github.com/rzukic/zed-latex/blob/main/src/preview_presets.rs
+          // https://github.com/rzukic/zed-latex/blob/main/src/texlab_workspace_config/preview_presets.rs
           // displayline -h
           "forwardSearch": {
             "executable": "displayline",
             "args": ["-r", "-g", "%l", "%p", "%f"]
           },
-          // "forwardSearch": {
-          //   "executable": "sioyek",
-          //   "args": [
-          //     "--reuse-window",
-          //     "--nofocus",
-          //     "--execute-command",
-          //     "turn_on_synctex",
-          //     // "--inverse-search",
-          //     // "zed \"%%1\":%%2",
-          //     "--forward-search-file",
-          //     "%f",
-          //     "--forward-search-line",
-          //     "%l",
-          //     "%p"
-          //   ]
-          // },
           // "forwardSearch": {
           //   "executable": "zathura",
           //   "args": ["--synctex-forward", "%l:1:%f", "-x", "zed %%{input}:%%{line}", "%p"]

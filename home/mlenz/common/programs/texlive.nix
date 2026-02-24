@@ -55,7 +55,6 @@ lib.mkIf pkgs.stdenv.isDarwin {
     bibtex-tidy
     bibtexbrowser.bibtex2cff
     ltex-ls-plus
-    sioyek-bin
     tectonic
     texlab
     zathura

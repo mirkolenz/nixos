@@ -15,7 +15,7 @@
         forwardSearchAfter = true;
       };
       # https://github.com/latex-lsp/texlab/wiki/Previewing
-      # https://github.com/rzukic/zed-latex/blob/main/src/preview_presets.rs
+      # https://github.com/rzukic/zed-latex/blob/main/src/texlab_workspace_config/preview_presets.rs
       forwardSearch =
         if pkgs.stdenv.isDarwin then
           {
@@ -31,16 +31,10 @@
           }
         else
           {
-            executable = "sioyek";
+            executable = "zathura";
             args = [
-              "--reuse-window"
-              "--nofocus"
-              "--execute-command"
-              "turn_on_synctex"
-              "--forward-search-file"
-              "%f"
-              "--forward-search-line"
-              "%l"
+              "--synctex-forward"
+              "%l:1:%f"
               "%p"
             ];
           };
