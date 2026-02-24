@@ -57,6 +57,5 @@ lib.mkIf pkgs.stdenv.isDarwin {
     ltex-ls-plus
     tectonic
     texlab
-    zathura
   ];
 }
