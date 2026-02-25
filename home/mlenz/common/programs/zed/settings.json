@@ -14,7 +14,6 @@
   "auto_install_extensions": {
     // keep-sorted start
     "astro": true,
-    "biome": true,
     "comment": true,
     "csv": true,
     "docker-compose": true,
@@ -211,20 +210,6 @@
             "typeCheckingMode": "strict",
             "diagnosticMode": "workspace",
             "useLibraryCodeForTypes": false
-          }
-        }
-      }
-    },
-    "biome": {
-      "binary": {
-        "path": "/etc/profiles/per-user/mlenz/bin/biome",
-        "arguments": ["lsp-proxy"]
-      },
-      "settings": {
-        "require_config_file": true,
-        "inline_config": {
-          "formatter": {
-            "indentStyle": "space"
           }
         }
       }
