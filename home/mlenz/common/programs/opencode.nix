@@ -25,8 +25,8 @@ lib.mkIf config.custom.profile.isWorkstation {
             "zai-org/glm-4.7-flash" = {
               name = "GLM 4.7 Flash";
             };
-            "mistralai/devstral-small-2-2512" = {
-              name = "Mistral Devstral";
+            "qwen/qwen3.5-35b-a3b" = {
+              name = "Qwen 3.5 MoE";
             };
           };
         };
