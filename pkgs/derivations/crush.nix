@@ -1,6 +1,6 @@
 {
   lib,
-  buildGoModule,
+  buildGo126Module,
   fetchFromGitHub,
   versionCheckHook,
   nix-update-script,
@@ -8,7 +8,7 @@
   stdenv,
   installShellFiles,
 }:
-buildGoModule (finalAttrs: {
+buildGo126Module (finalAttrs: {
   pname = "crush";
   version = "0.45.0";
 
@@ -19,7 +19,7 @@ buildGoModule (finalAttrs: {
     hash = "sha256-fr8R00JM3bd+L/S809BhVma5y3fbaR9bR5x0atAPtqY=";
   };
 
-  vendorHash = "sha256-qFqFyPdAqh2BXeE2tkLmn88Z8qHFeSlTA2Ols8H7iaQ=";
+  vendorHash = "sha256-toatZYuXDn6aJXhgcMWXqvGVnp7+85K6QNYCNwIZfQY=";
 
   subPackages = [ "." ];
 
