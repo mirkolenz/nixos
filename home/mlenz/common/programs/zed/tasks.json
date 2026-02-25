@@ -66,12 +66,7 @@
   {
     "label": "todos",
     "command": "rg",
-    "args": [
-      "--hyperlink-format=file://{path}:{line}:{column}",
-      "--ignore-case",
-      "--",
-      "todo"
-    ],
+    "args": ["--hyperlink-format=file://{path}:{line}:{column}", "--ignore-case", "--", "todo"],
     "hide": "never",
     "reveal": "always",
     "reveal_target": "dock",

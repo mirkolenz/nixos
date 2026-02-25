@@ -10,14 +10,13 @@
         programs = {
           # keep-sorted start
           actionlint.enable = true;
-          biome.enable = false;
           buf.enable = true;
           gofmt.enable = true;
           google-java-format.enable = true;
           keep-sorted.enable = true;
           nixf-diagnose.enable = true;
           nixfmt.enable = true;
-          prettier.enable = true;
+          oxfmt.enable = true;
           ruff-check.enable = true;
           ruff-format.enable = true;
           rustfmt.enable = true;
@@ -25,11 +24,6 @@
           typstyle.enable = true;
           yamlfmt.enable = true;
           # keep-sorted end
-        };
-        programs.biome.settings = {
-          formatter = {
-            indentStyle = "space";
-          };
         };
         programs.nixf-diagnose = {
           variableLookup = true;

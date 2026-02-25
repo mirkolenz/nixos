@@ -34,6 +34,7 @@
     "material-icon-theme": true,
     "mdx": true,
     "nix": true,
+    "oxc": true,
     "php": true,
     "proto": true,
     "pyrefly": true,
@@ -102,46 +103,63 @@
   "languages": {
     // keep-sorted start block=yes
     "Astro": {
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "BibTeX": {
       "soft_wrap": "editor_width",
       "formatter": { "language_server": { "name": "texlab" } }
     },
     "CSS": {
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "HTML": {
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "JSON": {
-      "formatter": { "language_server": { "name": "prettier" } }
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "JSONC": {
-      "formatter": { "language_server": { "name": "prettier" } }
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "JavaScript": {
-      "language_servers": ["tsgo", "biome"],
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
+      "language_servers": ["tsgo", "oxlint"],
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "LaTeX": {
       "soft_wrap": "editor_width",
       "formatter": { "language_server": { "name": "texlab" } }
     },
     "MDX": {
-      "soft_wrap": "editor_width"
+      "soft_wrap": "editor_width",
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "Markdown": {
-      "soft_wrap": "editor_width"
+      "soft_wrap": "editor_width",
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "Nix": {
       "language_servers": ["nixd"]
@@ -158,28 +176,29 @@
         { "language_server": { "name": "ruff" } }
       ]
     },
-    "TOML": {
-      "tab_size": 4
-    },
     "TSX": {
-      "language_servers": ["tsgo", "biome"],
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
+      "language_servers": ["tsgo", "oxlint"],
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "TypeScript": {
-      "language_servers": ["tsgo", "biome"],
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
+      "language_servers": ["tsgo", "oxlint"],
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     },
     "Typst": {
       "soft_wrap": "editor_width",
       "formatter": { "external": { "command": "typstyle" } }
+    },
+    "YAML": {
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
     }
     // keep-sorted end
   },
@@ -210,17 +229,6 @@
         }
       }
     },
-    "ltex": {
-      "settings": {
-        "ltex": {
-          "checkFrequency": "save",
-          "language": "en-US",
-          "additionalRules": {
-            "motherTongue": "de-DE"
-          }
-        }
-      }
-    },
     "mdx-analyzer": {
       "initialization_options": {
         "typescript": {
@@ -239,6 +247,29 @@
         },
         "nixpkgs": {
           "expr": "import (builtins.getFlake \"pkgs\") { }"
+        }
+      }
+    },
+    "oxfmt": {
+      "binary": {
+        "path": "/etc/profiles/per-user/mlenz/bin/oxfmt",
+        "arguments": ["--lsp"]
+      },
+      "initialization_options": {
+        "settings": {
+          "run": "onSave"
+        }
+      }
+    },
+    "oxlint": {
+      "binary": {
+        "path": "/etc/profiles/per-user/mlenz/bin/oxlint",
+        "arguments": ["--lsp"]
+      },
+      "initialization_options": {
+        "settings": {
+          "run": "onType",
+          "typeAware": true
         }
       }
     },
