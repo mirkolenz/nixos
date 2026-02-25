@@ -12,9 +12,9 @@
 
       ## Python
 
-      - Use `uv run` to execute Python scripts and files, not `python` or `python3`.
-      - Use `uv run ruff check` for linting Python, not `flake8` or `pylint`.
-      - Use `uv run ty check` AND `uv run basedpyright --level error` for type checking Python, not `mypy` or `pyright`.
+      - Exec `uv run` to execute Python scripts and files, not `python` or `python3`.
+      - Exec `uv run ruff check` for linting Python, not `flake8` or `pylint`.
+      - Exec `uv run ty check` AND `uv run basedpyright --level error` for type checking Python, not `mypy` or `pyright`.
       - Use a src-based layout for Python projects.
       - Add type annotations to Python functions and classes.
       - Add `__all__` to public modules to control what is exported.
@@ -33,10 +33,9 @@
 
       - Use TypeScript, not JavaScript.
       - Use ES modules (import/export) syntax, not CommonJS (require).
-      - Use `npm run` to execute scripts, not `npx`.
       - Use the command `shadcn` for shadcn/ui, not `npx shadcn`.
-      - Use `npm run build` to build projects, not `npm run dev` or `npm run start`.
-      - Use `oxlint --type-aware --type-check` for linting JavaScript/TypeScript, not `tsc`, `eslint` or `biome`.
+      - Exec `npm run build` to build projects, not `npm run dev` or `npm run start`.
+      - Exec `oxlint --type-aware --type-check` without npx for linting JavaScript/TypeScript, not `tsc`, `eslint` or `biome`.
 
       ## Nix
 
