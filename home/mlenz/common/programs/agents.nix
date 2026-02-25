@@ -36,6 +36,7 @@
       - Use `npm run` to execute scripts, not `npx`.
       - Use the command `shadcn` for shadcn/ui, not `npx shadcn`.
       - Use `npm run build` to build projects, not `npm run dev` or `npm run start`.
+      - Use `oxlint --type-aware --type-check` for linting JavaScript/TypeScript, not `tsc`, `eslint` or `biome`.
 
       ## Nix
 

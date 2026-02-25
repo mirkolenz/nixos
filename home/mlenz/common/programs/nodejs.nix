@@ -23,6 +23,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     biome
     oxfmt
     oxlint
+    tsgolint
     typescript-go
   ];
 }
