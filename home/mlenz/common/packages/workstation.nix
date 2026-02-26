@@ -34,6 +34,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     imagemagick
     pngquant
     poppler-utils
+    pstoedit
     ffmpeg
     ffmpeg-normalize
     qpdf
