@@ -19,6 +19,7 @@ lib.mkIf config.custom.profile.isWorkstation {
   home.packages = with pkgs; [
     nodejs
     prettier
+    svgo
     npm-check-updates
     biome
     oxfmt
