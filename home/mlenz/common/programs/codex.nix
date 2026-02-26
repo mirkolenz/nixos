@@ -39,7 +39,9 @@ lib.mkIf config.custom.profile.isWorkstation {
       # codex features list
       # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
       features = {
+        js_repl = true;
         multi_agent = true;
+        prevent_idle_sleep = true;
         shell_snapshot = true;
       };
     };
