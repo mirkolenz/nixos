@@ -9,6 +9,7 @@
       - In plain text files, write exactly one sentence per line: txt, md, tex, typ, rst, ...
       - Do not run formatters or linters automatically, only when explicitly needed.
       - Favor simple and readable solutions over complex ones and optimize for maintainability.
+      - Don't add prefixes such as `uvx` or `npx` to commands in backticks in these instructions, use them verbatim.
 
       ## Python
 
