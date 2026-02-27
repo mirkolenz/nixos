@@ -10,6 +10,8 @@
     ./hardware.nix
     ./disko.nix
   ];
+  # Force dual-channel LVDS to prevent the internal display from being detected twice
+  boot.kernelParams = [ "i915.lvds_channel_mode=2" ];
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
