@@ -3,7 +3,7 @@
   custom.profile.isDesktop = true;
 
   imports = [
-    "${inputs.nixos-hardware}/apple"
+    "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"
     # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/ssd"

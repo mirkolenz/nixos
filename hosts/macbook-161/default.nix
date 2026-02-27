@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    "${inputs.nixos-hardware}/apple"
+    "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/apple/t2"
     "${inputs.nixos-hardware}/common/cpu/intel/coffee-lake"
     "${inputs.nixos-hardware}/common/pc/ssd"
