@@ -1,5 +1,9 @@
 final: prev:
 {
+  inherit (final.stable)
+    # https://hydra.nixos.org/job/nixpkgs/unstable/jetbrains-mono.aarch64-darwin
+    jetbrains-mono
+    ;
 }
 // (prev.lib.optionalAttrs prev.stdenv.hostPlatform.isLinux {
 })
