@@ -25,10 +25,15 @@
     }
   ];
 
-  # services.xserver.videoDrivers = [ "nvidia" ];
+  # Force display through Intel iGPU via gmux
+  boot.extraModprobeConfig = ''
+    options apple-gmux force_igd=y
+  '';
+
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     prime = {
+      sync.enable = false;
       nvidiaBusId = "PCI:1:0:0";
       intelBusId = "PCI:0:2:0";
     };

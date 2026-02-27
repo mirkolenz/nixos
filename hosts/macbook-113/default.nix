@@ -19,19 +19,19 @@
   virtualisation.libvirtd.enable = true;
   services.openssh.enable = true;
 
-  # services.xserver.videoDrivers = [ "nvidia" ];
+  # Force display through Intel iGPU via gmux
+  boot.extraModprobeConfig = ''
+    options apple-gmux force_igd=y
+  '';
+
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     prime = {
+      sync.enable = false;
       nvidiaBusId = "PCI:1:0:0";
       intelBusId = "PCI:0:2:0";
     };
   };
-
-  # enable iGPU
-  boot.extraModprobeConfig = ''
-    options apple-gmux force_igd=y
-  '';
 
   # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
   # https://askubuntu.com/a/1242574
