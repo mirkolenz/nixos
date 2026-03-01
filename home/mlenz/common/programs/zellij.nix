@@ -12,7 +12,7 @@
       auto_layout = true;
       default_layout = "default";
       default_mode = "normal";
-      on_force_close = "quit";
+      on_force_close = "detach";
       session_serialization = false;
       show_release_notes = false;
       show_startup_tips = false;
@@ -47,11 +47,11 @@
       end
 
       function _zellij_set_tab_to_working_dir --on-event fish_prompt
-        _zellij_change_tab_title (_zellij_current_dir)
+        _zellij_change_tab_title "dir: "$(_zellij_current_dir)
       end
 
       function _zellij_set_tab_to_command_line --on-event fish_preexec
-        _zellij_change_tab_title $argv[1]
+        _zellij_change_tab_title "cmd: $argv[1]"
       end
     end
   ''
