@@ -31,8 +31,6 @@ lib.mkIf config.custom.profile.isWorkstation {
       tui.notifications = true;
       shell_environment_policy = {
         set = {
-          UV_NO_SYNC = "1";
-          # https://astro.build/telemetry/
           ASTRO_TELEMETRY_DISABLED = "1";
         };
       };

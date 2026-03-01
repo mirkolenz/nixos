@@ -8,6 +8,7 @@ lib.mkIf config.custom.profile.isWorkstation {
   # https://code.claude.com/docs/en/permissions
   # https://code.claude.com/docs/en/sandboxing
   # https://code.claude.com/docs/en/settings
+  # https://www.schemastore.org/claude-code-settings.json
   programs.claude-code = {
     enable = true;
     package = pkgs.claude-code-bin;
@@ -21,9 +22,32 @@ lib.mkIf config.custom.profile.isWorkstation {
       spinnerTipsEnabled = false;
       sandbox = {
         enabled = true;
-        excludedCommands = [ "nix" ];
-        # todo: does not work as of 2026-02-08
-        network.allowUnixSockets = [ "/nix/var/nix/daemon-socket/socket" ];
+        allowUnsandboxedCommands = false;
+        excludedCommands = [
+          "nix *"
+        ];
+        network = {
+          allowUnixSockets = [
+            "/nix/var/nix/daemon-socket/socket"
+          ];
+          allowedDomains = [
+            "github.com"
+            "githubusercontent.com"
+            "pypi.org"
+            "npmjs.com"
+          ];
+        };
+        # absolute paths need // prefix, otherwise they are treated as relative to the project root
+        filesystem = {
+          allowWrite = [
+            "/${config.xdg.cacheHome}"
+            "/${config.home.homeDirectory}/.npm"
+          ];
+          # denyRead = [
+          #   ".env*"
+          #   "*secret*"
+          # ];
+        };
       };
       enabledPlugins = {
         "code-simplifier@claude-plugins-official" = true;
@@ -34,55 +58,17 @@ lib.mkIf config.custom.profile.isWorkstation {
       env = {
         # better results, but too many tokens
         # ANTHROPIC_DEFAULT_HAIKU_MODEL = "sonnet";
-        UV_NO_SYNC = "1";
-        # https://astro.build/telemetry/
         ASTRO_TELEMETRY_DISABLED = "1";
       };
-      # https://code.claude.com/docs/en/hooks
-      # https://code.claude.com/docs/en/hooks-guide#auto-format-code-after-edits
-      hooks = {
-        # PostToolUse = [
-        #   {
-        #     matcher = "Edit|Write";
-        #     hooks = [
-        #       {
-        #         type = "command";
-        #         command = "treefmt";
-        #         async = true;
-        #       }
-        #     ];
-        #   }
-        # ];
-      };
-      # https://code.claude.com/docs/en/statusline#available-data
-      # statusLine = {
-      #   type = "command";
-      #   command = pkgs.writeShellScript "claude-statusline" ''
-      #     jq -r '
-      #       "\(.context_window.used_percentage // 0)% | +\(.cost.total_lines_added // 0) -\(.cost.total_lines_removed // 0)"
-      #     '
-      #   '';
-      # };
       permissions = {
         defaultMode = "plan";
         disableBypassPermissionsMode = "disable";
-        # absolute paths need // prefix, otherwise they are treated as relative to the project root
         allow = [
           "WebFetch"
           "WebSearch"
-          "Read(//nix/store/**)"
-          "Edit(/${config.xdg.cacheHome}/**)"
-          "Edit(/${config.home.homeDirectory}/.npm/**)"
-          "Bash(nix *)"
-          "Bash(uv run *)"
-          "Bash(npm run *)"
+          "Read(//nix/store/**/*)"
         ];
-        deny = [
-          "Bash(sudo *)"
-          "Read(.env*)"
-          "Read(*secret*)"
-          "Bash(nix run *)"
-        ];
+        deny = [ ];
         ask = [ ];
       };
     };
