@@ -2,7 +2,6 @@
   {
     "label": "lazygit",
     "command": "lazygit",
-    "args": ["--path", "$ZED_WORKTREE_ROOT"],
     "hide": "on_success",
     "reveal": "always",
     "reveal_target": "center",
@@ -15,7 +14,6 @@
   {
     "label": "gitui",
     "command": "gitui",
-    "args": ["--workdir", "$ZED_WORKTREE_ROOT"],
     "hide": "on_success",
     "reveal": "always",
     "reveal_target": "center",
@@ -28,7 +26,6 @@
   {
     "label": "jjui",
     "command": "jjui",
-    "args": ["$ZED_WORKTREE_ROOT"],
     "hide": "on_success",
     "reveal": "always",
     "reveal_target": "center",
@@ -41,7 +38,6 @@
   {
     "label": "lazyjj",
     "command": "lazyjj",
-    "args": ["--path", "$ZED_WORKTREE_ROOT"],
     "hide": "on_success",
     "reveal": "always",
     "reveal_target": "center",
@@ -84,7 +80,9 @@
     "reveal_target": "center",
     "show_command": false,
     "show_summary": false,
-    "shell": "system"
+    "shell": {
+      "program": "sh"
+    }
   },
   {
     "label": "latexmk-build",
