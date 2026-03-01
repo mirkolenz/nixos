@@ -12,6 +12,7 @@
       description = user.name;
       home = "/Users/${user.login}";
       shell = pkgs.fish;
+      openssh.authorizedKeys.keys = user.sshKeys;
       uid = lib.mkDefault 501;
       gid = lib.mkDefault 20;
     };

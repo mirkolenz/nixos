@@ -1,7 +1,6 @@
 { lib, config, ... }:
 lib.mkMerge [
   (lib.mkIf config.custom.profile.isHeadless {
-    services.openssh.enable = lib.mkDefault true;
     environment.variables.BROWSER = "echo";
   })
   (lib.mkIf config.custom.profile.isServer {

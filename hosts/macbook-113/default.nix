@@ -17,7 +17,6 @@
   };
 
   virtualisation.libvirtd.enable = true;
-  services.openssh.enable = true;
 
   # Force display through Intel iGPU via gmux
   boot.extraModprobeConfig = ''

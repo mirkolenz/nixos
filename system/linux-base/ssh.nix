@@ -5,11 +5,12 @@
     services.sudo.rssh = true;
   };
   services.openssh = {
+    enable = lib.mkDefault true;
     authorizedKeysInHomedir = false;
     openFirewall = true;
     settings = {
-      PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      PasswordAuthentication = false;
       PermitRootLogin = "no";
       X11Forwarding = false;
     };

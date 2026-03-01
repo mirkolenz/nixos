@@ -10,7 +10,6 @@
 
   i18n.defaultLocale = "de_DE.UTF-8";
   networking.firewall.enable = true;
-  services.openssh.enable = true;
 
   home-manager.users.mirko = {
     imports = [ self.homeModules.linux ];
