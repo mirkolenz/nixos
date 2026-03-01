@@ -5,20 +5,6 @@
   pkgs,
   ...
 }:
-let
-  layouts = {
-    codex = ''
-      pane command="fish" {
-        args "-lc" "codex"
-      }
-    '';
-    claude = ''
-      pane command="fish" {
-        args "-lc" "claude"
-      }
-    '';
-  };
-in
 {
   programs.zellij = {
     enable = true;
@@ -43,29 +29,6 @@ in
       eval (${lib.getExe config.programs.zellij.package} setup --generate-auto-start fish | string collect)
     end
   '';
-  # zellij setup --dump-layout default
-  xdg.configFile = lib.mapAttrs' (name: value: {
-    name = "zellij/layouts/${name}.kdl";
-    value.text = ''
-      layout {
-        default_tab_template {
-          pane size=1 borderless=true {
-            plugin location="zellij:tab-bar"
-          }
-          children
-          pane size=1 borderless=true {
-            plugin location="zellij:status-bar"
-          }
-        }
-        tab name="lazygit" {
-          pane command="lazygit"
-        }
-        tab name="${name}" focus=true {
-          ${value}
-        }
-      }
-    '';
-  }) layouts;
   # Zellij web server
   launchd.agents.zellij-web = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     enable = false;

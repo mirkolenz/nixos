@@ -77,29 +77,13 @@
     }
   },
   {
-    "label": "claude",
+    "label": "zellij",
     "command": "zellij",
-    "args": ["--layout", "claude"],
     "hide": "on_success",
     "reveal": "always",
     "reveal_target": "center",
     "show_command": false,
     "show_summary": false,
-    "allow_concurrent_runs": true,
-    "use_new_terminal": true,
-    "shell": "system"
-  },
-  {
-    "label": "codex",
-    "command": "zellij",
-    "args": ["--layout", "codex"],
-    "hide": "on_success",
-    "reveal": "always",
-    "reveal_target": "center",
-    "show_command": false,
-    "show_summary": false,
-    "allow_concurrent_runs": true,
-    "use_new_terminal": true,
     "shell": "system"
   },
   {
