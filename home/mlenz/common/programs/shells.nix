@@ -11,10 +11,6 @@
     generateCompletions = true;
     interactiveShellInit = /* fish */ ''
       source ${pkgs.github-theme-contrib}/share/themes/fish/github_dark_default.fish
-
-      if set -q SSH_CONNECTION
-        eval (${lib.getExe config.programs.zellij.package} setup --generate-auto-start fish | string collect)
-      end
     '';
     functions.fish_greeting.body = /* fish */ ''
       if set -q SSH_CONNECTION

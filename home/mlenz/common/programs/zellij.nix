@@ -35,9 +35,14 @@ in
     };
   };
   home.sessionVariables = {
-    ZELLIJ_AUTO_ATTACH = if config.custom.profile.isDesktop then "0" else "1";
+    ZELLIJ_AUTO_ATTACH = "1";
     ZELLIJ_AUTO_EXIT = "1";
   };
+  programs.fish.interactiveShellInit = lib.mkIf config.custom.profile.isHeadless ''
+    if set -q SSH_CONNECTION
+      eval (${lib.getExe config.programs.zellij.package} setup --generate-auto-start fish | string collect)
+    end
+  '';
   # zellij setup --dump-layout default
   xdg.configFile = lib.mapAttrs' (name: value: {
     name = "zellij/layouts/${name}.kdl";
