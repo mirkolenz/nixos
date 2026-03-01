@@ -5,6 +5,20 @@
   pkgs,
   ...
 }:
+let
+  layouts = {
+    codex = ''
+      pane command="fish" {
+        args "-lc" "codex"
+      }
+    '';
+    claude = ''
+      pane command="fish" {
+        args "-lc" "claude"
+      }
+    '';
+  };
+in
 {
   programs.zellij = {
     enable = true;
@@ -24,22 +38,29 @@
     ZELLIJ_AUTO_ATTACH = if config.custom.profile.isDesktop then "0" else "1";
     ZELLIJ_AUTO_EXIT = "1";
   };
-  xdg.configFile = {
-    "zellij/layouts/codex.kdl".text = ''
+  # zellij setup --dump-layout default
+  xdg.configFile = lib.mapAttrs' (name: value: {
+    name = "zellij/layouts/${name}.kdl";
+    value.text = ''
       layout {
-        pane command="fish" {
-          args "-lc" "codex"
+        default_tab_template {
+          pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+          }
+          children
+          pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+          }
+        }
+        tab name="lazygit" {
+          pane command="lazygit"
+        }
+        tab name="${name}" focus=true {
+          ${value}
         }
       }
     '';
-    "zellij/layouts/claude.kdl".text = ''
-      layout {
-        pane command="fish" {
-          args "-lc" "claude"
-        }
-      }
-    '';
-  };
+  }) layouts;
   # Zellij web server
   launchd.agents.zellij-web = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     enable = false;
