@@ -24,7 +24,38 @@
     ZELLIJ_AUTO_ATTACH = "1";
     ZELLIJ_AUTO_EXIT = "1";
   };
-  programs.fish.interactiveShellInit = lib.mkIf config.custom.profile.isHeadless ''
+  home.packages = [
+    (pkgs.writeShellApplication {
+      name = "zellijd";
+      text = /* bash */ ''
+        exec ${lib.getExe config.programs.zellij.package} attach --create "$(basename "$PWD")"
+      '';
+    })
+  ];
+  programs.fish.interactiveShellInit = ''
+    if set -q ZELLIJ
+      function _zellij_current_dir
+        if test "$PWD" = "$HOME"
+          echo "~"
+        else
+          echo (basename $PWD)
+        end
+      end
+
+      function _zellij_change_tab_title
+        command nohup zellij action rename-tab $argv[1] >/dev/null 2>&1
+      end
+
+      function _zellij_set_tab_to_working_dir --on-event fish_prompt
+        _zellij_change_tab_title (_zellij_current_dir)
+      end
+
+      function _zellij_set_tab_to_command_line --on-event fish_preexec
+        _zellij_change_tab_title $argv[1]
+      end
+    end
+  ''
+  + lib.optionalString config.custom.profile.isHeadless ''
     if set -q SSH_CONNECTION
       eval (${lib.getExe config.programs.zellij.package} setup --generate-auto-start fish | string collect)
     end

@@ -78,7 +78,7 @@
   },
   {
     "label": "zellij",
-    "command": "zellij",
+    "command": "zellijd",
     "hide": "on_success",
     "reveal": "always",
     "reveal_target": "center",
