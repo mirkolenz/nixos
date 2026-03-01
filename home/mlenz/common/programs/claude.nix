@@ -64,7 +64,7 @@ lib.mkIf config.custom.profile.isWorkstation {
       #   '';
       # };
       permissions = {
-        defaultMode = "acceptEdits";
+        defaultMode = "plan";
         disableBypassPermissionsMode = "disable";
         # absolute paths need // prefix, otherwise they are treated as relative to the project root
         allow = [
