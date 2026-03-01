@@ -3,6 +3,7 @@
     "bindings": {
       "cmd-shift-g": ["task::Spawn", { "task_name": "lazygit" }],
       "cmd-shift-j": ["task::Spawn", { "task_name": "jjui" }],
+      "cmd-shift-s": "workspace::NewCenterTerminal",
       "cmd-r": "workspace::Reload"
     }
   },
