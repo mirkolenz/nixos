@@ -5,6 +5,30 @@
   pkgs,
   ...
 }:
+let
+  layouts = {
+    default = ''
+      tab focus=true {
+        pane
+      }
+    '';
+    codex = ''
+      tab name="codex" focus=true {
+         pane command="codex" close_on_exit=true
+      }
+    '';
+    claude = ''
+      tab name="claude" focus=true {
+         pane command="claude" close_on_exit=true
+      }
+    '';
+    lazygit = ''
+      tab name="lazygit" focus=true {
+         pane command="lazygit" close_on_exit=true
+      }
+    '';
+  };
+in
 {
   programs.zellij = {
     enable = true;
@@ -21,18 +45,35 @@
     };
     extraConfig = ''
       keybinds {
-        shared {
-          bind "Ctrl Shift g" {
-            NewTab name="lazygit" {
-              layout {
-                pane command="lazygit"
-              }
+        normal {
+          bind "Alt g" {
+            NewTab {
+              name "lazygit"
+              layout "lazygit"
             }
           }
         }
       }
     '';
   };
+  xdg.configFile = lib.mapAttrs' (name: value: {
+    name = "zellij/layouts/${name}.kdl";
+    # zellij setup --dump-layout default
+    value.text = ''
+      layout {
+        default_tab_template {
+          pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+          }
+          children
+          pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+          }
+        }
+        ${value}
+      }
+    '';
+  }) layouts;
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "1";
     ZELLIJ_AUTO_EXIT = "1";
