@@ -37,6 +37,7 @@
       - Use the command `shadcn` for shadcn/ui, not `npx shadcn`.
       - Exec `npm run build` to build projects, not `npm run dev` or `npm run start`.
       - Exec `oxlint --type-aware --type-check` without npx for linting JavaScript/TypeScript, not `tsc`, `eslint` or `biome`.
+      - When working with shadcn/ui, never modify the generated components directly.
 
       ## Nix
 
