@@ -16,8 +16,6 @@
     efi.efiSysMountPoint = "/boot/efi";
   };
 
-  virtualisation.libvirtd.enable = true;
-
   # Force display through Intel iGPU via gmux
   boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
