@@ -4,9 +4,9 @@
   lib,
   ...
 }:
-lib.mkIf (pkgs.stdenv.isLinux && config.custom.profile.isDesktop) {
+{
   programs.zed-editor = {
-    enable = true;
+    enable = lib.mkDefault (pkgs.stdenv.isLinux && config.custom.profile.isDesktop);
     mutableUserDebug = false;
     mutableUserKeymaps = false;
     mutableUserSettings = false;

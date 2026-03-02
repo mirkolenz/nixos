@@ -73,7 +73,7 @@
     }
   },
   {
-    "label": "zellij",
+    "label": "terminal",
     "command": "zellijd",
     "hide": "on_success",
     "reveal": "always",
