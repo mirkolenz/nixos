@@ -79,8 +79,8 @@ in
     '';
   }) layouts;
   home.sessionVariables = {
-    ZELLIJ_AUTO_ATTACH = "1";
-    ZELLIJ_AUTO_EXIT = "1";
+    ZELLIJ_AUTO_ATTACH = "true";
+    ZELLIJ_AUTO_EXIT = "true";
   };
   home.packages = [
     (pkgs.writeShellApplication {
