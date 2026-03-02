@@ -24,7 +24,7 @@ lib.mkIf config.custom.profile.isWorkstation {
         enabled = true;
         allowUnsandboxedCommands = false;
         excludedCommands = [
-          "nix *"
+          "nix:*"
         ];
         network = {
           allowUnixSockets = [
@@ -61,7 +61,7 @@ lib.mkIf config.custom.profile.isWorkstation {
         ASTRO_TELEMETRY_DISABLED = "1";
       };
       permissions = {
-        defaultMode = "plan";
+        defaultMode = "acceptEdits";
         disableBypassPermissionsMode = "disable";
         allow = [
           "WebFetch"
