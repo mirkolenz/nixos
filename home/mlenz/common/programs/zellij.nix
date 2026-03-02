@@ -19,6 +19,19 @@
       theme = "default";
       web_server = false; # managed via launchd
     };
+    extraConfig = ''
+      keybinds {
+        shared {
+          bind "Ctrl Shift g" {
+            NewTab name="lazygit" {
+              layout {
+                pane command="lazygit"
+              }
+            }
+          }
+        }
+      }
+    '';
   };
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "1";
