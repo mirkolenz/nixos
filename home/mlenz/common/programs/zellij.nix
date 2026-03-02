@@ -45,6 +45,10 @@ in
     };
     extraConfig = ''
       keybinds {
+        unbind "Alt Left"
+        unbind "Alt Right"
+        unbind "Alt Up"
+        unbind "Alt Down"
         normal {
           bind "Alt g" {
             NewTab {
