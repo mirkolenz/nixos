@@ -291,3 +291,9 @@ $(umask 077 && mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd)
 ```shell
 zellij web --create-token
 ```
+
+### SSH Key Generation
+
+```shell
+ssh-keygen -t ed25519 -a 128 -C "USER@HOST" -f ~/.ssh/id_ed25519
+```
