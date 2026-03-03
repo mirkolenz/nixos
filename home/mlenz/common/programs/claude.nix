@@ -35,6 +35,8 @@ lib.mkIf config.custom.profile.isWorkstation {
             "api.github.com"
             "raw.githubusercontent.com"
             "pypi.org"
+            "files.pythonhosted.org"
+            "huggingface.co"
             "registry.npmjs.org"
           ];
         };
