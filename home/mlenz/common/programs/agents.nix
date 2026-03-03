@@ -38,6 +38,7 @@
       - Exec `npm run build` to build projects, not `npm run dev` or `npm run start`.
       - Exec `oxlint --type-aware --type-check` without npx for linting JavaScript/TypeScript, not `tsc`, `eslint` or `biome`.
       - When working with shadcn/ui, never modify the generated components directly.
+      - For imports use absolute paths with the `@/` prefix, not relative paths.
 
       ## Nix
 

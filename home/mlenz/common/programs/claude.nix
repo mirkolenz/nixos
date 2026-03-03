@@ -35,7 +35,7 @@ lib.mkIf config.custom.profile.isWorkstation {
             "api.github.com"
             "raw.githubusercontent.com"
             "pypi.org"
-            "npmjs.com"
+            "registry.npmjs.org"
           ];
         };
         # absolute paths need // prefix, otherwise they are treated as relative to the project root
