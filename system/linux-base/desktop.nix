@@ -38,6 +38,11 @@ lib.mkIf config.custom.profile.isDesktop {
     facetimehd.withCalibration = true;
   };
 
+  services.mbpfan = {
+    enable = false;
+    aggressive = false;
+  };
+
   # there is an issue with wpa_supplicant and broadcom-wl (used in Macs)
   networking.networkmanager = {
     enable = true;
