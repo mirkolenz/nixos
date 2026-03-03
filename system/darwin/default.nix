@@ -8,7 +8,6 @@
   imports = lib'.flocken.getModules ./.;
 
   environment.systemPackages = with pkgs; [
-    _1password-cli
     libvirt
     virt-viewer
     virt-manager
@@ -17,6 +16,10 @@
     python3
     rsync
   ];
+
+  programs = {
+    _1password.enable = true;
+  };
 
   environment.variables = {
     EDITOR = "zed";

@@ -9,10 +9,12 @@ lib.mkIf config.custom.profile.isDesktop {
 
   users.users.${user.login}.extraGroups = [ "networkmanager" ];
 
-  programs = {
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [ user.login ];
-    };
+  programs._1password-gui.polkitPolicyOwners = [ user.login ];
+
+  environment.etc."1password/custom_allowed_browsers" = {
+    text = ''
+      vivaldi-bin
+    '';
+    mode = "0755";
   };
 }
