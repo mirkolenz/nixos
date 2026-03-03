@@ -109,7 +109,11 @@ in
       end
 
       function _zellij_set_tab_to_command_line --on-event fish_preexec
-        _zellij_change_tab_title "cmd: $argv[1]"
+        set -l words (string split -n ' ' -- $argv[1])
+        if test "$words[1]" = sudo
+          set words $words[2..]
+        end
+        _zellij_change_tab_title "cmd: $words[1]"
       end
     end
   ''
