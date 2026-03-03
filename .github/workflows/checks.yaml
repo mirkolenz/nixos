@@ -19,7 +19,6 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-            eval-cores = 0
             download-buffer-size = 1000000000
             log-lines = 200
       - name: nix flake check
@@ -49,7 +48,6 @@ jobs:
           extra-conf: |
             accept-flake-config = true
             keep-going = true
-            eval-cores = 0
             download-buffer-size = 1000000000
             log-lines = 200
       - uses: cachix/cachix-action@v16

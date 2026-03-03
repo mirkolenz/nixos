@@ -24,7 +24,6 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
-            eval-cores = 0
             download-buffer-size = 1000000000
             log-lines = 200
             commit-lock-file-summary = chore(deps): update flake.lock

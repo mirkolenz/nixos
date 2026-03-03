@@ -23,8 +23,5 @@
     log-lines = 200;
     use-xdg-base-directories = true;
     warn-dirty = false;
-    # determinate nix features
-    eval-cores = 0;
-    lazy-trees = true;
   };
 }
