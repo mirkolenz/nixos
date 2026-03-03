@@ -7,6 +7,7 @@
     "${inputs.nixos-hardware}/common/pc/ssd"
     ./disko.nix
     ./hardware.nix
+    ./restic.nix
   ];
   custom.profile.isDesktop = true;
 

@@ -210,6 +210,7 @@ Additional wildcard exclude rules:
 .direnv
 .orbstack
 .venv
+__pycache__
 node_modules
 */OrbStack
 */Library/CloudStorage
@@ -282,7 +283,7 @@ sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
 ### Password Hashing
 
 ```shell
-$(umask 077 && mkdir -p /etc/nixos/secrets)
+$(umask 022 && mkdir -p /etc/nixos/secrets)
 $(umask 077 && mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd)
 ```
 
