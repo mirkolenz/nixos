@@ -32,7 +32,8 @@ lib.mkIf config.custom.profile.isWorkstation {
           ];
           allowedDomains = [
             "github.com"
-            "githubusercontent.com"
+            "api.github.com"
+            "raw.githubusercontent.com"
             "pypi.org"
             "npmjs.com"
           ];
