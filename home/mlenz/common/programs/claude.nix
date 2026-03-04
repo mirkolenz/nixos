@@ -19,10 +19,12 @@ lib.mkIf config.custom.profile.isWorkstation {
       enableAllProjectMcpServers = true;
       forceLoginMethod = "claudeai";
       includeCoAuthoredBy = false;
+      includeGitInstructions = false;
       spinnerTipsEnabled = false;
       sandbox = {
         enabled = true;
         allowUnsandboxedCommands = false;
+        enableWeakerNetworkIsolation = true;
         excludedCommands = [
           "nix:*"
         ];
@@ -50,6 +52,14 @@ lib.mkIf config.custom.profile.isWorkstation {
           #   ".env*"
           #   "*secret*"
           # ];
+        };
+      };
+      extraKnownMarketplaces = {
+        claude-plugins-official = {
+          source = {
+            source = "github";
+            repo = "anthropics/claude-plugins-official";
+          };
         };
       };
       enabledPlugins = {
