@@ -30,7 +30,6 @@ in
 lib.mkIf config.custom.profile.isWorkstation {
   home.packages =
     (lib.mapAttrsToList mkNodeApp {
-      copilot = [ "@github/copilot" ];
       gemini = [ "@google/gemini-cli" ];
       icloud-photos-sync = [ "icloud-photos-sync" ];
       mcp-inspector = [ "@modelcontextprotocol/inspector" ];

@@ -56,6 +56,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     caddy
     authelia
     mailpit
+    copilot-cli-bin
     # nix
     nixd
     nixf
