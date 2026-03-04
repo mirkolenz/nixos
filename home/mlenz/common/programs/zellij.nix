@@ -50,6 +50,9 @@ in
         unbind "Alt Up"
         unbind "Alt Down"
         normal {
+          bind "Alt t" {
+            NewTab
+          }
           bind "Alt g" {
             NewTab {
               name "lazygit"
