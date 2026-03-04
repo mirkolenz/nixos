@@ -92,7 +92,4 @@ lib.mkIf config.custom.profile.isWorkstation {
     sonnet = "claude --model sonnet";
     haiku = "claude --model haiku";
   };
-  # the native installer expects the binary to be at this location
-  # otherwise an error is shown in the interface
-  xdg.binFile.claude.source = lib.getExe pkgs.claude-code-bin;
 }
