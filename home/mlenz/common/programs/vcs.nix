@@ -314,6 +314,7 @@
         expandedSidePanelWeight = 2;
         expandFocusedSidePanel = true;
         filterMode = "fuzzy";
+        mainPanelSplitMode = "horizontal";
         nerdFontsVersion = "3";
         showCommandLog = false;
         showFileTree = true;
