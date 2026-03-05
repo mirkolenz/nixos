@@ -50,6 +50,10 @@ in
     };
     extraConfig = ''
       keybinds {
+        shared {
+          unbind "Alt f"
+          bind "Alt Shift f" { ToggleFloatingPanes; }
+        }
         normal {
           bind "Alt t" {
             NewTab
