@@ -27,6 +27,11 @@ let
          pane command="lazygit" close_on_exit=true
       }
     '';
+    nvim = ''
+      tab name="nvim" focus=true {
+         pane command="nvim" close_on_exit=true
+      }
+    '';
   };
 in
 {
@@ -45,10 +50,6 @@ in
     };
     extraConfig = ''
       keybinds {
-        unbind "Alt Left"
-        unbind "Alt Right"
-        unbind "Alt Up"
-        unbind "Alt Down"
         normal {
           bind "Alt t" {
             NewTab
@@ -57,6 +58,12 @@ in
             NewTab {
               name "lazygit"
               layout "lazygit"
+            }
+          }
+          bind "Alt v" {
+            NewTab {
+              name "nvim"
+              layout "nvim"
             }
           }
         }
