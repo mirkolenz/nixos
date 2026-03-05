@@ -47,12 +47,12 @@
     HandleLidSwitchDocked = "ignore";
   };
 
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=yes
-    AllowHibernation=no
-    AllowSuspendThenHibernate=no
-    AllowHybridSleep=no
-    SuspendState=freeze
-    MemorySleepMode=s2idle
-  '';
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = "yes";
+    AllowHibernation = "no";
+    AllowSuspendThenHibernate = "no";
+    AllowHybridSleep = "no";
+    SuspendState = "freeze";
+    MemorySleepMode = "s2idle";
+  };
 }
