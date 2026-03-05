@@ -44,6 +44,9 @@ in
     raspi = {
       system = "aarch64-linux";
     };
+    hetzner-cloud = {
+      system = "x86_64-linux";
+    };
     macbook-91 = {
       system = "x86_64-linux";
       nixosModule = "children";
