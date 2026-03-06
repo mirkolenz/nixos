@@ -12,7 +12,6 @@
           actionlint.enable = true;
           buf.enable = true;
           gofmt.enable = true;
-          google-java-format.enable = true;
           keep-sorted.enable = true;
           nixf-diagnose.enable = true;
           nixfmt.enable = true;
