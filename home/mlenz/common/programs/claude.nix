@@ -71,6 +71,7 @@ lib.mkIf config.custom.profile.isWorkstation {
       env = {
         # better results, but too many tokens
         # ANTHROPIC_DEFAULT_HAIKU_MODEL = "sonnet";
+        ENABLE_CLAUDEAI_MCP_SERVERS = "0";
         ASTRO_TELEMETRY_DISABLED = "1";
       };
       permissions = {
