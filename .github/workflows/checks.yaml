@@ -7,25 +7,9 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+# keep job names in sync: https://github.com/mirkolenz/nixos/settings/rules/3352950
 jobs:
-  check:
-    permissions:
-      contents: read
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: wimpysworld/nothing-but-nix@v10
-      - uses: DeterminateSystems/determinate-nix-action@v3
-        with:
-          extra-conf: |
-            accept-flake-config = true
-            download-buffer-size = 1000000000
-            log-lines = 200
-      - name: nix flake check
-        run: |
-          nix flake check \
-            --show-trace
-  build-matrix:
+  matrix:
     name: build.${{ matrix.system }}
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -54,21 +38,15 @@ jobs:
         with:
           name: mirkolenz
           authToken: ${{ secrets.CACHIX_TOKEN }}
-      # todo: automatically update hashes for failed builds
-      # https://docs.determinate.systems/guides/automatically-fix-hashes-in-github-actions/
-      - name: nix build
-        run: |
-          nix run .#pkgs-builder -- \
-            --show-trace \
-            --no-link \
-            --flake .
-  build:
-    needs: build-matrix
+      - run: nix flake check --show-trace
+  checks:
+    needs: matrix
     runs-on: ubuntu-slim
     if: always()
     steps:
-      - run: |
-          result="${{ needs.build-matrix.result }}"
+      - name: Check matrix results
+        run: |
+          result="${{ needs.matrix.result }}"
           if [[ $result == "success" ]]; then
             exit 0
           else
