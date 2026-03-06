@@ -9,8 +9,8 @@ concurrency:
   cancel-in-progress: true
 # keep job names in sync: https://github.com/mirkolenz/nixos/settings/rules/3352950
 jobs:
-  check-system:
-    name: ${{ matrix.system }}
+  check-systems:
+    name: check-${{ matrix.system }}
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
@@ -40,13 +40,13 @@ jobs:
           authToken: ${{ secrets.CACHIX_TOKEN }}
       - run: nix flake check --show-trace
   check-all:
-    needs: check-system
+    needs: check-systems
     runs-on: ubuntu-slim
     if: always()
     steps:
       - name: Check matrix results
         run: |
-          result="${{ needs.check-system.result }}"
+          result="${{ needs.check-systems.result }}"
           if [[ $result == "success" ]]; then
             exit 0
           else
