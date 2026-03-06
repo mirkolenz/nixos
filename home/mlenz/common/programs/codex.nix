@@ -11,7 +11,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     # https://developers.openai.com/codex/config-reference
     # https://developers.openai.com/codex/config-schema.json
     settings = {
-      model = "gpt-5.3-codex";
+      model = "gpt-5.4";
       model_reasoning_effort = "xhigh";
       model_reasoning_summary = "auto";
       approval_policy = "on-request";
