@@ -48,11 +48,13 @@
   };
 
   systemd.sleep.settings.Sleep = {
-    AllowSuspend = "yes";
-    AllowHibernation = "no";
-    AllowSuspendThenHibernate = "no";
-    AllowHybridSleep = "no";
     SuspendState = "freeze";
     MemorySleepMode = "s2idle";
+  };
+
+  systemd.targets = {
+    hibernate.enable = false;
+    hybrid-sleep.enable = false;
+    suspend-then-hibernate.enable = false;
   };
 }
