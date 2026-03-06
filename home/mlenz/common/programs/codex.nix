@@ -13,7 +13,7 @@ lib.mkIf config.custom.profile.isWorkstation {
     settings = {
       model = "gpt-5.4";
       model_reasoning_effort = "xhigh";
-      model_reasoning_summary = "auto";
+      plan_mode_reasoning_effort = "xhigh";
       approval_policy = "on-request";
       file_opener = "none";
       preferred_auth_method = "chatgpt";
@@ -28,7 +28,10 @@ lib.mkIf config.custom.profile.isWorkstation {
           "${config.home.homeDirectory}/.npm"
         ];
       };
-      tui.notifications = true;
+      tui = {
+        alternate_screen = "never";
+        notifications = true;
+      };
       shell_environment_policy = {
         set = {
           ASTRO_TELEMETRY_DISABLED = "1";
