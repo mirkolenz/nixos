@@ -12,13 +12,7 @@
       shell = pkgs.fish;
       uid = lib.mkDefault 1000;
       group = user.login;
-      # https://wiki.debian.org/SystemGroups#Other_System_Groups
-      extraGroups = [
-        "users"
-        "wheel"
-        "video"
-        "audio"
-      ];
+      extraGroups = [ "wheel" ];
       isNormalUser = true;
       hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/${user.login}.passwd";
       openssh.authorizedKeys.keys = user.sshKeys;
