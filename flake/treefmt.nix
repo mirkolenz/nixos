@@ -27,8 +27,6 @@
         programs.nixf-diagnose = {
           variableLookup = true;
           ignore = [
-            # some code is commented out
-            "sema-unused-def-let"
             # unknown builtin `getFlake`
             "sema-primop-unknown"
           ];
