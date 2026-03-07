@@ -1,14 +1,14 @@
 {
-  "tag_name": "v1.2.19",
+  "tag_name": "v1.2.20",
   "assets": {
     "opencode-darwin-arm64.zip": {
-      "digest": "sha256:c4c0d6a27a58db18f7b20c1a20399c5efb99893468ac8e4bd8b32bb419fa6c30"
+      "digest": "sha256:20386056bffdc4ec52155fb107fb470d47297f86dc405f993992596dc3eb4a81"
     },
     "opencode-linux-arm64.tar.gz": {
-      "digest": "sha256:6eb0749227d199595cb30eac6b63a64af9d404493f03dd0022f42bfeb875dca4"
+      "digest": "sha256:a0813a706c8865cf61b2ec152f116af09519bff703c774ab16b4a667b154d683"
     },
     "opencode-linux-x64.tar.gz": {
-      "digest": "sha256:208a21ee4f86d604c4666aa4ae4b4a566214f540767817a53d37dc1f9c67a3a4"
+      "digest": "sha256:90188b53eadbdf36e9ab450c2c37ed567471651005fe28f4cf6587a7fb4eeba5"
     }
   }
 }
