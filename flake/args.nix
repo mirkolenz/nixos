@@ -11,7 +11,7 @@
       inherit self inputs lib';
     };
 
-    # can be overriden in module
+    # can be overridden in module
     moduleArgs = {
       stateVersions = {
         linux = "25.11";
