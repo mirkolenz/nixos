@@ -45,9 +45,10 @@
     HandleLidSwitchDocked = "ignore";
   };
 
-  systemd.targets = {
-    hibernate.enable = false;
-    hybrid-sleep.enable = false;
-    suspend-then-hibernate.enable = false;
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = "yes";
+    AllowHibernation = "no";
+    AllowSuspendThenHibernate = "no";
+    AllowHybridSleep = "no";
   };
 }
