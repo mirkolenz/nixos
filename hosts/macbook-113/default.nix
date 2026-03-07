@@ -40,7 +40,6 @@
     # "processor.max_cstate=3" # allow acpi_idle states C0-C3 (sleep)
   ];
 
-  # https://github.com/basecamp/omarchy/issues/1840
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "suspend";
@@ -52,7 +51,7 @@
     AllowHibernation = "no";
     AllowSuspendThenHibernate = "no";
     AllowHybridSleep = "no";
-    SuspendState = "freeze";
-    MemorySleepMode = "s2idle";
+    SuspendState = "mem";
+    MemorySleepMode = "deep";
   };
 }

@@ -1,4 +1,10 @@
-{ inputs, user, ... }:
+{
+  inputs,
+  user,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     "${inputs.nixos-hardware}/apple/macbook-pro"
@@ -32,10 +38,7 @@
   hardware.apple-t2 = {
     enableIGPU = true;
     kernelChannel = "stable";
-    firmware = {
-      enable = false;
-      version = "ventura";
-    };
+    firmware.enable = true;
   };
 
   # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
@@ -46,17 +49,32 @@
     };
   };
 
-  # https://github.com/basecamp/omarchy/issues/1840
   services.logind.settings.Login = {
-    HandleLidSwitch = "lock";
-    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
 
   systemd.sleep.settings.Sleep = {
-    AllowSuspend = "no";
+    AllowSuspend = "yes";
     AllowHibernation = "no";
     AllowSuspendThenHibernate = "no";
     AllowHybridSleep = "no";
+    SuspendState = "mem";
+    MemorySleepMode = "deep";
+  };
+
+  # https://wiki.t2linux.org/guides/postinstall/#suspend-workaround
+  systemd.services.suspend-t2 = {
+    description = "Reload Apple drivers on suspend/resume to prevent crashes";
+    before = [ "suspend.target" ];
+    wantedBy = [ "suspend.target" ];
+    unitConfig.StopWhenUnneeded = true;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "-${lib.getExe' pkgs.kmod "modprobe"} -r apple-bce";
+      ExecStop = "-${lib.getExe' pkgs.kmod "modprobe"} apple-bce";
+    };
   };
 }
