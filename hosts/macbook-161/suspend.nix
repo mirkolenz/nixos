@@ -33,7 +33,7 @@ let
     username=$(${sessionUser})
     if [ -n "$username" ]; then
       ${systemdRun} --user --machine="$username"@.host --pipe --quiet -- \
-        ${notifySend} -a "T2 Suspend" "${message}" 2>/dev/null || true
+        ${notifySend} -a "T2 Suspend" "${message}" || true
     fi
   '';
   hasIwd = config.networking.networkmanager.wifi.backend == "iwd";
@@ -126,7 +126,7 @@ in
           (pkgs.writeShellScript "resume-t2-wifi-retry" ''
             ${settle}
             if ! ls /sys/class/net/wl* >/dev/null 2>&1; then
-              ${modprobe} -r brcmfmac 2>/dev/null || true
+              ${modprobe} -r brcmfmac || true
               ${modprobe} brcmfmac || true
               ${modprobe} brcmfmac_wcc || true
               ${settle}
@@ -148,14 +148,14 @@ in
           if [ -n "$username" ]; then
             ${systemctl} --user --machine="$username"@.host stop \
               pipewire.socket pipewire-pulse.socket \
-              pipewire.service pipewire-pulse.service wireplumber.service 2>/dev/null || true
+              pipewire.service pipewire-pulse.service wireplumber.service || true
           fi
         '';
         ExecStop = pkgs.writeShellScript "resume-t2-audio" ''
           username=$(${sessionUser})
           if [ -n "$username" ]; then
             ${systemctl} --user --machine="$username"@.host start \
-              pipewire.socket pipewire-pulse.socket 2>/dev/null || true
+              pipewire.socket pipewire-pulse.socket || true
           fi
         '';
       };
