@@ -85,6 +85,7 @@ in
   # It also incorporates the Gentoo Touch Bar and tiny-dfr resume sequence where applicable.
   # https://wiki.t2linux.org/guides/postinstall/#suspend-workaround
   systemd.services.suspend-t2 = {
+    enable = false;
     description = "Reload Apple drivers on suspend/resume to prevent crashes";
     before = [ "sleep.target" ];
     wantedBy = [ "sleep.target" ];
