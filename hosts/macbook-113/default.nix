@@ -6,7 +6,8 @@
 {
   imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
-    "${inputs.nixos-hardware}/common/cpu/intel/haswell"
+    "${inputs.nixos-hardware}/common/cpu/intel/haswell/cpu-only.nix"
+    "${inputs.nixos-hardware}/common/gpu/intel/disable.nix"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
   custom.profile.isDesktop = true;
@@ -24,11 +25,6 @@
       size = 4 * 1024;
     }
   ];
-
-  # force intel iGPU via the apple gmux GPU multiplexer
-  boot.extraModprobeConfig = ''
-    options apple-gmux force_igd=y
-  '';
 
   # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
   # https://askubuntu.com/a/1242574

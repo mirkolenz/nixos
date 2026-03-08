@@ -9,14 +9,14 @@ let
   modprobe = lib.getExe' pkgs.kmod "modprobe";
   rmmod = lib.getExe' pkgs.kmod "rmmod";
   systemctl = lib.getExe' pkgs.systemd "systemctl";
-  chvt = lib.getExe' pkgs.util-linux "chvt";
   settle = "${lib.getExe' pkgs.systemd "udevadm"} settle --timeout=10";
 in
 {
   imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/apple/t2"
-    "${inputs.nixos-hardware}/common/cpu/intel/coffee-lake"
+    "${inputs.nixos-hardware}/common/cpu/intel/coffee-lake/cpu-only.nix"
+    "${inputs.nixos-hardware}/common/gpu/intel/disable.nix"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
   custom.profile.isDesktop = true;
@@ -27,13 +27,6 @@ in
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
   };
-
-  # The imported nixos-hardware Coffee Lake module defaults to i915.enable_guc=2.
-  # Value 2 enables HuC loading only, while value 3 enables GuC submission plus HuC loading.
-  # The T2 Linux hybrid graphics guide recommends 3 on MacBookPro16,1 to avoid black-screen wakeups.
-  # Use mkAfter so this host-specific value is appended after the upstream default.
-  # https://wiki.t2linux.org/guides/hybrid-graphics/
-  boot.kernelParams = lib.mkAfter [ "i915.enable_guc=3" ];
 
   # The official T2 suspend workaround force-unloads apple-bce with rmmod -f during suspend.
   # Enable MODULE_FORCE_UNLOAD explicitly so that workaround is supported by this kernel build.
@@ -58,10 +51,17 @@ in
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
   hardware.apple-t2 = {
-    enableIGPU = true;
+    enableIGPU = false;
     kernelChannel = "stable";
     firmware.enable = true;
   };
+
+  # The AMD dGPU runs as the sole display device since the Intel iGPU is disabled.
+  # Constrain it to low power mode to prevent overheating and unexpected shutdowns.
+  # https://wiki.t2linux.org/guides/hybrid-graphics/
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
+  '';
 
   # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
   hardware.apple.touchBar = {
@@ -111,12 +111,6 @@ in
         ${modprobe} appletbdrm || true
         ${settle}
         ${systemctl} start tiny-dfr.service || true
-        # Force the Wayland compositor to drop and re-acquire DRM master by cycling VTs.
-        # Without this, cosmic-comp shows a grey screen with cursor but no lock screen UI
-        # because its rendering surfaces go stale after GPU state recovery from deep suspend.
-        ${settle}
-        ${chvt} 2
-        ${chvt} 1
       '';
     };
   };
