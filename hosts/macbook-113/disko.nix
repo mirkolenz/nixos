@@ -1,7 +1,7 @@
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = "TODO";
+    device = "/dev/disk/by-id/ata-APPLE_SSD_SM0512F_S1K5NYAF768745";
     content = {
       type = "gpt";
       partitions = {

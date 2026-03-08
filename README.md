@@ -10,7 +10,7 @@ nix run github:mirkolenz/nixos -- --wrapper-help
 
 ## NixOS Computers
 
-### Initial Setup
+### Manual Terminal Setup
 
 - <https://www.adaltas.com/en/2022/02/08/nixos-installation/>
 - <https://wiki.nixos.org/wiki/NixOS_Installation_Guide>
@@ -19,7 +19,7 @@ nix run github:mirkolenz/nixos -- --wrapper-help
 #### Partitioning
 
 ```shell
-parted -l # find device name, most likely /dev/sda
+parted -l # find device name
 wipefs -a /dev/sda
 parted /dev/sda
 mklabel gpt
@@ -73,6 +73,7 @@ A warning about `/boot` being world-readable is not an issue, [the permissions a
 - <https://github.com/nix-community/disko/blob/master/docs/reference.md>
 
 ```shell
+ls -l /dev/disk/by-id # find device name and update this flake accordingly
 nix run github:mirkolenz/nixos#disko -- MACHINE_NAME --mode destroy,format,mount
 nixos-generate-config --no-filesystems --root /mnt
 # verify config as above
