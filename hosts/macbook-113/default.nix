@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   lib',
   ...
@@ -8,7 +7,7 @@
   imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/common/cpu/intel/haswell"
-    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/disable.nix"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
   custom.profile.isDesktop = true;
@@ -27,19 +26,10 @@
     }
   ];
 
-  # Force display through Intel iGPU via gmux
-  # boot.extraModprobeConfig = ''
-  #   options apple-gmux force_igd=y
-  # '';
-
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-    prime = {
-      sync.enable = false;
-      nvidiaBusId = "PCI:1:0:0";
-      intelBusId = "PCI:0:2:0";
-    };
-  };
+  # force intel iGPU
+  boot.extraModprobeConfig = ''
+    options apple-gmux force_igd=y
+  '';
 
   # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
   # https://askubuntu.com/a/1242574
