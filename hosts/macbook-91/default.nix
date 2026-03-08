@@ -9,7 +9,6 @@
   imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"
-    "${inputs.nixos-hardware}/common/gpu/nvidia/disable.nix"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
 
