@@ -51,8 +51,8 @@ lib.mkIf config.custom.profile.isDesktop {
   };
 
   services.logind.settings.Login = {
-    HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitch = "sleep";
+    HandleLidSwitchExternalPower = "sleep";
     HandleLidSwitchDocked = "ignore";
   };
 
