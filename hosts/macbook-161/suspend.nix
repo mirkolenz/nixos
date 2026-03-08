@@ -195,6 +195,26 @@ in
       };
     };
 
+    # Fixes keyboard backlight after boot by polling for the sysfs path and
+    # resetting apple-bce if it does not appear within 10 s.
+    t2-kbd-backlight = {
+      description = "T2 boot: fix keyboard backlight";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = pkgs.writeShellScript "t2-kbd-backlight" ''
+          ${settle}
+          ${brightnessctl} -rd :white:kbd_backlight && exit 0
+          ${rmmod} -f apple-bce || true
+          ${modprobe} apple-bce || true
+          ${settle}
+          ${brightnessctl} -rd :white:kbd_backlight || true
+        '';
+      };
+    };
+
     # Thermald: stop to prevent interference during suspend.
     suspend-t2-thermald = lib.mkIf hasThermald (mkSuspendService {
       description = "T2 suspend: stop/start thermald";
