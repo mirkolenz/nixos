@@ -18,8 +18,8 @@
     efi.efiSysMountPoint = "/boot";
   };
 
-  # force dual-channel LVDS to prevent the internal display from being detected twice
-  boot.kernelParams = [ "i915.lvds_channel_mode=2" ];
+  # prevent nouveau from registering phantom display outputs from the dGPU
+  boot.blacklistedKernelModules = [ "nouveau" ];
 
   swapDevices = [
     {
@@ -28,7 +28,7 @@
     }
   ];
 
-  # force intel iGPU
+  # force intel iGPU via the apple gmux GPU multiplexer
   boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
   '';
