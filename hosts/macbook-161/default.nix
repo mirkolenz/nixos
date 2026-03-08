@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   lib,
@@ -10,6 +11,9 @@ let
   rmmod = lib.getExe' pkgs.kmod "rmmod";
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   settle = "${lib.getExe' pkgs.systemd "udevadm"} settle --timeout=10";
+  hasIwd = config.networking.networkmanager.wifi.backend == "iwd";
+  hasNm = config.networking.networkmanager.enable;
+  hasTouchBar = config.hardware.apple.touchBar.enable;
 in
 {
   imports = lib'.flocken.getModules ./. ++ [
@@ -83,6 +87,10 @@ in
   # This service is a NixOS-specific merge of the official T2 Linux suspend workaround examples.
   # It combines the Fedora and Arch systemd flow for apple-bce and optional Wi-Fi reloads.
   # It also incorporates the Gentoo Touch Bar and tiny-dfr resume sequence where applicable.
+  # iwd does not re-detect the wireless interface after brcmfmac is reloaded:
+  # https://github.com/NixOS/nixpkgs/issues/186274
+  # udevadm settle only waits for kernel/udev events, not for the DRM framebuffer
+  # device to be fully initialized by appletbdrm, so tiny-dfr needs an extra delay.
   # https://wiki.t2linux.org/guides/postinstall/#suspend-workaround
   systemd.services.suspend-t2 = {
     enable = true;
@@ -94,10 +102,12 @@ in
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStart = pkgs.writeShellScript "suspend-t2-pre" ''
-        ${systemctl} stop tiny-dfr.service || true
-        ${modprobe} -r appletbdrm || true
-        ${modprobe} -r hid_appletb_kbd || true
-        ${modprobe} -r hid_appletb_bl || true
+        ${lib.optionalString hasTouchBar ''
+          ${systemctl} stop tiny-dfr.service || true
+          ${modprobe} -r appletbdrm || true
+          ${modprobe} -r hid_appletb_kbd || true
+          ${modprobe} -r hid_appletb_bl || true
+        ''}
         ${modprobe} -r brcmfmac_wcc || true
         ${modprobe} -r brcmfmac || true
         ${rmmod} -f apple-bce || true
@@ -109,13 +119,22 @@ in
         ${settle}
         ${modprobe} brcmfmac_wcc || true
         ${settle}
-        ${modprobe} hid_appletb_bl || true
-        ${settle}
-        ${modprobe} hid_appletb_kbd || true
-        ${settle}
-        ${modprobe} appletbdrm || true
-        ${settle}
-        ${systemctl} start tiny-dfr.service || true
+        ${lib.optionalString hasIwd ''
+          ${systemctl} restart iwd.service || true
+        ''}
+        ${lib.optionalString hasNm ''
+          ${systemctl} restart NetworkManager.service || true
+        ''}
+        ${lib.optionalString hasTouchBar ''
+          ${modprobe} hid_appletb_bl || true
+          ${settle}
+          ${modprobe} hid_appletb_kbd || true
+          ${settle}
+          ${modprobe} appletbdrm || true
+          ${settle}
+          sleep 2
+          ${systemctl} start tiny-dfr.service || true
+        ''}
       '';
     };
   };
