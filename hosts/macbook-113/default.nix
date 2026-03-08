@@ -20,6 +20,14 @@
     efi.efiSysMountPoint = "/boot";
   };
 
+  # COSMIC runs this host on the Intel modesetting stack, so explicitly blacklist
+  # the legacy NVIDIA path instead of relying on the inactive hardware.nvidia module.
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nova_core"
+    "nvidiafb"
+  ];
+
   swapDevices = [
     {
       device = "/swapfile";
