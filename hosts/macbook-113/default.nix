@@ -5,9 +5,10 @@
 }:
 {
   imports = lib'.flocken.getModules ./. ++ [
-    "${inputs.nixos-hardware}/apple/macbook-pro"
+    "${inputs.nixos-hardware}/apple"
     "${inputs.nixos-hardware}/common/cpu/intel/haswell/cpu-only.nix"
     "${inputs.nixos-hardware}/common/gpu/intel/disable.nix"
+    "${inputs.nixos-hardware}/common/pc/laptop"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
   custom.profile.isDesktop = true;
