@@ -49,4 +49,17 @@ lib.mkIf config.custom.profile.isDesktop {
     enable = true;
     wifi.backend = "iwd";
   };
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitchDocked = "ignore";
+  };
+
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = "yes";
+    AllowHibernation = "no";
+    AllowSuspendThenHibernate = "no";
+    AllowHybridSleep = "no";
+  };
 }

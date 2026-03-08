@@ -47,17 +47,7 @@
     };
   };
 
-  services.logind.settings.Login = {
-    HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "suspend";
-    HandleLidSwitchDocked = "ignore";
-  };
-
   systemd.sleep.settings.Sleep = {
-    AllowSuspend = "yes";
-    AllowHibernation = "no";
-    AllowSuspendThenHibernate = "no";
-    AllowHybridSleep = "no";
     SuspendState = "mem";
     MemorySleepMode = "deep";
   };
