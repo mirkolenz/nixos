@@ -26,9 +26,7 @@
     }
   ];
 
-  # prefer S3 deep sleep if available, fall back to s2idle
   systemd.sleep.settings.Sleep = {
-    SuspendState = "mem";
-    MemorySleepMode = "deep";
+    SuspendState = "freeze";
   };
 }
