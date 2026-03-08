@@ -10,6 +10,10 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    zellij
+  ];
+
   programs = {
     git.enable = true;
     fish.enable = true;
