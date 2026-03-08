@@ -26,12 +26,11 @@
   ];
 
   # force intel iGPU via the apple gmux GPU multiplexer
+  # disable nouveau modesetting to prevent phantom DRM outputs
+  # that cause cosmic-comp to block lid switch sleep
   boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
+    options nouveau modeset=0
   '';
 
-  systemd.sleep.settings.Sleep = {
-    SuspendState = "mem";
-    MemorySleepMode = "deep";
-  };
 }
