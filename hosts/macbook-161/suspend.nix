@@ -27,9 +27,10 @@ let
   settle = "${udevadm} settle --timeout=15";
   jq = lib.getExe pkgs.jq;
   brightnessctl = lib.getExe pkgs.brightnessctl;
-  nmcli = lib.getExe' pkgs.networkmanager "nmcli";
+  iw = lib.getExe pkgs.iw;
+  rfkill = lib.getExe' pkgs.util-linux "rfkill";
   notifySend = lib.getExe' pkgs.libnotify "notify-send";
-  sessionUser = "${loginctl} list-sessions --json=short | ${jq} -r '.[0].user // empty'";
+  sessionUser = "${loginctl} list-sessions --json=short | ${jq} -r '[.[] | select(.seat == \"seat0\")] | .[0].user // empty'";
   withSessionUser = body: ''
     username=$(${sessionUser})
     if [ -n "$username" ]; then
@@ -87,10 +88,12 @@ in
   systemd.services = {
     # Core: force-unloads apple-bce last on suspend, reloads first on resume.
     # All other suspend-t2-* services are ordered before this one.
+    # pm_async=0 disables asynchronous device power management during suspend/resume
+    # to prevent race conditions between driver teardown and hardware state changes.
     suspend-t2-apple-bce = mkSuspendService {
       description = "T2 suspend: unload/reload apple-bce";
       after = [
-        "suspend-t2-wifi.service"
+        "suspend-t2-radio.service"
       ]
       ++ lib.optional hasPipewire "suspend-t2-audio.service"
       ++ lib.optional hasTouchBar "suspend-t2-touchbar.service"
@@ -99,35 +102,41 @@ in
       serviceConfig = {
         ExecStart = mkExecScript "suspend-t2-apple-bce" ''
           ${rmmod} -f apple-bce
+          echo 0 > /sys/power/pm_async
         '';
         ExecStop = mkExecScript "resume-t2-apple-bce" ''
+          echo 1 > /sys/power/pm_async
           ${modprobe} apple-bce
           ${settle}
-          if ! ls /sys/bus/pci/drivers/apple-bce/*:* >/dev/null 2>&1; then
+          if ! find /sys/bus/pci/drivers/apple-bce -maxdepth 1 -type l -name '*:*' -print -quit 2>/dev/null | grep -q .; then
             ${notify "apple-bce did not initialize within 15 s"}
           fi
         '';
       };
     };
 
-    # Wi-Fi driver unload/reload with retry if the interface does not appear.
+    # Wi-Fi/Bluetooth: block radios via rfkill, unload/reload Wi-Fi drivers.
     # iwd does not re-detect the interface after brcmfmac reload:
     # https://github.com/NixOS/nixpkgs/issues/186274
-    suspend-t2-wifi = mkSuspendService {
-      description = "T2 suspend: unload/reload Wi-Fi drivers";
+    suspend-t2-radio = mkSuspendService {
+      description = "T2 suspend: block/unblock radios and reload Wi-Fi drivers";
       serviceConfig = {
-        ExecStart = mkExecScript "suspend-t2-wifi" ''
-          ${lib.optionalString hasNm "${nmcli} radio wifi off"}
+        ExecStart = mkExecScript "suspend-t2-radio" ''
+          ${lib.optionalString hasNm "${systemctl} stop NetworkManager.service"}
+          ${rfkill} block wifi
+          ${rfkill} block bluetooth
           ${modprobe} -r brcmfmac_wcc
           ${modprobe} -r brcmfmac
         '';
-        ExecStop = mkExecScript "resume-t2-wifi" ''
+        ExecStop = mkExecScript "resume-t2-radio" ''
+          ${rfkill} unblock wifi
+          ${rfkill} unblock bluetooth
           ${modprobe} brcmfmac
           ${settle}
           ${modprobe} brcmfmac_wcc
           ${settle}
 
-          if ! ls /sys/class/net/wl* >/dev/null 2>&1; then
+          if ! ${iw} dev | grep -q "Interface"; then
             ${modprobe} -r brcmfmac_wcc
             ${modprobe} -r brcmfmac
             ${modprobe} brcmfmac
@@ -136,10 +145,9 @@ in
             ${settle}
           fi
 
-          if ls /sys/class/net/wl* >/dev/null 2>&1; then
+          if ${iw} dev | grep -q "Interface"; then
             ${lib.optionalString hasIwd "${systemctl} restart iwd.service"}
-            ${lib.optionalString hasNm "${systemctl} restart NetworkManager.service"}
-            ${lib.optionalString hasNm "${nmcli} radio wifi on"}
+            ${lib.optionalString hasNm "${systemctl} start NetworkManager.service"}
           else
             ${notify "Wi-Fi interface did not appear after resume"}
           fi
