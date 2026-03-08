@@ -92,17 +92,17 @@ in
         ${modprobe} -r appletbdrm || true
         ${modprobe} -r hid_appletb_kbd || true
         ${modprobe} -r hid_appletb_bl || true
-        # ${modprobe} -r brcmfmac_wcc || true
-        # ${modprobe} -r brcmfmac || true
+        ${modprobe} -r brcmfmac_wcc || true
+        ${modprobe} -r brcmfmac || true
         ${rmmod} -f apple-bce || true
       '';
       ExecStop = pkgs.writeShellScript "suspend-t2-post" ''
         ${modprobe} apple-bce || true
         ${settle}
-        # ${modprobe} brcmfmac || true
-        # ${settle}
-        # ${modprobe} brcmfmac_wcc || true
-        # ${settle}
+        ${modprobe} brcmfmac || true
+        ${settle}
+        ${modprobe} brcmfmac_wcc || true
+        ${settle}
         ${modprobe} hid_appletb_bl || true
         ${settle}
         ${modprobe} hid_appletb_kbd || true
