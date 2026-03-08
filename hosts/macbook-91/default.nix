@@ -18,8 +18,9 @@
     efi.efiSysMountPoint = "/boot";
   };
 
-  # prevent nouveau from registering phantom display outputs from the dGPU
-  boot.blacklistedKernelModules = [ "nouveau" ];
+  # video devices: card0-Unknown-1 (simpledrm/dGPU), card1-LVDS-1 (i915), card1-VGA-1 (i915)
+  # disable phantom display created by simpledrm from the EFI framebuffer on the dGPU
+  boot.kernelParams = [ "video=Unknown-1:d" ];
 
   swapDevices = [
     {
