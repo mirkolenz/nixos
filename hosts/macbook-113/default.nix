@@ -8,7 +8,7 @@
   imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/common/cpu/intel/haswell"
-    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
   custom.profile.isDesktop = true;
@@ -20,14 +20,6 @@
     efi.efiSysMountPoint = "/boot";
   };
 
-  # COSMIC runs this host on the Intel modesetting stack, so explicitly blacklist
-  # the legacy NVIDIA path instead of relying on the inactive hardware.nvidia module.
-  boot.blacklistedKernelModules = [
-    "nouveau"
-    "nova_core"
-    "nvidiafb"
-  ];
-
   swapDevices = [
     {
       device = "/swapfile";
@@ -36,9 +28,9 @@
   ];
 
   # Force display through Intel iGPU via gmux
-  boot.extraModprobeConfig = ''
-    options apple-gmux force_igd=y
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options apple-gmux force_igd=y
+  # '';
 
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;

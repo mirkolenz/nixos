@@ -10,7 +10,7 @@
   imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"
-    # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
 
@@ -23,14 +23,6 @@
   # Force dual-channel LVDS to prevent the internal display from being detected twice
   boot.kernelParams = [ "i915.lvds_channel_mode=2" ];
 
-  # COSMIC runs this host on the Intel modesetting stack, so explicitly blacklist
-  # the legacy NVIDIA path instead of relying on the inactive hardware.nvidia module.
-  boot.blacklistedKernelModules = [
-    "nouveau"
-    "nova_core"
-    "nvidiafb"
-  ];
-
   swapDevices = [
     {
       device = "/swapfile";
@@ -39,9 +31,9 @@
   ];
 
   # Force display through Intel iGPU via gmux
-  boot.extraModprobeConfig = ''
-    options apple-gmux force_igd=y
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options apple-gmux force_igd=y
+  # '';
 
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
