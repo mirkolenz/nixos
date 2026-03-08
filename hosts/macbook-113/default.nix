@@ -26,15 +26,7 @@
     }
   ];
 
-  # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
-  # https://askubuntu.com/a/1242574
-  # https://www.reddit.com/r/mac/comments/9pyort/apple_macbook_pro_sudden_crash_fix_for_models/
-  # https://www.thomas-krenn.com/en/wiki/Processor_P-states_and_C-states
-  boot.kernelParams = [
-    "intel_idle.max_cstate=3" # allow intel_idle states C0-C3 (sleep)
-    # "processor.max_cstate=3" # allow acpi_idle states C0-C3 (sleep)
-  ];
-
+  # prefer S3 deep sleep if available, fall back to s2idle
   systemd.sleep.settings.Sleep = {
     SuspendState = "mem";
     MemorySleepMode = "deep";
