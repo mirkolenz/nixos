@@ -47,25 +47,11 @@ mount /dev/disk/by-label/root /mnt
 swapon /dev/disk/by-label/swap
 mkdir -p /mnt/boot
 mount /dev/disk/by-label/boot /mnt/boot
-```
-
-#### Installation
-
-If you get an error like `too many open files` during `nixos-install`, try one of the following options:
-
-- Execute `ulimit -n 65535` before installing to increase the number of open files for the current shell session
-- Use `--max-jobs 2` to limit the number of parallel jobs (could also try with 1 max job)
-
-```shell
+# generate hardware config with filesystems
 nixos-generate-config --root /mnt
-cd /mnt/etc/nixos/
-# Now verify that the hardware configuration of this flake is in sync with the generated `hardware-configuration.nix`
-# The machine name is required for the nixos-install command, even if hostname is updated
-# Set up user passwords before installing (see Password Hashing section)
-nix run github:mirkolenz/nixos#nixos-install -- MACHINE_NAME
 ```
 
-A warning about `/boot` being world-readable is not an issue, [the permissions are correctly set after a reboot](https://discourse.nixos.org/t/nixos-install-with-custom-flake-results-in-boot-being-world-accessible/34555).
+The rest is identical to the disko-based setup after `nixos-generate-config`.
 
 ### Disko Terminal Setup
 
@@ -73,21 +59,29 @@ A warning about `/boot` being world-readable is not an issue, [the permissions a
 - <https://github.com/nix-community/disko/blob/master/docs/reference.md>
 
 ```shell
-ls -l /dev/disk/by-id # find device name and update this flake accordingly
+# find device name and update this flake accordingly
+ls -l /dev/disk/by-id
+# format the disk
 nix run github:mirkolenz/nixos#disko -- MACHINE_NAME --mode destroy,format,mount
+# generate hardware config and verify /mnt/etc/nixos/hardware-configuration.nix is in sync with the flake
 nixos-generate-config --no-filesystems --root /mnt
-# verify config as above
-# Set up user passwords before installing (see Password Hashing section)
+# set up user passwords
+bash -c 'umask 022 && mkdir -p /mnt/etc/nixos/secrets'
+bash -c 'umask 077 && mkpasswd -m yescrypt > /mnt/etc/nixos/secrets/USER.passwd'
+# install the system
 nix run github:mirkolenz/nixos#nixos-install -- MACHINE_NAME
 ```
 
 ### Troubleshooting
 
-If getting an error like `Getting status of /nix/store/...: No such file or directory`, try the following
-
-```shell
-nix-store --verify --check-contents --repair
-```
+-  A warning about `/boot` being world-readable is not an issue, [the permissions are correctly set after a reboot](https://discourse.nixos.org/t/nixos-install-with-custom-flake-results-in-boot-being-world-accessible/34555).
+- If you get an error like `too many open files` during `nixos-install`, try one of the following options:
+  - Execute `ulimit -n 65535` before installing to increase the number of open files for the current shell session
+  - Use `--max-jobs 2` to limit the number of parallel jobs (could also try with 1 max job)
+- If you get an error like `Getting status of /nix/store/...: No such file or directory`, try the following:
+  ```shell
+  nix-store --verify --check-contents --repair
+  ```
 
 ### Tailscale
 
@@ -284,8 +278,8 @@ sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
 ### Password Hashing
 
 ```shell
-$(umask 022 && mkdir -p /etc/nixos/secrets)
-$(umask 077 && mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd)
+bash -c 'umask 022 && mkdir -p /mnt/etc/nixos/secrets'
+bash -c 'umask 077 && mkpasswd -m yescrypt > /mnt/etc/nixos/secrets/USER.passwd'
 ```
 
 ### Zellij Web Tokens
