@@ -9,6 +9,7 @@ let
   modprobe = lib.getExe' pkgs.kmod "modprobe";
   rmmod = lib.getExe' pkgs.kmod "rmmod";
   systemctl = lib.getExe' pkgs.systemd "systemctl";
+  chvt = lib.getExe' pkgs.util-linux "chvt";
   settle = "${lib.getExe' pkgs.systemd "udevadm"} settle --timeout=10";
 in
 {
@@ -62,14 +63,6 @@ in
     firmware.enable = true;
   };
 
-  # The AMD dGPU (Radeon Pro) stays loaded when enableIGPU forces the Intel iGPU as primary.
-  # Its amdgpu driver creates phantom DRM outputs that cause cosmic-comp to misroute the lock
-  # screen, resulting in a grey screen with cursor but no password UI after waking from suspend.
-  # Disable amdgpu modesetting to prevent these phantom outputs (same fix as nouveau on macbook-91).
-  boot.extraModprobeConfig = ''
-    options amdgpu modeset=0
-  '';
-
   # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
   hardware.apple.touchBar = {
     enable = true;
@@ -118,6 +111,12 @@ in
         ${modprobe} appletbdrm || true
         ${settle}
         ${systemctl} start tiny-dfr.service || true
+        # Force the Wayland compositor to drop and re-acquire DRM master by cycling VTs.
+        # Without this, cosmic-comp shows a grey screen with cursor but no lock screen UI
+        # because its rendering surfaces go stale after GPU state recovery from deep suspend.
+        ${settle}
+        ${chvt} 2
+        ${chvt} 1
       '';
     };
   };
