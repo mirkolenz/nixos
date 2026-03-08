@@ -23,24 +23,36 @@ let
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   systemdRun = lib.getExe' pkgs.systemd "systemd-run";
   loginctl = lib.getExe' pkgs.systemd "loginctl";
-  settle = "${lib.getExe' pkgs.systemd "udevadm"} settle --timeout=15";
+  udevadm = lib.getExe' pkgs.systemd "udevadm";
+  settle = "${udevadm} settle --timeout=15";
   jq = lib.getExe pkgs.jq;
   brightnessctl = lib.getExe pkgs.brightnessctl;
   nmcli = lib.getExe' pkgs.networkmanager "nmcli";
   notifySend = lib.getExe' pkgs.libnotify "notify-send";
   sessionUser = "${loginctl} list-sessions --json=short | ${jq} -r '.[0].user // empty'";
-  notify = message: ''
+  withSessionUser = body: ''
     username=$(${sessionUser})
     if [ -n "$username" ]; then
-      ${systemdRun} --user --machine="$username"@.host --pipe --quiet -- \
-        ${notifySend} -a "T2 Suspend" "${message}" || true
+      ${body}
     fi
   '';
-  hasIwd = config.networking.networkmanager.wifi.backend == "iwd";
   hasNm = config.networking.networkmanager.enable;
+  hasIwd = hasNm && config.networking.networkmanager.wifi.backend == "iwd";
   hasTouchBar = config.hardware.apple.touchBar.enable;
   hasPipewire = config.services.pipewire.enable;
   hasThermald = config.services.thermald.enable;
+  notify =
+    message:
+    withSessionUser ''
+      ${systemdRun} --user --machine="$username"@.host --pipe --quiet -- \
+        ${notifySend} -a "T2 Suspend" "${message}"
+    '';
+  mkExecScript =
+    name: body:
+    pkgs.writeShellScript name ''
+      set +e
+      ${body}
+    '';
   mkSuspendService = lib.recursiveUpdate {
     before = [ "sleep.target" ];
     wantedBy = [ "sleep.target" ];
@@ -79,24 +91,22 @@ in
       description = "T2 suspend: unload/reload apple-bce";
       after = [
         "suspend-t2-wifi.service"
-        "suspend-t2-audio.service"
-        "suspend-t2-touchbar.service"
-        "suspend-t2-backlight.service"
-        "suspend-t2-thermald.service"
-      ];
+      ]
+      ++ lib.optional hasPipewire "suspend-t2-audio.service"
+      ++ lib.optional hasTouchBar "suspend-t2-touchbar.service"
+      ++ [ "suspend-t2-backlight.service" ]
+      ++ lib.optional hasThermald "suspend-t2-thermald.service";
       serviceConfig = {
-        ExecStart = [
-          "-${rmmod} -f apple-bce"
-        ];
-        ExecStop = [
-          "-${modprobe} apple-bce"
-          settle
-          (pkgs.writeShellScript "resume-t2-apple-bce-notify" ''
-            if ! ls /sys/bus/pci/drivers/apple-bce/*:* >/dev/null 2>&1; then
-              ${notify "apple-bce did not initialize within 15 s"}
-            fi
-          '')
-        ];
+        ExecStart = mkExecScript "suspend-t2-apple-bce" ''
+          ${rmmod} -f apple-bce
+        '';
+        ExecStop = mkExecScript "resume-t2-apple-bce" ''
+          ${modprobe} apple-bce
+          ${settle}
+          if ! ls /sys/bus/pci/drivers/apple-bce/*:* >/dev/null 2>&1; then
+            ${notify "apple-bce did not initialize within 15 s"}
+          fi
+        '';
       };
     };
 
@@ -106,36 +116,34 @@ in
     suspend-t2-wifi = mkSuspendService {
       description = "T2 suspend: unload/reload Wi-Fi drivers";
       serviceConfig = {
-        ExecStart =
-          lib.optionals hasNm [
-            "-${nmcli} radio wifi off"
-          ]
-          ++ [
-            "-${modprobe} -r brcmfmac_wcc"
-            "-${modprobe} -r brcmfmac"
-          ];
-        ExecStop = [
-          "-${modprobe} brcmfmac"
-          settle
-          "-${modprobe} brcmfmac_wcc"
-          settle
-        ]
-        ++ lib.optional hasIwd "-${systemctl} restart iwd.service"
-        ++ lib.optional hasNm "-${systemctl} restart NetworkManager.service"
-        ++ [
-          (pkgs.writeShellScript "resume-t2-wifi-retry" ''
+        ExecStart = mkExecScript "suspend-t2-wifi" ''
+          ${lib.optionalString hasNm "${nmcli} radio wifi off"}
+          ${modprobe} -r brcmfmac_wcc
+          ${modprobe} -r brcmfmac
+        '';
+        ExecStop = mkExecScript "resume-t2-wifi" ''
+          ${modprobe} brcmfmac
+          ${settle}
+          ${modprobe} brcmfmac_wcc
+          ${settle}
+
+          if ! ls /sys/class/net/wl* >/dev/null 2>&1; then
+            ${modprobe} -r brcmfmac_wcc
+            ${modprobe} -r brcmfmac
+            ${modprobe} brcmfmac
             ${settle}
-            if ! ls /sys/class/net/wl* >/dev/null 2>&1; then
-              ${modprobe} -r brcmfmac || true
-              ${modprobe} brcmfmac || true
-              ${modprobe} brcmfmac_wcc || true
-              ${settle}
-              if ! ls /sys/class/net/wl* >/dev/null 2>&1; then
-                ${notify "Wi-Fi interface did not appear after resume"}
-              fi
-            fi
-          '')
-        ];
+            ${modprobe} brcmfmac_wcc
+            ${settle}
+          fi
+
+          if ls /sys/class/net/wl* >/dev/null 2>&1; then
+            ${lib.optionalString hasIwd "${systemctl} restart iwd.service"}
+            ${lib.optionalString hasNm "${systemctl} restart NetworkManager.service"}
+            ${lib.optionalString hasNm "${nmcli} radio wifi on"}
+          else
+            ${notify "Wi-Fi interface did not appear after resume"}
+          fi
+        '';
       };
     };
 
@@ -143,21 +151,15 @@ in
     suspend-t2-audio = lib.mkIf hasPipewire (mkSuspendService {
       description = "T2 suspend: stop/start PipeWire audio session";
       serviceConfig = {
-        ExecStart = pkgs.writeShellScript "suspend-t2-audio" ''
-          username=$(${sessionUser})
-          if [ -n "$username" ]; then
-            ${systemctl} --user --machine="$username"@.host stop \
-              pipewire.socket pipewire-pulse.socket \
-              pipewire.service pipewire-pulse.service wireplumber.service || true
-          fi
-        '';
-        ExecStop = pkgs.writeShellScript "resume-t2-audio" ''
-          username=$(${sessionUser})
-          if [ -n "$username" ]; then
-            ${systemctl} --user --machine="$username"@.host start \
-              pipewire.socket pipewire-pulse.socket || true
-          fi
-        '';
+        ExecStart = mkExecScript "suspend-t2-audio" (withSessionUser ''
+          ${systemctl} --user --machine="$username"@.host stop \
+            pipewire.socket pipewire-pulse.socket \
+            pipewire.service pipewire-pulse.service wireplumber.service
+        '');
+        ExecStop = mkExecScript "resume-t2-audio" (withSessionUser ''
+          ${systemctl} --user --machine="$username"@.host start \
+            pipewire.socket pipewire-pulse.socket
+        '');
       };
     });
 
@@ -167,22 +169,22 @@ in
     suspend-t2-touchbar = lib.mkIf hasTouchBar (mkSuspendService {
       description = "T2 suspend: unload/reload Touch Bar drivers";
       serviceConfig = {
-        ExecStart = [
-          "-${systemctl} stop tiny-dfr.service"
-          "-${modprobe} -r appletbdrm"
-          "-${modprobe} -r hid_appletb_kbd"
-          "-${modprobe} -r hid_appletb_bl"
-        ];
-        ExecStop = [
-          "-${modprobe} hid_appletb_bl"
-          settle
-          "-${modprobe} hid_appletb_kbd"
-          settle
-          "-${modprobe} appletbdrm"
-          settle
-          "${pkgs.coreutils}/bin/sleep 2"
-          "-${systemctl} start tiny-dfr.service"
-        ];
+        ExecStart = mkExecScript "suspend-t2-touchbar" ''
+          ${systemctl} stop tiny-dfr.service
+          ${modprobe} -r appletbdrm
+          ${modprobe} -r hid_appletb_kbd
+          ${modprobe} -r hid_appletb_bl
+        '';
+        ExecStop = mkExecScript "resume-t2-touchbar" ''
+          ${modprobe} hid_appletb_bl
+          ${settle}
+          ${modprobe} hid_appletb_kbd
+          ${settle}
+          ${modprobe} appletbdrm
+          ${settle}
+          ${lib.getExe' pkgs.coreutils "sleep"} 2
+          ${systemctl} start tiny-dfr.service
+        '';
       };
     });
 
@@ -190,13 +192,17 @@ in
     suspend-t2-backlight = mkSuspendService {
       description = "T2 suspend: save/restore keyboard backlight";
       serviceConfig = {
-        ExecStart = "-${brightnessctl} -sd :white:kbd_backlight set 0 -q";
-        ExecStop = "-${brightnessctl} -rd :white:kbd_backlight";
+        ExecStart = mkExecScript "suspend-t2-backlight" ''
+          ${brightnessctl} -sd :white:kbd_backlight set 0 -q
+        '';
+        ExecStop = mkExecScript "resume-t2-backlight" ''
+          ${brightnessctl} -rd :white:kbd_backlight
+        '';
       };
     };
 
-    # Fixes keyboard backlight after boot by polling for the sysfs path and
-    # resetting apple-bce if it does not appear within 10 s.
+    # Fixes keyboard backlight after boot by waiting for udev to settle once and
+    # resetting apple-bce if the backlight device is still missing.
     t2-kbd-backlight = {
       description = "T2 boot: fix keyboard backlight";
       wantedBy = [ "multi-user.target" ];
@@ -204,13 +210,15 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = pkgs.writeShellScript "t2-kbd-backlight" ''
+        ExecStart = mkExecScript "t2-kbd-backlight" ''
           ${settle}
-          ${brightnessctl} -rd :white:kbd_backlight && exit 0
-          ${rmmod} -f apple-bce || true
-          ${modprobe} apple-bce || true
+          if ${brightnessctl} -rd :white:kbd_backlight; then
+            exit 0
+          fi
+          ${rmmod} -f apple-bce
+          ${modprobe} apple-bce
           ${settle}
-          ${brightnessctl} -rd :white:kbd_backlight || true
+          ${brightnessctl} -rd :white:kbd_backlight
         '';
       };
     };
@@ -219,8 +227,12 @@ in
     suspend-t2-thermald = lib.mkIf hasThermald (mkSuspendService {
       description = "T2 suspend: stop/start thermald";
       serviceConfig = {
-        ExecStart = "-${systemctl} stop thermald.service";
-        ExecStop = "-${systemctl} start thermald.service";
+        ExecStart = mkExecScript "suspend-t2-thermald" ''
+          ${systemctl} stop thermald.service
+        '';
+        ExecStop = mkExecScript "resume-t2-thermald" ''
+          ${systemctl} start thermald.service
+        '';
       };
     });
   };
