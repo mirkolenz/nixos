@@ -22,6 +22,8 @@
   # disable phantom display created by simpledrm from the EFI framebuffer on the dGPU
   boot.kernelParams = [ "video=Unknown-1:d" ];
 
+  boot.blacklistedKernelModules = [ "nouveau" ];
+
   swapDevices = [
     {
       device = "/swapfile";
