@@ -29,4 +29,9 @@
   boot.extraModprobeConfig = ''
     options apple-gmux force_igd=y
   '';
+
+  systemd.sleep.settings.Sleep = {
+    SuspendState = "mem";
+    MemorySleepMode = "deep";
+  };
 }
