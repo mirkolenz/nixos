@@ -8,8 +8,8 @@
 let
   modprobe = lib.getExe' pkgs.kmod "modprobe";
   rmmod = lib.getExe' pkgs.kmod "rmmod";
-  sleep = lib.getExe' pkgs.coreutils "sleep";
   systemctl = lib.getExe' pkgs.systemd "systemctl";
+  settle = "${lib.getExe' pkgs.systemd "udevadm"} settle --timeout=10";
 in
 {
   imports = lib'.flocken.getModules ./. ++ [
@@ -57,7 +57,7 @@ in
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
   hardware.apple-t2 = {
-    enableIGPU = true;
+    enableIGPU = false;
     kernelChannel = "stable";
     firmware.enable = true;
   };
@@ -97,19 +97,18 @@ in
         ${rmmod} -f apple-bce || true
       '';
       ExecStop = pkgs.writeShellScript "suspend-t2-post" ''
-        ${sleep} 4
         ${modprobe} apple-bce || true
-        # ${sleep} 4
+        ${settle}
         # ${modprobe} brcmfmac || true
-        # ${sleep} 2
+        # ${settle}
         # ${modprobe} brcmfmac_wcc || true
-        ${sleep} 4
+        # ${settle}
         ${modprobe} hid_appletb_bl || true
-        ${sleep} 2
+        ${settle}
         ${modprobe} hid_appletb_kbd || true
-        ${sleep} 2
+        ${settle}
         ${modprobe} appletbdrm || true
-        ${sleep} 2
+        ${settle}
         ${systemctl} start tiny-dfr.service || true
       '';
     };

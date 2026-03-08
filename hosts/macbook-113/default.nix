@@ -26,9 +26,9 @@
   ];
 
   # force intel iGPU via the apple gmux GPU multiplexer
-  boot.extraModprobeConfig = ''
-    options apple-gmux force_igd=y
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options apple-gmux force_igd=y
+  # '';
 
   # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
   # https://askubuntu.com/a/1242574
