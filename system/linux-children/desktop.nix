@@ -13,6 +13,10 @@ lib.mkIf config.custom.profile.isDesktop {
     cosmic-term
   ];
 
+  users.users.mirko.packages = with pkgs; [
+    cosmic-term
+  ];
+
   environment.systemPackages = with pkgs; [
     (makeDesktopItem {
       name = "scratch";
