@@ -1,6 +1,5 @@
 {
   inputs,
-  user,
   pkgs,
   lib,
   lib',
@@ -28,8 +27,6 @@
       size = 4 * 1024;
     }
   ];
-
-  services.displayManager.autoLogin.user = user.login;
 
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
