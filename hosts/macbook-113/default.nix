@@ -14,7 +14,12 @@
 
   # disable intel iGPU so nouveau is the sole GPU driver
   boot.blacklistedKernelModules = [ "i915" ];
-  boot.kernelParams = [ "i915.modeset=0" ];
+  boot.kernelParams = [
+    "i915.modeset=0"
+    # https://www.thomas-krenn.com/en/wiki/Processor_P-states_and_C-states
+    "intel_idle.max_cstate=3" # allow intel_idle states C0-C3 (sleep)
+    # "processor.max_cstate=3" # allow acpi_idle states C0-C3 (sleep)
+  ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {
