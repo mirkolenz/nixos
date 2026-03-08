@@ -5,7 +5,7 @@ lib.mkIf (config.custom.profile.isDesktop && config.services.displayManager.auto
   services.gnome.gnome-keyring.enable = true;
 
   # cosmic runs on greetd, and display-manager.service is an alias of greetd.service.
-  systemd.services.greetd.serviceConfig.KeyringMode = "inherit";
+  systemd.services.greetd.serviceConfig.KeyringMode = lib.mkForce "inherit";
 
   # https://wiki.nixos.org/wiki/Full_Disk_Encryption#autologin-using-luks-password
   security.pam.services.greetd = {
