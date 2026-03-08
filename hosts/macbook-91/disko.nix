@@ -1,5 +1,3 @@
-# https://github.com/nix-community/disko/blob/master/example/luks-btrfs-subvolumes.nix
-# https://github.com/nix-community/disko/blob/master/example/btrfs-subvolumes.nix
 {
   disko.devices.disk.main = {
     type = "disk";
