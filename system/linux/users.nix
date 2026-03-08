@@ -14,7 +14,6 @@
       group = user.login;
       extraGroups = [ "wheel" ];
       isNormalUser = true;
-      hashedPasswordFile = lib.mkDefault "/etc/nixos/secrets/${user.login}.passwd";
       openssh.authorizedKeys.keys = user.sshKeys;
       subUidRanges = [
         {

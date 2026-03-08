@@ -9,6 +9,4 @@
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
   };
-
-  users.users.root.hashedPasswordFile = null;
 }

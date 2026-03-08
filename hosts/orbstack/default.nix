@@ -11,9 +11,4 @@
   ];
 
   custom.nix.settings.trusted-users = [ user.login ];
-
-  users.users = {
-    root.hashedPasswordFile = null;
-    "${user.login}".hashedPasswordFile = null;
-  };
 }
