@@ -18,12 +18,6 @@
     efi.efiSysMountPoint = "/boot";
   };
 
-  # video devices: card0-Unknown-1 (simpledrm/dGPU), card1-LVDS-1 (i915), card1-VGA-1 (i915)
-  # disable phantom display created by simpledrm from the EFI framebuffer on the dGPU
-  boot.kernelParams = [ "video=Unknown-1:d" ];
-
-  boot.blacklistedKernelModules = [ "nouveau" ];
-
   swapDevices = [
     {
       device = "/swapfile";
@@ -32,7 +26,7 @@
   ];
 
   # force intel iGPU via the apple gmux GPU multiplexer
-  boot.extraModprobeConfig = ''
-    options apple-gmux force_igd=y
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options apple-gmux force_igd=y
+  # '';
 }
