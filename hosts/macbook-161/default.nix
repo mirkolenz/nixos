@@ -3,17 +3,15 @@
   user,
   pkgs,
   lib,
+  lib',
   ...
 }:
 {
-  imports = [
+  imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/apple/t2"
     "${inputs.nixos-hardware}/common/cpu/intel/coffee-lake"
     "${inputs.nixos-hardware}/common/pc/ssd"
-    ./disko.nix
-    ./hardware.nix
-    ./restic.nix
   ];
   custom.profile.isDesktop = true;
 

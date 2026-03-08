@@ -1,6 +1,6 @@
-{ inputs, user, ... }:
+{ inputs, user, lib', ... }:
 {
-  imports = [
+  imports = lib'.flocken.getModules ./. ++ [
     inputs.nixos-wsl.nixosModules.default
   ];
 

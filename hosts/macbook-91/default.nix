@@ -1,14 +1,17 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  lib',
+  ...
+}:
 {
   custom.profile.isDesktop = true;
 
-  imports = [
+  imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple/macbook-pro"
     "${inputs.nixos-hardware}/common/cpu/intel/sandy-bridge"
     # "${inputs.nixos-hardware}/common/gpu/nvidia/kepler"
     "${inputs.nixos-hardware}/common/pc/ssd"
-    ./hardware.nix
-    ./disko.nix
   ];
   # Force dual-channel LVDS to prevent the internal display from being detected twice
   boot.kernelParams = [ "i915.lvds_channel_mode=2" ];

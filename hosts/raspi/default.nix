@@ -2,12 +2,12 @@
 {
   inputs,
   pkgs,
+  lib',
   ...
 }:
 {
-  imports = [
+  imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/raspberry-pi/4"
-    ./hardware.nix
   ];
 
   custom.profile.isServer = true;

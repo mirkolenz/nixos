@@ -1,9 +1,6 @@
-{ ... }:
+{ lib', ... }:
 {
-  imports = [
-    ./disko.nix
-    ./hardware.nix
-  ];
+  imports = lib'.flocken.getModules ./.;
 
   custom.profile.isServer = true;
 
