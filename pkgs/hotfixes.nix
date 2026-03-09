@@ -13,5 +13,9 @@ final: prev:
     libvirt
     # https://hydra.nixos.org/job/nixpkgs/unstable/virt-viewer.aarch64-darwin
     virt-viewer
+    # https://hydra.nixos.org/job/nixpkgs/unstable/ast-grep.aarch64-darwin
+    ast-grep
+    # https://hydra.nixos.org/job/nixpkgs/unstable/caddy.aarch64-darwin
+    caddy
     ;
 })

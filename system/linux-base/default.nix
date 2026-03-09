@@ -33,6 +33,7 @@
   };
 
   # todo: fails on raspi (mkswap-swapfile-start)
+  # https://github.com/NixOS/nixpkgs/pull/470270
   systemd.enableStrictShellChecks = false;
 
   documentation = {
