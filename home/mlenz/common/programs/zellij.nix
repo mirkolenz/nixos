@@ -93,7 +93,7 @@ in
   };
   home.packages = [
     (pkgs.writeShellApplication {
-      name = "zellijd";
+      name = "zj";
       text = /* bash */ ''
         exec ${lib.getExe config.programs.zellij.package} attach --create "$(basename "$PWD")" "$@"
       '';
