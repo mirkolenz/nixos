@@ -111,12 +111,28 @@
           action = "picker.git_log_file()";
           options.desc = "Git Log File";
         }
-        # Grep
+        # GitHub
         {
-          key = "<leader>sb";
-          action = "picker.lines()";
-          options.desc = "Buffer Lines";
+          key = "<leader>gi";
+          action = "picker.gh_issue()";
+          options.desc = "GitHub Issues (open)";
         }
+        {
+          key = "<leader>gI";
+          action = ''picker.gh_issue({ state = "all" })'';
+          options.desc = "GitHub Issues (all)";
+        }
+        {
+          key = "<leader>gp";
+          action = "picker.gh_pr()";
+          options.desc = "GitHub Pull Requests (open)";
+        }
+        {
+          key = "<leader>gP";
+          action = ''picker.gh_pr({ state = "all" })'';
+          options.desc = "GitHub Pull Requests (all)";
+        }
+        # Grep
         {
           key = "<leader>sB";
           action = "picker.grep_buffers()";
@@ -133,7 +149,7 @@
           options.desc = "Visual selection or word";
           mode = [
             "n"
-            "v"
+            "x"
           ];
         }
         # search
@@ -268,6 +284,16 @@
           key = "gy";
           action = "picker.lsp_type_definitions()";
           options.desc = "Goto T[y]pe Definition";
+        }
+        {
+          key = "gai";
+          action = "picker.lsp_incoming_calls()";
+          options.desc = "C[a]lls Incoming";
+        }
+        {
+          key = "gao";
+          action = "picker.lsp_outgoing_calls()";
+          options.desc = "C[a]lls Outgoing";
         }
         {
           key = "<leader>ss";
