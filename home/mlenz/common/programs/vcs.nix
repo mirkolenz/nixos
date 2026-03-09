@@ -35,18 +35,12 @@
     enableGitIntegration = true;
     enableJujutsuIntegration = true;
     options = {
-      decorations = {
-        commit-decoration-style = "bold yellow box ul";
-        file-decoration-style = "none";
-        file-style = "bold yellow ul";
-        hunk-header-decoration-style = "cyan box ul";
-      };
-      features = "decorations";
+      dark = true;
+      features = "zebra-dark";
       hyperlinks = true;
-      line-numbers = true;
+      line-numbers = false;
       navigate = true;
       syntax-theme = "Monokai Extended";
-      whitespace-error-style = "22 reverse";
     };
   };
   programs.git = {
@@ -173,7 +167,7 @@
       };
       diff = {
         algorithm = "histogram";
-        colorMoved = "plain";
+        colorMoved = "default";
         mnemonicPrefix = true;
         renames = true;
         guitool = "vscode";
