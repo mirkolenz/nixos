@@ -47,6 +47,7 @@
     "zuban": true
     // keep-sorted end
   },
+  "auto_signature_help": true,
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_size": 13,
@@ -367,6 +368,13 @@
     "mode": "system",
     "light": "Flexoki Light",
     "dark": "Flexoki Dark"
+  },
+  "toolbar": {
+    "agent_review": false,
+    "breadcrumbs": false,
+    "code_actions": false,
+    "quick_actions": false,
+    "selections_menu": false
   },
   // "ui_font_family": "JetBrainsMono Nerd Font",
   "ui_font_size": 15,

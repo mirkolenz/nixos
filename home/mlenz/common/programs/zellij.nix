@@ -95,7 +95,7 @@ in
     (pkgs.writeShellApplication {
       name = "zellijd";
       text = /* bash */ ''
-        exec ${lib.getExe config.programs.zellij.package} attach --create "$(basename "$PWD")"
+        exec ${lib.getExe config.programs.zellij.package} attach --create "$(basename "$PWD")" "$@"
       '';
     })
   ];

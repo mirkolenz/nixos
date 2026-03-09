@@ -24,42 +24,6 @@
     }
   },
   {
-    "label": "🔍 gitui",
-    "command": "gitui",
-    "hide": "on_success",
-    "reveal": "always",
-    "reveal_target": "center",
-    "show_command": false,
-    "show_summary": false,
-    "shell": {
-      "program": "sh"
-    }
-  },
-  {
-    "label": "🔍 jjui",
-    "command": "jjui",
-    "hide": "on_success",
-    "reveal": "always",
-    "reveal_target": "center",
-    "show_command": false,
-    "show_summary": false,
-    "shell": {
-      "program": "sh"
-    }
-  },
-  {
-    "label": "🔍 lazyjj",
-    "command": "lazyjj",
-    "hide": "on_success",
-    "reveal": "always",
-    "reveal_target": "center",
-    "show_command": false,
-    "show_summary": false,
-    "shell": {
-      "program": "sh"
-    }
-  },
-  {
     "label": "keep-sorted",
     "command": "keep-sorted",
     "args": ["$ZED_FILE"],
