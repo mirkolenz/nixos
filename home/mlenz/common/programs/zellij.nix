@@ -8,28 +8,28 @@
 let
   layouts = {
     default = ''
-      tab focus=true {
+      tab {
         pane
       }
     '';
     codex = ''
-      tab name="codex" focus=true {
-         pane command="codex" close_on_exit=true
+      tab name="💻 codex" {
+        pane command="codex" close_on_exit=true
       }
     '';
     claude = ''
-      tab name="claude" focus=true {
-         pane command="claude" close_on_exit=true
+      tab name="💻 claude" {
+        pane command="claude" close_on_exit=true
       }
     '';
     lazygit = ''
-      tab name="lazygit" focus=true {
-         pane command="lazygit" close_on_exit=true
+      tab name="🔍 lazygit" {
+        pane command="lazygit" close_on_exit=true
       }
     '';
     nvim = ''
-      tab name="nvim" focus=true {
-         pane command="nvim" close_on_exit=true
+      tab name="⌨️ nvim" {
+        pane command="nvim" close_on_exit=true
       }
     '';
   };
@@ -37,11 +37,13 @@ in
 {
   programs.zellij = {
     enable = true;
+    # https://zellij.dev/documentation/options.html
     settings = {
       auto_layout = true;
       default_layout = "default";
       default_mode = "normal";
       on_force_close = "detach";
+      pane_frames = false;
       session_serialization = false;
       show_release_notes = false;
       show_startup_tips = false;
@@ -55,21 +57,9 @@ in
           bind "Alt Shift f" { ToggleFloatingPanes; }
         }
         normal {
-          bind "Alt t" {
-            NewTab
-          }
-          bind "Alt g" {
-            NewTab {
-              name "lazygit"
-              layout "lazygit"
-            }
-          }
-          bind "Alt v" {
-            NewTab {
-              name "nvim"
-              layout "nvim"
-            }
-          }
+          bind "Alt t" { NewTab; }
+          bind "Alt g" { NewTab { layout "lazygit"; }; }
+          bind "Alt v" { NewTab { layout "nvim"; }; }
         }
       }
     '';
@@ -115,7 +105,7 @@ in
       end
 
       function _zellij_set_tab_to_working_dir --on-event fish_prompt
-        _zellij_change_tab_title "dir: "$(_zellij_current_dir)
+        _zellij_change_tab_title "📁 "$(_zellij_current_dir)
       end
 
       function _zellij_set_tab_to_command_line --on-event fish_preexec
@@ -123,7 +113,7 @@ in
         if test "$words[1]" = sudo
           set words $words[2..]
         end
-        _zellij_change_tab_title "cmd: $words[1]"
+        _zellij_change_tab_title "🚀 $words[1]"
       end
     end
   ''
