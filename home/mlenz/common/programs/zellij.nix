@@ -47,7 +47,7 @@ in
       session_serialization = false;
       show_release_notes = false;
       show_startup_tips = false;
-      theme = "default";
+      theme = "flexoki-dark";
       web_server = false; # managed via launchd
     };
     extraConfig = ''
@@ -64,24 +64,29 @@ in
       }
     '';
   };
-  xdg.configFile = lib.mapAttrs' (name: value: {
-    name = "zellij/layouts/${name}.kdl";
-    # zellij setup --dump-layout default
-    value.text = ''
-      layout {
-        default_tab_template {
-          pane size=1 borderless=true {
-            plugin location="zellij:tab-bar"
+  xdg.configFile = lib.mkMerge [
+    (lib.mapAttrs' (name: value: {
+      name = "zellij/layouts/${name}.kdl";
+      # zellij setup --dump-layout default
+      value.text = ''
+        layout {
+          default_tab_template {
+            pane size=1 borderless=true {
+              plugin location="zellij:tab-bar"
+            }
+            children
+            pane size=1 borderless=true {
+              plugin location="zellij:status-bar"
+            }
           }
-          children
-          pane size=1 borderless=true {
-            plugin location="zellij:status-bar"
-          }
+          ${value}
         }
-        ${value}
-      }
-    '';
-  }) layouts;
+      '';
+    }) layouts)
+    {
+      "zellij/themes/flexoki.kdl".source = "${pkgs.flexoki}/share/zellij/flexoki.kdl";
+    }
+  ];
   home.sessionVariables = {
     ZELLIJ_AUTO_ATTACH = "true";
     ZELLIJ_AUTO_EXIT = "true";

@@ -10,13 +10,17 @@
     enable = true;
     generateCompletions = true;
     interactiveShellInit = /* fish */ ''
-      source ${pkgs.github-theme-contrib}/share/themes/fish/github_dark_default.fish
+      fish_config theme choose flexoki-dark
     '';
     functions.fish_greeting.body = /* fish */ ''
       if set -q SSH_CONNECTION
         ${lib.getExe config.programs.macchina.package}
       end
     '';
+  };
+  xdg.configFile = {
+    "fish/themes/flexoki-dark.theme".source = "${pkgs.flexoki}/share/fish/flexoki-dark.theme";
+    "fish/themes/flexoki-light.theme".source = "${pkgs.flexoki}/share/fish/flexoki-light.theme";
   };
   programs.zsh = {
     enable = true;

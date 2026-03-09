@@ -1,9 +1,10 @@
 { ... }:
 {
-  colorscheme = "github_dark_default";
+  colorscheme = "flexoki-dark";
   colorschemes = {
+    flexoki.enable = true;
     github-theme = {
-      enable = true;
+      enable = false;
       settings.options = {
         transparent = false;
         terminal_colors = true;

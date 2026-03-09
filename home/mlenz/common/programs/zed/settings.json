@@ -19,6 +19,7 @@
     "docker-compose": true,
     "dockerfile": true,
     "env": true,
+    "flexoki": true,
     "git-firefly": true,
     "github-actions": true,
     "github-theme": true,
@@ -364,8 +365,8 @@
   },
   "theme": {
     "mode": "system",
-    "light": "GitHub Light",
-    "dark": "GitHub Dark"
+    "light": "Flexoki Light",
+    "dark": "Flexoki Dark"
   },
   // "ui_font_family": "JetBrainsMono Nerd Font",
   "ui_font_size": 15,

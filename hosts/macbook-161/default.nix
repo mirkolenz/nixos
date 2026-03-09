@@ -42,7 +42,7 @@
   # The AMD dGPU runs as the sole display device since the Intel iGPU is disabled.
   # Constrain it to low power mode to prevent overheating and unexpected shutdowns.
   # https://wiki.t2linux.org/guides/hybrid-graphics/
-  services.udev.extraRules = ''
+  services.udev.extraRules = /* bash */ ''
     SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
   '';
 
