@@ -26,6 +26,6 @@
     };
   };
   plugins.treesitter-context = {
-    enable = true;
+    enable = false;
   };
 }
