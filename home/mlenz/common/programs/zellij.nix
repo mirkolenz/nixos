@@ -107,15 +107,11 @@ in
   programs.fish.interactiveShellInit = ''
     if set -q ZELLIJ
       function _zellij_current_dir
-        if test "$PWD" = "$HOME"
-          echo "~"
-        else
-          echo (basename $PWD)
-        end
+        string replace -- $HOME '~' $PWD | path basename
       end
 
       function _zellij_change_tab_title
-        command nohup zellij action rename-tab $argv[1] >/dev/null 2>&1
+        command zellij action rename-tab $argv[1] &>/dev/null
       end
 
       function _zellij_set_tab_to_working_dir --on-event fish_prompt
@@ -133,7 +129,7 @@ in
   ''
   + lib.optionalString config.custom.profile.isHeadless ''
     if set -q SSH_CONNECTION
-      eval (${lib.getExe config.programs.zellij.package} setup --generate-auto-start fish | string collect)
+      ${lib.getExe config.programs.zellij.package} setup --generate-auto-start fish | source
     end
   '';
   # Zellij web server
