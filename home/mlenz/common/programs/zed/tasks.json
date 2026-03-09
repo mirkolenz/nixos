@@ -1,6 +1,18 @@
 [
   {
-    "label": "lazygit",
+    "label": "🔥 terminal",
+    "command": "zellijd",
+    "hide": "on_success",
+    "reveal": "always",
+    "reveal_target": "center",
+    "show_command": false,
+    "show_summary": false,
+    "shell": {
+      "program": "sh"
+    }
+  },
+  {
+    "label": "🔍 lazygit",
     "command": "lazygit",
     "hide": "on_success",
     "reveal": "always",
@@ -12,7 +24,7 @@
     }
   },
   {
-    "label": "gitui",
+    "label": "🔍 gitui",
     "command": "gitui",
     "hide": "on_success",
     "reveal": "always",
@@ -24,7 +36,7 @@
     }
   },
   {
-    "label": "jjui",
+    "label": "🔍 jjui",
     "command": "jjui",
     "hide": "on_success",
     "reveal": "always",
@@ -36,7 +48,7 @@
     }
   },
   {
-    "label": "lazyjj",
+    "label": "🔍 lazyjj",
     "command": "lazyjj",
     "hide": "on_success",
     "reveal": "always",
@@ -66,18 +78,6 @@
     "hide": "never",
     "reveal": "always",
     "reveal_target": "dock",
-    "show_command": false,
-    "show_summary": false,
-    "shell": {
-      "program": "sh"
-    }
-  },
-  {
-    "label": "terminal",
-    "command": "zellijd",
-    "hide": "on_success",
-    "reveal": "always",
-    "reveal_target": "center",
     "show_command": false,
     "show_summary": false,
     "shell": {
