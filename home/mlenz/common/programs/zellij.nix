@@ -91,9 +91,17 @@ in
   };
   home.packages = [
     (pkgs.writeShellApplication {
-      name = "zj";
+      name = "zjc"; # zellij create
       text = /* bash */ ''
+        cd "$(realpath "''${1:-.}")"
+        shift || true
         exec ${lib.getExe config.programs.zellij.package} attach --create "$(basename "$PWD")" "$@"
+      '';
+    })
+    (pkgs.writeShellApplication {
+      name = "zja"; # zellij attach
+      text = /* bash */ ''
+        exec ${lib.getExe config.programs.zellij.package} attach "$@"
       '';
     })
   ];

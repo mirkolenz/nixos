@@ -1,7 +1,7 @@
 [
   {
     "label": "🔥 terminal",
-    "command": "zj",
+    "command": "zjc",
     "hide": "on_success",
     "reveal": "always",
     "reveal_target": "center",
