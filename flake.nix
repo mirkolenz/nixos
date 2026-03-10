@@ -91,6 +91,10 @@
       url = "github:jzbor/nix-sweep/v0.8.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zjstatus = {
+      url = "github:dj95/zjstatus/v0.22.0"; # autoupdate
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     plist-manager = {
       url = "github:sushydev/nix-plist-manager";
       inputs.nixpkgs.follows = "nixpkgs";

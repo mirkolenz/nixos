@@ -8,9 +8,7 @@
 let
   layouts = {
     default = ''
-      tab {
-        pane
-      }
+      tab { pane; }
     '';
     codex = ''
       tab name="💻 codex" {

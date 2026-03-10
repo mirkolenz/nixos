@@ -7,7 +7,12 @@ let
     "vimPlugins"
   ];
   overridesUpdate = [ ];
-  inputsExport = [ ];
+  inputsExport = [
+    "cosmic-manager"
+    "nix-converter"
+    "nix-sweep"
+    "zjstatus"
+  ];
 
   current = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
