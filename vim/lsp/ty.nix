@@ -3,6 +3,8 @@
   lsp.servers.ty = {
     enable = true;
     package = pkgs.ty-bin;
-    config.settings = { };
+    config.settings = {
+      diagnosticMode = "workspace";
+    };
   };
 }
