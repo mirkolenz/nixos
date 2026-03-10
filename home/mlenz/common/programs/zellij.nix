@@ -38,6 +38,7 @@ in
     # https://zellij.dev/documentation/options.html
     settings = {
       auto_layout = true;
+      copy_on_select = false;
       default_layout = "default";
       default_mode = "normal";
       on_force_close = "detach";
@@ -48,6 +49,7 @@ in
       theme = "flexoki-dark";
       web_server = false; # managed via launchd
     };
+    # https://zellij.dev/documentation/keybindings-keys.html
     extraConfig = ''
       keybinds {
         shared {
@@ -56,8 +58,11 @@ in
         }
         normal {
           bind "Alt t" { NewTab; }
+          bind "Alt w" { CloseTab; }
           bind "Alt g" { NewTab { layout "lazygit"; }; }
           bind "Alt v" { NewTab { layout "nvim"; }; }
+          bind "Alt Tab" { GoToNextTab; }
+          bind "Alt Shift Tab" { GoToPreviousTab; }
         }
       }
     '';
