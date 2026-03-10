@@ -9,10 +9,10 @@
     settings = {
       theme = "flexoki-dark";
     };
-    # https://docs.helix-editor.com/themes.html
-    themes = {
-      flexoki-dark = "${pkgs.flexoki}/share/helix/flexoki-dark.toml";
-      flexoki-light = "${pkgs.flexoki}/share/helix/flexoki-light.toml";
-    };
+  };
+  # https://docs.helix-editor.com/themes.html
+  xdg.configFile = {
+    "helix/themes/flexoki-dark.toml".source = "${pkgs.flexoki}/share/helix/flexoki-dark.toml";
+    "helix/themes/flexoki-light.toml".source = "${pkgs.flexoki}/share/helix/flexoki-light.toml";
   };
 }
