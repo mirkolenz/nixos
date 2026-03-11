@@ -90,10 +90,6 @@ in
       "zellij/themes/flexoki.kdl".source = "${pkgs.flexoki}/share/zellij/flexoki.kdl";
     }
   ];
-  home.sessionVariables = {
-    ZELLIJ_AUTO_ATTACH = "true";
-    ZELLIJ_AUTO_EXIT = "true";
-  };
   home.packages = [
     (pkgs.writeShellApplication {
       name = "zjc"; # zellij create
@@ -134,8 +130,11 @@ in
     end
   ''
   + lib.optionalString config.custom.profile.isHeadless ''
-    if set -q SSH_CONNECTION
-      ${lib.getExe config.programs.zellij.package} setup --generate-auto-start fish | source
+    # zellij setup --generate-auto-start fish
+    if not set -q ZELLIJ
+      if set -q SSH_CONNECTION
+        zellij attach --create "ssh"
+      end
     end
   '';
   # Zellij web server
