@@ -1,7 +1,6 @@
 final: prev:
 let
-  # todo: https://hydra.nixos.org/job/nixpkgs/trunk/virt-manager.aarch64-darwin
-  pkgs = final.stable;
+  pkgs = prev;
   inherit (prev) lib;
 in
 pkgs.virt-manager.overrideAttrs (oldAttrs: {
