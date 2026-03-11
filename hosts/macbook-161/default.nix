@@ -42,7 +42,7 @@
   };
 
   # The T2 chip exposes an internal USB ethernet interface with no Linux support.
-  # Let networkd claim it so NetworkManager ignores it.
+  # Keep it down in networkd and hide it from NetworkManager.
   # https://wiki.t2linux.org/guides/postinstall/
   systemd.network.networks."10-t2-ethernet" = {
     matchConfig.MACAddress = "ac:de:48:00:11:22";
@@ -51,6 +51,7 @@
       RequiredForOnline = false;
     };
   };
+  networking.networkmanager.unmanaged = [ "mac:ac:de:48:00:11:22" ];
 
   # The AMD dGPU runs as the sole display device since the Intel iGPU is disabled.
   # Constrain it to low power mode to prevent overheating and unexpected shutdowns.
