@@ -33,6 +33,8 @@
 
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
+  hardware.apple-t2-suspend.enable = true;
+
   hardware.apple-t2 = {
     enableIGPU = false;
     kernelChannel = "stable";
