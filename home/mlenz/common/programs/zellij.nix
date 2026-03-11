@@ -128,14 +128,6 @@ in
         _zellij_change_tab_title "🚀 $words[1]"
       end
     end
-  ''
-  + lib.optionalString config.custom.profile.isHeadless ''
-    # zellij setup --generate-auto-start fish
-    if not set -q ZELLIJ
-      if set -q SSH_CONNECTION
-        zellij attach --create "ssh"
-      end
-    end
   '';
   # Zellij web server
   launchd.agents.zellij-web = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
