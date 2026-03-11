@@ -1,14 +1,14 @@
 {
-  "tag_name": "rust-v0.113.0",
+  "tag_name": "rust-v0.114.0",
   "assets": {
     "codex-aarch64-apple-darwin.tar.gz": {
-      "digest": "sha256:9cffa8f8bb08e013ecc1e1b77f3a390a8830005704bd1a6f8e080253a8ec7460"
+      "digest": "sha256:c98eb550695f99eaec27df9971a1b76a83acb15eb55522383fa31b0497297c54"
     },
     "codex-aarch64-unknown-linux-gnu.tar.gz": {
-      "digest": "sha256:b482d5de403eff9e66bc9a8c709641f6cabbbaf5493af1df4c0c8472ea2c7ea3"
+      "digest": "sha256:c923ffd32c50b8d8f4c5f39e8623c8afab90ee984c65f3c73709b82cf63150bb"
     },
     "codex-x86_64-unknown-linux-gnu.tar.gz": {
-      "digest": "sha256:3a3507cbe74efb54f546d9fa7584c5b55274b919dcd25ac959379ffc0497b741"
+      "digest": "sha256:f18294d4da6756e9e5ad4dc62b3030b7a75a94e5e5022f3bfa4a21a7d3c52ae0"
     }
   }
 }
