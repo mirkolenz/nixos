@@ -11,7 +11,9 @@
       # https://writewithharper.com/docs/rules
       linters = {
         LongSentences = false;
+        MoreAdjective = false;
         NoFrenchSpaces = false;
+        SentenceCapitalization = false;
         Spaces = false;
       };
     };
