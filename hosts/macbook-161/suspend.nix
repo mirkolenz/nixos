@@ -12,15 +12,13 @@ let
   modprobe = lib.getExe' pkgs.kmod "modprobe";
   rmmod = lib.getExe' pkgs.kmod "rmmod";
   systemctl = lib.getExe' pkgs.systemd "systemctl";
-  systemdRun = lib.getExe' pkgs.systemd "systemd-run";
   loginctl = lib.getExe' pkgs.systemd "loginctl";
   udevadm = lib.getExe' pkgs.systemd "udevadm";
   settle = "${udevadm} settle --timeout=15";
+  wait = "${udevadm} wait --timeout=15";
   jq = lib.getExe pkgs.jq;
   brightnessctl = lib.getExe pkgs.brightnessctl;
-  iw = lib.getExe pkgs.iw;
   rfkill = lib.getExe' pkgs.util-linux "rfkill";
-  notifySend = lib.getExe' pkgs.libnotify "notify-send";
 
   hasNm = config.networking.networkmanager.enable;
   hasIwd = hasNm && config.networking.networkmanager.wifi.backend == "iwd";
@@ -33,18 +31,6 @@ let
       ${body}
     done
   '';
-  withSessionUser = body: ''
-    username=$(${loginctl} list-sessions --json=short | ${jq} -r '[.[] | select(.seat == "seat0")] | .[0].user // empty')
-    if [ -n "$username" ]; then
-      ${body}
-    fi
-  '';
-  notify =
-    message:
-    withSessionUser ''
-      ${systemdRun} --user --machine="$username"@.host --pipe --quiet -- \
-        ${notifySend} -a "T2 Suspend" "${message}"
-    '';
   mkExecScript =
     name: body:
     pkgs.writeShellScript name ''
@@ -58,6 +44,8 @@ let
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
+      TimeoutStartSec = 30;
+      TimeoutStopSec = 60;
     };
   };
 in
@@ -110,8 +98,8 @@ in
             echo 1 > /sys/power/pm_async
             ${modprobe} apple-bce
             ${settle}
-            if ! find /sys/bus/pci/drivers/apple-bce -maxdepth 1 -type l -name '*:*' -print -quit 2>/dev/null | grep -q .; then
-              ${notify "apple-bce did not initialize within 15 s"}
+            if ! ls /sys/bus/pci/drivers/apple-bce/0000:* >/dev/null 2>&1; then
+              echo "WARNING: apple-bce did not bind to a PCI device"
             fi
           '';
         };
@@ -135,25 +123,10 @@ in
             ${settle}
             ${modprobe} brcmfmac_wcc
             ${settle}
-
-            if ! ${iw} dev | grep -q "Interface"; then
-              ${modprobe} -r brcmfmac_wcc
-              ${modprobe} -r brcmfmac
-              ${modprobe} brcmfmac
-              ${settle}
-              ${modprobe} brcmfmac_wcc
-              ${settle}
-            fi
-
             ${rfkill} unblock wifi
             ${rfkill} unblock bluetooth
-
-            if ${iw} dev | grep -q "Interface"; then
-              ${lib.optionalString hasIwd "${systemctl} restart iwd.service"}
-              ${lib.optionalString hasNm "${systemctl} start NetworkManager.service"}
-            else
-              ${notify "Wi-Fi interface did not appear after resume"}
-            fi
+            ${lib.optionalString hasIwd "${systemctl} restart iwd.service"}
+            ${lib.optionalString hasNm "${systemctl} start NetworkManager.service"}
           '';
         };
       };
@@ -175,8 +148,9 @@ in
       });
 
       # Touch Bar: stop tiny-dfr and unload/reload kernel modules.
-      # udevadm settle only waits for kernel/udev events, not for the DRM framebuffer
-      # device to be fully initialized by appletbdrm, so tiny-dfr needs an extra delay.
+      # Race condition on resume: apple-bce enumerates USB devices sequentially:
+      #   usb 1-6 (Touch Bar Display, 05AC:8302) appears before
+      #   usb 1-7 (Touch Bar Backlight, 05AC:8102).
       suspend-t2-touchbar = lib.mkIf hasTouchBar (mkSuspendService {
         description = "T2 suspend: unload/reload Touch Bar drivers";
         serviceConfig = {
@@ -187,13 +161,26 @@ in
             ${modprobe} -r hid_appletb_bl
           '';
           ExecStop = mkExecScript "resume-t2-touchbar" ''
+            # Load backlight driver first and wait for the LED device it creates.
+            # hid_appletb_kbd needs this backlight device during probe.
             ${modprobe} hid_appletb_bl
             ${settle}
+
+            if ! ${wait} /sys/class/leds/:white:kbd_backlight; then
+              echo "WARNING: kbd_backlight LED device did not appear within 15 s"
+              exit 0
+            fi
+
             ${modprobe} hid_appletb_kbd
             ${settle}
             ${modprobe} appletbdrm
             ${settle}
-            ${lib.getExe' pkgs.coreutils "sleep"} 2
+
+            # Wait for device nodes that tiny-dfr.service depends on (BindsTo).
+            if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight /dev/tiny_dfr_display_backlight; then
+              echo "WARNING: tiny-dfr device nodes did not appear within 15 s"
+            fi
+
             ${systemctl} start tiny-dfr.service
           '';
         };
@@ -212,24 +199,16 @@ in
         };
       };
 
-      # Fixes keyboard backlight after boot by waiting for udev to settle once and
-      # resetting apple-bce if the backlight device is still missing.
+      # Sets keyboard backlight on boot.
       t2-kbd-backlight = {
-        description = "T2 boot: fix keyboard backlight";
+        description = "T2 boot: set keyboard backlight";
         wantedBy = [ "multi-user.target" ];
         after = [ "multi-user.target" ];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
           ExecStart = mkExecScript "t2-kbd-backlight" ''
-            ${settle}
-            if ${brightnessctl} -rd :white:kbd_backlight; then
-              exit 0
-            fi
-            ${rmmod} -f apple-bce
-            ${modprobe} apple-bce
-            ${settle}
-            ${brightnessctl} -rd :white:kbd_backlight
+            ${brightnessctl} -d :white:kbd_backlight set 50% -q
           '';
         };
       };
