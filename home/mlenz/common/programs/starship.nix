@@ -29,7 +29,7 @@
   # https://starship.rs/advanced-config/#transientprompt-and-transientrightprompt-in-fish
   programs.fish.interactiveShellInit = ''
     function starship_transient_prompt_func
-      printf '\n$ '
+      printf '\n\n$ '
     end
   '';
 }
