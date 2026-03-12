@@ -11,9 +11,6 @@ lib.mkIf config.custom.profile.isWorkstation {
       synctex = true;
       synctex-editor-command = "texlab inverse-search -i %{input} -l %{line}";
     };
-    extraConfig = ''
-      include flexoki-dark
-    '';
   };
   xdg.configFile = {
     "zathura/flexoki-dark".source = "${pkgs.flexoki}/share/zathura/flexoki-dark";

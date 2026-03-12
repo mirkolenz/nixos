@@ -1,15 +1,14 @@
 { ... }:
 {
-  colorscheme = "flexoki-dark";
+  colorscheme = "gruvbox";
   colorschemes = {
-    flexoki.enable = true;
-    github-theme = {
-      enable = false;
-      settings.options = {
-        transparent = false;
-        terminal_colors = true;
+    gruvbox = {
+      enable = true;
+      settings = {
+        contrast = "hard";
       };
     };
+    github-theme.enable = false;
     monokai-pro = {
       enable = false;
       settings = {

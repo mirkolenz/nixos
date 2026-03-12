@@ -9,7 +9,7 @@
     enable = false;
     extraConfig = /* lua */ ''
       return {
-        color_scheme = "Flexoki Dark",
+        color_scheme = "Gruvbox dark, hard (base16)",
         font = wezterm.font("JetBrainsMono Nerd Font"),
         font_size = 13.0,
         hide_tab_bar_if_only_one_tab = true,

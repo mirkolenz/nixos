@@ -2,7 +2,7 @@
 {
   programs.starship = {
     enable = true;
-    presets = [ "nerd-font-symbols" ];
+    presets = [ "gruvbox-rainbow" ];
     settings = {
       add_newline = true;
       character = {

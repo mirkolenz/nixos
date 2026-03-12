@@ -7,7 +7,7 @@
     languages = { };
     # https://docs.helix-editor.com/configuration.html
     settings = {
-      theme = "flexoki-dark";
+      theme = "gruvbox_dark_hard";
     };
   };
   # https://docs.helix-editor.com/themes.html

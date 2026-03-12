@@ -3,6 +3,7 @@
   clipboard.register = "";
   opts = {
     autoindent = true;
+    background = "dark";
     breakindent = true;
     confirm = true;
     cursorline = true;

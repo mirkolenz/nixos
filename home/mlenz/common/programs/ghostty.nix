@@ -27,7 +27,7 @@ lib.mkIf config.custom.profile.isDesktop {
       shell-integration-features = "no-cursor,sudo,title,ssh-env";
       split-inherit-working-directory = true;
       tab-inherit-working-directory = true;
-      theme = "light:Flexoki Light,dark:Flexoki Dark";
+      theme = "light:Gruvbox Light Hard,dark:Gruvbox Dark Hard";
       window-height = 30;
       window-inherit-working-directory = false;
       window-padding-x = 8;

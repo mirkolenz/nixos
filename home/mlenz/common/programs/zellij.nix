@@ -46,7 +46,7 @@ in
       session_serialization = false;
       show_release_notes = false;
       show_startup_tips = false;
-      theme = "flexoki-dark";
+      theme = "gruvbox-dark";
       web_server = false; # managed via launchd
     };
     # https://zellij.dev/documentation/keybindings-keys.html

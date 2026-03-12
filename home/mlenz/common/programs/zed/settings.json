@@ -385,8 +385,8 @@
   },
   "theme": {
     "mode": "system",
-    "light": "Flexoki Light",
-    "dark": "Flexoki Dark"
+    "light": "Gruvbox Light Hard",
+    "dark": "Gruvbox Dark Hard"
   },
   "toolbar": {
     "agent_review": false,
