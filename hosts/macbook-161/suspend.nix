@@ -14,8 +14,6 @@ let
   systemctl = lib.getExe' pkgs.systemd "systemctl";
   loginctl = lib.getExe' pkgs.systemd "loginctl";
   udevadm = lib.getExe' pkgs.systemd "udevadm";
-  settle = "${udevadm} settle --timeout=15";
-  wait = "${udevadm} wait --timeout=15";
   jq = lib.getExe pkgs.jq;
   brightnessctl = lib.getExe pkgs.brightnessctl;
   rfkill = lib.getExe' pkgs.util-linux "rfkill";
@@ -96,7 +94,7 @@ in
           ExecStop = mkExecScript "resume-t2-apple-bce" ''
             echo 1 > /sys/power/pm_async
             ${modprobe} apple-bce
-            ${settle}
+            ${udevadm} settle --timeout=15
             if ! ls /sys/bus/pci/drivers/apple-bce/0000:* >/dev/null 2>&1; then
               echo "WARNING: apple-bce did not bind to a PCI device"
             fi
@@ -117,10 +115,11 @@ in
           '';
           ExecStop = mkExecScript "resume-t2-radio" ''
             ${modprobe} brcmfmac
+            ${udevadm} settle --timeout=15
             ${modprobe} brcmfmac_wcc
             # brcmfmac loads firmware in-kernel (invisible to udev settle).
             # Wait for the network interface to appear instead.
-            if ! ${wait} /sys/class/net/wlan0; then
+            if ! ${udevadm} wait --timeout=15 /sys/class/net/wlan0; then
               echo "WARNING: Wi-Fi interface did not appear within 15 s"
             fi
             ${rfkill} unblock wifi
@@ -146,33 +145,51 @@ in
         };
       });
 
+      # appletbdrm probe requires the T2 DRM channel to be fully initialized.
+      # There is no sysfs indicator for readiness; at boot it works because
+      # appletbdrm loads ~120 s after USB enumeration. On resume the device
+      # just appeared, so the probe may fail with -ETIMEDOUT. Delegate
+      # retrying to systemd via Restart=on-failure.
+      t2-appletbdrm = lib.mkIf hasTouchBar {
+        description = "T2: load appletbdrm";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = mkExecScript "load-t2-appletbdrm" ''
+            ${modprobe} -r appletbdrm 2>/dev/null
+            ${modprobe} appletbdrm
+            ${udevadm} wait --timeout=5 /dev/tiny_dfr_display /dev/tiny_dfr_backlight
+          '';
+          Restart = "on-failure";
+          RestartSec = "5s";
+          StartLimitIntervalSec = 120;
+          StartLimitBurst = 10;
+        };
+      };
+
       # Touch Bar: stop tiny-dfr and unload/reload kernel modules.
-      # appletbdrm is kept loaded across suspend — do NOT unload it.
-      # bce-vhci cannot handle appletbdrm's DRM probe on an already-present
-      # USB device (probe fails with -ETIMEDOUT). By keeping appletbdrm
-      # loaded, it auto-probes during apple-bce's USB enumeration on resume,
-      # matching the boot code path where the probe succeeds.
       suspend-t2-touchbar = lib.mkIf hasTouchBar (mkSuspendService {
         description = "T2 suspend: unload/reload Touch Bar drivers";
         serviceConfig = {
           ExecStart = mkExecScript "suspend-t2-touchbar" ''
             ${systemctl} stop tiny-dfr.service
+            ${systemctl} stop t2-appletbdrm.service 2>/dev/null || true
             ${modprobe} -r hid_appletb_kbd
             ${modprobe} -r hid_appletb_bl
+            ${modprobe} -r appletbdrm
           '';
           ExecStop = mkExecScript "resume-t2-touchbar" ''
-            # appletbdrm auto-probed during apple-bce resume.
-            if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
-              echo "WARNING: tiny-dfr device nodes did not appear within 15 s"
-            fi
-
             ${modprobe} hid_appletb_bl
-            if ! ${wait} /sys/class/leds/:white:kbd_backlight; then
+            if ! ${udevadm} wait --timeout=15 /sys/class/leds/:white:kbd_backlight; then
               echo "WARNING: kbd_backlight LED device did not appear within 15 s"
             fi
 
             ${modprobe} hid_appletb_kbd
-            ${settle}
+            ${udevadm} settle --timeout=15
+
+            ${systemctl} restart --no-block t2-appletbdrm.service
+            if ! ${udevadm} wait --timeout=60 /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
+              echo "WARNING: tiny-dfr device nodes did not appear within 60 s"
+            fi
 
             ${systemctl} start tiny-dfr.service
           '';
