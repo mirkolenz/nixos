@@ -2,6 +2,7 @@
 {
   programs.starship = {
     enable = true;
+    enableTransience = true;
     presets = [ "gruvbox-rainbow" ];
     settings = {
       add_newline = true;
@@ -25,4 +26,10 @@
       };
     };
   };
+  # https://starship.rs/advanced-config/#transientprompt-and-transientrightprompt-in-fish
+  programs.fish.interactiveShellInit = ''
+    function starship_transient_prompt_func
+      printf '\n$ '
+    end
+  '';
 }
