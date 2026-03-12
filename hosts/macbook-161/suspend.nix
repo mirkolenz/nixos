@@ -21,7 +21,6 @@ let
   rfkill = lib.getExe' pkgs.util-linux "rfkill";
 
   hasNm = config.networking.networkmanager.enable;
-  hasIwd = hasNm && config.networking.networkmanager.wifi.backend == "iwd";
   hasTouchBar = config.hardware.apple.touchBar.enable;
   hasPipewire = config.services.pipewire.enable;
   hasThermald = config.services.thermald.enable;
@@ -75,6 +74,19 @@ in
       MemorySleepMode = "deep";
     };
 
+    # When hid_appletb_bl binds (backlight device ready), load hid_appletb_kbd
+    # and unbind the Touch Bar Display (05AC:8302) from hid_multitouch so the
+    # kernel rebinds it to hid_appletb_kbd. Works on both boot and resume.
+    # When hid_appletb_bl binds (backlight device ready), load hid_appletb_kbd.
+    # When hid_multitouch claims the Touch Bar Display (05AC:8302), unbind it
+    # so the kernel rebinds it to hid_appletb_kbd. Works on both boot and resume.
+    services.udev.extraRules = lib.mkIf hasTouchBar ''
+      ACTION=="bind", SUBSYSTEM=="hid", DRIVER=="hid-appletb-bl", RUN+="${modprobe} hid_appletb_kbd"
+      ACTION=="bind", SUBSYSTEM=="hid", DRIVER=="hid-multitouch", KERNEL=="0003:05AC:8302.*", RUN+="${pkgs.writeShellScript "t2-touchbar-unbind" ''
+        echo "$1" > /sys/bus/hid/drivers/hid-multitouch/unbind
+      ''} %k"
+    '';
+
     systemd.services = {
       # Core: force-unloads apple-bce last on suspend, reloads first on resume.
       # All other suspend-t2-* services are ordered before this one.
@@ -106,8 +118,6 @@ in
       };
 
       # Wi-Fi/Bluetooth: block radios via rfkill, unload/reload Wi-Fi drivers.
-      # iwd does not re-detect the interface after brcmfmac reload:
-      # https://github.com/NixOS/nixpkgs/issues/186274
       suspend-t2-radio = mkSuspendService {
         description = "T2 suspend: block/unblock radios and reload Wi-Fi drivers";
         serviceConfig = {
@@ -120,12 +130,14 @@ in
           '';
           ExecStop = mkExecScript "resume-t2-radio" ''
             ${modprobe} brcmfmac
-            ${settle}
             ${modprobe} brcmfmac_wcc
-            ${settle}
+            # brcmfmac loads firmware in-kernel (invisible to udev settle).
+            # Wait for the network interface to appear instead.
+            if ! ${wait} /sys/class/net/wlan0; then
+              echo "WARNING: Wi-Fi interface did not appear within 15 s"
+            fi
             ${rfkill} unblock wifi
             ${rfkill} unblock bluetooth
-            ${lib.optionalString hasIwd "${systemctl} restart iwd.service"}
             ${lib.optionalString hasNm "${systemctl} start NetworkManager.service"}
           '';
         };
@@ -162,19 +174,16 @@ in
           '';
           ExecStop = mkExecScript "resume-t2-touchbar" ''
             # Load backlight driver first and wait for the LED device it creates.
-            # hid_appletb_kbd needs this backlight device during probe.
+            # The udev rule loads hid_appletb_kbd when hid_appletb_bl binds, ensuring
+            # the backlight device exists before hid_appletb_kbd probes (race-free).
             ${modprobe} hid_appletb_bl
-            ${settle}
 
             if ! ${wait} /sys/class/leds/:white:kbd_backlight; then
               echo "WARNING: kbd_backlight LED device did not appear within 15 s"
               exit 0
             fi
 
-            ${modprobe} hid_appletb_kbd
-            ${settle}
             ${modprobe} appletbdrm
-            ${settle}
 
             # Wait for device nodes that tiny-dfr.service depends on (BindsTo).
             if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight /dev/tiny_dfr_display_backlight; then
