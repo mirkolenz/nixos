@@ -74,24 +74,6 @@ in
       MemorySleepMode = "deep";
     };
 
-    # When hid_appletb_bl binds (backlight device ready), load hid_appletb_kbd
-    # and bind the Touch Bar Display (05AC:8302) to it. The kernel does not
-    # re-probe after a manual unbind, so we must explicitly bind.
-    services.udev.extraRules = lib.mkIf hasTouchBar ''
-      ACTION=="bind", SUBSYSTEM=="hid", DRIVER=="hid-appletb-bl", RUN+="${pkgs.writeShellScript "t2-touchbar-kbd" ''
-        ${modprobe} hid_appletb_kbd
-        for dev in /sys/bus/hid/devices/0003:05AC:8302.*; do
-          devname=$(basename "$dev")
-          if [ -e "/sys/bus/hid/drivers/hid-multitouch/$devname" ]; then
-            echo "$devname" > /sys/bus/hid/drivers/hid-multitouch/unbind
-          fi
-          if [ ! -e "/sys/bus/hid/drivers/hid-appletb-kbd/$devname" ]; then
-            echo "$devname" > /sys/bus/hid/drivers/hid-appletb-kbd/bind 2>/dev/null || true
-          fi
-        done
-      ''}"
-    '';
-
     systemd.services = {
       # Core: force-unloads apple-bce last on suspend, reloads first on resume.
       # All other suspend-t2-* services are ordered before this one.
@@ -178,19 +160,16 @@ in
             ${modprobe} -r hid_appletb_bl
           '';
           ExecStop = mkExecScript "resume-t2-touchbar" ''
-            # Load backlight driver first and wait for the LED device it creates.
-            # The udev rule loads hid_appletb_kbd when hid_appletb_bl binds, ensuring
-            # the backlight device exists before hid_appletb_kbd probes (race-free).
             ${modprobe} hid_appletb_bl
-
             if ! ${wait} /sys/class/leds/:white:kbd_backlight; then
               echo "WARNING: kbd_backlight LED device did not appear within 15 s"
               exit 0
             fi
 
-            ${modprobe} appletbdrm
+            ${modprobe} hid_appletb_kbd
+            ${settle}
 
-            # Wait for device nodes that tiny-dfr.service depends on (BindsTo).
+            ${modprobe} appletbdrm
             if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight /dev/tiny_dfr_display_backlight; then
               echo "WARNING: tiny-dfr device nodes did not appear within 15 s"
             fi
