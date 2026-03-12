@@ -75,16 +75,21 @@ in
     };
 
     # When hid_appletb_bl binds (backlight device ready), load hid_appletb_kbd
-    # and unbind the Touch Bar Display (05AC:8302) from hid_multitouch so the
-    # kernel rebinds it to hid_appletb_kbd. Works on both boot and resume.
-    # When hid_appletb_bl binds (backlight device ready), load hid_appletb_kbd.
-    # When hid_multitouch claims the Touch Bar Display (05AC:8302), unbind it
-    # so the kernel rebinds it to hid_appletb_kbd. Works on both boot and resume.
+    # and bind the Touch Bar Display (05AC:8302) to it. The kernel does not
+    # re-probe after a manual unbind, so we must explicitly bind.
     services.udev.extraRules = lib.mkIf hasTouchBar ''
-      ACTION=="bind", SUBSYSTEM=="hid", DRIVER=="hid-appletb-bl", RUN+="${modprobe} hid_appletb_kbd"
-      ACTION=="bind", SUBSYSTEM=="hid", DRIVER=="hid-multitouch", KERNEL=="0003:05AC:8302.*", RUN+="${pkgs.writeShellScript "t2-touchbar-unbind" ''
-        echo "$1" > /sys/bus/hid/drivers/hid-multitouch/unbind
-      ''} %k"
+      ACTION=="bind", SUBSYSTEM=="hid", DRIVER=="hid-appletb-bl", RUN+="${pkgs.writeShellScript "t2-touchbar-kbd" ''
+        ${modprobe} hid_appletb_kbd
+        for dev in /sys/bus/hid/devices/0003:05AC:8302.*; do
+          devname=$(basename "$dev")
+          if [ -e "/sys/bus/hid/drivers/hid-multitouch/$devname" ]; then
+            echo "$devname" > /sys/bus/hid/drivers/hid-multitouch/unbind
+          fi
+          if [ ! -e "/sys/bus/hid/drivers/hid-appletb-kbd/$devname" ]; then
+            echo "$devname" > /sys/bus/hid/drivers/hid-appletb-kbd/bind 2>/dev/null || true
+          fi
+        done
+      ''}"
     '';
 
     systemd.services = {
