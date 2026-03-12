@@ -1,6 +1,7 @@
 {
   inputs,
   lib',
+  pkgs,
   ...
 }:
 {
@@ -33,13 +34,12 @@
 
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
-  hardware.apple-t2-suspend.enable = true;
-
   hardware.apple-t2 = {
     enableIGPU = false;
     kernelChannel = "stable";
     firmware.enable = true;
   };
+  hardware.apple-t2-suspend.enable = true;
 
   # The T2 chip exposes an internal USB ethernet interface with no Linux support.
   # Keep it down in networkd and hide it from NetworkManager.
@@ -59,6 +59,10 @@
   services.udev.extraRules = /* bash */ ''
     SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
   '';
+
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+  ];
 
   # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
   hardware.apple.touchBar = {
