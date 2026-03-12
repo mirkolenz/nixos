@@ -163,14 +163,13 @@ in
             ${modprobe} hid_appletb_bl
             if ! ${wait} /sys/class/leds/:white:kbd_backlight; then
               echo "WARNING: kbd_backlight LED device did not appear within 15 s"
-              exit 0
             fi
 
             ${modprobe} hid_appletb_kbd
             ${settle}
 
             ${modprobe} appletbdrm
-            if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight /dev/tiny_dfr_display_backlight; then
+            if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
               echo "WARNING: tiny-dfr device nodes did not appear within 15 s"
             fi
 
