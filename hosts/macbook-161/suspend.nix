@@ -147,11 +147,11 @@ in
       });
 
       # Touch Bar: stop tiny-dfr and unload/reload kernel modules.
-      # On resume, appletbdrm MUST load before the HID modules.
-      # bce-vhci cannot handle DRM probe messages while other USB traffic
-      # from hid_appletb_bl/kbd is in-flight (probe fails with -ETIMEDOUT).
-      # On boot this works because appletbdrm is already loaded when the
-      # USB device appears, so it probes before any HID driver communicates.
+      # appletbdrm is kept loaded across suspend — do NOT unload it.
+      # bce-vhci cannot handle appletbdrm's DRM probe on an already-present
+      # USB device (probe fails with -ETIMEDOUT). By keeping appletbdrm
+      # loaded, it auto-probes during apple-bce's USB enumeration on resume,
+      # matching the boot code path where the probe succeeds.
       suspend-t2-touchbar = lib.mkIf hasTouchBar (mkSuspendService {
         description = "T2 suspend: unload/reload Touch Bar drivers";
         serviceConfig = {
@@ -159,13 +159,9 @@ in
             ${systemctl} stop tiny-dfr.service
             ${modprobe} -r hid_appletb_kbd
             ${modprobe} -r hid_appletb_bl
-            ${modprobe} -r appletbdrm
           '';
           ExecStop = mkExecScript "resume-t2-touchbar" ''
-            # Wait for USB enumeration to complete before loading any driver.
-            ${settle}
-
-            ${modprobe} appletbdrm
+            # appletbdrm auto-probed during apple-bce resume.
             if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
               echo "WARNING: tiny-dfr device nodes did not appear within 15 s"
             fi
