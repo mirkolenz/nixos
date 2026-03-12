@@ -147,19 +147,29 @@ in
       });
 
       # Touch Bar: stop tiny-dfr and unload/reload kernel modules.
-      # Race condition on resume: apple-bce enumerates USB devices sequentially:
-      #   usb 1-6 (Touch Bar Display, 05AC:8302) appears before
-      #   usb 1-7 (Touch Bar Backlight, 05AC:8102).
+      # On resume, appletbdrm MUST load before the HID modules.
+      # bce-vhci cannot handle DRM probe messages while other USB traffic
+      # from hid_appletb_bl/kbd is in-flight (probe fails with -ETIMEDOUT).
+      # On boot this works because appletbdrm is already loaded when the
+      # USB device appears, so it probes before any HID driver communicates.
       suspend-t2-touchbar = lib.mkIf hasTouchBar (mkSuspendService {
         description = "T2 suspend: unload/reload Touch Bar drivers";
         serviceConfig = {
           ExecStart = mkExecScript "suspend-t2-touchbar" ''
             ${systemctl} stop tiny-dfr.service
-            ${modprobe} -r appletbdrm
             ${modprobe} -r hid_appletb_kbd
             ${modprobe} -r hid_appletb_bl
+            ${modprobe} -r appletbdrm
           '';
           ExecStop = mkExecScript "resume-t2-touchbar" ''
+            # Wait for USB enumeration to complete before loading any driver.
+            ${settle}
+
+            ${modprobe} appletbdrm
+            if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
+              echo "WARNING: tiny-dfr device nodes did not appear within 15 s"
+            fi
+
             ${modprobe} hid_appletb_bl
             if ! ${wait} /sys/class/leds/:white:kbd_backlight; then
               echo "WARNING: kbd_backlight LED device did not appear within 15 s"
@@ -167,11 +177,6 @@ in
 
             ${modprobe} hid_appletb_kbd
             ${settle}
-
-            ${modprobe} appletbdrm
-            if ! ${wait} /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
-              echo "WARNING: tiny-dfr device nodes did not appear within 15 s"
-            fi
 
             ${systemctl} start tiny-dfr.service
           '';
