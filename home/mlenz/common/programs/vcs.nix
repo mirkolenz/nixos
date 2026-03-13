@@ -20,7 +20,11 @@
   programs.gh-dash = {
     enable = true;
   };
-  programs.mergiraf.enable = true;
+  programs.mergiraf = {
+    enable = true;
+    enableGitIntegration = true;
+    enableJujutsuIntegration = true;
+  };
   programs.difftastic = {
     enable = true;
     git.enable = false;
