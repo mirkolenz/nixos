@@ -4,6 +4,9 @@
     rssh.enable = true;
     services.sudo.rssh = true;
   };
+  programs.mosh = {
+    inherit (config.services.openssh) enable openFirewall;
+  };
   services.openssh = {
     enable = lib.mkDefault true;
     authorizedKeysInHomedir = false;
