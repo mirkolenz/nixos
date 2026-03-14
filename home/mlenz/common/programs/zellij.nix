@@ -38,7 +38,7 @@ in
     # https://zellij.dev/documentation/options.html
     settings = {
       auto_layout = true;
-      copy_on_select = true;
+      copy_on_select = false;
       default_layout = "default";
       default_mode = "normal";
       on_force_close = "detach";
@@ -50,6 +50,7 @@ in
       web_server = false; # managed via launchd
     };
     # https://zellij.dev/documentation/keybindings-keys.html
+    # https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl
     extraConfig = ''
       keybinds {
         shared {
@@ -57,6 +58,7 @@ in
           bind "Alt Shift f" { ToggleFloatingPanes; }
         }
         normal {
+          bind "Alt c" { Copy; }
           bind "Alt t" { NewTab; }
           bind "Alt w" { CloseTab; }
           bind "Alt g" { NewTab { layout "lazygit"; }; }
@@ -90,19 +92,23 @@ in
       "zellij/themes/flexoki.kdl".source = "${pkgs.flexoki}/share/zellij/flexoki.kdl";
     }
   ];
+  home.shellAliases = {
+    zj = lib.getExe config.programs.zellij.package;
+  };
   home.packages = [
     (pkgs.writeShellApplication {
-      name = "zjc"; # zellij create
+      name = "zjpwd";
       text = /* bash */ ''
-        cd "$(realpath "''${1:-.}")"
-        shift || true
-        exec ${lib.getExe config.programs.zellij.package} attach --create "$(basename "$PWD")" "$@"
+        parent="$(basename "$(dirname "$PWD")")"
+        current="$(basename "$PWD")"
+        exec ${lib.getExe config.programs.zellij.package} attach --create "$parent-$current"
       '';
     })
     (pkgs.writeShellApplication {
-      name = "zja"; # zellij attach
+      name = "zzj";
       text = /* bash */ ''
-        exec ${lib.getExe config.programs.zellij.package} attach "$@"
+        cd "$(${lib.getExe config.programs.zoxide.package} query -- "$1")" || exit 1
+        exec zjpwd
       '';
     })
   ];
@@ -127,6 +133,12 @@ in
         end
         _zellij_change_tab_title "🚀 $words[1]"
       end
+    end
+  ''
+  + lib.optionalString config.custom.profile.isServer ''
+    # zellij setup --generate-auto-start fish
+    if not set -q ZELLIJ; and set -q SSH_CONNECTION
+      zellij attach --create "ssh"
     end
   '';
   # Zellij web server

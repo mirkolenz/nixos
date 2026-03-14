@@ -9,12 +9,6 @@
   programs.fish = {
     enable = true;
     generateCompletions = true;
-    interactiveShellInit = lib.optionalString config.custom.profile.isServer ''
-      # zellij setup --generate-auto-start fish
-      if not set -q ZELLIJ; and set -q SSH_CONNECTION
-        zellij attach --create "ssh"
-      end
-    '';
     functions.fish_greeting.body = ''
       if set -q ZELLIJ; and set -q SSH_CONNECTION
         ${lib.getExe config.programs.macchina.package}
