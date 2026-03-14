@@ -74,7 +74,6 @@ let
     safari-1password = 1569813296;
     safari-kagi = 1622835804;
     safari-raindropio = 1549370672;
-    shellfish = 1336634154;
     step-two = 1448916662;
     testflight = 899247664;
     todoist = 585829637;
