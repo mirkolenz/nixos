@@ -5,7 +5,7 @@
   ...
 }:
 {
-  _module.args = {
+  flake = {
     # available during import
     specialModuleArgs = {
       inherit self inputs lib';

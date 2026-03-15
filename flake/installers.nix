@@ -1,6 +1,5 @@
 {
   inputs,
-  specialModuleArgs,
   self,
   ...
 }:
@@ -12,7 +11,7 @@ let
     }:
     inputs.nixpkgs-linux-unstable.lib.nixosSystem {
       system = null;
-      specialArgs = specialModuleArgs // {
+      specialArgs = self.specialModuleArgs // {
         os = "linux";
       };
       modules = [

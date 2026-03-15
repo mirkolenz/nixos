@@ -1,7 +1,5 @@
 {
   inputs,
-  specialModuleArgs,
-  moduleArgs,
   lib',
   self,
   lib,
@@ -17,14 +15,14 @@ let
       os = lib'.systemOs system;
     in
     inputs.nixvim.lib.evalNixvim {
-      extraSpecialArgs = specialModuleArgs // {
+      extraSpecialArgs = self.specialModuleArgs // {
         inherit os;
       };
       modules = [
         self.nixvimModules.default
         extraModule
         {
-          _module.args = moduleArgs;
+          _module.args = self.moduleArgs;
           nixpkgs = {
             hostPlatform = system;
             config = self.nixpkgsConfig;

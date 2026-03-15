@@ -1,6 +1,4 @@
 {
-  specialModuleArgs,
-  moduleArgs,
   inputs,
   self,
   ...
@@ -19,13 +17,13 @@
           config = self.nixpkgsConfig;
           overlays = [ self.overlays.default ];
         };
-        _module.args = moduleArgs;
+        _module.args = self.moduleArgs;
         home-manager = {
           backupFileExtension = "backup";
           sharedModules = [ self.homeModules.base ];
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = specialModuleArgs // {
+          extraSpecialArgs = self.specialModuleArgs // {
             inherit os;
           };
         };
@@ -36,7 +34,7 @@
         ../home/options
         ../common
       ];
-      _module.args = moduleArgs;
+      _module.args = self.moduleArgs;
     };
     homeModules.linux = {
       imports = [
@@ -85,7 +83,7 @@
         config = self.nixpkgsConfig;
         overlays = [ self.overlays.default ];
       };
-      _module.args = moduleArgs;
+      _module.args = self.moduleArgs;
     };
     nixosModules.base = {
       imports = [
@@ -102,7 +100,7 @@
         self.nixosModules.base
         ../system/linux
       ];
-      home-manager.users.${moduleArgs.user.login} = self.homeModules.linux;
+      home-manager.users.${self.moduleArgs.user.login} = self.homeModules.linux;
     };
     nixosModules.children = {
       imports = [
@@ -123,7 +121,7 @@
         self.darwinModules.base
         ../system/darwin
       ];
-      home-manager.users.${moduleArgs.user.login} = self.homeModules.darwin;
+      home-manager.users.${self.moduleArgs.user.login} = self.homeModules.darwin;
     };
   };
 }

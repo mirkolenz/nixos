@@ -1,7 +1,5 @@
 {
   inputs,
-  moduleArgs,
-  specialModuleArgs,
   self,
   lib,
   lib',
@@ -25,14 +23,14 @@ let
     in
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs { inherit system; };
-      extraSpecialArgs = specialModuleArgs // {
+      extraSpecialArgs = self.specialModuleArgs // {
         inherit os;
         osConfig = { };
       };
       modules = [
         extraModule
         self.homeModules."${os}-standalone"
-        { _module.args.user = lib.mkForce (moduleArgs.user // { inherit login; }); }
+        { _module.args.user = lib.mkForce (self.moduleArgs.user // { inherit login; }); }
       ];
     };
 in

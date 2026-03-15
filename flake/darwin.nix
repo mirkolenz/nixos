@@ -1,6 +1,5 @@
 {
   inputs,
-  specialModuleArgs,
   self,
   lib',
   lib,
@@ -17,7 +16,7 @@ let
     }:
     inputs.nix-darwin.lib.darwinSystem {
       system = null;
-      specialArgs = specialModuleArgs // {
+      specialArgs = self.specialModuleArgs // {
         os = "darwin";
       };
       modules = [
