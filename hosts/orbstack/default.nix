@@ -2,6 +2,7 @@
   modulesPath,
   user,
   lib',
+  lib,
   ...
 }:
 {
@@ -11,4 +12,8 @@
   ];
 
   custom.nix.settings.trusted-users = [ user.login ];
+
+  home-manager.users.${user.login} = {
+    programs.fish.functions.fish_greeting.body = lib.mkForce "";
+  };
 }
