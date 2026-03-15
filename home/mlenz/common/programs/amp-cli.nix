@@ -4,7 +4,7 @@
   lib,
   ...
 }:
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   # https://ampcode.com/manual#configuration
   programs.amp-cli = {
     enable = true;

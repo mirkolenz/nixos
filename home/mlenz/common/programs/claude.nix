@@ -4,7 +4,7 @@
   lib,
   ...
 }:
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   # https://code.claude.com/docs/en/permissions
   # https://code.claude.com/docs/en/sandboxing
   # https://code.claude.com/docs/en/settings

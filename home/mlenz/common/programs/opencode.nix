@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   programs.opencode = {
     enable = true;
     package = pkgs.opencode-bin;

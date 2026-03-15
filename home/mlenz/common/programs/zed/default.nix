@@ -6,7 +6,7 @@
 }:
 {
   programs.zed-editor = {
-    enable = lib.mkDefault (pkgs.stdenv.isLinux && config.custom.profile.isDesktop);
+    enable = lib.mkDefault (pkgs.stdenv.isLinux && config.custom.features.withDisplay);
     mutableUserDebug = false;
     mutableUserKeymaps = false;
     mutableUserSettings = false;

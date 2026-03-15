@@ -4,7 +4,7 @@
   config,
   ...
 }:
-lib.mkIf config.custom.profile.isDesktop {
+lib.mkIf config.custom.features.withDisplay {
   home.packages = with pkgs; [
     anydesk
     vivaldi

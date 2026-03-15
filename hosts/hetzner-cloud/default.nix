@@ -2,7 +2,7 @@
 {
   imports = lib'.flocken.getModules ./.;
 
-  custom.profile.isServer = true;
+  custom.features.withAlwaysOn = true;
 
   boot.loader = {
     systemd-boot.enable = true;

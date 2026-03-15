@@ -4,7 +4,7 @@
   ...
 }:
 {
-  custom.profile.isDesktop = true;
+  custom.features.withDisplay = true;
 
   imports = lib'.flocken.getModules ./. ++ [
     "${inputs.nixos-hardware}/apple"

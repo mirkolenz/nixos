@@ -4,7 +4,7 @@
   lib,
   ...
 }:
-lib.mkIf (pkgs.stdenv.isLinux && config.custom.profile.isDesktop) {
+lib.mkIf (pkgs.stdenv.isLinux && config.custom.features.withDisplay) {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;

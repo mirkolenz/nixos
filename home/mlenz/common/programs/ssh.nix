@@ -8,7 +8,7 @@
 let
   tomlFormat = pkgs.formats.toml { };
 in
-lib.mkIf config.custom.profile.isDesktop {
+lib.mkIf config.custom.features.withDisplay {
   services.ssh-agent.enable = true;
   programs.ssh = {
     enable = true;

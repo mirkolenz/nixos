@@ -10,7 +10,7 @@
     "${inputs.nixos-hardware}/raspberry-pi/4"
   ];
 
-  custom.profile.isServer = true;
+  custom.features.withAlwaysOn = true;
 
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 

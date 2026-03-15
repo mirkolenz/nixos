@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   programs.codex = {
     enable = true;
     package = pkgs.codex-bin;

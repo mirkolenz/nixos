@@ -3,7 +3,7 @@
   config,
   ...
 }:
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   services.espanso = {
     enable = false;
     configs.default = { };

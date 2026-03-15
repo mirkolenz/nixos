@@ -32,9 +32,9 @@
     "libvirtd"
   ];
 
-  programs.virt-manager.enable = lib.mkDefault config.custom.profile.isDesktop;
+  programs.virt-manager.enable = lib.mkDefault config.custom.features.withDisplay;
 
-  environment.systemPackages = lib.mkIf config.custom.profile.isDesktop [
+  environment.systemPackages = lib.mkIf config.custom.features.withDisplay [
     pkgs.virt-viewer
   ];
 

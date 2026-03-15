@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf config.custom.profile.isDesktop {
+lib.mkIf config.custom.features.withDisplay {
   custom.nix.settings.trusted-users = [ "@wheel" ];
 
   services = {

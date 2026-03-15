@@ -19,7 +19,7 @@ in
 {
   imports = lib'.flocken.getModules ./.;
 
-  custom.profile.isServer = true;
+  custom.features.withAlwaysOn = lib.mkDefault true;
 
   custom.autoUpgrade = {
     enable = true;

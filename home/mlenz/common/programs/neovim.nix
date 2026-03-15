@@ -7,10 +7,10 @@
 {
   programs.nixvim = {
     enable = true;
-    package = if config.custom.profile.isWorkstation then pkgs.nixvim-full else pkgs.nixvim-minimal;
+    package = if config.custom.features.withOptionals then pkgs.nixvim-full else pkgs.nixvim-minimal;
     defaultEditor = true;
   };
-  programs.neovide = lib.mkIf config.custom.profile.isDesktop {
+  programs.neovide = lib.mkIf config.custom.features.withDisplay {
     enable = true;
     settings = {
       fork = true;

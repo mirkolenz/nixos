@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf config.custom.profile.isDesktop {
+lib.mkIf config.custom.features.withDisplay {
   services.xserver.xkb.layout = "de";
 
   programs.firefox.enable = true;

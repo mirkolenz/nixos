@@ -7,7 +7,7 @@
 let
   pythonWithPackages = pkgs.python3.withPackages (ps: with ps; [ typer ]);
 in
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   home.sessionVariables = {
     RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
     EDITOR = lib.mkForce "zed --wait";

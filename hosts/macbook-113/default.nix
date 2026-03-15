@@ -10,7 +10,10 @@
     "${inputs.nixos-hardware}/common/pc/laptop"
     "${inputs.nixos-hardware}/common/pc/ssd"
   ];
-  custom.profile.isDesktop = true;
+  custom.features = {
+    withDisplay = true;
+    withOptionals = true;
+  };
 
   # disable intel iGPU so nouveau is the sole GPU driver
   boot.blacklistedKernelModules = [ "i915" ];

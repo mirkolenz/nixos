@@ -1,5 +1,5 @@
 { lib, config, ... }:
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   programs.yt-dlp = {
     enable = true;
     settings = {

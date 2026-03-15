@@ -4,7 +4,7 @@
   config,
   ...
 }:
-lib.mkIf config.custom.profile.isDesktop {
+lib.mkIf config.custom.features.withDisplay {
   programs.ghostty = {
     enable = true;
     package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;

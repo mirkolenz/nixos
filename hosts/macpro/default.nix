@@ -16,7 +16,7 @@
     ]
     ++ lib'.flocken.optionalPath "/etc/nixos/default.nix";
 
-  custom.profile.isServer = true;
+  custom.features.withAlwaysOn = true;
   custom.impureRebuild = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

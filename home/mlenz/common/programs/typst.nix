@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   home.packages = with pkgs; [
     typst-bin
     typstyle

@@ -4,7 +4,7 @@
   cosmicLib,
   ...
 }:
-lib.mkIf config.custom.profile.isDesktop {
+lib.mkIf config.custom.features.withDisplay {
   wayland.desktopManager.cosmic = {
     enable = true;
     appearance.theme.mode = "dark";

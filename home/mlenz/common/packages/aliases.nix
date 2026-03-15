@@ -27,7 +27,7 @@ let
       '';
     };
 in
-lib.mkIf config.custom.profile.isWorkstation {
+lib.mkIf config.custom.features.withOptionals {
   home.packages =
     (lib.mapAttrsToList mkNodeApp {
       gemini = [ "@google/gemini-cli" ];

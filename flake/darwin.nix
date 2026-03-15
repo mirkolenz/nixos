@@ -14,7 +14,6 @@ let
       computerName,
       extraModule ? { },
       darwinModule ? "default",
-      isDesktop ? true,
     }:
     inputs.nix-darwin.lib.darwinSystem {
       system = null;
@@ -29,7 +28,10 @@ let
             inherit hostName computerName;
           };
           nixpkgs.hostPlatform = system;
-          custom.profile.isDesktop = isDesktop;
+          custom.features = {
+            withDisplay = lib.mkDefault true;
+            withOptionals = lib.mkDefault true;
+          };
         }
       ]
       ++ lib'.flocken.optionalPath ../hosts/${hostName};
