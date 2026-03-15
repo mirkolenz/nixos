@@ -10,7 +10,7 @@
     enable = true;
     generateCompletions = true;
     functions.fish_greeting.body = ''
-      if set -q ZELLIJ; and set -q SSH_CONNECTION
+      if set -q SSH_CONNECTION
         ${lib.getExe config.programs.macchina.package}
       end
     '';

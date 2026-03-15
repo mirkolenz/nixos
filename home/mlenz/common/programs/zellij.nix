@@ -94,6 +94,8 @@ in
   ];
   home.shellAliases = {
     zj = lib.getExe config.programs.zellij.package;
+    zja = "${lib.getExe config.programs.zellij.package} attach";
+    zjx = "${lib.getExe config.programs.zellij.package} attach --create main";
   };
   home.packages = [
     (pkgs.writeShellApplication {
@@ -105,7 +107,7 @@ in
       '';
     })
     (pkgs.writeShellApplication {
-      name = "zzj";
+      name = "zjz";
       text = /* bash */ ''
         cd "$(${lib.getExe config.programs.zoxide.package} query -- "$1")" || exit 1
         exec zjpwd
@@ -133,12 +135,6 @@ in
         end
         _zellij_change_tab_title "🚀 $words[1]"
       end
-    end
-  ''
-  + lib.optionalString config.custom.profile.isServer ''
-    # zellij setup --generate-auto-start fish
-    if not set -q ZELLIJ; and set -q SSH_CONNECTION
-      zellij attach --create "ssh"
     end
   '';
   # Zellij web server
