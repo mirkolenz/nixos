@@ -178,14 +178,14 @@
       ]
     },
     "TSX": {
-      "language_servers": ["tsgo", "oxlint"],
+      "language_servers": ["tsgo", "oxlint", "oxfmt"],
       "formatter": [
         { "code_action": "source.fixAll.oxc" },
         { "language_server": { "name": "oxfmt" } }
       ]
     },
     "TypeScript": {
-      "language_servers": ["tsgo", "oxlint"],
+      "language_servers": ["tsgo", "oxlint", "oxfmt"],
       "formatter": [
         { "code_action": "source.fixAll.oxc" },
         { "language_server": { "name": "oxfmt" } }
