@@ -72,13 +72,13 @@ in
         full = mkNixvim {
           inherit system;
           extraModule = {
-            custom.enableOptionalPlugins = true;
+            custom.features.withOptionals = true;
           };
         };
         minimal = mkNixvim {
           inherit system;
           extraModule = {
-            custom.enableOptionalPlugins = false;
+            custom.features.withOptionals = false;
           };
         };
       };
