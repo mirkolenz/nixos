@@ -62,12 +62,12 @@ in
         neovide = pkgs.writeShellApplication {
           name = "neovide";
           text = /* bash */ ''
-            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe config.packages.nixvim-full} "$@"
+            ${lib.getExe pkgs.neovide} --neovim-bin ${lib.getExe config.packages.nixvim-default} "$@"
           '';
         };
       };
       nixvimConfigurations = {
-        full = mkNixvim {
+        default = mkNixvim {
           inherit system;
           extraModule = {
             custom.features.withOptionals = true;

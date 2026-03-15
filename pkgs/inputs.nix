@@ -29,8 +29,6 @@ in
   }) nixpkgsArgs;
 
   inherit (self.packages.${system})
-    nixvim-full
-    nixvim-minimal
     treefmt-nix
     ;
   determinate-nix = inputs.determinate.inputs.nix.packages."${system}".default;

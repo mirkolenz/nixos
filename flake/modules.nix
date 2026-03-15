@@ -31,6 +31,7 @@
     homeModules.base = {
       imports = [
         inputs.nix-index-database.homeModules.nix-index
+        inputs.nixvim.homeModules.nixvim
         ../home/options
         ../common
       ];
