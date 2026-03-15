@@ -7,6 +7,9 @@
   programs.mosh = {
     inherit (config.services.openssh) enable openFirewall;
   };
+  services.eternal-terminal = {
+    inherit (config.services.openssh) enable;
+  };
   services.openssh = {
     enable = lib.mkDefault true;
     authorizedKeysInHomedir = false;

@@ -3,6 +3,9 @@
   programs.mosh = {
     inherit (config.services.openssh) enable;
   };
+  services.eternal-terminal = {
+    inherit (config.services.openssh) enable;
+  };
   services.openssh = {
     enable = true;
     extraConfig = ''
