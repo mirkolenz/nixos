@@ -10,17 +10,6 @@
 
   system.stateVersion = stateVersions.linux;
 
-  programs = {
-    git.enable = true;
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-    };
-    less.enable = true;
-  };
-
   services.printing.enable = false;
 
   security = {

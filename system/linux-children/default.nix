@@ -8,6 +8,8 @@
 {
   imports = lib'.flocken.getModules ./.;
 
+  system.autoUpgrade.enable = true;
+
   i18n.defaultLocale = "de_DE.UTF-8";
   networking.firewall.enable = true;
 
