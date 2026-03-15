@@ -170,6 +170,9 @@ in
       suspend-t2-touchbar = lib.mkIf hasTouchBar (mkSuspendService {
         description = "T2 suspend: unload/reload Touch Bar drivers";
         serviceConfig = {
+          # The resume script waits for multiple udevadm timeouts plus sleep delays,
+          # which can exceed the default 60 s stop timeout from mkSuspendService.
+          TimeoutStopSec = 120;
           ExecStart = mkExecScript "suspend-t2-touchbar" ''
             ${systemctl} stop tiny-dfr.service
             ${systemctl} stop t2-appletbdrm.service 2>/dev/null || true
@@ -186,6 +189,8 @@ in
             ${modprobe} hid_appletb_kbd
             ${udevadm} settle --timeout=15
 
+            # Clear any stale failure state so the start limit counter resets.
+            ${systemctl} reset-failed t2-appletbdrm.service 2>/dev/null || true
             ${systemctl} restart --no-block t2-appletbdrm.service
             if ! ${udevadm} wait --timeout=60 /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
               echo "WARNING: tiny-dfr device nodes did not appear within 60 s"
