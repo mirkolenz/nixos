@@ -48,6 +48,7 @@
     systemd-boot.configurationLimit = 10;
   };
   boot.initrd.systemd.enable = true;
+  boot.binfmt.preferStaticEmulators = true;
 
   hardware.enableAllFirmware = true;
 
