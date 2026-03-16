@@ -1,3 +1,4 @@
+// https://zed.dev/docs/tasks
 [
   {
     "label": "🔥 terminal",
@@ -77,7 +78,7 @@
   {
     "label": "typst-watch",
     "command": "typst",
-    "args": ["watch", "--root", ".", "--open", "skim", "$ZED_FILENAME"],
+    "args": ["watch", "--root", ".", "--open", "skim", "$ZED_RELATIVE_FILE"],
     "hide": "never",
     "reveal": "no_focus",
     "show_command": false,
@@ -89,7 +90,7 @@
   {
     "label": "typst-compile",
     "command": "typst",
-    "args": ["compile", "--root", ".", "--open", "skim", "$ZED_FILENAME"],
+    "args": ["compile", "--root", ".", "--open", "skim", "$ZED_RELATIVE_FILE"],
     "hide": "never",
     "reveal": "no_focus",
     "show_command": false,
