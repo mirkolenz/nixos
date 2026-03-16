@@ -99,7 +99,7 @@ def run(
                 "git",
                 "commit",
                 "-m",
-                "chore(deps): update flake.nix",
+                "chore(deps/nix): update",
                 str(flake_file),
             ]
             typer.echo(shlex.join(git_cmd), err=True)

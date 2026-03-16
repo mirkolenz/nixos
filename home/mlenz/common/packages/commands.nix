@@ -81,13 +81,12 @@
     '';
     uvup = /* bash */ ''
       ${lib.getExe config.programs.uv.package} sync --all-extras --upgrade
-      ${lib.getExe config.programs.git.package} commit -m "chore(deps): update uv.lock" uv.lock
+      ${lib.getExe config.programs.git.package} commit -m "chore(deps/uv): update" uv.lock
     '';
     npmup = /* bash */ ''
       ${lib.getExe pkgs.npm-check-updates} --interactive --format group --install never
-      ${lib.getExe config.programs.git.package} commit -m "chore(deps): update package.json" package.json
       ${lib.getExe' pkgs.nodejs "npm"} update
-      ${lib.getExe config.programs.git.package} commit -m "chore(deps): update package-lock.json" package-lock.json
+      ${lib.getExe config.programs.git.package} commit -m "chore(deps/npm): update" package.json package-lock.json
     '';
     dev = /* bash */ ''
       exec nix develop "$@"

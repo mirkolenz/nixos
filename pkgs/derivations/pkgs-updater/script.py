@@ -114,7 +114,7 @@ def run(
     cmd_res = subprocess.run(cmd)
 
     if cmd_res.returncode == 0 and commit:
-        git_cmd = ["git", "commit", "-m", "chore(deps): update pkgs", "./pkgs"]
+        git_cmd = ["git", "commit", "-m", "chore(deps/pkgs): update", "./pkgs"]
 
         typer.echo(
             shlex.join(git_cmd),
