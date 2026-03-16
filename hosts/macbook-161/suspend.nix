@@ -1,5 +1,5 @@
 # https://wiki.t2linux.org/guides/postinstall/#suspend-workaround
-# https://github.com/lucadibello/T2Linux-Suspend-Fix
+# https://github.com/deqrocks/T2Linux-Suspend-Fix
 # https://github.com/jobvisser03/jv-nix-config/blob/feature/mrsom3body-dendritic/modules/hosts/macbook-intel-nixos/_t2-suspend/default.nix
 {
   config,
@@ -112,8 +112,10 @@ in
             ${rfkill} block bluetooth
             ${modprobe} -r brcmfmac_wcc
             ${modprobe} -r brcmfmac
+            ${modprobe} -r brcmutil
           '';
           ExecStop = mkExecScript "resume-t2-radio" ''
+            ${modprobe} brcmutil
             ${modprobe} brcmfmac
             ${udevadm} settle --timeout=15
             ${modprobe} brcmfmac_wcc
