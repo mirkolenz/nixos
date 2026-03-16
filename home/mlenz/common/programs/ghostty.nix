@@ -22,7 +22,7 @@ lib.mkIf config.custom.features.withDisplay {
       notify-on-command-finish-action = "bell,notify";
       notify-on-command-finish-after = "10s";
       quick-terminal-position = "center";
-      quick-terminal-size = "1200px,600px";
+      quick-terminal-size = "1000px,600px";
       shell-integration = "none";
       shell-integration-features = "no-cursor,sudo,title,ssh-env";
       split-inherit-working-directory = true;
