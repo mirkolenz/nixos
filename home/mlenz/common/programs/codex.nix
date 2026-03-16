@@ -11,7 +11,6 @@ lib.mkIf config.custom.features.withOptionals {
     # https://developers.openai.com/codex/config-reference
     # https://developers.openai.com/codex/config-schema.json
     settings = {
-      model = "gpt-5.4";
       model_reasoning_effort = "xhigh";
       plan_mode_reasoning_effort = "xhigh";
       approval_policy = "on-request";

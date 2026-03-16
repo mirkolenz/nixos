@@ -13,7 +13,6 @@ lib.mkIf config.custom.features.withOptionals {
     enable = true;
     package = pkgs.claude-code-bin;
     settings = {
-      model = "opus";
       effortLevel = "high";
       cleanupPeriodDays = 30;
       enableAllProjectMcpServers = true;
