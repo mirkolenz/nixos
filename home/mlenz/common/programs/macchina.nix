@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   programs.macchina = {
     enable = true;
@@ -11,8 +11,12 @@
       physical_cores = true;
       theme = "Lithium";
     };
-    themes = {
-      Lithium = "${config.programs.macchina.package.src}/contrib/themes/Lithium.toml";
-    };
+    # https://github.com/Macchina-CLI/macchina/tree/main/contrib/themes
+    themes = lib.genAttrs [
+      "Beryllium"
+      "Helium"
+      "Hydrogen"
+      "Lithium"
+    ] (name: "${config.programs.macchina.package.src}/contrib/themes/${name}.toml");
   };
 }
