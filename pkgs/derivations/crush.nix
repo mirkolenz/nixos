@@ -10,16 +10,16 @@
 }:
 buildGo126Module (finalAttrs: {
   pname = "crush";
-  version = "0.49.0";
+  version = "0.50.0";
 
   src = fetchFromGitHub {
     owner = "charmbracelet";
     repo = "crush";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/1Z5S28yJCxjpQwM5hLTmgKU7OxAcxjmBROktQSstTE=";
+    hash = "sha256-+AnmUkelsfmHd/JKriL/QxmXi2AewXyT1GbMwgT9b7s=";
   };
 
-  vendorHash = "sha256-xakV5Alm3EwDk5VkSINxJM1C3uF492QzA+BQkqZ6qB4=";
+  vendorHash = "sha256-gFOMMnsaQD2tESJpuaGh0oWDzfjdOou8Qrrlrt0Vtz4=";
 
   subPackages = [ "." ];
 
