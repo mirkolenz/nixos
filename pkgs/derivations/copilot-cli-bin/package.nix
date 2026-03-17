@@ -1,6 +1,7 @@
 {
   lib,
   versionCheckHook,
+  writableTmpDirAsHomeHook,
   mkGitHubBinary,
   stdenv,
 }:
@@ -26,8 +27,14 @@ mkGitHubBinary {
   # otherwise the bun runtime is executed instead of the binary (on linux)
   dontStrip = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [
+    versionCheckHook
+    writableTmpDirAsHomeHook
+  ];
+  versionCheckKeepEnvironment = [ "HOME" ];
   doInstallCheck = true;
+
+  strictDeps = true;
 
   meta = {
     description = "GitHub Copilot CLI - AI-powered command line tool";
