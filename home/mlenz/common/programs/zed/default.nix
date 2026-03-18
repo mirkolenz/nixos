@@ -18,4 +18,7 @@
     "zed/settings.json".source = ./settings.json;
     "zed/tasks.json".source = ./tasks.json;
   };
+  home.shellAliases = lib.mkIf config.programs.zed-editor.enable {
+    zed = "zeditor";
+  };
 }
