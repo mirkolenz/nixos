@@ -104,7 +104,7 @@ in
       };
 
       # Wi-Fi/Bluetooth: block radios via rfkill, unload/reload Wi-Fi drivers.
-      suspend-t2-radio = lib.mkIf hasRadio mkSuspendService {
+      suspend-t2-radio = lib.mkIf hasRadio (mkSuspendService {
         description = "T2 suspend: block/unblock radios and reload Wi-Fi drivers";
         serviceConfig = {
           ExecStart = mkExecScript "suspend-t2-radio" ''
@@ -130,7 +130,7 @@ in
             ${lib.optionalString hasNm "${systemctl} start NetworkManager.service"}
           '';
         };
-      };
+      });
 
       # Stop PipeWire before apple-bce removal to prevent kernel panic from stale PCM handles.
       suspend-t2-audio = lib.mkIf hasPipewire (mkSuspendService {
