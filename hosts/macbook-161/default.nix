@@ -40,7 +40,7 @@
   hardware.apple-t2 = {
     enableIGPU = false;
     kernelChannel = "stable";
-    firmware.enable = true;
+    firmware.enable = false;
   };
   hardware.apple-t2-suspend.enable = true;
 
