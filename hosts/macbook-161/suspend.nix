@@ -22,7 +22,7 @@ let
   hasTouchBar = config.hardware.apple.touchBar.enable;
   hasPipewire = config.services.pipewire.enable;
   hasThermald = config.services.thermald.enable;
-  hasRadio = config.hardware.apple-t2.firmware.enable;
+  hasRadio = config.hardware.apple-t2.firmware.enable || config.hardware.apple-t2-firmware.enable;
 
   forEachUser = body: ''
     for username in $(${loginctl} list-users --json=short | ${jq} -r '.[].user'); do

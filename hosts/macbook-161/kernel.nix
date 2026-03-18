@@ -4,6 +4,7 @@
   ...
 }:
 let
+  # https://github.com/t2linux/linux-t2-patches
   # nix run .#t2-updater -- --branch=main ./hosts/macbook-161/kernel.json
   patchset = lib.fromJSON (lib.readFile ./kernel.json);
 in

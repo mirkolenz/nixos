@@ -43,6 +43,7 @@
     firmware.enable = false;
   };
   hardware.apple-t2-suspend.enable = true;
+  hardware.apple-t2-firmware.enable = true;
 
   # The T2 chip exposes an internal USB ethernet interface with no Linux support.
   # Keep it down in networkd and hide it from NetworkManager.
