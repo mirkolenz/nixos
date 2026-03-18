@@ -65,7 +65,7 @@ lib.mkIf config.custom.features.withOptionals {
         "code-simplifier@claude-plugins-official" = true;
         "feature-dev@claude-plugins-official" = true;
         "frontend-design@claude-plugins-official" = true;
-        "ralph-loop@claude-plugins-official" = true;
+        "ralph-loop@claude-plugins-official" = false;
       };
       env = {
         # better results, but too many tokens
