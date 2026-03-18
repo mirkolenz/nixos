@@ -15,6 +15,7 @@ lib.mkIf config.custom.features.withDisplay {
     inter
     jetbrains-mono
     nerd-fonts.jetbrains-mono
+    teams-for-linux
   ];
   home.file.".face".source = ../mlenz.jpg;
 }
