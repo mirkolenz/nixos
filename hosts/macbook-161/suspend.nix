@@ -23,6 +23,8 @@ let
   hasPipewire = config.services.pipewire.enable;
   hasThermald = config.services.thermald.enable;
   hasRadio = config.hardware.apple-t2.firmware.enable || config.hardware.apple-t2-firmware.enable;
+  hasIwd = config.networking.wireless.iwd.enable;
+  hasBt = config.hardware.bluetooth.enable;
 
   forEachUser = body: ''
     for username in $(${loginctl} list-users --json=short | ${jq} -r '.[].user'); do
@@ -103,23 +105,42 @@ in
         };
       };
 
-      # Wi-Fi/Bluetooth: block radios via rfkill, unload/reload Wi-Fi drivers.
+      # Wi-Fi/Bluetooth: stop services, block radios, unload/reload drivers.
+      # The Broadcom PCIe device (WiFi+BT) enters D3cold during suspend and
+      # cannot transition back to D0 after apple-bce force-unload. Removing it
+      # from the PCI bus during suspend and rescanning on resume forces a fresh
+      # enumeration in D0.
       suspend-t2-radio = lib.mkIf hasRadio (mkSuspendService {
-        description = "T2 suspend: block/unblock radios and reload Wi-Fi drivers";
+        description = "T2 suspend: block/unblock radios and reload drivers";
         serviceConfig = {
           ExecStart = mkExecScript "suspend-t2-radio" ''
+            # Resolve the PCIe device backing wlan0 before tearing anything down.
+            pci_dev=$(readlink -f /sys/class/net/wlan0/device 2>/dev/null)
+
             ${lib.optionalString hasNm "${systemctl} stop NetworkManager.service"}
+            ${lib.optionalString hasIwd "${systemctl} stop iwd.service"}
+            ${lib.optionalString hasBt "${systemctl} stop bluetooth.service"}
             ${rfkill} block wifi
             ${rfkill} block bluetooth
             ${modprobe} -r brcmfmac_wcc
             ${modprobe} -r brcmfmac
             ${modprobe} -r brcmutil
+            ${modprobe} -r hci_bcm4377
+            # Remove the Broadcom PCIe device so the PCI core does not try to
+            # restore a stale D3cold device on resume.
+            if [ -n "$pci_dev" ] && [ -e "$pci_dev/remove" ]; then
+              echo 1 > "$pci_dev/remove"
+            fi
           '';
           ExecStop = mkExecScript "resume-t2-radio" ''
+            # Rescan PCI bus to re-enumerate the Broadcom chip in D0.
+            echo 1 > /sys/bus/pci/rescan
+            ${udevadm} settle --timeout=15
             ${modprobe} brcmutil
             ${modprobe} brcmfmac
             ${udevadm} settle --timeout=15
             ${modprobe} brcmfmac_wcc
+            ${modprobe} hci_bcm4377
             # brcmfmac loads firmware in-kernel (invisible to udev settle).
             # Wait for the network interface to appear instead.
             if ! ${udevadm} wait --timeout=15 /sys/class/net/wlan0; then
@@ -127,6 +148,8 @@ in
             fi
             ${rfkill} unblock wifi
             ${rfkill} unblock bluetooth
+            ${lib.optionalString hasBt "${systemctl} start bluetooth.service"}
+            ${lib.optionalString hasIwd "${systemctl} start iwd.service"}
             ${lib.optionalString hasNm "${systemctl} start NetworkManager.service"}
           '';
         };
@@ -149,23 +172,30 @@ in
       });
 
       # appletbdrm probe requires the T2 DRM channel to be fully initialized.
-      # There is no sysfs indicator for readiness; at boot it works because
-      # appletbdrm loads ~120 s after USB enumeration. On resume the device
-      # just appeared, so the probe may fail with -ETIMEDOUT. Delegate
-      # retrying to systemd via Restart=on-failure.
+      # At boot this happens naturally (~40 s after apple-bce). On resume the
+      # channel needs time, so this service retries via Restart=on-failure.
+      # The last command (systemctl start tiny-dfr) determines the exit code:
+      # it fails while the DRM device is absent, triggering a retry.
       t2-appletbdrm = lib.mkIf hasTouchBar {
-        description = "T2: load appletbdrm";
+        description = "T2: load appletbdrm and start tiny-dfr";
         serviceConfig = {
           Type = "oneshot";
           ExecStart = mkExecScript "load-t2-appletbdrm" ''
             ${modprobe} -r appletbdrm 2>/dev/null
             ${modprobe} appletbdrm
-            ${udevadm} wait --timeout=5 /dev/tiny_dfr_display /dev/tiny_dfr_backlight
+            ${udevadm} settle --timeout=10
+            # Check device unit directly — systemctl start tiny-dfr would block
+            # indefinitely waiting for its BindsTo/After device dependencies.
+            # tiny-dfr also depends on dev-tiny_dfr_backlight (hid_appletb_bl,
+            # loaded earlier) and dev-tiny_dfr_display_backlight (gmux, always
+            # present). Only the display device from appletbdrm needs retries.
+            ${systemctl} is-active --quiet dev-tiny_dfr_display.device || exit 1
+            ${systemctl} start tiny-dfr.service
           '';
           Restart = "on-failure";
           RestartSec = "5s";
-          StartLimitIntervalSec = 120;
-          StartLimitBurst = 10;
+          StartLimitIntervalSec = 180;
+          StartLimitBurst = 30;
         };
       };
 
@@ -173,9 +203,6 @@ in
       suspend-t2-touchbar = lib.mkIf hasTouchBar (mkSuspendService {
         description = "T2 suspend: unload/reload Touch Bar drivers";
         serviceConfig = {
-          # The resume script waits for multiple udevadm timeouts plus sleep delays,
-          # which can exceed the default 60 s stop timeout from mkSuspendService.
-          TimeoutStopSec = 120;
           ExecStart = mkExecScript "suspend-t2-touchbar" ''
             ${systemctl} stop tiny-dfr.service
             ${systemctl} stop t2-appletbdrm.service 2>/dev/null || true
@@ -192,14 +219,10 @@ in
             ${modprobe} hid_appletb_kbd
             ${udevadm} settle --timeout=15
 
-            # Clear any stale failure state so the start limit counter resets.
+            # Kick off appletbdrm retry service in the background.
+            # It retries until the T2 DRM channel is ready, then starts tiny-dfr.
             ${systemctl} reset-failed t2-appletbdrm.service 2>/dev/null || true
-            ${systemctl} restart --no-block t2-appletbdrm.service
-            if ! ${udevadm} wait --timeout=60 /dev/tiny_dfr_display /dev/tiny_dfr_backlight; then
-              echo "WARNING: tiny-dfr device nodes did not appear within 60 s"
-            fi
-
-            ${systemctl} start tiny-dfr.service
+            ${systemctl} start --no-block t2-appletbdrm.service
           '';
         };
       });
