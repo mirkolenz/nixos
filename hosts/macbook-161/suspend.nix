@@ -22,6 +22,7 @@ let
   hasTouchBar = config.hardware.apple.touchBar.enable;
   hasPipewire = config.services.pipewire.enable;
   hasThermald = config.services.thermald.enable;
+  hasRadio = config.hardware.apple-t2.firmware.enable;
 
   forEachUser = body: ''
     for username in $(${loginctl} list-users --json=short | ${jq} -r '.[].user'); do
@@ -79,13 +80,13 @@ in
       # to prevent race conditions between driver teardown and hardware state changes.
       suspend-t2-apple-bce = mkSuspendService {
         description = "T2 suspend: unload/reload apple-bce";
-        after = [
-          "suspend-t2-radio.service"
-        ]
-        ++ lib.optional hasPipewire "suspend-t2-audio.service"
-        ++ lib.optional hasTouchBar "suspend-t2-touchbar.service"
-        ++ [ "suspend-t2-backlight.service" ]
-        ++ lib.optional hasThermald "suspend-t2-thermald.service";
+        after =
+          [ ]
+          ++ lib.optional hasRadio "suspend-t2-radio.service"
+          ++ lib.optional hasPipewire "suspend-t2-audio.service"
+          ++ lib.optional hasTouchBar "suspend-t2-touchbar.service"
+          ++ lib.singleton "suspend-t2-backlight.service"
+          ++ lib.optional hasThermald "suspend-t2-thermald.service";
         serviceConfig = {
           ExecStart = mkExecScript "suspend-t2-apple-bce" ''
             ${rmmod} -f apple-bce
@@ -103,7 +104,7 @@ in
       };
 
       # Wi-Fi/Bluetooth: block radios via rfkill, unload/reload Wi-Fi drivers.
-      suspend-t2-radio = mkSuspendService {
+      suspend-t2-radio = lib.mkIf hasRadio mkSuspendService {
         description = "T2 suspend: block/unblock radios and reload Wi-Fi drivers";
         serviceConfig = {
           ExecStart = mkExecScript "suspend-t2-radio" ''
