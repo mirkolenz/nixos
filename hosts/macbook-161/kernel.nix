@@ -13,6 +13,7 @@ in
     {
       # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/pkgs/linux-t2/generic.nix
       name = "t2-config";
+      patch = null;
       structuredExtraConfig = with lib.kernel; {
         APPLE_BCE = module;
         APPLE_GMUX = module;
