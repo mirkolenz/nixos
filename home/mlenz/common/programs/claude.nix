@@ -13,8 +13,9 @@ lib.mkIf config.custom.features.withOptionals {
     enable = true;
     package = pkgs.claude-code-bin;
     settings = {
-      effortLevel = "high";
+      autoMemoryEnabled = false;
       cleanupPeriodDays = 30;
+      effortLevel = "high";
       enableAllProjectMcpServers = true;
       forceLoginMethod = "claudeai";
       includeCoAuthoredBy = false;
