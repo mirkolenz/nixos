@@ -2,6 +2,7 @@
 {
   programs.infat = {
     enable = true;
+    autoActivate = false; # todo: broken as of 2026-03-19
     settings = {
       extensions = {
         # Programming
