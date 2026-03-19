@@ -57,6 +57,7 @@ lib.mkIf config.custom.features.withOptionals {
     authelia
     mailpit
     copilot-cli-bin
+    html2markdown
     # nix
     nixd
     nixf
