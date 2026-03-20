@@ -2,7 +2,7 @@
 {
   networking = {
     useNetworkd = true;
-    # this is overridden by NetworkManager on workstations
+    # this is overridden by NetworkManager on gui machines
     useDHCP = lib.mkDefault true;
     # this is not compatible with networkd
     useHostResolvConf = false;
