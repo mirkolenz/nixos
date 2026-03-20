@@ -8,7 +8,7 @@
       "model": "gpt-5.2"
     },
     "default_width": 320,
-    "default_height": 480
+    "default_height": 320
   },
   // ls -l "$HOME/Library/Application Support/Zed/extensions/installed/"
   "auto_install_extensions": {
@@ -377,7 +377,7 @@
     },
     "option_as_meta": true,
     "default_width": 640,
-    "default_height": 480,
+    "default_height": 320,
     "env": {
       // "LC_ALL": "en_US.UTF-8",
       // "LANG": "en_US.UTF-8",
