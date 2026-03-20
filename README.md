@@ -278,8 +278,8 @@ sudo podman run --rm --subuidname=$USER ubuntu cat /proc/self/uid_map
 ### Password Hashing
 
 ```shell
-bash -c 'umask 022 && mkdir -p /mnt/etc/nixos/secrets'
-bash -c 'umask 077 && mkpasswd -m yescrypt > /mnt/etc/nixos/secrets/USER.passwd'
+sudo bash -c 'umask 022 && mkdir -p /etc/nixos/secrets'
+sudo bash -c 'umask 077 && mkpasswd -m yescrypt > /etc/nixos/secrets/USER.passwd'
 ```
 
 ### Zellij Web Tokens
