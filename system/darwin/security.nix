@@ -9,6 +9,7 @@
     };
     sudo.extraConfig = ''
       Defaults env_keep -= "HOME"
+      Defaults pwfeedback
     '';
   };
 }
