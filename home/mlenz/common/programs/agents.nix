@@ -10,6 +10,7 @@
       - Do not run formatters or linters automatically, only when explicitly needed.
       - Favor simple and readable solutions over complex ones and optimize for maintainability.
       - Don't add prefixes such as `uvx` or `npx` to commands in backticks in these instructions, use them verbatim.
+      - Read-only git operations are allowed, but never use writing git operations such as `git commit` or `git push` and leave them to the user.
 
       ## Python
 
