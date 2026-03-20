@@ -10,8 +10,6 @@ in
 lib.mkIf config.custom.features.withOptionals {
   home.sessionVariables = {
     RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
-    EDITOR = lib.mkForce "zed --wait";
-    VISUAL = lib.mkForce "zed --wait";
   };
   programs = {
     go.enable = true;

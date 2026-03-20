@@ -21,4 +21,8 @@
   home.shellAliases = lib.mkIf config.programs.zed-editor.enable {
     zed = "zeditor";
   };
+  home.sessionVariables = lib.mkIf config.programs.zed-editor.enable {
+    EDITOR = lib.mkForce "zed --wait";
+    VISUAL = lib.mkForce "zed --wait";
+  };
 }
