@@ -91,11 +91,26 @@ in
           ++ lib.optional hasThermald "suspend-t2-thermald.service";
         serviceConfig = {
           ExecStart = mkExecScript "suspend-t2-apple-bce" ''
+            # Resolve the T2 PCI device before unloading the driver.
+            pci_dev=$(readlink -f /sys/bus/pci/drivers/apple-bce/0000:*/. 2>/dev/null | head -1)
+
             ${rmmod} -f apple-bce
+
+            # Remove the T2 PCI device so it gets fully re-enumerated on resume,
+            # including a fresh DRM channel initialization for the Touch Bar.
+            if [ -n "$pci_dev" ] && [ -e "$pci_dev/remove" ]; then
+              echo 1 > "$pci_dev/remove"
+            fi
+
             echo 0 > /sys/power/pm_async
           '';
           ExecStop = mkExecScript "resume-t2-apple-bce" ''
             echo 1 > /sys/power/pm_async
+
+            # Rescan PCI bus to re-enumerate the T2 chip fresh.
+            echo 1 > /sys/bus/pci/rescan
+            ${udevadm} settle --timeout=15
+
             ${modprobe} apple-bce
             ${udevadm} settle --timeout=15
             if ! ls /sys/bus/pci/drivers/apple-bce/0000:* >/dev/null 2>&1; then
