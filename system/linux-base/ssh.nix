@@ -5,11 +5,10 @@
     services.sudo.rssh = true;
   };
   programs.mosh = {
-    inherit (config.services.openssh) enable openFirewall;
+    enable = false;
+    openFirewall = true;
   };
-  services.eternal-terminal = {
-    inherit (config.services.openssh) enable;
-  };
+  services.eternal-terminal.enable = false;
   services.openssh = {
     enable = lib.mkDefault true;
     authorizedKeysInHomedir = false;
