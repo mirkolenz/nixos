@@ -116,24 +116,16 @@ in
   ];
   programs.fish.interactiveShellInit = ''
     if set -q ZELLIJ
-      function _zellij_current_dir
-        string replace -- $HOME '~' $PWD | path basename
+      function _zellij_set_tab_to_cwd --on-event fish_prompt --on-event fish_postexec --on-variable PWD
+        command zellij action rename-tab "📁 "(string replace -- $HOME '~' $PWD | path basename) &>/dev/null
       end
 
-      function _zellij_change_tab_title
-        command zellij action rename-tab $argv[1] &>/dev/null
-      end
-
-      function _zellij_set_tab_to_working_dir --on-event fish_prompt
-        _zellij_change_tab_title "📁 "$(_zellij_current_dir)
-      end
-
-      function _zellij_set_tab_to_command_line --on-event fish_preexec
+      function _zellij_set_tab_to_cmd --on-event fish_preexec
         set -l words (string split -n ' ' -- $argv[1])
         if test "$words[1]" = sudo
           set words $words[2..]
         end
-        _zellij_change_tab_title "🚀 $words[1]"
+        command zellij action rename-tab "🚀 $words[1]" &>/dev/null
       end
     end
   '';
