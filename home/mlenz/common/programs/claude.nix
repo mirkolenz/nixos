@@ -23,6 +23,7 @@ lib.mkIf config.custom.features.withOptionals {
       spinnerTipsEnabled = false;
       sandbox = {
         enabled = true;
+        allowLocalBinding = true;
         allowUnsandboxedCommands = false;
         enableWeakerNetworkIsolation = true;
         excludedCommands = [
