@@ -38,7 +38,7 @@ in
     # https://zellij.dev/documentation/options.html
     settings = {
       auto_layout = true;
-      copy_on_select = false;
+      copy_on_select = true;
       default_layout = "default";
       default_mode = "normal";
       on_force_close = "detach";
