@@ -1,7 +1,7 @@
 # https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl
 {
   lib,
-  caddyWithPlugins,
+  caddy-custom,
   cacert,
   tzdata,
   dockerTools,
@@ -13,13 +13,13 @@ dockerTools.streamLayeredImage {
   contents = [
     cacert
     tzdata
-    caddyWithPlugins
+    caddy-custom
   ];
   extraCommands = ''
     mkdir -m 1777 tmp
   '';
   config = {
-    Entrypoint = [ (lib.getExe caddyWithPlugins) ];
+    Entrypoint = [ (lib.getExe caddy-custom) ];
     Cmd = [
       "run"
       "--config"
