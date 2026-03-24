@@ -26,7 +26,7 @@ lib.mkIf config.custom.features.withOptionals {
     grpcui
     mqttui
     plantuml
-    # pre-commit # todo: https://hydra.nixos.org/job/nixpkgs/unstable/pre-commit.aarch64-darwin
+    pre-commit
     mu-repo
     cc2538-bsl
     imagemagick
