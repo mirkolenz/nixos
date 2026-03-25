@@ -11,6 +11,8 @@ lib.mkIf config.custom.features.withOptionals {
     # https://developers.openai.com/codex/config-reference
     # https://developers.openai.com/codex/config-schema.json
     settings = {
+      model = "gpt-5.4";
+      commit_attribution = "";
       model_reasoning_effort = "xhigh";
       plan_mode_reasoning_effort = "xhigh";
       approval_policy = "on-request";
@@ -18,14 +20,27 @@ lib.mkIf config.custom.features.withOptionals {
       preferred_auth_method = "chatgpt";
       check_for_update_on_startup = false;
       personality = "pragmatic";
-      sandbox_mode = "workspace-write";
       web_search = "live";
-      sandbox_workspace_write = {
-        network_access = true;
-        writable_roots = [
-          config.xdg.cacheHome
-          "${config.home.homeDirectory}/.npm"
-        ];
+      default_permissions = "default";
+      permissions.default = {
+        filesystem = {
+          ":project_roots"."." = "write";
+          "${config.xdg.cacheHome}" = "write";
+          "${config.home.homeDirectory}/.npm" = "write";
+          "/nix/store" = "read";
+        };
+        network = {
+          enabled = true;
+          mode = "limited";
+          allow_local_binding = true;
+          allow_unix_sockets = [
+            "/nix/var/nix/daemon-socket/socket"
+          ];
+        };
+      };
+      tools = {
+        view_image = true;
+        web_search = { };
       };
       tui = {
         alternate_screen = "never";
@@ -37,12 +52,11 @@ lib.mkIf config.custom.features.withOptionals {
         };
       };
       # codex features list
-      # https://github.com/openai/codex/blob/main/codex-rs/core/src/features.rs
+      # https://github.com/openai/codex/blob/main/codex-rs/features/src/lib.rs
       features = {
+        guardian_approval = false;
         js_repl = true;
-        multi_agent = true;
         prevent_idle_sleep = true;
-        shell_snapshot = true;
       };
     };
   };
