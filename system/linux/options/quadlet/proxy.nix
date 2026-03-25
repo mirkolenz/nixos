@@ -7,6 +7,8 @@
 let
   cfg = config.virtualisation.quadlet.proxy;
 
+  domainNames = lib.attrNames cfg.domains;
+
   allVhosts =
     let
       containerVhosts = lib.mapAttrsToList (_: c: c.virtualHost) config.virtualisation.quadlet.containers;
@@ -245,7 +247,7 @@ in
 
     primaryDomain = lib.mkOption {
       type = lib.types.str;
-      description = "Primary domain used for the dashboard.";
+      description = "Primary domain used for the dashboard. Defaults to the single domain when only one is configured.";
     };
 
     domains = lib.mkOption {
@@ -302,6 +304,10 @@ in
         message = "virtualisation.quadlet.proxy.primaryDomain must be a key in virtualisation.quadlet.proxy.domains";
       }
     ];
+
+    virtualisation.quadlet.proxy.primaryDomain = lib.mkIf (lib.length domainNames == 1) (
+      lib.mkDefault (lib.head domainNames)
+    );
 
     virtualisation.quadlet.proxy.virtualHosts.dashboard = lib.mkIf cfg.dashboard.enable {
       name = cfg.dashboard.name;
