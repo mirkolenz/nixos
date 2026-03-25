@@ -16,7 +16,7 @@
   };
   services.samba = {
     enable = true;
-    package = pkgs.sambaTimeMachine;
+    package = pkgs.samba-tm;
     openFirewall = true;
     settings = {
       global = {
