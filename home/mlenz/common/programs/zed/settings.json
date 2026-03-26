@@ -5,7 +5,7 @@
     "play_sound_when_agent_done": true,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-5.2"
+      "model": "gpt-5.4"
     },
     "default_width": 320,
     "default_height": 320
@@ -60,11 +60,16 @@
   },
   "cursor_blink": false,
   "edit_predictions": {
-    "provider": "copilot",
+    "provider": "zed",
     "disabled_globs": ["*.env", "*secret*"],
     "mode": "eager",
     "enabled_in_text_threads": true,
     "ollama": {
+      "max_output_tokens": 16,
+      "model": "qwen2.5-coder:7b"
+    },
+    "open_ai_compatible_api": {
+      "api_url": "http://127.0.0.1:1234",
       "max_output_tokens": 16,
       "model": "qwen2.5-coder:7b"
     },
