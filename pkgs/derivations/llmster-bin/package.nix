@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   stdenv,
   fetchurl,
   addDriverRunpath,
@@ -10,6 +11,7 @@
   writeScript,
   libxcrypt-legacy,
   appVariant ? "full",
+  cudaSupport ? config.cudaSupport or false,
   manifestFile ? ./manifest.json,
 }:
 let
@@ -23,14 +25,17 @@ let
     x86_64-linux = "linux-x64";
   };
   platform = platforms.${stdenv.hostPlatform.system};
+  variants = [ "full" ];
+  # Upstream ships a separate CUDA 12 bundle for linux-x64 (requires NVIDIA driver >= 550.54.14)
+  bundleSuffix = lib.optionalString (cudaSupport && platform == "linux-x64") "+cuda12";
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "llmster";
   version = "${version}+${build}";
 
   src = fetchurl {
-    url = "https://llmster.lmstudio.ai/download/${version}-${build}-${platform}.${appVariant}.tar.gz";
-    sha512 = manifest.checksums.${platform};
+    url = "https://llmster.lmstudio.ai/download/${version}-${build}-${platform}.${appVariant}${bundleSuffix}.tar.gz";
+    sha512 = manifest.checksums."${platform}.${appVariant}${bundleSuffix}";
   };
 
   sourceRoot = ".";
@@ -39,6 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontStrip = true;
 
+  # stdenv.cc.cc provides libstdc++, libatomic, and libgomp (all required at runtime)
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc
     libxcrypt-legacy
@@ -103,8 +109,16 @@ stdenv.mkDerivation (finalAttrs: {
     manifest="$(jq -n --arg v "$version" '{version: $v, checksums: {}}')"
 
     for platform in ${toString (lib.attrValues platforms)}; do
-      checksum="$(curl -fsSL "https://llmster.lmstudio.ai/download/$version-$platform.${appVariant}.sha512" 2>/dev/null)" || continue
-      manifest="$(echo "$manifest" | jq --arg p "$platform" --arg c "$checksum" '.checksums[$p] = $c')"
+      for variant in ${toString variants}; do
+        if checksum="$(curl -fsSL "https://llmster.lmstudio.ai/download/$version-$platform.$variant.sha512" 2>/dev/null)"; then
+          manifest="$(echo "$manifest" | jq --arg p "$platform.$variant" --arg c "$checksum" '.checksums[$p] = $c')"
+        fi
+        if [ "$platform" = "linux-x64" ]; then
+          if checksum="$(curl -fsSL "https://llmster.lmstudio.ai/download/$version-$platform.$variant+cuda12.sha512" 2>/dev/null)"; then
+            manifest="$(echo "$manifest" | jq --arg p "$platform.$variant+cuda12" --arg c "$checksum" '.checksums[$p] = $c')"
+          fi
+        fi
+      done
     done
 
     echo "$manifest" > "${toString manifestFile}"
