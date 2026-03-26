@@ -45,17 +45,6 @@
     }
   },
   {
-    "context": "Editor && edit_prediction_conflict",
-    "bindings": {
-      "alt-l": "editor::AcceptEditPrediction",
-      "alt-k": "editor::AcceptNextWordEditPrediction",
-      "alt-n": "editor::NextEditPrediction",
-      "alt-p": "editor::PreviousEditPrediction",
-      "alt-'": "editor::ToggleEditPrediction",
-      "alt-j": "editor::ShowEditPrediction"
-    }
-  },
-  {
     "context": "Editor && edit_prediction",
     "bindings": {
       "alt-l": "editor::AcceptEditPrediction",
