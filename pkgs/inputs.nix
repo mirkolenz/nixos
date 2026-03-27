@@ -36,6 +36,7 @@ in
   cosmic-manager = fromInput "cosmic-manager" "cosmic-manager";
   disko = fromInput "disko" "disko";
   disko-install = fromInput "disko" "disko-install";
+  mistral-vibe = fromInput "mistral-vibe" "default";
   nix-converter = fromInput "nix-converter" "default";
   nix-sweep = fromInput "nix-sweep" "default";
   zjstatus = fromInput "zjstatus" "default";

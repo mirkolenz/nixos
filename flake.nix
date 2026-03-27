@@ -95,6 +95,15 @@
       url = "github:dj95/zjstatus/v0.22.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mistral-vibe = {
+      url = "github:mistralai/mistral-vibe/v2.7.0"; # autoupdate
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pyproject-nix.follows = "pyproject-nix";
+        uv2nix.follows = "uv2nix";
+        pyproject-build-systems.follows = "pyproject-build-systems";
+      };
+    };
     plist-manager = {
       url = "github:sushydev/nix-plist-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -110,6 +119,25 @@
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs = {
+        pyproject-nix.follows = "pyproject-nix";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs = {
+        pyproject-nix.follows = "pyproject-nix";
+        uv2nix.follows = "uv2nix";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
   };
 
