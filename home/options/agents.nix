@@ -43,7 +43,7 @@ in
           ".claude/CLAUDE.md".text = cfg.instructions;
           ".codex/AGENTS.md".text = cfg.instructions;
           ".gemini/GEMINI.md".text = cfg.instructions;
-          ".vibe/prompts/cli.md".text = cfg.instructions;
+          ".vibe/AGENTS.md".text = cfg.instructions;
         };
       })
       (lib.mkIf (cfg.skills != { }) {
