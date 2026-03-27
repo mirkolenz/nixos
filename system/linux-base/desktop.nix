@@ -23,6 +23,7 @@ lib.mkIf config.custom.features.withDisplay {
       };
     };
   };
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   programs = {
     _1password.enable = true;
