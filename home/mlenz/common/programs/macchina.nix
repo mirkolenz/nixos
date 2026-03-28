@@ -11,12 +11,17 @@
       physical_cores = true;
       theme = "Lithium";
     };
-    # https://github.com/Macchina-CLI/macchina/tree/main/contrib/themes
-    themes = lib.genAttrs [
-      "Beryllium"
-      "Helium"
-      "Hydrogen"
-      "Lithium"
-    ] (name: "${config.programs.macchina.package.src}/contrib/themes/${name}.toml");
-  };
+  }; # https://github.com/Macchina-CLI/macchina/tree/main/contrib/themes
+  xdg.configFile =
+    lib.genAttrs'
+      [
+        "Beryllium"
+        "Helium"
+        "Hydrogen"
+        "Lithium"
+      ]
+      (name: {
+        name = "macchina/themes/${name}.toml";
+        value.source = "${config.programs.macchina.package.src}/contrib/themes/${name}.toml";
+      });
 }
