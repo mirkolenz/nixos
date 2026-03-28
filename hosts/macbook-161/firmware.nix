@@ -23,14 +23,14 @@ let
       boardId = "Mac-CFF7D910A743CAAF";
       mlb = "00000000000000000";
       osType = "latest";
-      hash = "sha256-tZt+Bve8O5cg9LGPC4BZgvuxcQ9Td8gWxSOUyk/CB6k=";
+      hash = "sha256-HldXd1abkBLEzA+NXyadPXYZQTVBVTN11Yenf1KwRXs=";
     };
   });
   cfg = config.hardware.apple-t2-firmware;
 in
 {
   options.hardware.apple-t2-firmware = {
-    enable = lib.mkEnableOption "T2 Mac suspend/resume fixes";
+    enable = lib.mkEnableOption "T2 Mac firmware";
     package = lib.mkOption {
       type = lib.types.package;
       default = patchedFirmware;
