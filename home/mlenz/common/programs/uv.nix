@@ -10,6 +10,7 @@
     package = pkgs.uv-bin;
     # https://docs.astral.sh/uv/reference/settings/
     settings = {
+      exclude-newer = "3 days";
       python-downloads = "manual";
       python-preference = "system";
     };
