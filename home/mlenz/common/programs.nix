@@ -1,7 +1,5 @@
-{ lib', ... }:
+{ ... }:
 {
-  imports = lib'.flocken.getModules ./.;
-
   programs = {
     # keep-sorted start
     btop.enable = true;
