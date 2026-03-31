@@ -120,6 +120,8 @@ let
     "jost"
     "lugrasimo"
     "manrope"
+    "maple-mono"
+    "maple-mono-nf"
     "monaspace"
     "monaspice-nerd-font"
     "overlock"
