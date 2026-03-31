@@ -64,12 +64,18 @@ lib.mkIf config.custom.features.withOptionals {
             repo = "anthropics/claude-plugins-official";
           };
         };
+        openai-codex = {
+          source = {
+            source = "github";
+            repo = "openai/codex-plugin-cc";
+          };
+        };
       };
       enabledPlugins = {
         "code-simplifier@claude-plugins-official" = true;
         "feature-dev@claude-plugins-official" = true;
         "frontend-design@claude-plugins-official" = true;
-        "ralph-loop@claude-plugins-official" = false;
+        "codex@openai-codex" = true;
       };
       env = {
         # better results, but too many tokens
