@@ -19,6 +19,7 @@
     ollama-copilot
     mole-mac
     pyrefly-bin
+    nvtopPackages.apple
     (writeShellApplication {
       name = "scansnap-reset";
       text = /* bash */ ''
