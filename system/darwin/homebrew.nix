@@ -167,7 +167,6 @@ in
     enableZshIntegration = true;
     enableFishIntegration = true;
     global.autoUpdate = true;
-    caskArgs.ignore_dependencies = true;
     onActivation = {
       autoUpdate = true;
       cleanup = "uninstall";
