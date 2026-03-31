@@ -1,13 +1,10 @@
 {
   pkgs,
   lib,
-  lib',
   config,
   ...
 }:
 {
-  imports = lib'.flocken.getModules ./.;
-
   home.packages = with pkgs; [
     tree
     moreutils
