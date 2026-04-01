@@ -22,9 +22,7 @@ mkApp (finalAttrs: {
     '';
   };
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--url=${finalAttrs.meta.homepage}" ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A GUI to browse and restore restic backup repositories.";
