@@ -50,24 +50,18 @@ lib.extendMkDerivation {
       # Assets can be an attrset or a function of version.
       resolvedAssets = if lib.isFunction assets then assets finalAttrs.version else assets;
 
-      # Derive prefix/suffix pairs for the update script's jq asset filter.
-      # When assets is a function, evaluate it with a sentinel to find where the
-      # version appears; when it is a plain attrset, the sentinel won't appear
-      # so each name becomes both prefix and suffix (exact match).
+      # Evaluate assets with a sentinel version to obtain name templates.
+      # The update script replaces the sentinel with the actual version for
+      # exact name matching against the release assets.
       sentinel = "__NIXPKGS_VERSION__";
       sentinelAssets = if lib.isFunction assets then assets sentinel else assets;
-      assetFilters = lib.toJSON (
-        map (
-          name:
-          let
-            parts = lib.splitString sentinel name;
-          in
-          {
-            prefix = lib.head parts;
-            suffix = lib.last parts;
-          }
-        ) (lib.attrValues sentinelAssets)
-      );
+      sentinelAssetNames = lib.toJSON (lib.attrValues sentinelAssets);
+
+      jqVersionExpr = lib.concatStrings [
+        ".tag_name"
+        (lib.optionalString (versionPrefix != "") " | ltrimstr(\"${versionPrefix}\")")
+        (lib.optionalString (versionSuffix != "") " | rtrimstr(\"${versionSuffix}\")")
+      ];
 
       assetName = resolvedAssets.${stdenv.hostPlatform.system};
     in
@@ -109,13 +103,16 @@ lib.extendMkDerivation {
 
           output="$(
             ${ghCall} \
-            | jq --argjson filters '${assetFilters}' '
-              ${jqSelector} | {
+            | jq --argjson sentinelNames '${sentinelAssetNames}' '
+              ${jqSelector} |
+              (${jqVersionExpr}) as $version |
+              INDEX(.assets[]; .name) as $assets | {
                 tag_name,
                 assets: [
-                  $filters[] as $f | .assets[]
-                  | select(.name | startswith($f.prefix) and endswith($f.suffix))
-                  | { key: .name, value: { digest } }
+                  $sentinelNames[] as $sentinelName |
+                  ($sentinelName | split("${sentinel}") | join($version)) as $name |
+                  ($assets[$name] // error("Asset not found: \($name)")) |
+                  { key: .name, value: { digest } }
                 ] | from_entries
               }
             '
