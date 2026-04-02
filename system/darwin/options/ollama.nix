@@ -38,11 +38,18 @@ in
       };
 
       models = lib.mkOption {
-        type = types.nullOr types.path;
-        default = null;
-        example = "/path/to/ollama/models";
+        type = types.str;
+        default = "$HOME/.ollama/models";
         description = ''
           The directory that the ollama service will read models from and download new models to.
+        '';
+      };
+
+      logs = lib.mkOption {
+        type = types.str;
+        default = "$HOME/.ollama/logs";
+        description = ''
+          The directory that the ollama service will write logs to.
         '';
       };
 
@@ -65,29 +72,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     environment.systemPackages = [ cfg.package ];
 
     launchd.user.agents.ollama = {
-      path = [ config.environment.systemPath ];
-
+      script = ''
+        export OLLAMA_MODELS="${cfg.models}"
+        exec ${lib.getExe cfg.package} serve >> "${cfg.logs}/server.log" 2>&1
+      '';
+      environment = cfg.environmentVariables // {
+        OLLAMA_HOST = "${cfg.host}:${toString cfg.port}";
+      };
+      managedBy = "services.ollama.enable";
       serviceConfig = {
         KeepAlive = true;
         RunAtLoad = true;
-        ProgramArguments = [
-          "${cfg.package}/bin/ollama"
-          "serve"
-        ];
-        EnvironmentVariables =
-          cfg.environmentVariables
-          // {
-            OLLAMA_HOST = "${cfg.host}:${toString cfg.port}";
-          }
-          // (lib.optionalAttrs (cfg.models != null) {
-            OLLAMA_MODELS = toString cfg.models;
-          });
       };
-      managedBy = "services.ollama.enable";
     };
   };
 }
