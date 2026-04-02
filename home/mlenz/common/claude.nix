@@ -24,7 +24,7 @@ lib.mkIf config.custom.features.withOptionals {
       sandbox = {
         enabled = true;
         allowLocalBinding = true;
-        allowUnsandboxedCommands = false;
+        allowUnsandboxedCommands = true;
         enableWeakerNetworkIsolation = true;
         excludedCommands = [
           "nix:*"
