@@ -27,7 +27,6 @@ let
     "microsoft-auto-update"
     "microsoft-teams"
     "obsidian"
-    "ollama-app"
     "omnigraffle"
     "orbstack"
     "orion"
