@@ -16,7 +16,6 @@
     undmg
     rcodesign
     container
-    ollama-copilot
     mole-mac
     pyrefly-bin
     nvtopPackages.apple
