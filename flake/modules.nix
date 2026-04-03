@@ -4,9 +4,12 @@
   ...
 }:
 {
-  imports = [ inputs.disko.flakeModules.default ];
+  imports = [
+    inputs.disko.flakeModules.default
+    inputs.flake-parts.flakeModules.modules
+  ];
   flake = {
-    systemModules.base =
+    modules.generic.system =
       { os, ... }:
       {
         imports = [
@@ -88,7 +91,7 @@
     };
     nixosModules.base = {
       imports = [
-        self.systemModules.base
+        self.modules.generic.system
         ../system/linux-base
         inputs.home-manager.nixosModules.default
         inputs.quadlet-nix.nixosModules.default
@@ -111,7 +114,7 @@
     };
     darwinModules.base = {
       imports = [
-        self.systemModules.base
+        self.modules.generic.system
         inputs.home-manager.darwinModules.default
         inputs.determinate.darwinModules.default
         # inputs.plist-manager.darwinModules.default
