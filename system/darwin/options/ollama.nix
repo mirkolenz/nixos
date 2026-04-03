@@ -13,11 +13,7 @@ in
     services.ollama = {
       enable = lib.mkEnableOption "Ollama Daemon";
 
-      package = lib.mkOption {
-        type = types.package;
-        default = pkgs.ollama;
-        description = "This option specifies the ollama package to use.";
-      };
+      package = lib.mkPackageOption pkgs "ollama" { };
 
       host = lib.mkOption {
         type = types.str;
@@ -86,6 +82,7 @@ in
       serviceConfig = {
         KeepAlive = true;
         RunAtLoad = true;
+        ExitTimeOut = 5;
       };
     };
   };

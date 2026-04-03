@@ -1,7 +1,8 @@
-{ ... }:
+{ pkgs, ... }:
 {
   services.ollama = {
     enable = true;
+    package = pkgs.ollama-darwin-bin;
     # ollama serve --help
     environmentVariables = {
       OLLAMA_CONTEXT_LENGTH = toString (64 * 1024);
