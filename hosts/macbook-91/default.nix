@@ -19,6 +19,10 @@
     efi.efiSysMountPoint = "/boot";
   };
 
+  # i915 creates phantom LVDS-1 connector that needs to be disabled
+  # real panel is nouveau's LVDS-2
+  boot.kernelParams = [ "video=LVDS-1:d" ];
+
   swapDevices = [
     {
       device = "/swapfile";
