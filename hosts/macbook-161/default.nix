@@ -17,10 +17,6 @@
     withOptionals = true;
   };
 
-  # disable intel iGPU so amdgpu is the sole GPU driver
-  boot.blacklistedKernelModules = [ "i915" ];
-  boot.kernelParams = [ "i915.modeset=0" ];
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.loader = {
     systemd-boot.enable = true;
