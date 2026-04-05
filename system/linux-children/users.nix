@@ -19,13 +19,11 @@
       description = "Mila Lenz";
       uid = lib.mkDefault 1001;
       isNormalUser = true;
-      password = "";
     };
     levi = {
       description = "Levi Lenz";
       uid = lib.mkDefault 1002;
       isNormalUser = true;
-      password = "";
     };
   };
 }
