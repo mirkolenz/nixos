@@ -14,7 +14,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    pciutils
     strace
     perl
     python3

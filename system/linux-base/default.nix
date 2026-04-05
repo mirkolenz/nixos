@@ -3,6 +3,7 @@
   lib',
   stateVersions,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -49,4 +50,8 @@
   };
 
   environment.variables.BROWSER = lib.mkIf (!config.custom.features.withDisplay) "echo";
+
+  environment.systemPackages = with pkgs; [
+    pciutils
+  ];
 }
