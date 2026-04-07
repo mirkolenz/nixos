@@ -94,7 +94,7 @@
       schemes = {
         ftp = "ForkLift";
         # http = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";
-        http = "Vivaldi";
+        http = "Orion RC";
         mailto = "Mail";
         sftp = "ForkLift";
         ssh = "Ghostty";
