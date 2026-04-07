@@ -20,9 +20,6 @@ mkGitHubBinary {
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 
-  # todo: assets missing in https://github.com/facebook/pyrefly/releases/tag/0.59.0
-  passthru.updateScript = null;
-
   meta = {
     description = "Fast type checker and language server for Python";
     license = lib.licenses.mit;
