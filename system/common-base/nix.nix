@@ -14,6 +14,7 @@
       "nixpkgs=flake:pkgs"
     ];
     accept-flake-config = true;
+    auto-optimise-store = true;
     commit-lock-file-summary = "chore(deps/nix): update";
     download-buffer-size = 1000000000; # 1 GB
     keep-derivations = true;
