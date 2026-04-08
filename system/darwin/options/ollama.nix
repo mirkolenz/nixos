@@ -27,23 +27,30 @@ in
       port = lib.mkOption {
         type = types.port;
         default = 11434;
-        example = 11111;
         description = ''
           Which port the ollama server listens to.
         '';
       };
 
+      home = lib.mkOption {
+        type = types.str;
+        default = "/var/lib/ollama";
+        description = ''
+          The home directory that the ollama service is started in.
+        '';
+      };
+
       models = lib.mkOption {
         type = types.str;
-        default = "$HOME/.ollama/models";
+        default = "${cfg.home}/models";
         description = ''
           The directory that the ollama service will read models from and download new models to.
         '';
       };
 
-      logs = lib.mkOption {
+      log = lib.mkOption {
         type = types.str;
-        default = "$HOME/.ollama/logs";
+        default = "/var/log/ollama.log";
         description = ''
           The directory that the ollama service will write logs to.
         '';
@@ -54,14 +61,9 @@ in
         default = { };
         example = {
           OLLAMA_LLM_LIBRARY = "cpu";
-          HIP_VISIBLE_DEVICES = "0,1";
         };
         description = ''
           Set arbitrary environment variables for the ollama service.
-
-          Be aware that these are only seen by the ollama server (launchd daemon),
-          not normal invocations like `ollama run`.
-          Since `ollama run` is mostly a shell around the ollama server, this is usually sufficient.
         '';
       };
     };
@@ -70,20 +72,45 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    launchd.user.agents.ollama = {
-      script = ''
-        export OLLAMA_MODELS="${cfg.models}"
-        exec ${lib.getExe cfg.package} serve >> "${cfg.logs}/server.log" 2>&1
-      '';
+    launchd.daemons.ollama = {
+      command = "${lib.getExe cfg.package} serve";
       environment = cfg.environmentVariables // {
+        HOME = cfg.home;
+        OLLAMA_MODELS = cfg.models;
         OLLAMA_HOST = "${cfg.host}:${toString cfg.port}";
       };
-      managedBy = "services.ollama.enable";
       serviceConfig = {
         KeepAlive = true;
         RunAtLoad = true;
         ExitTimeOut = 5;
+        UserName = "_ollama";
+        GroupName = "_ollama";
+        WorkingDirectory = cfg.home;
+        StandardOutPath = cfg.log;
+        StandardErrorPath = cfg.log;
       };
     };
+
+    users = {
+      knownUsers = [ "_ollama" ];
+      knownGroups = [ "_ollama" ];
+      users._ollama = {
+        uid = lib.mkDefault 341;
+        gid = lib.mkDefault config.users.groups._ollama.gid;
+        shell = lib.mkDefault null;
+        home = cfg.home;
+        description = "Ollama service user";
+      };
+      groups._ollama = {
+        gid = lib.mkDefault 341;
+        description = "Ollama service group";
+      };
+    };
+
+    system.activationScripts.preActivation.text = ''
+      mkdir -p "${cfg.home}" "${cfg.models}"
+      touch "${cfg.log}"
+      chown ${toString config.users.users._ollama.uid}:${toString config.users.users._ollama.gid} "${cfg.home}" "${cfg.models}" "${cfg.log}"
+    '';
   };
 }
