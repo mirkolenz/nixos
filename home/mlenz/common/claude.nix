@@ -84,7 +84,7 @@ lib.mkIf config.custom.features.withOptionals {
         ASTRO_TELEMETRY_DISABLED = "1";
       };
       permissions = {
-        defaultMode = "auto";
+        defaultMode = "acceptEdits";
         disableBypassPermissionsMode = "disable";
         allow = [
           "WebFetch"
