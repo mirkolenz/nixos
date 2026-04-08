@@ -9,7 +9,7 @@
       current_version=$(/usr/local/bin/determinate-nixd version | ${lib.getExe pkgs.gawk} '/daemon version:/ {print $NF; exit}')
       if [ "$current_version" != "$expected_version" ]; then
         echo "Determinate Nixd: Upgrading from $current_version to $expected_version"
-        /usr/local/bin/determinate-nixd upgrade --version "v$expected_version"
+        /usr/local/bin/determinate-nixd upgrade --version "$expected_version"
       else
         echo "Determinate Nixd: Already at version $expected_version"
       fi
