@@ -60,7 +60,7 @@
   },
   "cursor_blink": false,
   "edit_predictions": {
-    "provider": "zed",
+    "provider": "copilot",
     "disabled_globs": ["*.env", "*secret*"],
     "mode": "eager",
     "enabled_in_text_threads": true,
