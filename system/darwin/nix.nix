@@ -1,5 +1,4 @@
 {
-  user,
   config,
   lib',
   os,
@@ -20,10 +19,8 @@
   '';
   nix.enable = false;
   custom.nix.settings = {
-    trusted-users = [
-      user.login
-      "root"
-    ];
+    allowed-users = [ "@staff" ];
+    trusted-users = [ "@staff" ];
     sandbox = false;
   };
 }
