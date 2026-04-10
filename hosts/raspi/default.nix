@@ -12,8 +12,6 @@
 
   custom.features.withAlwaysOn = true;
 
-  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
-
   hardware.raspberry-pi."4" = {
     # https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/4/poe-plus-hat.nix
     poe-plus-hat.enable = true;
