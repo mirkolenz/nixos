@@ -19,8 +19,8 @@
   '';
   nix.enable = false;
   custom.nix.settings = {
-    allowed-users = [ "@staff" ];
-    trusted-users = [ "@staff" ];
+    allowed-users = [ "@admin" ];
+    trusted-users = [ "@admin" ];
     sandbox = false;
   };
 }
