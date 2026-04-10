@@ -46,13 +46,13 @@ lib.mkIf config.custom.features.withDisplay {
         forwardAgent = true;
         user = "mlenz";
       };
-      "macpro homeserver" = {
-        hostname = "macpro.lenz.casa";
+      "macpro" = {
+        hostname = "macpro.taildc4a8b.ts.net";
         forwardAgent = true;
         user = "mlenz";
       };
       "raspi" = {
-        hostname = "raspi.lenz.casa";
+        hostname = "raspi.taildc4a8b.ts.net";
         forwardAgent = true;
         user = "mlenz";
       };
