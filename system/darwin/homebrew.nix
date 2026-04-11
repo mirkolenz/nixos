@@ -100,7 +100,6 @@ let
     "fira-code-nerd-font"
     "fira-mono"
     "fira-sans"
-    "fontawesome"
     "geist"
     "geist-mono"
     "ia-writer-duo"
