@@ -1,5 +1,5 @@
 {
-  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/612fb60f1cb023bb9c0b5631d973779082312c8d/",
+  "base_url": "https://raw.githubusercontent.com/t2linux/linux-t2-patches/da3e8faa7f8e58c7a7c8dfb1999fd7be928a5771/",
   "patches": [
     {
       "name": "1001-Add-apple-bce-driver.patch",
@@ -35,7 +35,7 @@
     },
     {
       "name": "3005-applesmc-basic-mmio-interface-implementation.patch",
-      "hash": "sha256-Hh9DymQ+Y74oSs1zv9F0lTU3jfAenKTM+cmFH9tmN9Q="
+      "hash": "sha256-tnpfmZQw9KQNylpLfGZ+X0IVP79AgeDoTVYF6yUhCRI="
     },
     {
       "name": "3006-applesmc-fan-support-on-T2-Macs.patch",
@@ -56,6 +56,10 @@
     {
       "name": "4001-asahi-trackpad.patch",
       "hash": "sha256-+YXyIjtlVrLo8allTO3M1A+xold5FUXaZ8dwD2j5HDc="
+    },
+    {
+      "name": "4002-HID-apple-ensure-the-keyboard-backlight-is-off-if-su.patch",
+      "hash": "sha256-iG46L6Yj5NrwYldMaBcVYBSPJXImQOa2tevpM2Hi85c="
     },
     {
       "name": "4003-HID-apple-ignore-the-trackpad-on-T2-Macs.patch",
