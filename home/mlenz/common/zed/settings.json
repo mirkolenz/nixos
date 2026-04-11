@@ -63,7 +63,6 @@
     "provider": "copilot",
     "disabled_globs": ["*.env", "*secret*"],
     "mode": "eager",
-    "enabled_in_text_threads": true,
     "ollama": {
       "max_output_tokens": 16,
       "model": "qwen2.5-coder:7b"
