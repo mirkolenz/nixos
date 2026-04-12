@@ -15,11 +15,6 @@ let
       inherit (config.home) homeDirectory;
       inherit lib pkgs;
     }).fileType;
-
-  sessionVariables = {
-    # this is not part of the XDG spec
-    # XDG_BIN_HOME = cfg.binHome;
-  };
 in
 {
   options.xdg = {
@@ -30,24 +25,11 @@ in
         Attribute set of files to link into the user's XDG bin home.
       '';
     };
-
-    binHome = lib.mkOption {
-      type = lib.types.path;
-      defaultText = "~/.local/bin";
-      default = "${config.home.homeDirectory}/.local/bin";
-      apply = toString;
-      description = ''
-        Absolute path to directory holding application binaries.
-      '';
-    };
   };
 
   config = lib.mkIf cfg.enable {
     home = {
-      inherit sessionVariables;
-      sessionPath = [ cfg.binHome ];
       file = lib.mapAttrs' (name: file: lib.nameValuePair "${cfg.binHome}/${name}" file) cfg.binFile;
     };
-    systemd.user.sessionVariables = lib.mkIf pkgs.stdenv.isLinux sessionVariables;
   };
 }
