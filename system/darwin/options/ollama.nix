@@ -95,17 +95,16 @@ in
     };
 
     users = {
-      knownUsers = [ "_ollama" ];
-      knownGroups = [ "_ollama" ];
       users._ollama = {
-        uid = lib.mkDefault 341;
-        gid = lib.mkDefault config.users.groups._ollama.gid;
+        uid = config.ids.uids._ollama;
+        gid = config.users.groups._ollama.gid;
         shell = lib.mkDefault null;
         home = cfg.home;
         description = "Ollama service user";
+        isHidden = true;
       };
       groups._ollama = {
-        gid = lib.mkDefault 341;
+        gid = config.ids.gids._ollama;
         description = "Ollama service group";
       };
     };

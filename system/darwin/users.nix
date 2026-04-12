@@ -15,6 +15,7 @@
       openssh.authorizedKeys.keys = user.sshKeys;
       uid = lib.mkDefault 501;
       gid = lib.mkDefault 20;
+      isHidden = false;
     };
   };
 }

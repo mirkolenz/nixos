@@ -164,17 +164,16 @@ in
     };
 
     users = {
-      knownUsers = [ "_llamacpp" ];
-      knownGroups = [ "_llamacpp" ];
       users._llamacpp = {
-        uid = lib.mkDefault 342;
-        gid = lib.mkDefault config.users.groups._llamacpp.gid;
+        uid = config.ids.uids._llamacpp;
+        gid = config.users.groups._llamacpp.gid;
         shell = lib.mkDefault null;
         home = cfg.home;
         description = "LLaMA C++ service user";
+        isHidden = true;
       };
       groups._llamacpp = {
-        gid = lib.mkDefault 342;
+        gid = config.ids.gids._llamacpp;
         description = "LLaMA C++ service group";
       };
     };
