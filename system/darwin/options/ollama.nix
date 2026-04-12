@@ -73,13 +73,16 @@ in
     environment.systemPackages = [ cfg.package ];
 
     launchd.daemons.ollama = {
-      command = "${lib.getExe cfg.package} serve";
       environment = cfg.environmentVariables // {
         HOME = cfg.home;
         OLLAMA_MODELS = cfg.models;
         OLLAMA_HOST = "${cfg.host}:${toString cfg.port}";
       };
       serviceConfig = {
+        ProgramArguments = [
+          (lib.getExe cfg.package)
+          "serve"
+        ];
         KeepAlive = true;
         RunAtLoad = true;
         ExitTimeOut = 5;
