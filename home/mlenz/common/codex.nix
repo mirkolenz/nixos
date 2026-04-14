@@ -27,6 +27,7 @@ lib.mkIf config.custom.features.withOptionals {
           ":project_roots"."." = "write";
           "${config.xdg.cacheHome}" = "write";
           "${config.home.homeDirectory}/.npm" = "write";
+          "${config.home.homeDirectory}/Library/Caches" = "write";
           "/nix/store" = "read";
         };
         network = {

@@ -50,6 +50,7 @@ lib.mkIf config.custom.features.withOptionals {
           allowWrite = [
             "/${config.xdg.cacheHome}"
             "/${config.home.homeDirectory}/.npm"
+            "/${config.home.homeDirectory}/Library/Caches"
           ];
           # denyRead = [
           #   ".env*"
