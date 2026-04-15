@@ -1,7 +1,6 @@
 final: prev:
 let
-  # todo: https://github.com/nixos/nixpkgs/issues/502964
-  pkgs = final.stable;
+  pkgs = final;
   inherit (prev) lib;
 in
 lib.addMetaAttrs
