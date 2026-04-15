@@ -351,11 +351,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776136611,
-        "narHash": "sha256-b2pu3Pb28W0bJzQVP3OJHZC5+dgOOeqjlli2WVakKEU=",
+        "lastModified": 1776184304,
+        "narHash": "sha256-No6QGBmIv5ChiwKCcbkxjdEQ/RO2ZS1gD7SFy6EZ7rc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8a423e444b17dde406097328604a64fc7429e34e",
+        "rev": "3c7524c68348ef79ce48308e0978611a050089b2",
         "type": "github"
       },
       "original": {
@@ -398,16 +398,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1775752846,
-        "narHash": "sha256-SPn6YaGmEt2r9Fm3Eagubqw0Q2U5bSvNUY1qo2XfVlE=",
+        "lastModified": 1776155595,
+        "narHash": "sha256-4LseZpF7IlTitLEODn+pkUYGA6QR/hzGbO6SmZB0Mto=",
         "owner": "mistralai",
         "repo": "mistral-vibe",
-        "rev": "e9a9217cc80930c09c35c351b93893c6c98b9622",
+        "rev": "e1a25caa52eba95df2cfdc9ec0b68f5ed36ebe92",
         "type": "github"
       },
       "original": {
         "owner": "mistralai",
-        "ref": "v2.7.4",
+        "ref": "v2.7.5",
         "repo": "mistral-vibe",
         "type": "github"
       }
@@ -587,11 +587,11 @@
     },
     "nixpkgs-darwin-stable": {
       "locked": {
-        "lastModified": 1775994940,
-        "narHash": "sha256-z5tkSIdPUs6IG3I9HD2e2stdzOKKh0qDeKkOURYQw6o=",
+        "lastModified": 1776155670,
+        "narHash": "sha256-g8Wc6vHPyueo3irXFdySrvxkOLoY8dhPyOJKVN5g9Gs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9d600cdba342cea3b59aef50e093a547a0f4012f",
+        "rev": "80367ce049178be1683fd17a5a88f2762510d8fc",
         "type": "github"
       },
       "original": {
@@ -1017,11 +1017,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776114780,
-        "narHash": "sha256-aYUgp40qkY7oNSm+G9A/woNYP+eDeFM0bYckfmxEUiY=",
+        "lastModified": 1776171979,
+        "narHash": "sha256-vk66a21DVT2WLjm/PiroInlE/gmeh+notdXiZ1mbq/c=",
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "rev": "73ff87a3e489b07b9cf842f917963a9e40d49225",
+        "rev": "8e11806ae309345b0b92c4dfaf127c8536b56b7c",
         "type": "github"
       },
       "original": {
