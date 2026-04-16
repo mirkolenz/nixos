@@ -90,7 +90,7 @@ lib.mkIf config.custom.features.withOptionals {
         allow = [
           "WebFetch"
           "WebSearch"
-          "Read(//nix/store/**/*)"
+          "Write(//nix/**/*)"
         ];
         deny = [ ];
         ask = [ ];

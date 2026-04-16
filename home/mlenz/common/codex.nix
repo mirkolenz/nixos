@@ -28,7 +28,7 @@ lib.mkIf config.custom.features.withOptionals {
           "${config.xdg.cacheHome}" = "write";
           "${config.home.homeDirectory}/.npm" = "write";
           "${config.home.homeDirectory}/Library/Caches" = "write";
-          "/nix/store" = "read";
+          "/nix" = "write";
         };
         network = {
           enabled = true;
