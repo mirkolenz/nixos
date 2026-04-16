@@ -5,7 +5,7 @@ in
 pkgs.caddy.withPlugins {
   plugins = [
     # https://github.com/caddy-dns/cloudflare/tags
-    "github.com/caddy-dns/cloudflare@v0.2.3"
+    "github.com/caddy-dns/cloudflare@v0.2.4"
   ];
-  hash = "sha256-20o+14cn/eeLuf1c8uGE1ODRZGC0oxocaIVlv4tFSvA=";
+  hash = "sha256-Olz4W84Kiyldy+JtbIicVCL7dAYl4zq+2rxEOUTObxA=";
 }
