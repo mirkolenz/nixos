@@ -33,9 +33,12 @@
 
   boot.kernelParams = [
     "i915.modeset=0"
-    # https://wiki.t2linux.org/guides/postinstall/#suspend-workaround
-    "mem_sleep_default=s2idle"
   ];
+
+  systemd.sleep.settings.Sleep = {
+    SuspendState = "mem";
+    MemorySleepMode = "deep";
+  };
 
   # https://wiki.t2linux.org/guides/postinstall/
   # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
