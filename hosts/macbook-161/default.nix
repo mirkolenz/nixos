@@ -36,8 +36,16 @@
   ];
 
   systemd.sleep.settings.Sleep = {
-    SuspendState = "mem";
-    MemorySleepMode = "deep";
+    AllowSuspend = "no";
+    AllowHibernation = "no";
+    AllowSuspendThenHibernate = "no";
+    AllowHybridSleep = "no";
+  };
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "lock";
+    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchDocked = "ignore";
   };
 
   # https://wiki.t2linux.org/guides/postinstall/
