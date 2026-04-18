@@ -11,6 +11,7 @@ let
     "betterdisplay"
     "chatgpt"
     "claude"
+    "codex-app"
     "daisydisk"
     "default-folder-x"
     "devonthink"
