@@ -95,6 +95,10 @@ lib.mkIf config.custom.features.withOptionals {
         deny = [ ];
         ask = [ ];
       };
+      statusLine = lib.mkIf (lib.versionAtLeast config.programs.starship.package.version "1.25.0") {
+        type = "command";
+        command = "${lib.getExe config.programs.starship.package} statusline claude-code";
+      };
     };
   };
   # https://code.claude.com/docs/en/model-config
