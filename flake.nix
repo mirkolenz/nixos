@@ -92,7 +92,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zjstatus = {
-      url = "github:dj95/zjstatus/v0.22.0"; # autoupdate
+      url = "github:dj95/zjstatus/v0.23.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mistral-vibe = {
