@@ -1,4 +1,3 @@
-import os
 import re
 import shlex
 import subprocess
@@ -6,55 +5,56 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from github import Github
 
 app = typer.Typer(
     add_completion=False,
     pretty_exceptions_enable=False,
 )
 
+# Match lines with `url = "github:owner/repo/ref"; # autoupdate`
 PATTERN = re.compile(
-    r'^\s*url\s*=\s*"github:(?P<owner>[^/]+)/(?P<repo>[^/]+)/(?P<ref>[^"]+)"\s*;\s*#\s*autoupdate\s*$'
+    r'url = "github:(?P<owner>\S+?)/(?P<repo>\S+?)/(?P<ref>\S+?)"; # autoupdate'
 )
 
 
-def get_latest_release(gh: Github, owner: str, repo: str) -> str | None:
-    """Fetch the latest release tag from a GitHub repository."""
-    try:
-        gh_repo = gh.get_repo(f"{owner}/{repo}")
-        release = gh_repo.get_latest_release()
-        return release.tag_name
-    except Exception:
+def get_latest_release(gh_exe: str, owner: str, repo: str) -> str | None:
+    """Fetch the latest release tag via the gh CLI."""
+    result = subprocess.run(
+        [
+            gh_exe,
+            "api",
+            f"repos/{owner}/{repo}/releases/latest",
+            "--jq",
+            ".tag_name",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    if result.returncode != 0:
         return None
 
+    return result.stdout.strip() or None
 
-def update_line(gh: Github, line: str, dry_run: bool) -> str:
-    """Update a single line if it matches the autoupdate pattern."""
-    match = PATTERN.search(line)
 
-    if not match:
-        return line
-
+def replace_match(gh_exe: str, match: re.Match[str]) -> str:
     owner = match.group("owner")
     repo = match.group("repo")
     current_ref = match.group("ref")
 
-    latest = get_latest_release(gh, owner, repo)
+    latest = get_latest_release(gh_exe, owner, repo)
 
     if latest is None:
         typer.echo(f"{owner}/{repo}: no release found", err=True)
-        return line
+        return match.group(0)
 
     if latest == current_ref:
         typer.echo(f"{owner}/{repo}: up to date ({current_ref})", err=True)
-        return line
+        return match.group(0)
 
     typer.echo(f"{owner}/{repo}: {current_ref} -> {latest}", err=True)
 
-    if dry_run:
-        return line
-
-    return line.replace(
+    return match.group(0).replace(
         f"github:{owner}/{repo}/{current_ref}",
         f"github:{owner}/{repo}/{latest}",
     )
@@ -62,6 +62,9 @@ def update_line(gh: Github, line: str, dry_run: bool) -> str:
 
 @app.command()
 def run(
+    gh_exe: Annotated[str, typer.Option()],
+    git_exe: Annotated[str, typer.Option()],
+    nix_exe: Annotated[str, typer.Option()],
     flake_file: Annotated[
         Path,
         typer.Argument(
@@ -77,13 +80,8 @@ def run(
     update: Annotated[bool, typer.Option("--update", "-u")] = True,
 ):
     """Update flake.nix inputs marked with # autoupdate comment."""
-    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-    gh = Github(token)
-
     content = flake_file.read_text()
-    lines = content.splitlines(keepends=True)
-    updated_lines = [update_line(gh, line, dry_run) for line in lines]
-    new_content = "".join(updated_lines)
+    new_content = PATTERN.sub(lambda m: replace_match(gh_exe, m), content)
 
     if dry_run:
         typer.echo("Dry run, no changes written", err=True)
@@ -96,7 +94,7 @@ def run(
 
         if commit:
             git_cmd = [
-                "git",
+                git_exe,
                 "commit",
                 "-m",
                 "chore(deps/flake): update",
@@ -106,7 +104,7 @@ def run(
             subprocess.run(git_cmd)
 
     nix_cmd = [
-        "nix",
+        nix_exe,
         "flake",
         "update" if update else "lock",
     ]
