@@ -8,6 +8,7 @@ lib.mkIf config.custom.features.withDisplay {
   home.packages = with pkgs; [
     anydesk
     firefox
+    google-chrome
     obsidian
     teams-for-linux
     vivaldi
