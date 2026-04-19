@@ -24,11 +24,17 @@ lib.mkIf config.custom.features.withOptionals {
       default_permissions = "default";
       permissions.default = {
         filesystem = {
-          ":project_roots"."." = "write";
+          ":minimal" = "read";
+          ":project_roots" = {
+            "." = "write";
+            ".git" = "read";
+          };
+          ":tmpdir" = "write";
+          "/tmp" = "write";
+          "/nix" = "write";
           "${config.xdg.cacheHome}" = "write";
           "${config.home.homeDirectory}/.npm" = "write";
           "${config.home.homeDirectory}/Library/Caches" = "write";
-          "/nix" = "write";
         };
         network = {
           enabled = true;
