@@ -216,7 +216,7 @@ in
       enable = lib.mkEnableOption "dashboard showing all services";
       name = lib.mkOption {
         type = lib.types.str;
-        default = "dashboard";
+        default = "dash";
         description = "Subdomain name for the dashboard.";
       };
       title = lib.mkOption {
