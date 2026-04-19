@@ -51,13 +51,13 @@ lib.mkIf config.custom.features.withDisplay {
     wifi.backend = "iwd";
   };
 
-  services.logind.settings.Login = {
+  services.logind.settings.Login = lib.mkDefault {
     HandleLidSwitch = "sleep";
     HandleLidSwitchExternalPower = "sleep";
     HandleLidSwitchDocked = "ignore";
   };
 
-  systemd.sleep.settings.Sleep = {
+  systemd.sleep.settings.Sleep = lib.mkDefault {
     AllowSuspend = "yes";
     AllowHibernation = "no";
     AllowSuspendThenHibernate = "no";
