@@ -20,6 +20,7 @@ lib.mkIf config.custom.features.withOptionals {
       forceLoginMethod = "claudeai";
       includeCoAuthoredBy = false;
       includeGitInstructions = false;
+      skipAutoPermissionPrompt = true;
       spinnerTipsEnabled = false;
       sandbox = {
         enabled = true;
