@@ -24,6 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Tool for migrating to the uv package manager";

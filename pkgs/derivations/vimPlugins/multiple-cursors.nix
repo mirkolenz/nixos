@@ -14,4 +14,5 @@ vimUtils.buildVimPlugin rec {
   };
   meta.homepage = "https://github.com/brenton-leighton/multiple-cursors.nvim";
   passthru.updateScript = nix-update-script { };
+  strictDeps = true;
 }

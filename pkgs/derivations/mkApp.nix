@@ -38,6 +38,7 @@ lib.extendMkDerivation {
       dontConfigure = true;
       dontBuild = true;
       strictDeps = true;
+      __structuredAttrs = true;
 
       nativeBuildInputs = nativeBuildInputs ++ lib.optionals (wrapperPath != "") [ makeBinaryWrapper ];
 

@@ -24,6 +24,7 @@ buildNpmPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Visual testing tool for MCP servers";

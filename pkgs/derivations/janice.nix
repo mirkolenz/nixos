@@ -27,6 +27,7 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "A desktop app for viewing large JSON files";

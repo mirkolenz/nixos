@@ -61,6 +61,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   passthru.updateScript = writeScript "update-amp-cli" ''
     #!/usr/bin/env nix-shell

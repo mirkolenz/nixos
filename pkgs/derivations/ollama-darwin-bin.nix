@@ -20,6 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontConfigure = true;
   dontBuild = true;
   strictDeps = true;
+  __structuredAttrs = true;
 
   nativeBuildInputs = [
     makeBinaryWrapper

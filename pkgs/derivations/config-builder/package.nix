@@ -10,20 +10,14 @@
 writers.writePython3Bin "config-builder" {
   libraries = with python3Packages; [ typer ];
   doCheck = false;
-  makeWrapperArgs =
-    lib.concatMap
-      (x: [
-        "--add-flag"
-        x
-      ])
-      [
-        "--darwin-builder"
-        (lib.getExe darwin-rebuild)
-        "--linux-builder"
-        (lib.getExe nixos-rebuild-ng)
-        "--home-builder"
-        (lib.getExe home-manager)
-        "--nix-exe"
-        (lib.getExe determinate-nix)
-      ];
+  makeWrapperArgs = [
+    "--add-flag"
+    "--darwin-builder=${lib.getExe darwin-rebuild}"
+    "--add-flag"
+    "--linux-builder=${lib.getExe nixos-rebuild-ng}"
+    "--add-flag"
+    "--home-builder=${lib.getExe home-manager}"
+    "--add-flag"
+    "--nix-exe=${lib.getExe determinate-nix}"
+  ];
 } ./script.py

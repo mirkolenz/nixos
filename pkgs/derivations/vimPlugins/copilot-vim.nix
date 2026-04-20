@@ -14,4 +14,5 @@ vimUtils.buildVimPlugin rec {
   };
   meta.homepage = "https://github.com/github/copilot.vim/";
   passthru.updateScript = nix-update-script { };
+  strictDeps = true;
 }

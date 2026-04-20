@@ -42,6 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Beautiful publication lists with bibtex and PHP";

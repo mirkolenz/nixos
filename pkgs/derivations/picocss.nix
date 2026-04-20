@@ -30,6 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Minimal CSS Framework for semantic HTML";

@@ -16,4 +16,5 @@ vimUtils.buildVimPlugin {
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=branch" ];
   };
+  strictDeps = true;
 }

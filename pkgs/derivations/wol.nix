@@ -49,6 +49,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Wake up your devices with a single command or click, a Wake-On-LAN tool that works via CLI and web interface";

@@ -9,18 +9,12 @@
 writers.writePython3Bin "flake-updater" {
   libraries = with python3Packages; [ typer ];
   doCheck = false;
-  makeWrapperArgs =
-    lib.concatMap
-      (x: [
-        "--add-flag"
-        x
-      ])
-      [
-        "--gh-exe"
-        (lib.getExe gh)
-        "--git-exe"
-        (lib.getExe git)
-        "--nix-exe"
-        (lib.getExe determinate-nix)
-      ];
+  makeWrapperArgs = [
+    "--add-flag"
+    "--gh-exe=${lib.getExe gh}"
+    "--add-flag"
+    "--git-exe=${lib.getExe git}"
+    "--add-flag"
+    "--nix-exe=${lib.getExe determinate-nix}"
+  ];
 } ./script.py

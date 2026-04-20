@@ -14,4 +14,5 @@ vimUtils.buildVimPlugin rec {
   };
   meta.homepage = "https://github.com/zbirenbaum/copilot.lua/";
   passthru.updateScript = nix-update-script { };
+  strictDeps = true;
 }

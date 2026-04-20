@@ -49,6 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Deep clean and optimize your Mac";

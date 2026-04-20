@@ -34,6 +34,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Convert HTML to Markdown. Even works with entire websites and can be extended through rules";

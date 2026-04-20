@@ -24,6 +24,7 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "A language server implementation for Google Protocol Buffers";

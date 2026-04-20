@@ -32,6 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "An inky color scheme for prose and code";

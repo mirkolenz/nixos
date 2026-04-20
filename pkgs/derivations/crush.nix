@@ -46,6 +46,7 @@ buildGo126Module (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "The glamourous AI coding agent for your favourite terminal";

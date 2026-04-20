@@ -34,6 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Python Type Checker / Language Server";

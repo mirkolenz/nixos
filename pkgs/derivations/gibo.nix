@@ -47,6 +47,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Easy access to gitignore boilerplates";

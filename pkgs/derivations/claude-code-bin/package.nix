@@ -83,6 +83,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   strictDeps = true;
+  __structuredAttrs = true;
 
   passthru.updateScript = writeScript "update-claude-code" ''
     #!/usr/bin/env nix-shell
