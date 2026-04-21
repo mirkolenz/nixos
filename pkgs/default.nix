@@ -11,6 +11,7 @@ let
     "cosmic-manager"
     "nix-converter"
     "nix-sweep"
+    "opnix"
     "zjstatus"
   ];
 

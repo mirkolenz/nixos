@@ -35,6 +35,7 @@
       imports = [
         inputs.nix-index-database.homeModules.nix-index
         inputs.nixvim.homeModules.nixvim
+        inputs.opnix.homeManagerModules.default
         ../home/options
         ../common
       ];
@@ -97,6 +98,7 @@
         inputs.quadlet-nix.nixosModules.default
         inputs.determinate.nixosModules.default
         inputs.disko.nixosModules.default
+        inputs.opnix.nixosModules.default
       ];
     };
     nixosModules.default = {
@@ -118,6 +120,7 @@
         inputs.home-manager.darwinModules.default
         inputs.determinate.darwinModules.default
         # inputs.plist-manager.darwinModules.default
+        inputs.opnix.darwinModules.default
       ];
     };
     darwinModules.default = {

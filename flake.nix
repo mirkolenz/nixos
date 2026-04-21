@@ -95,6 +95,10 @@
       url = "github:dj95/zjstatus/v0.23.0"; # autoupdate
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opnix = {
+      url = "github:brizzbuzz/opnix/v0.9.0"; # autoupdate
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mistral-vibe = {
       url = "github:mistralai/mistral-vibe/v2.7.6"; # autoupdate
       inputs = {

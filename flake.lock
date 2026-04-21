@@ -293,6 +293,24 @@
         "type": "github"
       }
     },
+    "flake-utils_4": {
+      "inputs": {
+        "systems": "systems_6"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "flocken": {
       "inputs": {
         "flake-parts": [
@@ -735,6 +753,28 @@
         "type": "github"
       }
     },
+    "opnix": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768262435,
+        "narHash": "sha256-cqID7TDVAQotuAxrrOHeguhnrIgdJ/CwET1SrkXvxpY=",
+        "owner": "brizzbuzz",
+        "repo": "opnix",
+        "rev": "3df56f9794912fbecf071190faf6b114f3e2733a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "brizzbuzz",
+        "ref": "v0.9.0",
+        "repo": "opnix",
+        "type": "github"
+      }
+    },
     "plist-manager": {
       "inputs": {
         "home-manager": "home-manager_2",
@@ -847,6 +887,7 @@
         "nixpkgs-linux-stable": "nixpkgs-linux-stable",
         "nixpkgs-linux-unstable": "nixpkgs-linux-unstable",
         "nixvim": "nixvim",
+        "opnix": "opnix",
         "plist-manager": "plist-manager",
         "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
@@ -953,6 +994,21 @@
         "type": "github"
       }
     },
+    "systems_6": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "texmf": {
       "flake": false,
       "locked": {
@@ -1033,7 +1089,7 @@
     "zjstatus": {
       "inputs": {
         "crane": "crane_2",
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "nixpkgs"
         ],
