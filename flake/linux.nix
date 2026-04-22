@@ -34,6 +34,9 @@ in
     orbstack = {
       system = "aarch64-linux";
     };
+    orbstack-intel = {
+      system = "x86_64-linux";
+    };
     wsl = {
       system = "x86_64-linux";
     };
