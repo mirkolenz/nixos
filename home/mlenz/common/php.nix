@@ -6,12 +6,13 @@
 }:
 lib.mkIf config.custom.features.withOptionals {
   home.packages = with pkgs; [
-    php
-    phpstan
-    phpactor
-    pretty-php
     frankenphp
+    php
+    phpactor
+    phpPackages.composer
     phpPackages.php-cs-fixer
     phpPackages.php-parallel-lint
+    phpstan
+    pretty-php
   ];
 }
