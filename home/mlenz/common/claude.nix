@@ -49,9 +49,10 @@ lib.mkIf config.custom.features.withOptionals {
         # absolute paths need // prefix, otherwise they are treated as relative to the project root
         filesystem = {
           allowWrite = [
-            "/${config.xdg.cacheHome}"
             "/${config.home.homeDirectory}/.npm"
             "/${config.home.homeDirectory}/Library/Caches"
+            "/${config.xdg.cacheHome}"
+            "/${config.xdg.configHome}/.wrangler/logs"
           ];
           # denyRead = [
           #   ".env*"

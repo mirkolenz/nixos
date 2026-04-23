@@ -32,9 +32,10 @@ lib.mkIf config.custom.features.withOptionals {
           ":tmpdir" = "write";
           "/tmp" = "write";
           "/nix" = "write";
-          "${config.xdg.cacheHome}" = "write";
           "${config.home.homeDirectory}/.npm" = "write";
           "${config.home.homeDirectory}/Library/Caches" = "write";
+          "${config.xdg.cacheHome}" = "write";
+          "${config.xdg.configHome}/.wrangler/logs" = "write";
         };
         network = {
           enabled = true;
