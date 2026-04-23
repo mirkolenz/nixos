@@ -1,14 +1,39 @@
 {
   // keep-sorted start block=yes
   "agent": {
+    "sidebar_side": "right",
+    "flexible": true,
+    "dock": "right",
     "use_modifier_to_send": false,
-    "play_sound_when_agent_done": true,
+    "play_sound_when_agent_done": "always",
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-5.4"
     },
     "default_width": 320,
     "default_height": 320
+  },
+  "agent_servers": {
+    // keep-sorted start block=yes
+    "claude-acp": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    },
+    "gemini": {
+      "type": "registry"
+    },
+    "github-copilot-cli": {
+      "type": "registry"
+    },
+    "mistral-vibe": {
+      "type": "registry"
+    },
+    "opencode": {
+      "type": "registry"
+    }
+    // keep-sorted end
   },
   // ls -l "$HOME/Library/Application Support/Zed/extensions/installed/"
   "auto_install_extensions": {
@@ -59,6 +84,7 @@
     "words": "disabled"
   },
   "cursor_blink": false,
+  "cursor_shape": "bar",
   "edit_predictions": {
     "provider": "copilot",
     "disabled_globs": ["*.env", "*secret*"],
@@ -68,7 +94,7 @@
       "model": "qwen2.5-coder:7b"
     },
     "open_ai_compatible_api": {
-      "api_url": "http://127.0.0.1:1234",
+      "api_url": "http://127.0.0.1/v1:1234",
       "max_output_tokens": 16,
       "model": "qwen2.5-coder:7b"
     },
@@ -92,6 +118,7 @@
     }
   },
   "git_panel": {
+    "dock": "left",
     "tree_view": true,
     "default_width": 320
   },
@@ -342,14 +369,13 @@
     "path": "/etc/profiles/per-user/mlenz/bin/node",
     "npm_path": "/etc/profiles/per-user/mlenz/bin/npm"
   },
-  "notification_panel": {
-    "default_width": 320
-  },
   "outline_panel": {
+    "dock": "left",
     "default_width": 320
   },
   "preferred_line_length": 120,
   "project_panel": {
+    "dock": "left",
     "default_width": 320,
     "entry_spacing": "standard",
     "indent_size": 16,
