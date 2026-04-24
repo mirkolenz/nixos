@@ -36,6 +36,14 @@ in
     };
     orbstack-intel = {
       system = "x86_64-linux";
+      extraModule = ../hosts/orbstack;
+    };
+    utm = {
+      system = "aarch64-linux";
+    };
+    utm-intel = {
+      system = "x86_64-linux";
+      extraModule = ../hosts/utm;
     };
     wsl = {
       system = "x86_64-linux";
