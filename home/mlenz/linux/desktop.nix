@@ -5,15 +5,19 @@
   ...
 }:
 lib.mkIf config.custom.features.withDisplay {
-  home.packages = with pkgs; [
-    anydesk
-    firefox
-    # google-chrome # todo: not available on aarch64-linux
-    obsidian
-    teams-for-linux
-    vivaldi
-    zoom-us
-    zotero
-  ];
+  home.packages =
+    with pkgs;
+    [
+      anydesk
+      firefox
+      obsidian
+      teams-for-linux
+      vivaldi
+      zotero
+    ]
+    ++ lib.optionals (pkgs.stdenv.hostPlatform.isx86_64) [
+      google-chrome
+      zoom-us
+    ];
   home.file.".face".source = ../mlenz.jpg;
 }
