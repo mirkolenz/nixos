@@ -8,7 +8,7 @@ lib.mkIf config.custom.features.withDisplay {
   home.packages = with pkgs; [
     anydesk
     firefox
-    google-chrome
+    # google-chrome # todo: not available on aarch64-linux
     obsidian
     teams-for-linux
     vivaldi
