@@ -24,4 +24,12 @@
       vimAlias = true;
     };
   };
+
+  nix = {
+    channel.enable = false;
+    settings = {
+      accept-flake-config = true;
+      use-xdg-base-directories = true;
+    };
+  };
 }
