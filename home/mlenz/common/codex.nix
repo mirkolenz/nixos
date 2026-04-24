@@ -11,7 +11,7 @@ lib.mkIf config.custom.features.withOptionals {
     # https://developers.openai.com/codex/config-reference
     # https://developers.openai.com/codex/config-schema.json
     settings = {
-      model = "gpt-5.4";
+      model = "gpt-5.5";
       commit_attribution = "";
       model_reasoning_effort = "xhigh";
       plan_mode_reasoning_effort = "xhigh";
