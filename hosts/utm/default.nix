@@ -21,8 +21,8 @@
 
   services = {
     qemuGuest.enable = true;
+    spice-autorandr.enable = true;
     spice-vdagentd.enable = true;
-    spice-webdavd.enable = true;
   };
 
   # https://docs.getutm.app/guest-support/linux/#virtfs
