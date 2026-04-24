@@ -38,12 +38,12 @@ in
       system = "x86_64-linux";
       extraModule = ../hosts/orbstack;
     };
-    utm = {
+    parallels = {
       system = "aarch64-linux";
     };
-    utm-intel = {
+    parallels-intel = {
       system = "x86_64-linux";
-      extraModule = ../hosts/utm;
+      extraModule = ../hosts/parallels;
     };
     wsl = {
       system = "x86_64-linux";
