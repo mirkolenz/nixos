@@ -12,7 +12,7 @@ lib.mkIf config.custom.features.withDisplay {
     settings = {
       auto-update = "download";
       auto-update-channel = "stable";
-      background-blur = if pkgs.stdenv.isDarwin then "macos-glass-regular" else false;
+      background-blur = false;
       cursor-click-to-move = true;
       font-family = "JetBrainsMono Nerd Font";
       font-size = if pkgs.stdenv.isDarwin then 13 else 11;
