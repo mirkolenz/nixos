@@ -42,9 +42,9 @@ lib.mkIf config.custom.features.withOptionals {
           enabled = true;
           mode = "limited";
           allow_local_binding = true;
-          allow_unix_sockets = [
-            "/nix/var/nix/daemon-socket/socket"
-          ];
+          unix_sockets = {
+            "/nix/var/nix/daemon-socket/socket" = "allow";
+          };
         };
       };
       tools = {
