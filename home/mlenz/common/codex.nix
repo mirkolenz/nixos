@@ -16,6 +16,7 @@ lib.mkIf config.custom.features.withOptionals {
       model_reasoning_effort = "xhigh";
       plan_mode_reasoning_effort = "xhigh";
       approval_policy = "on-request";
+      approvals_reviewer = "auto_review";
       file_opener = "none";
       preferred_auth_method = "chatgpt";
       check_for_update_on_startup = false;
@@ -62,7 +63,6 @@ lib.mkIf config.custom.features.withOptionals {
       # codex features list
       # https://github.com/openai/codex/blob/main/codex-rs/features/src/lib.rs
       features = {
-        guardian_approval = false;
         js_repl = true;
         prevent_idle_sleep = true;
       };
