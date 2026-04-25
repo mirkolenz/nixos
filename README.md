@@ -110,6 +110,30 @@ sudo reboot
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ```
 
+### Sync Configs to a Mac without Nix
+
+For Macs that should not have Nix installed, the `mirkos-macbook-rsync` package copies a curated set of configuration files (Ghostty, SSH client, Homebrew bundle) from this flake to the remote machine via rsync over SSH.
+The list of files and the `brew bundle` invocation are derived directly from `darwinConfigurations.mirkos-macbook`, so they stay in sync with the nix-darwin configuration.
+
+Before running, make sure SSH key-based login to the remote works.
+Easiest way is `ssh-copy-id`:
+
+```shell
+ssh-copy-id -i ~/.ssh/id_ed25519.pub USER@HOST
+```
+
+Alternatively, append the public key to `~/.ssh/authorized_keys` on the remote machine manually.
+
+Then sync the configs and apply the Homebrew bundle:
+
+```shell
+nix run .#mirkos-macbook-rsync -- USER@HOST
+# follow the printed command, e.g.
+ssh USER@HOST "brew bundle --file=~/.config/homebrew/Brewfile --cleanup"
+```
+
+To extend the script with additional files, add an entry to the `entries` list in [`pkgs/derivations/mirkos-macbook-rsync.nix`](pkgs/derivations/mirkos-macbook-rsync.nix).
+
 ### Uninstallation
 
 ```shell

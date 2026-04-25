@@ -1,0 +1,105 @@
+{
+  lib,
+  pkgs,
+  writeShellApplication,
+  rsync,
+  openssh,
+  # Defaulted so the file survives auto-discovery via lib.packagesFromDirectoryRecursive
+  # in pkgs/default.nix; the real invocation in flake/default.nix passes it explicitly.
+  darwinConfig ? null,
+}:
+if darwinConfig == null then
+  null
+else
+  let
+    cfg = darwinConfig.config;
+    hmCfg = cfg.home-manager.users.${cfg.system.primaryUser};
+    onAct = cfg.homebrew.onActivation;
+
+    # `target` on home.file/xdg.configFile submodules is normalized to a path
+    # relative to homeDirectory, so the file's attrname only appears once.
+    mkHmFileEntry = label: file: {
+      name = label;
+      inherit (file) source;
+      target = "~/${file.target}";
+    };
+
+    brewfile = pkgs.writeText "Brewfile" cfg.homebrew.brewfile;
+    brewfileTarget = "~/.config/homebrew/Brewfile";
+
+    # Rebuilt from the same options that nix-darwin's homebrew module reads, so
+    # we don't depend on the (internal) string format of onActivation.brewBundleCmd.
+    brewBundleCmd = lib.concatStringsSep " " (
+      lib.optional (!onAct.autoUpdate) "HOMEBREW_NO_AUTO_UPDATE=1"
+      ++ [ "brew bundle --file=${brewfileTarget}" ]
+      ++ lib.optional (!onAct.upgrade) "--no-upgrade"
+      ++ lib.optional (onAct.cleanup == "uninstall") "--cleanup"
+      ++ lib.optional (onAct.cleanup == "zap") "--cleanup --zap"
+      ++ onAct.extraFlags
+    );
+
+    entries = [
+      (mkHmFileEntry "Ghostty config" hmCfg.xdg.configFile."ghostty/config")
+      (mkHmFileEntry "SSH config" hmCfg.home.file.".ssh/config")
+      {
+        name = "Homebrew bundle";
+        source = brewfile;
+        target = brewfileTarget;
+      }
+    ];
+
+    copyCommands = lib.concatMapStringsSep "\n" (
+      e:
+      "copy_file ${lib.escapeShellArg e.name} ${lib.escapeShellArg e.source} ${lib.escapeShellArg e.target}"
+    ) entries;
+  in
+  writeShellApplication {
+    name = "mirkos-macbook-rsync";
+    runtimeInputs = [
+      rsync
+      openssh
+    ];
+    excludeShellChecks = [
+      "SC2088" # leading `~` in dst is passed as a literal string; rsync expands it on the remote side
+    ];
+    text = ''
+      if [[ $# -ne 1 ]]; then
+        cat <<'USAGE' >&2
+      Usage: mirkos-macbook-rsync [user@]host
+
+      Copies select configuration files derived from
+      darwinConfigurations.mirkos-macbook to a remote macOS host via rsync over
+      SSH. Useful for bootstrapping macOS machines that do not have Nix
+      installed.
+      USAGE
+        exit 1
+      fi
+
+      remote=$1
+
+      copy_file() {
+        local label=$1 src=$2 dst=$3
+        printf '==> %s -> %s:%s\n' "$label" "$remote" "$dst" >&2
+        rsync --rsh=ssh --copy-links --human-readable --chmod=u=rw,go= --mkpath -- "$src" "$remote:$dst"
+      }
+
+      ${copyCommands}
+
+      cat <<EOF
+
+      All files copied to $remote.
+      Apply the Homebrew bundle by running on $remote:
+
+        ${brewBundleCmd}
+
+      Or remotely from this machine:
+
+        ssh $remote "${brewBundleCmd}"
+      EOF
+    '';
+    meta = {
+      description = "Copy mirkos-macbook configs (Ghostty, SSH, Homebrew bundle) to a remote macOS host";
+      mainProgram = "mirkos-macbook-rsync";
+      platforms = lib.platforms.darwin;
+    };
+  }
