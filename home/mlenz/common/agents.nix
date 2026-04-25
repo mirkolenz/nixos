@@ -48,8 +48,12 @@
 
       ## LaTeX
 
-      - Use `latexmk` to compile documents.
+      - Exec `latexmk` to compile documents.
       - Use `cref` for cross-referencing, not `ref`.
+
+      ## Typst
+
+      - Exec `typst compile` to make sure the document is free of errors and warnings after making changes.
     '';
   };
 }
