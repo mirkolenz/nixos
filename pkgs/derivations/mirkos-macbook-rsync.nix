@@ -3,7 +3,6 @@
   pkgs,
   writeShellApplication,
   rsync,
-  openssh,
   # Defaulted so the file survives auto-discovery via lib.packagesFromDirectoryRecursive
   # in pkgs/default.nix; the real invocation in flake/default.nix passes it explicitly.
   darwinConfig ? null,
@@ -52,15 +51,19 @@ else
       e:
       "copy_file ${lib.escapeShellArg e.name} ${lib.escapeShellArg e.source} ${lib.escapeShellArg e.target}"
     ) entries;
+
+    # macOS ships rsync 2.6.9 (no --mkpath), so create parent dirs in one shot
+    # before any transfer. Targets are well-known `~/...` paths from this flake.
+    remoteParents = lib.unique (map (e: builtins.dirOf e.target) entries);
   in
   writeShellApplication {
     name = "mirkos-macbook-rsync";
-    runtimeInputs = [
-      rsync
-      openssh
-    ];
+    # Intentionally do not pin `openssh` here: the script targets macOS hosts,
+    # where the system /usr/bin/ssh is required because user SSH configs use
+    # the Apple-only `UseKeychain` option that upstream OpenSSH rejects.
+    runtimeInputs = [ rsync ];
     excludeShellChecks = [
-      "SC2088" # leading `~` in dst is passed as a literal string; rsync expands it on the remote side
+      "SC2088" # leading `~` in dst is passed as a literal string; the remote shell expands it
     ];
     text = ''
       if [[ $# -ne 1 ]]; then
@@ -80,8 +83,10 @@ else
       copy_file() {
         local label=$1 src=$2 dst=$3
         printf '==> %s -> %s:%s\n' "$label" "$remote" "$dst" >&2
-        rsync --rsh=ssh --copy-links --human-readable --chmod=u=rw,go= --mkpath -- "$src" "$remote:$dst"
+        rsync --rsh=ssh --copy-links --human-readable --chmod=u=rw,go= -- "$src" "$remote:$dst"
       }
+
+      ssh "$remote" mkdir -p ${lib.concatStringsSep " " remoteParents}
 
       ${copyCommands}
 

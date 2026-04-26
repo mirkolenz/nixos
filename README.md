@@ -116,20 +116,15 @@ For Macs that should not have Nix installed, the `mirkos-macbook-rsync` package 
 The list of files and the `brew bundle` invocation are derived directly from `darwinConfigurations.mirkos-macbook`, so they stay in sync with the nix-darwin configuration.
 
 Before running, make sure SSH key-based login to the remote works.
-Easiest way is `ssh-copy-id`:
 
 ```shell
-ssh-copy-id -i ~/.ssh/id_ed25519.pub USER@HOST
+ssh-copy-id -i "$HOME/.ssh/id_ed25519.pub" "USER@MACHINE_NAME"
 ```
 
-Alternatively, append the public key to `~/.ssh/authorized_keys` on the remote machine manually.
-
-Then sync the configs and apply the Homebrew bundle:
+Then sync the configs and apply any manual steps.
 
 ```shell
 nix run .#mirkos-macbook-rsync -- USER@HOST
-# follow the printed command, e.g.
-ssh USER@HOST "brew bundle --file=~/.config/homebrew/Brewfile --cleanup"
 ```
 
 To extend the script with additional files, add an entry to the `entries` list in [`pkgs/derivations/mirkos-macbook-rsync.nix`](pkgs/derivations/mirkos-macbook-rsync.nix).
