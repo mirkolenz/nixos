@@ -33,13 +33,13 @@
         config = self.nixpkgsConfig;
         overlays = [ self.overlays.default ];
       };
-      checks = lib.mapAttrs (_: value: value.outPath) (
-        lib.filterAttrs (_: isHydraTarget) config.packages
-      );
+      checks = lib.filterAttrs (_: isHydraTarget) config.packages;
       packages = lib.filterAttrs (_: isAvailable) (
         pkgs.custom.flattenedPackages // pkgs.custom.flakeInputs
       );
-      legacyPackages = pkgs;
+      legacyPackages = pkgs // {
+        ciTargets = lib.mapAttrs (_: value: value.outPath) (config.checks);
+      };
     };
   flake = {
     lib = lib';
