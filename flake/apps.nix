@@ -15,11 +15,6 @@
           exec ${lib.getExe pkgs.home-manager} --flake "${self.outPath}" "$@"
         '';
       }
-      // lib.optionalAttrs pkgs.stdenv.isDarwin {
-        mirkos-macbook-rsync.program = pkgs.mirkos-macbook-rsync.override {
-          darwinConfig = self.darwinConfigurations.mirkos-macbook;
-        };
-      }
       // lib.optionalAttrs pkgs.stdenv.isLinux {
         disko.program = pkgs.writeShellScriptBin "disko" /* bash */ ''
           name="$1"
