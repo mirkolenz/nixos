@@ -19,7 +19,7 @@ let
 
   custom = {
     flattenedPackages = topLevelDrvs // flattenedDrvs;
-    nestedPackages = topLevelDrvs // lib.mapAttrs (name: value: prev.${name} // value) nestedDrvs;
+    nestedPackages = recursiveDrvs // lib.mapAttrs (name: value: prev.${name} // value) nestedDrvs;
     flakeInputs = import ./inputs.nix args final prev;
   };
 
