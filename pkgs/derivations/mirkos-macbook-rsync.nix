@@ -54,7 +54,7 @@ else
 
     # macOS ships rsync 2.6.9 (no --mkpath), so create parent dirs in one shot
     # before any transfer. Targets are well-known `~/...` paths from this flake.
-    remoteParents = lib.unique (map (e: builtins.dirOf e.target) entries);
+    remoteParents = lib.unique (map (e: dirOf e.target) entries);
   in
   writeShellApplication {
     name = "mirkos-macbook-rsync";
