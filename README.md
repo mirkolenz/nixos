@@ -127,7 +127,7 @@ Then sync the configs and apply any manual steps.
 nix run .#mirkos-macbook-rsync -- USER@HOST
 ```
 
-To extend the script with additional files, add an entry to the `entries` list in [`pkgs/derivations/mirkos-macbook-rsync.nix`](pkgs/derivations/mirkos-macbook-rsync.nix).
+To extend the script with additional files, add an entry to the `entries` list in `mirkos-macbook-rsync.nix`.
 
 ### Uninstallation
 

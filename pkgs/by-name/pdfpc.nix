@@ -1,20 +1,21 @@
 # https://github.com/pdfpc/pdfpc
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/misc/pdfpc/default.nix
-final: prev:
-let
-  pkgs = prev;
-  inherit (prev) lib;
-in
-(pkgs.pdfpc.override {
+{
+  prev,
+  lib,
+  libsoup_3,
+}:
+(prev.pdfpc.override {
   # broken on darwin
   webkitgtk_4_1 = null;
 }).overrideAttrs
   (prevAttrs: {
     buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
-      pkgs.libsoup_3
+      libsoup_3
     ];
     cmakeFlags = (prevAttrs.cmakeFlags or [ ]) ++ [
       # needs webkitgtk
       (lib.cmakeBool "MDVIEW" false)
     ];
+    passthru.updateScript = null;
   })

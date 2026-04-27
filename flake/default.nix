@@ -2,7 +2,6 @@
   lib',
   inputs,
   self,
-  lib,
   ...
 }:
 {
@@ -20,43 +19,17 @@
       pkgs,
       system,
       config,
+      lib,
       ...
     }:
     let
-      drvsSelf = {
-        default = pkgs.writeShellScriptBin "builder" /* bash */ ''
-          exec ${lib.getExe pkgs.config-builder} --flake "${self.outPath}" "$@"
-        '';
-        updater = pkgs.writeShellScriptBin "updater" /* bash */ ''
-          ${lib.getExe pkgs.flake-updater} --commit
-          ${lib.getExe pkgs.pkgs-updater} --commit
-        '';
-        home-manager = pkgs.writeShellScriptBin "home-manager" /* bash */ ''
-          exec ${lib.getExe pkgs.home-manager} --flake "${self.outPath}" "$@"
-        '';
-      }
-      // lib.optionalAttrs pkgs.stdenv.isDarwin {
-        mirkos-macbook-rsync = pkgs.callPackage ../pkgs/derivations/mirkos-macbook-rsync.nix {
-          darwinConfig = self.darwinConfigurations.mirkos-macbook;
-        };
-      }
-      // lib.optionalAttrs pkgs.stdenv.isLinux {
-        disko = pkgs.writeShellScriptBin "disko" /* bash */ ''
-          name="$1"
-          shift
-          exec ${lib.getExe pkgs.disko} --flake "${self.outPath}#$name" "$@"
-        '';
-        disko-install = pkgs.writeShellScriptBin "disko-install" /* bash */ ''
-          name="$1"
-          shift
-          exec ${lib.getExe pkgs.disko-install} --flake "${self.outPath}#$name" "$@"
-        '';
-        nixos-install = pkgs.writeShellScriptBin "nixos-install" /* bash */ ''
-          name="$1"
-          shift
-          exec ${lib.getExe pkgs.nixos-install} --flake "${self.outPath}#$name" --no-channel-copy --no-root-password "$@"
-        '';
-      };
+      isAvailable =
+        value: lib.meta.availableOn { inherit system; } value && !(value.meta.broken or false);
+      isHydraTarget = value: lib.elem system (value.meta.hydraPlatforms or [ system ]);
+
+      customPackages = lib.filterAttrs (_: isAvailable) (
+        pkgs.custom.flattenedPackages // pkgs.custom.flakeInputs
+      );
     in
     {
       _module.args.pkgs = import inputs.nixpkgs {
@@ -64,25 +37,13 @@
         config = self.nixpkgsConfig;
         overlays = [ self.overlays.default ];
       };
+      checks = config.packages;
+      packages = customPackages;
       legacyPackages = pkgs // {
-        drvsCi = lib.mapAttrs (name: value: value.outPath) (
-          lib.filterAttrs (
-            name: value:
-            lib.elem system (value.meta.hydraPlatforms or [ system ])
-            && !(lib.elem name (lib.attrNames drvsSelf))
-          ) config.packages
+        ciTargets = lib.mapAttrs (_: value: value.outPath) (
+          lib.filterAttrs (_: isHydraTarget) customPackages
         );
       };
-      checks = lib.filterAttrs (
-        name: value:
-        lib.elem system (value.meta.hydraPlatforms or [ system ])
-        && !(lib.elem name (lib.attrNames drvsSelf))
-      ) config.packages;
-      packages =
-        (lib.filterAttrs (
-          name: value: lib.meta.availableOn { inherit system; } value && !(value.meta.broken or false)
-        ) pkgs.drvsExport)
-        // drvsSelf;
     };
   flake = {
     lib = lib';

@@ -50,7 +50,7 @@ def run(
         )
         raise typer.Exit(1)
     elif specs == 0:
-        attrset = "drvsUpdate"
+        attrset = "custom.flattenedPackages"
 
     cmd: list[str] = [
         nix_shell,

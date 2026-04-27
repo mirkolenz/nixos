@@ -1,15 +1,16 @@
-final: prev:
-let
-  pkgs = prev;
-  inherit (prev) lib;
-in
-pkgs.virt-manager.overrideAttrs (oldAttrs: {
+{
+  lib,
+  stdenv,
+  makeBinaryWrapper,
+  prev,
+}:
+prev.virt-manager.overrideAttrs (oldAttrs: {
   nativeBuildInputs =
     (oldAttrs.nativeBuildInputs or [ ])
-    ++ (lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.makeBinaryWrapper);
+    ++ (lib.optional stdenv.hostPlatform.isDarwin makeBinaryWrapper);
   postInstall =
     (oldAttrs.postInstall or "")
-    + (lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+    + (lib.optionalString stdenv.hostPlatform.isDarwin ''
       wrapProgram $out/bin/virt-manager \
         --set GSETTINGS_BACKEND keyfile
     '');

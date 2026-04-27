@@ -1,52 +1,36 @@
-args@{ lib', ... }:
+args@{ inputs, ... }:
 final: prev:
 let
   inherit (prev) lib;
 
-  scopes = [
-    "vimPlugins"
-  ];
-  overridesUpdate = [ ];
-  inputsExport = [
-    "cosmic-manager"
-    "nix-converter"
-    "nix-sweep"
-    "opnix"
-    "zjstatus"
-  ];
+  nestedScopes = [ "vimPlugins" ];
 
-  current = lib.packagesFromDirectoryRecursive {
+  recursiveDrvs = lib.packagesFromDirectoryRecursive {
     inherit (final) callPackage;
-    directory = ./derivations;
+    directory = ./by-name;
   };
 
-  drvs = lib.filterAttrs (name: value: lib.isDerivation value) current;
+  topLevelDrvs = lib.filterAttrs (_: lib.isDerivation) recursiveDrvs;
+  nestedDrvs = lib.getAttrs nestedScopes recursiveDrvs;
 
-  scopeDrvs = lib.getAttrs scopes current;
+  flattenedDrvs = lib.concatMapAttrs (
+    scopeName: lib.mapAttrs' (drvName: lib.nameValuePair "${scopeName}-${drvName}")
+  ) nestedDrvs;
 
-  flatScopeDrvs = lib.concatMapAttrs (
-    scopeName: scopeValue:
-    lib.mapAttrs' (drvName: drvValue: {
-      name = "${scopeName}-${drvName}";
-      value = drvValue;
-    }) scopeValue
-  ) scopeDrvs;
-
-  pkgs = current // (lib.mapAttrs (name: value: prev.${name} // value) scopeDrvs);
-
-  overrides = lib'.importOverlays ./overrides final prev;
-  inputs = import ./inputs.nix args final prev;
-  hotfixes = import ./hotfixes.nix final prev;
+  custom = {
+    flattenedPackages = topLevelDrvs // flattenedDrvs;
+    nestedPackages = topLevelDrvs // lib.mapAttrs (name: value: prev.${name} // value) nestedDrvs;
+    flakeInputs = import ./inputs.nix args final prev;
+  };
 
 in
 lib.mergeAttrsList [
-  (args.inputs.nix-darwin.overlays.default final prev)
-  inputs
-  hotfixes
-  pkgs
-  overrides
+  (inputs.nix-darwin.overlays.default final prev)
+  (import ./hotfixes.nix final prev)
+  (import ./self.nix args final prev)
+  custom.flakeInputs
+  custom.nestedPackages
   {
-    drvsExport = drvs // flatScopeDrvs // overrides // (lib.getAttrs inputsExport inputs);
-    drvsUpdate = drvs // flatScopeDrvs // (lib.getAttrs overridesUpdate overrides);
+    inherit inputs prev custom;
   }
 ]

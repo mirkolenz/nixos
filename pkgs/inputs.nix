@@ -1,38 +1,10 @@
-{
-  inputs,
-  self,
-  lib',
-  ...
-}:
+{ inputs, ... }:
 final: prev:
 let
   inherit (prev.stdenv.hostPlatform) system;
   fromInput = input: package: inputs.${input}.packages.${system}.${package} or final.empty;
-  os = lib'.systemOs system;
-  nixpkgsArgs = {
-    inherit system;
-    config = self.nixpkgsConfig;
-  };
 in
 {
-  inherit inputs;
-  nixpkgs = import inputs.nixpkgs nixpkgsArgs;
-  stable = import (lib'.systemInput {
-    inherit os;
-    name = "nixpkgs";
-    channel = "stable";
-  }) nixpkgsArgs;
-  unstable = import (lib'.systemInput {
-    inherit os;
-    name = "nixpkgs";
-    channel = "unstable";
-  }) nixpkgsArgs;
-
-  inherit (self.packages.${system})
-    treefmt-nix
-    ;
-  determinate-nix = inputs.determinate.inputs.nix.packages."${system}".default;
-
   cosmic-manager = fromInput "cosmic-manager" "cosmic-manager";
   disko = fromInput "disko" "disko";
   disko-install = fromInput "disko" "disko-install";

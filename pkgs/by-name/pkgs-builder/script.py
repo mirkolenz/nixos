@@ -87,7 +87,7 @@ def run(
     nix_exe: Annotated[str, typer.Option()],
     flake: Annotated[str, typer.Option()],
     cache: str = "https://mirkolenz.cachix.org",
-    attribute: str = "drvsCi",
+    attribute: str = "ciTargets",
     dry_run: bool = False,
 ):
     typer.echo("Discovering packages...", err=True)
