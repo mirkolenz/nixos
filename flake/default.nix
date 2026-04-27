@@ -26,10 +26,6 @@
       isAvailable =
         value: lib.meta.availableOn { inherit system; } value && !(value.meta.broken or false);
       isHydraTarget = value: lib.elem system (value.meta.hydraPlatforms or [ system ]);
-
-      customPackages = lib.filterAttrs (_: isAvailable) (
-        pkgs.custom.flattenedPackages // pkgs.custom.flakeInputs
-      );
     in
     {
       _module.args.pkgs = import inputs.nixpkgs {
@@ -37,13 +33,13 @@
         config = self.nixpkgsConfig;
         overlays = [ self.overlays.default ];
       };
-      checks = config.packages;
-      packages = customPackages;
-      legacyPackages = pkgs // {
-        ciTargets = lib.mapAttrs (_: value: value.outPath) (
-          lib.filterAttrs (_: isHydraTarget) customPackages
-        );
-      };
+      checks = lib.mapAttrs (_: value: value.outPath) (
+        lib.filterAttrs (_: isHydraTarget) config.packages
+      );
+      packages = lib.filterAttrs (_: isAvailable) (
+        pkgs.custom.flattenedPackages // pkgs.custom.flakeInputs
+      );
+      legacyPackages = pkgs;
     };
   flake = {
     lib = lib';
