@@ -64,13 +64,15 @@
         config = self.nixpkgsConfig;
         overlays = [ self.overlays.default ];
       };
-      legacyPackages.drvsCi = lib.mapAttrs (name: value: value.outPath) (
-        lib.filterAttrs (
-          name: value:
-          lib.elem system (value.meta.hydraPlatforms or [ system ])
-          && !(lib.elem name (lib.attrNames drvsSelf))
-        ) config.packages
-      );
+      legacyPackages = pkgs // {
+        drvsCi = lib.mapAttrs (name: value: value.outPath) (
+          lib.filterAttrs (
+            name: value:
+            lib.elem system (value.meta.hydraPlatforms or [ system ])
+            && !(lib.elem name (lib.attrNames drvsSelf))
+          ) config.packages
+        );
+      };
       checks = lib.filterAttrs (
         name: value:
         lib.elem system (value.meta.hydraPlatforms or [ system ])
@@ -84,8 +86,7 @@
     };
   flake = {
     lib = lib';
-    overlays.default =
-      final: prev: if prev == { } then { } else import ../pkgs self.overlayArgs final prev;
+    overlays.default = import ../pkgs self.overlayArgs;
     nixpkgsConfig = {
       allowUnfree = true;
       nvidia.acceptLicense = true;
