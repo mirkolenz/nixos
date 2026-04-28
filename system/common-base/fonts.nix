@@ -5,7 +5,7 @@
   ...
 }:
 lib.mkIf config.custom.features.withDisplay {
-  home.packages =
+  environment.systemPackages =
     with pkgs;
     [
       font-awesome
