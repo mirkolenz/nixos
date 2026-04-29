@@ -5,6 +5,7 @@ final: prev:
 // (prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
   inherit (final.stable)
     unpaper
+    yt-dlp
     zathura
     ;
 })
