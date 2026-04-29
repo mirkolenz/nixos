@@ -119,7 +119,6 @@ let
     "jetbrains-mono-nerd-font"
     "jost"
     "lugrasimo"
-    "manrope"
     "maple-mono"
     "maple-mono-nf"
     "monaspace"
