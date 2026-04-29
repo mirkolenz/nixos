@@ -20,7 +20,7 @@
     keep-failed = false;
     keep-going = true;
     keep-outputs = false;
-    # lint-url-literals = "fatal";
+    lint-url-literals = "fatal";
     log-lines = 200;
     use-xdg-base-directories = true;
     warn-dirty = false;
