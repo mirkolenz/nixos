@@ -37,16 +37,17 @@ mkGitHubBinary {
   '';
 
   # patchelf needs to run first, so we add a custom phase
-  postPhases = [ "finalPhase" ];
+  # postPhases = [ "finalPhase" ];
 
-  # only bash supported: https://github.com/anomalyco/opencode/issues/1515
-  finalPhase = lib.optionalString (stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform) ''
-    installShellCompletion --cmd opencode \
-      --bash <($out/bin/opencode completion)
-  '';
+  # todo: only bash supported: https://github.com/anomalyco/opencode/issues/1515
+  # finalPhase = lib.optionalString (stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform) ''
+  #   installShellCompletion --cmd opencode \
+  #     --bash <($out/bin/opencode completion)
+  # '';
 
   nativeInstallCheckInputs = [
     versionCheckHook
+    writableTmpDirAsHomeHook
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
   doInstallCheck = true;
