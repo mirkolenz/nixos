@@ -16,6 +16,7 @@ let
     "default-folder-x"
     "devonthink"
     "element"
+    "figma"
     "firefox"
     "fission"
     "forklift"
