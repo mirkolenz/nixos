@@ -3,7 +3,7 @@
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
   perSystem =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
       treefmt = {
         projectRootFile = "flake.nix";
@@ -32,6 +32,7 @@
             "sema-primop-unknown"
           ];
         };
+        programs.nixfmt.package = pkgs.nixfmt-rs;
       };
       packages.treefmt-nix = config.treefmt.build.wrapper;
     };

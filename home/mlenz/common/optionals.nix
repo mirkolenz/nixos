@@ -61,7 +61,7 @@ lib.mkIf config.custom.features.withOptionals {
     nixf
     nixt
     nixf-diagnose
-    nixfmt
+    nixfmt-rs
     alejandra
     nix-update
     nvfetcher

@@ -108,6 +108,10 @@
         pyproject-build-systems.follows = "pyproject-build-systems";
       };
     };
+    nixfmt-rs = {
+      url = "github:Mic92/nixfmt-rs/0.2.0"; # autoupdate
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     plist-manager = {
       url = "github:sushydev/nix-plist-manager";
       inputs.nixpkgs.follows = "nixpkgs";
