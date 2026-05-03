@@ -22,7 +22,7 @@
       global = {
         "server smb encrypt" = "required";
         "server string" = "homeserver";
-        "hosts allow" = "10.16.0.1/16 127.0.0.1 localhost";
+        "hosts allow" = "10.16.0.1/16 100.64.0.0/10 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";
@@ -31,14 +31,14 @@
         "fruit:advertise_fullsync" = "true";
       };
       timemachine = {
-        path = "/mnt/backup/timemachine";
+        "path" = "/mnt/backup/timemachine";
         "valid users" = "timemachine";
         "force user" = "timemachine";
         "force group" = "timemachine";
-        public = "no";
-        writeable = "yes";
+        "public" = "no";
+        "browseable" = "yes";
+        "writeable" = "yes";
         "fruit:time machine" = "yes";
-        browseable = "yes";
         "vfs objects" = "catia fruit streams_xattr";
       };
     };
@@ -47,11 +47,13 @@
   services.samba-wsdd = {
     enable = true;
     openFirewall = true;
+    discovery = true;
   };
   # for mac network discovery
   services.avahi = {
     enable = true;
     openFirewall = true;
+    nssmdns4 = true;
     publish.enable = true;
     publish.userServices = true;
   };
