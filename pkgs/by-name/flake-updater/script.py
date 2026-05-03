@@ -11,9 +11,10 @@ app = typer.Typer(
     pretty_exceptions_enable=False,
 )
 
-# Match lines with `url = "github:owner/repo/ref"; # autoupdate`
+# Match github inputs whose ref contains a full semver (major.minor.patch),
+# allowing arbitrary prefix/suffix around it (e.g. v1.2.3, release-1.2.3-rc1).
 PATTERN = re.compile(
-    r'url = "github:(?P<owner>\S+?)/(?P<repo>\S+?)/(?P<ref>\S+?)"; # autoupdate'
+    r'url = "github:(?P<owner>[^/"]+)/(?P<repo>[^/"]+)/(?P<ref>[^/"]*\d+\.\d+\.\d+[^/"]*)"'
 )
 
 
@@ -54,10 +55,7 @@ def replace_match(gh_exe: str, match: re.Match[str]) -> str:
 
     typer.echo(f"{owner}/{repo}: {current_ref} -> {latest}", err=True)
 
-    return match.group(0).replace(
-        f"github:{owner}/{repo}/{current_ref}",
-        f"github:{owner}/{repo}/{latest}",
-    )
+    return f'url = "github:{owner}/{repo}/{latest}"'
 
 
 @app.command()
@@ -79,7 +77,7 @@ def run(
     commit: Annotated[bool, typer.Option("--commit", "-c")] = False,
     update: Annotated[bool, typer.Option("--update", "-u")] = True,
 ):
-    """Update flake.nix inputs marked with # autoupdate comment."""
+    """Update flake.nix inputs whose ref contains a full semver."""
     content = flake_file.read_text()
     new_content = PATTERN.sub(lambda m: replace_match(gh_exe, m), content)
 
@@ -87,21 +85,11 @@ def run(
         typer.echo("Dry run, no changes written", err=True)
         raise typer.Exit(0)
 
-    if new_content == content:
-        typer.echo("No changes needed", err=True)
-    else:
+    flake_changed = new_content != content
+    if flake_changed:
         flake_file.write_text(new_content)
-
-        if commit:
-            git_cmd = [
-                git_exe,
-                "commit",
-                "-m",
-                "chore(deps/flake): update",
-                str(flake_file),
-            ]
-            typer.echo(shlex.join(git_cmd), err=True)
-            subprocess.run(git_cmd)
+    else:
+        typer.echo("No changes needed", err=True)
 
     nix_cmd = [
         nix_exe,
@@ -113,7 +101,19 @@ def run(
         nix_cmd.append("--commit-lock-file")
 
     typer.echo(shlex.join(nix_cmd), err=True)
-    subprocess.run(nix_cmd)
+    subprocess.run(nix_cmd, check=True)
+
+    # Amend into nix's lockfile commit to preserve its auto-generated message.
+    if commit and flake_changed:
+        git_cmd = [
+            git_exe,
+            "commit",
+            "--amend",
+            "--no-edit",
+            str(flake_file),
+        ]
+        typer.echo(shlex.join(git_cmd), err=True)
+        subprocess.run(git_cmd, check=True)
 
 
 if __name__ == "__main__":

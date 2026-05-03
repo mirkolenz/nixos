@@ -80,27 +80,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-converter = {
-      url = "github:theobori/nix-converter/1.0.0"; # autoupdate
+      url = "github:theobori/nix-converter/1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
-      url = "github:nix-community/disko/v1.13.0"; # autoupdate
+      url = "github:nix-community/disko/v1.13.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-sweep = {
-      url = "github:jzbor/nix-sweep/v0.8.0"; # autoupdate
+      url = "github:jzbor/nix-sweep/v0.8.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zjstatus = {
-      url = "github:dj95/zjstatus/v0.23.0"; # autoupdate
+      url = "github:dj95/zjstatus/v0.23.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opnix = {
-      url = "github:brizzbuzz/opnix/v0.9.0"; # autoupdate
+      url = "github:brizzbuzz/opnix/v0.9.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mistral-vibe = {
-      url = "github:mistralai/mistral-vibe/v2.9.3"; # autoupdate
+      url = "github:mistralai/mistral-vibe/v2.9.3";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pyproject-nix.follows = "pyproject-nix";
@@ -109,7 +109,7 @@
       };
     };
     nixfmt-rs = {
-      url = "github:Mic92/nixfmt-rs/0.2.0"; # autoupdate
+      url = "github:Mic92/nixfmt-rs/0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plist-manager = {
