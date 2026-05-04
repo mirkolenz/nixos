@@ -34,6 +34,6 @@ lib.mkIf config.custom.features.withOptionals {
     };
   };
   home.sessionVariables = {
-    OPENCODE_EXPERIMENTAL = "1";
+    OPENCODE_EXPERIMENTAL = true;
   };
 }

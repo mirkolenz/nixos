@@ -57,7 +57,7 @@ lib.mkIf config.custom.features.withOptionals {
       };
       shell_environment_policy = {
         set = {
-          ASTRO_TELEMETRY_DISABLED = "1";
+          ASTRO_TELEMETRY_DISABLED = true;
         };
       };
       # codex features list

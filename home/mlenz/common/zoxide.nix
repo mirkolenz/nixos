@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 {
   # https://github.com/ajeetdsouza/zoxide#configuration
   programs.zoxide = {
@@ -11,8 +11,12 @@
     ];
   };
   home.sessionVariables = {
-    _ZO_ECHO = "1";
-    _ZO_EXCLUDE_DIRS = lib.concatStringsSep ":" [
+    _ZO_ECHO = true;
+    _ZO_MAXAGE = 10000;
+    _ZO_RESOLVE_SYMLINKS = true;
+  };
+  home.sessionSearchVariables = {
+    _ZO_EXCLUDE_DIRS = [
       "$HOME"
       "$HOME/.*"
       "$HOME/Downloads/**"
@@ -21,7 +25,5 @@
       "/nix/**"
       "/tmp/**"
     ];
-    _ZO_MAXAGE = "10000";
-    _ZO_RESOLVE_SYMLINKS = "1";
   };
 }

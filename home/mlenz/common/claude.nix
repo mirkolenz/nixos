@@ -83,8 +83,8 @@ lib.mkIf config.custom.features.withOptionals {
       env = {
         # better results, but too many tokens
         # ANTHROPIC_DEFAULT_HAIKU_MODEL = "sonnet";
-        ENABLE_CLAUDEAI_MCP_SERVERS = "0";
-        ASTRO_TELEMETRY_DISABLED = "1";
+        ENABLE_CLAUDEAI_MCP_SERVERS = false;
+        ASTRO_TELEMETRY_DISABLED = true;
       };
       permissions = {
         defaultMode = "auto";
