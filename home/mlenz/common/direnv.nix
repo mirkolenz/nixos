@@ -15,5 +15,11 @@
         # log_filter = "^$";
       };
     };
+    # todo: once out of beta, use hardcoded package path instead of plain `op` command
+    stdlib = ''
+      use_op() {
+        dotenv <(op environment read "$1")
+      }
+    '';
   };
 }
