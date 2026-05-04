@@ -33,11 +33,11 @@
       '';
     })
   ];
-  xdg.binFile = {
-    git.source = lib.getExe config.programs.git.package;
-    nvim.source = lib.getExe config.programs.nixvim.build.package;
-    restic.source = lib.getExe pkgs.restic;
-  };
+  # xdg.binFile = {
+  #   git.source = lib.getExe config.programs.git.package;
+  #   nvim.source = lib.getExe config.programs.nixvim.build.package;
+  #   restic.source = lib.getExe pkgs.restic;
+  # };
   home.file = {
     "Library/Group Containers/group.com.apple.AppleSpell/Library/Spelling/LocalDictionary".source =
       ../dictionary.txt;

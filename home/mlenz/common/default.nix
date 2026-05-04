@@ -8,7 +8,10 @@
 {
   imports = lib'.flocken.getModules ./.;
 
-  xdg.enable = true;
+  xdg = {
+    enable = true;
+    localBinInPath = true;
+  };
 
   home = {
     stateVersion = stateVersions.home;
