@@ -47,6 +47,27 @@ in
         '';
       };
     };
+
+    gitSign = {
+      enable = mkEnableOption "1password ssh-based git commit signing";
+      key = mkOption {
+        type = lib.types.str;
+        description = ''
+          Public SSH key used to sign git commits.
+          The corresponding private key must be available through the
+          1password ssh agent.
+        '';
+      };
+      program = mkOption {
+        type = lib.types.path;
+        default =
+          if pkgs.stdenv.hostPlatform.isDarwin then
+            "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+          else
+            "${pkgs._1password-gui}/share/1password/op-ssh-sign";
+        description = "Path to the `op-ssh-sign` program invoked by git.";
+      };
+    };
   };
 
   #
@@ -62,6 +83,13 @@ in
 
     xdg.configFile."1password/ssh/agent.toml" = lib.mkIf cfg.sshAgent.enable {
       source = tomlFormat.generate "1password-ssh-agent.toml" cfg.sshAgent.settings;
+    };
+
+    programs.git.signing = lib.mkIf cfg.gitSign.enable {
+      format = "ssh";
+      key = cfg.gitSign.key;
+      signer = cfg.gitSign.program;
+      signByDefault = true;
     };
   };
 }
