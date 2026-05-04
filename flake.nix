@@ -109,7 +109,7 @@
       };
     };
     nixfmt-rs = {
-      url = "github:Mic92/nixfmt-rs/0.2.0";
+      url = "github:Mic92/nixfmt-rs/0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plist-manager = {
