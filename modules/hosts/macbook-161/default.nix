@@ -43,30 +43,9 @@ in
           }
         ];
 
-        boot.kernelParams = [
-          "i915.modeset=0"
-        ];
-
-        systemd.sleep.settings.Sleep = {
-          AllowSuspend = "no";
-          AllowHibernation = "no";
-          AllowSuspendThenHibernate = "no";
-          AllowHybridSleep = "no";
-        };
-
-        services.logind.settings.Login = {
-          HandleLidSwitch = "lock";
-          HandleLidSwitchExternalPower = "lock";
-          HandleLidSwitchDocked = "ignore";
-        };
-
         # https://wiki.t2linux.org/guides/postinstall/
         # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
-        hardware.apple-t2 = {
-          enableIGPU = false;
-          kernelChannel = "latest";
-          firmware.enable = false;
-        };
+        hardware.apple-t2.enableIGPU = true;
         hardware.apple-t2-firmware.enable = true;
 
         # The T2 chip exposes an internal USB ethernet interface with no Linux support.
@@ -80,13 +59,6 @@ in
           };
         };
         networking.networkmanager.unmanaged = [ "mac:ac:de:48:00:11:22" ];
-
-        # The AMD dGPU runs as the sole display device since the Intel iGPU is disabled.
-        # Constrain it to low power mode to prevent overheating and unexpected shutdowns.
-        # https://wiki.t2linux.org/guides/hybrid-graphics/
-        services.udev.extraRules = /* bash */ ''
-          SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
-        '';
 
         environment.systemPackages = with pkgs; [
           brightnessctl
