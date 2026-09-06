@@ -25,7 +25,7 @@ in
         ];
 
         custom.features = {
-          graphical.desktopManager = "cosmic";
+          graphical.desktopManager = "gnome";
           extras.enable = true;
         };
 
