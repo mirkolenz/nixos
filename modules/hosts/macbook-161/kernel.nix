@@ -9,10 +9,12 @@
     let
       # https://github.com/t2linux/linux-t2-patches
       # nix run .#t2-updater -- --branch main ./modules/hosts/macbook-161/kernel.json
-      upstreamKernel = pkgs.callPackage "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/generic.nix" { } {
-        kernel = pkgs.linux_7_2;
-        patchesFile = ./kernel.json;
-      };
+      upstreamKernel =
+        pkgs.callPackage "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/generic.nix" { }
+          {
+            kernel = pkgs.linux_7_2;
+            patchesFile = ./kernel.json;
+          };
       kernel = upstreamKernel.override {
         # https://github.com/deqrocks/t2bce
         structuredExtraConfig = with lib.kernel; {
