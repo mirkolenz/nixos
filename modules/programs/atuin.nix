@@ -6,7 +6,7 @@
         enable = true;
         daemon.enable = true;
         flags = [
-          # "--disable-up-arrow"
+          "--disable-up-arrow"
           # "--disable-ctrl-r"
         ];
         # https://docs.atuin.sh/latest/configuration/config/
