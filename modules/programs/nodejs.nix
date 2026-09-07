@@ -31,7 +31,7 @@
         oxfmt
         oxlint
         tsgolint
-        typescript-go
+        typescript
         astro-language-server
       ];
     };
