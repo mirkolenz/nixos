@@ -17,8 +17,8 @@ in
       {
         imports = [
           nixos.default
+          nixos.apple-t2
           "${inputs.nixos-hardware}/apple"
-          "${inputs.nixos-hardware}/apple/t2"
           "${inputs.nixos-hardware}/common/cpu/intel/coffee-lake/cpu-only.nix"
           "${inputs.nixos-hardware}/common/pc/laptop"
           "${inputs.nixos-hardware}/common/pc/ssd"
@@ -43,10 +43,10 @@ in
           }
         ];
 
-        # https://wiki.t2linux.org/guides/postinstall/
-        # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
-        hardware.apple-t2.enableIGPU = true;
-        hardware.apple-t2-firmware.enable = true;
+        # Use the iGPU instead of the AMD dGPU
+        environment.etc."modprobe.d/apple-gmux.conf".text = ''
+          options apple-gmux force_igd=y
+        '';
 
         # The T2 chip exposes an internal USB ethernet interface with no Linux support.
         # Keep it down in networkd and hide it from NetworkManager.

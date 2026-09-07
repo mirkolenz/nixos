@@ -1,5 +1,5 @@
 {
-  configurations.nixos.macbook-161.module =
+  flake.modules.nixos.apple-t2 =
     {
       inputs,
       lib,
@@ -8,7 +8,7 @@
     }:
     let
       # https://github.com/t2linux/linux-t2-patches
-      # nix run .#t2-updater -- --branch main ./modules/hosts/macbook-161/kernel.json
+      # nix run .#t2-updater -- --branch main ./modules/hardware/apple-t2/kernel.json
       upstreamKernel =
         pkgs.callPackage "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/generic.nix" { }
           {
@@ -42,8 +42,10 @@
       };
     in
     {
-      boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor kernel);
-      boot.initrd.kernelModules = lib.mkForce [
+      # nix build .#nixosConfigurations.macbook-161.config.boot.kernelPackages.kernel
+      boot.kernelPackages = pkgs.linuxPackagesFor kernel;
+      # Needed for the internal keyboard and trackpad
+      boot.initrd.kernelModules = [
         "t2bce_dma"
         "t2bce_core"
         "t2bce_vhci"
