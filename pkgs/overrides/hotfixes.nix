@@ -10,6 +10,14 @@ final: prev:
         disabledTestPaths = (prevAttrs.disabledTestPaths or [ ]) ++ [ "tests/completion/test_zsh.py" ];
         disabledTests = (prevAttrs.disabledTests or [ ]) ++ [ "test_behavior[zsh-" ];
       });
+
+      # Libvirt's test driver cannot create checkpoints or report an active domain ID on Darwin.
+      libvirt-python = pyPrev.libvirt-python.overridePythonAttrs (prevAttrs: {
+        disabledTests = (prevAttrs.disabledTests or [ ]) ++ [
+          "testCheckpointCreate"
+          "testDomainIDReturnsValidValue"
+        ];
+      });
     })
   ];
 })
