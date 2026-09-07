@@ -60,6 +60,10 @@ in
         };
         networking.networkmanager.unmanaged = [ "mac:ac:de:48:00:11:22" ];
 
+        # Import and manage OpenVPN configs from the GNOME network settings.
+        # https://wiki.nixos.org/wiki/OpenVPN#Network-Manager_integration_(GNOME)
+        networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
+
         environment.systemPackages = with pkgs; [
           brightnessctl
         ];
