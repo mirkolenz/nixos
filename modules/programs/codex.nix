@@ -25,6 +25,7 @@
           personality = "pragmatic";
           web_search = "live";
           service_tier = "default";
+          forced_login_method = "chatgpt";
           memories = {
             generate_memories = false;
             use_memories = false;

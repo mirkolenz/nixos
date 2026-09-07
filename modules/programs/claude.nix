@@ -30,12 +30,17 @@
           cleanupPeriodDays = 30;
           effortLevel = "high";
           enableAllProjectMcpServers = true;
-          includeCoAuthoredBy = false;
-          includeGitInstructions = false;
+          includeGitInstructions = true;
           outputStyle = "concise";
           skipAutoPermissionPrompt = true;
           spinnerTipsEnabled = false;
           tui = "fullscreen";
+          forceLoginMethod = "claudeai";
+          attribution = {
+            commit = "";
+            pr = "";
+            sessionUrl = false;
+          };
           sandbox = {
             enabled = true;
             allowUnsandboxedCommands = true;
@@ -114,7 +119,7 @@
           permissions = {
             defaultMode = "auto";
             disableBypassPermissionsMode = "disable";
-            blockReadsOutsideWorkingDirectories = false;
+            blockReadsOutsideWorkingDirectories = true;
             allow = [
               "Read(//nix/**)"
             ];
