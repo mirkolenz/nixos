@@ -6,6 +6,7 @@
         enable = true;
         # https://github.com/fastfetch-cli/fastfetch/wiki/Configuration
         settings = {
+          logo.type = "small";
           # fastfetch --print-structure
           modules = [
             "title"
