@@ -56,9 +56,12 @@
         caddy
         mailpit
         copilot-cli-bin
-        html2markdown
         zapp
         restic-browser
+        # markdown
+        html2markdown
+        md-tui
+        glow
         # pdf
         tdf
         # fancy-cat # currently broken
