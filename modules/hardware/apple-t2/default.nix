@@ -23,6 +23,20 @@
 
     powerManagement.enable = true;
 
+    # `force_igd` only moves the panel to the iGPU, it does not keep the dGPU
+    # idle: mutter picks its own primary GPU and lands on amdgpu, so the dGPU
+    # ramps up as soon as a GNOME session starts compositing. On these machines
+    # that transient trips CPU CATERR and the SMC cuts power, which looks like a
+    # spontaneous reboot a few seconds into the session. Point mutter at the
+    # Intel GPU (the only 0x8086 display device here) and cap what the dGPU may
+    # draw if something still renders on it.
+    # https://wiki.t2linux.org/guides/hybrid-graphics/
+    # https://gitlab.gnome.org/GNOME/mutter/-/blob/main/doc/multi-gpu.md
+    services.udev.extraRules = ''
+      SUBSYSTEM=="drm", ENV{DEVTYPE}=="drm_minor", ENV{DEVNAME}=="/dev/dri/card[0-9]", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x8086", TAG+="mutter-device-preferred-primary"
+      SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
+    '';
+
     # The t2bce stack needs iommu=pt, which identity-maps DMA for every device,
     # so close the only hotpluggable DMA path: PCIe tunnels are set up by this
     # driver alone and none get approved without it. USB-C keeps working, since
