@@ -44,30 +44,6 @@ in
           }
         ];
 
-        # Use the iGPU instead of the AMD dGPU
-        boot.extraModprobeConfig = ''
-          options apple-gmux force_igd=y
-        '';
-
-        # The t2bce stack needs iommu=pt, which identity-maps DMA for every device,
-        # so close the only hotpluggable DMA path: PCIe tunnels are set up by this
-        # driver alone and none get approved without it. USB-C keeps working, since
-        # the Thunderbolt controller muxes DisplayPort itself and exposes a plain
-        # xHCI function, but the PCIe-side devices of a dock and eGPUs do not.
-        boot.blacklistedKernelModules = [ "thunderbolt" ];
-
-        # The T2 chip exposes an internal USB ethernet interface with no Linux support.
-        # Keep it down in networkd and hide it from NetworkManager.
-        # https://wiki.t2linux.org/guides/postinstall/
-        systemd.network.networks."10-t2-ethernet" = {
-          matchConfig.MACAddress = "ac:de:48:00:11:22";
-          linkConfig = {
-            ActivationPolicy = "manual";
-            RequiredForOnline = false;
-          };
-        };
-        networking.networkmanager.unmanaged = [ "mac:ac:de:48:00:11:22" ];
-
         environment.systemPackages = with pkgs; [
           brightnessctl
         ];

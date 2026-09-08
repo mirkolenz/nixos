@@ -6,12 +6,41 @@
 # https://github.com/NixOS/nixos-hardware/blob/master/apple/t2/default.nix
 {
   flake.modules.nixos.apple-t2 = {
-    # Needed for audio and suspend, post-resume.service comes from powerManagement
     boot.kernelParams = [
+      # Needed for audio and suspend, post-resume.service comes from powerManagement
       "intel_iommu=on"
       "iommu=pt"
       "pm_async=off"
+      # Macs with hybrid graphics hand the internal panel to the dGPU, so the
+      # console only appears once amdgpu has taken over, which on these machines
+      # freezes for minutes at a time.
+      # The t2 patch set defers every display driver until apple-gmux has probed,
+      # hence the switch has to be requested from the module rather than from the
+      # firmware, and a modprobe option would come too late for the initrd.
+      # https://wiki.t2linux.org/guides/hybrid-graphics/
+      "apple_gmux.force_igd=1"
     ];
+
     powerManagement.enable = true;
+
+    # The t2bce stack needs iommu=pt, which identity-maps DMA for every device,
+    # so close the only hotpluggable DMA path: PCIe tunnels are set up by this
+    # driver alone and none get approved without it. USB-C keeps working, since
+    # the Thunderbolt controller muxes DisplayPort itself and exposes a plain
+    # xHCI function, but the PCIe-side devices of a dock and eGPUs do not.
+    boot.blacklistedKernelModules = [ "thunderbolt" ];
+
+    # The T2 chip exposes an internal USB ethernet interface with no Linux support.
+    # Keep it down in networkd and hide it from NetworkManager, otherwise the
+    # `*-wait-online` units block `network-online.target` until they time out.
+    systemd.network.networks."10-t2-ethernet" = {
+      matchConfig.MACAddress = "ac:de:48:00:11:22";
+      linkConfig = {
+        ActivationPolicy = "manual";
+        RequiredForOnline = false;
+      };
+    };
+
+    networking.networkmanager.unmanaged = [ "mac:ac:de:48:00:11:22" ];
   };
 }
