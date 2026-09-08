@@ -42,5 +42,12 @@
     };
 
     networking.networkmanager.unmanaged = [ "mac:ac:de:48:00:11:22" ];
+
+    # `nixos-hardware/apple` turns this on for the PCIe webcam of pre-T2 Macs.
+    # On T2 Macs the camera hangs off the t2bce USB host controller instead, and
+    # the out-of-tree module would only pull the `dev` output of the patched
+    # kernel into the closure, which forces a full kernel rebuild wherever just
+    # the runtime output is cached.
+    hardware.facetimehd.enable = false;
   };
 }
