@@ -14,6 +14,10 @@
 
       services.openssh.enable = true;
 
+      # `profiles/base.nix` enables ZFS by default, which forces a from-source
+      # build of the ZFS kernel module against the patched T2 kernel.
+      boot.supportedFilesystems.zfs = false;
+
       users = {
         defaultUserShell = pkgs.fish;
 
