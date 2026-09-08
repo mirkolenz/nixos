@@ -26,7 +26,6 @@ let
       # https://github.com/t2linux/nixos-t2-iso/blob/main/nix/t2-iso-minimal.nix
       installer-apple-t2 = {
         imports = [ modules.nixos.apple-t2 ];
-        custom.apple-t2.firmware.enable = false;
 
         # The patched kernel is in no binary cache, and a missing output cannot be
         # substituted on its own, so anything that builds an out-of-tree module

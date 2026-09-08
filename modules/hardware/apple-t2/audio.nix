@@ -11,16 +11,6 @@
       ...
     }:
     let
-      src = pkgs.fetchFromGitHub {
-        owner = "deqrocks";
-        repo = "t2bce";
-        rev = "a973d53c8278e9db5ff8314b816d6880309ed39e";
-        hash = "sha256-uQYwSCqp4kwPL3fYQ9mKfWe565c/O6SPpnEc7sae0x4=";
-      };
-      t2bceUcm = pkgs.runCommand "t2bce-alsa-ucm-conf" { } ''
-        mkdir -p "$out/share/alsa"
-        cp -r ${src}/t2bce_audio-alsa-ucm-conf/ucm2 "$out/share/alsa/"
-      '';
       ucm2Dir = "${config.custom.apple-t2.audio.package}/share/alsa/ucm2";
       # Systemd services do not inherit environment.variables, so the audio
       # daemons have to be told about the patched configuration explicitly.
@@ -30,18 +20,8 @@
       });
     in
     {
-      # nix build .#nixosConfigurations.macbook-161.config.custom.apple-t2.audio.package
-      options.custom.apple-t2.audio.package = lib.mkOption {
-        type = lib.types.package;
-        default = pkgs.symlinkJoin {
-          name = "alsa-ucm-conf-t2bce";
-          paths = [
-            pkgs.alsa-ucm-conf
-            t2bceUcm
-          ];
-        };
-        description = "ALSA UCM configuration extended with the T2 audio profiles";
-      };
+      # nix build .#packages.x86_64-linux.alsa-ucm-conf-t2bce
+      options.custom.apple-t2.audio.package = lib.mkPackageOption pkgs "alsa-ucm-conf-t2bce" { };
 
       config = {
         environment.variables.ALSA_CONFIG_UCM2 = ucm2Dir;

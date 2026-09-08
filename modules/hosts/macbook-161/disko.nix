@@ -1,5 +1,8 @@
 # https://wiki.t2linux.org/distributions/nixos/installation/
 # https://github.com/nix-community/disko/blob/master/example/luks-btrfs-subvolumes.nix
+let
+  disk = "/dev/disk/by-id/nvme-APPLE_SSD_AP1024N_C02001700E3N9V014";
+in
 {
   configurations.nixos.macbook-161.module = {
     # Only manages the Linux partition (nvme0n1p3)
@@ -10,7 +13,7 @@
       # the create stage only runs mkfs if the partition has no filesystem yet.
       esp = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-APPLE_SSD_AP1024N_C02001700E3N9V014-part1";
+        device = "${disk}-part1";
         destroy = false;
         content = {
           type = "filesystem";
@@ -21,7 +24,7 @@
       };
       main = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-APPLE_SSD_AP1024N_C02001700E3N9V014-part3";
+        device = "${disk}-part3";
         destroy = false;
         content = {
           type = "luks";
