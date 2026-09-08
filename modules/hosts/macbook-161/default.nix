@@ -45,7 +45,7 @@ in
         ];
 
         # Use the iGPU instead of the AMD dGPU
-        environment.etc."modprobe.d/apple-gmux.conf".text = ''
+        boot.extraModprobeConfig = ''
           options apple-gmux force_igd=y
         '';
 

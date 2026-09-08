@@ -14,8 +14,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "deqrocks";
         repo = "t2bce";
-        rev = "967465dc67d3a9b1e48dea620f7258baa526f4f2";
-        hash = "sha256-EVUvNg30bFhJCtcyPAGbWjGX0+CORs4nWG5Bpvbr590=";
+        rev = "a973d53c8278e9db5ff8314b816d6880309ed39e";
+        hash = "sha256-uQYwSCqp4kwPL3fYQ9mKfWe565c/O6SPpnEc7sae0x4=";
       };
       t2bceUcm = pkgs.runCommand "t2bce-alsa-ucm-conf" { } ''
         mkdir -p "$out/share/alsa"

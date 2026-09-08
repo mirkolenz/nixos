@@ -15,17 +15,21 @@
         pkgs.callPackage "${inputs.nixos-hardware}/apple/t2/pkgs/brcm-firmware/fetchmacos.nix"
           { };
       firmware = pkgs.callPackage "${inputs.nixos-hardware}/apple/t2/pkgs/brcm-firmware" {
+        # Only selects one of the `boards` entries upstream knows about; both it and
+        # the resulting version are replaced below.
         version = "sonoma";
       };
-      # The name has to be set directly since it is computed before the override applies
+      # mkDerivation computes name and version before the override applies, so both
+      # have to be set directly instead of through the argument above.
       patchedFirmware = firmware.overrideDerivation (_old: {
         name = "brcm-firmware-tahoe";
+        version = "tahoe";
         src = fetchmacos {
           name = "tahoe";
           boardId = "Mac-CFF7D910A743CAAF";
           mlb = "00000000000000000";
-          osType = "latest";
-          hash = "sha256-p92fXePpaQ0+7CKpy/t+66B5nmOTmSCFWUw4+6aKq0A=";
+          osType = "default";
+          hash = "sha256-l3PIhInQJeSmYIaxObgFDvZN40u2GgkPrqYaginTCvs=";
         };
       });
     in
