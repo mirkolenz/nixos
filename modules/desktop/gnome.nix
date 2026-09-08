@@ -40,14 +40,13 @@
       gv = lib.hm.gvariant;
 
       # The Vicinae companion extension exposes clipboard/window-management APIs
-      # over D-Bus and is only useful when the Vicinae launcher itself is running.
-      extensions =
-        (with pkgs.gnomeExtensions; [
-          blur-my-shell
-          dash-to-dock
-          rounded-window-corners-reborn
-        ])
-        ++ lib.optional config.programs.vicinae.enable pkgs.gnomeExtensions.vicinae;
+      # over D-Bus to the launcher, which every graphical host runs.
+      extensions = with pkgs.gnomeExtensions; [
+        blur-my-shell
+        dash-to-dock
+        rounded-window-corners-reborn
+        vicinae
+      ];
 
       # GNOME stores command shortcuts at indexed custom-keybinding subpaths that
       # must also be listed in `custom-keybindings`; this maps a friendlier attrset
