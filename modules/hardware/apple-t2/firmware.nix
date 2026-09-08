@@ -30,13 +30,23 @@
       });
     in
     {
-      # nix build .#nixosConfigurations.macbook-161.config.custom.apple-t2.firmware.package
-      options.custom.apple-t2.firmware.package = lib.mkOption {
-        type = lib.types.package;
-        default = patchedFirmware;
-        description = "Broadcom firmware for the Wi-Fi and Bluetooth chips of T2 Macs";
+      options.custom.apple-t2.firmware = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Whether to install the Broadcom Wi-Fi and Bluetooth firmware";
+        };
+
+        # nix build .#nixosConfigurations.macbook-161.config.custom.apple-t2.firmware.package
+        package = lib.mkOption {
+          type = lib.types.package;
+          default = patchedFirmware;
+          description = "Broadcom firmware for the Wi-Fi and Bluetooth chips of T2 Macs";
+        };
       };
 
-      config.hardware.firmware = [ config.custom.apple-t2.firmware.package ];
+      config.hardware.firmware = lib.mkIf config.custom.apple-t2.firmware.enable [
+        config.custom.apple-t2.firmware.package
+      ];
     };
 }

@@ -24,7 +24,10 @@ let
     x86_64-linux = {
       installer-default = { };
       # https://github.com/t2linux/nixos-t2-iso/blob/main/nix/t2-iso-minimal.nix
-      installer-apple-t2.imports = [ modules.nixos.apple-t2 ];
+      installer-apple-t2 = {
+        imports = [ modules.nixos.apple-t2 ];
+        custom.apple-t2.firmware.enable = false;
+      };
     };
     aarch64-linux = {
       installer-default = { };

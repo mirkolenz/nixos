@@ -24,6 +24,7 @@ in
           "${inputs.nixos-hardware}/common/pc/ssd"
         ];
 
+        custom.apple-t2.firmware.enable = false;
         custom.features = {
           graphical.desktopManager = "gnome";
           extras.enable = true;
