@@ -36,6 +36,7 @@
     {
       lib,
       config,
+      pkgs,
       ...
     }:
     lib.mkIf config.custom.features.graphical.enable {
@@ -46,6 +47,13 @@
 
       # Apply the same XKB remapping to the virtual consoles (TTYs).
       console.useXkbConfig = true;
+
+      # Import and manage VPN configs from the desktop network settings.
+      # WireGuard needs no plugin, NetworkManager supports it natively.
+      # https://networkmanager.dev/docs/vpn/
+      networking.networkmanager.plugins = with pkgs; [
+        networkmanager-openvpn
+      ];
 
       users.users.${config.custom.user.login}.extraGroups = [ "networkmanager" ];
     };
