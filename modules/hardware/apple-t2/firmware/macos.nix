@@ -90,8 +90,12 @@
           Type = "oneshot";
           ExecStart = lib.getExe extract;
           # Firmware landing after the drivers probed does nothing until they
-          # are asked again. Failure here only means a reboot is needed.
+          # are asked again. `brcmfmac` pulls in a per-vendor module and that
+          # one holds a reference on it, so unloading the core alone only ever
+          # reports the device as busy and the blobs sit unused until a reboot.
+          # `brcmfmac` requests the vendor module again on its own.
           ExecStartPost = map (args: "-${pkgs.kmod}/bin/modprobe ${args}") [
+            "-r brcmfmac_wcc"
             "-r brcmfmac"
             "brcmfmac"
             "-r hci_bcm4377"

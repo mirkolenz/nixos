@@ -30,6 +30,14 @@
     # Without an encrypted device nothing prompts this early, so the rules and
     # the extra initrd binary would just be dead weight in the installer image.
     lib.mkIf (unlockServices != [ ]) {
+      # The rule below keys on `event*`, and those nodes come from the evdev
+      # handler, which nixpkgs builds as a module. Nothing else in the initrd
+      # pulls it in, so without this the initrd only ever has the bare `input*`
+      # devices and the wait can do nothing but time out. The console prompt
+      # itself reads the VT rather than evdev, which is why a passphrase could
+      # still be typed while this never resolved.
+      boot.initrd.kernelModules = [ "evdev" ];
+
       # `60-input-id.rules` is not among the handful of rules NixOS puts in the
       # initrd, so the classifying builtin it would normally run is invoked here
       # to get `ID_INPUT_KEYBOARD`, and the symlink gives `udevadm wait` a fixed
@@ -56,10 +64,12 @@
         # the two lists above put back by hand.
         unitConfig.DefaultDependencies = false;
         # Only wanted, so a timeout still unlocks: a machine booted without a
-        # usable keyboard carries on rather than stalling here forever.
+        # usable keyboard carries on rather than stalling here forever. The
+        # leading `-` makes that outcome a plain result rather than a unit
+        # failure, while `udevadm` still records the timeout in the journal.
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${udevadm} wait --timeout=15 /dev/input/keyboard";
+          ExecStart = "-${udevadm} wait --timeout=5 /dev/input/keyboard";
         };
       };
     };
