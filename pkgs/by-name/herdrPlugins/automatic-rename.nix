@@ -11,14 +11,14 @@
 }:
 mkHerdrPlugin (finalAttrs: {
   pname = "herdr-automatic-rename";
-  version = "0.9.0";
+  version = "0.9.1";
   pluginId = "herdr-automatic-rename";
 
   src = fetchFromGitHub {
     owner = "qu8n";
     repo = "herdr-automatic-rename";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-CEqKXX7QY4f7j1fnAHH+BHP5VlhQADxvN+b9WHQdRjE=";
+    hash = "sha256-s+Vyq1i3dImaSZsPe6biYVdZV/ynvDFXoF2XdFx1zqk=";
   };
 
   interpreters = [ bashNonInteractive ];
