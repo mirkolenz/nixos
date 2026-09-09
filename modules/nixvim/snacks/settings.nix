@@ -21,7 +21,7 @@
         input.enabled = true;
         lazygit = {
           enabled = false;
-          configure = false;
+          configure = true;
         };
         notifier = {
           enabled = true;
