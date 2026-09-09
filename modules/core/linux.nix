@@ -12,10 +12,7 @@
     {
       system.stateVersion = config.custom.stateVersions.linux;
 
-      services = {
-        printing.enable = false;
-        fwupd.enable = true;
-      };
+      services.fwupd.enable = true;
 
       systemd.enableStrictShellChecks = true;
 
