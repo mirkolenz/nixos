@@ -58,6 +58,7 @@
         copilot-cli-bin
         zapp
         restic-browser
+        todoist-cli
         # markdown
         html2markdown
         md-tui

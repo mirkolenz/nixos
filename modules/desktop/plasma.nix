@@ -36,6 +36,13 @@
       config,
       ...
     }:
+    let
+      favorites = import ./_favorites.nix lib {
+        files = "org.kde.dolphin";
+        monitor = "org.kde.plasma-systemmonitor";
+        settings = "systemsettings";
+      };
+    in
     lib.mkIf
       (
         config.custom.features.graphical.enable
@@ -85,17 +92,7 @@
               widgets = [
                 "org.kde.plasma.kickoff"
                 {
-                  iconTasks.launchers = [
-                    "applications:org.kde.dolphin.desktop"
-                    "applications:vivaldi-stable.desktop"
-                    "applications:1password.desktop"
-                    "applications:obsidian.desktop"
-                    "applications:dev.zed.Zed.desktop"
-                    "applications:com.mitchellh.ghostty.desktop"
-                    "applications:zotero.desktop"
-                    "applications:Zoom.desktop"
-                    "applications:systemsettings.desktop"
-                  ];
+                  iconTasks.launchers = map (name: "applications:${name}.desktop") favorites;
                 }
                 "org.kde.plasma.marginsseparator"
                 "org.kde.plasma.systemtray"

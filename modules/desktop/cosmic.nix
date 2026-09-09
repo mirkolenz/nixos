@@ -31,6 +31,12 @@
       cosmicLib,
       ...
     }:
+    let
+      favorites = import ./_favorites.nix lib {
+        files = "com.system76.CosmicFiles";
+        settings = "com.system76.CosmicSettings";
+      };
+    in
     lib.mkIf
       (
         config.custom.features.graphical.enable
@@ -86,18 +92,7 @@
           ];
           applets.app-list.settings = {
             enable_drag_source = true;
-            favorites = [
-              "com.system76.CosmicFiles"
-              "vivaldi"
-              "1password"
-              "obsidian"
-              "zed"
-              "com.system76.CosmicEdit"
-              "com.mitchellh.ghostty"
-              "zotero"
-              "Zoom"
-              "com.system76.CosmicSettings"
-            ];
+            inherit favorites;
             filter_top_levels = null;
           };
         };

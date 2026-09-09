@@ -40,6 +40,7 @@
         "soundsource"
         "stats"
         "steermouse"
+        "stirling-pdf"
         "sublime-merge"
         "tailscale-app"
         "tiptoi-manager"

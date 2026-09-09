@@ -22,7 +22,14 @@
 
         programs.dconf.enable = true;
 
-        environment.sessionVariables.NIXOS_OZONE_WL = "1";
+        environment.sessionVariables = {
+          NIXOS_OZONE_WL = "1";
+          # Scales every built-in shell animation, which has no dconf key of its
+          # own, to the macOS expose-animation-duration of 0.2 in
+          # modules/core/settings.nix. Read once by js/ui/environment.js into
+          # St.Settings.slow_down_factor, so it needs a re-login to take effect.
+          GNOME_SHELL_SLOWDOWN_FACTOR = "0.2";
+        };
 
         environment.gnome.excludePackages = with pkgs; [ gnome-tour ];
 
@@ -38,6 +45,12 @@
     }:
     let
       gv = lib.hm.gvariant;
+
+      favorites = import ./_favorites.nix lib {
+        files = "org.gnome.Nautilus";
+        monitor = "org.gnome.SystemMonitor";
+        settings = "org.gnome.Settings";
+      };
 
       # The Vicinae companion extension exposes clipboard/window-management APIs
       # over D-Bus to the launcher, which every graphical host runs.
@@ -83,17 +96,7 @@
           "org/gnome/shell" = {
             disable-user-extensions = false;
             enabled-extensions = map (ext: ext.extensionUuid) extensions;
-            favorite-apps = map (name: "${name}.desktop") [
-              "org.gnome.Nautilus"
-              "vivaldi-stable"
-              "1password"
-              "obsidian"
-              "dev.zed.Zed"
-              "com.mitchellh.ghostty"
-              "zotero"
-              "Zoom"
-              "org.gnome.Settings"
-            ];
+            favorite-apps = map (name: "${name}.desktop") favorites;
           };
 
           "org/gnome/desktop/interface" = {
@@ -136,12 +139,22 @@
             ];
           };
 
+          # The delays and durations mirror the macOS dock settings in
+          # modules/core/settings.nix: reveal the dock as soon as the pointer
+          # reaches the edge (autohide-delay 0.0, plus no pressure barrier, which
+          # has no macOS counterpart) and slide it in and out in 0.1s, the effect
+          # of autohide-time-modifier 0.2 on the roughly 0.5s macOS animation.
           "org/gnome/shell/extensions/dash-to-dock" = {
             multi-monitor = true;
             dock-position = "BOTTOM";
             dash-max-icon-size = 42;
             intellihide = false;
             disable-overview-on-startup = true;
+            animation-time = 0.1;
+            hide-delay = 0.0;
+            show-delay = 0.0;
+            require-pressure-to-show = false;
+            pressure-threshold = 0.0;
           };
         }
         // mkCustomKeybindings {

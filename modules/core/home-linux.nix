@@ -32,17 +32,19 @@
         ...
       }:
       lib.mkIf config.custom.features.graphical.enable {
-        home.packages =
-          with pkgs;
-          [
-            anydesk
-            obsidian
-            teams-for-linux
-            zotero
-          ]
-          ++ lib.optionals (pkgs.stdenv.hostPlatform.isx86_64) [
-            zoom-us
-          ];
+        home.packages = with pkgs; [
+          anydesk
+          obsidian
+          zotero
+          teams-for-linux
+          stamp
+          todoist-electron
+          libreoffice-stable
+          # papers ships with the GNOME core apps but not with Cosmic
+          papers
+          # the desktop build bundles the server, so it needs no separate host
+          stirling-pdf-desktop
+        ];
         home.file.".face".source = ./mlenz.jpg;
       }
     )
