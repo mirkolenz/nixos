@@ -51,7 +51,6 @@
     "sql": true,
     "tombi": true,
     "toml": true,
-    "tsgo": true,
     "typst": true,
     "xml": true,
     "zuban": true
@@ -166,7 +165,7 @@
       ]
     },
     "JavaScript": {
-      "language_servers": ["tsgo", "oxlint"],
+      "language_servers": ["typescript-ls", "oxlint"],
       "formatter": [
         { "code_action": "source.fixAll.oxc" },
         { "language_server": { "name": "oxfmt" } }
@@ -215,14 +214,14 @@
       ]
     },
     "TSX": {
-      "language_servers": ["tsgo", "oxlint", "oxfmt"],
+      "language_servers": ["typescript-ls", "oxlint", "oxfmt"],
       "formatter": [
         { "code_action": "source.fixAll.oxc" },
         { "language_server": { "name": "oxfmt" } }
       ]
     },
     "TypeScript": {
-      "language_servers": ["tsgo", "oxlint", "oxfmt"],
+      "language_servers": ["typescript-ls", "oxlint", "oxfmt"],
       "formatter": [
         { "code_action": "source.fixAll.oxc" },
         { "language_server": { "name": "oxfmt" } }
@@ -367,7 +366,7 @@
     },
     "typescript-ls": {
       "binary": {
-        "path": "/etc/profiles/per-user/mlenz/bin/tsgo",
+        "path": "/etc/profiles/per-user/mlenz/bin/tsc",
         "arguments": ["--lsp", "--stdio"]
       }
     }

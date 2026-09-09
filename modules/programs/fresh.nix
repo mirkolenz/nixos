@@ -7,11 +7,11 @@
         ".git"
       ];
 
-      # tsgo handles the language features, oxlint adds lint diagnostics and
+      # tsc handles the language features, oxlint adds lint diagnostics and
       # quick fixes. Formatting goes through the oxfmt formatter below.
       webServers = [
         {
-          command = "tsgo";
+          command = "tsc";
           args = [
             "--lsp"
             "--stdio"
