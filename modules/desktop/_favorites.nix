@@ -9,18 +9,21 @@
 # ship is left out. Mail, Calendar and Contacts are deliberately not roles: the
 # EDS-integrated Stamp covers them on every desktop. Dock entries are skipped
 # entirely when they have no Linux counterpart (App Store, Music, DEVONthink,
-# Orion, ChatGPT, Claude, Messages, WhatsApp, OrbStack, Home Assistant) or when
+# Orion, ChatGPT, Claude, Messages, WhatsApp, OrbStack, Home Assistant), when
 # the counterpart is not installed (zoom.us, dropped along with zoom-us in
-# modules/core/home-linux.nix).
+# modules/core/home-linux.nix), or when the app is installed but not worth a
+# permanent slot (Microsoft Teams, still available via teams-for-linux).
 lib: roles:
 lib.filter (app: app != null) [
   (roles.files or null) # Finder
   "obsidian"
-  "com.google.Chrome" # Vivaldi, which is currently too buggy on Linux
+  # Vivaldi, which is currently too buggy on Linux. Chrome also ships
+  # com.google.Chrome.desktop for the portal app id, but that one is
+  # NoDisplay=true and therefore invisible to every launcher.
+  "google-chrome"
   "firefox"
   "1password"
   "org.tabos.stamp" # Mail, Calendar, Contacts
-  "teams-for-linux"
   "todoist"
   "dev.zed.Zed"
   "com.mitchellh.ghostty"
