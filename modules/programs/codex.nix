@@ -17,7 +17,26 @@
         settings = {
           model = "gpt-6-astra";
           model_reasoning_effort = "low";
-          approval_policy = "on-request";
+          # The counterpart to Claude's `allowUnsandboxedCommands = false`:
+          # `sandbox_approval` covers the `with_additional_permissions` and
+          # `require_escalated` requests, so refusing it means the agent can
+          # neither run a command outside the sandbox nor ask to. Only the
+          # granular form can express that; `on-request` always permits the
+          # request and `never` would suppress every prompt.
+          #
+          # Granular is a variant of its own rather than a refinement of
+          # `on-request`, so every flow is spelled out: the three the schema
+          # requires, plus the two that would otherwise default to rejecting
+          # unseen. `true` surfaces the prompt, `false` rejects it without
+          # asking. How closely this reproduces `on-request` for the other four
+          # is not something the schema states.
+          approval_policy.granular = {
+            sandbox_approval = false;
+            mcp_elicitations = true;
+            rules = true;
+            request_permissions = true;
+            skill_approval = true;
+          };
           approvals_reviewer = "auto_review";
           file_opener = "none";
           check_for_update_on_startup = false;
@@ -84,7 +103,11 @@
             hide_rate_limit_model_nudge = true;
           };
           shell_environment_policy = {
-            # drop the agent socket so ssh cannot authenticate via a forwarded agent
+            # Dropping SSH_AUTH_SOCK only removes an agent handed over through the
+            # environment, a forwarded one above all. It does not cover the 1Password
+            # agent, whose socket ssh takes from `IdentityAgent` in ssh_config, which
+            # overrides the variable; the unix_sockets allowlist above is what puts that
+            # out of reach. Kept for whenever an agent arrives by environment again.
             filters.SSH_AUTH_SOCK = "exclude";
             set = {
               ASTRO_TELEMETRY_DISABLED = "1";

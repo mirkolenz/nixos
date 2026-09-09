@@ -43,7 +43,11 @@
           };
           sandbox = {
             enabled = true;
-            allowUnsandboxedCommands = true;
+            # Closes the unsandboxed retry escape hatch. Without this a blocked
+            # command can simply be re-run outside the sandbox, which hands the
+            # subprocess the real environment again, agent socket included, and
+            # every protection below stops applying to it.
+            allowUnsandboxedCommands = false;
             enableWeakerNetworkIsolation = true;
             network = {
               allowLocalBinding = true;
@@ -84,8 +88,12 @@
               # ];
             };
             credentials = {
-              # ssh keys are blocked via permissions.deny, which also covers the built-in tools
-              # drop the agent socket so ssh cannot authenticate via a forwarded agent
+              # ssh keys are blocked via permissions.deny, which also covers the built-in tools.
+              # Dropping SSH_AUTH_SOCK only removes an agent handed over through the
+              # environment, a forwarded one above all. It does not cover the 1Password
+              # agent, whose socket ssh takes from `IdentityAgent` in ssh_config, which
+              # overrides the variable; the unix socket allowlist above is what puts that
+              # out of reach. Kept for whenever an agent arrives by environment again.
               envVars = [
                 {
                   name = "SSH_AUTH_SOCK";
