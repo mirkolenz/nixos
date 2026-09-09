@@ -15,9 +15,8 @@
         # https://developers.openai.com/codex/config-reference
         # https://developers.openai.com/codex/config-schema.json
         settings = {
-          model = "gpt-5.6-sol";
-          model_reasoning_effort = "high";
-          plan_mode_reasoning_effort = "high";
+          model = "gpt-6-astra";
+          model_reasoning_effort = "low";
           approval_policy = "on-request";
           approvals_reviewer = "auto_review";
           file_opener = "none";
