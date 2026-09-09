@@ -1,21 +1,21 @@
 {
-  "version": "2.1.263",
+  "version": "2.1.266",
   "platforms": {
     "darwin-arm64": {
       "binary": "claude.zst",
-      "checksum": "dfacc492242949835c71d3ca7fa0cd728d3761d91ab4a707e52a92a283684727"
+      "checksum": "fec3b87dcf30dd612d07f304aa3134057a6ebc37caabdb46f001559c094cbe0a"
     },
     "darwin-x64": {
       "binary": "claude.zst",
-      "checksum": "39d04744aa07519e43f2f47f7e5ee5d94b0456a207a067c092a4d3697177a2aa"
+      "checksum": "fce3bad16eb9c803d836a3239cc51cab80b2f9ad2265a4f7141331069e3dee57"
     },
     "linux-arm64": {
       "binary": "claude.zst",
-      "checksum": "b24f793f3fda8aa2fe85e834fed9b5e4172e772b29dd6f8bec365e6d355addf0"
+      "checksum": "7d8bc13e8109a781b0d90245871fec32925c99956c458f05efe1043f9ec2c626"
     },
     "linux-x64": {
       "binary": "claude.zst",
-      "checksum": "fb383bab72dbf2b58c1b0e7a8b73b2a84f22033dc8ad774fd794632181336df0"
+      "checksum": "44ed095b31d64f2ed539b2847f3e3a6f2f02f5d7a447f0a895a998c7a2878f37"
     }
   }
 }
