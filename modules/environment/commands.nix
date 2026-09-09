@@ -270,8 +270,10 @@
         http-server = /* bash */ ''
           exec ${lib.getExe pkgs.python3} -m http.server "$@"
         '';
+        # Discarding the known hosts file makes ssh announce the host key as
+        # newly added on every run, so drop anything below an error.
         ssh-once = /* bash */ ''
-          exec ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" "$@"
+          exec ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=ERROR" "$@"
         '';
         jlog = /* bash */ ''
           exec journalctl -a -o json "$@" | ${lib.getExe pkgs.lnav}
