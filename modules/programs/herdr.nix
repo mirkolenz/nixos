@@ -104,7 +104,7 @@
             copy_on_select = false;
             right_click_passthrough_modifier = "ctrl";
             toast = {
-              delivery = "terminal";
+              delivery = "herdr";
               delay_seconds = 0;
               clipboard.enabled = false;
             };
