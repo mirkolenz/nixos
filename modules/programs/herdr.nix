@@ -103,6 +103,8 @@
           ui = {
             copy_on_select = false;
             right_click_passthrough_modifier = "ctrl";
+            pane_borders = "off";
+            mobile_width_threshold = 80;
             toast = {
               delivery = "herdr";
               delay_seconds = 0;
