@@ -40,14 +40,15 @@
       # `$HERDR_PLUGIN_CONFIG_DIR` and the plugin reads this fixed path instead.
       # https://github.com/qu8n/herdr-automatic-rename/blob/main/config.example.sh
       xdg.configFile."herdr-automatic-rename/config.sh".text = ''
+        AGENT_TITLES=1
         AUTO_INDEX=0
-        SHOW_PROGRAM_ARGS=0
-        AGENT_TITLES=0
         ICONS_ENABLED=1
         ICON_FALLBACK='󰆍'
         ICON_MAP=(
           "fresh=󰏫"
         )
+        SHOW_PROGRAM_ARGS=0
+        TITLE_CONDENSE=1
       '';
 
       programs.herdr = {
