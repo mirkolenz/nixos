@@ -34,6 +34,7 @@
         extraGroups = [
           "wheel"
           "orbstack"
+          "audio"
         ];
 
         # simulate isNormalUser, but UID < 1000
@@ -45,6 +46,14 @@
         homeMode = "700";
         useDefaultShell = true;
       };
+
+      # OrbStack writes the machine name into /etc/hostname, which would clobber
+      # the store file behind the default symlink. A mode makes it a copy.
+      environment.etc.hostname.mode = "0644";
+
+      # debugfs cannot be mounted in an unprivileged container,
+      # and nixpkgs only excludes sys-kernel-config.mount for containers.
+      systemd.suppressedSystemUnits = [ "sys-kernel-debug.mount" ];
 
       # Extra certificates from OrbStack.
       security.pki.certificateFiles = lib'.optionalPath /opt/orbstack-guest/run/extra-certs.crt;
